@@ -13,10 +13,7 @@ import {
   UserCard
 } from 'src/app/generic-services/address.service';
 
-interface Vm {
-  users: UserCard[];
-  name: string;
-}
+type Vm = [UserCard[], string];
 
 @Component({
   selector: 'app-filter-sample',
@@ -34,12 +31,11 @@ export class FilterSampleComponent implements OnInit {
   );
 
   users$ = this.us.userCards$;
-  // .pipe(tap(users => console.log(users)));
 
   vm$ = combineLatest([this.users$, this.filter$]).pipe(
-    map(([users, name]: [UserCard[], string]) => ({
+    map(([users, filterStr]: Vm) => ({
       users: users.filter(row =>
-        name ? row.name.toLocaleLowerCase().includes(name) : true
+        filterStr ? row.name.toLocaleLowerCase().includes(filterStr) : true
       )
     }))
   );
