@@ -33,7 +33,8 @@ export class FilterSampleComponent implements OnInit {
     map((name: string) => name.trim().toLocaleLowerCase())
   );
 
-  users$ = this.us.userCards$.pipe(tap(users => console.log(users)));
+  users$ = this.us.userCards$;
+  // .pipe(tap(users => console.log(users)));
 
   vm$ = combineLatest([this.users$, this.filter$]).pipe(
     map(([users, name]: [UserCard[], string]) => ({

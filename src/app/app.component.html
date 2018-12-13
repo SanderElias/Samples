@@ -1,4 +1,31 @@
 <nav>
+  <a [routerLink]="['home']">Home</a>
   <a [routerLink]="['filterSamp']">Filter Sample</a>
 </nav>
 <router-outlet></router-outlet>
+<style>
+  :host {
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    grid-row-gap: 4px;
+  }
+
+  nav {
+    padding:3px;
+    background-color: rgba(0, 0, 255, 0.849);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 110px);
+    grid-column-gap: 5px;
+  }
+
+  nav > a {
+    display: block;
+    padding: 3px;
+    border-radius: 3px;
+    width:100px;
+    background-color: blue;
+    text-decoration: none;
+    text-align: center;
+    color: #0a0a0a
+  }
+</style>
