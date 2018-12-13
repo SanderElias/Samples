@@ -1,0 +1,12 @@
+<div *ngIf="(vm$ | async) as vm; else: loading">
+  <input type="text" [formControl]="nameFilter" />
+  <ul>
+    <li *ngFor="let item of vm.users">{{ item.name }}</li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <div class="backDrop">
+    <div><h2>Loading...</h2></div>
+  </div>
+</ng-template>

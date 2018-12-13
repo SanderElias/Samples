@@ -1,4 +1,6 @@
-# Samples
+# Sanders Samples project
+
+This is my repo where I do quick experiments and samples. Usually this is kept on the latest versions off all packages, and the source in here is experimental. Also it's only targeting evergreen browsers.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0-beta.2.
 
