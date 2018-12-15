@@ -1,0 +1,11 @@
+<button (click)="modal.hidden = false">show</button>
+
+<div #modal>
+  <div class="backDrop" *ngIf="!modal.hidden">
+    <div>
+      <h1>Whatevever</h1>
+      <p>Hi {{ vm.users[0].name }}, your order is being processed</p>
+      <button (click)="modal.hidden = true">Hide modal</button>
+    </div>
+  </div>
+</div>
