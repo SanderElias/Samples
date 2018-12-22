@@ -8,6 +8,7 @@ const routes: Routes = [
     loadChildren: 'src/app/filter-samp/filter-samp.module#FilterSampModule'
   },
   { path: 'modalSamp', loadChildren: 'src/app/modal-samp/modal-samp.module#ModalSampModule'},
+  { path: 'mixinSamp', loadChildren: 'src/app/mixins/mixins.module#MixinsModule'},
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: 'home' }
 ];
