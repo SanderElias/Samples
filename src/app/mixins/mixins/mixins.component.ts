@@ -44,14 +44,13 @@ export class MixinsComponent extends onDestroy(onInit()) {
     tap(r => console.log('init Fired', r))
   );
 
-  /** I'm aware this is leaking now. baby steps ;) */
   sub = this.demo$.subscribe();
 
   constructor() {
     super();
 
     this.destroy$.subscribe(
-      () => console.log('destroyd'),
+      () => console.log('onDestroy fired.'),
       () => console.log('err'),
       () => console.log('destry complete')
     );
