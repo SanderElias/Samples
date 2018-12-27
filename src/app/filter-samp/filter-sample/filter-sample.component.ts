@@ -11,7 +11,7 @@ import {
 import {
   AddressService,
   UserCard
-} from 'src/app/generic-services/address.service';
+} from '../../generic-services/address.service';
 
 type Vm = [UserCard[], string];
 
