@@ -1,9 +1,15 @@
 <nav>
-  <a [routerLink]="['home']">Home</a>
-  <a [routerLink]="['filterSamp']">Filter Sample</a>
-  <a [routerLink]="['modalSamp']">Modal Sample</a>
-  <a [routerLink]="['mixinSamp']">Mixin Sample</a>
-  <a [routerLink]="['htmlLoad']">Html load</a>
+  <a routerLinkActive="active-link" [routerLink]="['home']">Home</a>
+  <a routerLinkActive="active-link" [routerLink]="['filterSamp']"
+    >Filter Sample</a
+  >
+  <a routerLinkActive="active-link" [routerLink]="['modalSamp']"
+    >Modal Sample</a
+  >
+  <a routerLinkActive="active-link" [routerLink]="['mixinSamp']"
+    >Mixin Sample</a
+  >
+  <a routerLinkActive="active-link" [routerLink]="['htmlLoad']">Html load</a>
 </nav>
 <router-outlet></router-outlet>
 <style>
@@ -14,21 +20,30 @@
   }
 
   nav {
-    padding:3px;
+    padding: 3px;
     background-color: rgba(0, 0, 255, 0.849);
     display: grid;
     grid-template-columns: repeat(auto-fit, 110px);
-    grid-column-gap: 5px;
+    grid-column-gap: 2px;
   }
 
   nav > a {
     display: block;
     padding: 3px;
     border-radius: 3px;
-    width:100px;
+    width: 100px;
     background-color: blue;
     text-decoration: none;
     text-align: center;
-    color: #0a0a0a
+    color: #bfbfbf;
+  }
+
+  nav > a.active-link {
+    border-radius: 3px 3px 0 0;
+    background-color: white;
+    color: #0a0a0a;
+    /* margin: 4px 0 4px -3px; */
+    margin-bottom: -3px;
+    margin-top: 3px;
   }
 </style>
