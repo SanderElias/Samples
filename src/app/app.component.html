@@ -34,9 +34,7 @@
     </ul>
   </div>
 </nav>
-<div id="outlet">
-  <router-outlet></router-outlet>
-</div>
+<div id="outlet"><router-outlet></router-outlet></div>
 <style>
   :host {
     display: grid;
@@ -46,7 +44,7 @@
   }
 
   #outlet {
-    margin: 0 10px ;
+    margin: 0 10px;
   }
 
   a {
@@ -60,8 +58,8 @@
     color: tomato;
   }
 
-  a.active-link{
-    color:darkblue;
+  a.active-link {
+    color: darkblue;
   }
 
   #menuToggle {
@@ -140,7 +138,7 @@
   }
 
   /*
- * Ohyeah and the last one should go the other direction
+ * Oh yeah and the last one should go the other direction
  */
   #menuToggle input:checked ~ span:nth-last-child(2) {
     transform: rotate(-45deg) translate(0, -1px);
