@@ -1,49 +1,183 @@
 <nav>
-  <a routerLinkActive="active-link" [routerLink]="['home']">Home</a>
-  <a routerLinkActive="active-link" [routerLink]="['filterSamp']"
-    >Filter Sample</a
-  >
-  <a routerLinkActive="active-link" [routerLink]="['modalSamp']"
-    >Modal Sample</a
-  >
-  <a routerLinkActive="active-link" [routerLink]="['mixinSamp']"
-    >Mixin Sample</a
-  >
-  <a routerLinkActive="active-link" [routerLink]="['htmlLoad']">Html load</a>
+  <div id="menuToggle">
+    <!--
+        A fake / hidden checkbox is used as click receiver,
+        so you can use the :checked selector on it.
+        -->
+    <input type="checkbox" #menuToggle />
+
+    <!--
+        Some spans to act as a hamburger.
+        -->
+    <span></span> <span></span> <span></span>
+
+    <!--
+        Too bad the menu has to be inside of the button
+        but hey, it's pure CSS magic.
+        -->
+    <ul id="menu">
+      <a routerLinkActive="active-link" [routerLink]="['home']"
+        ><li>Home</li></a
+      >
+      <a routerLinkActive="active-link" [routerLink]="['filterSamp']"
+        ><li>Filter Sample</li></a
+      >
+      <a routerLinkActive="active-link" [routerLink]="['modalSamp']"
+        ><li>Modal Sample</li></a
+      >
+      <a routerLinkActive="active-link" [routerLink]="['mixinSamp']"
+        ><li>Mixin Sample</li></a
+      >
+      <a routerLinkActive="active-link" [routerLink]="['htmlLoad']"
+        ><li>Html load</li></a
+      >
+    </ul>
+  </div>
 </nav>
-<router-outlet></router-outlet>
+<div id="outlet">
+  <router-outlet></router-outlet>
+</div>
 <style>
   :host {
     display: grid;
     grid-template-rows: 40px 1fr;
     grid-row-gap: 4px;
+    min-height: 99vh;
   }
 
-  nav {
-    padding: 3px;
-    background-color: rgba(0, 0, 255, 0.849);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 110px);
-    grid-column-gap: 2px;
+  #outlet {
+    margin: 0 10px ;
   }
 
-  nav > a {
-    display: block;
-    padding: 3px;
-    border-radius: 3px;
-    width: 100px;
-    background-color: blue;
+  a {
     text-decoration: none;
-    text-align: center;
-    color: #bfbfbf;
+    color: #232323;
+
+    transition: color 0.3s ease;
   }
 
-  nav > a.active-link {
-    border-radius: 3px 3px 0 0;
-    background-color: white;
-    color: #0a0a0a;
-    /* margin: 4px 0 4px -3px; */
-    margin-bottom: -3px;
-    margin-top: 3px;
+  a:hover {
+    color: tomato;
+  }
+
+  a.active-link{
+    color:darkblue;
+  }
+
+  #menuToggle {
+    display: block;
+    position: relative;
+    top: 10px;
+    left: 10px;
+
+    z-index: 1;
+
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+
+    cursor: pointer;
+
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+
+    -webkit-touch-callout: none;
+  }
+
+  /*
+ * Just a quick hamburger
+ */
+  #menuToggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin-bottom: 5px;
+    position: relative;
+
+    background: #cdcdcd;
+    border-radius: 3px;
+
+    z-index: 1;
+
+    transform-origin: 4px 0px;
+
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+  }
+
+  #menuToggle span:first-child {
+    transform-origin: 0% 0%;
+  }
+
+  #menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+  }
+
+  /*
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+  #menuToggle input:checked ~ span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+  }
+
+  /*
+ * But let's hide the middle one.
+ */
+  #menuToggle input:checked ~ span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+
+  /*
+ * Ohyeah and the last one should go the other direction
+ */
+  #menuToggle input:checked ~ span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+  }
+
+  /*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+  #menu {
+    position: absolute;
+    width: 300px;
+    margin: -100px 0 0 -50px;
+    padding: 50px;
+    padding-top: 95px;
+    min-height: 99vh;
+
+    background: #ededed;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
+
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
+
+  #menu li {
+    padding: 10px 0;
+    font-size: 22px;
+  }
+
+  /*
+ * And let's slide it in from the left
+ */
+  #menuToggle input:checked ~ ul {
+    transform: none;
   }
 </style>
