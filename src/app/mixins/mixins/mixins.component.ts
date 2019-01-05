@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
-type Constructor<T = {}> = new (...args: any[]) => T;
+export type Constructor<T = {}> = new (...args: any[]) => T;
+
 
 export const onDestroy = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements OnDestroy {
@@ -28,7 +29,7 @@ export const onInit = <T extends Constructor>(base: T = class {} as T) =>
       this._init.next();
       this._init.complete();
       // tslint:disable-next-line:no-unused-expression
-      super['ngOniit'] && super['ngOnInit']();
+      super['ngOnInit'] && super['ngOnInit']();
     }
   };
 
