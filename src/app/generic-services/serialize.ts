@@ -1,18 +1,31 @@
 import * as Replicator from 'replicator';
+// import { encode, decode } from 'messagepack';
+import { encode, decode, createCodec } from 'msgpack-lite';
 
-const replicator = new Replicator();
+const options = { codec: createCodec({ usemap: true, preset: true }) };
 
-const s = Symbol('blah');
-const test = {
-  name: 'sander',
-  dob: new Date(1968, 4, 14),
-  bah: new Map<any, any>([[1, 2], ['blah', false]]),
-  doh: new Set(['a', 'b', 'dd']),
-  s
-};
-const enc = replicator.encode(test);
+const test = Array.from({ length: 10 }, (e, i) => ({
+  name: i + ' sander',
+  dob: new Date(1900, 4, 14),
+  stuff: new Map<any, any>([
+    [1, [2, 4, 5, 7, 2, 4]],
+    ['blah', false],
+    [{ a: 'b' }, { a: 'hi' }],
+    [3, 4],
+    ['somestring', 'anotherString']
+  ]),
+  tags: new Set(['a', 'b', 'dd'])
+}));
 
-console.log(enc);
+const enc = encode(test, options);
+const dec = decode(enc, options);
+
+console.log(test[0].stuff);
+console.log(dec[0].stuff);
+
+console.log(test[0].tags);
+console.log(dec[0].tags);
+
 
 const seed = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const radix = seed.length;
@@ -59,5 +72,5 @@ const randChars = (n = 3) =>
 
 const getId = () => randChars(3) + toBase(Date.now());
 
-const ids = Array.from({length:50}, getId).map(id => [id,fromBase(id)];
-console.log(ids);
+const ids = Array.from({ length: 50 }, getId).map(id => [id, fromBase(id)]);
+// console.log(ids);
