@@ -5,13 +5,28 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {
     path: 'filterSamp',
-    loadChildren: '../../src/app/filter-samp/filter-samp.module#FilterSampModule'
+    loadChildren:
+      '../../src/app/filter-samp/filter-samp.module#FilterSampModule'
   },
-  { path: 'modalSamp', loadChildren: '../../src/app/modal-samp/modal-samp.module#ModalSampModule'},
-  { path: 'mixinSamp', loadChildren: '../../src/app/mixins/mixins.module#MixinsModule'},
-  {path: 'htmlLoad', loadChildren: '../../src/app/html-load/html-load.module#HtmlLoadModule'},
+  {
+    path: 'modalSamp',
+    loadChildren: '../../src/app/modal-samp/modal-samp.module#ModalSampModule'
+  },
+  {
+    path: 'mixinSamp',
+    loadChildren: '../../src/app/mixins/mixins.module#MixinsModule'
+  },
+  {
+    path: 'htmlLoad',
+    loadChildren: '../../src/app/html-load/html-load.module#HtmlLoadModule'
+  },
+  {
+    path: 'requiredAttributes',
+    loadChildren:
+      '../../src/app/required-attributes/required-attributes.module#RequiredAttributesModule'
+  },
   { path: 'home', component: HomeComponent },
-  { path: '**', redirectTo: 'home' }
+  // { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
