@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+// tslint:disable:no-unused-expression
+import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -6,21 +7,21 @@ import { Subject } from 'rxjs';
   templateUrl: './wait-for-it.component.html',
   styles: []
 })
-export class WaitForItComponent implements OnInit {
+export class WaitForItComponent {
+  someVar: string[];
+  @Input('someVar') private set _someVar(newContent) {
+    /** do some stuff */
+    this.someVar = newContent;
+  }
+
   @Input() set prop1(val) {
-    if (val) {
-      this.setIt('prop1', val);
-    }
+    val && this.setIt('prop1', val);
   }
   @Input() set prop2(val) {
-    if (val) {
-      this.setIt('prop2', val);
-    }
+    val && this.setIt('prop2', val);
   }
   @Input() set prop3(val) {
-    if (val) {
-      this.setIt('prop3', val);
-    }
+    val && this.setIt('prop3', val);
   }
 
   requiredProps = [];
@@ -33,8 +34,6 @@ export class WaitForItComponent implements OnInit {
       this.goodToGo$.next(this.requiredProps);
     }
   }
-
-  constructor() {}
-
-  ngOnInit() {}
 }
+
+
