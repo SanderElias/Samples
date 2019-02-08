@@ -13,7 +13,10 @@ import {
 import { Subject } from 'rxjs';
 export type Constructor<T = {}> = new (...args: any[]) => T;
 
-/** extends component with an observable seOnDestroy$ lifecycle hook */
+/**
+ * extends component with an observable seOnDestroy$ lifecycle hook
+ * @constructor
+ */
 export const seOnDestroy$ = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements OnDestroy {
     private _destroy = new Subject<void>();
