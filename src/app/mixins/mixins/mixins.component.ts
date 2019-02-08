@@ -20,7 +20,7 @@ export const onDestroy = <T extends Constructor>(base: T = class {} as T) =>
   };
 
 export const onInit = <T extends Constructor>(base: T = class {} as T) =>
-  class OnInitSubject extends base implements OnInit, AfterViewInit {
+  class OnInitSubject extends base implements OnInit {
     private _init = new Subject<void>();
     onInit$ = this._init.asObservable();
 
@@ -32,13 +32,6 @@ export const onInit = <T extends Constructor>(base: T = class {} as T) =>
       });
       // tslint:disable-next-line:no-unused-expression
       super['ngOnInit'] && super['ngOnInit']();
-    }
-
-    ngAfterViewInit(): void {
-      // this._init.next();
-      // this._init.complete();
-      // tslint:disable-next-line:no-unused-expression
-      super['ngAfterViewInit'] && super['ngAfterViewInit']();
     }
   };
 
@@ -53,7 +46,7 @@ export class MixinsComponent extends onDestroy(onInit()) {
     tap(r => console.log('init Fired', r))
   );
 
-  // sub = this.demo$.subscribe();
+  sub = this.demo$.subscribe();
 
   constructor() {
     super();
