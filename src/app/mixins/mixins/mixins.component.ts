@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 export type Constructor<T = {}> = new (...args: any[]) => T;
-
 
 export const onDestroy = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements OnDestroy {
@@ -21,15 +20,25 @@ export const onDestroy = <T extends Constructor>(base: T = class {} as T) =>
   };
 
 export const onInit = <T extends Constructor>(base: T = class {} as T) =>
-  class OnInitSubject extends base implements OnInit {
+  class OnInitSubject extends base implements OnInit, AfterViewInit {
     private _init = new Subject<void>();
     onInit$ = this._init.asObservable();
 
     ngOnInit(): void {
-      this._init.next();
-      this._init.complete();
+      // take this to the next eventloop cycle, so the template has some time to init.
+      setTimeout(() => {
+        this._init.next();
+        this._init.complete();
+      }, 4);
       // tslint:disable-next-line:no-unused-expression
       super['ngOnInit'] && super['ngOnInit']();
+    }
+
+    ngAfterViewInit(): void {
+      // this._init.next();
+      // this._init.complete();
+      // tslint:disable-next-line:no-unused-expression
+      super['ngAfterViewInit'] && super['ngAfterViewInit']();
     }
   };
 
@@ -45,7 +54,7 @@ export class MixinsComponent extends onDestroy(onInit()) {
     tap(r => console.log('init Fired', r))
   );
 
-  sub = this.demo$.subscribe();
+  // sub = this.demo$.subscribe();
 
   constructor() {
     super();
