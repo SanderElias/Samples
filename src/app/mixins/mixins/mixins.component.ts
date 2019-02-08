@@ -25,11 +25,11 @@ export const onInit = <T extends Constructor>(base: T = class {} as T) =>
     onInit$ = this._init.asObservable();
 
     ngOnInit(): void {
-      // take this to the next eventloop cycle, so the template has some time to init.
-      setTimeout(() => {
+      // take this to the end off the que, so the template has some time to init.
+      Promise.resolve().then(() => {
         this._init.next();
         this._init.complete();
-      }, 4);
+      });
       // tslint:disable-next-line:no-unused-expression
       super['ngOnInit'] && super['ngOnInit']();
     }
@@ -48,7 +48,6 @@ export const onInit = <T extends Constructor>(base: T = class {} as T) =>
   styles: []
 })
 export class MixinsComponent extends onDestroy(onInit()) {
-  /** Question, why is the async pipe not picking this up? */
   demo$ = this.onInit$.pipe(
     switchMap(() => of([1, 2, 3, 4])),
     tap(r => console.log('init Fired', r))
