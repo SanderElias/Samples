@@ -1,59 +1,35 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { of, Subject } from 'rxjs';
+import { Component } from '@angular/core';
+import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-
-export type Constructor<T = {}> = new (...args: any[]) => T;
-
-
-export const onDestroy = <T extends Constructor>(base: T = class {} as T) =>
-  class extends base implements OnDestroy {
-    private _destroy = new Subject<void>();
-
-    /** observable that emits once on destroy */
-    destroy$ = this._destroy.asObservable();
-
-    ngOnDestroy() {
-      // tslint:disable-next-line:no-unused-expression
-      super['ngOnDestroy'] && super['ngOnDestroy']();
-      this._destroy.next();
-      this._destroy.complete();
-    }
-  };
-
-export const onInit = <T extends Constructor>(base: T = class {} as T) =>
-  class OnInitSubject extends base implements OnInit {
-    private _init = new Subject<void>();
-    onInit$ = this._init.asObservable();
-
-    ngOnInit(): void {
-      this._init.next();
-      this._init.complete();
-      // tslint:disable-next-line:no-unused-expression
-      super['ngOnInit'] && super['ngOnInit']();
-    }
-  };
+import { seAfterContentChecked$, seOnDestroy$, seOnInit$ } from './seObservableLifeCycleHooksMixins';
 
 @Component({
   selector: 'app-mixins',
   templateUrl: './mixins.component.html',
   styles: []
 })
-export class MixinsComponent extends onDestroy(onInit()) {
-  /** Question, why is the async pipe not picking this up? */
-  demo$ = this.onInit$.pipe(
+export class MixinsComponent extends seOnDestroy$(seOnInit$(seAfterContentChecked$())) {
+  /** demo, this is subscribed in the template by asyncPipe */
+  demo$ = this.seOnInit$.pipe(
     switchMap(() => of([1, 2, 3, 4])),
     tap(r => console.log('init Fired', r))
   );
 
-  sub = this.demo$.subscribe();
+  /** I don't need to unsubscribe, all lifecycle hooks are completed on destroy */
+  updateSomethingSub = this.seAfterContentChecked$.pipe(tap(() => console.log('content is checked'))).subscribe({
+    complete() {
+      console.log('seAfterContentChecked$ is completed');
+    }
+  });
+
+  /** I don't need to unsubscribe, all lifecycle hooks are completed on destroy */
+  onDestroySub = this.seOnDestroy$.subscribe(
+    () => console.log('onDestroy fired.'),
+    () => console.log('err'),
+    () => console.log('onDestroy completed')
+  );
 
   constructor() {
     super();
-
-    this.destroy$.subscribe(
-      () => console.log('onDestroy fired.'),
-      () => console.log('err'),
-      () => console.log('destry complete')
-    );
   }
 }
