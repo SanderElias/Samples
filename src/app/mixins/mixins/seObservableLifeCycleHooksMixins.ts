@@ -13,9 +13,13 @@ import {
 import { Subject } from 'rxjs';
 export type Constructor<T = {}> = new (...args: any[]) => T;
 
+interface HooksMixin {
+  // tslint:disable-next-line:callable-types
+  <T extends Constructor>(base: T): T;
+}
+
 /**
  * extends component with an observable seOnDestroy$ lifecycle hook
- * @constructor
  */
 export const seOnDestroy$ = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements OnDestroy {

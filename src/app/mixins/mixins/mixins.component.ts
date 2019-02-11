@@ -15,7 +15,7 @@ export class MixinsComponent extends seOnDestroy$(seOnInit$(seAfterContentChecke
     tap(r => console.log('init Fired', r))
   );
 
-  /** I don't need to unsubscribe, all lifecycle hooks are completed on destroy */
+  /** I don't need to unsubscribe, all life cycle hooks are completed on destroy */
   updateSomethingSub = this.seAfterContentChecked$.pipe(tap(() => console.log('content is checked'))).subscribe({
     complete() {
       console.log('seAfterContentChecked$ is completed');
