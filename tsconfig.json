@@ -18,6 +18,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@se-ng/observable-hooks": [
+        "dist/se-ng/observable-hooks"
+      ],
+      "@se-ng/observable-hooks/*": [
+        "dist/se-ng/observable-hooks/*"
+      ]
+    }
   }
 }

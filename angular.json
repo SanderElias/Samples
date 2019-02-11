@@ -152,6 +152,41 @@
           }
         }
       }
+    },
+    "@se-ng/observable-hooks": {
+      "root": "projects/se-ng/observable-hooks",
+      "sourceRoot": "projects/se-ng/observable-hooks/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/se-ng/observable-hooks/tsconfig.lib.json",
+            "project": "projects/se-ng/observable-hooks/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/se-ng/observable-hooks/src/test.ts",
+            "tsConfig": "projects/se-ng/observable-hooks/tsconfig.spec.json",
+            "karmaConfig": "projects/se-ng/observable-hooks/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/se-ng/observable-hooks/tsconfig.lib.json",
+              "projects/se-ng/observable-hooks/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "samples"

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { seAfterContentChecked$, seOnDestroy$, seOnInit$ } from '@se-ng/observable-hooks';
 import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { seAfterContentChecked$, seOnDestroy$, seOnInit$ } from './seObservableLifeCycleHooksMixins';
 
 @Component({
   selector: 'app-mixins',
