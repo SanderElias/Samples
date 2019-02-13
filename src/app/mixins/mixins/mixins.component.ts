@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { seAfterContentChecked$, seOnDestroy$, seOnInit$ } from '@se-ng/observable-hooks';
+import {
+  seAfterContentChecked$,
+  seOnDestroy$,
+  seOnInit$
+} from '@se-ng/observable-hooks';
 import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
@@ -8,7 +12,15 @@ import { switchMap, tap } from 'rxjs/operators';
   templateUrl: './mixins.component.html',
   styles: []
 })
-export class MixinsComponent extends seOnDestroy$(seOnInit$(seAfterContentChecked$())) {
+export class MixinsComponent extends seOnDestroy$(
+  seOnInit$(seAfterContentChecked$())
+) {
+  /**
+   * in this component, the life-cycle hooks are
+   * now available as properties. every
+   *
+   **/
+
   /** demo, this is subscribed in the template by asyncPipe */
   demo$ = this.seOnInit$.pipe(
     switchMap(() => of([1, 2, 3, 4])),
@@ -16,11 +28,17 @@ export class MixinsComponent extends seOnDestroy$(seOnInit$(seAfterContentChecke
   );
 
   /** I don't need to unsubscribe, all life cycle hooks are completed on destroy */
-  updateSomethingSub = this.seAfterContentChecked$.pipe(tap(() => console.log('content is checked'))).subscribe({
-    complete() {
-      console.log('seAfterContentChecked$ is completed');
-    }
-  });
+  updateSomethingSub = this.seAfterContentChecked$
+    .pipe(tap(() => console.log('content is checked')))
+    .subscribe({
+      complete() {
+        /**
+         * this shows that on destroy the subject is completed
+         * and will be garbage collected
+         */
+        console.log('seAfterContentChecked$ is completed,');
+      }
+    });
 
   /** I don't need to unsubscribe, all lifecycle hooks are completed on destroy */
   onDestroySub = this.seOnDestroy$.subscribe(
