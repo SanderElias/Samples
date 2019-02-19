@@ -21,12 +21,17 @@ const routes: Routes = [
     loadChildren: '../../src/app/html-load/html-load.module#HtmlLoadModule'
   },
   {
+    path: 'popup',
+    outlet: 'popup',
+    loadChildren: '../../src/app/routed-popup/routed-popup.module#RoutedPopupModule'
+  },
+  {
     path: 'requiredAttributes',
     loadChildren:
       '../../src/app/required-attributes/required-attributes.module#RequiredAttributesModule'
   },
   { path: 'home', component: HomeComponent },
-  // { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

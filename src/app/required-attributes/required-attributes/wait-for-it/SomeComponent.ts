@@ -11,7 +11,7 @@ class SomeComponent {
       return;
     }
     if (newVal !== undefined) {
-      throw new Error('myCustomProperty of SomeCompoent can only be a string assay');
+      throw new Error('myCustomProperty of SomeComponent can only be a string assay');
     }
   }
 }

@@ -38,12 +38,18 @@
   </div>
 </nav>
 <div id="outlet"><router-outlet></router-outlet></div>
+<div id="popup"><router-outlet name="popup"></router-outlet></div>
 <style>
   :host {
     display: grid;
-    grid-template-rows: 40px 1fr;
+    grid-template-rows: 40px 1fr 100px;
     grid-row-gap: 4px;
     min-height: 99vh;
+  }
+
+  #popup {
+    margin: 0 10px;
+    border: 2px solid green;
   }
 
   #outlet {
