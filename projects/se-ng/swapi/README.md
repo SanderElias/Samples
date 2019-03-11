@@ -1,24 +1,18 @@
 # Swapi
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+This is a helper project to be able to use the [Star Wars API ](https://swapi.co/) in my Angular samples.
+It getches the entirety of swapi and cases this into indexedDB by utilizing [idb-keyval](https://github.com/jakearchibald/idb-keyval) from Jake Archibald.
+This library is part of [Sanders Samples repo.](https://github.com/SanderElias/Samples)
 
-## Code scaffolding
+to use the library do:
+```bash
+yarn add @se-ng/swapi idb-keyval
+```
 
-Run `ng generate component component-name --project swapi` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project swapi`.
-> Note: Don't forget to add `--project swapi` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
 
-Run `ng build swapi` to build the project. The build artifacts will be stored in the `dist/` directory.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
 
-## Publishing
-
-After building your library with `ng build swapi`, go to the dist folder `cd dist/swapi` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test swapi` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Peer depedencies
+- idb-keyval
+- rxjs
