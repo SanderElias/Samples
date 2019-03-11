@@ -2,7 +2,6 @@
 <div class="hold" *ngIf="vm$ | async as vm else loading">
   <section>
     <h1>Need better inspiration?</h1>
-
   </section>
   <section>
     <div class="row">
@@ -27,7 +26,6 @@
       <input #speed type="range" min="0.5" max=30 step=".5" [value]='vm.speed' [style.width]="'100%'">
     </div>
   </section>
-
 </div>
 
 <!-- loading modal -->
@@ -35,12 +33,12 @@
     <div class="hold">
       <div class="dummy"></div>
       <div class="wait">
-        <h1 [style.color]="'white'">waiting for the first quote</h1>
+        <h2 [style.color]="'white'">Hold on loading the data!</h2>
       </div>
     </div>
   </ng-template>
 
-<!-- I prefer inline styling of yet another file -->
+<!-- I prefer inline styling  instead of yet another file -->
 <style>
   .hold {
     position: absolute;

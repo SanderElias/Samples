@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { of, timer } from 'rxjs';
-import { map, mergeMap, shareReplay } from 'rxjs/operators';
+import { delay, map, mergeMap, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuoteService {
   /** load quotes from a local function. */
-  quotes$ = of(quotes()).pipe(shareReplay(1));
+  quotes$ = of(quotes()).pipe(
+    /** Delay the stream to simulate initial load */
+    delay(2500),
+    shareReplay(1)
+  );
 
   /** helper to get the length */
   quoteLength$ = this.quotes$.pipe(

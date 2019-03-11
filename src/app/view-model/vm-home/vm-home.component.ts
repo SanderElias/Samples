@@ -31,8 +31,6 @@ export class VmHomeComponent implements OnInit {
      startWith(3.5),
      /** log so we can see when an event is triggered */
      tap(r => console.log('speed', r)),
-     /** share the above, so we don't do double work */
-     shareReplay()
    );
 
    quote$ = this.speed$.pipe(
@@ -65,8 +63,6 @@ export class VmHomeComponent implements OnInit {
       startWith(false),
       /** log to console so we can see what's happening */
       tap(r => console.log("clicked",name, r)),
-      /** share, so we don't do things over and over again */
-      shareReplay()
     );
   }
 
@@ -82,8 +78,6 @@ export class VmHomeComponent implements OnInit {
       take(1),
       /** create the event lister */
       switchMap(() => fromEvent(this[name].nativeElement, eventName)),
-      /** share the event, no use of doing all the above again for multiple subscribers */
-      shareReplay()
     );
   }
 

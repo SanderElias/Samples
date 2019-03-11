@@ -2,18 +2,17 @@
 <div class="hold">
   <section>
     <h1>Need some inspiration?</h1>
-
   </section>
   <section>
     <div class="row">
-      <small *ngIf="!(baClicks$ | async)"> Art is updated in {{countDown$|async}} seconds.</small>
-      <small *ngIf="baClicks$ | async">    Art updates are paused.</small>
-      <small *ngIf="!(bqClicks$ | async)"> Quotes updates every {{speed$|async}} seconds</small>
-      <small *ngIf="bqClicks$ | async">    Quotes are paused</small>
+      <small *ngIf="!(baClicks$ | async)"> Art is updated in {{ countDown$ | async }} seconds.</small>
+      <small *ngIf="(baClicks$ | async)"> Art updates are paused.</small>
+      <small *ngIf="!(bqClicks$ | async)"> Quotes updates every {{ speed$ | async }} seconds</small>
+      <small *ngIf="(bqClicks$ | async)"> Quotes are paused</small>
     </div>
 
     <div class="row">
-      <painting [art]='pausedArt$ | async'></painting>
+      <painting [art]="pausedArt$ | async"></painting>
       <quote [quote]="pauseQuote$ | async"></quote>
     </div>
 
@@ -24,12 +23,22 @@
 
     <div class="row">
       <span></span>
-      <input #speed type="range" min="0.5" max=30 step=".5" [value]='speed$ | async' [style.width]="'100%'">
+      <input #speed type="range" min="0.5" max="30" step=".5" [value]="speed$ | async" [style.width]="'100%'" />
     </div>
   </section>
 </div>
 
-<!-- I prefer inline styling of yet another file -->
+<!--   here is no loading indicator here, as I have no clue on how to trigger!
+<ng-template #loading>
+    <div class="hold">
+      <div class="dummy"></div>
+      <div class="wait">
+        <h2 [style.color]="'white'">Hold on loading the data!</h2>
+      </div>
+    </div>
+  </ng-template> -->
+
+<!-- I prefer inline styling instead of yet another file -->
 <style>
   .hold {
     position: absolute;
@@ -54,6 +63,5 @@
     justify-items: center;
     align-items: center;
     margin-bottom: 20px;
-    ;
   }
 </style>

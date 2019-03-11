@@ -37,8 +37,6 @@ export class VmHomeVmComponent implements OnInit {
     startWith(3.5),
     /** log so we can see when an event is triggered */
     tap(r => console.log('speed', r)),
-    /** share the above, so we don't do double work */
-    shareReplay()
   );
 
   quote$ = this.speed$.pipe(
@@ -58,6 +56,12 @@ export class VmHomeVmComponent implements OnInit {
     scan((duration, t) => 20 - t, 1)
   );
 
+  /**
+   * Here we introduce viewModel$.
+   * This way, we combine all data we need for use in the template.
+   * As an added bonus, this also enables the way to introduce a loading indicator
+   * The big upside is the handling in the template, so take a look there.
+   */
   vm$ = combineLatest(
     this.pausedArt$,
     this.pauseQuote$,
@@ -92,8 +96,6 @@ export class VmHomeVmComponent implements OnInit {
       startWith(false),
       /** log to console so we can see what's happening */
       tap(r => console.log("clicked",name, r)),
-      /** share, so we don't do things over and over again */
-      shareReplay()
     );
   }
 
@@ -109,8 +111,6 @@ export class VmHomeVmComponent implements OnInit {
       take(1),
       /** create the event lister */
       switchMap(() => fromEvent(this[name].nativeElement, eventName)),
-      /** share the event, no use of doing all the above again for multiple subscribers */
-      shareReplay()
     );
   }
 
