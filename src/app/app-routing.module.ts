@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren:
       '../../src/app/required-attributes/required-attributes.module#RequiredAttributesModule'
   },
+  {
+    path: 'viewModel',
+    loadChildren: '../../src/app/view-model/view-model.module#ViewModelModule'
+  },
   { path: 'home', component: HomeComponent },
   // { path: '**', redirectTo: 'home' }
 ];

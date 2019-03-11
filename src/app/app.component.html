@@ -16,24 +16,27 @@
         but hey, it's pure CSS magic.
         -->
     <ul id="menu">
-      <a routerLinkActive="active-link" [routerLink]="['home']"
-        ><li>Home</li></a
-      >
-      <a routerLinkActive="active-link" [routerLink]="['filterSamp']"
-        ><li>Filter Sample</li></a
-      >
-      <a routerLinkActive="active-link" [routerLink]="['modalSamp']"
-        ><li>Modal Sample</li></a
-      >
-      <a routerLinkActive="active-link" [routerLink]="['mixinSamp']"
-        ><li>Mixin Sample</li></a
-      >
-      <a routerLinkActive="active-link" [routerLink]="['htmlLoad']"
-        ><li>Html load</li></a
-      >
-      <a routerLinkActive="active-link" [routerLink]="['requiredAttributes']"
-        ><li>Required attributes</li></a
-      >
+      <a routerLinkActive="active-link" [routerLink]="['home']"><li>Home</li></a>
+      <a routerLinkActive="active-link" [routerLink]="['filterSamp']"><li>Filter Sample</li></a>
+      <a routerLinkActive="active-link" [routerLink]="['modalSamp']"><li>Modal Sample</li></a>
+      <a routerLinkActive="active-link" [routerLink]="['mixinSamp']"><li>Mixin Sample</li></a>
+      <a routerLinkActive="active-link" [routerLink]="['htmlLoad']"><li>Html load</li></a>
+      <a [routerLink]="['requiredAttributes']"><li>Required attributes</li></a>
+      <li>
+        Reactive viewmodel
+        <ul>
+          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theGood']"
+            ><li>
+              The Good
+            </li></a
+          >
+          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theBad']"
+            ><li>
+              The bad
+            </li></a
+          >
+        </ul>
+      </li>
     </ul>
   </div>
 </nav>
@@ -110,8 +113,8 @@
 
     transform-origin: 4px 0px;
 
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      opacity 0.55s ease;
   }
 
   #menuToggle span:first-child {
@@ -173,6 +176,11 @@
   #menu li {
     padding: 10px 0;
     font-size: 22px;
+  }
+
+  #menu ul {
+    list-style-type: none;
+
   }
 
   /*

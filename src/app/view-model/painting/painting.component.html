@@ -1,0 +1,19 @@
+<style>
+  :host {
+    display: block;
+    margin: 10px;
+    width: 400px;
+    height: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(42, 228, 228);
+  }
+  .painting {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>
+<div class="painting" [style.background-image]="url"></div>

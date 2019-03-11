@@ -1,0 +1,10 @@
+<img [src]="artDetail.webImage.url">
+<h4>{{artDetail.title}}</h4>
+Maker{{artDetail.principalMakers.length>1?'s':''}}
+<ul>
+    <li *ngFor="let maker of artDetail.principalMakers">{{maker.name}}</li>
+</ul>
+<div class='colorboxes' *ngIf="artDetail.colors.length>0">
+    <div class='box' *ngFor="let c of artDetail.colors" [title]='c' [style.background]='c'></div>
+</div>
+<!-- <pre><code>{{artDetail|json:true}}</code></pre> -->

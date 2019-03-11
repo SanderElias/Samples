@@ -30,7 +30,7 @@ export class AppComponent implements AfterContentInit {
      */
     const host = this.elmRef.nativeElement as HTMLElement;
     if (host) {
-      host.querySelectorAll('#menu>a').forEach(a =>
+      host.querySelectorAll('#menu a').forEach(a =>
         a.addEventListener('click', () => {
           this.checked.checked = false;
         })

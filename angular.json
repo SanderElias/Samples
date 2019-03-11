@@ -187,6 +187,41 @@
           }
         }
       }
+    },
+    "@se-ng/swapi": {
+      "root": "projects/se-ng/swapi",
+      "sourceRoot": "projects/se-ng/swapi/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/se-ng/swapi/tsconfig.lib.json",
+            "project": "projects/se-ng/swapi/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/se-ng/swapi/src/test.ts",
+            "tsConfig": "projects/se-ng/swapi/tsconfig.spec.json",
+            "karmaConfig": "projects/se-ng/swapi/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/se-ng/swapi/tsconfig.lib.json",
+              "projects/se-ng/swapi/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "samples"

@@ -1,0 +1,13 @@
+img {
+  width: 100%;
+  height: auto;
+}
+
+ul {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+li {
+  list-style: none;
+}

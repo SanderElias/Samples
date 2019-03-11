@@ -25,6 +25,12 @@
       ],
       "@se-ng/observable-hooks/*": [
         "dist/se-ng/observable-hooks/*"
+      ],
+      "@se-ng/swapi": [
+        "dist/se-ng/swapi"
+      ],
+      "@se-ng/swapi/*": [
+        "dist/se-ng/swapi/*"
       ]
     }
   }
