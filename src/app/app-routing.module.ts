@@ -29,8 +29,12 @@ const routes: Routes = [
     path: 'viewModel',
     loadChildren: '../../src/app/view-model/view-model.module#ViewModelModule'
   },
+  {
+    path: 'complexAPI',
+    loadChildren: '../../src/app/complex-api/complex-api.module#ComplexAPIModule'
+  },
   { path: 'home', component: HomeComponent },
-  // { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: 'complexAPI' }
 ];
 
 @NgModule({

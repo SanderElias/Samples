@@ -2,7 +2,19 @@
 // import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { concat, EMPTY, from, Observable } from 'rxjs';
-import { concatAll, concatMap, expand, filter, map, mergeMap, reduce, shareReplay, take, tap, toArray } from 'rxjs/operators';
+import {
+  concatAll,
+  concatMap,
+  expand,
+  filter,
+  map,
+  mergeMap,
+  reduce,
+  shareReplay,
+  take,
+  tap,
+  toArray
+} from 'rxjs/operators';
 import { addToCache, cacheHas, getFromCache, initCache } from './cache';
 import { Film, FilmsRoot } from './FilmsRoot.interface';
 import { PeopleRoot, Person } from './PeopleRoot.interface';
@@ -42,7 +54,10 @@ export class SwapiService {
     map((r: PeopleRoot) => r.results),
 
     // scan to accumulate the pages (emitted by expand)
-    reduce<Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), []),
+    reduce<Person[]>(
+      (allPeople, pageOfPeople) => allPeople.concat(pageOfPeople),
+      []
+    ),
 
     map(persons =>
       persons.map(
@@ -64,7 +79,9 @@ export class SwapiService {
     );
 
   /** load all the films (deprecated) */
-  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(shareReplay(1));
+  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(
+    shareReplay(1)
+  );
 
   /** helper to fetch all the page of an swapi root endpoint */
   getAllPagedData(url): Observable<any> {
@@ -111,24 +128,28 @@ export class SwapiService {
    * @param url
    */
   get<T>(url: string): Observable<T> {
-    const base = Object.values(this.swapiRoot).find(top => url.toLowerCase().includes(url.toLowerCase()));
+    const base = Object.values(this.swapiRoot).find(top =>
+      url.toLowerCase().includes(url.toLowerCase())
+    );
 
     if (base) {
-      return this.getAllPagedData(base).pipe(map((baseData: any) => baseData.results.find(row => row.url === url)));
+      return this.getAllPagedData(base).pipe(
+        map((baseData: any) => baseData.results.find(row => row.url === url))
+      );
     }
     return from(this.load(url) as Promise<T>);
   }
 
   /** load everything from the SWAPI.co into indexedDB */
   loadData() {
-    /** start off with the 'root' of swapu */
+    /** start off with the 'root' of swapi */
     from(this.load<SwapiRoot>(this.baseUrl))
       .pipe(
         /** use a side-effect to store it in this service */
         tap(swapiRoot => (this.swapiRoot = swapiRoot)),
         /** loop over all listed endpoints */
         concatMap(r => Object.values(r).map(url => this.getAllPagedData(url))),
-        /** combine all observbles form above into a results stream */
+        /** combine all observables form above into a results stream */
         concatAll(),
         /** change that into an array (Only needed when going to display) */
         toArray()
@@ -138,8 +159,32 @@ export class SwapiService {
       .subscribe();
   }
 
+  enrich(rec: { [key: string]: any }) {
+    from(this.load<SwapiRoot>(this.baseUrl)).pipe(
+      concatMap(root =>
+        /** check for key's that are in root */
+        Object.keys(rec)
+          .filter(prop => Object.keys(root).includes(prop))
+          /** traverse every array in each key */
+          .map(key =>
+            from(rec[key]).pipe(
+              toArray(),
+              tap(url => console.log('key', url))
+            )
+          )
+      ),
+      tap(url => console.log('key', url))
+    );
+  }
+
   findWithName = (name: string) =>
-    this.swPeople$.pipe(map(list => list.find(row => row.name.toLowerCase().includes(name.toLowerCase().trim()))));
+    this.swPeople$.pipe(
+      map(list =>
+        list.find(row =>
+          row.name.toLowerCase().includes(name.toLowerCase().trim())
+        )
+      )
+    );
 }
 
 function getRandomDateInPast() {
