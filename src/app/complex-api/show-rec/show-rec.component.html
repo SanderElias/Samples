@@ -1,11 +1,14 @@
 <dl *ngFor="let item of entries">
   <dt>{{ key(item) }}</dt>
   <dd>
-    <ng-container *ngIf="!isRec(item)">
+    <ng-container *ngIf="!isRecArray(item)">
       {{ val(item) }}
     </ng-container>
-    <ng-container *ngIf="isRec(item)">
-      <app-show-rec *ngFor="let rec of val(item)" [record]=rec></app-show-rec>
+    <ng-container *ngIf="isRecArray(item)">
+      <details  *ngFor="let rec of val(item)" >
+        <summary>{{ rec.name || rec.title  }}</summary>
+        <app-show-rec [record]="rec"></app-show-rec>
+      </details>
     </ng-container>
   </dd>
 </dl>
@@ -14,6 +17,9 @@
   dl {
     display: grid;
     grid-template-columns: 5em 1fr;
+  }
+  dt {
+    font-weight: initial
   }
   dd {
     font-weight: bolder;
