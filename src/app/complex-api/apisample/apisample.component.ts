@@ -1,19 +1,11 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SwapiService , SwapiRoot} from '@se-ng/swapi';
-import { of, throwError, combineLatest } from 'rxjs';
-import {
-  catchError,
-  concatMap,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  switchMap,
-  tap,
-  map,
-  startWith,
-  reduce
-} from 'rxjs/operators';
+
+import { SwapiRoot, SwapiService } from '@se-ng/swapi';
+
+import { combineLatest, of } from 'rxjs';
+import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
