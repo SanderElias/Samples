@@ -5,8 +5,10 @@
       {{ val(item) }}
     </ng-container>
     <ng-container *ngIf="isRecArray(item)">
-      <details  *ngFor="let rec of val(item)" >
-        <summary>{{ rec.name || rec.title  }}</summary>
+      <details *ngFor="let rec of val(item)">
+        <summary
+          >{{ rec.name || rec.title }} <button (click)="selected.emit([key(item),rec.name||rec.title])">Select</button>
+        </summary>
         <app-show-rec [record]="rec"></app-show-rec>
       </details>
     </ng-container>
@@ -19,7 +21,7 @@
     grid-template-columns: 5em 1fr;
   }
   dt {
-    font-weight: initial
+    font-weight: initial;
   }
   dd {
     font-weight: bolder;

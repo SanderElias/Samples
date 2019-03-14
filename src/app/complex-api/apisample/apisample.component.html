@@ -1,1 +1,17 @@
-<app-show-rec [record]="person$|async"></app-show-rec>
+<select [formControl]="chosenSet">
+  <option *ngFor="let item of availableSets$|async">{{item}}</option>
+</select>
+
+<input type="text" [formControl]="name" autofocus>
+<app-show-rec [record]="result$|async" (selected)="changeTo($event)"></app-show-rec>
+
+<style>
+ :host {
+   display:block;
+   max-height:95vh;
+   max-width: 98vw;
+   overflow-x: hidden;
+   overflow-y: auto;
+ }
+</style>
+

@@ -1,8 +1,9 @@
 // tslint:disable:member-ordering
 // import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { concat, EMPTY, from, Observable } from 'rxjs';
+import { concat, EMPTY, from, Observable, of } from 'rxjs';
 import {
+  catchError,
   concatAll,
   concatMap,
   expand,
@@ -32,7 +33,7 @@ export class SwapiService {
    * otherwise use fetch (I needed promises here) to fetch live data
    * returns  promise that will hold the result of the URL
    */
-  private load = async <T>(url: string): Promise<T> => {
+  load = async <T>(url: string): Promise<T> => {
     await initCache();
     if (!cacheHas(url)) {
       const liveData = await fetch(url)
@@ -43,6 +44,10 @@ export class SwapiService {
 
     return (getFromCache(url) as unknown) as T;
   };
+  swapiRoot$ = from(this.load<SwapiRoot>(this.baseUrl)).pipe(
+    tap(r => (this.swapiRoot = r)),
+    shareReplay(1)
+  );
 
   // load all people form the paged API
   // start off with loading the first page.
@@ -55,10 +60,7 @@ export class SwapiService {
     map((r: PeopleRoot) => r.results),
 
     // scan to accumulate the pages (emitted by expand)
-    reduce<Person[]>(
-      (allPeople, pageOfPeople) => allPeople.concat(pageOfPeople),
-      []
-    ),
+    reduce<Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), []),
 
     map(persons =>
       persons.map(
@@ -80,9 +82,7 @@ export class SwapiService {
     );
 
   /** load all the films (deprecated) */
-  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(
-    shareReplay(1)
-  );
+  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(shareReplay(1));
 
   /** helper to fetch all the page of an swapi root endpoint */
   getAllPagedData(url): Observable<any> {
@@ -129,14 +129,10 @@ export class SwapiService {
    * @param url
    */
   get<T>(url: string): Observable<T> {
-    const base = Object.values(this.swapiRoot).find(top =>
-      url.toLowerCase().includes(url.toLowerCase())
-    );
+    const base = Object.values(this.swapiRoot).find(top => url.toLowerCase().includes(url.toLowerCase()));
 
     if (base) {
-      return this.getAllPagedData(base).pipe(
-        map((baseData: any) => baseData.results.find(row => row.url === url))
-      );
+      return this.getAllPagedData(base).pipe(map((baseData: any) => baseData.results.find(row => row.url === url)));
     }
     return from(this.load(url) as Promise<T>);
   }
@@ -144,7 +140,7 @@ export class SwapiService {
   /** load everything from the SWAPI.co into indexedDB */
   loadData() {
     /** start off with the 'root' of swapi */
-    from(this.load<SwapiRoot>(this.baseUrl))
+    this.swapiRoot$
       .pipe(
         /** use a side-effect to store it in this service */
         tap(swapiRoot => (this.swapiRoot = swapiRoot)),
@@ -155,13 +151,13 @@ export class SwapiService {
         /** change that into an array (Only needed when going to display) */
         toArray()
         /** log result */
-        // tap(r => console.log(r))
+        // tap(r => console.log('loadedInApi',r))
       )
       .subscribe();
   }
 
   enrich<T>(rec: T): Observable<T> {
-    return from(this.load<SwapiRoot>(this.baseUrl)).pipe(
+    return this.swapiRoot$.pipe(
       concatMap(root =>
         /** make an array of observables from eligible keys */
         Object.keys(rec)
@@ -185,18 +181,27 @@ export class SwapiService {
       /** reduce all the results into 1 object */
       reduce((combine, res) => ({ ...combine, ...res }), {}),
       /** merge the outcome with the original record */
-      map(combined => ({ ...rec, ...combined }))
+      map(combined => ({ ...rec, ...combined })),
+      catchError((e: Error) => of(({ message: e.message } as unknown) as T))
     );
   }
 
-  findWithName = (name: string) =>
-    this.swPeople$.pipe(
+  getAllrows(selectedSet: keyof SwapiRoot) {
+    return this.getAllPagedData(this.swapiRoot[selectedSet]).pipe(
+      map(resultSet => resultSet.results),
+      reduce((all, page) => all.concat(page), [])
+    );
+  }
+
+  findin = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
+    this.getAllrows(selectedSet).pipe(
       map(list =>
-        list.find(row =>
-          row.name.toLowerCase().includes(name.toLowerCase().trim())
-        )
+        list.find(row => (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim()))
       )
     );
+
+  findWithName = (name: string) =>
+    this.swPeople$.pipe(map(list => list.find(row => row.name.toLowerCase().includes(name.toLowerCase().trim()))));
 }
 
 function getRandomDateInPast() {
@@ -209,5 +214,3 @@ function getRandomDateInPast() {
   /** combine into a date, use noon bcs time-zone's */
   return new Date(year, month, day, 12, 0);
 }
-
-

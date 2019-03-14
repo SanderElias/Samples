@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 interface Record {
   name: string;
@@ -6,7 +6,8 @@ interface Record {
   [key: string]: any;
 }
 
-type Entry = [string, any];
+export type Entry = [string, any];
+export type Selection = [string,string]
 
 @Component({
   selector: 'app-show-rec',
@@ -20,6 +21,7 @@ export class ShowRecComponent implements OnInit {
       this.entries = Object.entries(record);
     }
   }
+  @Output() selected = new EventEmitter<Selection>();
 
   key = (e: Entry) => e[0];
   val = (e: Entry) => e[1];
