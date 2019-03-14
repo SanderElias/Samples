@@ -1,0 +1,21 @@
+<dl *ngFor="let item of entries">
+  <dt>{{ key(item) }}</dt>
+  <dd>
+    <ng-container *ngIf="!isRec(item)">
+      {{ val(item) }}
+    </ng-container>
+    <ng-container *ngIf="isRec(item)">
+      <app-show-rec *ngFor="let rec of val(item)" [record]=rec></app-show-rec>
+    </ng-container>
+  </dd>
+</dl>
+
+<style>
+  dl {
+    display: grid;
+    grid-template-columns: 5em 1fr;
+  }
+  dd {
+    font-weight: bolder;
+  }
+</style>

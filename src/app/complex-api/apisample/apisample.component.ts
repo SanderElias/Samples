@@ -1,17 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SwapiService, SwapiRoot } from '@se-ng/swapi';
-import {
-  tap,
-  map,
-  concatMap,
-  toArray,
-  catchError,
-  concatAll,
-  reduce,
-  switchMap
-} from 'rxjs/operators';
-import { from, empty, EMPTY } from 'rxjs';
-
+import { SwapiService } from '@se-ng/swapi';
+import { EMPTY } from 'rxjs';
+import { catchError, concatMap, tap } from 'rxjs/operators';
+ng
 @Component({
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
