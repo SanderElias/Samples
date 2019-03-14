@@ -25,7 +25,7 @@ export class APISampleComponent implements AfterViewInit {
       filter(Boolean)
     )
   ).pipe(
-    switchMap(([setname, name]) => this.sw.findin(setname, name)),
+    switchMap(([setname, name]) => this.sw.findIn(setname, name)),
     concatMap(r => this.sw.enrich(r)),
     tap(r => console.log('full details', r)),
     catchError(e => {

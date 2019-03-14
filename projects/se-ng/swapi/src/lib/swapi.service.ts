@@ -186,22 +186,37 @@ export class SwapiService {
     );
   }
 
-  getAllrows(selectedSet: keyof SwapiRoot) {
+  /**
+   * Helper to get all the data of an given "set"
+   * @param selectedSet the name of the set we want to get.
+   */
+  getAllRows(selectedSet: keyof SwapiRoot) {
+    /** get all pages for this set */
     return this.getAllPagedData(this.swapiRoot[selectedSet]).pipe(
+      /** extract the results out of every page */
       map(resultSet => resultSet.results),
-      reduce((all, page) => all.concat(page), [])
+      /** combine them all into a single array */
+      reduce((all, page) => all.concat(page), []),
+      /** don't do this again! */
+      shareReplay(1)
     );
   }
 
-  findin = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
-    this.getAllrows(selectedSet).pipe(
+  /**
+   * Helper function to search by name/tile in a "set"
+   * takes the name of the set, and a string
+   */
+  findIn = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
+    this.getAllRows(selectedSet).pipe(
       map(list =>
         list.find(row => (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim()))
       )
     );
 
-  findWithName = (name: string) =>
-    this.swPeople$.pipe(map(list => list.find(row => row.name.toLowerCase().includes(name.toLowerCase().trim()))));
+  /**
+   * find people by name (deprecated)
+   */
+  findWithName = (name: string) => this.findIn('people', name);
 }
 
 function getRandomDateInPast() {
