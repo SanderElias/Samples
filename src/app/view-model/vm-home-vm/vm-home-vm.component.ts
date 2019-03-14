@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { combineLatest, fromEvent, NEVER, of, Subject, timer } from 'rxjs';
 import { filter, map, pluck, scan, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { RakiService } from 'src/app/rijks/raki.service';
+import { RakiService } from '../../../app/rijks/raki.service';
 import { Quote, QuoteService } from '../quote/quote.service';
 
 interface Vm {
