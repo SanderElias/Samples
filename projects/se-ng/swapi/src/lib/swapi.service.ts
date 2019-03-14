@@ -18,6 +18,7 @@ import {
 import { addToCache, cacheHas, getFromCache, initCache } from './cache';
 import { Film, FilmsRoot } from './FilmsRoot.interface';
 import { PeopleRoot, Person } from './PeopleRoot.interface';
+import { SwapiRoot } from './SwapiRoot.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -159,21 +160,32 @@ export class SwapiService {
       .subscribe();
   }
 
-  enrich(rec: { [key: string]: any }) {
-    from(this.load<SwapiRoot>(this.baseUrl)).pipe(
+  enrich<T>(rec: T): Observable<T> {
+    return from(this.load<SwapiRoot>(this.baseUrl)).pipe(
       concatMap(root =>
-        /** check for key's that are in root */
+        /** make an array of observables from eligible keys */
         Object.keys(rec)
+          /** check for key's that are in root */
           .filter(prop => Object.keys(root).includes(prop))
           /** traverse every array in each key */
           .map(key =>
-            from(rec[key]).pipe(
+            /** make an observable from the array in the current prop */
+            from<string[]>(rec[key]).pipe(
+              /** turn each url to an observable */
+              concatMap(url => this.load(url)),
+              /** combine the array of observables to an array */
               toArray(),
-              tap(url => console.log('key', url))
+              /** make it into an object that has the props name, and the result */
+              map(arr => ({ [key]: arr }))
             )
           )
       ),
-      tap(url => console.log('key', url))
+      /** flatten the array of observables into results */
+      concatAll(),
+      /** reduce all the results into 1 object */
+      reduce((combine, res) => ({ ...combine, ...res }), {}),
+      /** merge the outcome with the original record */
+      map(combined => ({ ...rec, ...combined }))
     );
   }
 
@@ -198,11 +210,4 @@ function getRandomDateInPast() {
   return new Date(year, month, day, 12, 0);
 }
 
-export interface SwapiRoot {
-  people: string;
-  planets: string;
-  films: string;
-  species: string;
-  vehicles: string;
-  starships: string;
-}
+
