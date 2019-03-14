@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SwapiService } from '@se-ng/swapi';
+import { SwapiService , SwapiRoot} from '@se-ng/swapi';
 import { of, throwError, combineLatest } from 'rxjs';
 import {
   catchError,
@@ -14,7 +14,6 @@ import {
   startWith,
   reduce
 } from 'rxjs/operators';
-import { SwapiRoot } from 'projects/se-ng/swapi/src/lib/SwapiRoot.interface';
 @Component({
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
