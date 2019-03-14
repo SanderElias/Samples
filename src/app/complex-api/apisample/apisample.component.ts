@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SwapiService } from '@se-ng/swapi';
 import { EMPTY } from 'rxjs';
 import { catchError, concatMap, tap } from 'rxjs/operators';
-ng
 @Component({
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
