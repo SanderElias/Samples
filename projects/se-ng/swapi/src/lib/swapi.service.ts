@@ -135,12 +135,11 @@ export class SwapiService {
   get<T>(url: string): Observable<T> {
     const base = Object.values(this.swapiRoot).find(topUrl =>
       url.toLowerCase().includes(topUrl.toLowerCase())
-    );
-    console.log('urlBase', base);
+    ) as string;
     if (base) {
       return this.getAllPagedData(base).pipe(
-        reduce((allData,page:any) => allData.concat(page.results),[]),
-        map((allData: any[]) => allData.find(row => row.url === url)),
+        reduce((allData, page: any) => allData.concat(page.results), []),
+        map((allData: any[]) => allData.find(row => row.url === url))
       );
     }
     return from(this.load(url) as Promise<T>);
@@ -245,9 +244,10 @@ export class SwapiService {
    */
   detectSet(url) {
     if (typeof url === 'string') {
-      return (Object.values(this.swapiRoot).find(setBaseUrl =>
-        url.includes(setBaseUrl)
-      ) as unknown) as keyof SwapiRoot;
+      const entry = Object.entries(this.swapiRoot).find(
+        ([setName, setBaseUrl]) => url.includes(setBaseUrl)
+      );
+      return entry && ((entry[0] as unknown) as keyof SwapiRoot);
     }
   }
 
