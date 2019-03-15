@@ -12,6 +12,5 @@
     "rxjs": "^6.4.0",
     "idb-keyval": "^3.1.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
