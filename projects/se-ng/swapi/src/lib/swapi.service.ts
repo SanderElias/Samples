@@ -8,7 +8,6 @@ import {
   concatMap,
   expand,
   filter,
-  first,
   map,
   mergeMap,
   reduce,
@@ -164,11 +163,18 @@ export class SwapiService {
     );
   }
 
+  /**
+   * Helper function that traverse all key's of an record,
+   * and checks if there is an url in there.
+   * if there is it fetches the data and puts that in its place.
+   * Also handles url[], and will fetch each of those.
+   * Top level only, it doesn't drill down.
+   */
   enrich<T>(rec: T): Observable<T> {
     /**
      * Helper to create an observable<{propname:value}> for each property
      */
-    const keyHandler = propName => {
+    const keyHandler = (propName:string) => {
       const value = rec[propName];
       if (Array.isArray(value) && value.length > 0) {
         /** make an observable from the array in the current prop */
@@ -199,7 +205,7 @@ export class SwapiService {
       concatAll(),
       /** reduce all the results back into 1 object */
       reduce((combine, res) => ({ ...combine, ...res }), {} as T),
-      /** complete but don't emit a result if there is an error */
+      /** complete and emit an empty result if there is an error */
       catchError((e: Error) => {
         console.warn(e);
         return of({} as T);
