@@ -8,6 +8,7 @@ import {
   concatMap,
   expand,
   filter,
+  first,
   map,
   mergeMap,
   reduce,
@@ -34,6 +35,7 @@ export class SwapiService {
    * returns  promise that will hold the result of the URL
    */
   load = async <T>(url: string): Promise<T> => {
+    /** wait until the cache is loaded */
     await initCache();
     if (!cacheHas(url)) {
       const liveData = await fetch(url)
@@ -99,11 +101,7 @@ export class SwapiService {
   }
 
   /** find a film by url (deprecated) */
-  findFilmByUrl = (url: string): Observable<Film> =>
-    this.swFilms$.pipe(
-      map(films => films.results.find(film => film.url === url)),
-      take(1)
-    );
+  findFilmByUrl = (url: string): Observable<Film> => this.get<Film>(url);
 
   /** helper to fetch Count random person(s), that has also some loaded films in there */
   getRandomPerson = (count = 1): Observable<Person> =>
@@ -141,7 +139,9 @@ export class SwapiService {
 
     if (base) {
       return this.getAllPagedData(base).pipe(
-        map((baseData: any) => baseData.results.find(row => row.url === url))
+        map((baseData: any) => baseData.results.find(row => row.url === url)),
+        filter(Boolean),
+        first()
       );
     }
     return from(this.load(url) as Promise<T>);
@@ -158,7 +158,9 @@ export class SwapiService {
       /** combine all observables form above into a results stream */
       concatAll(),
       /** change that into an array (Only needed when going to display) */
-      toArray()
+      toArray(),
+      /** keep everything in memduring app */
+      shareReplay(1)
       /** log result */
       // tap(r => console.log('loadedInApi',r))
     );
@@ -174,7 +176,7 @@ export class SwapiService {
         /** make an observable from the array in the current prop */
         return from<string[]>(rec[propName]).pipe(
           /** turn each url to an observable */
-          concatMap(url => this.findByUrl(url)),
+          concatMap(url => this.get(url)),
           /** combine the array of observables to an array */
           toArray(),
           /** make it into an object that has the props name, and the result */
@@ -185,7 +187,7 @@ export class SwapiService {
         /** is it an url from a known set? */
         const subSet = this.detectSet(value);
         /** yes? load it from the set, otherwise just return the value */
-        return of(subSet ? this.findByUrl(value) : value).pipe(
+        return (subSet ? this.get(value) : of(value)).pipe(
           map(x => ({ [propName]: x }))
         );
       }
@@ -244,25 +246,11 @@ export class SwapiService {
    */
   detectSet(url) {
     if (typeof url === 'string') {
-      const prop = Object.entries(this.swapiRoot).find(
-        ([setName, setBaseUrl]) => url.includes(setBaseUrl)
-      );
-      return (prop && ((prop[0] as unknown) as keyof SwapiRoot)) || undefined;
+      return (Object.values(this.swapiRoot).find(setBaseUrl =>
+        url.includes(setBaseUrl)
+      ) as unknown) as keyof SwapiRoot;
     }
   }
-
-  /**
-   * Helper function to search by url
-   * takes the name of the set, and the url
-   */
-  findByUrl = (url: string) => {
-    const selectedSet = this.detectSet(url);
-    if (selectedSet) {
-      return this.getAllRows(selectedSet).pipe(
-        map(list => list.find(row => row.url.trim() === url.trim()))
-      );
-    }
-  };
 
   /**
    * find people by name (deprecated)
