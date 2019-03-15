@@ -4,7 +4,6 @@ import {
   ElementRef,
   AfterContentInit
 } from '@angular/core';
-import { promise } from 'protractor';
 
 @Component({
   selector: 'app-root',
