@@ -56,6 +56,8 @@ export class APISampleComponent implements AfterViewInit {
     this.changeTo(['people', 'luke']);
   }
 
+
+
   async changeTo(event) {
     const availableSets = await this.availableSets$.toPromise();
     const [property, findValue] = event;

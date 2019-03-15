@@ -37,5 +37,10 @@ export class ShowRecComponent implements OnInit {
     return false
   }
 
+  /** returns false or an "record" */
+  isRecord(x: any) {
+    return x && !Array.isArray(x) && typeof x === 'object' && x;
+  }
+
   ngOnInit() {}
 }

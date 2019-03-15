@@ -1,17 +1,34 @@
 <dl *ngFor="let item of entries">
   <dt>{{ key(item) }}</dt>
   <dd>
-    <ng-container *ngIf="!isRecArray(item)">
-      {{ val(item) }}
+    <ng-container *ngIf="!isRecArray(item); else handleArray">
+      <!-- <pre>{{isRecord(val(item))}}</pre> -->
+      <ng-container *ngIf="isRecord(val(item)) as rec; else handleRec">
+        <details>
+          <summary
+            >{{ rec.name || rec.title }}
+            <button (click)="selected.emit([key(item), rec.name || rec.title])">
+              Select
+            </button>
+          </summary>
+          <app-show-rec [record]="rec"></app-show-rec>
+        </details>
+      </ng-container>
+      <ng-template #handleRec>
+        {{ val(item) }}
+      </ng-template>
     </ng-container>
-    <ng-container *ngIf="isRecArray(item)">
+    <ng-template #handleArray>
       <details *ngFor="let rec of val(item)">
         <summary
-          >{{ rec.name || rec.title }} <button (click)="selected.emit([key(item),rec.name||rec.title])">Select</button>
+          >{{ rec.name || rec.title }}
+          <button (click)="selected.emit([key(item), rec.name || rec.title])">
+            Select
+          </button>
         </summary>
         <app-show-rec [record]="rec"></app-show-rec>
       </details>
-    </ng-container>
+    </ng-template>
   </dd>
 </dl>
 
@@ -22,8 +39,11 @@
   }
   dt {
     font-weight: initial;
+    max-width: 5em;
+    overflow: hidden;
   }
   dd {
     font-weight: bolder;
+    margin-left: .5em;
   }
 </style>
