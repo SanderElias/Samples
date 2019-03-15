@@ -133,8 +133,8 @@ export class SwapiService {
    * @param url
    */
   get<T>(url: string): Observable<T> {
-    const base = Object.values(this.swapiRoot).find(top =>
-      url.toLowerCase().includes(url.toLowerCase())
+    const base = Object.values(this.swapiRoot).find(topUrl =>
+      url.toLowerCase().includes(topUrl.toLowerCase())
     );
     console.log('urlBase', base);
     if (base) {
