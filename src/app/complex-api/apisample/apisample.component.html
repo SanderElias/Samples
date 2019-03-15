@@ -1,17 +1,31 @@
+<H3>Complex api sample</H3>
+<h4>(first load might take a while!)</h4>
+<p>
+  The complexity is in the API, have an look at
+  <a
+    target="blank"
+    href="https://github.com/SanderElias/Samples/blob/master/projects/se-ng/swapi/src/lib/swapi.service.ts"
+    >the swapi service</a
+  >.<br />
+  This sample loads all of
+  <a target="blank" href="https://swapi.co">SWAPI</a> and caches it to indexedDB. This is also the reason the first load takes longer.
+</p>
 <select [formControl]="chosenSet">
-  <option *ngFor="let item of availableSets$|async">{{item}}</option>
+  <option *ngFor="let item of (availableSets$ | async)">{{ item }}</option>
 </select>
 
-<input type="text" [formControl]="name" autofocus>
-<app-show-rec [record]="result$|async" (selected)="changeTo($event)"></app-show-rec>
+<input type="text" [formControl]="name" autofocus />
+<app-show-rec
+  [record]="result$ | async"
+  (selected)="changeTo($event)"
+></app-show-rec>
 
 <style>
- :host {
-   display:block;
-   max-height:95vh;
-   max-width: 98vw;
-   overflow-x: hidden;
-   overflow-y: auto;
- }
+  :host {
+    display: block;
+    max-height: 95vh;
+    max-width: 98vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 </style>
-
