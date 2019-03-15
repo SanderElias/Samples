@@ -136,12 +136,11 @@ export class SwapiService {
     const base = Object.values(this.swapiRoot).find(top =>
       url.toLowerCase().includes(url.toLowerCase())
     );
-
+    console.log('urlBase', base);
     if (base) {
       return this.getAllPagedData(base).pipe(
-        map((baseData: any) => baseData.results.find(row => row.url === url)),
-        filter(Boolean),
-        first()
+        reduce((allData,page:any) => allData.concat(page.results),[]),
+        map((allData: any[]) => allData.find(row => row.url === url)),
       );
     }
     return from(this.load(url) as Promise<T>);
