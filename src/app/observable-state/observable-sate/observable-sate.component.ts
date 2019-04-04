@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { createSetStateMethod } from 'src/utils/setStateMethodCreator';
-import { createGetStateMethod } from 'src/utils/getStateMethodCreator';
+import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
+import { createGetStateMethod } from '../../../../src/utils/getStateMethodCreator';
 import { tap, debounceTime } from 'rxjs/operators';
 // tslint:disable: member-ordering
 
