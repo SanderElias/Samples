@@ -31,10 +31,16 @@ const routes: Routes = [
   },
   {
     path: 'complexAPI',
-    loadChildren: '../../src/app/complex-api/complex-api.module#ComplexAPIModule'
+    loadChildren:
+      '../../src/app/complex-api/complex-api.module#ComplexAPIModule'
+  },
+  {
+    path: 'observableState',
+    loadChildren:
+      '../../src/app/observable-state/observable-state.module#ObservableStateModule'
   },
   { path: 'home', component: HomeComponent },
-  { path: '**', redirectTo: 'complexAPI' }
+  { path: '**', redirectTo: 'observableState' }
 ];
 
 @NgModule({

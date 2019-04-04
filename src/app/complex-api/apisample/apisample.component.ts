@@ -17,7 +17,7 @@ export class APISampleComponent implements AfterViewInit {
   /** keep the raw data */
   rawData: any;
 
-  /** extract the avable tabels/sets from the root of the api */
+  /** extract the available tabels/sets from the root of the api */
   availableSets$ = this.sw.swapiRoot$.pipe(
     map(root => (Object.keys(root) as unknown) as (keyof SwapiRoot)[])
   );
