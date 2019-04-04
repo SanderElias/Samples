@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
+import { debounceTime, tap } from 'rxjs/operators';
 import { createGetStateMethod } from '../../../../src/utils/getStateMethodCreator';
-import { tap, debounceTime } from 'rxjs/operators';
+import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
 // tslint:disable: member-ordering
 
 /** lets define everything we need */
@@ -55,7 +55,7 @@ export class ObservableSateComponent implements OnInit {
   viewModel$ = this.state$.pipe(
     debounceTime(5), // <== don't refire on "sync" state changes.
     /** use side-effect to check the state */
-    tap(state => this.checkState),
+    tap(state => this.checkState(state)),
     /** another side effect to update the messgage */
     tap(this.updateMessage)
   );
@@ -70,12 +70,16 @@ export class ObservableSateComponent implements OnInit {
    * I need multiple things form the state here,
    * so, here I'm using destructuring on the complete state
    */
-  async checkState() {
-    const { count, min, max } = await this.state$.toPromise();
+  async checkState(state: LocalState) {
+    const { count, min, max, overMax, underMin } = state;
     /** use my helper to update the state */
-    this.setState('overMax', count > max);
+    if (count > max !== overMax) {
+      this.setState('overMax', count > max);
+    }
     /** multiple times in a row */
-    this.setState('underMin', count < min);
+    if (count < min !== underMin) {
+      this.setState('underMin', count < min);
+    }
   }
 
   /**
