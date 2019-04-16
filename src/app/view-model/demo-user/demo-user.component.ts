@@ -1,18 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, pluck } from 'rxjs/operators';
 import { DemoUserService } from '../../../../src/app/demo-users.service';
-import {
-  map,
-  pluck,
-  distinctUntilChanged,
-  debounceTime,
-  filter,
-  take,
-  toArray,
-  mergeMap
-} from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, from } from 'rxjs';
-import { modelFromLatest } from 'src/utils/modelFromLatest';
-import { createSetStateMethod } from 'src/utils/setStateMethodCreator';
+import { modelFromLatest } from '../../../../src/utils/modelFromLatest';
+import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
 
 @Component({
   selector: 'app-demo-user',
@@ -44,14 +35,14 @@ export class DemoUserComponent implements OnInit {
     )
   );
 
-  searchCount$ = this.foundUsers$.pipe(map(u => u.length))
+  searchCount$ = this.foundUsers$.pipe(map(u => u.length));
 
   viewModel$ = modelFromLatest({
     foundUsers: this.foundUsers$.pipe(map(u => u.slice(0, 25))),
     state: this.state$,
     total: this.userCount$,
     found: this.searchCount$,
-    pages: this.searchCount$.pipe(map(n => Math.ceil(n/25)))
+    pages: this.searchCount$.pipe(map(n => Math.ceil(n / 25)))
   });
 
   constructor(private us: DemoUserService) {}

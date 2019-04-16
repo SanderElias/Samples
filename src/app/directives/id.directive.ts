@@ -4,8 +4,5 @@ import { Directive, Input } from '@angular/core';
   selector: '[id]'
 })
 export class IdDirective {
-  @Input() id:string;
-
-  constructor() { }
-
+  @Input() id: string;
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { IdDirective } from '../id.directive';
-import { tap, mergeMap, map } from 'rxjs/operators';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { seAfterContentInit$ } from '@se-ng/observable-hooks/bundles/se-ng-observable-hooks.umd';
+import { map } from 'rxjs/operators';
+import { IdDirective } from '../id.directive';
 
 @Component({
   selector: 'app-directives-sample',
