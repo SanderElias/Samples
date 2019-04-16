@@ -19,12 +19,18 @@
       <a routerLinkActive="active-link" [routerLink]="['home']"><li>Home</li></a>
       <a routerLinkActive="active-link" [routerLink]="['filterSamp']"><li>Filter Sample</li></a>
       <a routerLinkActive="active-link" [routerLink]="['modalSamp']"><li>Modal Sample</li></a>
+      <a routerLinkActive="active-link" [routerLink]="['DirectiveSamp']"><li>Directive Sample</li></a>
       <a routerLinkActive="active-link" [routerLink]="['mixinSamp']"><li>Mixin Sample</li></a>
       <a routerLinkActive="active-link" [routerLink]="['htmlLoad']"><li>Html load</li></a>
       <a [routerLink]="['requiredAttributes']"><li>Required attributes</li></a>
       <li>
         Reactive viewmodel
         <ul>
+          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'user']"
+            ><li>
+              User list
+            </li></a
+          >
           <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theGood']"
             ><li>
               The Good

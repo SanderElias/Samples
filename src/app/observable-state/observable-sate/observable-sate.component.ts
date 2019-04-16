@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { BehaviorSubject, concat, EMPTY, of } from 'rxjs';
+import { debounceTime, tap, concatAll, catchError, take } from 'rxjs/operators';
 import { createGetStateMethod } from '../../../../src/utils/getStateMethodCreator';
 import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
+import { HttpClient } from '@angular/common/http';
 // tslint:disable: member-ordering
 
 /** lets define everything we need */
@@ -60,11 +61,18 @@ export class ObservableSateComponent implements OnInit {
     tap(this.updateMessage)
   );
 
+  result$ = concat(
+    this.http.get('/assets/a.json').pipe(catchError(e => EMPTY)),
+    this.http.get('/assets/b.json').pipe(catchError(e => EMPTY)),
+    this.http.get('/assets/c.json').pipe(catchError(e => EMPTY)),
+    of('No result found')
+  ).pipe(take(1));
+
   /** set up my helpers */
   setState = createSetStateMethod(this.state$);
   getState = createGetStateMethod(this.state$);
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   /**
    * I need multiple things form the state here,

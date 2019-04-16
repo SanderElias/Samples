@@ -117,8 +117,8 @@ export class DemoUserService {
     this.flush$.next();
     timer(0, 250)
       .pipe(
-        tap(() => this.addUsers(1000)),
-        take(200)
+        tap(() => this.addUsers(change.integer({ min: 100, max: 400 }))),
+        take(40)
       )
       .subscribe();
   }

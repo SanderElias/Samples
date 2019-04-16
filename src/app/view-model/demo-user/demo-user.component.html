@@ -1,0 +1,40 @@
+<h1>User list demo</h1>
+<ng-container *ngIf="(viewModel$ | async) as vm">
+  <input type="text" (input)="setState('searchText', $event.target.value)" />
+  <span>{{ vm.total }} found: {{ vm.found }} {{vm.pages}}</span>
+  <table>
+    <thead>
+      <th>#</th>
+      <th>state</th>
+      <th>name</th>
+      <th>email</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of vm.foundUsers">
+        <td>{{user.id}}</td>
+        <td>{{user.lineState}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<style>
+tr:nth-child(odd) {
+  background-color: #00ccff;
+}
+table {
+  width: 90vw;
+  margin: 1rem;
+  padding:0;
+  border: 1px solid #404040;
+  border-collapse: collapse;
+
+}
+td,th {
+  border-right: 1px solid #404040;
+  text-align: left;
+  padding:4px;
+}
+</style>

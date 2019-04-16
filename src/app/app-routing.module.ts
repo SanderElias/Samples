@@ -39,6 +39,7 @@ const routes: Routes = [
     loadChildren:
       '../../src/app/observable-state/observable-state.module#ObservableStateModule'
   },
+  { path: 'DirectiveSamp', loadChildren: '../../src/app/directives/directives.module#DirectivesModule' },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: 'observableState' }
 ];
