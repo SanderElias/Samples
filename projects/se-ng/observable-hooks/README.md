@@ -13,14 +13,14 @@ Then in a component use them by using by extending your component class like thi
 ```ts
 import {
   /** only import the ones you need, but all of those are available */
-  seAfterContentChecked$,
-  seAfterContentInit$,
-  seAfterViewChecked$,
-  seAfterViewInit$,
-  seDoCheck$,
-  seOnChanges$
-  seOnDestroy$,
-  seOnInit$,
+  seAfterContentChecked,
+  seAfterContentInit,
+  seAfterViewChecked,
+  seAfterViewInit,
+  seDoCheck,
+  seOnChanges
+  seOnDestroy,
+  seOnInit,
 } from '@se-ng/observable-hooks';
 
 @Component({
@@ -28,7 +28,7 @@ import {
   templateUrl: './mixins.component.html',
   styles: []
 })
-export class MixinsComponent extends seOnDestroy$(seOnInit$(seAfterContentChecked$())) {
+export class MixinsComponent extends seOnDestroy(seOnInit(seAfterContentChecked())) {
    /** in here , the life-cycle hooks are available as properties **/
    
    /** do something after init */
@@ -36,4 +36,4 @@ export class MixinsComponent extends seOnDestroy$(seOnInit$(seAfterContentChecke
 }
 ```
 
-All the life-cycle-hooks from Angular are available as `seHookName$`. Every hook is an observable, and all of them will be disposed properly on component destroy.  
+All the life-cycle-hooks from Angular are available as `seHookName`. Every hook is an observable, and all of them will be disposed properly on component destroy.  
