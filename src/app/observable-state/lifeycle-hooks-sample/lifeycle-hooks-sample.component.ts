@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SwapiService, SpaceShip} from '@se-ng/swapi';
-import {seOnInit, seOnDestroy} from '@se-ng/observable-hooks/bundles/se-ng-observable-hooks.umd';
+import {seOnInit, seOnDestroy} from '@se-ng/observable-hooks';
 import {switchMap, shareReplay, map, startWith, tap} from 'rxjs/operators';
 import {modelFromLatest} from '../../../../src/utils/modelFromLatest';
 import {FormControl} from '@angular/forms';
