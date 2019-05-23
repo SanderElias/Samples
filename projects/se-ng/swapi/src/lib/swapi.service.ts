@@ -1,7 +1,7 @@
 // tslint:disable:member-ordering
 // import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { concat, EMPTY, from, Observable, of } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {concat, EMPTY, from, Observable, of} from 'rxjs';
 import {
   catchError,
   concatAll,
@@ -14,12 +14,13 @@ import {
   shareReplay,
   take,
   tap,
-  toArray
+  toArray,
+  switchMap
 } from 'rxjs/operators';
-import { addToCache, cacheHas, getFromCache, initCache } from './cache';
-import { Film, FilmsRoot } from './FilmsRoot.interface';
-import { PeopleRoot, Person } from './PeopleRoot.interface';
-import { SwapiRoot } from './SwapiRoot.interface';
+import {addToCache, cacheHas, getFromCache, initCache} from './cache';
+import {Film, FilmsRoot} from './FilmsRoot.interface';
+import {PeopleRoot, Person} from './PeopleRoot.interface';
+import {SwapiRoot} from './SwapiRoot.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -62,15 +63,12 @@ export class SwapiService {
     map((r: PeopleRoot) => r.results),
 
     // scan to accumulate the pages (emitted by expand)
-    reduce<Person[]>(
-      (allPeople, pageOfPeople) => allPeople.concat(pageOfPeople),
-      []
-    ),
+    reduce<Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), []),
 
     map(persons =>
       persons.map(
         /** add a real random date to the persons */
-        p => ({ ...p, date: getRandomDateInPast(), id: p.url } as Person)
+        p => ({...p, date: getRandomDateInPast(), id: p.url} as Person)
       )
     ),
 
@@ -84,12 +82,10 @@ export class SwapiService {
       map(list => list[id]),
       filter(Boolean),
       take(1)
-    );
+    ) as Observable<Person>;
 
   /** load all the films (deprecated) */
-  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(
-    shareReplay(1)
-  );
+  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(shareReplay(1));
 
   /** helper to fetch all the page of an swapi root endpoint */
   getAllPagedData(url): Observable<any> {
@@ -104,7 +100,7 @@ export class SwapiService {
 
   /** helper to fetch Count random person(s), that has also some loaded films in there */
   getRandomPerson = (count = 1): Observable<Person> =>
-    from(Array.from({ length: count })).pipe(
+    from(Array.from({length: count})).pipe(
       concatMap(() =>
         this.swPeople$.pipe(
           map(list => {
@@ -115,7 +111,7 @@ export class SwapiService {
           mergeMap(data =>
             concat(...data.films.map(film => this.findFilmByUrl(film))).pipe(
               toArray(),
-              map(films => ({ ...data, films }))
+              map(films => ({...data, films}))
             )
           )
         )
@@ -174,7 +170,7 @@ export class SwapiService {
     /**
      * Helper to create an observable<{propname:value}> for each property
      */
-    const keyHandler = (propName:string) => {
+    const keyHandler = (propName: string) => {
       const value = rec[propName];
       if (Array.isArray(value) && value.length > 0) {
         /** make an observable from the array in the current prop */
@@ -184,18 +180,16 @@ export class SwapiService {
           /** combine the array of observables to an array */
           toArray(),
           /** make it into an object that has the props name, and the result */
-          map(arr => ({ [propName]: arr }))
+          map(arr => ({[propName]: arr}))
         );
       }
       if (typeof value === 'string') {
         /** is it an url from a known set? */
         const subSet = this.detectSet(value);
         /** yes? load it from the set, otherwise just return the value */
-        return (subSet ? this.get(value) : of(value)).pipe(
-          map(x => ({ [propName]: x }))
-        );
+        return (subSet ? this.get(value) : of(value)).pipe(map(x => ({[propName]: x})));
       }
-      return of(value).pipe(map(x => ({ [propName]: x })));
+      return of(value).pipe(map(x => ({[propName]: x})));
     };
 
     return this.swapiRoot$.pipe(
@@ -204,7 +198,7 @@ export class SwapiService {
       /** flatten the array of observables into results */
       concatAll(),
       /** reduce all the results back into 1 object */
-      reduce((combine, res) => ({ ...combine, ...res }), {} as T),
+      reduce((combine, res) => ({...combine, ...res}), {} as T),
       /** complete and emit an empty result if there is an error */
       catchError((e: Error) => {
         console.warn(e);
@@ -219,7 +213,8 @@ export class SwapiService {
    */
   getAllRows(selectedSet: keyof SwapiRoot) {
     /** get all pages for this set */
-    return this.getAllPagedData(this.swapiRoot[selectedSet]).pipe(
+    return this.swapiRoot$.pipe(
+      switchMap(() => this.getAllPagedData(this.swapiRoot[selectedSet])),
       /** extract the results out of every page */
       map(resultSet => resultSet.results),
       /** combine them all into a single array */
@@ -236,11 +231,7 @@ export class SwapiService {
   findIn = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
     this.getAllRows(selectedSet).pipe(
       map(list =>
-        list.find(row =>
-          (row.name || row.title || '')
-            .toLowerCase()
-            .includes(nameOrTitle.toLowerCase().trim())
-        )
+        list.find(row => (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim()))
       )
     );
 
@@ -250,9 +241,7 @@ export class SwapiService {
    */
   detectSet(url) {
     if (typeof url === 'string') {
-      const entry = Object.entries(this.swapiRoot).find(
-        ([setName, setBaseUrl]) => url.includes(setBaseUrl)
-      );
+      const entry = Object.entries(this.swapiRoot).find(([setName, setBaseUrl]) => url.includes(setBaseUrl));
       return entry && ((entry[0] as unknown) as keyof SwapiRoot);
     }
   }
