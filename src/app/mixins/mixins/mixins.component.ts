@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-  seAfterContentChecked$,
-  seOnDestroy$,
-  seOnInit$
+  seAfterContentChecked,
+  seOnDestroy,
+  seOnInit
 } from '@se-ng/observable-hooks';
 import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -12,8 +12,8 @@ import { switchMap, tap } from 'rxjs/operators';
   templateUrl: './mixins.component.html',
   styles: []
 })
-export class MixinsComponent extends seOnDestroy$(
-  seOnInit$(seAfterContentChecked$())
+export class MixinsComponent extends seOnDestroy(
+  seOnInit(seAfterContentChecked())
 ) {
   /**
    * in this component, the life-cycle hooks are

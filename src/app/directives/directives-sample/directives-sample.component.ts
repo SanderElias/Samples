@@ -1,5 +1,5 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
-import { seAfterContentInit$ } from '@se-ng/observable-hooks/bundles/se-ng-observable-hooks.umd';
+import { seAfterContentInit } from '@se-ng/observable-hooks/bundles/se-ng-observable-hooks.umd';
 import { map } from 'rxjs/operators';
 import { IdDirective } from '../id.directive';
 
@@ -8,7 +8,7 @@ import { IdDirective } from '../id.directive';
   templateUrl: './directives-sample.component.html',
   styles: []
 })
-export class DirectivesSampleComponent extends seAfterContentInit$() {
+export class DirectivesSampleComponent extends seAfterContentInit() {
   @ViewChildren(IdDirective) ids: QueryList<IdDirective>;
 
   ids$ = this.seAfterContentInit$.pipe(
