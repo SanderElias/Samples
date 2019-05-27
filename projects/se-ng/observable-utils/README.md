@@ -30,6 +30,6 @@ export class DemoComponent  {
 
   async modifyCounterWith(delta:number) {
     const oldval = this.getState('counter')
-    setState('counter', oldVal+delta)
+    this.setState('counter', oldVal+delta)
   }
 ```
