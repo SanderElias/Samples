@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {SwapiService, SpaceShip} from '@se-ng/swapi';
-import {seOnInit, seOnDestroy} from '@se-ng/observable-hooks';
-import {switchMap, shareReplay, map, startWith, tap} from 'rxjs/operators';
-import {modelFromLatest} from '../../../../src/utils/modelFromLatest';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
+import { modelFromLatest } from '@se-ng/observable-utils';
+import { SpaceShip, SwapiService } from '@se-ng/swapi';
+import { Observable } from 'rxjs';
+import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lifeycle-hooks-sample',
@@ -17,10 +17,10 @@ export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy()) {
 
   starships$: Observable<SpaceShip[]> = this.seOnInit$.pipe(
     switchMap(() => this.swapi.getAllRows('starships')),
-    shareReplay({refCount: true, bufferSize: 1})
+    shareReplay({ refCount: true, bufferSize: 1 })
   );
 
-  filteredShips$ = modelFromLatest({ships: this.starships$, s: this.searchText$}).pipe(
+  filteredShips$ = modelFromLatest({ ships: this.starships$, s: this.searchText$ }).pipe(
     map(data => data.ships.filter(row => row.name.includes(data.s))),
     tap(ships => console.log(ships))
   );
@@ -34,5 +34,4 @@ export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy()) {
   constructor(private swapi: SwapiService) {
     super();
   }
-
 }

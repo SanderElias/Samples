@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, concat, EMPTY, of } from 'rxjs';
 import { catchError, debounceTime, take, tap } from 'rxjs/operators';
-import { createGetStateMethod } from '../../../../src/utils/getStateMethodCreator';
-import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
+import { createGetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/getStateMethodCreator';
+import { createSetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/setStateMethodCreator';
 // tslint:disable: member-ordering
 
 /** lets define everything we need */
