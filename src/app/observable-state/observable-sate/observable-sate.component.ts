@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, concat, EMPTY, of } from 'rxjs';
-import { debounceTime, tap, concatAll, catchError, take } from 'rxjs/operators';
+import { catchError, debounceTime, take, tap } from 'rxjs/operators';
 import { createGetStateMethod } from '../../../../src/utils/getStateMethodCreator';
 import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
-import { HttpClient } from '@angular/common/http';
 // tslint:disable: member-ordering
 
 /** lets define everything we need */

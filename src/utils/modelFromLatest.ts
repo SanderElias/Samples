@@ -16,4 +16,10 @@ export function modelFromLatest<T>(vmBase: {[P in keyof T]: Observable<T[P]>}): 
 }
 
 
-
+const demo$ = modelFromLatest({
+  one: of(1),
+  two: of('jj'),
+  sub: modelFromLatest({
+    tree: of(false)
+  })
+})
