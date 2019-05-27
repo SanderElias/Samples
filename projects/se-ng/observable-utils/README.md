@@ -2,14 +2,22 @@
 
 My observable helpers.
 
-# ModelFromLatest
+## ModelFromLatest
 
 A easy way to create a observable model. It replaces `combineLatest([a,b]).map(([a,b])=>({a,b}))`
 It removes the duplications from that, and makes sure typing flow correctly.
 
-# createGetStateMethod and createSetStateMethod
+```typescript
+const invoice$ = modelFromLatest<testModel>({
+  customer: customer$,
+  invoiceHeader: ivh$,
+  invoiceLines: ivh$.pipe(switchmap(ivh => this.loadLines(ivh.id)))
+});
+```
 
-Helper functions for setting properties inside an replay/behaviour subject in a component.
+## createGetStateMethod and createSetStateMethod
+
+Helper functions for setting properties inside an replay/behavior subject in a component.
 
 ```typescript
 export class DemoComponent  {
@@ -21,8 +29,7 @@ export class DemoComponent  {
   getState = createGetStateMethod(this.state$)
 
   async modifyCounterWith(delta:number) {
-    const oldval = this.getStat('counter')
+    const oldval = this.getState('counter')
     setState('counter', oldVal+delta)
   }
 ```
-

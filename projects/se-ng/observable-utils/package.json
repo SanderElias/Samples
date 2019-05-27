@@ -1,12 +1,12 @@
 {
   "name": "@se-ng/observable-utils",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "publisher": "Sander Elias",
   "private": false,
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SanderElias/Samples"
+    "url": "https://github.com/SanderElias/Samples/tree/master/projects/se-ng/observable-utils"
   },
   "peerDependencies": {
     "rxjs": ">5.5"
