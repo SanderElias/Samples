@@ -1,0 +1,12 @@
+<ng-container *ngIf="viewModel$ | async as vm ; else loading">
+  <input type="text" [formControl]="search">
+
+  <ul>
+    <li *ngFor="let ship of (vm.search==='' ? vm.allShips : vm.result)">{{ship.name}}</li>
+  </ul>
+
+</ng-container>
+<ng-template #loading>
+  <div>Loading...</div>
+
+</ng-template>

@@ -10,7 +10,8 @@ import {
   OnInit,
   SimpleChanges
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
+
 export type Constructor<T = {}> = new (...args: any[]) => T;
 
 const _acc = Symbol('_acc');
@@ -20,30 +21,25 @@ const _avi = Symbol('_avi');
 const _dc = Symbol('_dc');
 const _oc = Symbol('_oc');
 const _oi = Symbol('_oi');
-const _destroy = Symbol('_destroy');
-
-interface HooksMixin {
-  // tslint:disable-next-line:callable-types
-  <T extends Constructor>(base: T): T;
-}
+const _od = Symbol('_od');
 
 /**
  * extends component with an observable seOnDestroy$ lifecycle hook
  */
-export const seOnDestroy$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seOnDestroy = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements OnDestroy {
-    [_destroy] = new Subject<void>();
+    [_od] = new Subject<void>();
     /** observable that emits once on destroy */
-    seOnDestroy$ = this[_destroy].asObservable();
+    seOnDestroy$ = this[_od].asObservable();
     ngOnDestroy() {
       super['ngOnDestroy'] && super['ngOnDestroy']();
-      this[_destroy].next();
-      this[_destroy].complete();
+      this[_od].next();
+      this[_od].complete();
     }
   };
 
 /** extends component with an observable seAfterContentChecked$ lifecycle hook */
-export const seAfterContentChecked$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterContentChecked = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements AfterContentChecked, OnDestroy {
     [_acc] = new Subject<void>();
     /** Observable that emits when content is checked */
@@ -59,9 +55,9 @@ export const seAfterContentChecked$ = <T extends Constructor>(base: T = class {}
   };
 
 /** extends component with an observable seAfterContentInit$ lifecycle hook */
-export const seAfterContentInit$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterContentInit = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements AfterContentInit {
-     [_aci] = new Subject<void>();
+    [_aci] = new Subject<void>();
     /** `Observable<void>` that emits once and completes afer content init */
     seAfterContentInit$ = this[_aci].asObservable();
     ngAfterContentInit(): void {
@@ -75,9 +71,9 @@ export const seAfterContentInit$ = <T extends Constructor>(base: T = class {} as
   };
 
 /** extends component with an observable seAfterViewChecked$ lifecycle hook */
-export const seAfterViewChecked$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterViewChecked = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements AfterViewChecked, OnDestroy {
-     [_avc] = new Subject<void>();
+    [_avc] = new Subject<void>();
     /** observable that emits after the view is checked */
     seAfterViewChecked$ = this[_avc].asObservable();
     ngAfterViewChecked(): void {
@@ -91,7 +87,7 @@ export const seAfterViewChecked$ = <T extends Constructor>(base: T = class {} as
   };
 
 /** extends component with an observable seAfterViewInit$ lifecycle hook */
-export const seAfterViewInit$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterViewInit = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements AfterViewInit {
     [_avi] = new Subject<void>();
     /** observable that emits and completes after view init */
@@ -108,9 +104,9 @@ export const seAfterViewInit$ = <T extends Constructor>(base: T = class {} as T)
   };
 
 /** extends component with an observable seDoCheck$ lifecycle hook */
-export const seDoCheck$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seDoCheck = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements DoCheck, OnDestroy {
-     [_dc] = new Subject<void>();
+    [_dc] = new Subject<void>();
     /** observable that hits on every round of change detection */
     seDoCheck$ = this[_dc].asObservable();
     ngDoCheck(): void {
@@ -124,14 +120,14 @@ export const seDoCheck$ = <T extends Constructor>(base: T = class {} as T) =>
   };
 
 /** extends component with an observable seOnChanges$ lifecycle hook */
-export const seOnChanges$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seOnChanges = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements OnChanges, OnDestroy {
-     [_oc] = new Subject<SimpleChanges>();
+    [_oc] = new Subject<SimpleChanges>();
     /** observable that fires on changes with a payload of SimpleChanges */
     seOnChanges$ = this[_oc].asObservable();
     ngOnChanges(changes: SimpleChanges): void {
+      super['ngOnChanges'] && super['ngOnChanges'](changes);
       this[_oc].next(changes);
-      super['ngOnChanges'] && super['ngOnChanges']();
     }
     ngOnDestroy() {
       this[_oc].complete();
@@ -140,7 +136,7 @@ export const seOnChanges$ = <T extends Constructor>(base: T = class {} as T) =>
   };
 
 /** extends component with an observable seOnInit$ lifecycle hook */
-export const seOnInit$ = <T extends Constructor>(base: T = class {} as T) =>
+export const seOnInit = <T extends Constructor>(base: T = class {} as T) =>
   class extends base implements OnInit {
     [_oi] = new Subject<void>();
     /** `Observable<void>` that emites and completes on init. */

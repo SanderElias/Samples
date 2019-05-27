@@ -6,7 +6,7 @@ import { Subject, ReplaySubject, BehaviorSubject } from 'rxjs';
  * that allows you to set an individual property on the state observable
  */
 export function createSetStateMethod<T>(
-  state$: Subject<T> | ReplaySubject<T> | BehaviorSubject<T>
+  state$: ReplaySubject<T> | BehaviorSubject<T>
 ) {
   /**
    * A state helper method that allows you to easily update the state with

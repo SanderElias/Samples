@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
  * a promise that will resolve to the current property on the state
  */
 export function createGetStateMethod<T>(
-  state$: Subject<T> | ReplaySubject<T> | BehaviorSubject<T>
+  state$:  ReplaySubject<T> | BehaviorSubject<T>
 ) {
   /** getState lets you pull an property out. use it in async functions */
   return async function getState<K extends keyof T>(prop: K): Promise<T[K]> {
