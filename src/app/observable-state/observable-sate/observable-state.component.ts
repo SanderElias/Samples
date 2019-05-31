@@ -55,7 +55,7 @@ export class ObservableStateComponent implements OnInit {
   viewModel$ = this.state$.pipe(
     debounceTime(5), // <== don't refire on "sync" state changes.
     /** use side-effect to check the state */
-    tap(state => this.checkState(state)),
+    tap(state => this.checkState()),
     /** another side effect to update the messgage */
     tap(this.updateMessage)
   );
@@ -70,8 +70,8 @@ export class ObservableStateComponent implements OnInit {
    * I need multiple things form the state here,
    * so, here I'm using destructuring on the complete state
    */
-  async checkState(state: LocalState) {
-    const { count, min, max, overMax, underMin } = state;
+  async checkState() {
+    const { count, min, max, overMax, underMin } = await this.getState();
     /** use my helper to update the state */
     if (count > max !== overMax) {
       this.setState('overMax', count > max);
@@ -96,6 +96,7 @@ export class ObservableStateComponent implements OnInit {
   async down() {
     const count = await this.getState('count');
     this.setState('count', count - 1);
+    this.setState({min:3, max:5})
   }
 
   ngOnInit() {}
