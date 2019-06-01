@@ -14,7 +14,7 @@ export class AppComponent implements AfterContentInit {
   /** the 'input' element that toggles the menu */
   checked: HTMLInputElement;
   /** a setter function to hook up the above */
-  @ViewChild('menuToggle') set _toggle(x: ElementRef) {
+  @ViewChild('menuToggle', { static: true }) set _toggle(x: ElementRef) {
     if (x && !this.checked) {
       this.checked = x.nativeElement as HTMLInputElement;
     }

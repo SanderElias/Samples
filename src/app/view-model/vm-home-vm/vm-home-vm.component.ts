@@ -19,9 +19,9 @@ interface Vm {
 })
 export class VmHomeVmComponent implements OnInit {
   init$ = new Subject<void>();
-  @ViewChild('ba', { read: ElementRef }) ba;
-  @ViewChild('bq', { read: ElementRef }) bq;
-  @ViewChild('speed', { read: ElementRef }) speedRef;
+  @ViewChild('ba', { read: ElementRef, static: false }) ba;
+  @ViewChild('bq', { read: ElementRef, static: false }) bq;
+  @ViewChild('speed', { read: ElementRef, static: false }) speedRef;
 
   art$ = this.raki.randomImage$.pipe(filter(Boolean));
 
