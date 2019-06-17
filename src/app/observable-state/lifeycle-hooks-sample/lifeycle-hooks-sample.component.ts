@@ -34,5 +34,25 @@ export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy()) {
   constructor(private swapi: SwapiService) {
     super();
   }
-
 }
+
+// @Component({})
+// export class SomeLifeCycleHooksSampleComponent extends seOnInit(seOnDestroy()) {
+//   /** collect startships on init. */
+//   starShips$: Observable<SpaceShip[]> = this.seOnInit$.pipe(
+//     switchMap(() => this.swapi.getAllRows('starships')),
+//     shareReplay({refCount: true, bufferSize: 1})
+//   );
+
+//   starShipSub = this.starShips$.subscribe(data => console.table(data));
+
+//   constructor(private swapi: SwapiService) {
+//     super();
+
+//     /** yes this is safe to do in but, don't subscribe in a controller! */
+//     this.seOnDestroy$.subscribe(() => {
+//       console.log('cleaning up house');
+//       this.starShipSub.unsubscribe();
+//     });
+//   }
+// }
