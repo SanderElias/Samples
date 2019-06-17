@@ -32,3 +32,16 @@ export function modelFromLatest<T>(modelBase: {[P in keyof T]: Observable<T[P]>}
     )
   );
 }
+
+/**
+ * Sample usage:
+ *
+   const demo$ = modelFromLatest({
+     one: of(1),
+     two: of('jj'),
+     sub: modelFromLatest({
+       tree: of(false)
+     })
+   })
+ *
+ */

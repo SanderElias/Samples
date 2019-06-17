@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, pluck } from 'rxjs/operators';
 import { DemoUserService } from '../../../../src/app/demo-users.service';
-import { modelFromLatest } from '../../../../src/utils/modelFromLatest';
-import { createSetStateMethod } from '../../../../src/utils/setStateMethodCreator';
+import { modelFromLatest } from '../../../../projects/se-ng/observable-utils/src/lib/modelFromLatest';
+import { createSetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/setStateMethodCreator';
 
 @Component({
   selector: 'app-demo-user',

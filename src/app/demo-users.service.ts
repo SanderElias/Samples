@@ -1,17 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Chance } from 'chance';
 import { merge, of, Subject, timer } from 'rxjs';
-import {
-  first,
-  map,
-  mergeMap,
-  shareReplay,
-  take,
-  tap,
-  debounceTime,
-  throttleTime
-} from 'rxjs/operators';
-import { modelFromLatest } from '../../src/utils/modelFromLatest';
+import { first, map, mergeMap, shareReplay, take, tap } from 'rxjs/operators';
 
 const change = new Chance();
 
@@ -46,7 +36,7 @@ export class DemoUserService {
   /** get the initial users from the network, and then merge in the updates */
   allUsers$ = this.flush$.pipe(
     // use switchMap to replace the 'flush' with an http.xxx
-    mergeMap(() => merge(of([] as DemoUser[]), this.updatedUsers$)),
+    mergeMap(() =>  this.updatedUsers$),
     // use shareReplay to 'cache' the data. (note: only when you need an cache!)
     shareReplay({ bufferSize: 1, refCount: false })
   );
@@ -118,7 +108,7 @@ export class DemoUserService {
     timer(0, 250)
       .pipe(
         tap(() => this.addUsers(change.integer({ min: 100, max: 400 }))),
-        take(40)
+        take(20)
       )
       .subscribe();
   }
@@ -144,7 +134,7 @@ function fakeUser() {
 //   user: u.users$
 // })
 //   .pipe(
-//     throttleTime(1000),
+//     throttleTime(100),
 //     tap(
 //       r => console.log(r.all.length, r.user.length, r.admin.length),
 //       e => console.log(e)
