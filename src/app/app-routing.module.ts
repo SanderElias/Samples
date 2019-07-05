@@ -6,40 +6,40 @@ const routes: Routes = [
   {
     path: 'filterSamp',
     loadChildren:
-      '../../src/app/filter-samp/filter-samp.module#FilterSampModule'
+      () => import('../../src/app/filter-samp/filter-samp.module').then(m => m.FilterSampModule)
   },
   {
     path: 'modalSamp',
-    loadChildren: '../../src/app/modal-samp/modal-samp.module#ModalSampModule'
+    loadChildren: () => import('../../src/app/modal-samp/modal-samp.module').then(m => m.ModalSampModule)
   },
   {
     path: 'mixinSamp',
-    loadChildren: '../../src/app/mixins/mixins.module#MixinsModule'
+    loadChildren: () => import('../../src/app/mixins/mixins.module').then(m => m.MixinsModule)
   },
   {
     path: 'htmlLoad',
-    loadChildren: '../../src/app/html-load/html-load.module#HtmlLoadModule'
+    loadChildren: () => import('../../src/app/html-load/html-load.module').then(m => m.HtmlLoadModule)
   },
   {
     path: 'requiredAttributes',
     loadChildren:
-      '../../src/app/required-attributes/required-attributes.module#RequiredAttributesModule'
+      () => import('../../src/app/required-attributes/required-attributes.module').then(m => m.RequiredAttributesModule)
   },
   {
     path: 'viewModel',
-    loadChildren: '../../src/app/view-model/view-model.module#ViewModelModule'
+    loadChildren: () => import('../../src/app/view-model/view-model.module').then(m => m.ViewModelModule)
   },
   {
     path: 'complexAPI',
     loadChildren:
-      '../../src/app/complex-api/complex-api.module#ComplexAPIModule'
+      () => import('../../src/app/complex-api/complex-api.module').then(m => m.ComplexAPIModule)
   },
   {
     path: 'observableState',
     loadChildren:
-      '../../src/app/observable-state/observable-state.module#ObservableStateModule'
+      () => import('../../src/app/observable-state/observable-state.module').then(m => m.ObservableStateModule)
   },
-  { path: 'DirectiveSamp', loadChildren: '../../src/app/directives/directives.module#DirectivesModule' },
+  { path: 'DirectiveSamp', loadChildren: () => import('../../src/app/directives/directives.module').then(m => m.DirectivesModule) },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: 'observableState' }
 ];
