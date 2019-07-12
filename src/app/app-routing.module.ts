@@ -35,13 +35,18 @@ const routes: Routes = [
       () => import('../../src/app/complex-api/complex-api.module').then(m => m.ComplexAPIModule)
   },
   {
+    path: 'pokeAPI',
+    loadChildren:
+      () => import('../../src/app/poke-api/poke-api.module').then(m => m.PokeApiModule)
+  },
+  {
     path: 'observableState',
     loadChildren:
       () => import('../../src/app/observable-state/observable-state.module').then(m => m.ObservableStateModule)
   },
   { path: 'DirectiveSamp', loadChildren: () => import('../../src/app/directives/directives.module').then(m => m.DirectivesModule) },
   { path: 'home', component: HomeComponent },
-  { path: '**', redirectTo: 'observableState' }
+  { path: '**', redirectTo: 'pokeAPI' }
 ];
 
 @NgModule({
