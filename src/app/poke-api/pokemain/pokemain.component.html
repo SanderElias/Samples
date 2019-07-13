@@ -1,1 +1,12 @@
 <p>pokemain works!</p>
+
+
+<button #save (click)='save.goSave=true'>Save</button>
+<ng-container *ngIf="save.goSave">
+  <span *ngIf="fakePost$|async else busy">Saved</span>
+
+  <ng-template #busy>
+      <span>Saving</span>
+  </ng-template>
+</ng-container>
+
