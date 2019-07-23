@@ -1,0 +1,88 @@
+<svg
+  aria-label="Calendar"
+  role="img"
+  viewBox="0 0 512 512"
+>
+  <defs>
+    <clipPath id="c">
+      <rect
+        width="512"
+        height="512"
+        rx="15%"
+      />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect
+      width="512"
+      height="512"
+      fill="#dee"
+    />
+    <rect
+      width="512"
+      height="180"
+      fill="#d34"
+    />
+  </g>
+  <g id="b">
+    <circle
+      fill="#eab"
+      cx="384"
+      cy="100"
+      r="14"
+      id="a"
+    />
+        <circle
+      fill="#eab"
+      cx="428"
+      cy="100"
+      r="14"
+      id="a"
+    />
+    <circle
+      fill="#eab"
+      cx="470"
+      cy="100"
+      r="14"
+      id="a"
+    />
+    <circle
+      fill="#eab"
+      cx="384"
+      cy="143"
+      r="14"
+      id="a"
+    />
+        <circle
+      fill="#eab"
+      cx="428"
+      cy="143"
+      r="14"
+      id="a"
+    />
+    <circle
+      fill="#eab"
+      cx="470"
+      cy="143"
+      r="14"
+      id="a"
+    />
+  </g>
+<text
+    font-size="64"
+    x="256"
+    y="480"
+    id="w"
+  >{{day}}</text><text
+    fill="#fff"
+    font-size="140"
+    x="140"
+    y="164"
+    id="m"
+  >{{month}}</text><text
+    font-size="256"
+    x="256"
+    y="400"
+    id="d"
+  >{{dim}}</text>
+</svg>
