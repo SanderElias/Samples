@@ -1,29 +1,7 @@
 import {Component, Input} from '@angular/core';
+import { weekDayNames, monthNames } from 'src/app/util/daysandmonthsnames';
 
-const shortMonths = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
 
-const weekDay = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
 
 @Component({
   selector: 'app-svg-calender',
@@ -57,8 +35,10 @@ export class SvgCalenderComponent {
 
   splitDate(d = new Date()) {
     console.log('set', d);
-    this.month = shortMonths[d.getMonth()].toUpperCase();
+    this.month = monthNames[d.getMonth()].toUpperCase();
     this.dim = d.getDate();
-    this.day = weekDay[d.getDay()];
+    this.day = weekDayNames[d.getDay()];
   }
 }
+
+
