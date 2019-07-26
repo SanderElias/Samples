@@ -1,4 +1,4 @@
-# Observable-Utils
+# @se-ng/Observable-Utils
 
 My observable helpers.
 
