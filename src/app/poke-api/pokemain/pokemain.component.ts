@@ -11,14 +11,10 @@ import { timer } from 'rxjs';
 export class PokeMainComponent implements OnInit {
   fakePost$ = timer(1500).pipe(
     tap(() => console.log('done')),
-    map(() => true)
+    map(() => 'hello world')
   );
 
   constructor(private pa: PokeApiService) {}
-
-  fakePost() {
-    return timer(1500);
-  }
 
   ngOnInit() {
     console.log('pokeMain');
