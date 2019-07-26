@@ -7,12 +7,10 @@ Helper structural directive to make it easier to use observables in your view wh
 <ng-container *ngIf="someObservable$ | async as some">...</ng-container>
 
 
+<ng-container *seLet="someObservable$ let some">...</ng-container>
+<!-- Or: -->
 <ng-container *seLet="let some observe someObservable$">...</ng-container>
-
 ```
 
 Accepts everything. If it gets a observable it will subscribe to it. (and unsubscribe on destroy!), otherwise it will just assign.
-
-
-
 

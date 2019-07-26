@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --port 4301 --ssl",
     "build": "ng build",
-    "build.lib": "ng build @se-ng/swapi && ng build @se-ng/observable-hooks && ng build @se-ng/observable-utils",
+    "build.lib": "ng build @se-ng/swapi && ng build @se-ng/observable-hooks && ng build @se-ng/observable-utils && ng build @se-ng/let",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
