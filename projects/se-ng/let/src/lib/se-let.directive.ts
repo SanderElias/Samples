@@ -1,6 +1,15 @@
 // tslint:disable: no-unused-expression
-import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { isObservable, Observable, Subscription } from 'rxjs';
+import {
+  Directive,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+  ChangeDetectorRef
+} from '@angular/core';
+import { isObservable, Subscriber, Subscription, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Directive({
   // tslint:disable-next-line: directive-selector
@@ -25,7 +34,7 @@ export class SeLetDirective<T> implements OnInit, OnDestroy {
   assign(value: Observable<T> | unknown) {
     this.sub && this.sub.unsubscribe();
     if (isObservable(value)) {
-      this.sub = value.subscribe((data: T) => {
+      this.sub = value.pipe(tap(() => this.cdr.markForCheck())).subscribe((data: T) => {
         this.context.$implicit = data;
         this.context.seLet = data;
       });
@@ -35,7 +44,11 @@ export class SeLetDirective<T> implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef,
+    private cdr: ChangeDetectorRef
+  ) {
     this.assign = this.assign.bind(this);
   }
 

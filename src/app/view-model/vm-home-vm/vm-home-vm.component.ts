@@ -1,8 +1,23 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { combineLatest, fromEvent, NEVER, of, Subject, timer } from 'rxjs';
-import { filter, map, pluck, scan, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { RakiService } from '../../../app/rijks/raki.service';
-import { Quote, QuoteService } from '../quote/quote.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChildren,
+} from '@angular/core';
+import {combineLatest, NEVER, Observable, of, timer} from 'rxjs';
+import {
+  filter,
+  map,
+  pluck,
+  scan,
+  startWith,
+  switchMap,
+  tap,
+  shareReplay,
+} from 'rxjs/operators';
+import {RakiService} from '../../../app/rijks/raki.service';
+import {Quote, QuoteService} from '../quote/quote.service';
+import {ObsFromEvent} from '../vm-home/ObsFromEvent';
 
 interface Vm {
   art: string;
@@ -15,32 +30,43 @@ interface Vm {
 @Component({
   selector: 'vm-home-vm',
   templateUrl: './vm-home-vm.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VmHomeVmComponent implements OnInit {
-  init$ = new Subject<void>();
-  @ViewChild('ba', { read: ElementRef, static: false }) ba;
-  @ViewChild('bq', { read: ElementRef, static: false }) bq;
-  @ViewChild('speed', { read: ElementRef, static: false }) speedRef;
+export class VmHomeVmComponent {
+  @ObsFromEvent('click')
+  @ViewChildren('ba', {read: ElementRef})
+  artClick$: Observable<Event>;
+
+  /** create observable with clicks from viewChildren */
+  @ObsFromEvent('click')
+  @ViewChildren('bq', {read: ElementRef})
+  quoteClick$: Observable<Event>;
+
+  @ObsFromEvent('change')
+  @ViewChildren('speed', {read: ElementRef})
+  speedChange$: Observable<Event>;
 
   art$ = this.raki.randomImage$.pipe(filter(Boolean));
 
-  /** use helpers to get obsevables from user events */
-  baClicks$ = this.refClickToggle('ba');
-  bqClicks$ = this.refClickToggle('bq');
-  speed$ = this.refEvent('speedRef', 'change').pipe(
+  baClicks$ = this.toToggleStream(this.artClick$);
+  bqClicks$ = this.toToggleStream(this.quoteClick$);
+
+  speed$ = this.speedChange$.pipe(
     /** read teh value out of the event */
     pluck('target', 'value'),
     /** cast to number */
     map(x => +x),
-    /** set a strt speed */
+    /** set a start speed */
     startWith(3.5),
     /** log so we can see when an event is triggered */
     tap(r => console.log('speed', r)),
+    // shareReplay({bufferSize: 1, refCount: true})/
   );
 
   quote$ = this.speed$.pipe(
-    switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean)))
+    switchMap(seconds =>
+      this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))
+    )
   );
 
   /** helpers to handle pausing */
@@ -76,7 +102,7 @@ export class VmHomeVmComponent implements OnInit {
       countDown,
       baToggle,
       bqToggle,
-      speed
+      speed,
     }))
     /** log the changes, so we can see what's happening */
     // tap(viewModel => console.log('ViewModel:', viewModel))
@@ -85,41 +111,17 @@ export class VmHomeVmComponent implements OnInit {
   constructor(private raki: RakiService, private q: QuoteService) {}
 
   /**
-   * helper, takes a click event,
+   * helper, takes a event observable,
    * change it to a toggling stream of booleans
    */
-  refClickToggle(name: string) {
-    return this.refEvent(name, 'click').pipe(
+  toToggleStream(o: Observable<Event>) {
+    return o.pipe(
       /** on every msg toggle, start of with true */
       scan(acc => !acc, false),
       /** make sure the stream starts */
       startWith(false),
       /** log to console so we can see what's happening */
-      tap(r => console.log("clicked",name, r)),
+      tap(r => console.log('clicked', name, r))
     );
-  }
-
-  /** Helper to turn a viewchild into an event */
-  refEvent(name: string, eventName: string) {
-    /** wait for init */
-    return this.init$.pipe(
-      /** repeat */
-      switchMap(() => timer(10, 100)),
-      /** until the view provides the child */
-      switchMap(() => (this[name] ? of(this[name]) : NEVER)),
-      /** "stop" the timer loop */
-      take(1),
-      /** create the event lister */
-      switchMap(() => fromEvent(this[name].nativeElement, eventName)),
-    );
-  }
-
-  ngOnInit() {
-    console.log('init fired');
-    /**
-     * Lift the init to the next cycle. That way all the UI elements are in place
-     * and available to the refEvent helper
-     */
-    setTimeout(() => (this.init$.next(), this.init$.complete()), 10);
   }
 }

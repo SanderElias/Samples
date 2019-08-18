@@ -23,6 +23,7 @@ export class APISampleComponent implements AfterViewInit {
   );
 
   /** combine all of the above into a resulting record for the view */
+  // tslint:disable-next-line: deprecation
   result$ = combineLatest(
     /** act on changes in the set/table */
     this.chosenSet.valueChanges,
@@ -34,7 +35,7 @@ export class APISampleComponent implements AfterViewInit {
     )
   ).pipe(
     /** load the raw data from the API */
-    switchMap(([setname, name]) => this.sw.findIn(setname, name)),
+    switchMap(([setname, name]:[any,string]) => this.sw.findIn(setname, name)),
     /** don't let empty results in */
     filter(Boolean),
     /** use a side-effect to store the raw data */

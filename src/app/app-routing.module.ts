@@ -79,7 +79,7 @@ const routes: Routes = [
       ),
   },
   {path: 'home', component: HomeComponent},
-  {path: '**', redirectTo: 'pokeAPI'},
+  {path: '**', redirectTo: 'viewModel/theBad'},
 ];
 
 @NgModule({
