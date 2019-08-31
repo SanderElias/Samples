@@ -1,5 +1,6 @@
 import { ElementRef, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 const EventStream = Symbol('ObsFromEvent');
 
@@ -9,7 +10,7 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(
   return (target: any, propertyKey: string | symbol) => {
     return {
       get() {
-        return fetchSubject(this, propertyKey).asObservable();
+        return fetchSubject(this, propertyKey).pipe(debounceTime(4));
       },
       set(ql: QueryList<ElementRef>) {
         if (!(ql instanceof QueryList)) {
