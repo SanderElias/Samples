@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
+import { map, mapTo } from 'rxjs/operators';
 
 const routes: Routes = [
   {
@@ -78,8 +79,12 @@ const routes: Routes = [
         m => m.SvgCalendarModule
       ),
   },
+  {
+    path: 'testOb',
+    loadChildren: () => import('../../src/app/test/test.module').then(module => module.TestModule)
+  },
   {path: 'home', component: HomeComponent},
-  {path: '**', redirectTo: 'viewModel/theBad'},
+  {path: '**', redirectTo: 'testOb'},
 ];
 
 @NgModule({
