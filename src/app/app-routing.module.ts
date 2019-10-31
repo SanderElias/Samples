@@ -1,11 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import { map, mapTo } from 'rxjs/operators';
+import {map, mapTo} from 'rxjs/operators';
 
 const routes: Routes = [
   {
     path: 'filterSamp',
+    data: {
+      completeStatic: true,
+      listOrigin: 'https://jsonplaceholder.typicode.com/users',
+    },
     loadChildren: () =>
       import('../../src/app/filter-samp/filter-samp.module').then(
         m => m.FilterSampModule
@@ -81,7 +85,10 @@ const routes: Routes = [
   },
   {
     path: 'testOb',
-    loadChildren: () => import('../../src/app/test/test.module').then(module => module.TestModule)
+    loadChildren: () =>
+      import('../../src/app/test/test.module').then(
+        module => module.TestModule
+      ),
   },
   {path: 'home', component: HomeComponent},
   {path: '**', redirectTo: 'testOb'},

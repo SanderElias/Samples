@@ -3,8 +3,11 @@ import {
   Component,
   ElementRef,
   ViewChildren,
+  QueryList,
+  ViewChild,
+  OnInit,
 } from '@angular/core';
-import {combineLatest, NEVER, Observable, of, timer} from 'rxjs';
+import {combineLatest, NEVER, Observable, of, timer, fromEvent} from 'rxjs';
 import {
   filter,
   map,
@@ -14,10 +17,14 @@ import {
   switchMap,
   tap,
   shareReplay,
+  debounceTime,
+  distinct,
+  distinctUntilChanged,
 } from 'rxjs/operators';
 import {RakiService} from '../../../app/rijks/raki.service';
 import {Quote, QuoteService} from '../quote/quote.service';
 import {ObsFromEvent} from '../vm-home/ObsFromEvent';
+import {modelFromLatest} from '@se-ng/observable-utils';
 
 interface Vm {
   art: string;
@@ -33,6 +40,7 @@ interface Vm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VmHomeVmComponent {
+  private viewModal: Vm;
   @ObsFromEvent('click')
   @ViewChildren('ba', {read: ElementRef})
   artClick$: Observable<Event>;
@@ -59,7 +67,7 @@ export class VmHomeVmComponent {
     /** set a start speed */
     startWith(3.5),
     /** log so we can see when an event is triggered */
-    tap(r => console.log('speed', r)),
+    tap(r => console.log('speed', r))
     // shareReplay({bufferSize: 1, refCount: true})/
   );
 
@@ -88,24 +96,37 @@ export class VmHomeVmComponent {
    * As an added bonus, this also enables the way to introduce a loading indicator
    * The big upside is the handling in the template, so take a look there.
    */
-  vm$ = combineLatest(
-    this.pausedArt$,
-    this.pauseQuote$,
-    this.countDown$,
-    this.baClicks$,
-    this.bqClicks$,
-    this.speed$
-  ).pipe(
-    map<any[], Vm>(([art, quote, countDown, baToggle, bqToggle, speed]) => ({
-      art,
-      quote,
-      countDown,
-      baToggle,
-      bqToggle,
-      speed,
-    }))
-    /** log the changes, so we can see what's happening */
-    // tap(viewModel => console.log('ViewModel:', viewModel))
+  // vm$ = combineLatest(
+  //   this.pausedArt$,
+  //   this.pauseQuote$,
+  //   this.countDown$,
+  //   this.baClicks$,
+  //   this.bqClicks$,
+  //   this.speed$
+  // ).pipe(
+  //   map<any[], Vm>(([art, quote, countDown, baToggle, bqToggle, speed]) => ({
+  //     art,
+  //     quote,
+  //     countDown,
+  //     baToggle,
+  //     bqToggle,
+  //     speed,
+  //   }))
+  //   /** log the changes, so we can see what's happening */
+  //   // tap(viewModel => console.log('ViewModel:', viewModel))
+  // );
+
+  vm$ = modelFromLatest<Vm>({
+    art: this.pausedArt$ as Observable<string>,
+    quote: this.pauseQuote$ as Observable<Quote>,
+    countDown: this.countDown$,
+    baToggle: this.baClicks$.pipe(distinctUntilChanged()),
+    bqToggle: this.bqClicks$,
+    speed: this.speed$,
+  }).pipe(
+    debounceTime(4),
+    tap(viewModel => console.log({viewModel})),
+    tap(vm => (this.viewModal = vm))
   );
 
   constructor(private raki: RakiService, private q: QuoteService) {}
