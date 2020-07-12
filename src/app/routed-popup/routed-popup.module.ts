@@ -14,11 +14,11 @@ const routes: Routes = [
     //   { path: '', component: BackHomeComponent, outlet: 'popup' },
     //   { path: '**', redirectTo: '', outlet: 'popup' }
     // ]
-  }
+  },
 ];
 
 @NgModule({
   declarations: [BackDropComponent, BackHomeComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class RoutedPopupModule {}

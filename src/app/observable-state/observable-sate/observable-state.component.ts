@@ -25,7 +25,7 @@ interface LocalState {
   selector: 'app-observable-state',
   templateUrl: './observable-state.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ObservableStateComponent implements OnInit {
   /**
@@ -39,7 +39,7 @@ export class ObservableStateComponent implements OnInit {
     overMax: false,
     underMin: false,
     max: 10,
-    min: 2
+    min: 2,
   });
 
   /**
@@ -96,7 +96,7 @@ export class ObservableStateComponent implements OnInit {
   async down() {
     const count = await this.getState('count');
     this.setState('count', count - 1);
-    this.setState({min:3, max:5})
+    this.setState({ min: 3, max: 5 });
   }
 
   ngOnInit() {}

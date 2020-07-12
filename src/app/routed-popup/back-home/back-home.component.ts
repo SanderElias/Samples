@@ -4,17 +4,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-back-home',
   templateUrl: './back-home.component.html',
-  styles: []
+  styles: [],
 })
 export class BackHomeComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router:Router) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   handle() {
-    this.router.navigate([])
+    this.router.navigate([]);
   }
-
 }

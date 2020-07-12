@@ -1,5 +1,5 @@
-import {combineLatest, Observable, isObservable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { combineLatest, Observable, isObservable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * modelFromLatest<modelType> is an util that helps you to create observable model's
@@ -17,7 +17,7 @@ const invoice$ = modelFromLatest<testModel>({
  ```
  */
 export function modelFromLatest<T>(
-  modelBase: {[P in keyof T]: Observable<T[P]> | T[P]}
+  modelBase: { [P in keyof T]: Observable<T[P]> | T[P] }
 ): Observable<T> {
   /** work in non-observable defaults into the array */
   const sources = Object.values(modelBase).map(val =>

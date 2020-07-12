@@ -4,9 +4,7 @@ class SomeComponent {
   myCustomProperty: string[];
   @Input('myCustomProperty')
   private set _myCustomProperty(newVal) {
-    if (newVal &&
-      isArray(newVal) &&
-      newVal.every(item => typeof item === 'string')) {
+    if (newVal && isArray(newVal) && newVal.every(item => typeof item === 'string')) {
       this._myCustomProperty = newVal;
       return;
     }

@@ -10,5 +10,5 @@ export {
   seDoCheck,
   seOnChanges,
   seOnDestroy,
-  seOnInit
+  seOnInit,
 } from './lib/seObservableLifeCycleHooksMixins';

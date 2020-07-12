@@ -1,10 +1,10 @@
-export const weekDayNames:string[] = weekDays();
-export const monthNames:string[] = months();
+export const weekDayNames: string[] = weekDays();
+export const monthNames: string[] = months();
 
-function weekDays(countryCode = navigator.language):string[] {
+function weekDays(countryCode = navigator.language): string[] {
   const date = new Date();
   const day = date.getDate();
-  return Array.from({length: 7})
+  return Array.from({ length: 7 })
     .map((e, i) => {
       const workDate = new Date(date.setDate(day + i));
       return [
@@ -19,9 +19,11 @@ function weekDays(countryCode = navigator.language):string[] {
 }
 
 function months(countryCode = navigator.language) {
-  return Array.from({length: 12}).map((e, i) => {
+  return Array.from({ length: 12 }).map((e, i) => {
     return new Intl.DateTimeFormat(countryCode, {
       month: 'short',
-    }).format(new Date(2000, i, 2)).substr(0,3);
+    })
+      .format(new Date(2000, i, 2))
+      .substr(0, 3);
   });
 }

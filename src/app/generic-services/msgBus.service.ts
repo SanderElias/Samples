@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
-import { Observable, ReplaySubject } from "rxjs";
-import { filter, pluck, share } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
+import { filter, pluck, share } from 'rxjs/operators';
 
 /** available types. */
 
 export enum MsgBusType {
   /** use for generic/one-off messages */
 
-  Generic = "generic",
+  Generic = 'generic',
   /** use for changes in auth status */
 
-  Auth = "auth",
+  Auth = 'auth',
   /** use for plugins */
 
-  Plugins = "plugins",
+  Plugins = 'plugins',
 }
 
 /** describes a message */
@@ -35,7 +35,7 @@ export interface MsgBusMessage {
  */
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class MsgBusSerrvice {
   /** internal subject to push out msg, holds on to the last one */
@@ -87,17 +87,12 @@ export class MsgBusSerrvice {
    * `const authEvents$ = filteredObservable<AuthMessage>(MsgBusType.auth)`
    */
 
-  filteredObservable = <T>(
-    filterOn: MsgBusType,
-    subTypeToFilter?: string
-  ): Observable<T> => {
+  filteredObservable = <T>(filterOn: MsgBusType, subTypeToFilter?: string): Observable<T> => {
     return this.messages$.pipe(
       filter(
-        (m) =>
-          m.type === filterOn &&
-          (subTypeToFilter === undefined || m.subType === subTypeToFilter)
+        m => m.type === filterOn && (subTypeToFilter === undefined || m.subType === subTypeToFilter)
       ),
-      pluck("payload")
+      pluck('payload')
       // tap<T>(pl => console.log('msg', type, subType, pl))
     );
   };

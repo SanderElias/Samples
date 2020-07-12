@@ -9,6 +9,6 @@ const routes: Routes = [{ path: '', component: APISampleComponent }];
 
 @NgModule({
   declarations: [APISampleComponent, ShowRecComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule]
+  imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule],
 })
 export class ComplexAPIModule {}

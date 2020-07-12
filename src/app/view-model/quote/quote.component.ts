@@ -5,7 +5,7 @@ import { Quote } from './quote.service';
   // tslint:disable-next-line:component-selector
   selector: 'quote',
   templateUrl: './quote.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuoteComponent {
   /** use a hostbinding to add a class tot he host element */

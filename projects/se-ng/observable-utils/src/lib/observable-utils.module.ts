@@ -3,8 +3,7 @@ import { ObservableUtilsComponent } from './observable-utils.component';
 
 @NgModule({
   declarations: [ObservableUtilsComponent],
-  imports: [
-  ],
-  exports: [ObservableUtilsComponent]
+  imports: [],
+  exports: [ObservableUtilsComponent],
 })
-export class ObservableUtilsModule { }
+export class ObservableUtilsModule {}

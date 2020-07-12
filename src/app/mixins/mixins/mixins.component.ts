@@ -1,20 +1,14 @@
 import { Component } from '@angular/core';
-import {
-  seAfterContentChecked,
-  seOnDestroy,
-  seOnInit
-} from '@se-ng/observable-hooks';
+import { seAfterContentChecked, seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mixins',
   templateUrl: './mixins.component.html',
-  styles: []
+  styles: [],
 })
-export class MixinsComponent extends seOnDestroy(
-  seOnInit(seAfterContentChecked())
-) {
+export class MixinsComponent extends seOnDestroy(seOnInit(seAfterContentChecked())) {
   /**
    * in this component, the life-cycle hooks are
    * now available as properties. every
@@ -37,7 +31,7 @@ export class MixinsComponent extends seOnDestroy(
          * and will be garbage collected
          */
         console.log('seAfterContentChecked$ is completed,');
-      }
+      },
     });
 
   /** I don't need to unsubscribe, all lifecycle hooks are completed on destroy */
