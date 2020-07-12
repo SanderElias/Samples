@@ -36,6 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/samples",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -72,6 +73,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -165,7 +170,12 @@
             "tsConfig": "projects/se-ng/observable-hooks/tsconfig.lib.json",
             "project": "projects/se-ng/observable-hooks/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/observable-hooks/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -180,6 +190,126 @@
             "tsConfig": [
               "projects/se-ng/observable-hooks/tsconfig.lib.json",
               "projects/se-ng/observable-hooks/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@se-ng/swapi": {
+      "root": "projects/se-ng/swapi",
+      "sourceRoot": "projects/se-ng/swapi/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/se-ng/swapi/tsconfig.lib.json",
+            "project": "projects/se-ng/swapi/ng-package.json"
+          }
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/swapi/tsconfig.lib.prod.json"
+            }
+          }
+},
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/se-ng/swapi/src/test.ts",
+            "tsConfig": "projects/se-ng/swapi/tsconfig.spec.json",
+            "karmaConfig": "projects/se-ng/swapi/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/se-ng/swapi/tsconfig.lib.json",
+              "projects/se-ng/swapi/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@se-ng/observable-utils": {
+      "root": "projects/se-ng/observable-utils",
+      "sourceRoot": "projects/se-ng/observable-utils/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/se-ng/observable-utils/tsconfig.lib.json",
+            "project": "projects/se-ng/observable-utils/ng-package.json"
+          }
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/observable-utils/tsconfig.lib.prod.json"
+            }
+          }
+},
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/se-ng/observable-utils/src/test.ts",
+            "tsConfig": "projects/se-ng/observable-utils/tsconfig.spec.json",
+            "karmaConfig": "projects/se-ng/observable-utils/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/se-ng/observable-utils/tsconfig.lib.json",
+              "projects/se-ng/observable-utils/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@se-ng/let": {
+      "projectType": "library",
+      "root": "projects/se-ng/let",
+      "sourceRoot": "projects/se-ng/let/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/se-ng/let/tsconfig.lib.json",
+            "project": "projects/se-ng/let/ng-package.json"
+          }
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/let/tsconfig.lib.prod.json"
+            }
+          }
+},
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/se-ng/let/src/test.ts",
+            "tsConfig": "projects/se-ng/let/tsconfig.spec.json",
+            "karmaConfig": "projects/se-ng/let/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/se-ng/let/tsconfig.lib.json",
+              "projects/se-ng/let/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

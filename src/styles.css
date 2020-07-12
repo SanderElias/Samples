@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
 body {
   margin: 0;

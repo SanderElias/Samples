@@ -1,6 +1,6 @@
 {
   "name": "@se-ng/observable-hooks",
-  "version": "0.0.1-beta.0",
+  "version": "1.0.2",
   "publisher": "Sander Elias",
   "private": false,
   "license": "MIT",
@@ -11,5 +11,8 @@
   "peerDependencies": {
     "rxjs": ">5.5",
     "@angular/core": ">5"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

@@ -1,0 +1,71 @@
+<!-- main part -->
+<div class="hold">
+  <section>
+    <h1>Need some inspiration?</h1>
+  </section>
+  <section>
+    <div class="row">
+      <small *ngIf="!(baClicks$ | async)"> Art is updated in {{ countDown$ | async }} seconds.</small>
+      <small *ngIf="(baClicks$ | async)"> Art updates are paused.</small>
+      <small *ngIf="!(bqClicks$ | async)"> Quotes updates every {{ speed$ | async }} seconds</small>
+      <small *ngIf="(bqClicks$ | async)"> Quotes are paused</small>
+    </div>
+
+    <div class="row">
+      <painting [art]="pausedArt$ | async"></painting>
+      <quote [quote]="pauseQuote$ | async"></quote>
+    </div>
+
+    <div class="row">
+      <play-button #ba [isPaused]="baClicks$ | async"></play-button>
+      <play-button #bq [isPaused]="bqClicks$ | async"></play-button>
+    </div>
+
+    <div class="row">
+      <span></span>
+      <input #speed type="range" min="0.5" max="30" step=".5" [value]="speed$ | async" />
+    </div>
+  </section>
+</div>
+
+<!--   here is no loading indicator here, as I have no clue on how to trigger!
+<ng-template #loading>
+    <div class="hold">
+      <div class="dummy"></div>
+      <div class="wait">
+        <h2 [style.color]="'white'">Hold on loading the data!</h2>
+      </div>
+    </div>
+  </ng-template> -->
+
+<!-- I prefer inline styling instead of yet another file -->
+<style>
+  .hold {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    /* background-color: aquamarine; */
+    background-color: rgb(226, 243, 238);
+    padding: 20px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-rows: 40px 1fr;
+  }
+
+  input[type=range] {
+    width: calc(100% - 40px);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+</style>

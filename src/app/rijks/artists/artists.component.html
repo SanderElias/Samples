@@ -1,0 +1,9 @@
+<div>
+    <input type="text" [formControl]='search'>
+    <ul>
+        <li *ngFor="let piece of list$|async">
+            <!-- <a [href]='piece.links.web' target="_blank">{{piece.title}}</a> -->
+            <img (click)="raki.loadDetail(piece.objectNumber)" [title]="piece.longTitle" *ngIf="piece.hasImage" [src]="piece.headerImage.url">
+        </li>
+    </ul>
+</div>

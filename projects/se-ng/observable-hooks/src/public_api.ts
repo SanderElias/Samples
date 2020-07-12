@@ -3,12 +3,12 @@
  */
 
 export {
-  seAfterContentChecked$,
-  seAfterContentInit$,
-  seAfterViewChecked$,
-  seAfterViewInit$,
-  seDoCheck$,
-  seOnChanges$,
-  seOnDestroy$,
-  seOnInit$
+  seAfterContentChecked,
+  seAfterContentInit,
+  seAfterViewChecked,
+  seAfterViewInit,
+  seDoCheck,
+  seOnChanges,
+  seOnDestroy,
+  seOnInit
 } from './lib/seObservableLifeCycleHooksMixins';

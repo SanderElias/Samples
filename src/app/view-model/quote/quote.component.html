@@ -1,0 +1,36 @@
+<style>
+  :host {
+    display: block;
+    margin: 10px;
+    width: 400px;
+    height: 400px;
+    padding: 10px;
+    background-color: rgba(171, 201, 53, 0.76);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .who {
+    font-style: italic;
+    color: white
+  }
+
+  .text {
+    font-weight: bolder;
+    color:whitesmoke
+  }
+
+  .quote {
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>
+<!-- Use a bit of css to set the backgroundimage from the quote -->
+<div class="quote" [style.background-image]="'url(' + quote?.imgSrc + ')'">
+  <p class="text">{{ quote?.quote }}</p>
+  <p class="who">{{ quote?.author }}</p>
+</div>

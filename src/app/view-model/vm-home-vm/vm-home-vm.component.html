@@ -1,0 +1,83 @@
+<!-- main part -->
+<div class="hold" *ngIf="vm$ | async as vm else loading">
+  <section>
+    <h1>Need better inspiration?</h1>
+  </section>
+  <section>
+    <div class="row">
+      <small *ngIf="!vm.baToggle"> Art is updated in {{vm.countDown}} seconds.</small>
+      <small *ngIf="vm.baToggle">  Art updates are paused.</small>
+      <small *ngIf="!vm.bqToggle"> Quotes updates every {{vm.speed}} seconds</small>
+      <small *ngIf="vm.bqToggle">  Quotes are paused</small>
+    </div>
+
+    <div class="row">
+      <painting [art]='vm.art'></painting>
+      <quote [quote]="vm.quote"></quote>
+    </div>
+
+    <div class="row">
+      <play-button #ba [isPaused]="vm.baToggle"></play-button>
+      <play-button #bq [isPaused]="vm.bqToggle"></play-button>
+    </div>
+
+    <div class="row">
+      <span></span>
+      <input #speed type="range" min="0.5" max=30 step=".5" [value]='vm.speed'>
+    </div>
+  </section>
+</div>
+
+<!-- loading modal -->
+<ng-template #loading>
+    <div class="hold">
+      <div class="dummy"></div>
+      <div class="wait">
+        <h2 [style.color]="'white'">Hold on loading the data!</h2>
+      </div>
+    </div>
+  </ng-template>
+
+<!-- I prefer inline styling  instead of yet another file -->
+<style>
+  .hold {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    /* background-color: aquamarine; */
+    background-color: rgb(226, 243, 238);
+    padding: 20px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-rows: 40px 1fr;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+    ;
+  }
+
+  input[type=range] {
+    width: calc(100% - 40px);
+  }
+
+  .wait {
+    padding: 15px;
+    border-radius: 15px;
+    height: 100px;
+    width: 300px;
+    background-color: #1f1f1f;
+    color:white;
+  }
+</style>
+
+
