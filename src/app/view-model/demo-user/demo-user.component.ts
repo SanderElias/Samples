@@ -1,32 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, pluck } from 'rxjs/operators';
-import { DemoUserService } from '../../../../src/app/demo-users.service';
-import { modelFromLatest } from '../../../../projects/se-ng/observable-utils/src/lib/modelFromLatest';
-import { createSetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/setStateMethodCreator';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {BehaviorSubject} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  pluck,
+  tap,
+} from 'rxjs/operators';
+import {modelFromLatest} from '../../../../projects/se-ng/observable-utils/src/lib/modelFromLatest';
+import {createSetStateMethod} from '../../../../projects/se-ng/observable-utils/src/lib/setStateMethodCreator';
+import {DemoUserService} from '../../../../src/app/demo-users.service';
 
 @Component({
   selector: 'app-demo-user',
   templateUrl: './demo-user.component.html',
-  styles: []
+  styles: [],
 })
 export class DemoUserComponent implements OnInit {
   state$ = new BehaviorSubject({
-    searchText: ''
+    searchText: '',
   });
   users$ = this.us.allUsers$;
   userCount$ = this.users$.pipe(map(userList => userList.length));
   setState = createSetStateMethod(this.state$);
 
-  foundUsers$ = combineLatest(
-    this.users$,
-    this.state$.pipe(
+  foundUsers$ = modelFromLatest({
+    users: this.users$,
+    search: this.state$.pipe(
       pluck('searchText'),
       distinctUntilChanged(),
       debounceTime(250)
-    )
-  ).pipe(
-    map(([users, search]) =>
+    ),
+  }).pipe(
+    map(({users, search}) =>
       users
         .filter(row =>
           row.username.toLowerCase().includes(search.toLowerCase())
@@ -42,10 +49,17 @@ export class DemoUserComponent implements OnInit {
     state: this.state$,
     total: this.userCount$,
     found: this.searchCount$,
-    pages: this.searchCount$.pipe(map(n => Math.ceil(n / 25)))
+    pages: this.searchCount$.pipe(map(n => Math.ceil(n / 25))),
   });
 
-  constructor(private us: DemoUserService) {}
+  constructor(private us: DemoUserService, private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.params
+      .pipe(
+        pluck('id'),
+        tap(p => console.log('params', p))
+      )
+      .subscribe();
+  }
 }

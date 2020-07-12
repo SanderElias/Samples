@@ -1,5 +1,5 @@
-import { take, map, tap, first } from 'rxjs/operators';
-import { Subject, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
 
 /**
  * Function that takes a state subject and returns a method for your component

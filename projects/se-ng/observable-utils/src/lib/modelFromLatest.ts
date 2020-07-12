@@ -1,4 +1,4 @@
-import {combineLatest, Observable} from 'rxjs';
+import {combineLatest, Observable, isObservable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 /**
@@ -16,10 +16,17 @@ const invoice$ = modelFromLatest<testModel>({
 })
  ```
  */
-export function modelFromLatest<T>(modelBase: {[P in keyof T]: Observable<T[P]>}): Observable<T> {
+export function modelFromLatest<T>(
+  modelBase: {[P in keyof T]: Observable<T[P]> | T[P]}
+): Observable<T> {
+  /** work in non-observable defaults into the array */
+  const sources = Object.values(modelBase).map(val =>
+    isObservable(val) ? val : of(val)
+  ) as Observable<unknown>[];
+
   /** spread out the values into an array, and use combineLatest to "watch" for changes */
-  return combineLatest(Object.values(modelBase)).pipe(
-    map((values :any[]) =>
+  return combineLatest(sources).pipe(
+    map((values: any[]) =>
       /** user reduce to reassemble the original structure, but then with the data */
       Object.keys(modelBase).reduce(
         (vm, key, i) => {
