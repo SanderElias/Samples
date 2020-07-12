@@ -1,0 +1,21 @@
+[
+    "/home",
+    "/filterSamp/**",
+    "/modalSamp",
+    "/mixinSamp",
+    "/htmlLoad",
+    "/requiredAttributes",
+    "/viewModel/theBad",
+    "/viewModel/theGood",
+    "/viewModel/user",
+    "/viewModel/user/:id",
+    "/viewModel/user/:id/related/:friendCode",
+    "/viewModel/user/:id/related/:friendCode/:candy",
+    "/complexAPI",
+    "/pokeAPI",
+    "/observableState",
+    "/observableState/hook",
+    "/DirectiveSamp",
+    "/svg",
+    "/testOb/testob"
+]
