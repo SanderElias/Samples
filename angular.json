@@ -36,6 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/samples",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -72,6 +73,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -165,7 +170,12 @@
             "tsConfig": "projects/se-ng/observable-hooks/tsconfig.lib.json",
             "project": "projects/se-ng/observable-hooks/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/observable-hooks/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -200,7 +210,12 @@
             "tsConfig": "projects/se-ng/swapi/tsconfig.lib.json",
             "project": "projects/se-ng/swapi/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/swapi/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -235,7 +250,12 @@
             "tsConfig": "projects/se-ng/observable-utils/tsconfig.lib.json",
             "project": "projects/se-ng/observable-utils/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/observable-utils/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -270,7 +290,12 @@
             "tsConfig": "projects/se-ng/let/tsconfig.lib.json",
             "project": "projects/se-ng/let/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/let/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
