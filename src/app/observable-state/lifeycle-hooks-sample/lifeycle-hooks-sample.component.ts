@@ -11,7 +11,7 @@ import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
   templateUrl: './lifeycle-hooks-sample.component.html',
   styles: [],
 })
-export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy()) {
+export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
   search = new FormControl();
   searchText$: Observable<string> = this.search.valueChanges.pipe(startWith(''));
 

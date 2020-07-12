@@ -23,9 +23,9 @@ export class SvgCalenderComponent {
   @Input() set date(x: Date) {
     this.splitDate(x);
   }
-  private month: string;
-  private day: string;
-  private dim: number;
+  public month: string;
+  public day: string;
+  public dim: number;
 
   constructor() {
     this.splitDate();
