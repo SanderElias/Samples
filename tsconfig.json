@@ -1,51 +1,44 @@
+/*
+  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
+  It is not intended to be used to perform a compilation.
+
+  To learn more about this file see: https://angular.io/config/solution-tsconfig.
+*/
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    // "strict": true,
-    "downlevelIteration": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "allowJs": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
-    "paths": {
-      "@se-ng/observable-hooks": [
-        "dist/se-ng/observable-hooks"
-      ],
-      "@se-ng/observable-hooks/*": [
-        "dist/se-ng/observable-hooks/*"
-      ],
-      "@se-ng/swapi": [
-        "dist/se-ng/swapi"
-      ],
-      "@se-ng/swapi/*": [
-        "dist/se-ng/swapi/*"
-      ],
-      "@se-ng/observable-utils": [
-        "dist/se-ng/observable-utils"
-      ],
-      "@se-ng/observable-utils/*": [
-        "dist/se-ng/observable-utils/*"
-      ],
-      "@se-ng/let": [
-        "dist/se-ng/let"
-      ],
-      "@se-ng/let/*": [
-        "dist/se-ng/let/*"
-      ]
+  "files": [],
+  "references": [
+    {
+      "path": "./src/tsconfig.app.json"
+    },
+    {
+      "path": "./src/tsconfig.spec.json"
+    },
+    {
+      "path": "./e2e/tsconfig.e2e.json"
+    },
+    {
+      "path": "./projects/se-ng/observable-hooks/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/se-ng/observable-hooks/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/se-ng/swapi/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/se-ng/swapi/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/se-ng/observable-utils/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/se-ng/observable-utils/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/se-ng/let/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/se-ng/let/tsconfig.spec.json"
     }
-  }
+  ]
 }

@@ -10,5 +10,8 @@
   },
   "peerDependencies": {
     "rxjs": ">5.5"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }
