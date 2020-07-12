@@ -1,5 +1,5 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
-import { seAfterContentInit } from '@se-ng/observable-hooks/bundles/se-ng-observable-hooks.umd';
+import { seAfterContentInit } from '@se-ng/observable-hooks';
 import { map } from 'rxjs/operators';
 import { IdDirective } from '../id.directive';
 
