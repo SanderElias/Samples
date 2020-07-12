@@ -10,16 +10,16 @@ import { RakiService } from '../raki.service';
   styleUrls: ['./artists.component.css'],
 })
 export class ArtistsComponent implements OnInit {
-    search = new FormControl();
+  search = new FormControl();
 
-    list$ = this.search.valueChanges.pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        switchMap(artist => this.raki.artist(artist)),
-        take(5)
-    );
+  list$ = this.search.valueChanges.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    switchMap(artist => this.raki.artist(artist)),
+    take(5)
+  );
 
-    constructor(public raki: RakiService) {}
+  constructor(public raki: RakiService) {}
 
-    ngOnInit() {}
+  ngOnInit() {}
 }

@@ -1,6 +1,6 @@
-import {ElementRef, QueryList} from '@angular/core';
-import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import { ElementRef, QueryList } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 const EventStream = Symbol('ObsFromEvent');
 
@@ -17,9 +17,7 @@ const EventStream = Symbol('ObsFromEvent');
  *   map(event => `click from ${event.target.innerText}`)
  * )
  */
-export function ObsFromEvent<K extends keyof HTMLElementEventMap>(
-  eventName: K
-): any {
+export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K): any {
   return (target: any, propertyKey: string | symbol): PropertyDescriptor => {
     return {
       get() {
@@ -58,10 +56,7 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(
 /**
  * Helper to fetch/generate the subject for this instance/propertyKey pair
  */
-function fetchSubject(
-  instance: object,
-  propertyKey: string | symbol
-): Subject<Event> {
+function fetchSubject(instance: object, propertyKey: string | symbol): Subject<Event> {
   /** use the symbol EventStream to prevent clashes with anything else */
   const ref = (instance[EventStream] = instance[EventStream] || {});
   if (!ref[propertyKey]) {

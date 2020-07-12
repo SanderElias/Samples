@@ -1,6 +1,6 @@
-import {detect, parseAngularRoutes} from 'guess-parser';
-import {join} from 'path';
-import {writeFile} from 'fs';
+import { detect, parseAngularRoutes } from 'guess-parser';
+import { join } from 'path';
+import { writeFile } from 'fs';
 
 try {
   const dir = join(__dirname, '/app');
@@ -11,7 +11,7 @@ try {
 
   const jsonContent = JSON.stringify(routes, undefined, 4);
 
-  writeFile('output.json', jsonContent, 'utf8', function(err) {
+  writeFile('output.json', jsonContent, 'utf8', function (err) {
     if (err) {
       console.log('An error occurred while writing JSON Object to File.');
       return console.log(err);
@@ -19,7 +19,6 @@ try {
 
     console.log('JSON file has been saved.');
   });
-
 
   console.log('done');
 } catch (e) {

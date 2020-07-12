@@ -1,9 +1,6 @@
 export const tail = <T>(a: Array<T>): T => a[a.length - 1];
 
-export const chunkReducerForSize = (chunkSize = 5) => <T>(
-  result: T[][],
-  item: T
-) => {
+export const chunkReducerForSize = (chunkSize = 5) => <T>(result: T[][], item: T) => {
   const lastChunk = tail(result);
   if (lastChunk.length === chunkSize) {
     result.push([item]);

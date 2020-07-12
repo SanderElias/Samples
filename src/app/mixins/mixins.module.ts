@@ -7,6 +7,6 @@ const routes: Routes = [{ path: '', component: MixinsComponent }];
 
 @NgModule({
   declarations: [MixinsComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class MixinsModule {}

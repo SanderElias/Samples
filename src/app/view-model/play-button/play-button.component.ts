@@ -5,13 +5,12 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   selector: 'play-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-  <button>
-    <span [hidden]="isPaused"><i class="fas fa-fw fa-pause"></i></span>
-    <span [hidden]="!isPaused"><i class="fas fa-fw fa-play"></i></span>
-  </button>
+    <button>
+      <span [hidden]="isPaused"><i class="fas fa-fw fa-pause"></i></span>
+      <span [hidden]="!isPaused"><i class="fas fa-fw fa-play"></i></span>
+    </button>
   `,
 })
-export class PlayButtonComponent  {
+export class PlayButtonComponent {
   @Input() isPaused: boolean;
-
 }

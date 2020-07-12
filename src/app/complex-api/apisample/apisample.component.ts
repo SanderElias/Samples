@@ -2,12 +2,21 @@ import { AfterViewInit, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
 import { combineLatest, of } from 'rxjs';
-import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
-  styles: []
+  styles: [],
 })
 export class APISampleComponent implements AfterViewInit {
   /** select the table/set */
@@ -28,14 +37,10 @@ export class APISampleComponent implements AfterViewInit {
     /** act on changes in the set/table */
     this.chosenSet.valueChanges,
     /** handle the search input */
-    this.name.valueChanges.pipe(
-      debounceTime(250),
-      distinctUntilChanged(),
-      filter(Boolean)
-    )
+    this.name.valueChanges.pipe(debounceTime(250), distinctUntilChanged(), filter(Boolean))
   ).pipe(
     /** load the raw data from the API */
-    switchMap(([setname, name]:[any,string]) => this.sw.findIn(setname, name)),
+    switchMap(([setname, name]: [any, string]) => this.sw.findIn(setname, name)),
     /** don't let empty results in */
     filter(Boolean),
     /** use a side-effect to store the raw data */
@@ -46,7 +51,7 @@ export class APISampleComponent implements AfterViewInit {
     catchError(e => {
       console.error(e);
       return of({
-        'Not Found': `Your search string didn't return any results`
+        'Not Found': `Your search string didn't return any results`,
       });
     })
   );

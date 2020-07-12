@@ -26,7 +26,7 @@ export const fileRead = (blob: Blob) =>
   });
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImageToUrlDataService {
   constructor(private http: HttpClient) {}

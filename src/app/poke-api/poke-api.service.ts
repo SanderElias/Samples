@@ -5,7 +5,7 @@ import { EMPTY, from, Observable } from 'rxjs';
 import { expand, scan, mergeMap, tap, reduce, map, toArray, concatMap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokeApiService {
   private base = 'https://pokeapi.co/api/v2';

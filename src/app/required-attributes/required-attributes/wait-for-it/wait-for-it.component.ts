@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-wait-for-it',
   templateUrl: './wait-for-it.component.html',
-  styles: []
+  styles: [],
 })
 export class WaitForItComponent {
   someVar: string[];
@@ -35,5 +35,3 @@ export class WaitForItComponent {
     }
   }
 }
-
-

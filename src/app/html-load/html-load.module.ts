@@ -7,6 +7,6 @@ const routes: Routes = [{ path: '', component: HtmlloadComponent }];
 
 @NgModule({
   declarations: [HtmlloadComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class HtmlLoadModule {}

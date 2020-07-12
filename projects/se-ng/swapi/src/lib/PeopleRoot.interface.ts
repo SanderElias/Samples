@@ -30,7 +30,7 @@ export interface Person {
 export enum Gender {
   Female = 'female',
   Male = 'male',
-  NA = 'n/a'
+  NA = 'n/a',
 }
 export interface Address {
   id: number;

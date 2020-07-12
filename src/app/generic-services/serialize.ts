@@ -12,9 +12,9 @@ const test = Array.from({ length: 10 }, (e, i) => ({
     ['blah', false],
     [{ a: 'b' }, { a: 'hi' }],
     [3, 4],
-    ['somestring', 'anotherString']
+    ['somestring', 'anotherString'],
   ]),
-  tags: new Set(['a', 'b', 'dd'])
+  tags: new Set(['a', 'b', 'dd']),
 }));
 
 const enc = encode(test, options);
@@ -26,7 +26,6 @@ console.log(dec[0].stuff);
 console.log(test[0].tags);
 console.log(dec[0].tags);
 
-
 const seed = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const radix = seed.length;
 export function fromBase(hash: string): number {
@@ -36,10 +35,7 @@ export function fromBase(hash: string): number {
 
   const ret = hash
     .split('')
-    .reduce(
-      (tot, car, i) => (tot += seed.indexOf(car) * Math.pow(radix, l - i)),
-      0
-    );
+    .reduce((tot, car, i) => (tot += seed.indexOf(car) * Math.pow(radix, l - i)), 0);
 
   if (isNaN(ret)) {
     throw new Error(`Unknown error: Can not decode '${hash}'`);
@@ -67,8 +63,7 @@ export function toBase(num: number): string {
 }
 
 const randChar = () => seed[Math.floor(Math.random() * radix)];
-const randChars = (n = 3) =>
-  Array.from({ length: n }, () => randChar()).join('');
+const randChars = (n = 3) => Array.from({ length: n }, () => randChar()).join('');
 
 const getId = () => randChars(3) + toBase(Date.now());
 

@@ -7,13 +7,10 @@ import { Component, OnInit } from '@angular/core';
       observable-utils works!
     </p>
   `,
-  styles: []
+  styles: [],
 })
 export class ObservableUtilsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

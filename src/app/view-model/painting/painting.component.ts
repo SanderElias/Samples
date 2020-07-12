@@ -1,16 +1,11 @@
-import {
-  Component,
-  HostBinding,
-  Input,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'painting',
   templateUrl: './painting.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaintingComponent {
   /** Add an class to the host */

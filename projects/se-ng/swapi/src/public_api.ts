@@ -2,7 +2,7 @@
  * Public API Surface of swapi
  */
 
-export * from './lib/cache'
+export * from './lib/cache';
 export * from './lib/FilmsRoot.interface';
 export * from './lib/PeopleRoot.interface';
 export * from './lib/PlanetsRoot.interface';
