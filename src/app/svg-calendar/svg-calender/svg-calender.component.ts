@@ -1,7 +1,5 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { weekDayNames, monthNames } from 'src/app/util/daysandmonthsnames';
-
-
 
 @Component({
   selector: 'app-svg-calender',
@@ -40,5 +38,3 @@ export class SvgCalenderComponent {
     this.day = weekDayNames[d.getDay()];
   }
 }
-
-

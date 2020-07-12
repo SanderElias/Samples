@@ -6,7 +6,7 @@ import { timer } from 'rxjs';
 @Component({
   selector: 'app-pokemain',
   templateUrl: './pokemain.component.html',
-  styles: []
+  styles: [],
 })
 export class PokeMainComponent implements OnInit {
   fakePost$ = timer(1500).pipe(

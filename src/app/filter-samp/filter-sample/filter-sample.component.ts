@@ -1,24 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { combineLatest } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  startWith,
-  tap
-} from 'rxjs/operators';
-import {
-  AddressService,
-  UserCard
-} from '../../generic-services/address.service';
+import { debounceTime, distinctUntilChanged, map, startWith, tap } from 'rxjs/operators';
+import { AddressService, UserCard } from '../../generic-services/address.service';
 
 type Vm = [UserCard[], string];
 
 @Component({
   selector: 'app-filter-sample',
   templateUrl: './filter-sample.component.html',
-  styles: []
+  styles: [],
 })
 export class FilterSampleComponent implements OnInit {
   nameFilter = new FormControl('');
@@ -36,7 +27,7 @@ export class FilterSampleComponent implements OnInit {
     map(([users, filterStr]: Vm) => ({
       users: users.filter(row =>
         filterStr ? row.name.toLocaleLowerCase().includes(filterStr) : true
-      )
+      ),
     }))
   );
 

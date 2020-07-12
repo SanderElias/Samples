@@ -1,23 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  ViewChildren,
-} from '@angular/core';
-import {combineLatest, NEVER, Observable, of, timer} from 'rxjs';
-import {
-  filter,
-  map,
-  pluck,
-  scan,
-  startWith,
-  switchMap,
-  tap,
-  shareReplay,
-} from 'rxjs/operators';
-import {RakiService} from '../../../app/rijks/raki.service';
-import {QuoteService} from '../quote/quote.service';
-import {ObsFromEvent} from './ObsFromEvent';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren } from '@angular/core';
+import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
+import { filter, map, pluck, scan, startWith, switchMap, tap, shareReplay } from 'rxjs/operators';
+import { RakiService } from '../../../app/rijks/raki.service';
+import { QuoteService } from '../quote/quote.service';
+import { ObsFromEvent } from './ObsFromEvent';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,16 +14,16 @@ import {ObsFromEvent} from './ObsFromEvent';
 export class VmHomeComponent {
   /** create observable with clicks from viewChildren */
   @ObsFromEvent('click')
-  @ViewChildren('ba', {read: ElementRef})
+  @ViewChildren('ba', { read: ElementRef })
   artClick$: Observable<Event>;
 
   /** create observable with clicks from viewChildren */
   @ObsFromEvent('click')
-  @ViewChildren('bq', {read: ElementRef})
+  @ViewChildren('bq', { read: ElementRef })
   quoteClick$: Observable<Event>;
 
   @ObsFromEvent('change')
-  @ViewChildren('speed', {read: ElementRef})
+  @ViewChildren('speed', { read: ElementRef })
   speedChange$: Observable<Event>;
 
   art$ = this.raki.randomImage$.pipe(filter(Boolean));
@@ -54,15 +40,12 @@ export class VmHomeComponent {
     /** set a start speed */
     startWith(3.5),
     /** log so we can see when an event is triggered */
-    tap(r => console.log('speed', r)),
+    tap(r => console.log('speed', r))
     // shareReplay({bufferSize: 1, refCount: true})
-
   );
 
   quote$ = this.speed$.pipe(
-    switchMap(seconds =>
-      this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))
-    )
+    switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean)))
   );
 
   /** helpers to handle pausing */

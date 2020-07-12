@@ -7,6 +7,6 @@ const route: Routes = [{ path: '', component: ModalDemoComponent }];
 
 @NgModule({
   declarations: [ModalDemoComponent],
-  imports: [CommonModule, RouterModule.forChild(route)]
+  imports: [CommonModule, RouterModule.forChild(route)],
 })
 export class ModalSampModule {}

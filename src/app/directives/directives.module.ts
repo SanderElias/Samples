@@ -7,12 +7,12 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    component: DirectivesSampleComponent
-  }
+    component: DirectivesSampleComponent,
+  },
 ];
 
 @NgModule({
   declarations: [DirectivesSampleComponent, IdDirective],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class DirectivesModule {}

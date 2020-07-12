@@ -7,7 +7,7 @@ import {
   ViewChild,
   OnInit,
 } from '@angular/core';
-import {combineLatest, NEVER, Observable, of, timer, fromEvent} from 'rxjs';
+import { combineLatest, NEVER, Observable, of, timer, fromEvent } from 'rxjs';
 import {
   filter,
   map,
@@ -21,10 +21,10 @@ import {
   distinct,
   distinctUntilChanged,
 } from 'rxjs/operators';
-import {RakiService} from '../../../app/rijks/raki.service';
-import {Quote, QuoteService} from '../quote/quote.service';
-import {ObsFromEvent} from '../vm-home/ObsFromEvent';
-import {modelFromLatest} from '@se-ng/observable-utils';
+import { RakiService } from '../../../app/rijks/raki.service';
+import { Quote, QuoteService } from '../quote/quote.service';
+import { ObsFromEvent } from '../vm-home/ObsFromEvent';
+import { modelFromLatest } from '@se-ng/observable-utils';
 
 interface Vm {
   art: string;
@@ -42,16 +42,16 @@ interface Vm {
 export class VmHomeVmComponent {
   private viewModal: Vm;
   @ObsFromEvent('click')
-  @ViewChildren('ba', {read: ElementRef})
+  @ViewChildren('ba', { read: ElementRef })
   artClick$: Observable<Event>;
 
   /** create observable with clicks from viewChildren */
   @ObsFromEvent('click')
-  @ViewChildren('bq', {read: ElementRef})
+  @ViewChildren('bq', { read: ElementRef })
   quoteClick$: Observable<Event>;
 
   @ObsFromEvent('change')
-  @ViewChildren('speed', {read: ElementRef})
+  @ViewChildren('speed', { read: ElementRef })
   speedChange$: Observable<Event>;
 
   art$ = this.raki.randomImage$.pipe(filter(Boolean));
@@ -72,9 +72,7 @@ export class VmHomeVmComponent {
   );
 
   quote$ = this.speed$.pipe(
-    switchMap(seconds =>
-      this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))
-    )
+    switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean)))
   );
 
   /** helpers to handle pausing */
@@ -125,7 +123,7 @@ export class VmHomeVmComponent {
     speed: this.speed$,
   }).pipe(
     debounceTime(4),
-    tap(viewModel => console.log({viewModel})),
+    tap(viewModel => console.log({ viewModel })),
     tap(vm => (this.viewModal = vm))
   );
 

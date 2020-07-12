@@ -7,10 +7,10 @@ export function httpGetJson(url) {
       let error;
       if (statusCode !== 200) {
         error = new Error('Request Failed.\n' + `Status Code: ${statusCode}`);
-      }
-      else if (!/^application\/json/.test(contentType)) {
-        error = new Error('Invalid content-type.\n' +
-          `Expected application/json but received ${contentType}`);
+      } else if (!/^application\/json/.test(contentType)) {
+        error = new Error(
+          'Invalid content-type.\n' + `Expected application/json but received ${contentType}`
+        );
       }
       if (error) {
         console.error(error.message);
@@ -27,8 +27,7 @@ export function httpGetJson(url) {
         try {
           const parsedData = JSON.parse(rawData);
           resolve(parsedData);
-        }
-        catch (e) {
+        } catch (e) {
           console.error(e.message);
           return reject(error);
         }

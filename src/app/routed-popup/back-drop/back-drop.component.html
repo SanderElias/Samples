@@ -1,0 +1,29 @@
+<style>
+  :host {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(40, 40, 40, 0.6);
+    /* position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw; */
+    height:100%;
+    align-items: center;
+    justify-content: center;
+    background-color: teal;
+  }
+  :host > * {
+    background-color: #dfdfdf;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: inline;
+  }
+  router-outlet {
+    display: none;
+  }
+</style>
+<div class="container">
+  <h1>popup</h1>
+  <!-- <router-outlet></router-outlet> -->
+</div>

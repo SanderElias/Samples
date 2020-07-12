@@ -9,7 +9,7 @@ import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-lifeycle-hooks-sample',
   templateUrl: './lifeycle-hooks-sample.component.html',
-  styles: []
+  styles: [],
 })
 export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy()) {
   search = new FormControl();
@@ -28,7 +28,7 @@ export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy()) {
   viewModel$ = modelFromLatest({
     allShips: this.starships$,
     result: this.filteredShips$,
-    search: this.searchText$
+    search: this.searchText$,
   });
 
   constructor(private swapi: SwapiService) {

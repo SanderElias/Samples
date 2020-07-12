@@ -6,12 +6,10 @@ import { IdDirective } from '../id.directive';
 @Component({
   selector: 'app-directives-sample',
   templateUrl: './directives-sample.component.html',
-  styles: []
+  styles: [],
 })
 export class DirectivesSampleComponent extends seAfterContentInit() {
   @ViewChildren(IdDirective) ids: QueryList<IdDirective>;
 
-  ids$ = this.seAfterContentInit$.pipe(
-    map(() => this.ids.map(idD => idD.id)),
-  );
+  ids$ = this.seAfterContentInit$.pipe(map(() => this.ids.map(idD => idD.id)));
 }

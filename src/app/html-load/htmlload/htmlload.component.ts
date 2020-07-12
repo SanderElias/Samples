@@ -9,8 +9,8 @@ import { BogusLoadService } from '../bogus-load.service';
       :host {
         display: block;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class HtmlloadComponent implements OnInit {
   /** gets the native element.  */

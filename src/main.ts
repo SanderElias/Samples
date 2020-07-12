@@ -8,7 +8,6 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-
 /** load icons from FontAwseome */
 library.add(faPlay, faPause);
 dom.watch();

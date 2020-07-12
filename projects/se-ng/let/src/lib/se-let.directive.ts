@@ -6,14 +6,14 @@ import {
   OnInit,
   TemplateRef,
   ViewContainerRef,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import { isObservable, Subscriber, Subscription, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: '[seLet]'
+  selector: '[seLet]',
 })
 export class SeLetDirective<T> implements OnInit, OnDestroy {
   private context = { $implicit: undefined, seLet: undefined } as {

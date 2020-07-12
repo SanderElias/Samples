@@ -7,12 +7,12 @@ interface Record {
 }
 
 export type Entry = [string, any];
-export type Selection = [string,string]
+export type Selection = [string, string];
 
 @Component({
   selector: 'app-show-rec',
   templateUrl: './show-rec.component.html',
-  styles: []
+  styles: [],
 })
 export class ShowRecComponent implements OnInit {
   entries: Entry[];
@@ -28,13 +28,13 @@ export class ShowRecComponent implements OnInit {
 
   constructor() {}
 
-  isRecArray(e:Entry) {
+  isRecArray(e: Entry) {
     const i = e[1];
-    if (Array.isArray(i) && i.length>0) {
+    if (Array.isArray(i) && i.length > 0) {
       const firstEnt = i[0];
-      return (!Array.isArray(firstEnt)) && typeof firstEnt === 'object'
+      return !Array.isArray(firstEnt) && typeof firstEnt === 'object';
     }
-    return false
+    return false;
   }
 
   /** returns false or an "record" */

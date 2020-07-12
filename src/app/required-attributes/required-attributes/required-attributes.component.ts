@@ -5,7 +5,7 @@ import { take, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-required-attributes',
   templateUrl: './required-attributes.component.html',
-  styles: []
+  styles: [],
 })
 export class RequiredAttributesComponent implements OnInit {
   reqProps: string[] = [];
@@ -21,4 +21,3 @@ export class RequiredAttributesComponent implements OnInit {
 
   ngOnInit() {}
 }
-

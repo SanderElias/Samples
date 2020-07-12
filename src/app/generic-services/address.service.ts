@@ -34,7 +34,7 @@ export interface Company {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AddressService {
   userCards$ = this.users(25);
@@ -44,8 +44,8 @@ export class AddressService {
   private users(n): Observable<UserCard[]> {
     const users: UserCard[] = Array.from({ length: n }, () => ({
       ...faker.helpers.userCard(),
-      avatar: faker.image.avatar()
+      avatar: faker.image.avatar(),
     }));
-    return of(users).pipe(shareReplay(1)) ;
+    return of(users).pipe(shareReplay(1));
   }
 }

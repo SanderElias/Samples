@@ -8,8 +8,6 @@ const routes: Routes = [{ path: '', component: RequiredAttributesComponent }];
 
 @NgModule({
   declarations: [RequiredAttributesComponent, WaitForItComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
-export class RequiredAttributesModule {
-
-}
+export class RequiredAttributesModule {}

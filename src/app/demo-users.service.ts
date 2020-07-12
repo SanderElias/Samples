@@ -8,7 +8,7 @@ const change = new Chance();
 enum UserState {
   isNew,
   isAccepted,
-  isActive
+  isActive,
 }
 
 export interface DemoUser {
@@ -25,7 +25,7 @@ export interface DemoUser {
  * A sample service that showcases how you can use observables in an effective way
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DemoUserService {
   /** subject to init && be able to flush the cache */
@@ -36,19 +36,15 @@ export class DemoUserService {
   /** get the initial users from the network, and then merge in the updates */
   allUsers$ = this.flush$.pipe(
     // use switchMap to replace the 'flush' with an http.xxx
-    mergeMap(() =>  this.updatedUsers$),
+    mergeMap(() => this.updatedUsers$),
     // use shareReplay to 'cache' the data. (note: only when you need an cache!)
     shareReplay({ bufferSize: 1, refCount: false })
   );
 
   /**  as the allUsers$ is cached, I don't need to do that here. unless it's an really big list */
-  admins$ = this.allUsers$.pipe(
-    map(userList => userList.filter(row => row.isAdmin))
-  );
+  admins$ = this.allUsers$.pipe(map(userList => userList.filter(row => row.isAdmin)));
   /** the same for normal users */
-  users$ = this.allUsers$.pipe(
-    map(userList => userList.filter(row => !row.isAdmin))
-  );
+  users$ = this.allUsers$.pipe(map(userList => userList.filter(row => !row.isAdmin)));
 
   /** the conconstructor */
   constructor() {
@@ -61,7 +57,7 @@ export class DemoUserService {
     // users.reduce((min, line) => (min = Math.max(min, line.id)), 0) + 1;
     const newUsers = Array.from({ length: newUserCount }, (e, i) => ({
       id: base + i,
-      ...fakeUser()
+      ...fakeUser(),
     }));
     this.updatedUsers$.next(users.concat(newUsers));
   }
@@ -120,7 +116,7 @@ function fakeUser() {
     username: change.name(),
     isAdmin: change.bool(),
     isActive: change.bool(),
-    email: change.email()
+    email: change.email(),
   };
 }
 

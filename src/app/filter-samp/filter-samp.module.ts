@@ -8,7 +8,6 @@ const routes: Routes = [{ path: '**', component: FilterSampleComponent }];
 
 @NgModule({
   declarations: [FilterSampleComponent],
-  imports: [CommonModule, ReactiveFormsModule  , RouterModule.forChild(routes)]
+  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes)],
 })
 export class FilterSampModule {}
-
