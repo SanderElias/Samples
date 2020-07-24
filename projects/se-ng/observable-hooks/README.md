@@ -28,7 +28,7 @@ import {
   templateUrl: './mixins.component.html',
   styles: []
 })
-export class MixinsComponent extends seOnDestroy(seOnInit(seAfterContentChecked())) {
+export class MixinsComponent extends seOnDestroy(seOnInit(seAfterContentChecked(class {}))) {
    /** in here , the life-cycle hooks are available as properties **/
    
    /** do something after init */
