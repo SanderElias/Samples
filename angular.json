@@ -444,7 +444,7 @@
       }
     }
   },
-  "defaultProject": "samples",
+  "defaultProject": "slipnslide",
   "cli": {
     "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982"
   }
