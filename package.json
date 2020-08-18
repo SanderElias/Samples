@@ -5,10 +5,11 @@
     "ng": "ng",
     "start": "ng serve --port 4301 --ssl",
     "build": "ng build",
-    "build.lib": "ng build @se-ng/swapi && ng build @se-ng/observable-hooks && ng build @se-ng/observable-utils && ng build @se-ng/let",
+    "build.lib": "ng build @se-ng/swapi --prod && ng build @se-ng/observable-hooks --prod && ng build @se-ng/observable-utils --prod && ng build @se-ng/let --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,7 @@
     "idb-keyval": "^3.1.0",
     "messagepack": "^1.1.8",
     "msgpack-lite": "^0.1.26",
+    "path-to-regexp": "^6.1.0",
     "replicator": "^1.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
@@ -61,6 +63,7 @@
     "prettier": "^2.0.5",
     "protractor": "~7.0.0",
     "ts-node": "^8.10.2",
+    "tsc-watch": "^4.2.9",
     "tslint": "~6.1.0",
     "typescript": "3.9.6"
   }
