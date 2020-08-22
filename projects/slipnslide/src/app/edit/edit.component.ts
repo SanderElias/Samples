@@ -1,19 +1,31 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'markdown-edit',
   template: `<a routerLink="/home"><h1>Edit</h1></a>
-    <md-edit [markdown]="test" (updates)="update($event)"></md-edit> `,
+    <select-file (fileName)="loadFile($event)"></select-file>
+    <md-edit [markdown]="markDown" (updates)="update($event)"></md-edit> `,
   styles: [],
 })
 export class EditComponent implements OnInit {
-  private updates = new Subject<string>();
-  updates$ = this.updates.asObservable();
-  update = this.updates.next.bind(this.updates$);
-  test = '# Hello world';
-  ngOnInit() {
-    this.updates$.subscribe(d => console.log(d));
-    this.update('hello');
+  fileName = '';
+  markDown = '# Hello world';
+  ngOnInit() {}
+  async loadFile(name) {
+    const data = await fetch(`http://localhost:8201/slides/${name}`)
+      .then(r => r.text())
+      .catch(() => undefined);
+    if (data) {
+      this.fileName = name;
+      this.markDown = data;
+    }
+  }
+
+  constructor(private http: HttpClient) {}
+
+  update(newText) {
+    this.http.put(`http://localhost:8201/slides/${name}`, newText).subscribe();
   }
 }

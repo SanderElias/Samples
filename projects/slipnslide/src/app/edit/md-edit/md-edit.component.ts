@@ -5,11 +5,11 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output,
+  Output
 } from '@angular/core';
 import Editor from '@toast-ui/editor';
 import { Subject } from 'rxjs';
-import { debounceTime, map, tap } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 
 const styles = [
   'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css',
@@ -28,12 +28,16 @@ const styles = [
   ],
 })
 export class MdEditComponent implements OnInit, OnDestroy {
-  @Input() markdown = '';
+  @Input() set markdown(x) {
+    if (x && typeof x === 'string') {
+      setTimeout(() => this.editor && this.editor.setMarkdown(x), 10);
+    }
+  }
   @Output() updates = new EventEmitter<string>();
   private content = new Subject<string>();
   private content$ = this.content.pipe(
     debounceTime(500),
-    map(() => this.editor.getMarkdown()),
+    map(() => this.editor.getMarkdown())
   );
 
   private contntSub = this.content$.subscribe(this.updates);
