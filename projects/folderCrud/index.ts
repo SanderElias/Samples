@@ -1,11 +1,9 @@
-import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { sendJson, sendHtml, sendText } from './utils/sendHtml';
-import { join } from 'path';
-import { walkSync } from './utils/walkSync';
-import { OptionsResponse, Router } from './serverUtils/router';
 import { readFileSync, writeFileSync } from 'fs';
-import { type } from 'os';
-import { IncomingHttpStatusHeader } from 'http2';
+import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { join } from 'path';
+import { OptionsResponse, Router } from './serverUtils/router';
+import { sendHtml, sendJson, sendText } from './utils/sendHtml';
+import { walkSync } from './utils/walkSync';
 
 const homeFolder = join(__dirname, '../../');
 const slideFolder = join(homeFolder, 'slides/');
@@ -34,7 +32,9 @@ router.register('/slides/:file*', (req, res, params) => {
       break;
     case 'put':
       const path = join(slideFolder, './', fileName);
-      writeFileSync(path, req.rawBody);
+      writeFileSync(path, req.rawData);
+      // console.log('write', req.rawData);
+      send({ ok: true });
       break;
     case 'options':
       break;
@@ -45,8 +45,8 @@ router.register('/slides/:file*', (req, res, params) => {
 });
 
 createServer((req, res) => {
-  if (req.method==='OPTIONS') {
-    return OptionsResponse(req,res)
+  if (req.method === 'OPTIONS') {
+    return OptionsResponse(req, res);
   }
   console.log(`${req.method} url: "${req.url}"`);
   const handler = router.route(req);
@@ -61,7 +61,6 @@ function handleSlideGet(
   send: (body: object) => void
 ) {
   if (file) {
-    console.log({ file });
     const foundFile = files.find(f => f.startsWith(file));
     if (foundFile) {
       const path = join(slideFolder, './', foundFile);
