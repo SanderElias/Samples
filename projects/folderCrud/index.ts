@@ -32,7 +32,8 @@ router.register('/slides/:file*', (req, res, params) => {
       break;
     case 'put':
       const path = join(slideFolder, './', fileName);
-      writeFileSync(path, req.rawData);
+      // tslint:disable-next-line: no-unused-expression
+      req.rawHeaders && writeFileSync(path, req.rawData!);
       // console.log('write', req.rawData);
       send({ ok: true });
       break;
