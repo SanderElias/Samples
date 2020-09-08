@@ -318,7 +318,7 @@
         }
       }
     },
-    "slipnslide": {
+    "slipnslides": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -329,25 +329,25 @@
           "strict": true
         }
       },
-      "root": "projects/slipnslide",
-      "sourceRoot": "projects/slipnslide/src",
+      "root": "projects/slipnslides",
+      "sourceRoot": "projects/slipnslides/src",
       "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/slipnslide",
-            "index": "projects/slipnslide/src/index.html",
-            "main": "projects/slipnslide/src/main.ts",
-            "polyfills": "projects/slipnslide/src/polyfills.ts",
-            "tsConfig": "projects/slipnslide/tsconfig.app.json",
+            "outputPath": "dist/slipnslides",
+            "index": "projects/slipnslides/src/index.html",
+            "main": "projects/slipnslides/src/main.ts",
+            "polyfills": "projects/slipnslides/src/polyfills.ts",
+            "tsConfig": "projects/slipnslides/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/slipnslide/src/favicon.ico",
-              "projects/slipnslide/src/assets"
+              "projects/slipnslides/src/favicon.ico",
+              "projects/slipnslides/src/assets"
             ],
             "styles": [
-              "projects/slipnslide/src/styles.css"
+              "projects/slipnslides/src/styles.css"
             ],
             "scripts": []
           },
@@ -355,8 +355,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/slipnslide/src/environments/environment.ts",
-                  "with": "projects/slipnslide/src/environments/environment.prod.ts"
+                  "replace": "projects/slipnslides/src/environments/environment.ts",
+                  "with": "projects/slipnslides/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -385,33 +385,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "slipnslide:build"
+            "browserTarget": "slipnslides:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "slipnslide:build:production"
+              "browserTarget": "slipnslides:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "slipnslide:build"
+            "browserTarget": "slipnslides:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/slipnslide/src/test.ts",
-            "polyfills": "projects/slipnslide/src/polyfills.ts",
-            "tsConfig": "projects/slipnslide/tsconfig.spec.json",
-            "karmaConfig": "projects/slipnslide/karma.conf.js",
+            "main": "projects/slipnslides/src/test.ts",
+            "polyfills": "projects/slipnslides/src/polyfills.ts",
+            "tsConfig": "projects/slipnslides/tsconfig.spec.json",
+            "karmaConfig": "projects/slipnslides/karma.conf.js",
             "assets": [
-              "projects/slipnslide/src/favicon.ico",
-              "projects/slipnslide/src/assets"
+              "projects/slipnslides/src/favicon.ico",
+              "projects/slipnslides/src/assets"
             ],
             "styles": [
-              "projects/slipnslide/src/styles.css"
+              "projects/slipnslides/src/styles.css"
             ],
             "scripts": []
           }
@@ -420,9 +420,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/slipnslide/tsconfig.app.json",
-              "projects/slipnslide/tsconfig.spec.json",
-              "projects/slipnslide/e2e/tsconfig.json"
+              "projects/slipnslides/tsconfig.app.json",
+              "projects/slipnslides/tsconfig.spec.json",
+              "projects/slipnslides/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -432,19 +432,19 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/slipnslide/e2e/protractor.conf.js",
-            "devServerTarget": "slipnslide:serve"
+            "protractorConfig": "projects/slipnslides/e2e/protractor.conf.js",
+            "devServerTarget": "slipnslides:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "slipnslide:serve:production"
+              "devServerTarget": "slipnslides:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "slipnslide",
+  "defaultProject": "slipnslides",
   "cli": {
     "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982"
   }

@@ -73,7 +73,8 @@ export class SlidesService {
         slide.yaml.order = slide.order;
         const newText = `---
 ${safeDump(slide.yaml, { skipInvalid: true, sortKeys: true })}---
-${slide.markdown}`;
+${slide.markdown}
+`;
         this.http.put(`http://localhost:8201/slides/${slide.filename}`, newText).subscribe();
 
         const newSlides = slides.map(sl => (sl.filename === slide.filename ? slide : sl));

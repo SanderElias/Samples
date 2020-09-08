@@ -41,11 +41,11 @@ export class EditComponent implements OnInit {
     this.fancy = !this.fancy;
   }
   update(markdown: string) {
-    markdown = markdown.trim();
+    // markdown = markdown.trim();
     if (markdown !== this.slide.markdown) {
-      const newSlide = {...this.slide, markdown}
-      this.sld.save(newSlide);
-      this.setSlide(newSlide)
+      this.slide.markdown = this.markDown;
+      const updatedSlide = {...this.slide, markdown}
+      this.sld.save(updatedSlide);
     }
   }
 }
