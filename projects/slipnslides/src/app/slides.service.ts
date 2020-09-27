@@ -7,17 +7,18 @@ import { catchError, concatMap, debounceTime, map, repeat, take, tap } from 'rxj
 import { safeDump } from 'js-yaml';
 
 export interface SlideHeader {
-  order: number;
+  position: number;
   description?: string;
   title?: string;
   [key: string]: unknown;
 }
 
 export interface Slide {
-  order: number;
+  position: number;
   markdown: string;
   yaml: SlideHeader;
   filename: string;
+  title: string;
 }
 
 @Injectable({
@@ -29,8 +30,8 @@ export class SlidesService {
   slides$ = this.slides.asObservable().pipe(
     map(slides =>
       slides.sort((a, b) => {
-        const keyA = a.order.toString().padStart(4, '0') + a.filename;
-        const keyB = b.order.toString().padStart(4, '0') + b.filename;
+        const keyA = a.position.toString().padStart(4, '0') + a.filename;
+        const keyB = b.position.toString().padStart(4, '0') + b.filename;
         return a < b ? -1 : 1;
       })
     )
@@ -55,7 +56,7 @@ export class SlidesService {
                     filename,
                     yaml: attributes as SlideHeader,
                     markdown: body,
-                    order: attributes['order'] || 999,
+                    position: attributes['position'] || 999,
                   };
                 })
               )
@@ -70,7 +71,7 @@ export class SlidesService {
       debounceTime(1500),
       take(1),
       tap(([slide, slides]: [Slide, Slide[]]) => {
-        slide.yaml.order = slide.order;
+        slide.yaml.position = slide.position;
         const newText = `---
 ${safeDump(slide.yaml, { skipInvalid: true, sortKeys: true })}---
 ${slide.markdown}

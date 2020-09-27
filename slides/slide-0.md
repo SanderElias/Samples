@@ -2,10 +2,13 @@
 order: 999
 tilte: slide1
 ---
-
 # Slip'n'Slides
 
-## a simple way to create slides using angular
+no moar typo
 
+Is this not possible to have grammar control?
 
+let us check this thing.
+
+## a simple way!
 

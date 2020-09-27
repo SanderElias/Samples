@@ -4,5 +4,4 @@ tilte: slide3
 ---
 # Slide 3
 
-
-Some 
+Some

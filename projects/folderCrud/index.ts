@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 // import { createServer } from 'https';
 import { join } from 'path';
 import { OptionsResponse, Router } from './serverUtils/router';
@@ -6,11 +6,23 @@ import { sendHtml, sendJson, sendText } from './utils/sendHtml';
 import { walkSync } from './utils/walkSync';
 import { certificateFor } from 'devcert';
 import { IncomingMessage, ServerResponse, createServer } from 'http';
+// import yargs from 'yargs';
+const yargs = require('yargs')
+// import yargs from 'yargs';
+const homeFolder = join(__dirname, '../../');
+
+const { slideFolder } = yargs
+  .string('slideFolder')
+  .default('sf', join(homeFolder, 'slides/'))
+  .alias('sf', 'slideFolder').argv;
+
+if (!existsSync(slideFolder)) {
+  console.log(`Folder "${slideFolder}" doesn't seem to exists`);
+  process.exit(15);
+}
 
 (async () => {
   const ssl = await certificateFor('slipnslidess');
-  const homeFolder = join(__dirname, '../../');
-  const slideFolder = join(homeFolder, 'slides/');
   const router = new Router();
 
   router.register('/hello', (req, res) => {
@@ -51,7 +63,7 @@ import { IncomingMessage, ServerResponse, createServer } from 'http';
     }
   });
 
-  createServer( (req, res) => {
+  createServer((req, res) => {
     if (req.method === 'OPTIONS') {
       return OptionsResponse(req, res);
     }
@@ -80,4 +92,3 @@ import { IncomingMessage, ServerResponse, createServer } from 'http';
     }
   }
 })();
-

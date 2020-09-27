@@ -20,7 +20,7 @@ export class SelectFileComponent implements OnDestroy, OnInit {
     switchMap((elm: HTMLElement) => fromEvent(elm, 'input')),
     map((ev: any) => ev.target.value as string),
     switchMap(name => this.sld.getByFilename(name)),
-    filter(s => !!s.filename)
+    filter(s => !!s.filename),
   );
 
   slides$ = this.sld.slides$.pipe(

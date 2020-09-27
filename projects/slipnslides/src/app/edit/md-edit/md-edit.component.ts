@@ -23,6 +23,7 @@ const styles = [
     `
       :host {
         display: block;
+
       }
     `,
   ],

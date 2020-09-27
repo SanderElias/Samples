@@ -7,3 +7,13 @@ html,body {
 * {
   box-sizing: border-box;
 }
+
+/* :focus,
+:hover {
+  filter: brightness(120%) saturate(120%);
+} */
+
+body, textarea, input, select {
+  background-color: rgb(31, 29, 29);
+  color:whitesmoke
+}

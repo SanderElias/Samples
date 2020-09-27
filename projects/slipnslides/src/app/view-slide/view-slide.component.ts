@@ -5,7 +5,7 @@ import { SlidesService } from '../slides.service';
 
 @Component({
   selector: 'view-slide',
-  template: ` <scully-content><scully-content> </scully-content></scully-content> `,
+  template: ` <scully-content></scully-content> `,
   styleUrls: ['./vied-slide.component.css']
 })
 export class ViewSlideComponent implements OnInit {
