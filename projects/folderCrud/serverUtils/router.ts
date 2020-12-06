@@ -67,7 +67,7 @@ x-ec-custom-error: 1
 */
 
 export function OptionsResponse(req: Request, res: ServerResponse) {
-  console.log(req.headers);
+  // console.log(req.headers);
   res.writeHead(200, {
     Server: 'SandersMess',
     'Cache-Control': 'max-age=604800',

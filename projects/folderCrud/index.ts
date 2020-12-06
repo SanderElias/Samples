@@ -1,11 +1,9 @@
-import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { sendJson, sendHtml, sendText } from './utils/sendHtml';
-import { join } from 'path';
-import { walkSync } from './utils/walkSync';
-import { OptionsResponse, Router } from './serverUtils/router';
 import { readFileSync, writeFileSync } from 'fs';
-import { type } from 'os';
-import { IncomingHttpStatusHeader } from 'http2';
+import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { join } from 'path';
+import { OptionsResponse, Router } from './serverUtils/router';
+import { sendHtml, sendJson, sendText } from './utils/sendHtml';
+import { walkSync } from './utils/walkSync';
 
 const homeFolder = join(__dirname, '../../');
 const slideFolder = join(homeFolder, 'slides/');
@@ -30,25 +28,36 @@ router.register('/slides/:file*', (req, res, params) => {
   console.log(fileName);
   switch (type) {
     case 'get':
-      handleSlideGet(fileName, files, res, req, send);
+      return handleSlideGet(fileName, files, res, req, send);
       break;
     case 'put':
       const path = join(slideFolder, './', fileName);
-      writeFileSync(path, req.rawBody);
+      debouncedWrite(path, req.rawBody);
       break;
     case 'options':
       break;
     default:
-      send({ error: `unsupported method ${type.toUpperCase()}` });
+      return send({ error: `unsupported method ${type.toUpperCase()}` });
   }
-  send(files);
+  // send(files);
 });
 
-createServer((req, res) => {
-  if (req.method==='OPTIONS') {
-    return OptionsResponse(req,res)
+let write: NodeJS.Timeout;
+function debouncedWrite(path: string, content?: string): void {
+  // tslint:disable-next-line: no-unused-expression
+  write && clearTimeout(write);
+  if (content) {
+    write = setTimeout(() => {
+      writeFileSync(path, content);
+    }, 2000);
   }
-  console.log(`${req.method} url: "${req.url}"`);
+}
+
+createServer((req, res) => {
+  if (req.method === 'OPTIONS') {
+    return OptionsResponse(req, res);
+  }
+  // console.log(`${req.method} url: "${req.url}"`);
   const handler = router.route(req);
   handler.process(req, res);
 }).listen(8201);
