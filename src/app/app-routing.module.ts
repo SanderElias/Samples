@@ -74,11 +74,12 @@ const routes: Routes = [
     loadChildren: () => import('../../src/app/test/test.module').then(module => module.TestModule),
   },
   { path: 'home', component: HomeComponent },
-  { path: '**', redirectTo: 'viewModel/user/1' },
+  { path: 'dynhtml', loadChildren: () => import('./dynamichtml/dynamichtml.module').then(m => m.DynamichtmlModule) },
+  { path: '**', redirectTo: 'dynhtml' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

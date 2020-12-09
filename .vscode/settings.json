@@ -9,8 +9,7 @@
         "statusBar.background": "#34570e",
         "statusBarItem.hoverBackground": "#4e8315",
         "statusBar.foreground": "#e7e7e7",
-        "activityBar.activeBackground": "#4e8315",
-        "statusBar.border": "#34570e"
+        "activityBar.activeBackground": "#4e8315"
     },
     "peacock.color": "#34570e"
 }

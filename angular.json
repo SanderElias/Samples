@@ -62,7 +62,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -85,7 +84,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "samples:build"
+            "browserTarget": "samples:build",
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -165,17 +165,17 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/se-ng/observable-hooks/tsconfig.lib.json",
             "project": "projects/se-ng/observable-hooks/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/se-ng/observable-hooks/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -205,17 +205,17 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/se-ng/swapi/tsconfig.lib.json",
             "project": "projects/se-ng/swapi/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/se-ng/swapi/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -245,17 +245,17 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/se-ng/observable-utils/tsconfig.lib.json",
             "project": "projects/se-ng/observable-utils/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/se-ng/observable-utils/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -285,17 +285,17 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/se-ng/let/tsconfig.lib.json",
             "project": "projects/se-ng/let/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/se-ng/let/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -317,7 +317,134 @@
           }
         }
       }
+    },
+    "slipnslides": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/slipnslides",
+      "sourceRoot": "projects/slipnslides/src",
+      "prefix": "",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/slipnslides",
+            "index": "projects/slipnslides/src/index.html",
+            "main": "projects/slipnslides/src/main.ts",
+            "polyfills": "projects/slipnslides/src/polyfills.ts",
+            "tsConfig": "projects/slipnslides/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/slipnslides/src/favicon.ico",
+              "projects/slipnslides/src/assets"
+            ],
+            "styles": [
+              "projects/slipnslides/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/slipnslides/src/environments/environment.ts",
+                  "with": "projects/slipnslides/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "slipnslides:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "slipnslides:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "slipnslides:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/slipnslides/src/test.ts",
+            "polyfills": "projects/slipnslides/src/polyfills.ts",
+            "tsConfig": "projects/slipnslides/tsconfig.spec.json",
+            "karmaConfig": "projects/slipnslides/karma.conf.js",
+            "assets": [
+              "projects/slipnslides/src/favicon.ico",
+              "projects/slipnslides/src/assets"
+            ],
+            "styles": [
+              "projects/slipnslides/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/slipnslides/tsconfig.app.json",
+              "projects/slipnslides/tsconfig.spec.json",
+              "projects/slipnslides/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/slipnslides/e2e/protractor.conf.js",
+            "devServerTarget": "slipnslides:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "slipnslides:serve:production"
+            }
+          }
+        }
+      }
     }
   },
-  "defaultProject": "samples"
+  "defaultProject": "slipnslides",
+  "cli": {
+    "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982"
+  }
 }

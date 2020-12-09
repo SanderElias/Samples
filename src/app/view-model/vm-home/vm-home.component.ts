@@ -15,16 +15,16 @@ export class VmHomeComponent {
   /** create observable with clicks from viewChildren */
   @ObsFromEvent('click')
   @ViewChildren('ba', { read: ElementRef })
-  artClick$: Observable<Event>;
+  artClick$: Observable<Event> = of();
 
   /** create observable with clicks from viewChildren */
   @ObsFromEvent('click')
   @ViewChildren('bq', { read: ElementRef })
-  quoteClick$: Observable<Event>;
+  quoteClick$: Observable<Event> = of();
 
   @ObsFromEvent('change')
   @ViewChildren('speed', { read: ElementRef })
-  speedChange$: Observable<Event>;
+  speedChange$: Observable<Event> = of();
 
   art$ = this.raki.randomImage$.pipe(filter(Boolean));
 
