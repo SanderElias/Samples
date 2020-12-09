@@ -249,6 +249,13 @@
   dependencies:
     tslib "^2.0.0"
 
+"@angular/elements@^11.0.3":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@angular/elements/-/elements-11.0.3.tgz#23c77e0e3bae2a952674f274ae64c6c099f8ce2c"
+  integrity sha512-7tOtq0AQFKKdX1wHrpoN0Ae/eeukDmcr2RarR+ibGIJwCQCSUQxVht2zsgyAmtDFwTkI3a51RiWPnKipjcjXiw==
+  dependencies:
+    tslib "^2.0.0"
+
 "@angular/forms@~11.0.3":
   version "11.0.3"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-11.0.3.tgz#9fac6a5a2107ba8c5b0a57709a8f2bf8485e41ed"
@@ -4072,6 +4079,11 @@ dns-txt@^2.0.2:
   integrity sha1-uR2Ab10nGI5Ks+fRB9iBocxGQrY=
   dependencies:
     buffer-indexof "^1.0.0"
+
+document-register-element@^1.7.2:
+  version "1.14.10"
+  resolved "https://registry.yarnpkg.com/document-register-element/-/document-register-element-1.14.10.tgz#a7bd025e6b73bd827fec2d8e90aba755e99387f5"
+  integrity sha512-w5UA37hEIrs+9pruo2yR5UD13c4UHDlkqqjt4qurnp7QsBI9b1IOi8WXUim+aCqKBsENX3Z/cso7XMOuwJH1Yw==
 
 dom-serialize@^2.2.1:
   version "2.2.1"

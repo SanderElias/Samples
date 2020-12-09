@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
-import { RouterState, ActivatedRoute } from '@angular/router';
+import { AfterContentInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,7 @@ export class AppComponent implements AfterContentInit {
   title = 'samples';
   constructor(private elmRef: ElementRef, private r: ActivatedRoute) {
     window['ar'] = r;
-    console.log('rs', r);
+    // console.log('rs', r);
   }
 
   ngAfterContentInit() {
