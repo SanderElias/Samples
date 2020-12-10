@@ -1,4 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html, body {
+  height: 100%;
+}
+
+
 html {
   overflow: hidden;
   box-sizing: border-box;
@@ -9,9 +15,13 @@ html {
 }
 
 body {
+  font: 14px/1 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
   min-height: 99vh;
+  color:rgb(230, 234, 238);
+  background-color:#333;
 }
 
 .backDrop {
@@ -31,4 +41,56 @@ body {
   padding: 5px 10px;
   border-radius: 10px;
   display: inline;
+}
+
+
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  border: 0;
+  outline: 0;
+  color: #fff;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  resize: none;
+}
+
+input[type="text"] {
+  display: block;
+  margin: 0 0 20px;
+  padding: 8px 12px 10px 12px;
+  border: 1px solid rgba(0,0,0,.5);
+  background: rgba(0,0,0,.25);
+}
+
+textarea {
+  display: block;
+  margin: 0 0 20px;
+  padding: 8px 12px 10px 12px;
+  border: 1px solid rgba(0,0,0,.5);
+  background: rgba(0,0,0,.25);
+}
+
+button {
+  display: block;
+  width: 150px;
+  margin: 0 0 20px;
+  padding: 8px 0 10px 0;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,.5);
+  background: rgba(0,0,0,.25);
 }

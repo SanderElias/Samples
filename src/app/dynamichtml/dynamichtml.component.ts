@@ -56,8 +56,9 @@ export class DynamicHtmlComponent implements OnInit {
   elm = this.elmRef.nativeElement as HTMLDivElement;
   name = 'Angular';
   html = `
-  <h1>test some html<h1>
+  <h1>Some random HTML</h1>
   <p>Well, <dyn-data property='name'></dyn-data> is awesome</p>
+  <button onclick="alert('hi')">hi</button>
   `;
 
   constructor(private elmRef: ElementRef, injector: Injector) {
