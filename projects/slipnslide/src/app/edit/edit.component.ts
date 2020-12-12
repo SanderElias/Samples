@@ -26,6 +26,6 @@ export class EditComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   update(newText) {
-    this.http.put(`http://localhost:8201/slides/${name}`, newText).subscribe();
+    this.http.put(`http://localhost:8201/slides/${this.fileName}`, newText).subscribe();
   }
 }

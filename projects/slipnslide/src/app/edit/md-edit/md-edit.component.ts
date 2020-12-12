@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import Editor from '@toast-ui/editor';
 import { Subject } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, map, tap } from 'rxjs/operators';
 
 const styles = [
   'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css',
@@ -40,7 +40,9 @@ export class MdEditComponent implements OnInit, OnDestroy {
     map(() => this.editor.getMarkdown())
   );
 
-  private contntSub = this.content$.subscribe(this.updates);
+  private contentSub = this.content$.pipe(
+    // tap(x => console.log('update',x))
+  ).subscribe(this.updates);
 
   private elm = this.elmRef.nativeElement;
   private editor: Editor;
@@ -66,7 +68,7 @@ export class MdEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.contntSub.unsubscribe();
+    this.contentSub.unsubscribe();
   }
 }
 

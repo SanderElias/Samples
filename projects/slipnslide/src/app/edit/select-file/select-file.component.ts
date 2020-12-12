@@ -22,7 +22,10 @@ export class SelectFileComponent implements OnDestroy, OnInit {
     filter(s => !!s)
   );
 
-  files$ = this.http.get('http://localhost:8201/slides');
+  files$ = this.http.get('http://localhost:8201/slides').pipe(
+    /** emit initial file */
+    tap((files: string[]) => files.length && this.fileName.emit(files[0]))
+  );
 
   private sub = this.inputs$.subscribe(this.fileName);
 

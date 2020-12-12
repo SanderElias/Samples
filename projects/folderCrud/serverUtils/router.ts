@@ -67,12 +67,11 @@ x-ec-custom-error: 1
 */
 
 export function OptionsResponse(req: Request, res: ServerResponse) {
-  // console.log(req.headers);
   res.writeHead(200, {
     Server: 'SandersMess',
     'Cache-Control': 'max-age=604800',
     'Access-Control-Allow-Origin': req.headers.origin || '*',
-    'Access-Control-Request-Methods': 'GET, PUT, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS',
     'Access-Control-Allow-Readers': 'X-PINGOTHER, Content-type',
     Date: new Date().toISOString(),
   });
