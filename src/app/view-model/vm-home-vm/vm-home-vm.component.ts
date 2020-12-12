@@ -43,16 +43,16 @@ export class VmHomeVmComponent {
   private viewModal: Vm;
   @ObsFromEvent('click')
   @ViewChildren('ba', { read: ElementRef })
-  artClick$: Observable<Event>;
+  artClick$: Observable<Event> = of();
 
   /** create observable with clicks from viewChildren */
   @ObsFromEvent('click')
   @ViewChildren('bq', { read: ElementRef })
-  quoteClick$: Observable<Event>;
+  quoteClick$: Observable<Event> = of();
 
   @ObsFromEvent('change')
   @ViewChildren('speed', { read: ElementRef })
-  speedChange$: Observable<Event>;
+  speedChange$: Observable<Event> = of();
 
   art$ = this.raki.randomImage$.pipe(filter(Boolean));
 
@@ -81,7 +81,7 @@ export class VmHomeVmComponent {
 
   countDown$ = this.pausedArt$.pipe(
     /** watch the art clicks, and use a interval */
-    switchMap(() => combineLatest(this.baClicks$, timer(0, 1000))),
+    switchMap(() => combineLatest([this.baClicks$, timer(0, 1000)])),
     /** when there user clicks, stop this stream */
     switchMap(([artPaused, timeVal]) => (artPaused ? NEVER : of(timeVal))),
     /** count down from 20 */

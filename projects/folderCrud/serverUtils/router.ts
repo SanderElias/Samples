@@ -14,7 +14,7 @@ interface Params {
 }
 
 export interface Request extends IncomingMessage {
-  rawBody?: string;
+  rawData?: string;
 }
 
 type RouteHandler = (req: Request, res: ServerResponse, params?: Params) => void;
@@ -42,14 +42,15 @@ class Handler {
       });
       req.on('end', () => {
         clearTimeout(timeout);
-        resolve(data.join()); // 'Buy the milk'
+
+        resolve(data.map(d => d.toString()).join());
       });
       req.on('error', () => {
         clearTimeout(timeout);
         reject();
       });
     });
-    req.rawBody = rawData;
+    req.rawData = rawData;
     return this.handle(req, res, params);
   }
 }
