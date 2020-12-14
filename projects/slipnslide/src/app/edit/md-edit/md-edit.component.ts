@@ -5,9 +5,11 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import Editor from '@toast-ui/editor';
+import fm from 'front-matter';
+import { safeDump } from 'js-yaml';
 import { Subject } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
 
@@ -28,21 +30,34 @@ const styles = [
   ],
 })
 export class MdEditComponent implements OnInit, OnDestroy {
+  attributes: { [key: string]: any };
   @Input() set markdown(x) {
     if (x && typeof x === 'string') {
-      setTimeout(() => this.editor && this.editor.setMarkdown(x), 10);
+      setTimeout(() => {
+        if (this.editor) {
+          const { attributes, body } = fm(x);
+          this.attributes = attributes;
+          this.editor.setMarkdown(body);
+        }
+      }, 10);
     }
   }
   @Output() updates = new EventEmitter<string>();
   private content = new Subject<string>();
   private content$ = this.content.pipe(
     debounceTime(500),
-    map(() => this.editor.getMarkdown())
+    map(
+      () => `---
+  ${safeDump(this.attributes)}
+  ---
+
+  ${this.editor.getMarkdown().trimLeft()}`
+    )
   );
 
-  private contentSub = this.content$.pipe(
-    // tap(x => console.log('update',x))
-  ).subscribe(this.updates);
+  private contentSub = this.content$
+    .pipe(tap(x => console.log('update', x)))
+    .subscribe(this.updates);
 
   private elm = this.elmRef.nativeElement;
   private editor: Editor;

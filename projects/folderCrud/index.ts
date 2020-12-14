@@ -1,14 +1,12 @@
+import { certificateFor } from 'devcert';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-// import { createServer } from 'https';
+import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { join } from 'path';
 import { OptionsResponse, Router } from './serverUtils/router';
 import { sendHtml, sendJson, sendText } from './utils/sendHtml';
 import { walkSync } from './utils/walkSync';
-import { certificateFor } from 'devcert';
-import { IncomingMessage, ServerResponse, createServer } from 'http';
-// import yargs from 'yargs';
-const yargs = require('yargs')
-// import yargs from 'yargs';
+
+const yargs = require('yargs');
 const homeFolder = join(__dirname, '../../');
 
 const { slideFolder } = yargs
@@ -52,6 +50,7 @@ if (!existsSync(slideFolder)) {
         const path = join(slideFolder, './', fileName);
         // tslint:disable-next-line: no-unused-expression
         console.log(req.rawData);
+        // tslint:disable-next-line: no-unused-expression
         req.rawHeaders && writeFileSync(path, req.rawData!);
         // console.log('write', req.rawData);
         send({ ok: true });
