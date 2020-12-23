@@ -36,7 +36,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
             "outputPath": "dist/samples",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -443,7 +442,7 @@
       }
     }
   },
-  "defaultProject": "slipnslide",
+  "defaultProject": "samples",
   "cli": {
     "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982"
   }

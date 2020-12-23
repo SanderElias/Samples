@@ -75,7 +75,8 @@ const routes: Routes = [
   },
   { path: 'home', component: HomeComponent },
   { path: 'dynhtml', loadChildren: () => import('./dynamichtml/dynamichtml.module').then(m => m.DynamichtmlModule) },
-  { path: '**', redirectTo: 'dynhtml' },
+  { path: 'snow', loadChildren: () => import('./snow/snow.module').then(m => m.SnowModule) },
+  { path: '**', redirectTo: 'snow' },
 ];
 
 @NgModule({
