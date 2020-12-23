@@ -1,4 +1,4 @@
-import { get, set, clear } from 'idb-keyval';
+import { get, set,del } from 'idb-keyval';
 let cache: Map<string, object>;
 const cacheName = 'sample-cache';
 
@@ -23,5 +23,5 @@ export function getFromCache(key) {
 
 export function clearCache() {
   cache.clear();
-  clear();
+  del(cacheName);
 }
