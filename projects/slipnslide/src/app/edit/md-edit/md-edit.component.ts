@@ -9,9 +9,10 @@ import {
 } from '@angular/core';
 import Editor from '@toast-ui/editor';
 import fm from 'front-matter';
-import { safeDump } from 'js-yaml';
+// import { safeDump } from 'js-yaml';
 import { Subject } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
+import { stringify } from 'yaml';
 
 const styles = [
   'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css',
@@ -35,9 +36,17 @@ export class MdEditComponent implements OnInit, OnDestroy {
     if (x && typeof x === 'string') {
       setTimeout(() => {
         if (this.editor) {
-          const { attributes, body } = fm(x);
-          this.attributes = attributes;
-          this.editor.setMarkdown(body);
+          try {
+            /** malformed yaml or MD can break FM */
+            const { attributes, body } = fm(x);
+            console.log( attributes );
+            this.attributes = attributes;
+            this.editor.setMarkdown(body);
+          } catch {
+            /** fallback to just setting the content verbatim, and resetting attribs */
+            this.attributes={};
+            this.editor.setMarkdown(x)
+          }
         }
       }, 10);
     }
@@ -46,13 +55,16 @@ export class MdEditComponent implements OnInit, OnDestroy {
   private content = new Subject<string>();
   private content$ = this.content.pipe(
     debounceTime(500),
-    map(
-      () => `---
-  ${safeDump(this.attributes)}
-  ---
+    map(() => {
+      if (Object.keys(this.attributes).length===0) {
+        return this.editor.getMarkdown().trimStart()
+      }
+      return `---
+${stringify(this.attributes)}
+---
 
-  ${this.editor.getMarkdown().trimLeft()}`
-    )
+${this.editor.getMarkdown().trimStart()}`;
+    })
   );
 
   private contentSub = this.content$

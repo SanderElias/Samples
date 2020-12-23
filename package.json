@@ -50,6 +50,7 @@
     "replicator": "^1.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "yaml": "^1.10.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
