@@ -123,7 +123,7 @@ export class VmHomeVmComponent {
     speed: this.speed$,
   }).pipe(
     debounceTime(4),
-    tap(viewModel => console.log({ viewModel })),
+    // tap(viewModel => console.log({ viewModel })),
     tap(vm => (this.viewModal = vm))
   );
 
@@ -140,7 +140,7 @@ export class VmHomeVmComponent {
       /** make sure the stream starts */
       startWith(false),
       /** log to console so we can see what's happening */
-      tap(r => console.log('clicked', name, r))
+      // tap(r => console.log('clicked', name, r))
     );
   }
 }

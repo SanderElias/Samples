@@ -54,13 +54,17 @@ export class VmHomeComponent {
 
   countDown$ = this.pausedArt$.pipe(
     /** watch the art clicks, and use a interval */
-    switchMap(() => combineLatest(this.baClicks$, timer(0, 1000))),
+    switchMap(() => combineLatest([this.baClicks$, timer(0, 1000)])),
     /** when there user clicks, stop this stream */
     switchMap(([artPaused, timeVal]) => (artPaused ? NEVER : of(timeVal))),
     /** count down from 20 */
     scan((duration, t) => 20 - t, 1)
   );
-  constructor(private raki: RakiService, private q: QuoteService) {}
+  constructor(private raki: RakiService, private q: QuoteService) {
+    setTimeout(() => {
+      console.log(this.artClick$);
+    }, 100);
+  }
 
   /**
    * helper, takes a event observable,
@@ -73,7 +77,7 @@ export class VmHomeComponent {
       /** make sure the stream starts */
       startWith(false),
       /** log to console so we can see what's happening */
-      tap(r => console.log('clicked', name, r))
+      // tap(r => console.log('clicked', name, r))
     );
   }
 }

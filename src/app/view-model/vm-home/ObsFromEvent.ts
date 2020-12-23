@@ -1,4 +1,4 @@
-import { ElementRef, QueryList } from '@angular/core';
+import { ElementRef, isDevMode, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -26,8 +26,14 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
       },
       set(ql: QueryList<ElementRef>) {
         if (!(ql instanceof QueryList)) {
-          /** make sure we have an querylist during runtime! */
-          throw new Error('ObsFromEvent expects a QueryList');
+          /**
+           * Make sure we have an querylist during runtime!
+           * just ignore all other incoming things
+          */
+         if (isDevMode()) {
+           console.warn(`obsFromEvent called with ${ql['constructor']['name']} instead of queryList`)
+         }
+          return
         }
         /** fetch the subject. */
         const eventSubject = fetchSubject(this, propertyKey);
