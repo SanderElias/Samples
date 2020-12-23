@@ -55,6 +55,14 @@ textarea {
   border: 0;
   outline: 0;
   color: #fff;
+  padding: 8px 12px 10px 12px;
+  margin-bottom: 4px;
+  background: rgba(0,0,0,.25);
+}
+
+option {
+
+  background: rgba(0,0,0,.25);
 }
 
 button::-moz-focus-inner,
@@ -67,6 +75,8 @@ textarea {
   overflow: auto;
   vertical-align: top;
   resize: none;
+  background: rgba(0,0,0,.25);
+
 }
 
 input[type="text"] {
