@@ -7,51 +7,50 @@ import { Component, OnInit } from '@angular/core';
   styles: [],
 })
 export class SnowComponent implements OnInit {
-  canvas = createSnowCanvas();
-  ctx = this.canvas.getContext('2d');
   constructor() {}
 
   ngOnInit(): void {
-    const height = this.canvas.height;
-    const width = this.canvas.width;
-    const makeColor = () => Number.parseInt((10 + getRandomInt(6)).toString(16).repeat(6), 16);
-    const origin = () => [width - getRandomInt(width), getRandomInt(5)];
-    const speed = () => [-2 + getRandomInt(4), 1 + getRandomInt(6)];
-    const makeFlake = () => [...origin(), ...speed(), 1 + getRandomInt(1), makeColor()];
-    const makeFlakes = num => Array.from({ length: num }, makeFlake);
-    const flakes = makeFlakes(getRandomInt(20));
-
-    const animate = (flakes: number[][]) => {
-      const needFlakeCount = 50 + getRandomInt(25);
-      const drawFlake = ([x, y, speedX, speedY, radius, color]: number[], index) => {
-        this.ctx.beginPath();
-        this.ctx.arc(x, y, radius, 0, Math.PI * 2);
-        this.ctx.fillStyle = `#${color.toString(16)}`;
-
-        this.ctx.fill();
-
-        if (y+speedY > height - 2) {
-          // "melt" phase
-          flakes[index][1] += 0.03;
-          return;
-        }
-
-        flakes[index][0] = x - speedX;
-        flakes[index][1] = y + speedY;
-      };
-      this.ctx.clearRect(0, 0, width, height);
-      if (flakes.length < needFlakeCount) {
-        /** add max up 7 flakes at a time */
-        flakes.push(...makeFlakes(Math.min(1+getRandomInt(7), needFlakeCount - flakes.length)));
-      }
-      flakes.forEach(drawFlake);
-      requestAnimationFrame(() =>
-        /** next iteration with the flakes that are still in the view */
-        animate(flakes.filter(([x, y]) => x > 0 && x < width && y < height))
-      );
-    };
-    animate(flakes);
+    makeItSnow();
   }
+}
+
+function makeItSnow() {
+  const snowCanvas = createSnowCanvas();
+  const ctx = snowCanvas.getContext('2d');
+  const height = snowCanvas.height;
+  const width = snowCanvas.width;
+  /** create a gray between `aaaaaa` and `ffffff`, and convert it back to a number */
+  const makeColor = () => Number.parseInt((9 + getRandomInt(6)).toString(16).repeat(6), 16);
+  const makeFlake = () => [
+    width - getRandomInt(width), // x
+    getRandomInt(5), // y
+    -2 + getRandomInt(4), // speedX
+    1 + getRandomInt(4), // speedY
+    1 + getRandomInt(1), // size (1 or 2 pixels)
+    makeColor(), // color
+  ];
+  const makeFlakes = num => Array.from({ length: num }, makeFlake);
+  const drawFlake = ([x, y, speedX, speedY, radius, color]: number[]) => {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = `#${color.toString(16)}`;
+    ctx.fill();
+    return y + speedY > height - 2
+      ? [x, y + 0.03, speedX, speedY, radius, color] // flake is 'melting'
+      : [x + speedX, y + speedY, speedX, speedY, radius, color]; // flake is moving
+  };
+  const animate = (flakes: number[][]) =>
+    requestAnimationFrame(() => {
+      const needFlakeCount = 150 + getRandomInt(25);
+      ctx.clearRect(0, 0, width, height); // clear the old flakes
+      animate(
+        flakes
+          .concat(flakes.length < needFlakeCount ? makeFlakes(1 + getRandomInt(7)) : []) // add up to 7 if too little
+          .map(drawFlake) // draw the actual flakes
+          .filter(([x, y]) => x > 0 && x < width && y < height) // remove flakes that are out of the view
+      );
+    });
+  animate(makeFlakes(getRandomInt(20))); //start off with default flake
 }
 
 /**
@@ -67,14 +66,14 @@ function getRandomInt(max: number): number {
 
 // var particleCanvas, particleCtx;
 function createSnowCanvas() {
-  const particleCanvas = document.createElement('canvas');
-  particleCanvas.width = window.innerWidth;
-  particleCanvas.height = window.innerHeight;
-  particleCanvas.style.position = 'fixed';
-  particleCanvas.style.top = '0';
-  particleCanvas.style.left = '0';
-  particleCanvas.style.zIndex = '1001';
-  particleCanvas.style.pointerEvents = 'none';
-  document.body.appendChild(particleCanvas);
-  return particleCanvas;
+  const snowFlakesCanvas = document.createElement('canvas');
+  snowFlakesCanvas.width = window.innerWidth;
+  snowFlakesCanvas.height = window.innerHeight;
+  snowFlakesCanvas.style.position = 'fixed';
+  snowFlakesCanvas.style.top = '0';
+  snowFlakesCanvas.style.left = '0';
+  snowFlakesCanvas.style.zIndex = '1001';
+  snowFlakesCanvas.style.pointerEvents = 'none';
+  document.body.appendChild(snowFlakesCanvas);
+  return snowFlakesCanvas;
 }
