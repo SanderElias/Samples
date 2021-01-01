@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { from, of, ReplaySubject } from 'rxjs';
-import { shareReplay, switchMap, tap } from 'rxjs/operators';
+import { shareReplay, switchMap, take, tap } from 'rxjs/operators';
 // import * as monaco from 'monaco-editor';
 declare const monaco: any;
 
@@ -50,7 +50,12 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
     if (oldContent !== newContent) {
       console.log('Saving to disk!');
       /** there is actually something to save! */
-      this.src$.pipe(src => this.http.put(this.fileUrl(src), newContent).subscribe());
+      this.src$
+        .pipe(
+          take(1),
+          switchMap(src => this.http.put(this.fileUrl(src), newContent))
+        )
+        .subscribe();
     }
   }
 
