@@ -5,7 +5,8 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
   { path: 'edit', loadChildren: () => import('./edit/edit.module').then(m => m.EditModule) },
   { path: 'code-sample', loadChildren: () => import('./code-sample/code-sample.module').then(m => m.CodeSampleModule) },
-  { path: '**', redirectTo: 'code-sample' },
+  { path: 'slide', loadChildren: () => import('./slide/slide.module').then(m => m.SlideModule) },
+  // { path: '**', redirectTo: 'code-sample' },
 ];
 
 @NgModule({

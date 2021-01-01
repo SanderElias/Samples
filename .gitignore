@@ -44,3 +44,6 @@ testem.log
 .DS_Store
 Thumbs.db
 scully.log
+scully.log
+scully.log
+src/assets/scully-routes.json

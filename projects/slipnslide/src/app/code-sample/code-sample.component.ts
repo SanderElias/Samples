@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { from, of } from 'rxjs';
+import { from, of, ReplaySubject } from 'rxjs';
 import { shareReplay, switchMap, tap } from 'rxjs/operators';
 // import * as monaco from 'monaco-editor';
 declare const monaco: any;
@@ -18,10 +18,16 @@ declare const monaco: any;
   ],
 })
 export class CodeSampleComponent implements OnInit, OnDestroy {
-  @Input() src = 'slipnslide/src/app/code-sample/code-sample.component.ts';
+  src$ = new ReplaySubject<string>(1);
+  @Input() set src(x) {
+    // = ''; //'slipnslide/src/app/code-sample/code-sample.component.ts';
+    if (typeof x === 'string') {
+      this.src$.next(x);
+    }
+  }
   @Input() startLine = 0;
   @Input() endLine = Number.MAX_SAFE_INTEGER;
-  fileUrl = () => `http://localhost:8201/file/${this.src}`;
+  fileUrl = src => `http://localhost:8201/file/${src}`;
 
   @Input() set sl(n: number) {
     this.startLine = n;
@@ -30,19 +36,21 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
     this.endLine = n;
   }
   elm = this.elmRef.nativeElement;
-  code$ = this.http
-    .get(this.fileUrl(), { responseType: 'text' })
-    .pipe(shareReplay({ bufferSize: 1, refCount: true }));
+  code$ = this.src$.pipe(
+    switchMap(src => this.http.get(this.fileUrl(src), { responseType: 'text' })),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
   editorSub: any;
   constructor(private http: HttpClient, private elmRef: ElementRef, private zone: NgZone) {}
 
   async save(newContent) {
     const oldContent = await this.code$.toPromise();
+
     if (oldContent !== newContent) {
-      console.log('Saving to disk!')
+      console.log('Saving to disk!');
       /** there is actually something to save! */
-      this.http.put(this.fileUrl(),newContent).subscribe();
+      this.src$.pipe(src => this.http.put(this.fileUrl(src), newContent).subscribe());
     }
   }
 
@@ -64,8 +72,8 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
             window['e'] = editor;
             window.addEventListener('keydown', ev => {
               if (ev.ctrlKey && ev.key === 's') {
-                this.save(editor.getValue())
-                console.log('should be saved?')
+                // this.save(editor.getValue());
+                console.log('should be saved?');
                 ev.preventDefault();
               }
             });

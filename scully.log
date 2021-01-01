@@ -418,3 +418,112 @@ The file [33m./slides/slide-0.md[39m is empty, scully will ignore.running in w
 running in watch-mode, routefile in source assets will not be updated
 running in watch-mode, routefile in source assets will not be updated
 running in watch-mode, routefile in source assets will not be updated
+
+      =====================================================================================================
+      Config file "./scully.samples.config.ts" not found, only rendering routes without parameters
+      The config file should have a name that is formated as:
+          scully.<projectName>.config.ts
+      where <projectName> is the name of the project as defined in the 'angular.json' file
+      If you meant to build a different project as undefined you can use:
+          --project differentProjectName as a cmd line option
+
+      When you are in a mixed mono-repo you might need to use the --pjFirst flag.
+       which will look for package.json instead of angular.json to find the 'root' of the project.
+    =====================================================================================================
+The option outDir isn't configured, using default folder "./dist/static/".No routes defined in ""
+
+
+
+      =====================================================================================================
+      Config file "./scully.samples.config.ts" not found, only rendering routes without parameters
+      The config file should have a name that is formated as:
+          scully.<projectName>.config.ts
+      where <projectName> is the name of the project as defined in the 'angular.json' file
+      If you meant to build a different project as samples you can use:
+          --project differentProjectName as a cmd line option
+
+      When you are in a mixed mono-repo you might need to use the --pjFirst flag.
+       which will look for package.json instead of angular.json to find the 'root' of the project.
+    =====================================================================================================
+The option outDir isn't configured, using default folder "./dist/static/".No routes defined in ""
+
+
+We could not find "../../tsconfig.app.json". Using the apps source folder as source. This might lead to unpredictable results
+We encountered a problem while reading the routes from your applications source.
+This might happen when there are lazy-loaded routes, that are not loaded,
+Or when there are paths we can not resolve statically.
+Check the routes in your app, rebuild and retry.
+(You can inspect the error by passing the --showGuessError flag
+
+When there are extraRoutes in your config, we will still try to render those.
+
+
+
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+********************************************************************************************************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************
+----------------------------------
+Using stored unhandled routes!.
+   To discover new routes in the angular app use "npm run scully -- --scanRoutes"
+----------------------------------
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************
+----------------------------------
+Using stored unhandled routes!.
+   To discover new routes in the angular app use "npm run scully -- --scanRoutes"
+----------------------------------
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************
+----------------------------------
+Using stored unhandled routes!.
+   To discover new routes in the angular app use "npm run scully -- --scanRoutes"
+----------------------------------
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************
+----------------------------------
+Using stored unhandled routes!.
+   To discover new routes in the angular app use "npm run scully -- --scanRoutes"
+----------------------------------
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************No configuration for route "/slide/:slug" found. SkippingNo configuration for route "/slide/:slug/**" found. Skipping
+
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************No configuration for route "/slide/:slug" found. SkippingNo configuration for route "/slide/:slug/**" found. Skipping
+
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************No configuration for route "/slide/:slug" found. Skipping
+****************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+********************************************************************************************************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+********************************************************************************************************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+********************************************************************************************************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+********************************************************************************************************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+********************************************************************************************************************************************************************************
+This is a development tool for Scully applications.
+You can ignore the warning (TLS) or run scully with --no-warning
+****************************************************************************************The file ./slides/slide.md is empty, scully will ignore.
