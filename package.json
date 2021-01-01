@@ -36,6 +36,7 @@
     "@types/faker": "^5.1.5",
     "@types/js-yaml": "^3.12.5",
     "@types/msgpack-lite": "^0.1.7",
+    "animate-css-grid": "^1.4.3",
     "bson": "^4.0.4",
     "chance": "^1.1.6",
     "core-js": "^3.6.5",

@@ -11,5 +11,8 @@
         "statusBar.foreground": "#e7e7e7",
         "activityBar.activeBackground": "#4e8315"
     },
-    "peacock.color": "#34570e"
+    "peacock.color": "#34570e",
+    "cSpell.words": [
+        "slipnslide"
+    ]
 }

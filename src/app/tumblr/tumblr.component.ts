@@ -1,58 +1,74 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { shareReplay, pluck } from 'rxjs/operators';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { wrapGrid } from 'animate-css-grid';
+import { BehaviorSubject, EMPTY, fromEvent } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  pluck,
+  shareReplay,
+  switchMap
+} from 'rxjs/operators';
 
 const apiKey = `RSIq08oTL7lA1DyETOmqujDSph7rvP4akG8NRPz9os6ywJjBhE`;
 const clientId = 'e972ca06cc4b961';
 
 @Component({
   selector: 'app-tumblr',
-  template: `
-    <article *ngFor="let i of results$ | async">
-      <section *ngIf="i?.images?.length && i.images[0] as img">
-        <!-- <h4>{{ img.description }}</h4> -->
-        <img [src]="img.link"  />
-      </section>
-    </article>
-  `,
-  styles: [
-    `
-      root {
-        --image-nth: 3
-      }
-      :host {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        grid-auto-rows: 100px;
-        overflow-x: auto;
-      }
-
-      article:nth-child(4n) {
-        grid-column: span 2;
-        grid-row: span 2;
-        border:1px solid red;
-      }
-
-      img {
-        width:100%;
-        object-fit: cover;
-      }
-    `,
-  ],
+  templateUrl: './tumblr-component.html'
 })
 export class TumblrComponent implements OnInit {
-  results$ = this.http
-    .get<ImgurTags>(`https://api.imgur.com/3/gallery/t/kitten`, {
-      headers: { Authorization: `Client-ID ${clientId}` },
-    })
-    .pipe(pluck('data', 'items'), shareReplay(1));
+  largePositions = Array.from({ length: 250 }, () => (Math.random() < 0.2 ? 1 : 0));
+  searchKey$ = new BehaviorSubject('kitten');
+  results$ = this.searchKey$.pipe(
+    filter(s => !!s),
+    switchMap(key =>
+      this.http
+        .get<ImgurTags>(`https://api.imgur.com/3/gallery/t/${key}`, {
+          headers: { Authorization: `Client-ID ${clientId}` },
+        })
+        .pipe(catchError(e => EMPTY))
+    ),
+    pluck('data', 'items'),
+    filter(s => !!s),
+    map(items =>
+      items.filter((item: Item) =>
+        [Type.ImageJPEG, Type.ImagePNG].includes(item.images && item.images[0].type)
+      )
+    ),
+    shareReplay(1)
+  );
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private ref: ElementRef) {}
 
+  setSearch(x) {
+    console.log(x);
+  }
+
+  switch(y: number) {
+    this.largePositions[y] +=1
+    if (this.largePositions[y]>2) {
+      this.largePositions[y]=0
+    }
+  }
   ngOnInit(): void {
-    this.results$.subscribe(r => {
-      window['result$'] = r;
-    });
+    const elm = this.ref.nativeElement as HTMLElement;
+    if (elm) {
+      wrapGrid(elm.querySelector('#grid'));
+
+      const inp = elm.getElementsByTagName('input')[0];
+      fromEvent(inp, 'input')
+        .pipe(
+          map((ev: InputEvent) => ev.target['value'] as string),
+          debounceTime(400),
+          distinctUntilChanged(),
+          filter(key => key.length > 0)
+        )
+        .subscribe(this.searchKey$);
+    }
   }
 }
 

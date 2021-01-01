@@ -343,7 +343,9 @@
             "aot": true,
             "assets": [
               "projects/slipnslide/src/favicon.ico",
-              "projects/slipnslide/src/assets"
+              "projects/slipnslide/src/assets",
+              { "glob": "**/*", "input": "node_modules/monaco-editor/esm/vs", "output": "./assets/monaco/" }
+
             ],
             "styles": [
               "projects/slipnslide/src/styles.css"

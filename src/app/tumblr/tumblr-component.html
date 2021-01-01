@@ -1,0 +1,46 @@
+<div>
+  <input type="search" [value]="searchKey$ | async" />
+</div>
+<div id="grid">
+  <article
+    *ngFor="let i of results$ | async; let y = index"
+    [class.large]="largePositions[y]===1"
+    [class.super]="largePositions[y]===2"
+    (click)="switch(y)"
+  >
+    <img [src]="i.images[0]?.link" loading="lazy" />
+  </article>
+</div>
+<style>
+  root {
+    --image-nth: 3;
+  }
+  :host {
+    display: block;
+    height: 100%;
+  }
+  #grid {
+    display: grid;
+    height: 87vh;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 150px;
+    grid-auto-flow: dense;
+    overflow-x: auto;
+    gap: 4px;
+  }
+
+  .large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .super {
+    grid-column: span 4;
+    grid-row: span 4;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
