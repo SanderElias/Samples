@@ -35,6 +35,7 @@
     "@types/bson": "^4.0.2",
     "@types/faker": "^5.1.5",
     "@types/js-yaml": "^3.12.5",
+    "@types/jsdom": "^16.2.5",
     "@types/msgpack-lite": "^0.1.7",
     "animate-css-grid": "^1.4.3",
     "bson": "^4.0.4",

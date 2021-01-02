@@ -77,7 +77,7 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
             window['e'] = editor;
             window.addEventListener('keydown', ev => {
               if (ev.ctrlKey && ev.key === 's') {
-                // this.save(editor.getValue());
+                this.save(editor.getValue());
                 console.log('should be saved?');
                 ev.preventDefault();
               }
