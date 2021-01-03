@@ -11,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
   :host {
     display:block;
     background-color:#bada55;
+    width:200px;
+    height:200px;
   }
   `
   ]

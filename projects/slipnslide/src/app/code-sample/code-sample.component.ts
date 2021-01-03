@@ -1,9 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { from, of, ReplaySubject } from 'rxjs';
-import { shareReplay, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, EMPTY, from, Observable, of, ReplaySubject } from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  pluck,
+  shareReplay,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 // import * as monaco from 'monaco-editor';
 declare const monaco: any;
+
+interface State {
+  src: string;
+  startLine: number;
+  originalCode: string;
+  editor?: any;
+}
 
 @Component({
   selector: 'code-sample',
@@ -12,88 +27,86 @@ declare const monaco: any;
     `
       :host {
         display: block;
-        height: 100vh;
+        height: 300px;
       }
     `,
   ],
 })
 export class CodeSampleComponent implements OnInit, OnDestroy {
-  src$ = new ReplaySubject<string>(1);
-  @Input() set src(x) {
+  state$ = new BehaviorSubject<State>({ src: '', startLine: 0, originalCode: '' });
+  @Input() set src(src) {
     // = ''; //'slipnslide/src/app/code-sample/code-sample.component.ts';
-    if (typeof x === 'string') {
-      this.src$.next(x);
+    if (typeof src === 'string') {
+      this.state$.next({ ...this.state$.value, src });
     }
   }
-  @Input() startLine = 0;
-  @Input() endLine = Number.MAX_SAFE_INTEGER;
-  fileUrl = src => `http://localhost:8201/file/${src}`;
 
-  @Input() set sl(n: number) {
-    this.startLine = n;
+  @Input() set startLine(startLine: number) {
+    this.state$.next({ ...this.state$.value, startLine });
   }
-  @Input() set el(n: number) {
-    this.endLine = n;
+  @Input() set sl(startLine: number) {
+    this.state$.next({ ...this.state$.value, startLine });
   }
+
+
+
+  fileUrl = src => `http://localhost:8201/file/${src}`;
   elm = this.elmRef.nativeElement;
-  code$ = this.src$.pipe(
+  code$ = this.state$.pipe(
+    pluck('src'),
+    distinctUntilChanged(),
     switchMap(src => this.http.get(this.fileUrl(src), { responseType: 'text' })),
+    tap(originalCode => this.state$.next({ ...this.state$.value, originalCode })),
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
-  editorSub: any;
   constructor(private http: HttpClient, private elmRef: ElementRef, private zone: NgZone) {}
 
   async save(newContent) {
-    const oldContent = await this.code$.toPromise();
-
-    if (oldContent !== newContent) {
-      console.log('Saving to disk!');
-      /** there is actually something to save! */
-      this.src$
-        .pipe(
-          take(1),
-          switchMap(src => this.http.put(this.fileUrl(src), newContent))
+    combineLatest([this.state$, this.code$])
+      .pipe(
+        take(1),
+        switchMap(([state, oldContent]) =>
+          oldContent !== newContent ? this.http.put(this.fileUrl(state.src), newContent) : EMPTY
         )
-        .subscribe();
-    }
+      )
+      .subscribe();
   }
+
+  stateSub = this.state$.subscribe();
 
   ngOnInit(): void {
     this.zone.runOutsideAngular(() => {
-      this.editorSub = from(monacoFromCdn())
-        .pipe(
-          switchMap(() => this.code$),
-          tap(value => {
-            const editor = monaco.editor.create(this.elm, {
-              value,
-              language: 'typescript',
-              theme: 'vs-dark',
-              roundedSelection: false,
-              scrollBeyondLastLine: false,
-              renderValidationDecorations: 'off',
-              minimap: { enabled: false },
-            });
-            window['e'] = editor;
-            window.addEventListener('keydown', ev => {
-              if (ev.ctrlKey && ev.key === 's') {
-                this.save(editor.getValue());
-                console.log('should be saved?');
-                ev.preventDefault();
-              }
-            });
-          })
-        )
-        .subscribe({
-          next(code) {},
-          error(e) {
-            console.log('error while initializing monaco editor', e);
-          },
-        });
+      from(monacoFromCdn()).pipe(
+        // tap(mn => console.log({ mn })),
+        switchMap(() => this.code$),
+        map(value => {
+          const editor = monaco.editor.create(this.elm, {
+            value,
+            language: 'typescript',
+            theme: 'vs-dark',
+            roundedSelection: false,
+            scrollBeyondLastLine: false,
+            renderValidationDecorations: 'off',
+            minimap: { enabled: false },
+          });
+          window['e'] = editor;
+          window.addEventListener('keydown', ev => {
+            if (ev.ctrlKey && ev.key === 's') {
+              this.save(editor.getValue());
+              ev.preventDefault();
+            }
+          });
+          return editor;
+        }),
+        take(1),
+        tap(editor => this.state$.next({ ...this.state$.value, editor }))
+      ).subscribe();
+
     });
   }
   ngOnDestroy() {
-    this.editorSub.unsubscribe();
+    this.stateSub.unsubscribe();
   }
 }
 
@@ -102,7 +115,7 @@ function monacoFromCdn() {
   return new Promise((resolve, reject) => {
     if (window['monaco'] !== undefined) {
       /** no need to load if its already here ;) */
-      return resolve(monaco);
+      return resolve(window['monaco']);
     }
     const lnk = document.createElement('link');
     lnk.rel = 'stylesheet';
