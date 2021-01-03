@@ -9,31 +9,44 @@ export const config: ScullyConfig = {
   projectName: 'slipnslide',
   outDir: './dist/static',
   routes: {
-    '/slide/:slug': {
+    '/:slide': {
       type: 'contentFolder',
-      slug: {
+      slide: {
         folder: './slides',
       },
       preRenderer: (h: HandledRoute) => {
         h.renderPlugin = renderOnce;
       },
-      postRenderers: [extractMDStyles]
     },
+    // '/slide/:slug': {
+    //   type: 'contentFolder',
+    //   slug: {
+    //     folder: './slides',
+    //   },
+    //   preRenderer: (h: HandledRoute) => {
+    //     h.renderPlugin = renderOnce;
+    //   },
+    // },
     '/edit': {
       type: 'ignored',
     },
+    '/code-sample': {
+      type: 'ignored',
+    },
+    // '/edit': {
+    //   type: 'ignored',
+    // },
   },
 };
-
 
 registerPlugin('render', extractMDStyles, async (html, route) => {
   try {
     const dom = new JSDOM(html);
-    const document = dom.window.document
+    const document = dom.window.document;
     const parent = document.querySelector('scully-content').parentElement;
     const styles = Array.from(parent.getElementsByTagName('style'));
-    styles.forEach(node => document.body.appendChild(node))
-    return dom.serialize()
+    styles.forEach(node => document.body.appendChild(node));
+    return dom.serialize();
   } catch (e) {
     console.error(e);
   }

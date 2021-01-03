@@ -61,41 +61,44 @@ if (!existsSync(slideFolder)) {
 })();
 
 function fileFromFolder(fileRoot: string, req: Request, res: ServerResponse, params: any) {
-  const type = (req.method || 'get').toLowerCase();
-  const send = sendJson(req, res);
-  const files = walkSync(fileRoot).map(folder => folder.replace(fileRoot, ''));
-  const { file } = params || {};
-  const fileName = (Array.isArray(file) ? file.join('/') : file).split('..//').join('');
-  switch (type) {
-    case 'get':
-      handleFileRead(fileName);
-      break;
-    case 'put':
-      const path = join(fileRoot, './', fileName);
-      // tslint:disable-next-line: no-unused-expression
-      console.log({path});
-      // tslint:disable-next-line: no-unused-expression
-      req.rawHeaders && writeFileSync(path, req.rawData!);
-      // console.log('write', req.rawData);
-      send({ ok: true });
-      break;
-    case 'options':
-      break;
-    default:
-      send({ error: `unsupported method ${type.toUpperCase()}` });
-  }
-
-  function handleFileRead(file: string) {
-    if (file) {
-      const foundFile = files.find(f => f.startsWith(file));
-      if (foundFile) {
-        const path = join(fileRoot, './', foundFile);
-        sendText(req, res)(readFileSync(path).toString('utf-8'));
-      } else {
-        send({ error: `file not found ${file}` });
-      }
-    } else {
-      send(files);
+  try {
+    const type = (req.method || 'get').toLowerCase();
+    const send = sendJson(req, res);
+    const files = walkSync(fileRoot).map(folder => folder.replace(fileRoot, ''));
+    const { file } = params || {};
+    const fileName = (Array.isArray(file) ? file.join('/') : file).split('..//').join('');
+    switch (type) {
+      case 'get':
+        handleFileRead(fileName);
+        break;
+      case 'put':
+        const path = join(fileRoot, './', fileName);
+        // tslint:disable-next-line: no-unused-expression
+        console.log({ path });
+        // tslint:disable-next-line: no-unused-expression
+        req.rawHeaders && writeFileSync(path, req.rawData!);
+        // console.log('write', req.rawData);
+        send({ ok: true });
+        break;
+      case 'options':
+        break;
+      default:
+        send({ error: `unsupported method ${type.toUpperCase()}` });
     }
+    function handleFileRead(file: string) {
+      if (file) {
+        const foundFile = files.find(f => f.startsWith(file));
+        if (foundFile) {
+          const path = join(fileRoot, './', foundFile);
+          sendText(req, res)(readFileSync(path).toString('utf-8'));
+        } else {
+          send({ error: `file not found ${file}` });
+        }
+      } else {
+        send(files);
+      }
+    }
+  } catch (e) {
+    console.error(e);
   }
 }

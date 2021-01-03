@@ -3,16 +3,15 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
 import Editor from '@toast-ui/editor';
-import fm from 'front-matter';
 // import { safeDump } from 'js-yaml';
 import { Subject } from 'rxjs';
-import { debounceTime, map, tap } from 'rxjs/operators';
-import { stringify } from 'yaml';
+import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 
 const styles = [
   'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css',
@@ -26,69 +25,59 @@ const styles = [
     `
       :host {
         display: block;
+        background-color: white;
       }
     `,
   ],
 })
 export class MdEditComponent implements OnInit, OnDestroy {
   attributes: { [key: string]: any };
-  @Input() set markdown(x) {
-    if (x && typeof x === 'string') {
-      setTimeout(() => {
+  _markdown: string;
+  @Input() set markdown(x: string) {
+    if (x) {
+        this._markdown = x.trimStart();
         if (this.editor) {
-          try {
-            /** malformed yaml or MD can break FM */
-            const { attributes, body } = fm(x);
-            console.log( attributes );
-            this.attributes = attributes;
-            this.editor.setMarkdown(body);
-          } catch {
-            /** fallback to just setting the content verbatim, and resetting attribs */
-            this.attributes={};
-            this.editor.setMarkdown(x)
-          }
+          /**
+           * the if is needed because on creation editor doesn't exist yet
+           * this way it sets it via _markdown on init, and otherwise with the setMarkdown.
+           */
+          this.editor.setMarkdown(this._markdown);
         }
-      }, 10);
     }
   }
   @Output() updates = new EventEmitter<string>();
   private content = new Subject<string>();
   private content$ = this.content.pipe(
     debounceTime(500),
-    map(() => {
-      if (Object.keys(this.attributes).length===0) {
-        return this.editor.getMarkdown().trimStart()
-      }
-      return `---
-${stringify(this.attributes)}
----
-
-${this.editor.getMarkdown().trimStart()}`;
-    })
+    map(() => this.editor.getMarkdown().trimStart()),
+    distinctUntilChanged(),
+    filter(x => x !== this._markdown),
   );
 
-  private contentSub = this.content$
-    .pipe(tap(x => console.log('update', x)))
-    .subscribe(this.updates);
+  /** feed the new content into the output emitter */
+  private contentSub = this.content$.subscribe(this.updates);
 
   private elm = this.elmRef.nativeElement;
   private editor: Editor;
 
-  constructor(private elmRef: ElementRef) {}
+  constructor(private elmRef: ElementRef, private zone: NgZone) {}
 
   ngOnInit(): void {
     if (this.elm) {
       // this.elm.innerHTML = 'hello'
       Promise.all(styles.map(loadCss)).then(() => {
-        const el = document.createElement('div');
-        this.elm.appendChild(el);
-        this.editor = new Editor({
-          el,
-          events: {
-            change: () => this.content.next(),
-          },
-          usageStatistics: false,
-          initialValue: this.markdown,
+        this.zone.runOutsideAngular(() => {
+          const el = document.createElement('div');
+          this.elm.appendChild(el);
+          this.editor = new Editor({
+            el,
+            events: {
+              change: () => this.content.next(),
+            },
+            // previewStyle: 'vertical',
+            usageStatistics: false,
+            initialValue: this._markdown,
+          });
         });
       });
     }

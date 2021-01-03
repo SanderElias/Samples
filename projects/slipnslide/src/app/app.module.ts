@@ -7,12 +7,14 @@ import { ScullyLibModule } from '@scullyio/ng-lib';
 import { HttpClientModule } from '@angular/common/http';
 import { DemoComponent } from './demo/demo.component';
 import { ShowCompComponent } from './show-comp/show-comp.component';
+import { CodeSampleComponent } from './code-sample/code-sample.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DemoComponent,
-    ShowCompComponent
+    ShowCompComponent,
+    CodeSampleComponent,
   ],
   imports: [
     BrowserModule,

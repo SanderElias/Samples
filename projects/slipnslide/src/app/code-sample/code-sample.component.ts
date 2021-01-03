@@ -60,7 +60,9 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
-  constructor(private http: HttpClient, private elmRef: ElementRef, private zone: NgZone) {}
+  constructor(private http: HttpClient, private elmRef: ElementRef, private zone: NgZone) {
+    console.log('init code-sample')
+  }
 
   async save(newContent) {
     combineLatest([this.state$, this.code$])
@@ -85,6 +87,7 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
             value,
             language: 'typescript',
             theme: 'vs-dark',
+            fontSize: "28px",
             roundedSelection: false,
             scrollBeyondLastLine: false,
             renderValidationDecorations: 'off',

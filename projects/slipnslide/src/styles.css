@@ -97,7 +97,7 @@ textarea {
 }
 
 button {
-  display: block;
+  /* display: block; */
   width: 150px;
   margin: 0 0 20px;
   padding: 8px 0 10px 0;

@@ -19,5 +19,3 @@ export class ShowCompComponent implements OnInit {
   }
 
 }
-
-// c2b33b83b550b5dc74e524f30311b4d58384bd84
