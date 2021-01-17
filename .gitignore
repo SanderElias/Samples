@@ -47,3 +47,5 @@ scully.log
 scully.log
 scully.log
 src/assets/scully-routes.json
+.npmrc
+projects/slipnslide/src/assets/scully-routes.json

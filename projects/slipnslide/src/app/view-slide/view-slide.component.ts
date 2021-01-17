@@ -1,7 +1,8 @@
-import { Component, ElementRef, Injector, OnInit } from '@angular/core';
+import { Component, ElementRef, Injector, OnDestroy, OnInit } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { combineLatest, fromEvent, Subject } from 'rxjs';
+import { filter, switchMap, tap, throttleTime } from 'rxjs/operators';
 import { CodeSampleComponent } from '../code-sample/code-sample.component';
 import { ShowCompComponent } from '../show-comp/show-comp.component';
 import { SlidesService } from '../slides.service';
@@ -11,9 +12,29 @@ import { SlidesService } from '../slides.service';
   template: ` <scully-content></scully-content> `,
   styleUrls: ['./vied-slide.component.css'],
 })
-export class ViewSlideComponent implements OnInit {
+export class ViewSlideComponent implements OnInit, OnDestroy {
+  init$ = new Subject<void>();
   elm = this.elmRef.nativeElement;
-  slides$ = this.sls.slides$.pipe(take(1));
+  subscriber = this.init$
+    .pipe(
+      filter(() => !!this.elm),
+      switchMap(() =>
+        combineLatest([this.sls.slides$, fromEvent<KeyboardEvent>(document, 'keyup')])
+      ),
+      filter(([_, { key }]) => key === 'ArrowRight' || key === 'ArrowLeft'),
+      throttleTime(100),
+      tap(([slides, { key }]) => {
+        const currentIndex = slides.findIndex(
+          ({ filename }) => filename.replace('.md', '') === this.router.url.slice(1)
+        );
+        const nextSlide =
+          key === 'ArrowLeft'
+            ? Math.max(0, currentIndex - 1)
+            : Math.min(slides.length - 1, currentIndex + 1);
+        this.router.navigate(['/' + slides[nextSlide].filename.replace('.md', '')]);
+      })
+    )
+    .subscribe();
 
   constructor(
     private elmRef: ElementRef,
@@ -21,38 +42,19 @@ export class ViewSlideComponent implements OnInit {
     private router: Router,
     injector: Injector
   ) {
-    const dyn = createCustomElement(CodeSampleComponent, { injector });
-    customElements.define('code-editor', dyn);
-    const sh = createCustomElement(ShowCompComponent, { injector });
-    customElements.define('show-component', sh);
+    if (!customElements.get('code-editor')) {
+      const dyn = createCustomElement(CodeSampleComponent, { injector });
+      customElements.define('code-editor', dyn);
+      const sh = createCustomElement(ShowCompComponent, { injector });
+      customElements.define('show-component', sh);
+    }
   }
 
   ngOnInit(): void {
-    if (this.elm) {
-      this.slides$.subscribe(slides => {
-        let timer: any;
-        document.addEventListener('keyup', ev => {
-          if (!timer) {
-            timer = setTimeout(() => {
-              const cur = this.router.url.slice(1);
-              const curIndex = slides.findIndex(slide => slide.filename.startsWith(cur));
-              console.log(curIndex);
-              if (ev.key === 'ArrowRight') {
-                this.router.navigate([
-                  '/' +
-                    slides[Math.min(slides.length - 1, curIndex + 1)].filename.replace('.md', ''),
-                ]);
-              }
-              if (ev.key === 'ArrowLeft') {
-                this.router.navigate([
-                  '/' + slides[Math.max(0, curIndex - 1)].filename.replace('.md', ''),
-                ]);
-              }
-              timer = undefined;
-            }, 100);
-          }
-        });
-      });
-    }
+    this.init$.next();
+    this.init$.complete();
+  }
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
   }
 }
