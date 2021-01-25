@@ -1,16 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
-import { BehaviorSubject, combineLatest, interval, of, Subject } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  mergeMap,
-  pluck,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { DemoUser, DemoUserService } from 'src/app/demo-users.service';
 
 interface LocalState {
@@ -24,26 +15,40 @@ interface LocalState {
   template: `
     <h1>Selected users</h1>
     <section *ngIf="vm$ | async as vm">
-      Available users:{{ vm.users.length }} (Loading done:{{vm.done}}%)<br />
+      Available users:{{ vm.users.length }} (Loading done:{{ vm.done }}%)<br />
       <label>Search <input (input)="setSearch($event)" /></label>
       <button (click)="sortOn('username')">username</button>
       <button (click)="sortOn('email')">email</button>
-      <input
-        type="range"
-        [max]="vm.users.length / vm.state.pageSize"
-        [style.width]="'100%'"
-        (input)="setPos($event)"
-      />
-      <table>
-        <tbody>
-          <tr *ngFor="let user of vm.page">
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div id="scroll">
+        <input
+          type="range"
+          [max]="vm.users.length / vm.state.pageSize"
+          (input)="setPos($event)"
+        />
+        <table>
+          <tbody>
+            <tr *ngFor="let user of vm.page">
+              <td>{{ user.id }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
+    <style>
+      #scroll {
+        display:grid;
+        grid-template-columns: 40px 1fr;
+      }
+      #scroll > input {
+        transform: translateY(-100%) rotate(90deg); /** rotate  */
+        transform-origin: left bottom;
+        width: 20rem; /** 20 lines should be the same as 20rem unless there are css shenanigans  */
+        height:40px; /** ballpark guess :-D */
+      }
+
+    </style>
   `,
 })
 export class BigDataComponent implements OnInit {
@@ -78,9 +83,6 @@ export class BigDataComponent implements OnInit {
   constructor(private user: DemoUserService) {}
 
   findFirst(users: DemoUser[], { position, pageSize, search }): DemoUser[] {
-    console.log({ users, position, pageSize, search });
-
-    console.log(users.length);
     if (!search) {
       return users.slice(position * pageSize, position * pageSize + pageSize);
     }
@@ -106,8 +108,6 @@ export class BigDataComponent implements OnInit {
     console.log({ search });
     this.state$.next({ ...this.state$.value, search });
   }
-
-
 
   ngOnInit(): void {
     console.log('init');
