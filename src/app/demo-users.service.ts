@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Chance } from 'chance';
 import { merge, of, Subject, timer } from 'rxjs';
 import { first, map, mergeMap, shareReplay, startWith, take, tap } from 'rxjs/operators';
 
-const change = new Chance();
+const chanceProm = import('chance').then((mod) => {
+  console.log(mod)
+  return new mod.Chance();
+});
 
 enum UserState {
   isNew,
@@ -56,10 +58,13 @@ export class DemoUserService {
     const users = await this.allUsers$.pipe(first()).toPromise();
     const base = users.length;
     // users.reduce((min, line) => (min = Math.max(min, line.id)), 0) + 1;
-    const newUsers = Array.from({ length: newUserCount }, (e, i) => ({
-      id: base + i,
-      ...fakeUser(),
-    }));
+    const newUsers = await Promise.all(
+      Array.from({ length: newUserCount }).map(async (e, i) => ({
+        id: base + i,
+        ...(await fakeUser()),
+      }))
+    );
+
     this.updatedUsers$.next(users.concat(newUsers));
   }
 
@@ -99,25 +104,27 @@ export class DemoUserService {
 
   /** call this to flush out the captured data in this service */
   async flushCache() {
+    const chance = await chanceProm;
     /** push it into the next frame */
     await new Promise(r => setTimeout(r));
     this.flush$.next();
     timer(0, 250)
       .pipe(
-        tap(() => this.addUsers(change.integer({ min: 100, max: 400 }))),
-        take(20),
+        tap(() => this.addUsers(chance.integer({ min: 100, max: 400 }))),
+        take(20)
       )
       .subscribe();
   }
 }
 
-function fakeUser() {
+async function fakeUser() {
+  const chance = await chanceProm;
   return <DemoUser>{
-    userState: change.integer({ min: 0, max: 3 }),
-    username: change.name(),
-    isAdmin: change.bool(),
-    isActive: change.bool(),
-    email: change.email(),
+    userState: chance.integer({ min: 0, max: 3 }),
+    username: chance.name(),
+    isAdmin: chance.bool(),
+    isActive: chance.bool(),
+    email: chance.email(),
   };
 }
 

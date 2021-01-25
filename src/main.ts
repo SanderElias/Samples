@@ -1,21 +1,23 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core';
-// import { faPauseCircle } from '@fortawesome/free-regular-svg-icons';
-import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+// import * as rxjs from  'rxjs'
+(async function () {
+  const {enableProdMode } = await import('@angular/core');
+  const { platformBrowserDynamic } = await import('@angular/platform-browser-dynamic');
+  const { AppModule } = await import('./app/app.module');
+  const { environment } = await import('./environments/environment');
+  const { dom, library } = await import('@fortawesome/fontawesome-svg-core');
+  const { faPlay } = await import('@fortawesome/free-solid-svg-icons/faPlay');
+  const { faPause } = await import('@fortawesome/free-solid-svg-icons/faPause');
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+  /** load icons from FontAwseome */
+  library.add(faPlay, faPause);
+  dom.watch();
 
-/** load icons from FontAwseome */
-library.add(faPlay, faPause);
-dom.watch();
+  if (environment.production) {
+    enableProdMode();
+  }
 
-if (environment.production) {
-  enableProdMode();
-}
-
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+  platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .catch(err => console.error(err));
+})();

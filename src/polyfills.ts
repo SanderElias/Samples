@@ -46,7 +46,7 @@
 
 /** IE10 and IE11 requires the following for the Reflect API. */
 /** Turns out, this is also needed for StackBlitz */
-import 'core-js/proposals/reflect-metadata';
+// import 'core-js/proposals/reflect-metadata';
 
 /**
  * Web Animations `@angular/platform-browser/animations`

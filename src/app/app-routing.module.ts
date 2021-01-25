@@ -26,11 +26,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('../../src/app/html-load/html-load.module').then(m => m.HtmlLoadModule),
   },
-  {
-    path: 'popup',
-    outlet: 'popup',
-    loadChildren: '../../src/app/routed-popup/routed-popup.module#RoutedPopupModule',
-  },
+  // {
+  //   path: 'popup',
+  //   outlet: 'popup',
+  //   loadChildren: '../../src/app/routed-popup/routed-popup.module#RoutedPopupModule',
+  // },
   {
     path: 'requiredAttributes',
     loadChildren: () =>
@@ -77,7 +77,8 @@ const routes: Routes = [
   { path: 'dynhtml', loadChildren: () => import('./dynamichtml/dynamichtml.module').then(m => m.DynamichtmlModule) },
   { path: 'snow', loadChildren: () => import('./snow/snow.module').then(m => m.SnowModule) },
   { path: 'tumblr', loadChildren: () => import('./tumblr/tumblr.module').then(m => m.TumblrModule) },
-  { path: '**', redirectTo: 'tumblr' },
+  { path: 'bigData', loadChildren: () => import('../big-data/big-data.module').then(m => m.BigDataModule) },
+  { path: '**', redirectTo: 'bigData' },
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as faker from 'faker';
+// import * as faker from 'faker';
 import { from, Observable, of } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 export interface UserCard {
   name: string;
@@ -41,11 +41,16 @@ export class AddressService {
 
   constructor() {}
 
-  private users(n): Observable<UserCard[]> {
-    const users: UserCard[] = Array.from({ length: n }, () => ({
-      ...faker.helpers.userCard(),
-      avatar: faker.image.avatar(),
-    }));
-    return of(users).pipe(shareReplay(1));
+  private users(length): Observable<UserCard[]> {
+    return from(import('faker')).pipe(
+      map(
+        faker =>
+          Array.from({ length }, () => ({
+            ...faker.helpers.userCard(),
+            avatar: faker.image.avatar(),
+          })) as UserCard[]
+      ),
+      shareReplay(1)
+    );
   }
 }
