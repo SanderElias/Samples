@@ -3,7 +3,6 @@ import { merge, of, Subject, timer } from 'rxjs';
 import { first, map, mergeMap, shareReplay, startWith, take, tap } from 'rxjs/operators';
 
 const chanceProm = import('chance').then((mod) => {
-  console.log(mod)
   return new mod.Chance();
 });
 
