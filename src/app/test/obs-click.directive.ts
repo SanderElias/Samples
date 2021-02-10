@@ -2,11 +2,11 @@ import { Directive, Input } from '@angular/core';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '👁-click',
+  selector: '[my-click]',
 })
 export class ObsClickDirective {
-  @Input('👁-click') set click(x) {
-    console.log('clic testup', x);
+  @Input('my-click') set click(x) {
+    console.log('click testup', x);
   }
 
   constructor() {
