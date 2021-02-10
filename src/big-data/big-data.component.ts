@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, pluck, switchMap, take, tap } from 'rxjs/operators';
 import { DemoUser, DemoUserService } from 'src/app/demo-users.service';
 
@@ -186,10 +186,9 @@ export class BigDataComponent {
       ...state,
       /**
        * [prop] = use a computed property name to update the state we want to update, I used the TS type system to only allow existing props.
-       * if it is supposed to be a number, read it as number from the input otherwise user the string representation.
+       * if it is supposed to be a number, read it as number from the input element otherwise user the string representation.
        */
-      [prop]: isNum ? domElement.valueAsNumber : domElement.value
+      [prop]: isNum ? domElement.valueAsNumber : domElement.value,
     });
   }
-
 }
