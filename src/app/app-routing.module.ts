@@ -77,8 +77,9 @@ const routes: Routes = [
   { path: 'dynhtml', loadChildren: () => import('./dynamichtml/dynamichtml.module').then(m => m.DynamichtmlModule) },
   { path: 'snow', loadChildren: () => import('./snow/snow.module').then(m => m.SnowModule) },
   { path: 'tumblr', loadChildren: () => import('./tumblr/tumblr.module').then(m => m.TumblrModule) },
-  { path: 'bigData', loadChildren: () => import('../big-data/big-data.module').then(m => m.BigDataModule) },
-  { path: '**', redirectTo: 'bigData' },
+  { path: 'bigData', loadChildren: () => import('./big-data/big-data.module').then(m => m.BigDataModule) },
+  { path: 'svgTest', loadChildren: () => import('./svg-test/svg-test.module').then(m => m.SvgTestModule) },
+  { path: '**', redirectTo: 'svgTest' },
 ];
 
 @NgModule({

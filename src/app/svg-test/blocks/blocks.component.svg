@@ -1,0 +1,7 @@
+<svg
+  role="img"
+  viewBox="0 0 1000 1000" (click)="changeColor($event)">
+  <g>
+    <rect *ngFor="let b of blocks;index as i;" [attr.data-id]=b.id [attr.x]="b.x" [attr.y]="b.y" width="5" height="5" [attr.fill]="b.fillColor"  />
+  </g>
+</svg>

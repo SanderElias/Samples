@@ -1,0 +1,16 @@
+<h1>Quick test with svg </h1>
+<small>this image containes over 27.500 elements</small>
+
+<app-blocks [recolor]='count' (rectClicked)="bit($event)"></app-blocks>
+<hr>
+<button (click)="reColor()">ReColor</button>
+
+<style>
+  h1 {
+    margin:0;
+  }
+  app-blocks {
+    width: min(80vw, 80vh);
+    height: min(80vw, 80vh);
+  }
+</style>
