@@ -1,0 +1,72 @@
+<div class='pannel'>
+  <header></header>
+  <main>
+    <ng-content></ng-content>
+  </main>
+  <footer></footer>
+</div>
+<style>
+  .pannel {
+    display:grid;
+    grid-template-rows: 0 1fr 0;
+    position: relative;
+    width: 40vw;
+    background-color: dimgray;
+    height: 200px;
+    border-radius: 10px;
+    padding:10px;
+    margin-top: 5px;
+  }
+
+  .pannel.footer {
+    grid-template-rows: 0 1fr 40px;
+  }
+  .pannel.header {
+    grid-template-rows: 40px 1fr 0;
+  }
+  .pannel.header.footer {
+    grid-template-rows: 40px 1fr 40px;
+  }
+
+  .pannel.header>header, .pannel.footer>footer {
+    border-top: 1px solid white;
+    display:grid;
+    align-content: center;
+    justify-content: center;
+  }
+
+
+  /** css trickery to create a cross, removes all style from the button first.*/
+  #closeButton {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    position: absolute;
+    right: 10px;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.3;
+  }
+  #closeButton:hover {
+    opacity: 1;
+  }
+  #closeButton:before, #closeButton:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    background-color: rgb(243, 238, 238);
+  }
+  #closeButton:before {
+    transform: rotate(45deg);
+  }
+  #closeButton:after {
+    transform: rotate(-45deg);
+  }
+</style>

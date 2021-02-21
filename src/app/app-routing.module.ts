@@ -79,7 +79,8 @@ const routes: Routes = [
   { path: 'tumblr', loadChildren: () => import('./tumblr/tumblr.module').then(m => m.TumblrModule) },
   { path: 'bigData', loadChildren: () => import('./big-data/big-data.module').then(m => m.BigDataModule) },
   { path: 'svgTest', loadChildren: () => import('./svg-test/svg-test.module').then(m => m.SvgTestModule) },
-  { path: '**', redirectTo: 'svgTest' },
+  { path: 'pannel', loadChildren: () => import('./pannel-stuff/pannel-stuff.module').then(m => m.PannelStuffModule) },
+  { path: '**', redirectTo: 'pannel' },
 ];
 
 @NgModule({
