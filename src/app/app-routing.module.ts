@@ -80,7 +80,8 @@ const routes: Routes = [
   { path: 'bigData', loadChildren: () => import('./big-data/big-data.module').then(m => m.BigDataModule) },
   { path: 'svgTest', loadChildren: () => import('./svg-test/svg-test.module').then(m => m.SvgTestModule) },
   { path: 'pannel', loadChildren: () => import('./pannel-stuff/pannel-stuff.module').then(m => m.PannelStuffModule) },
-  { path: '**', redirectTo: 'pannel' },
+  { path: 'clock', loadChildren: () => import('./analog-clock/analog-clock.module').then(m => m.AnalogClockModule) },
+  { path: '**', redirectTo: 'clock' },
 ];
 
 @NgModule({
