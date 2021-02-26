@@ -79,7 +79,6 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "samples:build",
-            "aot": true
           },
           "configurations": {
             "production": {

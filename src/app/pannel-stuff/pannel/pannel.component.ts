@@ -10,7 +10,6 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { type } from 'os';
 
 @Component({
   selector: 'app-pannel',
