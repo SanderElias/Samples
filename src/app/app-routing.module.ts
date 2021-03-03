@@ -81,7 +81,8 @@ const routes: Routes = [
   { path: 'svgTest', loadChildren: () => import('./svg-test/svg-test.module').then(m => m.SvgTestModule) },
   { path: 'pannel', loadChildren: () => import('./pannel-stuff/pannel-stuff.module').then(m => m.PannelStuffModule) },
   { path: 'clock', loadChildren: () => import('./analog-clock/analog-clock.module').then(m => m.AnalogClockModule) },
-  { path: '**', redirectTo: 'clock' },
+  { path: 'gridThings', loadChildren: () => import('./gridthings/gridthings/gridthings.module').then(m => m.GridthingsModule) },
+  { path: '**', redirectTo: 'gridThings' },
 ];
 
 @NgModule({
