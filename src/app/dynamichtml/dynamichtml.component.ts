@@ -1,5 +1,6 @@
-import { Component, ElementRef, Injector, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Injector, Input, OnInit, SecurityContext } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * I did put those in 1 file because those 2 components
@@ -58,10 +59,16 @@ export class DynamicHtmlComponent implements OnInit {
   html = `
   <h1>Some random HTML</h1>
   <p>Well, <dyn-data property='name'></dyn-data> is awesome</p>
+  <p>
+  To do it this way is really dangerous, as it will expose to all kind of security issues.
+  (see the functioning alert in the sample code!!)
+  But the person that asked the question, needed a way to run script tags, and this is the easiest way.
+  With this sample there was a severe warning, that this is really dangerous.
+  </p>
   <button onclick="alert('hi')">hi</button>
   `;
 
-  constructor(private elmRef: ElementRef, injector: Injector) {
+  constructor(private elmRef: ElementRef, injector: Injector, private sanitizer: DomSanitizer) {
     const dyn = createCustomElement(DynDataComponent, { injector });
     customElements.define('dyn-data', dyn);
   }
@@ -72,8 +79,24 @@ export class DynamicHtmlComponent implements OnInit {
 
   update(newHtml) {
     const target = this.elm.querySelector('#target');
-    target.innerHTML = newHtml;
+    /**
+     * To do it this way is really dangerous, as it will expose to all kind of security issues.
+     *   (the most importand one: https://owasp.org/www-community/attacks/xss/)
+     * (see the functioning alert in the sample code!!)
+     * But the person that asked the question, needed a way to run script tags, and this is the easiest way.
+     * With this sample there was a severe warning, that this is really dangerous.
+     *
+     * When the Angular sanitizer is a bit too strict for your use-case, there are alternatives, like DOMPurify
+     * For more information see: https://angular.io/guide/security
+     */
+
+    // DON'T DO THIS!
+    /** DANGER AHEAD */ target.innerHTML = newHtml; /** I mean it, this might cost you your job */
+    // REALLY, DON'T
+    return ;
+
+    /** this is the version you should be using */
+    target.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML,newHtml);
+
   }
 }
-
-
