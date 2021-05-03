@@ -93,6 +93,7 @@ export class DynamicHtmlComponent implements OnInit {
     // DON'T DO THIS!
     /** DANGER AHEAD */ target.innerHTML = newHtml; /** I mean it, this might cost you your job */
     // REALLY, DON'T
+    // (Really don't! They even send out Igor to comment on your sample code ;-P )
     return ;
 
     /** this is the version you should be using */
