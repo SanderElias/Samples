@@ -63,7 +63,7 @@ export class DynamicHtmlComponent implements OnInit {
   To do it this way is really dangerous, as it will expose to all kind of security issues.
   (see the functioning alert in the sample code!!)
   But the person that asked the question, needed a way to run script tags, and this is the easiest way.
-  With this sample there was a severe warning, that this is really dangerous.
+  With this sample comes a severe warning, that this is really dangerous.
   </p>
   <button onclick="alert('hi')">hi</button>
   `;
