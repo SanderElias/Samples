@@ -1,0 +1,36 @@
+<ng-container *ngIf='bnode'>
+  <div>{{bnode.value}}:({{bnode.height}}:{{bnode.balance}})</div>
+  <div class="row" *ngIf="bnode.let || bnode.right">
+    <b-node *ngIf='bnode.left?.value!==undefined' class="left" [bnode]="bnode.left"></b-node>
+    <b-node *ngIf='bnode.right?.value!==undefined' class="right" [bnode]="bnode.right"></b-node>
+  </div>
+</ng-container>
+<style>
+  :host {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 15px 1fr;
+    justify-content: center;
+    align-content: center;
+    gap:2px;
+    margin:4px;
+    padding: 2px;
+    border: 1px solid white;
+  }
+
+  div {
+    text-align: center;
+  }
+  div.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  b-node.left {
+    background-color: blue;
+  }
+
+  b-node.right {
+    background-color: green;
+  }
+</style>

@@ -82,7 +82,8 @@ const routes: Routes = [
   { path: 'pannel', loadChildren: () => import('./pannel-stuff/pannel-stuff.module').then(m => m.PannelStuffModule) },
   { path: 'clock', loadChildren: () => import('./analog-clock/analog-clock.module').then(m => m.AnalogClockModule) },
   { path: 'gridThings', loadChildren: () => import('./gridthings/gridthings/gridthings.module').then(m => m.GridthingsModule) },
-  { path: '**', redirectTo: 'gridThings' },
+  { path: 'bintree', loadChildren: () => import('./bintree/bintree.module').then(m => m.BintreeModule) },
+  { path: '**', redirectTo: 'bintree' },
 ];
 
 @NgModule({
