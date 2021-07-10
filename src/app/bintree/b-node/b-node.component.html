@@ -1,10 +1,22 @@
-<ng-container *ngIf='bnode'>
-  <div>{{bnode.value}}:({{bnode.height}}:{{bnode.balance}})</div>
-  <div class="row" *ngIf="bnode.let || bnode.right">
-    <b-node *ngIf='bnode.left?.value!==undefined' class="left" [bnode]="bnode.left"></b-node>
-    <b-node *ngIf='bnode.right?.value!==undefined' class="right" [bnode]="bnode.right"></b-node>
+<ng-container *ngIf='node$|async as node'>
+  <div>{{node?.value}}</div>
+  <div
+    class="row"
+    *ngIf="node?.left || node?.right"
+  >
+    <b-node
+      class="left"
+      [bnode]="node.left"
+    ></b-node>
+    <b-node
+      class="right"
+      [bnode]="node.right"
+    ></b-node>
   </div>
 </ng-container>
+<ng-template #dummy>
+  <div></div>
+</ng-template>
 <style>
   :host {
     display: grid;
@@ -12,8 +24,8 @@
     grid-template-rows: 15px 1fr;
     justify-content: center;
     align-content: center;
-    gap:2px;
-    margin:4px;
+    gap: 2px;
+    margin: 4px;
     padding: 2px;
     border: 1px solid white;
   }
@@ -21,6 +33,7 @@
   div {
     text-align: center;
   }
+
   div.row {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -1,18 +1,28 @@
 <h1>Binary tree</h1>
-<button (click)="rr()">rr</button>
+<div class="button-bar">
+  <button (click)="rl()">rl</button>
+  <button (click)="rr()">rr</button>
+  <button (click)="rb()">rb</button>
+  <button (click)="dump()">dump</button>
+</div>
 
-<b-node [bnode]="root"></b-node>
-<!-- <table>
-  <thead>
-    <td>value</td>
-    <td>left</td>
-    <td>right</td>
-    <td>parent</td>
-  </thead>
-  <tr *ngFor='let row of data'>
-    <td>{{row.value}}</td>
-    <td>{{row.left?.value}}</td>
-    <td>{{row.right?.value}}</td>
-    <td>{{row.parent.value}}</td>
-  </tr>
-</table> -->
+<b-node [bnode]="(root|async)?.id"></b-node>
+
+<div class="row">
+  RL <span (click)="rl(item)" *ngFor="let item of nodes">{{item.value}}</span>
+</div>
+<div class="row">
+  RR <span (click)="rr(item)" *ngFor="let item of nodes">{{item.value}}</span>
+</div>
+
+<style>
+  .button-bar {
+    display: grid;
+    grid-template-columns: repeat(5,1fr)
+  }
+  .row {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+  }
+</style>
