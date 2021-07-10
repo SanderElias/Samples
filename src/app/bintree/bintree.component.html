@@ -6,19 +6,23 @@
   <button (click)="dump()">dump</button>
 </div>
 
-<b-node [bnode]="(root|async)?.id"></b-node>
+<b-node [bNode]="root$|async"></b-node>
 
-<div class="row">
+<!-- <div class="row">
   RL <span (click)="rl(item)" *ngFor="let item of nodes">{{item.value}}</span>
 </div>
 <div class="row">
   RR <span (click)="rr(item)" *ngFor="let item of nodes">{{item.value}}</span>
 </div>
+<div class="row">
+  Rb <span (click)="rb(item)" *ngFor="let item of nodes">{{item.value}}</span>
+</div> -->
 
 <style>
   .button-bar {
     display: grid;
-    grid-template-columns: repeat(5,1fr)
+    grid-template-columns: repeat(5,1fr);
+    max-width: 100vw;
   }
   .row {
     margin-top: 1rem;

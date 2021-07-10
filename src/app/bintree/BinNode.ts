@@ -14,6 +14,7 @@ export interface BinNode {
   right?: BinNodeId;
   height?: number;
   balance?: number;
+  time?: number;
 }
 
 const nodes = new Map<BinNodeId, BinNode>();
@@ -71,51 +72,61 @@ export function dump() {
 
 export function rotateLeft(node = getRoot()) {
   const grandParent = getNode(node.parentId);
-  const newParent = getNode(node.right);
+  const replaceNode = getNode(node.right);
   /** when there is no right child, we are done */
-  if (newParent === undefined) { return node; }
-  console.log(node.value, getNode(node.left)?.value, newParent.value);
-  newParent.parentId = grandParent?.id;
+  if (replaceNode === undefined) { return node; }
+  replaceNode.parentId = grandParent?.id;
   if (grandParent !== undefined) {
-    grandParent.right = newParent.id;
+    if (grandParent.left === node.id) {
+      grandParent.left = replaceNode.id;
+    } else {
+      grandParent.right = replaceNode.id;
+    }
   }
-  const left = getNode(newParent.left);
-  newParent.left = node.id;
-  node.parentId = newParent.id;
+  const left = getNode(replaceNode.left);
+  replaceNode.left = node.id;
+  node.parentId = replaceNode.id;
   if (left !== undefined) {
     node.right = left.id;
     left.parentId = node.id;
   } else {
     node.right = undefined
   }
-  console.log(newParent.value, getNode(newParent.left)?.value, getNode(newParent.right)?.value);
-  return newParent
+  // console.table([grandParent,newParent,node,left])
+
+  return replaceNode
 }
 
 export const getSorted = () => [...nodes.values()].sort((a, b) => a.value < b.value ? -1 : 1);
 
 export function rotateRight(node = getRoot()) {
   const grandParent = getNode(node.parentId);
-  const newParent = getNode(node.left);
-  if (newParent === undefined) { return node; }
-  newParent.parentId = grandParent?.id;
+  const replaceNode = getNode(node.left);
+  /** when there is no left child, we are done */
+  if (replaceNode === undefined) { return node; }
+  replaceNode.parentId = grandParent?.id;
   if (grandParent !== undefined) {
-    grandParent.left = newParent.id;
+    if (grandParent.left === node.id) {
+      grandParent.left = replaceNode.id;
+    } else {
+      grandParent.right = replaceNode.id;
+    }
   }
-  const right = getNode(newParent.right);
-  newParent.right = node.id;
-  node.parentId = newParent.id;
+  const right = getNode(replaceNode.right);
+  replaceNode.right = node.id;
+  node.parentId = replaceNode.id;
   if (right !== undefined) {
     node.left = right.id;
     right.parentId = node.id;
   } else {
     node.left = undefined
   }
-  return newParent
+  // console.table([grandParent,newParent,node,right])
+  return replaceNode
 }
 
 export function height(node: BinNode) {
-  return undefined;
+  // return undefined;
   if (node === undefined) { return 0; }
   node.height = Math.max(height(getNode(node.left)), height(getNode(node.right))) + 1;
   return node.height;
@@ -128,18 +139,42 @@ export function balance(node: BinNode) {
   return node.balance;
 }
 
-export function reBalance(node = getRoot()) {
+export function reBalance() {
+  balanceNode()
+  while (true) {
+    const n = [...nodes.values()].find(n => Math.abs(balance(n)) > 1)
+    console.log(nodes.size,n);
+    if (n === undefined) { break; }
+    balanceNode(n);
+  }
+}
+
+export function balanceNode(node = getRoot()) {
+  if (node === undefined) { return; }
   const nodeBalance = balance(node);
-  console.log('balance', nodeBalance)
   if (nodeBalance < -1) {
-    rotateLeft(node);
+    const right = getNode(node.right);
+    if (right && balance(right) > 0) {
+      rotateRight(right);
+    }
+    const r = rotateLeft(node);
     height(getRoot());
-    reBalance()
+    return balanceNode(r);
   }
   if (nodeBalance > 1) {
-    rotateRight(node);
+    const left = getNode(node.left);
+    if (left && left.balance < 0) {
+      rotateLeft(left);
+    }
+    const r = rotateRight(node);
     height(getRoot());
-    reBalance()
+    return balanceNode(r);
   }
+  const balanceIfNeeded = (n) => {
+    const b = balance(n);
+    if (Math.abs(n?.balance) > 1) { balanceNode(n); }
+  }
+  balanceIfNeeded(getNode(node.left));
+  balanceIfNeeded(getNode(node.right));
 }
 

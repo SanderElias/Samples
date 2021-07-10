@@ -1,39 +1,29 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { balance, BinNode, BinNodeId, getNode, height, rotateLeft, rotateRight } from "../BinNode";
-import { BintreeComponent } from '../bintree.component';
+import { map } from 'rxjs/operators';
+import { balance, BinNode, getNode, height } from "../BinNode";
 
 @Component({
   selector: 'b-node',
   templateUrl: './b-node.component.html',
   styles: [
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BNodeComponent implements OnInit {
+export class BNodeComponent {
   node$ = new ReplaySubject<BinNode>()
-  @Input() set bnode(bnode: BinNode|BinNodeId) {
-    if (typeof bnode === 'string') {
-      bnode = getNode(bnode);
-    }
-    this.node$.next({ ...bnode })
-    // console.log(bnode?.value, get(bnode?.left)?.value, get(bnode?.right)?.value,)
+  left$ = this.node$.pipe(
+    map(n => ({ ...getNode(n.left), time: Date.now() })),
+  );
+  right$ = this.node$.pipe(
+    map(n => ({ ...getNode(n.right), time: Date.now() })),
+  );
+
+  @Input() set bNode(bNode: BinNode) {
+    setTimeout(() => this.node$.next({ ...bNode, time: Date.now() }), 10)
   }
   height = height;
   balance = balance;
 
-  constructor(public bt: BintreeComponent) { }
-
-  ngOnInit(): void {
-    // console.log(this.bnode?.value)
-  }
-
-  rl(n: BinNode) {
-    setTimeout(() => { this.bt.rl(n)}, 10)
-  }
-
-  get(id: BinNodeId): BinNode {
-    return getNode(id)
-  }
+  constructor() { }
 
 }

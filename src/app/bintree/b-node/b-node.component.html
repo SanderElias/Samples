@@ -1,33 +1,35 @@
 <ng-container *ngIf='node$|async as node'>
-  <div>{{node?.value}}</div>
+  <div><span *ngIf="node?.value ?? undefined">
+      {{node?.value ?? '-'}}({{balance(node)}}:{{node.height}}})
+    </span>
+  </div>
+
   <div
     class="row"
     *ngIf="node?.left || node?.right"
   >
     <b-node
       class="left"
-      [bnode]="node.left"
+      [bNode]="left$|async"
     ></b-node>
     <b-node
       class="right"
-      [bnode]="node.right"
+      [bNode]="right$|async"
     ></b-node>
   </div>
 </ng-container>
-<ng-template #dummy>
-  <div></div>
-</ng-template>
 <style>
   :host {
     display: grid;
+    width: fit-content;
     grid-template-columns: 1fr;
-    grid-template-rows: 15px 1fr;
+    grid-template-rows: 20px 1fr;
     justify-content: center;
     align-content: center;
     gap: 2px;
     margin: 4px;
     padding: 2px;
-    border: 1px solid white;
+    border: 1px solid rgba(255, 255, 255, 0.774);
   }
 
   div {
@@ -35,15 +37,25 @@
   }
 
   div.row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
+    align-content: center;
   }
 
-  b-node.left {
-    background-color: blue;
+  div:first-child {
+    padding: 9px;
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+    background-color: rgba(93, 14, 93);
+
   }
 
-  b-node.right {
-    background-color: green;
+  .left>div:first-child {
+    background-color: rgba(0, 0, 255);
+  }
+
+  .right>div:first-child {
+    background-color: rgba(0, 128, 0);
   }
 </style>
