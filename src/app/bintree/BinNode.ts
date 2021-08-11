@@ -18,7 +18,6 @@ export interface BinNode {
 }
 
 const nodes = new Map<BinNodeId, BinNode>();
-let rootId: BinNodeId;
 
 export const createNode = (value: number | string, parentId?: BinNodeId, left?: BinNodeId, right?: BinNodeId): BinNode => {
   const newNode = {
@@ -35,11 +34,10 @@ export const createNode = (value: number | string, parentId?: BinNodeId, left?: 
 export const getNode = (id: BinNodeId): BinNode => nodes.get(id);
 export const set = (node: BinNode): Map<BinNodeId, BinNode> => nodes.set(node.id, node);
 export const getRoot = () => [...nodes.values()].find(n => n.parentId === undefined);
-export const reset = () => { nodes.clear(); rootId = undefined; };
+export const reset = () => { nodes.clear() };
 
 export function addNode(node: BinNode, parent = getRoot()) {
   if (parent === undefined) {
-    rootId = node.id;
     return node;
   }
   if (node.value < parent.value) {
@@ -59,7 +57,9 @@ export function addNode(node: BinNode, parent = getRoot()) {
     } else { return addNode(node, getNode(parent.right)); }
   }
   if (node.value === parent.value) {
-    throw new Error('Duplicate value');
+    console.warn('thrown away duplicate value');
+    nodes.delete(node.id);
+    // throw new Error('Duplicate value');
   }
 }
 
@@ -128,7 +128,9 @@ export function rotateRight(node = getRoot()) {
 export function height(node: BinNode) {
   // return undefined;
   if (node === undefined) { return 0; }
-  node.height = Math.max(height(getNode(node.left)), height(getNode(node.right))) + 1;
+
+  const childHeight =  Math.max(height(getNode(node.left)), height(getNode(node.right)));
+  node.height = childHeight + 1 ;
   return node.height;
 }
 
@@ -140,11 +142,12 @@ export function balance(node: BinNode) {
 }
 
 export function reBalance() {
+  let maxIterations = 100;
   balanceNode()
   while (true) {
     const n = [...nodes.values()].find(n => Math.abs(balance(n)) > 1)
-    console.log(nodes.size,n);
-    if (n === undefined) { break; }
+    console.log(nodes.size,n?.value, balance(n));
+    if (n === undefined || !--maxIterations) { break; }
     balanceNode(n);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { balance, BinNode, getNode, height } from "../BinNode";
@@ -8,6 +8,7 @@ import { balance, BinNode, getNode, height } from "../BinNode";
   templateUrl: './b-node.component.html',
   styles: [
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BNodeComponent {
   node$ = new ReplaySubject<BinNode>()
@@ -25,5 +26,9 @@ export class BNodeComponent {
   balance = balance;
 
   constructor() { }
+
+  title(node: BinNode) {
+    return `Height: ${node.height} balance: ${balance(node)}`
+  }
 
 }

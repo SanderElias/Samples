@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { get, set } from 'idb-keyval';
 import { Subject } from 'rxjs';
-import { addNode, BinNode, createNode, dump, height, getRoot, getSorted, balanceNode, reset, rotateLeft, rotateRight, reBalance } from './BinNode';
+import { addNode, BinNode, createNode, dump, getRoot, getSorted, height, reBalance, reset, rotateLeft, rotateRight } from './BinNode';
 
 @Component({
   selector: 'app-bintree',
   templateUrl: './bintree.component.html',
   styles: [
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BintreeComponent implements OnInit {
+  count = 31;
   root$ = new Subject<BinNode>();
   nodes = getSorted()
   dump = () => {
@@ -22,7 +24,7 @@ export class BintreeComponent implements OnInit {
   ngOnInit() { this.reset() }
   async reset() {
     reset();
-    const [first, ...rest] = Array.from({length:255}, (_, i) => i+1);
+    const [first, ...rest] = Array.from({length:this.count}, (_, i) => (this.count*2)-(i*2));
     // const [first, ...rest] = [4,3,1,2,5,6,7]
     // const [first, ...rest] = await getData()
     const root = createNode(first);
@@ -66,7 +68,7 @@ const randomArr = (count) => [...new Set(Array.from({ length: count }, () => ran
 async function getData(): Promise<number[]> {
   let data = undefined// await get('binTreeSampleData')
   if (!data) {
-    data = randomArr(500);
+    data = randomArr(2500);
     set('binTreeSampleData', data);
   }
 
