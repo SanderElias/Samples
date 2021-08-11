@@ -24,9 +24,9 @@ export class BintreeComponent implements OnInit {
   ngOnInit() { this.reset() }
   async reset() {
     reset();
-    const [first, ...rest] = Array.from({length:this.count}, (_, i) => (this.count*2)-(i*2));
+    // const [first, ...rest] = Array.from({length:this.count}, (_, i) => (this.count*2)-(i*2));
     // const [first, ...rest] = [4,3,1,2,5,6,7]
-    // const [first, ...rest] = await getData()
+    const [first, ...rest] = await getData()
     const root = createNode(first);
     rest.forEach(int => addNode(createNode(int), root))
     height(root);
@@ -68,7 +68,7 @@ const randomArr = (count) => [...new Set(Array.from({ length: count }, () => ran
 async function getData(): Promise<number[]> {
   let data = undefined// await get('binTreeSampleData')
   if (!data) {
-    data = randomArr(2500);
+    data = randomArr(100);
     set('binTreeSampleData', data);
   }
 
