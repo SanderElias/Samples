@@ -10,7 +10,7 @@ import { RelationsService } from '../../relations.service';
   selector: 'app-relation-detail',
   template: `
   <ng-container *ngIf="relation$|async as relation">
-    <h3>{{relation.name}}</h3>
+     <app-relation [relation]="relation" detail></app-relation>
   </ng-container>
   <h4>Orders:</h4>
   <app-order-row *ngFor="let order of orders$|async" [order]="order"></app-order-row>

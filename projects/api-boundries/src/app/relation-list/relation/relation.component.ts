@@ -1,40 +1,37 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReplaySubject } from 'rxjs';
+import { pluck, take } from 'rxjs/operators';
 import { Relation } from '../../relations.service';
 
 @Component({
   selector: 'app-relation',
   template: `
-    <h4>{{relation?.name}}</h4>
+    <h4 *ngIf="!detail">{{ (relation$|async)?.name }}</h4>
+    <section *ngIf="detail && relation$|async as relation">
+      <h4>{{ relation.name }}</h4>
+      <p>{{ relation.company.name }}</p>
+      <p>📧 {{ relation.email }}</p>
+      <p>📱 {{ relation.phone }}</p>
+    </section>
   `,
-  styles: [`
-    :host {
-      display: inline-block;
-      width: fit-content;
-      padding: 5px;
-      border-radius: 5px;
-      background-color: #f5f5f5;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-      margin: 7px;
-      cursor: pointer;
-      height: 1.5rem;
-    }
-    h4 {
-      padding:2px;
-      margin:0px;
-    }
-  `]
+  styleUrls: ['./relation.component.css']
 })
-export class RelationComponent implements OnInit {
-  @Input() relation: Relation
-  @HostListener('click') onClick() {
-    console.log(this.relation.id + ' clicked');
+export class RelationComponent {
+  relation$ = new ReplaySubject<Relation>(1);
+  @Input() set relation(relation: Relation) { this.relation$.next(relation); }
+
+  detail = this.elmRef.nativeElement?.hasAttribute('detail');
+
+  @HostListener('click') async onClick() {
+    const relationId = await this.relation$.pipe(pluck('id'), take(1)).toPromise();
     this.router.navigate(['/relations', this.relation.id]);
   }
 
-  constructor(private router:Router) { }
+  constructor(
+    private elmRef: ElementRef<HTMLElement>,
+    private router: Router,
+  ) { }
 
-  ngOnInit(): void {
-  }
 
 }

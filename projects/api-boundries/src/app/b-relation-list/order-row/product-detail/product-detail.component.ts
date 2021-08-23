@@ -11,7 +11,7 @@ import { ObservableInput } from '../../../../observable-input-decorator.ts';
       {{product.name}}
       <section>
         Created by <app-relation class="inline" [relationId]="product.creator"></app-relation><br>
-        order handling by <app-relation class="inline" [relationId]="relationId"></app-relation>
+        product handled by <app-relation class="inline" [relationId]="relationId"></app-relation>
       </section>
     </ng-container>
   `,
@@ -19,7 +19,7 @@ import { ObservableInput } from '../../../../observable-input-decorator.ts';
   section { margin-left:20px; }
   :host:not(:last-child) { border-bottom: 1px dashed black;  }`]
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent {
   @Input()
   @ObservableInput()
   productId = new ReplaySubject<string>();
@@ -34,10 +34,5 @@ export class ProductDetailComponent implements OnInit {
     private prod: ProductsService
   ) {
   }
-
-  ngOnInit(): void {
-  }
-
 }
-
 
