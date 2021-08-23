@@ -25,7 +25,7 @@ export class RelationComponent {
 
   @HostListener('click') async onClick() {
     const relationId = await this.relation$.pipe(pluck('id'), take(1)).toPromise();
-    this.router.navigate(['/relations', this.relation.id]);
+    this.router.navigate(['/relations', relationId]);
   }
 
   constructor(

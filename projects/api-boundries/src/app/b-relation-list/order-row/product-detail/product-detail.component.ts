@@ -22,7 +22,7 @@ import { ObservableInput } from '../../../../observable-input-decorator.ts';
 export class ProductDetailComponent {
   @Input()
   @ObservableInput()
-  productId = new ReplaySubject<string>();
+  productId!: ReplaySubject<string>;
 
   @Input() relationId: string
 
