@@ -163,6 +163,6 @@ Versus:
 
 The first code comes from [here](./src/app/b-relation-list/relation-detail/relation-detail.component.ts), the second from [here](./src/app/b-relation-list/relation-detail/relation-detail.component.ts)
 
-The first block of code, is the code i need to gather all the data I need for display upfront. The second one is when I use simple component APIs. ***that code is completely gone. It is not scattered over the code base. it is GONE!***
+The first block of code, is the code i need to gather all the data I need for display upfront. The second one is when I use simple component APIs. ***This code is completely gone. It is not scattered over the code base. it is GONE!***
 Think about that. And the sample isn't even that complex.
 
