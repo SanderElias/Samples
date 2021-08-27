@@ -98,7 +98,7 @@ While this might be an entirely valid thing to do, it exposes one of the biggest
 So, instead of going to the `app-relation` component, and look at its code to see why the name is suddenly missing, I need to seek all the uses off `app-relation` and then go up the tree to find where the data is coming from, and checking where the alteration is done. 
 I have gone from reading 1 component, to reading a large portion of my entire program. And reading is only the beginning.
 
-The above pararaph does already give away a big pointer. Simplicity is not always directly obvious. What is the simple part in the second example? The input takes a `string` only. It is even run-time checked for being one. The attribute is called `realationId`, which is a pretty decent clue to begin with.
+The above pararaph does already give away a big pointer. Simplicity is not always directly obvious. What is the simple part in the second example? The input takes a `string` only. It is even run-time checked for being one. The attribute is called `relationId`, which is a pretty decent clue to begin with.
 When the component is used. It will go to the service, and get all the data it needs by itself. The big difference in the controller is this line:
 ```typescript
   order$ = this.orderId$.pipe(
