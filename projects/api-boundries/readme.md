@@ -6,6 +6,16 @@ In this talk I will go over the beginnings of API design, what makes a good API,
 > To learn the most, before you read on, or watch the video,
 >  look into the source. Look at the different version  of the same thing in the `relation` and `bRelation` modules. Then make up your mind about what  you think the best way. And _why_ you think that. 
 
+### if you want to check out the code:
+```bash
+git clone git@github.com:SanderElias/Samples.git
+cd Samples
+yarn 
+npx ng serve ApiBoundries
+```
+The code for this app is in the folder `projects/ApiBoundries`. (yes I'm aware of the spelling mistake ☺)
+By default it will go to the `B-side` of the app. you can route around if you like. It will probably work with `NPM install` instead of `yarn` too.
+
 ## STOP READING!
 Did you read the disclaimer? Good, you are ready to scroll down :-D
 
