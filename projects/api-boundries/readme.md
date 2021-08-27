@@ -3,7 +3,7 @@
 In this talk I will go over the beginnings of API design, what makes a good API, and how we can apply that to angular components.
 
 > ## DISCLAIMER:
-> To learn the most, before you read on, or watch the video
+> To learn the most, before you read on, or watch the video,
 >  look into the source. Look at the different version  of the same thing in the `relation` and `bRelation` modules. Then make up your mind about what  you think the best way. And _why_ you think that. 
 
 ## STOP READING!
