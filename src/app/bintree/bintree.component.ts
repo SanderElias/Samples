@@ -63,7 +63,7 @@ export class BintreeComponent implements OnInit {
 }
 
 /** this is a playground to build a binary tree from scratch */
-const randomInt = () => Math.floor(Math.random() * 2000)
+const randomInt = (max = 2000) => Math.floor(Math.random() * max)
 const randomArr = (count) => [...new Set(Array.from({ length: count }, () => randomInt()))]
 async function getData(): Promise<number[]> {
   let data = undefined// await get('binTreeSampleData')
