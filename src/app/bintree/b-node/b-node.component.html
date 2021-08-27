@@ -1,6 +1,6 @@
 <ng-container *ngIf='node$|async as node'>
-  <div><span *ngIf="node?.value ?? undefined">
-      {{node?.value ?? '-'}}({{balance(node)}}:{{node.height}}})
+  <div><span *ngIf="node?.value ?? undefined" [title]='title(node)'>
+      {{node?.value ?? '-'}}
     </span>
   </div>
 
