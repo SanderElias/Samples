@@ -83,7 +83,8 @@ const routes: Routes = [
   { path: 'clock', loadChildren: () => import('./analog-clock/analog-clock.module').then(m => m.AnalogClockModule) },
   { path: 'gridThings', loadChildren: () => import('./gridthings/gridthings/gridthings.module').then(m => m.GridthingsModule) },
   { path: 'bintree', loadChildren: () => import('./bintree/bintree.module').then(m => m.BintreeModule) },
-  { path: '**', redirectTo: 'bintree' },
+  { path: 'localState', loadChildren: () => import('./local-state/local-state.module').then(m => m.LocalStateModule) },
+  { path: '**', redirectTo: 'localState' },
 ];
 
 @NgModule({

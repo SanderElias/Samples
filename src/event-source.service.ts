@@ -62,9 +62,11 @@ function getWeightedAction() {
 
 (async () => {
   const es = new EventSourceService(new InMemoryDataService());
-  let count = 150000;
+  let count = 1500;
   while (count--) {
     const r = await es.createEvent();
   }
-  console.table(es.db.list('contact'));
+  // console.table(es.db.list('contact'));
 })();
+
+
