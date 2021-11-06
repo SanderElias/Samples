@@ -1,21 +1,14 @@
 // tslint:disable:member-ordering
 import { Injectable } from '@angular/core';
-import { concat, EMPTY, from, Observable, of } from 'rxjs';
 import {
-  catchError,
-  concatAll,
-  concatMap,
-  expand,
-  filter,
-  map,
-  mergeMap,
-  reduce,
-  shareReplay,
-  take,
+  catchError, concat, concatAll,
+  concatMap, EMPTY, expand,
+  filter, from, map,
+  mergeMap, Observable, of, reduce,
+  shareReplay, switchMap, take,
   tap,
-  toArray,
-  switchMap,
-} from 'rxjs/operators';
+  toArray
+} from 'rxjs';
 import { addToCache, cacheHas, getFromCache, initCache } from './cache';
 import { Film, FilmsRoot } from './FilmsRoot.interface';
 import { PeopleRoot, Person } from './PeopleRoot.interface';
@@ -63,7 +56,7 @@ export class SwapiService {
     map((r: PeopleRoot) => r.results),
 
     // scan to accumulate the pages (emitted by expand)
-    reduce<Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), []),
+    reduce<Person[],Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), [] as Person[]),
 
     map(persons =>
       persons.map(

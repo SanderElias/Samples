@@ -84,8 +84,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "samples:build",
-            "aot": true
+            "browserTarget": "samples:build"
           },
           "configurations": {
             "production": {
@@ -110,13 +109,6 @@
             "scripts": [],
             "assets": ["src/favicon.ico", "src/assets"]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -135,13 +127,6 @@
             "production": {
               "devServerTarget": "samples:serve:production"
             }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -171,16 +156,6 @@
             "tsConfig": "projects/se-ng/observable-hooks/tsconfig.spec.json",
             "karmaConfig": "projects/se-ng/observable-hooks/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/se-ng/observable-hooks/tsconfig.lib.json",
-              "projects/se-ng/observable-hooks/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -208,16 +183,6 @@
             "main": "projects/se-ng/swapi/src/test.ts",
             "tsConfig": "projects/se-ng/swapi/tsconfig.spec.json",
             "karmaConfig": "projects/se-ng/swapi/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/se-ng/swapi/tsconfig.lib.json",
-              "projects/se-ng/swapi/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -247,16 +212,6 @@
             "tsConfig": "projects/se-ng/observable-utils/tsconfig.spec.json",
             "karmaConfig": "projects/se-ng/observable-utils/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/se-ng/observable-utils/tsconfig.lib.json",
-              "projects/se-ng/observable-utils/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -284,16 +239,6 @@
             "main": "projects/se-ng/let/src/test.ts",
             "tsConfig": "projects/se-ng/let/tsconfig.spec.json",
             "karmaConfig": "projects/se-ng/let/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/se-ng/let/tsconfig.lib.json",
-              "projects/se-ng/let/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -389,17 +334,6 @@
             "assets": ["projects/slipnslide/src/favicon.ico", "projects/slipnslide/src/assets"],
             "styles": ["projects/slipnslide/src/styles.css"],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/slipnslide/tsconfig.app.json",
-              "projects/slipnslide/tsconfig.spec.json",
-              "projects/slipnslide/e2e/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
