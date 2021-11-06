@@ -1,5 +1,5 @@
 import { enableProdMode } from '@angular/core';
-import { platformBrowser } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { dom, library } from '@fortawesome/fontawesome-svg-core';
 import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
@@ -14,6 +14,6 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowser()
+platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch(err => console.error(err));

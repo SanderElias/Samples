@@ -84,7 +84,8 @@ const routes: Routes = [
   { path: 'gridThings', loadChildren: () => import('./gridthings/gridthings/gridthings.module').then(m => m.GridthingsModule) },
   { path: 'bintree', loadChildren: () => import('./bintree/bintree.module').then(m => m.BintreeModule) },
   { path: 'localState', loadChildren: () => import('./local-state/local-state.module').then(m => m.LocalStateModule) },
-  { path: '**', redirectTo: 'localState' },
+  { path: 'lazyComponents', loadChildren: () => import('./lazy-component/lazy-component.module').then(m => m.LazyComponentModule) },
+  { path: '**', redirectTo: 'lazyComponents' },
 ];
 
 @NgModule({
