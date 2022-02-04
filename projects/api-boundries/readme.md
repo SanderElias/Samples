@@ -48,7 +48,7 @@ Did you read the disclaimer? Good, you are ready to scroll down :-D
 
 # Angular components API-boundaries
 
-To watch the video click: [API-boundaries talk](https://www.youtube.com/watch?v=YjGrjySEhtM). The slides can be found [here](./Angular%20component%20boundries.pdf)
+To watch the video click: [API-boundaries talk](https://youtu.be/YjGrjySEhtM?t=2513). The slides can be found [here](./Angular%20component%20boundries.pdf)
 
 ## Foreword
 When I look into applications I often see a load of unneeded complexity. A lot of this comes from API boundaries that are too complex. 
