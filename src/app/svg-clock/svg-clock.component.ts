@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { timer, take, map } from 'rxjs';
 
 const twoPi = Math.PI * 2;
-const circumflex = (radius: number) => twoPi * radius;
+const circumference = (radius: number) => twoPi * radius;
 
 @Component({
   selector: 'app-svg-clock',
@@ -38,17 +38,17 @@ export class SvgClockComponent {
     // calculate the percentage of how many minutes
     const per = minute / 60;
     // calculate how much of the circle is covered
-    return per * circumflex(radius);
+    return per * circumference(radius);
   }
 
   dashArray(minute: number, position: number) {
     const radius = this.radiusFromPosition(position);
-    const hoursToPer = (n: number) => ((n % 12) / 12) * circumflex(radius);
+    const hoursToPer = (n: number) => ((n % 12) / 12) * circumference(radius);
     const covered = position === 0 ? // hours need a different calculation
       hoursToPer(minute)
       : this.minuteToAngle(minute, radius);
     /** use the dasharray to draw the part we want */
-    return `${covered} ${circumflex(radius)}`;
+    return `${covered} ${circumference(radius)}`;
   }
 
   zerod(n: number) {

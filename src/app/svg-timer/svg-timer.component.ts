@@ -3,7 +3,7 @@ import { timer } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 const twoPi = Math.PI * 2;
-const circumflex = (radius: number) => twoPi * radius;
+const circumference = (radius: number) => twoPi * radius;
 
 @Component({
   selector: 'app-svg-timer',
@@ -36,13 +36,13 @@ export class SvgTimerComponent {
     // calculate the percentage of how many minutes
     const per = minute / 60;
     // calculate how much of the circle is covered
-    return per * circumflex(radius);
+    return per * circumference(radius);
   }
 
   dashArray(minute: number, radius: number) {
     const covered = this.minuteToAngle(minute, radius);
     /** use the dasharray to draw the part we want */
-    return `${covered} ${circumflex(radius)}`;
+    return `${covered} ${circumference(radius)}`;
   }
 
 }
