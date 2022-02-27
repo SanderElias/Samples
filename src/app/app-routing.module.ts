@@ -85,7 +85,9 @@ const routes: Routes = [
   { path: 'bintree', loadChildren: () => import('./bintree/bintree.module').then(m => m.BintreeModule) },
   { path: 'localState', loadChildren: () => import('./local-state/local-state.module').then(m => m.LocalStateModule) },
   { path: 'lazyComponents', loadChildren: () => import('./lazy-component/lazy-component.module').then(m => m.LazyComponentModule) },
-  { path: '**', redirectTo: 'lazyComponents' },
+  { path: 'svgTimer', loadChildren: () => import('./svg-timer/svg-timer.module').then(m => m.SvgTimerModule) },
+  { path: 'svgClock', loadChildren: () => import('./svg-clock/svg-clock.module').then(m => m.SvgClockModule) },
+  { path: '**', redirectTo: 'svgClock' },
 ];
 
 @NgModule({
