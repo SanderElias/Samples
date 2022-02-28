@@ -1,7 +1,7 @@
 <div *ngIf="(vm$ | async) as vm; else: loading">
   <input type="text" [formControl]="nameFilter" />
   <ul>
-    <li *ngFor="let item of vm.users">{{ item.name }}</li>
+    <li *ngFor="let item of vm.users">{{ item.name }} <img [src]="item.avatar" alt=""></li>
   </ul>
 </div>
 
@@ -10,3 +10,13 @@
     <div><h2>Loading...</h2></div>
   </div>
 </ng-template>
+
+<style>
+  ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 5px;
+  }
+
+</style>

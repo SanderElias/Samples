@@ -20,6 +20,7 @@
       "es2020",
       "dom"
     ],
+
     "paths": {
       "@se-ng/observable-hooks": [
         "dist/se-ng/observable-hooks"

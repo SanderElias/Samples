@@ -7,7 +7,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 /** load icons from FontAwseome */
-library.add(faPlay, faPause);
+library.add(faPlay as any, faPause as any);
 dom.watch();
 
 if (environment.production) {
