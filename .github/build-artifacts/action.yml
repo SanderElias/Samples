@@ -22,6 +22,7 @@ runs:
       if: steps.cache-dist.outputs.cache-hit != 'true'
       run: |
          npm run build.lib
+         node scan.mjs
          npm run build
          cp dist/samples/index.html dist/samples/404.html
       shell: bash

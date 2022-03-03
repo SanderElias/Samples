@@ -42,6 +42,7 @@
     "devcert": "^1.1.3",
     "document-register-element": "^1.7.2",
     "front-matter": "^4.0.2",
+    "guess-parser": "^0.4.22",
     "idb-keyval": "^5.0.6",
     "messagepack": "^1.1.8",
     "msgpack-lite": "^0.1.26",

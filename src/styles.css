@@ -15,13 +15,17 @@ html {
 }
 
 body {
-  font: 14px/1 'Roboto', sans-serif;
+  font: 18px/1 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
   min-height: 99vh;
   color:rgb(230, 234, 238);
   background-color:#333;
+}
+
+a {
+  color:rgb(95, 197, 228);
 }
 
 .backDrop {
