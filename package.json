@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4301 --ssl",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "build.lib": "ng build @se-ng/swapi --configuration production && ng build @se-ng/observable-hooks --configuration production && ng build @se-ng/observable-utils --configuration production && ng build @se-ng/let --configuration production",
     "test": "ng test",
     "lint": "ng lint",

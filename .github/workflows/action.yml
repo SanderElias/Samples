@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # for future expansion, for now only node 16 is supported
+        node: [ 16.x]
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v2
+      - name: Setup Node, install dependencies, and cache node modules, build dist artifacts
+        uses: ./.github/build-artifacts
+        with:
+          node-version: ${{ matrix.node }}
+
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # for future expansion, for now only node 16 is supported
+        node: [ 16.x]
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v2
+      - name: Get the build
+        uses: ./.github/build-artifacts
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist/samples # The folder the action should deploy.
