@@ -23,4 +23,5 @@ runs:
       run: |
          npm run build.lib
          npm run build
+         cp dist/samples/index.html dist/samples/404.html
       shell: bash
