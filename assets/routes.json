@@ -1,0 +1,152 @@
+[
+  {
+    "path": "/home",
+    "modulePath": "/src/app",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app"
+  },
+  {
+    "path": "/filterSamp/**",
+    "modulePath": "/src/app/filter-samp",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/filter-samp"
+  },
+  {
+    "path": "/modalSamp",
+    "modulePath": "/src/app/modal-samp",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/modal-samp"
+  },
+  {
+    "path": "/mixinSamp",
+    "modulePath": "/src/app/mixins",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/mixins"
+  },
+  {
+    "path": "/htmlLoad",
+    "modulePath": "/src/app/html-load",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/html-load"
+  },
+  {
+    "path": "/requiredAttributes",
+    "modulePath": "/src/app/required-attributes",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/required-attributes"
+  },
+  {
+    "path": "/viewModel/theBad",
+    "modulePath": "/src/app/view-model",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model"
+  },
+  {
+    "path": "/viewModel/theGood",
+    "modulePath": "/src/app/view-model",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model"
+  },
+  {
+    "path": "/viewModel/user",
+    "modulePath": "/src/app/view-model",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model"
+  },
+  {
+    "path": "/viewModel//user",
+    "modulePath": "/src/app/view-model",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model"
+  },
+  {
+    "path": "/complexAPI",
+    "modulePath": "/src/app/complex-api",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/complex-api"
+  },
+  {
+    "path": "/pokeAPI",
+    "modulePath": "/src/app/poke-api",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/poke-api"
+  },
+  {
+    "path": "/observableState",
+    "modulePath": "/src/app/observable-state",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/observable-state"
+  },
+  {
+    "path": "/observableState/hook",
+    "modulePath": "/src/app/observable-state",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/observable-state"
+  },
+  {
+    "path": "/DirectiveSamp",
+    "modulePath": "/src/app/directives",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/directives"
+  },
+  {
+    "path": "/svg",
+    "modulePath": "/src/app/svg-calendar",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-calendar"
+  },
+  {
+    "path": "/testOb/testob",
+    "modulePath": "/src/app/test",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test"
+  },
+  {
+    "path": "/dynhtml",
+    "modulePath": "/src/app/dynamichtml",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/dynamichtml"
+  },
+  {
+    "path": "/snow",
+    "modulePath": "/src/app/snow",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/snow"
+  },
+  {
+    "path": "/tumblr",
+    "modulePath": "/src/app/tumblr",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/tumblr"
+  },
+  {
+    "path": "/bigData",
+    "modulePath": "/src/app/big-data",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/big-data"
+  },
+  {
+    "path": "/svgTest",
+    "modulePath": "/src/app/svg-test",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-test"
+  },
+  {
+    "path": "/pannel",
+    "modulePath": "/src/app/pannel-stuff",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/pannel-stuff"
+  },
+  {
+    "path": "/clock",
+    "modulePath": "/src/app/analog-clock",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/analog-clock"
+  },
+  {
+    "path": "/gridThings",
+    "modulePath": "/src/app/gridthings/gridthings",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/gridthings/gridthings"
+  },
+  {
+    "path": "/bintree",
+    "modulePath": "/src/app/bintree",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/bintree"
+  },
+  {
+    "path": "/localState",
+    "modulePath": "/src/app/local-state",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/local-state"
+  },
+  {
+    "path": "/lazyComponents",
+    "modulePath": "/src/app/lazy-component",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/lazy-component"
+  },
+  {
+    "path": "/svgTimer",
+    "modulePath": "/src/app/svg-timer",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-timer"
+  },
+  {
+    "path": "/svgClock",
+    "modulePath": "/src/app/svg-clock",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-clock"
+  }
+]
