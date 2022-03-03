@@ -26,6 +26,5 @@ runs:
     - name: Install Dependencies , when not cached
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: |
-        npm i -g npm
-        npm ci
+        yarn install
       shell: bash
