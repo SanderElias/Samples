@@ -50,7 +50,8 @@ export class ShowSourceComponent {
   routes$ = this.http.get<RouteInfo[]>('/assets/routes.json'); // load the routes from the assets folder
 
   routeInfo$ = combineLatest({ route: this.routes$, path: this.path$ }).pipe(
-    map(({ route, path }) => route.find(r => r.path === path)), // extract the current one.
+    tap(data => console.log(data)), // debugging check the data. seems off in production.
+    map(({ route, path }) => route.find(r => path.includes(r.path))), // extract the current one.
     tap(updateRouteInfo),
   );
 
