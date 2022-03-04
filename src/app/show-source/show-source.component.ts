@@ -62,8 +62,8 @@ function updateRouteInfo(routeInfo: RouteInfo) {
     const origin = `https://samples.selias.dev`
     const desc = routeInfo.description || `Angular Sample page for ${routeInfo.path}
     sourcecode: ${routeInfo.gitFolder}
-    demo: ${window.location.href}
-    `;
+    demo: ${`${origin}${routeInfo.path}`}`;
+
     updateMeta('og:type', 'website');
     updateMeta('og:title', routeInfo.title);
     updateMeta('og:description', desc);
