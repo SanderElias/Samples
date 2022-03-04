@@ -79,12 +79,19 @@ function updateRouteInfo(routeInfo: RouteInfo) {
     updateMeta('twitter:url', window.location.href);
     const head = document.querySelector('head');
     if (head) {
-      head.removeChild(head.querySelector('title'));
-      head.appendChild(document.createTextNode(routeInfo.title));
+      const oldTitle = head.querySelector('title');
+      if (oldTitle) {
+        oldTitle.textContent = routeInfo.title;
+      } else {
+        const newTitle = document.createElement('title');
+        newTitle.textContent = routeInfo.title;
+        head.appendChild(newTitle);
+      }
     }
   }
 }
 
+/** helper to update the head with new metadata, will replace if already there */
 function updateMeta(prop: string, content: string) {
   const metaElement = document.querySelector(`meta[property="${prop}"]`);
   if (metaElement) {
@@ -97,23 +104,6 @@ function updateMeta(prop: string, content: string) {
   }
 }
 
-// <title></title>
-// <meta name="description" content="">
-
-// <!-- Facebook Meta Tags -->
-// <meta property="og:url" content="https://samples.selias.dev/svgClock/">
-// <meta property="og:type" content="website">
-// <meta property="og:title" content="">
-// <meta property="og:description" content="">
-// <meta property="og:image" content="">
-
-// <!-- Twitter Meta Tags -->
-// <meta name="twitter:card" content="summary_large_image">
-// <meta property="twitter:domain" content="">
-// <meta property="twitter:url" content="https://samples.selias.dev/svgClock/">
-// <meta name="twitter:title" content="">
-// <meta name="twitter:description" content="">
-// <meta name="twitter:image" content="">
 
 export interface RouteInfo {
   path: string;
