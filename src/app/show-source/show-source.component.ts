@@ -59,6 +59,7 @@ export class ShowSourceComponent {
 
 function updateRouteInfo(routeInfo: RouteInfo) {
   if (routeInfo) {
+    const origin = `https://samples.selias.dev`
     const desc = routeInfo.description || `Angular Sample page for ${routeInfo.path}
     sourcecode: ${routeInfo.gitFolder}
     demo: ${window.location.href}
@@ -67,13 +68,13 @@ function updateRouteInfo(routeInfo: RouteInfo) {
     updateMeta('og:title', routeInfo.title);
     updateMeta('og:description', desc);
     updateMeta('description', desc);
-    updateMeta('og:image', `${location.origin}${routeInfo.largeImage}`);
+    updateMeta('og:image', `${origin}${routeInfo.largeImage}`);
     updateMeta('og:url', window.location.href);
     updateMeta('twitter:title', routeInfo.title);
     updateMeta('twitter:description', desc);
     updateMeta('twitter:card', "summary_large_image");
-    updateMeta('twitter:domain', window.location.origin);
-    updateMeta('twitter:image', `${location.origin}${routeInfo.largeImage}`);
+    updateMeta('twitter:domain', origin);
+    updateMeta('twitter:image', `${origin}${routeInfo.largeImage}`);
     updateMeta('twitter:url', window.location.href);
     const head = document.querySelector('head');
     if (head) {
