@@ -50,8 +50,8 @@ export class ShowSourceComponent {
   routes$ = this.http.get<RouteInfo[]>('/assets/routes.json'); // load the routes from the assets folder
 
   routeInfo$ = combineLatest({ route: this.routes$, path: this.path$ }).pipe(
+    map(({ route: routes, path }) => routes.find(r => path === r.path)), // extract the current one.
     tap(data => console.log(data)), // debugging check the data. seems off in production.
-    map(({ route, path }) => route.find(r => path.includes(r.path))), // extract the current one.
     tap(updateRouteInfo),
   );
 
@@ -59,7 +59,7 @@ export class ShowSourceComponent {
 }
 
 function updateRouteInfo(routeInfo: RouteInfo) {
-  if (routeInfo) {
+  if (routeInfo.path) {
     const origin = `https://samples.selias.dev`
     const desc = routeInfo.description || `Angular Sample page for ${routeInfo.path}
     sourcecode: ${routeInfo.gitFolder}
