@@ -1,8 +1,7 @@
 import { enableSPS, ScullyConfig } from '@scullyio/scully';
-import { readFileSync } from 'fs';
+import '@scullyio/scully-plugin-puppeteer'
 
 
-enableSPS();
 export const config: ScullyConfig = {
   projectRoot: "./src",
   projectName: "samples",
