@@ -1,2 +1,11 @@
 identifier: kde19fzbpbwe48j9
 allowErrorCollect: true
+appPort: 1864
+staticPort: 1668
+reloadPort: 2667
+hostName: localhost
+projectName: samples
+homeFolder: /home/sander/Documents/experiments/Samples
+distFolder: dist/samples
+outDir: /home/sander/Documents/experiments/Samples/dist/static
+handle404: ""

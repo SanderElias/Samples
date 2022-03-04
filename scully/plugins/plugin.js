@@ -7,5 +7,5 @@ const myFunctionPlugin = async (html) => {
     return html;
 };
 const validator = async () => [];
-scully_1.registerPlugin('render', exports.myPlugin, myFunctionPlugin, validator);
+(0, scully_1.registerPlugin)('render', exports.myPlugin, myFunctionPlugin, validator);
 //# sourceMappingURL=plugin.js.map
