@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { merge, of, Subject, timer } from 'rxjs';
-import { first, map, mergeMap, shareReplay, startWith, take, tap } from 'rxjs/operators';
+import { first, map, mergeMap, shareReplay, startWith, Subject, take, tap, timer, firstValueFrom } from 'rxjs';
 
-const chanceProm = import('chance').then((mod) => {
-  return new mod.Chance();
-});
+const chanceProm = import('chance')
+  /** some trickery as the typings apparently don't match the reality */
+  .then((m: any) => m)
+  .then(({ default: Change }) => {
+    return new Change();
+  });
 
 enum UserState {
   isNew,
@@ -54,7 +56,7 @@ export class DemoUserService {
   }
 
   async addUsers(newUserCount) {
-    const users = await this.allUsers$.pipe(first()).toPromise();
+    const users = await firstValueFrom(this.allUsers$) //.pipe(first()).toPromise();
     const base = users.length;
     // users.reduce((min, line) => (min = Math.max(min, line.id)), 0) + 1;
     const newUsers = await Promise.all(
@@ -126,6 +128,7 @@ async function fakeUser() {
     email: chance.email(),
   };
 }
+
 
 // console.log('start');
 // const u = new DemoUserService();
