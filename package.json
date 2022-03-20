@@ -14,6 +14,10 @@
     "scully": "scully",
     "scully:serve": "scully serve"
   },
+  "engines": {
+    "node": ">=16.14.2",
+    "yarn": "1.22.18"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "13.2.6",
