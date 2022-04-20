@@ -4,6 +4,9 @@ This is a helper project to be able to use the [Star Wars API](https://swapi.co/
 It fetches the entirety of SWAPI and caches this into indexedDB by utilizing [idb-keyval](https://github.com/jakearchibald/idb-keyval) from Jake Archibald.
 This library's source is available on [Sanders Samples repo.](https://github.com/SanderElias/Samples/tree/master/projects/se-ng/swapi)
 
+> # Note!
+> From version 1.0.0 on, this library is distributed as `partial-Ivy` and > so only compatible with Angular 12+
+
 to use the library do:
 
 ```bash
@@ -14,5 +17,5 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 # Peer depedencies
 
-- idb-keyval
-- rxjs
+- idb-keyval > V5.0.0
+- rxjs > V7.0.0

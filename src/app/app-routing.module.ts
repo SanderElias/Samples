@@ -87,6 +87,7 @@ const routes: Routes = [
   { path: 'lazyComponents', loadChildren: () => import('./lazy-component/lazy-component.module').then(m => m.LazyComponentModule) },
   { path: 'svgTimer', loadChildren: () => import('./svg-timer/svg-timer.module').then(m => m.SvgTimerModule) },
   { path: 'svgClock', loadChildren: () => import('./svg-clock/svg-clock.module').then(m => m.SvgClockModule) },
+  { path: 'dynForm', loadChildren: () => import('../dyn-form/dyn-form.module').then(m => m.DynFormModule) },
   { path: '**', redirectTo: 'svgClock' },
 ];
 
