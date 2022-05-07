@@ -1,0 +1,69 @@
+<h1>Dynamic form sample</h1>
+<ng-container *ngIf="vm$ | async as vm">
+
+  <dialog>
+    <form #myForm="ngForm" method="dialog">
+      <label *ngFor="let field of vm.fields">
+        {{field.name}} {{field.type}}
+        <div>
+          <input [name]="field.name" [type]="field.type" [(ngModel)]="vm.person[field.name]">
+          <p *ngIf="field.name==='id'">Do not change</p>
+        </div>
+      </label>
+      <div class="labelRow">
+        <button type="submit" >Submit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="tableHolder">
+    <!--
+      THIS IS NOT THE WAY TO SHOW TABLES!
+      it is slow and not scalable.
+      But this is a sample, and I'm lazy ;)
+     -->
+    <table>
+      <thead>
+        <th *ngFor="let name of vm.names">{{name}}</th>
+      </thead>
+      <tr *ngFor="let row of vm.addresses" (click)="openWith(row.id)">
+        <td *ngFor="let name of vm.names">{{row[name]}}</td>
+      </tr>
+    </table>
+  </div>
+
+</ng-container>
+
+<style>
+
+  dialog::backdrop {
+    background: rgba(30, 20, 35, 0.45);
+  }
+
+
+  .tableHolder {
+    height: 80vh;
+    overflow: auto;
+    width: 100rem;
+    border-collapse: collapse;
+  }
+
+  tr:nth-child(even) {
+    background-color: rgb(42, 41, 41);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    align-items: center;
+    gap:.4rem;
+  }
+  input {
+    margin-bottom: 5px;
+    width: 20rem;
+  }
+</style>

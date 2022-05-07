@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DynFormRoutingModule } from './dyn-form-routing.module';
 import { DynFormComponent } from './dyn-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { DynFormComponent } from './dyn-form.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     DynFormRoutingModule
   ]
 })

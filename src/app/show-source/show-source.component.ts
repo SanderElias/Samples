@@ -51,7 +51,7 @@ export class ShowSourceComponent {
 
   routeInfo$ = combineLatest({ route: this.routes$, path: this.path$ }).pipe(
     map(({ route: routes, path }) => routes.find(r => path === r.path)), // extract the current one.
-    tap(data => console.log(data)), // debugging check the data. seems off in production.
+    // tap(data => console.log(data)), // debugging check the data. seems off in production.
     tap(updateRouteInfo),
   );
 
@@ -59,7 +59,7 @@ export class ShowSourceComponent {
 }
 
 function updateRouteInfo(routeInfo: RouteInfo) {
-  if (routeInfo.path) {
+  if (routeInfo?.path) {
     const origin = `https://samples.selias.dev`
     const desc = routeInfo.description || `Angular Sample page for ${routeInfo.path}
     sourcecode: ${routeInfo.gitFolder}
