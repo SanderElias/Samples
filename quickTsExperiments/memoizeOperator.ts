@@ -1,17 +1,25 @@
 import { from, Observable, of, OperatorFunction, pipe, shareReplay, switchMap, tap } from 'rxjs';
 
 /**
+ * type helper to define the function that gets an observable with the property we want
+ */
+interface GetByProp<Object, Prop extends keyof Object> {
+  (p: Object[Prop]): Observable<Object>;
+}
+
+
+/**
  *
  * @param prop the property to use as memoize key
  * @param getByProp a function that will fetch the data if not cached (returns an observable)
  * @returns Operator that memoizes the result of getByProp
  */
-export function memoizeByProperty<T, K extends keyof T>(
-  prop: K,
-  getByProp: (p: T[K]) => Observable<T>
-): OperatorFunction<T[K], T> {
-  const cache = new Map<T[K], Observable<T>>();
-  return handleCache<T, K>(cache, getByProp);
+export function memoizeByProperty<Object, Property extends keyof Object>(
+  prop: Property,
+  getByProp: GetByProp<Object,Property>
+): OperatorFunction<Object[Property], Object> {
+  const cache = new Map<Object[Property], Observable<Object>>();
+  return handleCache<Object, Property>(cache, getByProp);
 }
 
 export const clearCache = Symbol('clearCache');
@@ -23,15 +31,15 @@ const cacheAll = new Map<string, Map<unknown, unknown>>()
  * @param prop K the property to use as memoize key
  * @param getByProp  (p:T[K]) => Observable<T> a function that will fetch the data if not cached (returns an observable)
  */
-export function cacheByProperty<T, K extends keyof T>(cacheKey: string, prop: K, getByProp: (p: T[K]) => Observable<T>): OperatorFunction<T[K], T>
+export function cacheByProperty<Object, Property extends keyof Object>(cacheKey: string, prop: Property, getByProp: GetByProp<Object,Property>): OperatorFunction<Object[Property], Object>
 /**
  * Clears the full cache, unless a cacheKey is provided
  * @param clearCache symbol the clearCache symbol, used to clear the cache
  * @param cacheKey string, optional, if provided only the cache for this key will be cleared
  */
 export function cacheByProperty(clearCache: symbol, cacheKey?: string): void
-export function cacheByProperty<T, K extends keyof T>(...args:
-  [string, K, (p: T[K]) => Observable<T>] |
+export function cacheByProperty<Object, Property extends keyof Object>(...args:
+  [string, Property, (p: Object[Property]) => Observable<Object>] |
   [symbol, string?]
 ) {
   const [cacheKey, ...rest] = args;
@@ -47,13 +55,13 @@ export function cacheByProperty<T, K extends keyof T>(...args:
   }
 
   /** handle normal flow */
-  const [prop, getByProp] = rest as [K, (p: T[K]) => Observable<T>];
+  const [prop, getByProp] = rest as [Property, GetByProp<Object,Property>];
   if (!cacheAll.has(cacheKey)) {
     cacheAll.set(cacheKey, new Map());
   }
-  const cache = cacheAll.get(cacheKey) as Map<T[K], Observable<T>>;
+  const cache = cacheAll.get(cacheKey) as Map<Object[Property], Observable<Object>>;
 
-  return handleCache<T, K>(cache, getByProp);;
+  return handleCache<Object, Property>(cache, getByProp);;
 }
 
 /**
@@ -62,9 +70,9 @@ export function cacheByProperty<T, K extends keyof T>(...args:
  * @param getByProp
  * @returns
  */
- function handleCache<T, K extends keyof T>(cache: Map<T[K], Observable<T>>, getByProp: (p: T[K]) => Observable<T>) {
+function handleCache<Object, Property extends keyof Object>(cache: Map<Object[Property], Observable<Object>>, getByProp: GetByProp<Object,Property>) {
   return pipe(
-    switchMap((value: T[K]) => {
+    switchMap((value: Object[Property]) => {
       if (!cache.has(value)) {
         cache.set(value, getByProp(value).pipe(
           shareReplay({ bufferSize: 1, refCount: true })
