@@ -11,16 +11,7 @@ export function memoizeByProperty<T, K extends keyof T>(
   getByProp: (p: T[K]) => Observable<T>
 ): OperatorFunction<T[K], T> {
   const cache = new Map<T[K], Observable<T>>();
-  return pipe(
-    switchMap((value: T[K]) => {
-      if (!cache.has(value)) {
-        cache.set(value, getByProp(value).pipe(
-          shareReplay({ bufferSize: 1, refCount: true })
-        ));
-      }
-      return cache.get(value);
-    })
-  );
+  return handleCache<T, K>(cache, getByProp);
 }
 
 export const clearCache = Symbol('clearCache');
@@ -44,6 +35,7 @@ export function cacheByProperty<T, K extends keyof T>(...args:
   [symbol, string?]
 ) {
   const [cacheKey, ...rest] = args;
+  /** handle the symbol scenario */
   if (typeof cacheKey === 'symbol') {
     const [cacheId] = rest as [string];
     if (cacheId !== undefined) {
@@ -53,12 +45,24 @@ export function cacheByProperty<T, K extends keyof T>(...args:
     }
     return;
   }
-  const [prop, getByProp] = rest as [K, (p: T[K]) => Observable<T>];
 
+  /** handle normal flow */
+  const [prop, getByProp] = rest as [K, (p: T[K]) => Observable<T>];
   if (!cacheAll.has(cacheKey)) {
     cacheAll.set(cacheKey, new Map());
   }
   const cache = cacheAll.get(cacheKey) as Map<T[K], Observable<T>>;
+
+  return handleCache<T, K>(cache, getByProp);;
+}
+
+/**
+ * extracted to helper function, as its the same for both cache and memoize
+ * @param cache
+ * @param getByProp
+ * @returns
+ */
+ function handleCache<T, K extends keyof T>(cache: Map<T[K], Observable<T>>, getByProp: (p: T[K]) => Observable<T>) {
   return pipe(
     switchMap((value: T[K]) => {
       if (!cache.has(value)) {
@@ -70,6 +74,7 @@ export function cacheByProperty<T, K extends keyof T>(...args:
     })
   );
 }
+
 
 /**
  *  demo code after here
@@ -109,4 +114,5 @@ from([1, 2, 3, 1, 2, 3]).pipe(
   memoizeByProperty('id', personGet),
   tap(p => console.log("memo", p.name)),
 ).subscribe()
+
 
