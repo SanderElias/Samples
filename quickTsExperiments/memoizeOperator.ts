@@ -1,12 +1,11 @@
-import { from, MonoTypeOperatorFunction, Observable, of, OperatorFunction, pipe, shareReplay, switchMap, tap } from 'rxjs';
+import { from, Observable, of, OperatorFunction, pipe, shareReplay, switchMap, tap } from 'rxjs';
 
 /**
- * type helper to define the function that gets an observable with the property we want
+ * type helper to define the function that gets an observable from the property stream
  */
 interface GetByProp<Object> {
   (p: unknown): Observable<Object>;
 }
-
 
 /**
  * @param getByProp a function that will fetch the data if not cached (returns an observable)
@@ -14,9 +13,9 @@ interface GetByProp<Object> {
  */
 export function memoizeByProperty<Object>(
   getByProp: GetByProp<Object>
-): OperatorFunction<unknown,Object> {
+): OperatorFunction<unknown, Object> {
   const cache = new Map<unknown, Observable<Object>>();
-  return handleCache<Object>(cache, getByProp);
+  return handleCache(cache, getByProp);
 }
 
 export const clearCache = Symbol('clearCache');
@@ -27,44 +26,36 @@ const cacheAll = new Map<string, Map<unknown, unknown>>()
  * @param cacheKey string the key to use to cache the result
  * @param getByProp function that will fetch the data if not cached (returns an observable)
  */
-export function cacheByProperty<Object>(cacheKey: string, getByProp: GetByProp<Object>): OperatorFunction<unknown,Object>
+export function cacheByProperty<Object>(cacheKey: string, getByProp: GetByProp<Object>): OperatorFunction<unknown, Object>
 /**
  * Clears the full cache, unless a cacheKey is provided
  * @param clearCache symbol the clearCache symbol, used to clear the cache
  * @param cacheKey string, optional, if provided only the cache for this key will be cleared
  */
 export function cacheByProperty(clearCache: symbol, cacheKey?: string): void
-export function cacheByProperty<Object>(...args:
-  [string, GetByProp<Object>] |
-  [symbol, string?]
+export function cacheByProperty<Object>(
+  cacheKey: string | symbol,
+  getByProp: GetByProp<Object> | string
 ) {
-  const [cacheKey, ...rest] = args;
   /** handle the symbol scenario */
   if (typeof cacheKey === 'symbol') {
-    const [cacheId] = rest as [string];
+    const cacheId = getByProp as string;
     if (cacheId !== undefined) {
-      cacheAll.clear();
-    } else {
-      cacheAll.delete(cacheId);
+      return cacheAll.clear();
     }
-    return;
+    return cacheAll.delete(cacheId);
   }
 
   /** handle normal flow */
-  const [getByProp] = rest as [GetByProp<Object>];
   if (!cacheAll.has(cacheKey)) {
     cacheAll.set(cacheKey, new Map());
   }
   const cache = cacheAll.get(cacheKey) as Map<unknown, Observable<Object>>;
-
-  return handleCache<Object>(cache, getByProp);;
+  return handleCache(cache, getByProp as GetByProp<Object>);
 }
 
 /**
  * extracted to helper function, as its the same for both cache and memoize
- * @param cache
- * @param getByProp
- * @returns
  */
 function handleCache<Object>(cache: Map<unknown, Observable<Object>>, getByProp: GetByProp<Object>) {
   return pipe(
@@ -97,7 +88,6 @@ const personGet = (id: number) => {
  * the "memoize" version will log the create for each run
  */
 from([1, 2, 3, 1, 2, 3]).pipe(
-  /** note how your editor will check if the prop is part of the resulting objects. */
   cacheByProperty("persons", personGet),
   tap(p => console.log(p.name)),
 ).subscribe()
