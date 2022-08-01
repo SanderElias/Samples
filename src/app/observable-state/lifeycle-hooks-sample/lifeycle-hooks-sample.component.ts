@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { modelFromLatest } from '@se-ng/observable-utils';
 import { SpaceShip, SwapiService } from '@se-ng/swapi';
@@ -12,7 +12,7 @@ import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
   styles: [],
 })
 export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
-  search = new FormControl();
+  search = new UntypedFormControl();
   searchText$: Observable<string> = this.search.valueChanges.pipe(startWith(''));
 
   starships$: Observable<SpaceShip[]> = this.seOnInit$.pipe(

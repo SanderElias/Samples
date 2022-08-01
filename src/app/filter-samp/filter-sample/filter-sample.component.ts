@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith, tap } from 'rxjs/operators';
 import { AddressService, UserCard } from '../../generic-services/address.service';
@@ -12,7 +12,7 @@ type Vm = [UserCard[], string];
   styles: [],
 })
 export class FilterSampleComponent implements OnInit {
-  nameFilter = new FormControl('');
+  nameFilter = new UntypedFormControl('');
 
   filter$ = this.nameFilter.valueChanges.pipe(
     debounceTime(500),

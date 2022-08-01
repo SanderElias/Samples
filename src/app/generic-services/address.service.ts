@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Faker } from '@faker-js/faker';
-// import * as faker from 'faker';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 
 export interface UserCard {
@@ -48,7 +46,7 @@ export class AddressService {
         (fakerModule) => {
           const {faker} = fakerModule;
           return Array.from({ length }, () => ({
-            ...faker.helpers.userCard(),
+            ...userCard(faker),
             avatar: faker.image.avatar(),
           }))
         }),
@@ -56,4 +54,33 @@ export class AddressService {
       shareReplay(1)
     );
   }
+}
+
+function userCard(faker:any): UserCard {
+  console.warn(
+    'Deprecation Warning: If you need some specific object you should create your own method.'
+  );
+  return {
+    name: faker.name.findName(),
+    username: faker.internet.userName(),
+    email: faker.internet.email(),
+    avatar: faker.image.avatar(),
+    address: {
+      street: faker.address.streetName(),
+      suite: faker.address.secondaryAddress(),
+      city: faker.address.city(),
+      zipcode: faker.address.zipCode(),
+      geo: {
+        lat: faker.address.latitude(),
+        lng: faker.address.longitude(),
+      },
+    },
+    phone: faker.phone.phoneNumber(),
+    website: faker.internet.domainName(),
+    company: {
+      name: faker.company.companyName(),
+      catchPhrase: faker.company.catchPhrase(),
+      bs: faker.company.bs(),
+    },
+  };
 }

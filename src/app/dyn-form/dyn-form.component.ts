@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { BehaviorSubject, combineLatest, filter, firstValueFrom, map, mergeMap, Observable, pipe, shareReplay, startWith, switchMap, tap } from 'rxjs';
 import { AddressesService } from '../addresses.service';
 
@@ -29,6 +30,8 @@ const extractInputType = (value) => {
 
 
 @Component({
+  standalone: true,
+  imports: [CommonModule,FormsModule],
   selector: 'app-dyn-form',
   templateUrl: './dyn-form.component.html',
   styles: [

@@ -25,4 +25,7 @@ class demo1 {
 }
 
 const d = new Demo()
-const show = d.showOther
+const sayHi = d.showOther
+
+
+sayHi("hello")

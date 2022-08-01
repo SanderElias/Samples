@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
 import { combineLatest, of } from 'rxjs';
 import {
@@ -20,9 +20,9 @@ import {
 })
 export class APISampleComponent implements AfterViewInit {
   /** select the table/set */
-  chosenSet = new FormControl('');
+  chosenSet = new UntypedFormControl('');
   /** search for this name */
-  name = new FormControl('');
+  name = new UntypedFormControl('');
   /** keep the raw data */
   rawData: any;
 
