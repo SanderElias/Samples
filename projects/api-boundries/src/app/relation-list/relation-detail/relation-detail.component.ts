@@ -53,6 +53,7 @@ export class RelationDetailComponent implements OnInit {
     );
   }
 
+
   getOrderProducts(p: { productId: string, handler: string }[]) {
     return combineLatest(p.map(({ handler, productId }) => {
       return combineLatest([

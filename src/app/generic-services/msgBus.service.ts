@@ -6,13 +6,12 @@ import { filter, pluck, share } from 'rxjs/operators';
 
 export enum MsgBusType {
   /** use for generic/one-off messages */
-
   Generic = 'generic',
+
   /** use for changes in auth status */
-
   Auth = 'auth',
-  /** use for plugins */
 
+  /** use for plugins */
   Plugins = 'plugins',
 }
 
@@ -20,13 +19,12 @@ export enum MsgBusType {
 
 export interface MsgBusMessage {
   /** type as defined in above enum */
-
   type: MsgBusType;
+
   /** subtype, can be used to diversify in a certain module */
-
   subType?: string;
-  /** payload, usually json-like data */
 
+  /** payload, usually json-like data */
   payload: any;
 }
 

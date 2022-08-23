@@ -69,7 +69,7 @@ in [this version](./src/app/relation-list/relation-detail/order-row/order-row.co
 ```
 _(well, that is not the actual code in there, but it should have been, as this makes it react to input changes, as the version in the code is not. As the opposite version also is reactive, this **should** have been there)_
 
-While in the [opposite version]()
+While in the [opposite version](./src/app/b-relation-list/order-row/order-row.component.ts)
 ```typescript
   private orderId$ = new ReplaySubject<string>(1)
   @Input() set orderId(x: string) {
@@ -92,7 +92,7 @@ But first think about the `handing down` part. In the sample, the app-relation i
        [relation]="{...order.processor, name:order.processor.name.toUpperCase()}"
     ></app-relation>
 ```
-(while this syntax might not be valid, its about making a point)
+(This syntax might not be valid, its about making a point)
 
 While this might be an entirely valid thing to do, it exposes one of the biggest problems in this setup. The `app-relation` component, the part which has the job to _show_ the actual relation, isn't in control over the data. While uppercasing a name probably will not break anything, what will happen if one of the components in the hierarchy removes the 'name' property completely? The data needed to display the relation might have traveled through numerous levels of components, and  might be modified by any of them. Debugging this, means i have to go to every component in the chain, and read all the code of it **and** its template.
 So, instead of going to the `app-relation` component, and look at its code to see why the name is suddenly missing, I need to seek all the uses off `app-relation` and then go up the tree to find where the data is coming from, and checking where the alteration is done. 
