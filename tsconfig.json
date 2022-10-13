@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    // "strict": true,
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -11,7 +10,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "allowJs": true,
     "typeRoots": [
       "node_modules/@types"
@@ -20,7 +19,6 @@
       "es2020",
       "dom"
     ],
-
     "paths": {
       "@se-ng/observable-hooks": [
         "dist/se-ng/observable-hooks"
@@ -46,6 +44,7 @@
       "@se-ng/let/*": [
         "dist/se-ng/let/*"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   }
 }
