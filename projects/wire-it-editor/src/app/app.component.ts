@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { PackageJsonService } from './package.json.service';
+import { ScriptsComponent } from './scripts/scripts.component';
+import { SelectPackageJsonComponent } from './select-package.json/select-package.json.component';
 
 @Component({
+  standalone: true,
+  imports: [SelectPackageJsonComponent, CommonModule, ScriptsComponent],
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `<h1>Wire-It Editor</h1>
+    <app-select-package-json></app-select-package-json>
+    <app-scripts></app-scripts>
+  `,
+  styles: [`
+  :host {
+    display: block;
+  }
+  `]
 })
 export class AppComponent {
-  title = 'wireItEditor';
+  pjs = inject(PackageJsonService)
 }

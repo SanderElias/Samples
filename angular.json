@@ -8,31 +8,6 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {
-        "@schematics/angular:component": {
-          "inlineStyle": true,
-          "skipTests": true,
-          "style": "css",
-          "inlineTemplate": true,
-          "standalone": true
-        },
-        "@schematics/angular:class": {
-          "skipTests": true
-        },
-        "@schematics/angular:directive": {
-          "skipTests": true
-        },
-        "@schematics/angular:guard": {
-          "skipTests": true
-        },
-        "@schematics/angular:module": {},
-        "@schematics/angular:pipe": {
-          "skipTests": true
-        },
-        "@schematics/angular:service": {
-          "skipTests": true
-        }
-      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser-esbuild",
@@ -493,9 +468,139 @@
           }
         }
       }
+    },
+    "wireItEditor": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/wire-it-editor",
+      "sourceRoot": "projects/wire-it-editor/src",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineStyle": true,
+          "changeDetection": "OnPush",
+          "displayBlock": true,
+          "skipTests": true,
+          "style": "css",
+          "inlineTemplate": true,
+          "standalone": true
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/wire-it-editor",
+            "index": "projects/wire-it-editor/src/index.html",
+            "main": "projects/wire-it-editor/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/wire-it-editor/tsconfig.app.json",
+            "assets": [
+              "projects/wire-it-editor/src/favicon.ico",
+              "projects/wire-it-editor/src/assets"
+            ],
+            "styles": [
+              "projects/wire-it-editor/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "wireItEditor:build:production"
+            },
+            "development": {
+              "browserTarget": "wireItEditor:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "wireItEditor:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/wire-it-editor/tsconfig.spec.json",
+            "assets": [
+              "projects/wire-it-editor/src/favicon.ico",
+              "projects/wire-it-editor/src/assets"
+            ],
+            "styles": [
+              "projects/wire-it-editor/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   },
   "cli": {
     "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "se",
+      "style": "css",
+      "displayBlock": true,
+      "standalone": true,
+      "inlineStyle": false,
+      "inlineTemplate": true,
+      "skipTests": true
+    },
+    "@schematics/angular:directive": {
+      "prefix": "",
+      "skipTests": true
+    },
+    "@schematics/angular:class": {
+      "skipTests": true
+    },
+    "@schematics/angular:guard": {
+      "skipTests": true
+    },
+    "@schematics/angular:module": {},
+    "@schematics/angular:pipe": {
+      "skipTests": true
+    },
+    "@schematics/angular:service": {
+      "skipTests": true
+    }
   }
 }
