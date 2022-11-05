@@ -1,0 +1,1 @@
+import{j as n,l as o,o as i,p as s}from"./chunk-MHRY5PTC.js";function w(e){let a=Object.values(e).map(t=>o(t)?t:n(t));return s(a).pipe(i(t=>Object.keys(e).reduce((r,u,c)=>(r[u]=t[c],r),{})))}export{w as a};
