@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PackageJsonService } from '../package.json.service';
-import { combineLatest, map, startWith } from 'rxjs';
+import { combineLatest, from, map, of, startWith, tap } from 'rxjs';
+import { get } from 'idb-keyval';
 declare global {
   interface Window {
     tenant: string;
@@ -36,13 +37,16 @@ export class SelectPackageJsonComponent {
   pjs = inject(PackageJsonService)
 
   hasHandle$ = this.pjs.fileHandle$.pipe(map(handle => !!handle));
+  storedPackageJson = from(get('lastPackageJson'))
 
 
   vm$ = combineLatest({
     hasHandle: this.hasHandle$,
     handle: this.pjs.fileHandle$,
     name: this.pjs.pjObject$.pipe(map(contents => contents.name)),
+    oldContent: this.storedPackageJson
   }).pipe(
+    tap(console.log),
     startWith({
       hasHandle: false,
       handle: null,
@@ -55,7 +59,7 @@ export class SelectPackageJsonComponent {
     try {
       // @ts-ignore
       const [fileHandle] = await window.showOpenFilePicker({
-        suggestedName: 'package.json',
+        "suggestedName": 'package.json',
         types: [{
           description: 'select a package.JSON file',
           accept: { 'application/json': ['.json'] }

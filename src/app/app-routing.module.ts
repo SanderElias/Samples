@@ -88,7 +88,8 @@ const routes: Routes = [
   { path: 'svgTimer', loadChildren: () => import('./svg-timer/svg-timer.module').then(m => m.SvgTimerModule) },
   { path: 'svgClock', loadChildren: () => import('./svg-clock/svg-clock.module').then(m => m.SvgClockModule) },
   { path: 'dynForm', loadChildren: () => import('./dyn-form/dyn-form-routing').then(m => m.routes) },
-  { path: '**', redirectTo: 'dynForm' },
+  { path: 'rxjsTest', loadComponent: () => import('./rxjstest/rxjstest.component').then(m => m.RxjstestComponent) },
+  { path: '**', redirectTo: 'rxjsTest' },
 ];
 
 

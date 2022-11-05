@@ -1,0 +1,32 @@
+:host {
+  display: none;
+}
+
+dialog {
+  display: flex;
+  padding: var(--size-2);
+  flex-direction: column;
+  gap: var(--size-2);
+  padding: 0;
+}
+
+dialog > main {
+  margin: 0 var(--size-2);
+}
+
+header {
+  margin: 0;
+  height: 2.5rem;
+  background-color: var(--surface-3);
+}
+
+header > * {
+  scale: 0.6;
+}
+
+dialog > footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--size-2);
+  padding: var(--size-2);
+}

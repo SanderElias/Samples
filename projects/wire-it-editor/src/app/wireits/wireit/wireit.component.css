@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  border-radius: var(--radius-2);
+  background-color: var(--surface-2);
+  padding: var(--size-2);
+  box-shadow: var(--shadow-3);
+  animation: var(--animation-fade-in);
+  margin: var(--size-2);
+  width: var(--size-content-2);
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--size-2);
+}
+
+.buttongroup {
+  display: flex;
+  gap: var(--size-1);
+}
+
+.buttongroup > button {
+  padding: var(--size-1) var(--size-2);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  margin-left: var(--size-4);
+}
+
+label > *:nth-child(1) {
+  display: inline-flex;
+  gap: var(--size-1);
+  margin-left: var(--size-000);
+}
+
+pre {
+  margin: var(--size-3) ;
+  overflow: overlay;
+  background-color: var(--surface-3);
+}

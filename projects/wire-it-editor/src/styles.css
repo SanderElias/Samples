@@ -1,5 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import 'open-props/open-props.min.css';
-@import 'open-props/normalize.min.css';
-@import 'open-props/buttons.min.css';
+@import 'open-props/style' layer(design.system);
+@import 'open-props/normalize/dark' layer(design.system);
+@import 'open-props/buttons/dark' layer(design.system);
+
+@layer design.system, app.support;
+
+app-root {
+  padding: 0 var(--size-2);
+}
+
+button.action {
+  background-color: var(--surface-3);
+  color: var(--on-surface-3);
+  border: 1px solid var(--on-surface-3);
+  border-radius: var(--radius-1);
+  padding: var(--size-1) var(--size-2);
+  font-size: var(--size-1);
+  font-weight: var(--weight-1);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
