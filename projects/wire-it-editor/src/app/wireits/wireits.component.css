@@ -1,0 +1,15 @@
+:host {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-content-2), 1fr));
+}
+header {
+  grid-column: 1 / -1;
+  background: var(--color-primary);
+  display:flex;
+  align-items: center;
+  gap: var(--size-3);
+}
+header > input {
+  font-size: var(--font-size-5);
+}

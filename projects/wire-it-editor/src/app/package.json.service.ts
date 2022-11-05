@@ -76,12 +76,15 @@ export class PackageJsonService {
     props: WireItEntry
   ) {
     const current = await firstValueFrom(this.pjObject$);
-    current.wireit ??= {};
+    current.wireit ??= {}
     if (current.wireit[name]) {
       console.warn('already exists');
       return false;
     }
-    current.wireit[name] = props;
+    current.wireit[name] = {
+      command: "",
+      ...props
+    };
     current.scripts[name] = `wireit`;
     this.#contents$.next(current);
     return true;
