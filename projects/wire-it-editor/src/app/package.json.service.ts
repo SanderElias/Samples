@@ -24,9 +24,42 @@ export class PackageJsonService {
     ),
     this.#contents$
   ).pipe(
+    map(this.optimize),
     tap(contents => set('lastPackageJson', contents)),
+    tap(contents => console.table(Object.values(contents.wireit||{}))),
     shareReplay({ bufferSize: 1, refCount: true }),
   )
+
+  /**
+   * Remove all empty properties from the wireit object
+   * @param c
+   * @returns
+   */
+  optimize(c: WireItPackageJson) {
+    const { wireit, ...rest } = c;
+    if (!wireit) return c;
+    const result = Object.entries(wireit).reduce((acc, [key, value]) => {
+      const newVal = Object.entries(value).reduce((acc, [key, value]) => {
+        if (Array.isArray(value)) {
+          const arr = value.filter(val => !!val);
+          if (arr.length === 0) {
+            return acc
+          }
+          return { ...acc, [key]: arr };
+        };
+        if (value === '') return acc;
+        if (value === undefined) return acc;
+        if (value === null) return acc;
+        if (value === false) return acc;
+        return { ...acc, [key]: value };
+      }, {})
+      return { ...acc, [key]: newVal };
+    }, {} as Record<string, WireItEntry>)
+    return {
+      wireit: result,
+      ...rest,
+    }
+  }
 
   async upgrade(key: string) {
     const current = await firstValueFrom(this.pjObject$);
@@ -42,7 +75,6 @@ export class PackageJsonService {
       current.scripts[key] = `wireit`;
     }
     this.#contents$.next(current);
-    console.dir(current);
   }
 
   async renameWireit(name, newName) {
@@ -90,6 +122,15 @@ export class PackageJsonService {
     return true;
   }
 
+  async removeWireitScript(name: string) {
+    const current = await firstValueFrom(this.#contents$);
+    if (current.wireit?.[name]) {
+      delete current.wireit[name];
+      delete current.scripts[name];
+    }
+    this.#contents$.next(current);
+  }
+
   async downgrade(key: string) {
     const current = await firstValueFrom(this.#contents$);
     if (current.wireit?.[key]) {
@@ -132,6 +173,7 @@ export interface WireItPackageJson extends PackageJson {
 export interface WireItEntry {
   command?: string;
   dependencies?: string[];
+  service?: boolean;
   files?: string[];
   output?: string[];
   clean?: boolean | "if-file-deleted"

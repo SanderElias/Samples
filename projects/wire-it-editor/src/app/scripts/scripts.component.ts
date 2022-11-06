@@ -8,12 +8,29 @@ import { ScriptComponent } from './script/script.component';
   selector: 'app-scripts',
   standalone: true,
   imports: [CommonModule, ScriptComponent],
-  template: `<app-script *ngFor="let script of scripts$ | async" [script]="script"></app-script>`,
+  template: `<header>
+    <h2>NPM scripts</h2>
+    <small>(click one to upgrade it to Wire-It!<br>Only non-upgraded ones are shown)</small>
+  </header>
+  <app-script *ngFor="let script of scripts$ | async" [script]="script"></app-script>`,
   styles: [
     `
       :host {
+        width: 100%;
         display: flex;
-        gap: .5rem;
+        flex-wrap: wrap;
+        gap: var(--size-1);
+        margin:  var(--size-1) 0;
+
+      }
+      header {
+        display: flex;
+        align-items: top;
+        gap: var(--size-1);
+        width: 100%;
+      }
+      small {
+        max-inline-size: inherit;
       }
     `
   ],
