@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import 'open-props/style' layer(design.system);
-@import 'open-props/normalize/dark' layer(design.system);
-@import 'open-props/buttons/dark' layer(design.system);
+@import 'open-props/style';
+@import 'open-props/normalize/dark';
+@import 'open-props/buttons/dark';
 
 @layer design.system, app.support;
 

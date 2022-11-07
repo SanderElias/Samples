@@ -6,7 +6,7 @@
   box-shadow: var(--shadow-3);
   animation: var(--animation-fade-in);
   margin: var(--size-2);
-  width: var(--size-content-2);
+  width: var(--size-content-3);
   overflow: hidden;
 }
 
@@ -34,24 +34,24 @@ form {
 
 label {
   display: flex;
-  flex-direction: column;
-  gap: var(--size-1);
-  margin-left: var(--size-4);
-}
-
-label:has(button:not(.action)) {
   flex-direction: row;
-  align-items: center;
-}
-
-label > *:nth-child(1) {
-  display: inline-flex;
   gap: var(--size-1);
-  margin-left: var(--size-000);
 }
 
-pre {
-  margin: var(--size-3) ;
-  overflow: overlay;
-  background-color: var(--surface-3);
+label > *:first-child {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 10rem;
+  gap: var(--size-1);
+  align-content: flex-end;
+  justify-content: flex-end;
+}
+
+label > div {
+  display: flex;
+  gap: var(--size-1);
+  align-content: flex-end;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }

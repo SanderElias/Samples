@@ -471,13 +471,12 @@
     },
     "wireItEditor": {
       "projectType": "application",
-      "schematics": {},
       "root": "projects/wire-it-editor",
       "sourceRoot": "projects/wire-it-editor/src",
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "inlineStyle": true,
+          "inlineStyle": false,
           "changeDetection": "OnPush",
           "displayBlock": true,
           "skipTests": true,
@@ -488,7 +487,7 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/wire-it-editor",
             "index": "projects/wire-it-editor/src/index.html",

@@ -1,12 +1,13 @@
 :host {
   margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--size-content-2), 1fr));
+  grid-template-columns: repeat(auto-fill, var(--size-content-3));
+  gap: var(--size-2);
 }
 header {
   grid-column: 1 / -1;
   background: var(--color-primary);
-  display:flex;
+  display: flex;
   align-items: center;
   gap: var(--size-3);
 }

@@ -28,33 +28,40 @@ import { DepedenciesComponent } from './depedencies/depedencies.component';
         <span>Command</span>
         <input name="command" type="text" [(ngModel)]="props.command" >
       </label>
-      <label>
+      <label class=row>
         <span>Service</span>
-        <input
+        <button
            (click)="toggleService()"
            type="button"
-           name='service'
-           ngModel="props.service"
            [style.scale]=".7"
-           [style.--_bg]="props.service ? 'var(--green-7)' : 'var(--color-error)'"
-           [value]='props.service ? "Enabled" : "disabled"'
+           [style.--_bg]="props.service ? 'var(--green-9)' : 'var(--color-error)'"
            >
+           {{props.service ? '🟢' : '🔴'}}
+           {{props.service ? "Enabled" : "disabled"}}
+          </button>
+          <input name="service" type="hidden" [ngModel]="props.service">
       </label>
       <label>
         <span>Files <button class="action" type="button" (click)="addFile()">➕</button></span>
-        <se-arr-input name="files" *ngFor="let file of props.files; let index = index" [index]="index" [value]=file (delete)="props.files.splice(index,1)"></se-arr-input>
+        <div>
+          <se-arr-input name="files" *ngFor="let file of props.files; let index = index" [index]="index" [value]=file (delete)="props.files.splice(index,1)"></se-arr-input>
+        </div>
       </label>
       <label>
         <span>Output <button class="action" type="button" (click)="addOutput()">➕</button></span>
-        <se-arr-input name="output" *ngFor="let file of props.output; let index = index" [index]="index" [value]=file (delete)="props.output.splice(index,1)"></se-arr-input>
+        <div>
+          <se-arr-input name="output" *ngFor="let file of props.output; let index = index" [index]="index" [value]=file (delete)="props.output.splice(index,1)"></se-arr-input>
+        </div>
       </label>
       <label>
         <span>PackageLocks <button class="action" type="button" (click)="addLock()">➕</button></span>
-        <se-arr-input name="packageLocks" *ngFor="let file of props.packageLocks; let index = index" [index]="index" [value]=file (delete)="props.packageLocks.splice(index,1)"></se-arr-input>
+        <div>
+          <se-arr-input name="packageLocks" *ngFor="let file of props.packageLocks; let index = index" [index]="index" [value]=file (delete)="props.packageLocks.splice(index,1)"></se-arr-input>
+        </div>
       </label>
       <label >
-        <span>Dependecies</span>
-        <se-dependencies [deps]="props.dependencies"></se-dependencies>
+        <span>Dependecies <button class="action" type="button" (click)="dep.addOne()">➕</button></span>
+        <se-dependencies #dep [deps]="props.dependencies" [current]="name"></se-dependencies>
       </label>
 
     </form>
@@ -125,7 +132,9 @@ export class WireitComponent {
   }
 
   save = () => {
-    this.pjs.updateWireItEntry(this.name, ObjectFromRawFormValue(this.form.control.getRawValue()) as WireItEntry);
+    const props = ObjectFromRawFormValue(this.form.control.getRawValue()) as WireItEntry
+    console.dir(props);
+    this.pjs.updateWireItEntry(this.name, props );
   }
 
 }

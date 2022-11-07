@@ -88,6 +88,9 @@ export class PackageJsonService {
       delete current.wireit[name];
       delete current.scripts[name];
       current.scripts[newName] = `wireit`;
+      Object.values(current.wireit).forEach(entry => {
+        entry.dependencies = entry.dependencies?.map(dep => dep === name ? newName : dep);
+      })
     }
     this.#contents$.next(current);
   }

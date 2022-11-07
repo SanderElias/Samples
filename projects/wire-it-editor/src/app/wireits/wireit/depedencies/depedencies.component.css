@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-1);
+}
+dialog > main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-1);
+}
+:host>button {
+  background: var(--color-1);
+  border-radius: 2rem;
+  height: 1.5rem;
+  padding: 0 0.7rem;
+}
