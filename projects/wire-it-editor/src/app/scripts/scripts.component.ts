@@ -10,7 +10,7 @@ import { ScriptComponent } from './script/script.component';
   imports: [CommonModule, ScriptComponent],
   template: `<header>
     <h2>NPM scripts</h2>
-    <small>(click one to upgrade it to Wire-It!<br>Only non-upgraded ones are shown)</small>
+    <small>(click one to upgrade it to WireIt!<br>Only non-upgraded ones are shown)</small>
   </header>
   <app-script *ngFor="let script of scripts$ | async" [script]="script"></app-script>`,
   styles: [

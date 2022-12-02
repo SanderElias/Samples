@@ -12,7 +12,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   template: `
   <ng-container *ngIf="vm$ | async as vm">
     <header>
-      <h2>Wire-It scripts</h2>
+      <h2>WireIt scripts</h2>
       <input type="text" [formControl]="search" placeholder="🔎 Filter">
       <button (click)="pjs.addWireitScript('newScript',{})">➕</button>
     </header>
