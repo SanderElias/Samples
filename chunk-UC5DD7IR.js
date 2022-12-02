@@ -1,1 +1,0 @@
-import{I as f,X as a,o as i}from"./chunk-MHRY5PTC.js";import{a as r,b as n}from"./chunk-G5KKTNWD.js";function c(o){function m(t,s){return o.pipe(f(1),i(e=>{if(typeof t=="string")return n(r({},e),{[t]:s});if(typeof t=="object")return r(r({},e),t);throw new Error("Property needs to be a string or an object")}),a(e=>o.next(e))).toPromise()}return m}export{c as a};
