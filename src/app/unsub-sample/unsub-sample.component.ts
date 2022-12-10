@@ -45,7 +45,7 @@ export class UnsubSampleComponent implements OnDestroy {
      * In this case, I could have just added the id to the vm$ observable!
      */
     .subscribe({
-      next: (id) => { this.id$.next(id) }
+      next: (id) => { (!Number.isNaN(id)) && this.id$.next(id) }
     })
 
 
