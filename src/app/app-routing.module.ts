@@ -89,7 +89,9 @@ const routes: Routes = [
   { path: 'svgClock', loadChildren: () => import('./svg-clock/svg-clock.module').then(m => m.SvgClockModule) },
   { path: 'dynForm', loadChildren: () => import('./dyn-form/dyn-form-routing').then(m => m.routes) },
   { path: 'rxjsTest', loadComponent: () => import('./rxjstest/rxjstest.component').then(m => m.RxjstestComponent) },
-  { path: '**', redirectTo: 'rxjsTest' },
+  { path: 'unsubSample', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
+  { path: 'unsubSample/:id', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
+  { path: '**', redirectTo: 'unsubSample/2' },
 ];
 
 

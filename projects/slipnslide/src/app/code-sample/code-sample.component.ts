@@ -114,7 +114,7 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
 }
 
 function monacoFromCdn() {
-  const version = '0.21.2';
+  const version = '0.34.1';
   return new Promise((resolve, reject) => {
     if (window['monaco'] !== undefined) {
       /** no need to load if its already here ;) */

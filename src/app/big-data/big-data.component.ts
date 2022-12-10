@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
-import { BehaviorSubject, interval } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, pluck, switchMap, take, tap } from 'rxjs/operators';
 import { DemoUser, DemoUserService } from 'src/app/demo-users.service';
 
@@ -95,7 +95,7 @@ export class BigDataComponent {
    */
   users$ = this.state$.pipe(
     /** only interested in the 'sort' state */
-    pluck('sort'),
+    map(results => results.sort),
     /** don't update unless the sort key is changed */
     distinctUntilChanged(),
     /** switch to the actual users */
@@ -136,7 +136,7 @@ export class BigDataComponent {
   );
 
   /** wrap everything into a view model we can use in the view */
-  vm$ = modelFromLatest({
+  vm$ = combineLatest({
     users: this.users$,
     state: this.state$,
     page: this.curPage$,
@@ -145,7 +145,7 @@ export class BigDataComponent {
   /** when in doubt, use console.log */
   // .pipe(tap(s => console.log(s)));
 
-  constructor(private user: DemoUserService) {}
+  constructor(private user: DemoUserService) { }
 
   /** utility method to extract the users I need to display. */
   findFirst(users: DemoUser[], { position, pageSize, search }): DemoUser[] {
