@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BigDataComponent } from './big-data.component';
 
-const routes: Routes = [{ path: '', component: BigDataComponent }];
+export const routes: Routes = [{ path: '', component: BigDataComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

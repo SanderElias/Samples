@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SlideComponent } from './slide.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: ':slug', component: SlideComponent },
   { path: '**', component: SlideComponent },
 ];

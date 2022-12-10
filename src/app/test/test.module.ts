@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ObsClickDirective } from './obs-click.directive';
 import { TestComponent } from './test/test.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'testob', component: TestComponent },
   { path: '**', redirectTo: 'testob' },
 ];

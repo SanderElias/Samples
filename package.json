@@ -18,6 +18,7 @@
     "node": ">=16.14.2",
     "yarn": "1.22.*"
   },
+  "type": "module",
   "private": true,
   "dependencies": {
     "@angular/animations": "15.0.3",

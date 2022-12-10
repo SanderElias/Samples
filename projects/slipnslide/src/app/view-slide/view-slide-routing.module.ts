@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ViewSlideComponent } from './view-slide.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: ViewSlideComponent },
   { path: ':slide', component: ViewSlideComponent },
   { path: '**', component: ViewSlideComponent },

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MixinsComponent } from './mixins/mixins.component';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [{ path: '', component: MixinsComponent }];
+export const routes: Routes = [{ path: '', component: MixinsComponent }];
 
 @NgModule({
   declarations: [MixinsComponent],

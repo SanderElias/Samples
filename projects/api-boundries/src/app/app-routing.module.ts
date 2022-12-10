@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
+export export const routes: Routes = [
   { path: 'relations', loadChildren: () => import('./relation-list/relation-list.module').then(m => m.RelationListModule) },
   { path: 'bRelations', loadChildren: () => import('./b-relation-list/b-relation-list.module').then(m => m.BRelationListModule) },
   { path: '**', redirectTo: 'bRelations' }

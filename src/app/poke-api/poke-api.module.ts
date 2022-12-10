@@ -4,7 +4,7 @@ import { PokeMainComponent } from './pokemain/pokemain.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SeLetModule } from '@se-ng/let';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: PokeMainComponent },
   { path: '**', redirectTo: '' },
 ];

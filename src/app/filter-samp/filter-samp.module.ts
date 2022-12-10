@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { FilterSampleComponent } from './filter-sample/filter-sample.component';
 
-const routes: Routes = [{ path: '**', component: FilterSampleComponent }];
+export const routes: Routes = [{ path: '**', component: FilterSampleComponent }];
 
 @NgModule({
   declarations: [FilterSampleComponent],

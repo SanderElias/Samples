@@ -5,7 +5,7 @@ import { APISampleComponent } from './apisample/apisample.component';
 import { ShowRecComponent } from './show-rec/show-rec.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-const routes: Routes = [{ path: '', component: APISampleComponent }];
+export const routes: Routes = [{ path: '', component: APISampleComponent }];
 
 @NgModule({
   declarations: [APISampleComponent, ShowRecComponent],

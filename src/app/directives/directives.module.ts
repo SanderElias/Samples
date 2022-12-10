@@ -4,7 +4,7 @@ import { DirectivesSampleComponent } from './directives-sample/directives-sample
 import { IdDirective } from './id.directive';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: DirectivesSampleComponent,

@@ -8,7 +8,7 @@ import { PlayButtonComponent } from './play-button/play-button.component';
 import { VmHomeVmComponent } from './vm-home-vm/vm-home-vm.component';
 import { DemoUserComponent } from './demo-user/demo-user.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'theBad', component: VmHomeComponent },
   { path: 'theGood', component: VmHomeVmComponent },
   { path: 'user', component: DemoUserComponent },

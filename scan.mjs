@@ -1,7 +1,9 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { parseAngularRoutes } from 'guess-parser';
 import { join } from 'path';
+import { cwd } from 'process';
 import { closeBrowser, createSnapshotFor } from './snapshots.mjs';
+import { traverseRoutes } from './routeTraverse.mjs';
 
 /** this is all for internal use, so the hardcoded paths and urls are not a problem */
 const folder = process.cwd();
@@ -18,6 +20,15 @@ try {
   oldRoutes = [];
 }
 
+const manualTraverse = [];
+try {
+  await traverseRoutes(join(cwd(),'out-tsc/app/src/app/routes.js'), '', manualTraverse);
+  manualTraverse.forEach(r => {
+    r.gitFolder = `${gitBase}${r.modulePath}`;
+  })
+} finally {}
+
+
 /** use the guess-parser to extract all the routes of my app */
 const routes = parseAngularRoutes(tsconfig, []).map(r => {
   const lastSlash = r.modulePath.lastIndexOf('/');
@@ -29,27 +40,40 @@ const routes = parseAngularRoutes(tsconfig, []).map(r => {
   };
 });
 
+const startRoutes = [...routes, ...oldRoutes, ...manualTraverse].reduce((acc, route) => {
+  const found = acc.find(r => r.path === route.path);
+  if (!found) {
+    acc.push(route);
+  }
+  return acc;
+}, []);
+
 const newRoutes = [];
 
 /** update the existing routes if needed */
-for (const route of routes) {
-  const pos = route.path.indexOf(':');
-  const path = pos === -1 ? route.path : route.path.substring(0, pos - 1);
-  const found = oldRoutes.find(r => r.path === path);
-  if (found) {
-    if (found.modulePath !== route.modulePath) {
-      console.log(`${route.path} has changed`);
-      found.modulePath = route.modulePath;
-      found.gitFolder = `${gitBase}${route.modulePath}`;
+for (const route of startRoutes) {
+  try {
+    console.log(`processing ${route.path}`);
+    const pos = route.path.indexOf(':');
+    const path = pos === -1 ? route.path : route.path.substring(0, pos - 1);
+    const found = oldRoutes.find(r => r.path === path);
+    if (found) {
+      if (found.modulePath !== route.modulePath) {
+        console.log(`${route.path} has changed`);
+        found.modulePath = route.modulePath;
+        found.gitFolder = `${gitBase}${route.modulePath}`;
+      }
+    } else {
+      console.log(`${path} has been added`);
+      oldRoutes.push({ ...route, path });
     }
-  } else {
-    console.log(`${path} has been added`);
-    oldRoutes.push({ ...route, path });
+    const newRouteInfo = await createSnapshotFor(route);
+    newRoutes.push(newRouteInfo);
+    /** give the CLI a bit of time */
+    await new Promise(r => setTimeout(r, 200));
+  } catch (e) {
+    console.error(e);
   }
-  const newRouteInfo = await createSnapshotFor(route);
-  newRoutes.push(newRouteInfo);
-  /** give the CLI a bit of time */
-  await new Promise(r => setTimeout(r, 500));
 }
 
 /** write the result back into the assets folder */

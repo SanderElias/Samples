@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalogClockComponent } from './analog-clock.component';
 
-const routes: Routes = [{ path: '', component: AnalogClockComponent }];
+export const routes: Routes = [{ path: '', component: AnalogClockComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SnowComponent } from './snow.component';
 
-const routes: Routes = [{ path: '', component: SnowComponent }];
+export const routes: Routes = [{ path: '', component: SnowComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

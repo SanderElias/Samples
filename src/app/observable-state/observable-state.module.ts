@@ -5,7 +5,7 @@ import { ObservableStateComponent } from './observable-sate/observable-state.com
 import { LifeycleHooksSampleComponent } from './lifeycle-hooks-sample/lifeycle-hooks-sample.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: ObservableStateComponent },
   { path: 'hook', component: LifeycleHooksSampleComponent },
   { path: '**', redirectTo: '' },

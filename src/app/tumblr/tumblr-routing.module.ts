@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TumblrComponent } from './tumblr.component';
 
-const routes: Routes = [{ path: '', component: TumblrComponent }];
+export const routes: Routes = [{ path: '', component: TumblrComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

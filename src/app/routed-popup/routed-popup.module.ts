@@ -5,7 +5,7 @@ import { BackDropComponent } from './back-drop/back-drop.component';
 import { BackHomeComponent } from './back-home/back-home.component';
 
 /** routes */
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'up',
     component: BackDropComponent,
