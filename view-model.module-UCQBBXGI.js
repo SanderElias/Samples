@@ -126,4 +126,4 @@ td[_ngcontent-%COMP%], th[_ngcontent-%COMP%] {
   border-right: 1px solid #404040;
   text-align: left;
   padding:4px;
-}`]})})();var wt=[{path:"theBad",component:D},{path:"theGood",component:B},{path:"user",component:oe},{path:"user/:id",component:oe,data:{fetchListFrom:"https://jsonplaceholder.typicode.com/users",idProperty:"id"}},{path:"/user/:id/related/:friendCode",component:oe},{path:"**",redirectTo:"theGood"}],Q=class{},et=Q;(()=>{Q.\u0275fac=function(e){return new(e||Q)}})(),(()=>{Q.\u0275mod=ke({type:Q})})(),(()=>{Q.\u0275inj=we({imports:[Qe,Fe.forChild(wt)]})})();export{et as ViewModelModule};
+}`]})})();var wt=[{path:"theBad",component:D},{path:"theGood",component:B},{path:"user",component:oe},{path:"user/:id",component:oe,data:{fetchListFrom:"https://jsonplaceholder.typicode.com/users",idProperty:"id"}},{path:"/user/:id/related/:friendCode",component:oe},{path:"**",redirectTo:"theGood"}],Q=class{},et=Q;(()=>{Q.\u0275fac=function(e){return new(e||Q)}})(),(()=>{Q.\u0275mod=ke({type:Q})})(),(()=>{Q.\u0275inj=we({imports:[Qe,Fe.forChild(wt)]})})();export{et as ViewModelModule,wt as routes};

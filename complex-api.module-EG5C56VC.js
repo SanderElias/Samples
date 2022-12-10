@@ -22,4 +22,4 @@ import{e as le}from"./chunk-LM255IYU.js";import"./chunk-XZCHICF6.js";import{a as
     max-width: 98vw;
     overflow-x: hidden;
     overflow-y: auto;
-  }`]})})();var ye=[{path:"",component:b}],h=class{},me=h;(()=>{h.\u0275fac=function(e){return new(e||h)}})(),(()=>{h.\u0275mod=z({type:h})})(),(()=>{h.\u0275inj=q({imports:[Z,ee.forChild(ye),se]})})();export{me as ComplexAPIModule};
+  }`]})})();var ye=[{path:"",component:b}],h=class{},me=h;(()=>{h.\u0275fac=function(e){return new(e||h)}})(),(()=>{h.\u0275mod=z({type:h})})(),(()=>{h.\u0275inj=q({imports:[Z,ee.forChild(ye),se]})})();export{me as ComplexAPIModule,ye as routes};

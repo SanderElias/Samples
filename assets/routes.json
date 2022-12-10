@@ -1,21 +1,5 @@
 [
   {
-    "path": "/home",
-    "modulePath": "/src/app",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
-    "title": "Welcome to Sanders samples!",
-    "largeImage": "/assets/snapshots/home.png",
-    "description": ""
-  },
-  {
-    "path": "/filterSamp",
-    "modulePath": "/src/app/filter-samp",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/filter-samp",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/filterSamp.png",
-    "description": ""
-  },
-  {
     "path": "/modalSamp",
     "modulePath": "/src/app/modal-samp",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/modal-samp",
@@ -51,7 +35,7 @@
     "path": "/viewModel/theBad",
     "modulePath": "/src/app/view-model",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "Need some inspiration?",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/viewModel-theBad.png",
     "description": ""
   },
@@ -67,7 +51,7 @@
     "path": "/viewModel/user",
     "modulePath": "/src/app/view-model",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "User list demo",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/viewModel-user.png",
     "description": ""
   },
@@ -75,7 +59,7 @@
     "path": "/viewModel/user/:id",
     "modulePath": "/src/app/view-model",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "User list demo",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/viewModel-user-:id.png",
     "description": ""
   },
@@ -253,6 +237,62 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-clock",
     "title": "SVG Clock sample",
     "largeImage": "/assets/snapshots/svgClock.png",
+    "description": ""
+  },
+  {
+    "path": "/home",
+    "modulePath": "/src/app",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
+    "title": "Welcome to Sanders samples!",
+    "largeImage": "/assets/snapshots/home.png",
+    "description": ""
+  },
+  {
+    "path": "/viewModel",
+    "modulePath": "/src/app/view-model",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/viewModel.png",
+    "description": ""
+  },
+  {
+    "path": "/testOb",
+    "modulePath": "/src/app/test",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/testOb.png",
+    "description": ""
+  },
+  {
+    "path": "/dynForm",
+    "modulePath": "/src/app/dyn-form",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/dyn-form",
+    "title": "Dynamic form sample",
+    "largeImage": "/assets/snapshots/dynForm.png",
+    "description": ""
+  },
+  {
+    "path": "/rxjsTest",
+    "modulePath": "/src/app/rxjstest",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rxjstest",
+    "title": "Rxjs cleanup test",
+    "largeImage": "/assets/snapshots/rxjsTest.png",
+    "description": ""
+  },
+  {
+    "path": "/unsubSample",
+    "modulePath": "/src/app/unsub-sample",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/unsub-sample",
+    "title": "Unsubscribe sample",
+    "largeImage": "/assets/snapshots/unsubSample.png",
+    "description": ""
+  },
+  {
+    "path": "/unsubSample/:id",
+    "modulePath": "/src/app/unsub-sample",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/unsub-sample",
+    "title": "Unsubscribe sample",
+    "largeImage": "/assets/snapshots/unsubSample-:id.png",
     "description": ""
   }
 ]

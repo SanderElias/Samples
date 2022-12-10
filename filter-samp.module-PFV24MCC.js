@@ -5,4 +5,4 @@ cd [class]="expression"
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 5px;
-  }`]})})();var ie=[{path:"**",component:g}],r=class{},X=r;(()=>{r.\u0275fac=function(t){return new(t||r)}})(),(()=>{r.\u0275mod=j({type:r})})(),(()=>{r.\u0275inj=$({imports:[W,K,B.forChild(ie)]})})();export{X as FilterSampModule};
+  }`]})})();var ie=[{path:"**",component:g}],r=class{},X=r;(()=>{r.\u0275fac=function(t){return new(t||r)}})(),(()=>{r.\u0275mod=j({type:r})})(),(()=>{r.\u0275inj=$({imports:[W,K,B.forChild(ie)]})})();export{X as FilterSampModule,ie as routes};
