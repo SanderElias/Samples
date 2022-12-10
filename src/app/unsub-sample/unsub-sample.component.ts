@@ -31,7 +31,7 @@ export class UnsubSampleComponent implements OnDestroy {
   router = inject(Router);
 
   id$ = new BehaviorSubject(120); // default ID, normally overwritten by the route.
-  change$ = new BehaviorSubject(0); // default change, normally overwritten by the buttons. (0 = no change
+  change$ = new BehaviorSubject(0); // default change, normally overwritten by the buttons.
 
   /** using a normal class field to holde the subscription */
   sub = this.route.params.pipe(
