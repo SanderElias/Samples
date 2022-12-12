@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, map, ReplaySubject, take } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, map, ReplaySubject, take } from 'rxjs';
 
 @Component({
   selector: 'se-unsub-sample',
@@ -53,11 +53,14 @@ export class UnsubSampleComponent implements OnDestroy {
     id: this.id$,
     change: this.change$
   }).pipe(
+    debounceTime(10), // debounce the change, so that we don't get multiple navigations.
     map(({ id, change }) => {
       const goTo = id + change;
       console.log({ id, change, goTo })
       if (goTo > 0 && goTo !== id) {
         this.router.navigate(['unsubSample', goTo])
+        this.change$.next(0) // reset the change
+        this.id$.next(goTo)
       }
       return { id, goTo, change }
     })
