@@ -1,25 +1,25 @@
 {
   "name": "samples",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve --port 4301 --ssl",
-    "build": "ng build --configuration production",
-    "build.lib": "ng build @se-ng/swapi --configuration production && ng build @se-ng/observable-hooks --configuration production && ng build @se-ng/observable-utils --configuration production && ng build @se-ng/let --configuration production",
-    "build.deploy": "yarn build.lib && yarn build && npx scully --project samples",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
-    "scully": "scully",
-    "scully:serve": "scully serve"
-  },
+  "private": true,
   "engines": {
     "node": ">=16.14.2",
     "yarn": "1.22.*"
   },
   "type": "module",
-  "private": true,
+  "scripts": {
+    "build": "ng build --configuration production",
+    "build.deploy": "yarn build.lib && yarn build && npx scully --project samples",
+    "build.lib": "ng build @se-ng/swapi --configuration production && ng build @se-ng/observable-hooks --configuration production && ng build @se-ng/observable-utils --configuration production && ng build @se-ng/let --configuration production",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
+    "ng": "ng",
+    "scully": "scully",
+    "scully:serve": "scully serve",
+    "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
+    "start": "ng serve --port 4301 --ssl",
+    "test": "ng test"
+  },
   "dependencies": {
     "@angular/animations": "15.0.3",
     "@angular/common": "15.0.3",
