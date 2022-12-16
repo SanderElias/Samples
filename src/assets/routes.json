@@ -306,6 +306,7 @@
   {
     "path": "/rvt",
     "modulePath": "/src/app/rvt",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt",
     "title": "Reactive vs Template",
     "largeImage": "/assets/snapshots/rvt.png",
     "description": ""
@@ -313,6 +314,7 @@
   {
     "path": "/rvt/reactive",
     "modulePath": "/src/app/rvt/reactive",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt/reactive",
     "title": "Reactive",
     "largeImage": "/assets/snapshots/rvt-reactive.png",
     "description": ""
@@ -320,6 +322,7 @@
   {
     "path": "/rvt/template",
     "modulePath": "/src/app/rvt/template",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt/template",
     "title": "Template",
     "largeImage": "/assets/snapshots/rvt-template.png",
     "description": ""
