@@ -10,7 +10,11 @@
   "scripts": {
     "build": "ng build --configuration production",
     "build.deploy": "yarn build.lib && yarn build && npx scully --project samples",
-    "build.lib": "ng build @se-ng/swapi --configuration production && ng build @se-ng/observable-hooks --configuration production && ng build @se-ng/observable-utils --configuration production && ng build @se-ng/let --configuration production",
+    "build.lib": "wireit",
+    "build.lib.let": "wireit",
+    "build.lib.observable-hooks": "wireit",
+    "build.lib.observable-utils": "wireit",
+    "build.lib.swapi": "wireit",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
@@ -19,6 +23,28 @@
     "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
     "start": "ng serve --port 4301 --ssl",
     "test": "ng test"
+  },
+  "wireit": {
+    "build.lib": {
+      "dependencies": [
+        "build.lib.observable-hooks",
+        "build.lib.swapi",
+        "build.lib.observable-utils",
+        "build.lib.let"
+      ]
+    },
+    "build.lib.let": {
+      "command": "ng build @se-ng/let --configuration production"
+    },
+    "build.lib.observable-hooks": {
+      "command": "ng build @se-ng/observable-hooks --configuration production"
+    },
+    "build.lib.observable-utils": {
+      "command": "ng build @se-ng/observable-utils --configuration production"
+    },
+    "build.lib.swapi": {
+      "command": "ng build @se-ng/swapi --configuration"
+    }
   },
   "dependencies": {
     "@angular/animations": "15.0.3",

@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

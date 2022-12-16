@@ -38,8 +38,22 @@ export class AppComponent {
 
   async copyToClipBoard() {
     const json = await firstValueFrom(this.pjs.pjObject$);
-    console.log(json);
-    await navigator.clipboard.writeText(JSON.stringify(json , null, 2))
+    const { scripts, wireit } = json;
+    json.scripts = Object.fromEntries(Object.entries(scripts).sort(scriptSort));
+    if (wireit) {
+      json.wireit = Object.fromEntries(Object.entries(wireit).sort(scriptSort));
+    }
+    const newPkg = JSON.stringify(json, null, 2);
+    console.log(newPkg);
+    await navigator.clipboard.writeText(newPkg)
   }
 
+}
+
+/** ignore 'pre' and 'post' during sort, so those will be listed next to each other */
+const clean = (key: string) => key.replace('pre', '').replace('post', '')
+
+function scriptSort(a: [string, unknown], b: [string, unknown]) {
+
+  return clean(a[0]).localeCompare(clean(b[0]));
 }

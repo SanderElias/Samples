@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+form {
+  border: 2px solid #2bd75d;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  accent-color: #2bd75d;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: auto;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+label > *:nth-child(2) {
+  margin-left: 0.25rem;
+}
+
+.ng-invalid.ng-dirty:not(form) {
+  background-color: rgb(143, 70, 70);
+}
+
+button[type='submit'] {
+  background-color: #2bd75d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+button:disabled {
+  background-color: #d7b52b;
+  cursor: not-allowed;
+}

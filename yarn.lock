@@ -1711,7 +1711,7 @@
   integrity sha512-35NkWLJn1nHtRJFO43JJx8exjTOTSHtaleMfMhtJjMxkqSuHkATOiJaW8s8gtvkuD1AO+vTKUSEtcTdSusWXlQ==
   dependencies:
     "@sentry/node" "^5.20.1"
-    asciidoctor "^1.5.9"
+    asciidoctor "^2.2.6"
     chalk "^4.1.2"
     chokidar "^3.5.2"
     compression "^1.7.4"
@@ -1732,7 +1732,7 @@
     yaml "^2.0.0-10"
     yargs "^17.3.1"
   optionalDependencies:
-    asciidoctor.js "^1.5.9"
+    asciidoctor.js "^2.2.6"
 
 "@sentry/core@5.30.0":
   version "5.30.0"
@@ -2677,15 +2677,15 @@ asciidoctor-opal-runtime@0.3.3:
     glob "7.1.3"
     unxhr "1.0.1"
 
-asciidoctor.js@^1.5.9:
+asciidoctor.js@^2.2.6:
   version "1.5.9"
   resolved "https://registry.yarnpkg.com/asciidoctor.js/-/asciidoctor.js-1.5.9.tgz#28f8e8ee134b82627f0240e9b6a201b3d15d9524"
   integrity sha512-k5JgwyV82TsiCpnYbDPReuHhzf/vRUt6NaZ+OGywkDDGeGG/CPfvN2Gd1MJ0iIZKDyuk4iJHOdY/2x1KBrWMzA==
   dependencies:
     opal-runtime "1.0.11"
 
-asciidoctor@^1.5.9:
-  version "1.5.9"
+asciidoctor@^2.2.6:
+  version "2.2.6"
   resolved "https://registry.yarnpkg.com/asciidoctor/-/asciidoctor-2.2.6.tgz#43b5fec8ab91ed2d8d1815c75067cfa29da2e568"
   integrity sha512-EXG3+F2pO21B+COfQmV/WgEgGiy7nG/mJiS/o5DXpaT2q82FRZWPVkbMZrpDvpu4pjXe5c754RbZR9Vz0L0Vtw==
   dependencies:

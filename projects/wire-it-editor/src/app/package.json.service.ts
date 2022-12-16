@@ -55,10 +55,10 @@ export class PackageJsonService {
       }, {})
       return { ...acc, [key]: newVal };
     }, {} as Record<string, WireItEntry>)
-    return {
-      wireit: result,
-      ...rest,
-    }
+    /** maintain the order */
+    const copy = { ...c };
+    copy.wireit = result;
+    return copy
   }
 
   async upgrade(key: string) {

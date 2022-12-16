@@ -88,5 +88,6 @@ export const routes = [
   { path: 'rxjsTest', loadComponent: () => import('./rxjstest/rxjstest.component').then(m => m.RxjstestComponent) },
   { path: 'unsubSample', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
   { path: 'unsubSample/:id', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
-  { path: '**', redirectTo: 'unsubSample/2' },
+  { path: 'rvt', loadChildren: () => import('./rvt/routes')},
+  { path: '**', redirectTo: 'rvt' },
 ];
