@@ -1,5 +1,13 @@
 [
   {
+    "path": "/filterSamp",
+    "modulePath": "/src/app/filter-samp",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/filter-samp",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/filterSamp.png",
+    "description": ""
+  },
+  {
     "path": "/modalSamp",
     "modulePath": "/src/app/modal-samp",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/modal-samp",
@@ -293,6 +301,30 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/unsub-sample",
     "title": "Unsubscribe sample",
     "largeImage": "/assets/snapshots/unsubSample-:id.png",
+    "description": ""
+  },
+  {
+    "path": "/rvt",
+    "modulePath": "/src/app/rvt",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt",
+    "title": "Reactive vs Template",
+    "largeImage": "/assets/snapshots/rvt.png",
+    "description": ""
+  },
+  {
+    "path": "/rvt/reactive",
+    "modulePath": "/src/app/rvt/reactive",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt/reactive",
+    "title": "Reactive",
+    "largeImage": "/assets/snapshots/rvt-reactive.png",
+    "description": ""
+  },
+  {
+    "path": "/rvt/template",
+    "modulePath": "/src/app/rvt/template",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt/template",
+    "title": "Template",
+    "largeImage": "/assets/snapshots/rvt-template.png",
     "description": ""
   }
 ]
