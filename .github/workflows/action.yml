@@ -14,7 +14,7 @@ jobs:
         node: [ 16.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node, install dependencies, and cache node modules, build dist artifacts
         uses: ./.github/build-artifacts
         with:
@@ -30,13 +30,13 @@ jobs:
         node: [ 16.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get the build
         uses: ./.github/build-artifacts
         with:
           node-version: ${{ matrix.node }}
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist/static # The folder the action should deploy.

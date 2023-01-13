@@ -13,7 +13,7 @@ runs:
         node-version: ${{ inputs.node-version }}
     - name: cache build artifacts
       id: cache-dist
-      uses: actions/cache@v2
+      uses: actions/cache@v3.2.3
       with:
         path: dist
         # I only want to cache the dist folder for this workflow run
