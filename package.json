@@ -46,6 +46,10 @@
       "command": "ng build @se-ng/swapi --configuration"
     }
   },
+  "resolutions": {
+    "asciidoctor.js": "1.5.9",
+    "scully/**/asciidoctor.js": "1.5.9"
+  },
   "dependencies": {
     "@angular/animations": "15.1.0",
     "@angular/common": "15.1.0",
