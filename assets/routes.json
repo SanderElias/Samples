@@ -326,5 +326,13 @@
     "title": "Template",
     "largeImage": "/assets/snapshots/rvt-template.png",
     "description": ""
+  },
+  {
+    "path": "/gridCalendar",
+    "modulePath": "/src/app/grid-calendar",
+    "title": "Grid Calender",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/grid-calendar",
+    "largeImage": "/assets/snapshots/gridCalendar.png",
+    "description": ""
   }
 ]
