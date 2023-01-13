@@ -89,5 +89,6 @@ export const routes = [
   { path: 'unsubSample', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
   { path: 'unsubSample/:id', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
   { path: 'rvt', loadChildren: () => import('./rvt/routes')},
-  { path: '**', redirectTo: 'rvt' },
+  { path: 'gridCalender', loadComponent: () => import('./grid-calender/grid-calender.component').then(m => m.GridCalenderComponent) },
+  { path: '**', redirectTo: 'gridCalender' },
 ];

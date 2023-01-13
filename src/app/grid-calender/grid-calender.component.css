@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+div {
+  display: grid;
+  grid-template-columns:repeat(auto-fit, 352px);
+  grid-template-rows: auto 1fr;
+  gap: 2rem;
+}
+

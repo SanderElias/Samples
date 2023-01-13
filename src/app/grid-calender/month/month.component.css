@@ -1,0 +1,43 @@
+:host {
+  display: grid;
+  height: fit-content;
+  width: fit-content;
+  grid-template-columns: repeat(7, 40px);
+  grid-auto-rows: 40px;
+  gap: 0.5rem;
+}
+
+h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.first ~ :has(~ .last) {
+  background-color: hsla(271, 93%, 11%, 0.45);
+  margin: 0 -.25rem ;
+  border-left: 0;
+  border-right: 0;
+}
+
+:host:has(:hover) ~ :has(~ .first) {
+  background-color: hsla(162, 93%, 11%, 0.45);
+
+}
+
+se-day-cell:hover:not(.first):not(.last) {
+  background-color: hsl(49, 61%, 45%);
+}
+
+/* Hover cells before */
+se-day-cell:hover:not(.first):not(.last) ~ :has(~ .first) {
+  background-color: hsl(49, 61%, 45%);
+}
+
+/* Hover cells after */
+.first:not(:has(~ .last)) ~ :has(~ se-day-cell:hover:not(.first):not(.last))  {
+  background-color: hsl(49, 61%, 45%);
+}
+.last ~ :has(~ se-day-cell:hover:not(.first):not(.last))  {
+  background-color: hsl(49, 61%, 45%);
+}
+
