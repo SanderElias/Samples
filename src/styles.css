@@ -64,6 +64,11 @@ textarea {
   background: rgba(0,0,0,.25);
 }
 
+input[type=checkbox] {
+  scale: 2;
+  margin: 0 10px 0 0;
+}
+
 option {
 
   background: rgba(0,0,0,.25);
