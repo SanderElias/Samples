@@ -17,5 +17,6 @@ import { MonthComponent } from './month/month.component';
 })
 export class GridCalenderComponent {
   date = new Date('2023-05-01');
-  months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) => new Date(this.date.getFullYear(), month, 1));
+  months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    .map((month) => new Date(this.date.getFullYear(), month, 1));
 }

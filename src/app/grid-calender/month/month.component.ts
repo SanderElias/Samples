@@ -8,8 +8,16 @@ import { CalenderDay } from '../calenderDay';
   standalone: true,
   imports: [CommonModule, DayCellComponent],
   template: `
-    <h2>{{monthName}}</h2>
-  <se-day-cell *ngFor="let day of days" [day]="day" (click)="select(day)"></se-day-cell>`,
+  <h2>{{monthName}}</h2>
+  <span>S</span>
+  <span>M</span>
+  <span>T</span>
+  <span>W</span>
+  <span>T</span>
+  <span>F</span>
+  <span>S</span>
+  <se-day-cell *ngFor="let day of days" [day]="day" (click)="select(day)"></se-day-cell>
+  `,
   styleUrls: ['./month.component.css']
 })
 export class MonthComponent {
