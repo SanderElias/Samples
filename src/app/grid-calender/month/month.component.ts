@@ -26,8 +26,13 @@ export class MonthComponent {
     // this._date = x;
     if (x?.constructor?.name !== 'Date') { return; }
     this.days = this.calcDateArray(x);
+    if (x.getMonth() === 0) {
+    this.days[12].isFirstSelected = true;
+    this.days[17].isLastSelected = true;
+    }
   }
   days: CalenderDay[]
+
 
   get monthName() {
     return this.days[10].date.toLocaleString('default', { month: 'long' });

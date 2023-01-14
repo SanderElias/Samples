@@ -1,37 +1,47 @@
-:host {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  cursor: pointer;
-  user-select: none;
-}
+@layer se_calendar.day {
+  :host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+    cursor: pointer;
+    user-select: none;
+  }
 
-:host.mute {
-  opacity: 0.3;
-  border-radius: 50%;
-  cursor: not-allowed;
-}
+  :host.mute,
+  :host.mute:hover {
+    opacity: 0.3;
+    border-radius: 50%;
+    cursor: not-allowed;
+    background-color: inherit;
+    margin: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+  }
 
-:host:hover {
-  background-color: #4e4b4b;
-  font-weight: bolder;
-}
+  :host:hover {
+    font-weight: bolder;
+    font-size: 1.2em;
+  }
 
-:host.first, :host.last {
-  background-color: hsla(271, 93%, 11%, .8);;
-}
+  :host.first,
+  :host.last {
+    background-color: hsla(271, 93%, 11%, 0.8);
+  }
 
-:host.first {
-  border-top-left-radius: 25%;
-  border-bottom-left-radius: 25%;
-  margin-right: -.25rem;
-  border-right: 0;
-}
+  :host.first,
+  :host.first:hover /** kill hover  */ {
+    border-top-left-radius: 25%;
+    border-bottom-left-radius: 25%;
+    margin-right: -0.25rem;
+    border-right: 0;
+  }
 
-:host.last {
-  border-top-right-radius: 25%;
-  border-bottom-right-radius: 25%;
-  margin-left: -.25rem;
-  border-left: 0;
+  :host.last,
+  :host.last:hover /** kill hover  */ {
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
+    /* margin-left: -.25rem; */
+    border-left: 0;
+  }
 }
