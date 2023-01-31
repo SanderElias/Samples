@@ -1,0 +1,61 @@
+/** simple html style starter */
+@import "https://unpkg.com/open-props";
+@import "https://unpkg.com/open-props/normalize.dark.min.css";
+@import "https://unpkg.com/open-props/buttons.dark.min.css";
+
+:root {
+  --main-header-size: 7rem;
+  --size-content-3: auto;
+  --size-content-2: 60rem;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+
+}
+
+
+div,
+header,
+footer,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body > div#top {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  grid-template-rows: var(--main-header-size) 1fr 3rem;
+}
+
+div#top > header,
+div#top > footer {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+div#top > header > :where(h1, p) {
+  padding: 0;
+  margin: 0;
+}
+
+div#top > main {
+  height: calc(100vh - var(--main-header-size) - 3rem);
+  overflow-y: auto;
+  padding:1rem;
+}
+
+li > ul {
+  display: none;
+}
+
+li:hover > ul {
+  display: block;
+}
+

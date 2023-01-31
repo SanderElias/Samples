@@ -36,11 +36,16 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 
 })
 export class DepedenciesComponent {
+  /** injections */
+  pjs = inject(PackageJsonService)
+  elm = inject(ElementRef).nativeElement as HTMLElement
+
+
+
+
   @Input() deps: string[] = []
   @Input() current = '';
 
-  pjs = inject(PackageJsonService)
-  elm = inject(ElementRef).nativeElement as HTMLElement
 
   vm$ = this.pjs.pjObject$.pipe(
     map(p => {
@@ -67,4 +72,6 @@ export class DepedenciesComponent {
   }
 
 }
+
+
 
