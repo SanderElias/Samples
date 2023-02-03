@@ -25,6 +25,10 @@ import { RakiService } from '../../../app/rijks/raki.service';
 import { Quote, QuoteService } from '../quote/quote.service';
 import { ObsFromEvent } from '../vm-home/ObsFromEvent';
 import { modelFromLatest } from '@se-ng/observable-utils';
+import { PlayButtonComponent } from '../play-button/play-button.component';
+import { QuoteComponent } from '../quote/quote.component';
+import { PaintingComponent } from '../painting/painting.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 interface Vm {
   art: string;
@@ -35,9 +39,11 @@ interface Vm {
   speed: number;
 }
 @Component({
-  selector: 'vm-home-vm',
-  templateUrl: './vm-home-vm.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vm-home-vm',
+    templateUrl: './vm-home-vm.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe]
 })
 export class VmHomeVmComponent {
   private viewModal: Vm;

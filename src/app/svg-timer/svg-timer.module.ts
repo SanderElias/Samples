@@ -6,12 +6,10 @@ import { SvgTimerComponent } from './svg-timer.component';
 
 
 @NgModule({
-  declarations: [
-    SvgTimerComponent
-  ],
-  imports: [
-    CommonModule,
-    SvgTimerRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SvgTimerRoutingModule,
+        SvgTimerComponent
+    ]
 })
 export class SvgTimerModule { }

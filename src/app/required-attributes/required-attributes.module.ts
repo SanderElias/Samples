@@ -7,7 +7,6 @@ import { WaitForItComponent } from './required-attributes/wait-for-it/wait-for-i
 export const routes: Routes = [{ path: '', component: RequiredAttributesComponent }];
 
 @NgModule({
-  declarations: [RequiredAttributesComponent, WaitForItComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes), RequiredAttributesComponent, WaitForItComponent]
 })
 export class RequiredAttributesModule {}

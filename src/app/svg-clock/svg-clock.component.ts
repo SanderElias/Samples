@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { timer, take, map } from 'rxjs';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 const twoPi = Math.PI * 2;
 const circumference = (radius: number) => twoPi * radius;
 
 @Component({
-  selector: 'app-svg-clock',
-  templateUrl: './svg-clock.component.html',
-  styles: [
-  ]
+    selector: 'app-svg-clock',
+    templateUrl: './svg-clock.component.html',
+    styles: [],
+    standalone: true,
+    imports: [NgIf, NgForOf, AsyncPipe]
 })
 export class SvgClockComponent {
 

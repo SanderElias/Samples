@@ -6,7 +6,6 @@ import { SvgCalenderComponent } from './svg-calender/svg-calender.component';
 export const routes: Routes = [{ path: '', component: SvgCalenderComponent }];
 
 @NgModule({
-  declarations: [SvgCalenderComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes), SvgCalenderComponent]
 })
 export class SvgCalendarModule {}

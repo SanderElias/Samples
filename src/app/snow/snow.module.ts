@@ -6,10 +6,10 @@ import { SnowComponent } from './snow.component';
 
 
 @NgModule({
-  declarations: [SnowComponent],
-  imports: [
-    CommonModule,
-    SnowRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SnowRoutingModule,
+        SnowComponent
+    ]
 })
 export class SnowModule { }

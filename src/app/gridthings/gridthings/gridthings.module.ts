@@ -7,10 +7,10 @@ import { CellComponent } from '../cell/cell.component';
 
 
 @NgModule({
-  declarations: [GridthingsComponent, CellComponent],
-  imports: [
-    CommonModule,
-    GridthingsRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        GridthingsRoutingModule,
+        GridthingsComponent, CellComponent
+    ]
 })
 export class GridthingsModule { }

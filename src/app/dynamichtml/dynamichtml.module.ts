@@ -5,8 +5,7 @@ import { DynamicHtmlComponent } from './dynamichtml.component';
 
 
 @NgModule({
-  declarations: [DynamicHtmlComponent],
-  imports: [CommonModule, DynamichtmlRoutingModule],
+    imports: [CommonModule, DynamichtmlRoutingModule, DynamicHtmlComponent]
 })
 export class DynamichtmlModule {
   constructor() {}

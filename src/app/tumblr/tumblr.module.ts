@@ -6,10 +6,10 @@ import { TumblrComponent } from './tumblr.component';
 
 
 @NgModule({
-  declarations: [TumblrComponent],
-  imports: [
-    CommonModule,
-    TumblrRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        TumblrRoutingModule,
+        TumblrComponent
+    ]
 })
 export class TumblrModule { }

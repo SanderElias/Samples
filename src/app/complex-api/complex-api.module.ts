@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 export const routes: Routes = [{ path: '', component: APISampleComponent }];
 
 @NgModule({
-  declarations: [APISampleComponent, ShowRecComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule],
+    imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule, APISampleComponent, ShowRecComponent]
 })
 export class ComplexAPIModule {}

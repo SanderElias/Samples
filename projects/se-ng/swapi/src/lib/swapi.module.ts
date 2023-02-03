@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { SwapiComponent } from './swapi.component';
 
 @NgModule({
-  declarations: [SwapiComponent],
-  imports: [],
-  exports: [SwapiComponent],
+    imports: [SwapiComponent],
+    exports: [SwapiComponent]
 })
 export class SwapiModule {}

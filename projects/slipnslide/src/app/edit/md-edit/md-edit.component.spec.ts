@@ -8,8 +8,8 @@ describe('MdEditComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MdEditComponent ]
-    })
+    declarations: [MdEditComponent]
+})
     .compileComponents();
   }));
 

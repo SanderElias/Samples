@@ -1,5 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl,ReactiveFormsModule } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
 import { combineLatest, of } from 'rxjs';
 import {
@@ -12,11 +13,14 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
+import { ShowRecComponent } from '../show-rec/show-rec.component';
 
 @Component({
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
   styles: [],
+  standalone: true,
+  imports: [ReactiveFormsModule, ShowRecComponent, AsyncPipe]
 })
 export class APISampleComponent implements AfterViewInit {
   /** select the table/set */

@@ -9,15 +9,13 @@ import { OrderRowComponent } from './relation-detail/order-row/order-row.compone
 
 
 @NgModule({
-  declarations: [
-    RelationListComponent,
-    RelationComponent,
-    RelationDetailComponent,
-    OrderRowComponent
-  ],
-  imports: [
-    CommonModule,
-    RelationListRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        RelationListRoutingModule,
+        RelationListComponent,
+        RelationComponent,
+        RelationDetailComponent,
+        OrderRowComponent
+    ]
 })
 export class RelationListModule { }

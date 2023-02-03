@@ -8,8 +8,8 @@ describe('ShowCompComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShowCompComponent ]
-    })
+    declarations: [ShowCompComponent]
+})
     .compileComponents();
   });
 

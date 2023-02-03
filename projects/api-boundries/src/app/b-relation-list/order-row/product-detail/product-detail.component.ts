@@ -3,10 +3,12 @@ import { ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ProductsService } from '../../../products.service';
 import { ObservableInput } from '../../../../observable-input-decorator.ts';
+import { RelationComponent } from '../../relation/relation.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-product-detail',
-  template: `
+    selector: 'app-product-detail',
+    template: `
     <ng-container *ngIf="product$|async as product">
       {{product.name}}
       <section>
@@ -15,9 +17,11 @@ import { ObservableInput } from '../../../../observable-input-decorator.ts';
       </section>
     </ng-container>
   `,
-  styles: [`:host { display: block;   margin: 0 20px; }
+    styles: [`:host { display: block;   margin: 0 20px; }
   section { margin-left:20px; }
-  :host:not(:last-child) { border-bottom: 1px dashed black;  }`]
+  :host:not(:last-child) { border-bottom: 1px dashed black;  }`],
+    standalone: true,
+    imports: [NgIf, RelationComponent, AsyncPipe]
 })
 export class ProductDetailComponent {
   @Input()

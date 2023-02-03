@@ -7,13 +7,11 @@ import { LsHomeComponent } from './ls-home/ls-home.component';
 
 
 @NgModule({
-  declarations: [
-    LocalStateComponent,
-    LsHomeComponent
-  ],
-  imports: [
-    CommonModule,
-    LocalStateRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        LocalStateRoutingModule,
+        LocalStateComponent,
+        LsHomeComponent
+    ]
 })
 export class LocalStateModule { }

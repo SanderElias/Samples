@@ -7,7 +7,6 @@ import { FilterSampleComponent } from './filter-sample/filter-sample.component';
 export const routes: Routes = [{ path: '**', component: FilterSampleComponent }];
 
 @NgModule({
-  declarations: [FilterSampleComponent],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes), FilterSampleComponent]
 })
 export class FilterSampModule {}

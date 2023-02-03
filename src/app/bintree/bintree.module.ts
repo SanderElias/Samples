@@ -7,13 +7,11 @@ import { BNodeComponent } from './b-node/b-node.component';
 
 
 @NgModule({
-  declarations: [
-    BintreeComponent,
-    BNodeComponent
-  ],
-  imports: [
-    CommonModule,
-    BintreeRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        BintreeRoutingModule,
+        BintreeComponent,
+        BNodeComponent
+    ]
 })
 export class BintreeModule { }

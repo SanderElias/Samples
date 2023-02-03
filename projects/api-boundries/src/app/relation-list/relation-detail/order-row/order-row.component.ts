@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RelationComponent } from '../../relation/relation.component';
+import { NgForOf } from '@angular/common';
 
 @Component({
-  selector: 'app-order-row',
-  template: `
+    selector: 'app-order-row',
+    template: `
     <ul>
       <li><h5>Products:</h5></li>
       <li *ngFor="let item of order.products">{{item.productName}} by {{item.handlerName}}</li>
@@ -10,7 +12,7 @@ import { Component, Input, OnInit } from '@angular/core';
     <app-relation [relation]=order.processor></app-relation>
     <app-relation [relation]=order.transporter></app-relation>
   `,
-  styles: [`
+    styles: [`
     :host {
       display: grid;
       border: 1px solid #ccc;
@@ -24,7 +26,9 @@ import { Component, Input, OnInit } from '@angular/core';
       margin-left: -20px;
     }
 
-  `]
+  `],
+    standalone: true,
+    imports: [NgForOf, RelationComponent]
 })
 export class OrderRowComponent implements OnInit {
   @Input() order: any

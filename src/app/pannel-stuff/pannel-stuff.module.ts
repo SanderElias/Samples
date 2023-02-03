@@ -9,12 +9,9 @@ import {
 } from './pannel/pannel.component';
 
 @NgModule({
-  declarations: [
-    PannelStuffComponent,
-    PannelComponent,
-    PannelCloseDirective,
-    PannelFooterDirective,
-  ],
-  imports: [CommonModule, PannelStuffRoutingModule],
+    imports: [CommonModule, PannelStuffRoutingModule, PannelStuffComponent,
+        PannelComponent,
+        PannelCloseDirective,
+        PannelFooterDirective]
 })
 export class PannelStuffModule {}

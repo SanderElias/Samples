@@ -10,7 +10,6 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ObsClickDirective, TestComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes), ObsClickDirective, TestComponent]
 })
 export class TestModule {}

@@ -72,7 +72,7 @@
     "description": ""
   },
   {
-    "path": "/viewModel//user/:id/related/:friendCode",
+    "path": "/viewModel/user/:id/related/:friendCode",
     "modulePath": "/src/app/view-model",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
     "title": "Sanders demo page",

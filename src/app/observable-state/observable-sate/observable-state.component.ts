@@ -22,10 +22,11 @@ interface LocalState {
 }
 
 @Component({
-  selector: 'app-observable-state',
-  templateUrl: './observable-state.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-observable-state',
+    templateUrl: './observable-state.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ObservableStateComponent implements OnInit {
   /**

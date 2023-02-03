@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith, tap } from 'rxjs/operators';
 import { AddressService, UserCard } from '../../generic-services/address.service';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 type Vm = [UserCard[], string];
 
 @Component({
-  selector: 'app-filter-sample',
-  templateUrl: './filter-sample.component.html',
-  styles: [],
+    selector: 'app-filter-sample',
+    templateUrl: './filter-sample.component.html',
+    styles: [],
+    standalone: true,
+    imports: [NgIf, ɵInternalFormsSharedModule, ReactiveFormsModule, NgForOf, AsyncPipe]
 })
 export class FilterSampleComponent implements OnInit {
   nameFilter = new UntypedFormControl('');

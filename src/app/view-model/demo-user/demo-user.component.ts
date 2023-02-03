@@ -5,11 +5,14 @@ import { debounceTime, distinctUntilChanged, map, pluck, tap } from 'rxjs/operat
 import { modelFromLatest } from '../../../../projects/se-ng/observable-utils/src/lib/modelFromLatest';
 import { createSetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/setStateMethodCreator';
 import { DemoUserService } from '../../../../src/app/demo-users.service';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-demo-user',
-  templateUrl: './demo-user.component.html',
-  styles: [],
+    selector: 'app-demo-user',
+    templateUrl: './demo-user.component.html',
+    styles: [],
+    standalone: true,
+    imports: [NgIf, NgForOf, AsyncPipe]
 })
 export class DemoUserComponent implements OnInit {
   state$ = new BehaviorSubject({

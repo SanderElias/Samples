@@ -12,7 +12,6 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DirectivesSampleComponent, IdDirective],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes), DirectivesSampleComponent, IdDirective]
 })
 export class DirectivesModule {}

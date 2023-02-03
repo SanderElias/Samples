@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [{ path: '', component: MixinsComponent }];
 
 @NgModule({
-  declarations: [MixinsComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes), MixinsComponent]
 })
 export class MixinsModule {}

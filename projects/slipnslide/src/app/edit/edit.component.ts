@@ -11,13 +11,18 @@ import {
 } from 'rxjs/operators';
 import { Slide, SlidesService } from '../slides.service';
 import { MdEditComponent } from './md-edit/md-edit.component';
+import { AsyncPipe } from '@angular/common';
+import { SelectFileComponent } from './select-file/select-file.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'markdown-edit',
-  template: `<a routerLink="/home"><h1>Edit</h1></a>
+    selector: 'markdown-edit',
+    template: `<a routerLink="/home"><h1>Edit</h1></a>
     <select-file (fileName)="filename.next($event)"></select-file>
     <md-edit [markdown]="(slide$ | async)?.markdown"></md-edit> `,
-  styles: [],
+    styles: [],
+    standalone: true,
+    imports: [RouterLink, SelectFileComponent, MdEditComponent, AsyncPipe]
 })
 export class EditComponent implements OnInit, OnDestroy {
   @ViewChild(MdEditComponent, { static: true }) mde: MdEditComponent;

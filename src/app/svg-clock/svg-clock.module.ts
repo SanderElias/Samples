@@ -6,12 +6,10 @@ import { SvgClockComponent } from './svg-clock.component';
 
 
 @NgModule({
-  declarations: [
-    SvgClockComponent
-  ],
-  imports: [
-    CommonModule,
-    SvgClockRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SvgClockRoutingModule,
+        SvgClockComponent
+    ]
 })
 export class SvgClockModule { }

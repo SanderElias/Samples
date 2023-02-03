@@ -6,10 +6,10 @@ import { AnalogClockComponent } from './analog-clock.component';
 
 
 @NgModule({
-  declarations: [AnalogClockComponent],
-  imports: [
-    CommonModule,
-    AnalogClockRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        AnalogClockRoutingModule,
+        AnalogClockComponent
+    ]
 })
 export class AnalogClockModule { }

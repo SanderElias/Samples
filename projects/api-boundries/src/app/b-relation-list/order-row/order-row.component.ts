@@ -2,10 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { OrdersService } from '../../orders.service';
+import { RelationComponent } from '../relation/relation.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-order-row',
-  template: `
+    selector: 'app-order-row',
+    template: `
   <ng-container *ngIf="order$|async as order">
     <section>
       <h5>Products:</h5>
@@ -15,7 +18,7 @@ import { OrdersService } from '../../orders.service';
     <app-relation [relationId]=order.transporter></app-relation>
   </ng-container>
   `,
-  styles: [`
+    styles: [`
     :host {
       display: grid;
       border: 1px solid #ccc;
@@ -25,7 +28,9 @@ import { OrdersService } from '../../orders.service';
       margin:0;
     }
 
-  `]
+  `],
+    standalone: true,
+    imports: [NgIf, NgForOf, ProductDetailComponent, RelationComponent, AsyncPipe]
 })
 export class OrderRowComponent implements OnInit {
   private orderId$ = new ReplaySubject<string>(1)

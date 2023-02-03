@@ -12,7 +12,6 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ObservableStateComponent, LifeycleHooksSampleComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule],
+    imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule, ObservableStateComponent, LifeycleHooksSampleComponent]
 })
 export class ObservableStateModule {}

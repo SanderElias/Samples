@@ -7,10 +7,10 @@ import { BlocksComponent } from './blocks/blocks.component';
 
 
 @NgModule({
-  declarations: [SvgTestComponent, BlocksComponent],
-  imports: [
-    CommonModule,
-    SvgTestRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SvgTestRoutingModule,
+        SvgTestComponent, BlocksComponent
+    ]
 })
 export class SvgTestModule { }

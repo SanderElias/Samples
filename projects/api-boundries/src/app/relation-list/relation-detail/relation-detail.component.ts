@@ -5,16 +5,21 @@ import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 import { OrdersService } from '../../orders.service';
 import { ProductsService } from '../../products.service';
 import { RelationsService } from '../../relations.service';
+import { OrderRowComponent } from './order-row/order-row.component';
+import { RelationComponent } from '../relation/relation.component';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-relation-detail',
-  template: `
+    selector: 'app-relation-detail',
+    template: `
   <ng-container *ngIf="relation$|async as relation">
      <app-relation [relation]="relation" detail></app-relation>
   </ng-container>
   <h4>Orders:</h4>
   <app-order-row *ngFor="let order of orders$|async" [order]="order"></app-order-row>
-  `
+  `,
+    standalone: true,
+    imports: [NgIf, RelationComponent, NgForOf, OrderRowComponent, AsyncPipe]
 })
 export class RelationDetailComponent implements OnInit {
   relationId$ = this.route.params.pipe(pluck('id'));

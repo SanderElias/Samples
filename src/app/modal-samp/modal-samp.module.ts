@@ -6,7 +6,6 @@ import { ModalDemoComponent } from './modal-demo/modal-demo.component';
 const route: Routes = [{ path: '', component: ModalDemoComponent }];
 
 @NgModule({
-  declarations: [ModalDemoComponent],
-  imports: [CommonModule, RouterModule.forChild(route)],
+    imports: [CommonModule, RouterModule.forChild(route), ModalDemoComponent]
 })
 export class ModalSampModule {}

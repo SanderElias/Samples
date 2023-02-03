@@ -2,6 +2,7 @@ import { Component, ContentChildren, ElementRef, OnInit, QueryList, TemplateRef,
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent, merge, of, ReplaySubject } from 'rxjs';
 import { delay, filter, map, pluck, switchMap, tap } from 'rxjs/operators';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 
 interface LocalState {
@@ -11,8 +12,8 @@ interface LocalState {
 }
 
 @Component({
-  selector: 'app-ls-home',
-  template: `
+    selector: 'app-ls-home',
+    template: `
   <h2> test some state</h2>
   <ng-container *ngIf="vm$ |async as vm">
     <button #b (click)="updateCounterWith(-1)">-1</button>
@@ -21,8 +22,9 @@ interface LocalState {
     <!-- <button #b *ngIf="vm.count%2" (click)="updateCounterWith(2)">+2</button> -->
   </ng-container>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: true,
+    imports: [NgIf, AsyncPipe]
 })
 export class LsHomeComponent implements OnInit {
   localState$ = new BehaviorSubject<LocalState>({

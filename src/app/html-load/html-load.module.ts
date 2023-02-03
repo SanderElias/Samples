@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [{ path: '', component: HtmlloadComponent }];
 
 @NgModule({
-  declarations: [HtmlloadComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule, RouterModule.forChild(routes), HtmlloadComponent]
 })
 export class HtmlLoadModule {}

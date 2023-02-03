@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[id]',
+    selector: '[id]',
+    standalone: true
 })
 export class IdDirective {
   @Input() id: string;

@@ -28,14 +28,11 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
-  declarations: [
-    VmHomeComponent,
-    PaintingComponent,
-    QuoteComponent,
-    PlayButtonComponent,
-    VmHomeVmComponent,
-    DemoUserComponent,
-  ],
+    imports: [CommonModule, RouterModule.forChild(routes), VmHomeComponent,
+        PaintingComponent,
+        QuoteComponent,
+        PlayButtonComponent,
+        VmHomeVmComponent,
+        DemoUserComponent]
 })
 export class ViewModelModule {}

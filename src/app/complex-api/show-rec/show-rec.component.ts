@@ -10,9 +10,10 @@ export type Entry = [string, any];
 export type Selection = [string, string];
 
 @Component({
-  selector: 'app-show-rec',
-  templateUrl: './show-rec.component.html',
-  styles: [],
+    selector: 'app-show-rec',
+    templateUrl: './show-rec.component.html',
+    styles: [],
+    standalone: true
 })
 export class ShowRecComponent implements OnInit {
   entries: Entry[];
