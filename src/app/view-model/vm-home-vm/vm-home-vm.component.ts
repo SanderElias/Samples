@@ -1,34 +1,27 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  ViewChildren,
-  QueryList,
-  ViewChild,
-  OnInit,
+  ViewChildren
 } from '@angular/core';
-import { combineLatest, NEVER, Observable, of, timer, fromEvent } from 'rxjs';
+import { modelFromLatest } from '@se-ng/observable-utils';
+import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
 import {
-  filter,
+  debounceTime, distinctUntilChanged, filter,
   map,
   pluck,
   scan,
   startWith,
   switchMap,
-  tap,
-  shareReplay,
-  debounceTime,
-  distinct,
-  distinctUntilChanged,
+  tap
 } from 'rxjs/operators';
 import { RakiService } from '../../../app/rijks/raki.service';
-import { Quote, QuoteService } from '../quote/quote.service';
-import { ObsFromEvent } from '../vm-home/ObsFromEvent';
-import { modelFromLatest } from '@se-ng/observable-utils';
+import { PaintingComponent } from '../painting/painting.component';
 import { PlayButtonComponent } from '../play-button/play-button.component';
 import { QuoteComponent } from '../quote/quote.component';
-import { PaintingComponent } from '../painting/painting.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { Quote, QuoteService } from '../quote/quote.service';
+import { ObsFromEvent } from '../vm-home/ObsFromEvent';
 
 interface Vm {
   art: string;

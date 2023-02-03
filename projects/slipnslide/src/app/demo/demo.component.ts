@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'demo',
-  template: `
+    selector: 'demo',
+    template: `
     <p>
       demo works!
     </p>
   `,
-  styles: [`
+    styles: [`
   :host {
     display:block;
     background-color:#bada55;
@@ -15,7 +15,8 @@ import { Component, OnInit } from '@angular/core';
     height:200px;
   }
   `
-  ]
+    ],
+    standalone: true
 })
 export class DemoComponent implements OnInit {
 

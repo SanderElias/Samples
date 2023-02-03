@@ -12,6 +12,7 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
     }
     for (const r of routes) {
       const imp = r.loadChildren?.toString() ?? r.loadComponent?.toString();
+      console.log(await (r.loadChildren()));
       if (r.path !== '**') {
         const folder = re.exec(imp)?.[1];
         if (!folder) {
@@ -35,6 +36,7 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
     }
   } catch (e) {
     console.log(`error in ${startModulePart}`)
+    console.error(e);
   }
   return result;
 }

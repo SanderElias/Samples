@@ -26,19 +26,24 @@ try {
   manualTraverse.forEach(r => {
     r.gitFolder = `${gitBase}${r.modulePath}`;
   })
-} finally {}
+} finally {
+  // console.dir(manualTraverse);
+}
+
+process.exit(0);
 
 
 /** use the guess-parser to extract all the routes of my app */
-const routes = parseAngularRoutes(tsconfig, []).map(r => {
-  const lastSlash = r.modulePath.lastIndexOf('/');
-  const modulePath = r.modulePath.substring(0, lastSlash).replace(folder, '');
-  return {
-    path: r.path.replace('/**', ''),
-    modulePath,
-    gitFolder: `${gitBase}${modulePath}`,
-  };
-});
+const routes = [];
+// const routes = parseAngularRoutes(tsconfig, []).map(r => {
+//   const lastSlash = r.modulePath.lastIndexOf('/');
+//   const modulePath = r.modulePath.substring(0, lastSlash).replace(folder, '');
+//   return {
+//     path: r.path.replace('/**', ''),
+//     modulePath,
+//     gitFolder: `${gitBase}${modulePath}`,
+//   };
+// });
 
 const startRoutes = [...routes, ...oldRoutes, ...manualTraverse].reduce((acc, route) => {
   const found = acc.find(r => r.path === route.path);

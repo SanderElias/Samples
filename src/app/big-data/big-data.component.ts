@@ -1,7 +1,7 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { modelFromLatest } from '@se-ng/observable-utils';
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap, pluck, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { DemoUser, DemoUserService } from 'src/app/demo-users.service';
 
 interface LocalState {
@@ -12,6 +12,8 @@ interface LocalState {
 }
 
 @Component({
+  standalone: true,
+  imports: [AsyncPipe, NgIf, NgFor],
   selector: 'app-big-data',
   template: `
     <h1>Big data and performance demo</h1>

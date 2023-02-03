@@ -1,8 +1,9 @@
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { createGetStateMethod, createSetStateMethod } from '@se-ng/observable-utils';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { createGetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/getStateMethodCreator';
-import { createSetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/setStateMethodCreator';
+
 // tslint:disable: member-ordering
 
 /** lets define everything we need */
@@ -26,9 +27,10 @@ interface LocalState {
     templateUrl: './observable-state.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true
+    standalone: true,
+    imports: [AsyncPipe, NgIf, JsonPipe],
 })
-export class ObservableStateComponent implements OnInit {
+export class ObservableStateComponent {
   /**
    * The state subject
    * in this case I used an behavior subject because
@@ -100,5 +102,4 @@ export class ObservableStateComponent implements OnInit {
     this.setState({ min: 3, max: 5 });
   }
 
-  ngOnInit() {}
 }

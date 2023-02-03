@@ -35,16 +35,32 @@
       ]
     },
     "build.lib.let": {
-      "command": "ng build @se-ng/let --configuration production"
+      "command": "ng build @se-ng/let --configuration production",
+      "files": [
+        "projects/se-ng/let/src/*",
+        "projects/se-ng/let/tsconfig.lib.json"
+      ]
     },
     "build.lib.observable-hooks": {
-      "command": "ng build @se-ng/observable-hooks --configuration production"
+      "command": "ng build @se-ng/observable-hooks --configuration production",
+      "files": [
+        "projects/se-ng/observable-hooks/src/*",
+        "projects/se-ng/observable-hooks/tsconfig.lib.json"
+      ]
     },
     "build.lib.observable-utils": {
-      "command": "ng build @se-ng/observable-utils --configuration production"
+      "command": "ng build @se-ng/observable-utils --configuration production",
+      "files": [
+        "projects/se-ng/observable-utils/src/*",
+        "projects/se-ng/observable-utils/tsconfig.lib.json"
+      ]
     },
     "build.lib.swapi": {
-      "command": "ng build @se-ng/swapi --configuration"
+      "command": "ng build @se-ng/swapi --configuration",
+      "files": [
+        "projects/se-ng/swapi/src/*",
+        "projects/se-ng/swapi/tsconfig.lib.json"
+      ]
     }
   },
   "resolutions": {

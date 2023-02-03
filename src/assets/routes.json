@@ -40,43 +40,11 @@
     "description": ""
   },
   {
-    "path": "/viewModel/theBad",
+    "path": "/viewModel",
     "modulePath": "/src/app/view-model",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
     "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/viewModel-theBad.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel/theGood",
-    "modulePath": "/src/app/view-model",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/viewModel-theGood.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel/user",
-    "modulePath": "/src/app/view-model",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/viewModel-user.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel/user/:id",
-    "modulePath": "/src/app/view-model",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/viewModel-user-:id.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel/user/:id/related/:friendCode",
-    "modulePath": "/src/app/view-model",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/viewModel--user-:id-related-:friendCode.png",
+    "largeImage": "/assets/snapshots/viewModel.png",
     "description": ""
   },
   {
@@ -99,16 +67,8 @@
     "path": "/observableState",
     "modulePath": "/src/app/observable-state",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/observable-state",
-    "title": "Observable state",
-    "largeImage": "/assets/snapshots/observableState.png",
-    "description": ""
-  },
-  {
-    "path": "/observableState/hook",
-    "modulePath": "/src/app/observable-state",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/observable-state",
     "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/observableState-hook.png",
+    "largeImage": "/assets/snapshots/observableState.png",
     "description": ""
   },
   {
@@ -128,11 +88,19 @@
     "description": ""
   },
   {
-    "path": "/testOb/testob",
+    "path": "/testOb",
     "modulePath": "/src/app/test",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test",
     "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/testOb-testob.png",
+    "largeImage": "/assets/snapshots/testOb.png",
+    "description": ""
+  },
+  {
+    "path": "/home",
+    "modulePath": "/src/app/home",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/home",
+    "title": "Welcome to Sanders samples!",
+    "largeImage": "/assets/snapshots/home.png",
     "description": ""
   },
   {
@@ -163,7 +131,7 @@
     "path": "/bigData",
     "modulePath": "/src/app/big-data",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/big-data",
-    "title": "Big data and performance demo",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/bigData.png",
     "description": ""
   },
@@ -208,14 +176,6 @@
     "description": ""
   },
   {
-    "path": "/localState/:id",
-    "modulePath": "/src/app/local-state",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/local-state",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/localState-:id.png",
-    "description": ""
-  },
-  {
     "path": "/localState",
     "modulePath": "/src/app/local-state",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/local-state",
@@ -248,30 +208,6 @@
     "description": ""
   },
   {
-    "path": "/home",
-    "modulePath": "/src/app",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
-    "title": "Welcome to Sanders samples!",
-    "largeImage": "/assets/snapshots/home.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel",
-    "modulePath": "/src/app/view-model",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/viewModel.png",
-    "description": ""
-  },
-  {
-    "path": "/testOb",
-    "modulePath": "/src/app/test",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/testOb.png",
-    "description": ""
-  },
-  {
     "path": "/dynForm",
     "modulePath": "/src/app/dyn-form",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/dyn-form",
@@ -301,38 +237,6 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/unsub-sample",
     "title": "Unsubscribe sample",
     "largeImage": "/assets/snapshots/unsubSample-:id.png",
-    "description": ""
-  },
-  {
-    "path": "/rvt",
-    "modulePath": "/src/app/rvt",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt",
-    "title": "Reactive vs Template",
-    "largeImage": "/assets/snapshots/rvt.png",
-    "description": ""
-  },
-  {
-    "path": "/rvt/reactive",
-    "modulePath": "/src/app/rvt/reactive",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt/reactive",
-    "title": "Reactive",
-    "largeImage": "/assets/snapshots/rvt-reactive.png",
-    "description": ""
-  },
-  {
-    "path": "/rvt/template",
-    "modulePath": "/src/app/rvt/template",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt/template",
-    "title": "Template",
-    "largeImage": "/assets/snapshots/rvt-template.png",
-    "description": ""
-  },
-  {
-    "path": "/gridCalendar",
-    "modulePath": "/src/app/grid-calendar",
-    "title": "Grid Calender",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/grid-calendar",
-    "largeImage": "/assets/snapshots/gridCalendar.png",
     "description": ""
   }
 ]

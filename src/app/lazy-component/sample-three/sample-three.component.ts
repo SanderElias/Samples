@@ -16,9 +16,4 @@ export default class SampleThreeComponent implements OnInit {
 }
 
 
-@NgModule({
-    imports: [SampleThreeComponent],
-    exports: [],
-    providers: []
-})
-class Step1Module { }
+

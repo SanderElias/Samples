@@ -6,89 +6,51 @@ export const routes = [
       completeStatic: true,
       listOrigin: 'https://jsonplaceholder.typicode.com/users',
     },
-    loadChildren: () =>
-      import('../../src/app/filter-samp/filter-samp.module').then(m => m.FilterSampModule),
+    loadComponent: () => import('./filter-samp/filter-sample/filter-sample.component').then(m => m.FilterSampleComponent),
   },
-  {
-    path: 'modalSamp',
-    loadChildren: () =>
-      import('../../src/app/modal-samp/modal-samp.module').then(m => m.ModalSampModule),
-  },
-  {
-    path: 'mixinSamp',
-    loadChildren: () => import('../../src/app/mixins/mixins.module').then(m => m.MixinsModule),
-  },
-  {
-    path: 'htmlLoad',
-    loadChildren: () =>
-      import('../../src/app/html-load/html-load.module').then(m => m.HtmlLoadModule),
-  },
+  { path: 'modalSamp', loadComponent: () => import('./modal-samp/modal-demo/modal-demo.component').then(m => m.ModalDemoComponent), },
+  { path: 'mixinSamp', loadComponent: () => import('./mixins/mixins/mixins.component').then(m => m.MixinsComponent), },
+  { path: 'htmlLoad', loadComponent: () => import('./html-load/htmlload/htmlload.component').then(m => m.HtmlloadComponent) },
   // {
   //   path: 'popup',
   //   outlet: 'popup',
   //   loadChildren: '../../src/app/routed-popup/routed-popup.module#RoutedPopupModule',
   // },
-  {
-    path: 'requiredAttributes',
-    loadChildren: () =>
-      import('../../src/app/required-attributes/required-attributes.module').then(
-        m => m.RequiredAttributesModule
-      ),
-  },
-  {
-    path: 'viewModel',
-    loadChildren: () =>
-      import('../../src/app/view-model/view-model.module').then(m => m.ViewModelModule),
-  },
-  {
-    path: 'complexAPI',
-    loadChildren: () =>
-      import('../../src/app/complex-api/complex-api.module').then(m => m.ComplexAPIModule),
-  },
-  {
-    path: 'pokeAPI',
-    loadChildren: () => import('../../src/app/poke-api/poke-api.module').then(m => m.PokeApiModule),
-  },
+  { path: 'requiredAttributes', loadComponent: () => import('./required-attributes/required-attributes/required-attributes.component').then(m => m.RequiredAttributesComponent), },
+  { path: 'viewModel', loadChildren: () => import('./view-model/view-model.routes').then(m => m.routes), },
+  { path: 'complexAPI', loadComponent: () => import('./complex-api/apisample/apisample.component').then(m => m.APISampleComponent), },
+  { path: 'pokeAPI', loadComponent: () => import('./poke-api/pokemain/pokemain.component').then(m => m.PokeMainComponent), },
   {
     path: 'observableState',
     loadChildren: () =>
-      import('../../src/app/observable-state/observable-state.module').then(
-        m => m.ObservableStateModule
+      import('./observable-state/observable-state.routes').then(
+        m => m.routes
       ),
   },
   {
-    path: 'DirectiveSamp',
-    loadChildren: () =>
-      import('../../src/app/directives/directives.module').then(m => m.DirectivesModule),
+    path: 'DirectiveSamp', loadComponent: () => import('./directives/directives-sample/directives-sample.component').then(m => m.DirectivesSampleComponent),
   },
-  {
-    path: 'svg',
-    loadChildren: () =>
-      import('../../src/app/svg-calendar/svg-calendar.module').then(m => m.SvgCalendarModule),
-  },
-  {
-    path: 'testOb',
-    loadChildren: () => import('../../src/app/test/test.module').then(module => module.TestModule),
-  },
+  { path: 'svg', loadComponent: () => import('./svg-calendar/svg-calender/svg-calender.component').then(m => m.SvgCalenderComponent), },
+  { path: 'testOb', loadChildren: () => import('./test/test.routes').then(module => module.routes), },
   { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
-  { path: 'dynhtml', loadChildren: () => import('./dynamichtml/dynamichtml.module').then(m => m.DynamichtmlModule) },
-  { path: 'snow', loadChildren: () => import('./snow/snow.module').then(m => m.SnowModule) },
-  { path: 'tumblr', loadChildren: () => import('./tumblr/tumblr.module').then(m => m.TumblrModule) },
-  { path: 'bigData', loadChildren: () => import('./big-data/big-data.module').then(m => m.BigDataModule) },
-  { path: 'svgTest', loadChildren: () => import('./svg-test/svg-test.module').then(m => m.SvgTestModule) },
-  { path: 'pannel', loadChildren: () => import('./pannel-stuff/pannel-stuff.module').then(m => m.PannelStuffModule) },
-  { path: 'clock', loadChildren: () => import('./analog-clock/analog-clock.module').then(m => m.AnalogClockModule) },
-  { path: 'gridThings', loadChildren: () => import('./gridthings/gridthings/gridthings.module').then(m => m.GridthingsModule) },
-  { path: 'bintree', loadChildren: () => import('./bintree/bintree.module').then(m => m.BintreeModule) },
-  { path: 'localState', loadChildren: () => import('./local-state/local-state.module').then(m => m.LocalStateModule) },
-  { path: 'lazyComponents', loadChildren: () => import('./lazy-component/lazy-component.module').then(m => m.LazyComponentModule) },
-  { path: 'svgTimer', loadChildren: () => import('./svg-timer/svg-timer.module').then(m => m.SvgTimerModule) },
-  { path: 'svgClock', loadChildren: () => import('./svg-clock/svg-clock.module').then(m => m.SvgClockModule) },
-  { path: 'dynForm', loadChildren: () => import('./dyn-form/dyn-form-routing').then(m => m.routes) },
+  { path: 'dynhtml', loadComponent: () => import('./dynamichtml/dynamichtml.component').then(m => m.DynamicHtmlComponent) },
+  { path: 'snow', loadComponent: () => import('./snow/snow.component').then(m => m.SnowComponent) },
+  { path: 'tumblr', loadComponent: () => import('./tumblr/tumblr.component').then(m => m.TumblrComponent) },
+  { path: 'bigData', loadComponent: () => import('./big-data/big-data.component').then(m => m.BigDataComponent) },
+  { path: 'svgTest', loadComponent: () => import('./svg-test/svg-test.component').then(m => m.SvgTestComponent) },
+  { path: 'pannel', loadComponent: () => import('./pannel-stuff/pannel-stuff.component').then(m => m.PannelStuffComponent) },
+  { path: 'clock', loadComponent: () => import('./analog-clock/analog-clock.component').then(m => m.AnalogClockComponent) },
+  { path: 'gridThings', loadComponent: () => import('./gridthings/gridthings/gridthings.component').then(m => m.GridthingsComponent) },
+  { path: 'bintree', loadComponent: () => import('./bintree/bintree.component').then(m => m.BintreeComponent) },
+  { path: 'localState', loadChildren: () => import('./local-state/local-state.routes').then(m => m.routes) },
+  { path: 'lazyComponents', loadComponent: () => import('./lazy-component/lazy-component.component').then(m => m.LazyComponentComponent) },
+  { path: 'svgTimer', loadComponent: () => import('./svg-timer/svg-timer.component').then(m => m.SvgTimerComponent) },
+  { path: 'svgClock', loadComponent: () => import('./svg-clock/svg-clock.component').then(m => m.SvgClockComponent) },
+  { path: 'dynForm', loadComponent: () => import('./dyn-form/dyn-form.component').then(m => m.DynFormComponent) },
   { path: 'rxjsTest', loadComponent: () => import('./rxjstest/rxjstest.component').then(m => m.RxjstestComponent) },
   { path: 'unsubSample', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
   { path: 'unsubSample/:id', loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent) },
-  { path: 'rvt', loadChildren: () => import('./rvt/routes')},
+  { path: 'rvt', loadChildren: () => import('./rvt/routes') },
   { path: 'gridCalender', loadComponent: () => import('./grid-calender/grid-calender.component').then(m => m.GridCalenderComponent) },
   { path: '**', redirectTo: 'gridCalender' },
 ];

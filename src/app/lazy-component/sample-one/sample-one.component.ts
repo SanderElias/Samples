@@ -15,9 +15,4 @@ export default class SampleOneComponent implements OnInit {
 
 }
 
-@NgModule({
-    imports: [SampleOneComponent],
-    exports: [],
-    providers: []
-})
-class Step1Module { }
+
