@@ -27,7 +27,7 @@
   },
   "wireit": {
     "build.deploy": {
-      "command": "scully --project samples",
+      "command": "node  node_modules/@scullyio/scully/src/scully.js --project samples",
       "dependencies": [
         "build.samples"
       ]
