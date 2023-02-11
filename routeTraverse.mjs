@@ -1,12 +1,15 @@
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
+import pkg from 'typescript';
+const {transpile} = pkg;
 const re = /import\('(.*)'\)/;
 const cwd = process.cwd();
-const base = join(cwd, './out-tsc/app/');
+
 
 export async function traverseRoutes(startModulePart, path = '', result = []) {
   try {
-    const { routes } = await import(startModulePart);
+    // const { routes } = await import(startModulePart);
+    const routes = await extractRoutes(startModulePart);
     if (!routes) {
       // console.log(`no routes in ${startModulePart}`);
       return;
@@ -15,7 +18,7 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
       const imp = r.loadChildren?.toString() ?? r.loadComponent?.toString();
       // console.log(await (r.loadChildren()));
 
-      if (r.path !== '**') {
+      if (r.path !== '**' && !r.path.includes(':')) {
         const folder = re.exec(imp)?.[1];
         if (!folder) {
           return;
@@ -27,14 +30,9 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
           modulePath: barePart,
         });
         if (r.loadChildren !== undefined) {
-          const m = join(base, 'src/app', folder + '.js');
-          const {routes} = await  import(m);
-          console.log(`traversing ${m} , ${routes}`);
-          // await traverseRoutes(
-          //   join(base,'src/app', folder + '.js'),
-          //   `${path}/${r.path}`,
-          //   result
-          // );
+          const modulePath = join(cwd , 'src/app/',folder+'.ts')
+          // console.log('travesing', modulePath);
+          await traverseRoutes(modulePath, `${path}/${r.path}`, result);
         }
       }
     }
@@ -46,5 +44,23 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
   return result;
 }
 
-// const test = await traverseRoutes(join(base, '/src/app/routes.js'));
-// console.table(test);
+async function extractRoutes(path) {
+  if (!existsSync(path)) {
+    console.log(`file not found ${path}`);
+    return [];;
+  }
+  const content = readFileSync(path, 'utf8'); // load ts fike into memory
+  const code = transpile(content, {
+    module: pkg.ModuleKind.ES2022,
+  }) // transpile to es2022 using typescript compiler
+  try {
+    const mod = await import(`data:application/javascript;base64,${btoa(code)}`) // import the transpiled code from a string
+    const routes = mod.routes || mod.default || [] // get the routes from the module (use default if routes is not found)
+    console.log(`found ${routes.length} routes in ${path}`)
+    return(routes)
+  } catch (e) {
+    // console.error(e);
+    console.log(`error in ${path}`);
+  }
+  return [];
+}

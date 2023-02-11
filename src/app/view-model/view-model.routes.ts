@@ -1,15 +1,12 @@
 import { Routes } from '@angular/router';
-import { DemoUserComponent } from './demo-user/demo-user.component';
-import { VmHomeVmComponent } from './vm-home-vm/vm-home-vm.component';
-import { VmHomeComponent } from './vm-home/vm-home.component';
 
 export const routes: Routes = [
-  { path: 'theBad', component: VmHomeComponent },
-  { path: 'theGood', component: VmHomeVmComponent },
-  { path: 'user', component: DemoUserComponent },
+  { path: 'theBad', loadComponent: () => import('./vm-home/vm-home.component').then(m => m.VmHomeComponent) },
+  { path: 'theGood', loadComponent: () => import('./vm-home-vm/vm-home-vm.component').then(m => m.VmHomeVmComponent)},
+  { path: 'user', loadComponent: () => import('./demo-user/demo-user.component').then(m => m.DemoUserComponent) },
   {
     path: 'user/:id',
-    component: DemoUserComponent,
+    loadComponent: () => import('./demo-user/demo-user.component').then(m => m.DemoUserComponent),
     data: {
       fetchListFrom: 'https://jsonplaceholder.typicode.com/users',
       idProperty: 'id',
@@ -17,7 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'user/:id/related/:friendCode',
-    component: DemoUserComponent,
+    loadComponent: () => import('./demo-user/demo-user.component').then(m => m.DemoUserComponent),
   },
   { path: '**', redirectTo: 'theGood' },
 ];

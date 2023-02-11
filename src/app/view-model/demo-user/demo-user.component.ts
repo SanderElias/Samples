@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, pluck, tap } from 'rxjs/operators';
-import { modelFromLatest } from '../../../../projects/se-ng/observable-utils/src/lib/modelFromLatest';
-import { createSetStateMethod } from '../../../../projects/se-ng/observable-utils/src/lib/setStateMethodCreator';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { createSetStateMethod, modelFromLatest } from '@se-ng/observable-utils';
 import { DemoUserService } from '../../../../src/app/demo-users.service';
-import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-demo-user',

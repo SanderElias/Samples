@@ -19,7 +19,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "scully": "scully",
-    "scully:serve": "scully serve",
+    "scully:serve": "scully serve --404=index",
     "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
     "serveHtml": "npx light-server -s ./ -w '*' --port 8080 ",
     "start": "ng serve --port 4301 --ssl",

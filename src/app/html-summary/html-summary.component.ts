@@ -5,11 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'se-html-summary',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <p>
-      html-summary works!
-    </p>
-  `,
+  templateUrl: './html-summary.component.html',
   styleUrls: ['./html-summary.component.css']
 })
 export class HtmlSummaryComponent {

@@ -1,9 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { parseAngularRoutes } from 'guess-parser';
 import { join } from 'path';
 import { cwd } from 'process';
-import { closeBrowser, createSnapshotFor } from './snapshots.mjs';
 import { traverseRoutes } from './routeTraverse.mjs';
+import { closeBrowser, createSnapshotFor } from './snapshots.mjs';
 
 /** this is all for internal use, so the hardcoded paths and urls are not a problem */
 const folder = process.cwd();
@@ -22,36 +21,30 @@ try {
 
 const manualTraverse = [];
 try {
-  await traverseRoutes(join(cwd(),'out-tsc/app/src/app/routes.js'), '', manualTraverse);
+  await traverseRoutes(join(cwd(),'./src/app/routes.ts'), '', manualTraverse);
   manualTraverse.forEach(r => {
     r.gitFolder = `${gitBase}${r.modulePath}`;
   })
 } finally {
-  // console.dir(manualTraverse);
+  // console.dir(manualTraverse.sort((a, b) => a.path.localeCompare(b.path)).map(r => r.path));
 }
 
-process.exit(0);
+
+// process.exit(0);
 
 
-/** use the guess-parser to extract all the routes of my app */
-const routes = [];
-// const routes = parseAngularRoutes(tsconfig, []).map(r => {
-//   const lastSlash = r.modulePath.lastIndexOf('/');
-//   const modulePath = r.modulePath.substring(0, lastSlash).replace(folder, '');
-//   return {
-//     path: r.path.replace('/**', ''),
-//     modulePath,
-//     gitFolder: `${gitBase}${modulePath}`,
-//   };
-// });
 
-const startRoutes = [...routes, ...oldRoutes, ...manualTraverse].reduce((acc, route) => {
+
+const startRoutes = [...oldRoutes, ...manualTraverse].reduce((acc, route) => {
   const found = acc.find(r => r.path === route.path);
   if (!found) {
     acc.push(route);
   }
   return acc;
-}, []);
+}, []).sort((a, b) => a.path.localeCompare(b.path));
+
+console.dir(startRoutes)
+// process.exit(0);
 
 const newRoutes = [];
 
