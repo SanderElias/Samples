@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "ng build --configuration production",
-    "build.deploy": "yarn build.lib && yarn build && npx scully --project samples",
+    "build.deploy": "wireit",
     "build.lib": "wireit",
     "build.lib.let": "wireit",
     "build.lib.observable-hooks": "wireit",
@@ -26,6 +26,13 @@
     "test": "ng test"
   },
   "wireit": {
+    "build.deploy": {
+      "command": "scully --project samples",
+      "dependencies": [
+        "build.lib",
+        "build"
+      ]
+    },
     "build.lib": {
       "dependencies": [
         "build.lib.observable-hooks",
