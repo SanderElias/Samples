@@ -3,7 +3,7 @@
 <input
   type=range
   [max]="steps.length-1"
-  (change)="update($event.target.value)"
+  (change)="update($any($event.target).value)"
 >
 
 <ng-container [ngComponentOutlet]="component"></ng-container>

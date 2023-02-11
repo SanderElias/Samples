@@ -3,7 +3,7 @@
 
 <button
   #save
-  (click)='save.goSave=true'
+  (click)='$any(save).goSave=true'
 >Save</button>
 <ng-container *seLet="let samp observe fakePost$">
   <h1>{{samp}}</h1>

@@ -1,6 +1,6 @@
 <h1>User list demo</h1>
 <ng-container *ngIf="(viewModel$ | async) as vm">
-  <input type="text" (input)="setState('searchText', $event.target.value)" />
+  <input type="text" (input)="setState('searchText', $any($event.target).value)" />
   <span>{{ vm.total }} found: {{ vm.found }} {{vm.pages}}</span>
   <table>
     <thead>
@@ -12,7 +12,7 @@
     <tbody>
       <tr *ngFor="let user of vm.foundUsers">
         <td>{{user.id}}</td>
-        <td>{{user.lineState}}</td>
+        <!-- <td>{{user.lineState}}</td> -->
         <td>{{user.username}}</td>
         <td>{{user.email}}</td>
       </tr>

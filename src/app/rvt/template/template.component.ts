@@ -37,7 +37,7 @@ import { BehaviorSubject, switchMap } from 'rxjs';
         <span>Level {{data.level}}</span>
         <input name="level" type="range" min=1 max=5 [(ngModel)]="data.level">
       </label>
-      <button type="cancel" (click)="reset$.next();$event.preventDefault()">Reset form</button>
+      <button type="cancel" (click)="reset$.next(undefined);$event.preventDefault()">Reset form</button>
       <button type="submit" [disabled]="!form.valid" (click)="reveal(form)">Submit</button>
     </form>
   </main>

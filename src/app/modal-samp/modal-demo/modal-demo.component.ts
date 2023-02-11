@@ -9,11 +9,11 @@ import { NgIf } from '@angular/common';
     imports: [NgIf]
 })
 export class ModalDemoComponent implements OnInit {
-  @ViewChild('modal', {static:true}) modal
-  constructor() {}
+  @ViewChild('modal', {static:true}) modal: any
+  shown = false
 
   ngOnInit() {
     console.log(this.modal)
-    setTimeout(() => this.modal['shown'] = true,1500)
+    setTimeout(() => this.shown = true,1500)
   }
 }

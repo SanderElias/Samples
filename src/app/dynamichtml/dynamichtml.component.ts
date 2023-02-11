@@ -36,8 +36,8 @@ class DynDataComponent {
     template: `
     <h1>Dynamic HTML sample</h1>
 
-    <input type="text" [value]="name" (input)="name = $event.target.value" />
-    <textarea [value]="html" (input)="update($event.target.value)"></textarea>
+    <input type="text" [value]="name" (input)="name = $any($event.target).value" />
+    <textarea [value]="html" (input)="update($any($event.target).value)"></textarea>
     <button>Update</button>
 
     <div id="target"></div>

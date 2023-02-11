@@ -18,7 +18,7 @@ export class PokeMainComponent implements OnInit {
     shareReplay({ refCount: true, bufferSize: 1 })
   );
 
-  constructor(private pa: PokeApiService) {}
+  constructor(private pa: PokeApiService) { }
 
   ngOnInit() {
     console.log('pokeMain');

@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
 import { UntypedFormControl,ReactiveFormsModule } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
@@ -20,7 +20,7 @@ import { ShowRecComponent } from '../show-rec/show-rec.component';
   templateUrl: './apisample.component.html',
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, ShowRecComponent, AsyncPipe]
+  imports: [ReactiveFormsModule, ShowRecComponent, AsyncPipe, NgFor]
 })
 export class APISampleComponent implements AfterViewInit {
   /** select the table/set */

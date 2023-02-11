@@ -175,9 +175,9 @@ export class BigDataComponent {
    * takes a property-name from the state, and an event.
    * In here I'm casting the event to `ev: { target: HTMLInputElement }` to make it easier to consume
    */
-  setProp<T extends keyof LocalState>(prop: T, ev: { target: HTMLInputElement }) {
+  setProp<T extends keyof LocalState>(prop: T, ev: MouseEvent | KeyboardEvent | InputEvent| Event) {
     /** extract the dom element from the event. */
-    const domElement = ev.target;
+    const domElement = ev.target as HTMLInputElement;
     /** extract the current state from the behavior subject */
     const state = this.state$.value;
     /** should it be a number? */

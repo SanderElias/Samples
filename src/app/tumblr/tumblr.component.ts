@@ -24,7 +24,7 @@ const clientId = 'e972ca06cc4b961';
     imports: [NgForOf, AsyncPipe]
 })
 export class TumblrComponent implements OnInit {
-  largePositions = Array.from({ length: 250 }, () => (Math.random() < 0.2 ? 1 : 0));
+  largePositions: (0|1|2)[] = Array.from({ length: 250 }, () => (Math.random() < 0.2 ? 1 : 0));
   searchKey$ = new BehaviorSubject('kitten');
   results$ = this.searchKey$.pipe(
     filter(s => !!s),

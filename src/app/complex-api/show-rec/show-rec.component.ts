@@ -1,3 +1,4 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 interface Record {
@@ -13,7 +14,8 @@ export type Selection = [string, string];
     selector: 'app-show-rec',
     templateUrl: './show-rec.component.html',
     styles: [],
-    standalone: true
+    standalone: true,
+    imports: [NgFor, NgIf]
 })
 export class ShowRecComponent implements OnInit {
   entries: Entry[];
