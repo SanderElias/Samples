@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "ng build --configuration production",
+    "build.samples": "wireit",
     "build.deploy": "wireit",
     "build.lib": "wireit",
     "build.lib.let": "wireit",
@@ -29,8 +29,20 @@
     "build.deploy": {
       "command": "scully --project samples",
       "dependencies": [
-        "build.lib",
-        "build"
+        "build.samples"
+      ]
+    },
+    "build.samples": {
+      "command": "ng build --configuration production",
+      "files": [
+        "src/*",
+        "tsconfig.app.json"
+      ],
+      "output": [
+        "dist/samples"
+      ],
+      "dependencies": [
+        "build.lib"
       ]
     },
     "build.lib": {
