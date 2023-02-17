@@ -30,7 +30,7 @@ root.right.left.left = createNode("leaf L1");
 root.right.left.right = createNode("leaf L2");
 root.right.right.left = createNode("leaf R1");
 
-// console.log([...root])
+console.log([...root])
 
 function keepState<T>(initialState?: Partial<T>): Generator<T> {
 
@@ -99,4 +99,3 @@ setTimeout(() => t.name=("Elias"),250)
 /** */
 // et root provider somehow?
 
-major sumbling block?
