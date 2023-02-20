@@ -47,7 +47,7 @@ A side observation is that we are getting more and more streams (like [media cap
 
 ### Wait, wut? does this mean I need to rewrite my app?
 
-Well, no. Not at all. This is a new primitive. It is not a replacement for anything. You can still do the same things you did before. You can still use Observables. You can still use Promises. You can still use the `async` pipe. In addition to that, you will be able to use the new signal primitive. Embracing that will allow a future you to turn of ZoneJS, if that is something you want to do. But that is a future you. And that is a future that is not here yet. Also, you might not even want to do that. You might want to keep using ZoneJS. And that is fine. This will give future you more possibilities. But it will not take anything away from you.
+Well no, not at all. This is a new primitive. It is not a replacement for anything. You can still do the same things you did before. You can still use Observables. You can still use Promises. You can still use the `async` pipe. In addition to that, you will be able to use the new signal primitive. Embracing that will allow a future you to turn of ZoneJS, if that is something you want to do. But that is a future you. And that is a future that is not here yet. Also, you might not even want to do that. You might want to keep using ZoneJS. And that is fine. This will give future you more possibilities. But it will not take anything away from you.
 
 
 ## What is the problem Angular Signals solves?
