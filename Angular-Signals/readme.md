@@ -18,22 +18,25 @@ Ah, yes, the question that everyone is asking.
 
 Well, I can not answer all of those questions. But I can answer some of them. And I will try to answer them in a way that is not just my opinion. But also in a way that is backed up by facts.
 
+#### Why not just use RxJS?
+
 The Angular user-base is huge. And it is growing every day. But also it is split in a 50/50 way. 50% want *more* Observable integration. And 50% want *less* Observable integration. There is a point to both sides of the argument. And I will try to explain why.
 The current best solution for Observables is RxJS. A library I personally love. As a nice bonus, Angular is also using it for a few parts of it. But it does have a steep learning curve, and to be fair, you can solve most use-cases where Angular shines fine without it.
 Aside from those issues. If I hand you an observable, there is no way you can know if it is sync or async. You also don't know if it will ever complete, or how many values it will produce. Also, when you subscribe to it, you become responsible for unsubscribing. Forgetting that, might lead to a memory leak. You can solve advanced use-cases easily with RxJs, but the trade-off is that you need to know a lot about the specifics surrounding the observable primitive to handle it correctly. And that is not always the case.
 
 Bottom line: RxJS is great. But it is not for everyone. And it is not for every use-case. Embracing this more would make Angular less accessible to a lot of people. And that is not something we want. So that is the reason to `not just use Rxjs`. 
 
+#### Why not just use the async pipe, or promises?
+
 Promises and async functions are a great way to handle async code. But they are not a great way to handle sync code. They are also not a great way to handle multiple values over time (user generated events for example). They are also not a great way to handle errors. And they are async by design. That means you need at least 2 event-loop cycles to get a result into the view.
 
+There is directly also the answer on why not use the `async pipe`. It is a great way to get values into the view, combined with an `NgIf` you can also handle loading indicators and so on. This alone introduces more complexity into the templates. Also, the result of the async pipe only "lives" in the view. What if you need to use that in the component? Or need a couple of side effects from that value. Yes, there are solutions for that, but it becomes hacky and hard to read. And that is not something we want. So that is the reason to `not just use the async pipe`.
 
-There is directly also the answer on why not use the `async pipe`. It is a great way to get values into the view, combined with an `NgIf` you can also handle loading indicators and so on. Still, the result of the async pipe only "lives" in the view. What if you need to use that in the component? Or need a couple of side effects from that value. Yes, there are solutions for that, but it becomes hacky and hard to read. And that is not something we want. So that is the reason to `not just use the async pipe`.
+#### Why another reactive library?
 
-Why another reactive library?
+Why now use X, or Y, or Z? Well, This one, I can not answer with 100% certainty. I know for a fact that the team has been looking at all kind of implementations. Then they came up with a spec. This spec is built from knowing what is needed in Angular. And what is not. So it is built from the ground up to be a great fit for Angular. And it is build from the ground up to be a great fit for the Angular user-base. As I have been reading the code of the Angular signal POC, and the code of quite a couple of other signal implementations, and did build my own signal prototype, I can say I agree with the team on this. The tradeoffs in the other libraries are not a good fit for Angular. 
 
-Why now use X, or Y, or Z? Well, This one, I can not answer with 100% certainty. I know for a fact that the team has been looking at all kind of implementations. Then they came up with a spec. This spec is build from knowing what is needed in Angular. And what is not. So it is build from the ground up to be a great fit for Angular. And it is build from the ground up to be a great fit for the Angular user-base. As I have been reading the code of the Angular signal POC, and the code of quite a couple of other signal implementations, and did build my own signal prototype, I can say I agree with the team on this. The tradeoffs in the other libraries are not a good fit for Angular. 
-
-Why now?
+#### Why now?
 
 Ah, this is an interesting one. I can only `speculate`. But one of the most asked-for features of Angular is "zone-less" support. This is a big step in making that possible. Right now, Angular is depending on ZoneJS to trigger its change-detection. Having a reactive primitive makes it easy to trigger change-detection. Even more, having this primitive in the core of Angular would even allow to build an app without change-detection. You don't need to detect changes, when you know when and where those changes happen. And that is exactly what the signal primitive brings to Angular.
 Let me put in a quote from Pawel Kozlowski, one of the Angular team members:
