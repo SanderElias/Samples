@@ -111,63 +111,57 @@ However that does not mean the  `effects` that are using that signal will be tri
 
 Yeah, that doesn't sound right. But I can't think of a better title. In this part of the article, I will list the things that didn't fit in the above 2 sections. A large part of me being really happy about this direction is that it will allow us to build a lot of stuff on top of it. And it will make the interop between all of concepts and programming paradigms a lot easier.
 
-An example:
+<sub>(note this section is updated from the original article)</sub>
+An example: 
 
 ```ts
 @Component({
   selector: 'sample',
   template: `
-    <button #button>Click me</button>
-    <div> {{ clickCount.value }} </div>  
+    <div [style.color]='color$ |async '> {{ time$ | async }} </div>  
   `
 })
-class SampleComponent implements OnInit {
-  @ViewChild('button') button: ElementRef;
-  clickCount = signal(0);
+class SampleComponent  {
+  alarmList = inject(AlarmService).alarmList;
+  time$ = timer(0,100).pipe( // this is too fast for a reason.
+    map(() => new Date().toISOString().split('T')[1].split('.')[0]),
+  )
+  color$ = this.time.pipe(
+    map(time => this.alarmList.includes(time) ? 'red' : 'green')
+  );
 
-  ngOnInit() {
-    fromEvent(this.button.nativeElement, 'click')
-      .pipe(
-        map(() => this.clickCount.value += 1),        
-      )
-      .subscribe();
-  }
 }
 // NOTE: see disclaimer at the top.
 ```
 
-I know, I know, not cleaning up the subscribe. Not the point of the example. The point is that there is an observable stream, (clicks here, but it can be anything) that is being kept in sync with the view. Oh, look ma, no `async pipe` no `*ngIf` and no other constructs. 
+Ok, that doesn't look so bad isn't it? The code is nice and short. Easy digestible, and fully reactive. But there is an issue.
+In this case, the observable fires every 100Ms. (yes, its a sample, I have control here, but in RL I might not able to just change the interval). This means that the UI is updated every 100Ms, even if there is no change. Also, there are 2 subscriptions to the `time$` observable. One for the `color$` observable, and one for the `time$` async pipe. And then there is a third subscription by the `color$ | async` in the template. All of those trigger change-detection.
+(yes, I can use `distinctUntilChanged` to limit the amount of updates, and I can use `shareReplay` to get rid of an extra subscription, but that adds a load of complexity to the code, and not the point of this example) 
 
-As the team saw this as a common case you can expect the following to be possible:
-  
+Now lets create the same example, but with Angular Signals:
+
 
 ```ts
 @Component({
   selector: 'sample',
   template: `
-    <button #button>Click me</button>
-    <div> {{ clickCount.value }} </div>  
+    <div [style.color]='color'> {{ time }} </div>  
   `
 })
-class SampleComponent implements OnInit {
-  @ViewChild('button') button: ElementRef;
-  clickCount: Signal<number>;
-
-  ngOnInit() {
-    let count = 0; 
-    const obs$ = fromEvent(this.button.nativeElement, 'click')
-      .pipe(
-        map(() => count += 1), // yes there should be some more intelligent code here!!!       
-      )
-    this.clickCount = signalFromObservable(obs$);
-  }
+class SampleComponent  {
+  alarmList = inject(AlarmService).alarmList;
+  time = fromObservable(timer(0,100).pipe( // this is too fast for a reason.
+    map(() => new Date().toISOString().split('T')[1].split('.')[0]),
+  ))
+  color = compute(() => this.alarmList.includes(this.time.value) ? 'red' : 'green');
 }
 // NOTE: see disclaimer at the top.
 ```
+Notice that this already made de code a lot more readable. And it is a lot more concise. And it is also more performant.
+No more `async` pipes. Change detection will only be fired when there are real changes. A signal will only be updated when the value changes. (in RxJS speak, it has an build in `distinctUntilChanged`). The color isn't overwritten every 100Ms. It is only updated when the value of the `time` signal changes. And it is only updated once. Also, under the hood there is only 1 subscription to the `time$` observable. And that subscription is fully managed by the `fromObservable` function.
 
-> Again, the observable is _not_ what it should be. Mixing imparitive and FRP in a bad way. It is only here to represent an observable stream, don't write code like this!
+<sub>(end of update)</sub>
 
-Notice how the `.subscribe` is gone? That is because the `signalFromObservable` function will take care of that for you. It will also take care of unsubscribing when the component is destroyed. And it will also take care of unsubscribing when the signal is no longer needed. Also a reminder, this is not the final API. This is just an example of what will be possible.
 
 ### What else is possible?
 
@@ -193,7 +187,7 @@ class SomeComponent {
    * I'm casting only for the example, this will be done automatically 
    */
   customerId = futureMagicalSignalFromInput('customerId',undefined) as signal<number | undefined>;
-
+  
   // make a Observable stream from a signal
   customer$ = observableFromSignal(this.customerId) 
     .pipe(
@@ -225,7 +219,19 @@ class SomeComponent {
 
 This is a very contrived example. Let me be clear, I'm unaware of the team having plans around this. To me it makes a lot of sense adding those things once the signal is in the core. But that is just me. I'm sure the team has a lot of other ideas. And I'm sure they will be great. 
 
-### Learnability
+<sub>(note this section is updated from the original article)</sub>
+
+### Well well well. Shortly after writing this!
+
+Completely out of context, but I just saw this tweet:
+
+![image](./assets/quote.png)
+
+So it turns out my `futureMagicalSignalFromLifeCycleHook('destroy')` is going to be a thing. And I'm really happy about that.
+
+<sub>(end of update)</sub>
+
+### learnability
 
 Ok, this is one more concept to learn, so its a hit for learnability, right?. Well, not really. The API will be really simple, and even easier to grasp as promises. And it will be a lot easier to grasp than observables. Having this in the toolbox will help both sides. Both the nay, as well as the yay-sayers on observables will be able to use this (remember the 50-50 divide!). And that is a win for everyone.
 Right now ZoneJS is a black box. You can't really see what is going on. And that is a problem. With signals, you will be able to see what is going on. And that is a win for everyone.
@@ -253,7 +259,7 @@ counter.value = 10;
 
 ### Is this all?
 
-No. There are more details to the whole API, and every part of it is worth looking into it. But that lies outside of the scope of this article. Feel free to contact me, and I will be happy to have an more in depth conversation about it.
+No. There are more details to the whole API, and every part of it is worth looking into it. But that lies outside of the scope of this article. Feel free to contact me, and I will be happy to have an more in depth conversation about it. I opened a [discussion](https://github.com/SanderElias/Samples/discussions/48) on GitHub, where we can have a more in depth conversation about it.
 
 
 ## Conclusion
