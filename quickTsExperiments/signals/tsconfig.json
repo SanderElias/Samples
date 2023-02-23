@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // Setting the "baseUrl" to a different directory than "packages/" because otherwise
+    // packages like the native "http" module are resolved to the Angular "http" package.
+    "declaration": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "esnext",
+    "target": "es2022",
+    "strict": true,
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "rootDir": ".",
+    "inlineSourceMap": true,
+    "lib": ["es2022", "dom"],
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+  },
+  "files": [
+    "index.ts"
+  ],
+}
