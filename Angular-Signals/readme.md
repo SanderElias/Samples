@@ -50,7 +50,7 @@ A side observation is that we are getting more and more streams (like [media cap
 
 ### Wait, wut? does this mean I need to rewrite my app?
 
-Well no, not at all. This is a new primitive. It is not a replacement for anything. You can still do the same things you did before. You can still use Observables. You can still use Promises. You can still use the `async` pipe. In addition to that, you will be able to use the new signal primitive. Embracing that will allow a future you to turn of ZoneJS, if that is something you want to do. But that is a future you. And that is a future that is not here yet. Also, you might not even want to do that. You might want to keep using ZoneJS. And that is fine. This will give future you more possibilities. But it will not take anything away from you.
+Well no, not at all. This is a new primitive. It is not a replacement for anything. You can still do the same things you did before. You can still use Observables. You can still use Promises. You can still use the `async` pipe. In addition to that, you will be able to use the new signal primitive. Embracing that will allow a future you to turn off ZoneJS, if that is something you want to do. But that is a future you. And that is a future that is not here yet. Also, you might not even want to do that. You might want to keep using ZoneJS. And that is fine. This will give future you more possibilities. But it will not take anything away from you.
 
 
 ## What is the problem Angular Signals solves?
@@ -70,7 +70,7 @@ counter +=1; // Nothing happens here
 
 The problem is that the value of `counter` is not reactive. When you update it, it will not call the console.log again. The view will not be updated. The code I use is silly, and it will be really clear to everyone that ever has written any program that this will never work as expected (For the sample, we expect the consoleLog to refire!).
 
-This is exactly where a `signal` comes to play. lets look at the same code, but with a signal:
+This is exactly where a `signal` comes to play. Lets look at the same code, but with a signal:
 
 ```ts
 import { signal, effect } from '@angular/core';
@@ -88,13 +88,13 @@ counter.value +=1; // this will now log 1 to the console! (in our viewpoint for 
 A `signal` is a *synchronous* value. It is a value that can be updated. 
 When updated it will trigger all `effects` that are using it. This is the core of it. 
 
-let that sync in. 
+Let that sync in. 
 
 - A `signal` is a ***synchronous*** value. 
 
 But what does that even mean? Well, it means that when you update the value of a signal, it is updated immediately. It is not updated in the next tick. It is not updated in the next frame. It is updated immediately. When you read it on the next line of code, it will have the updated value right away.
 
-> there are some technical details I will not go into in this article. They don't add anything to the concept of the article. There are numerous articles that go into the technical details of how this works. Ask me if you want to know more about it.
+> There are some technical details I will not go into in this article. They don't add anything to the concept of the article. There are numerous articles that go into the technical details of how this works. Ask me if you want to know more about it.
 
 A bit of background on the `effect` function. You might never have encountered this before. But it is a very common pattern in functional programming. It is a function that takes a function as an argument. And it will call that function. But it will also call that function when the value of the signal changes. In the above sample we are using a function that logs the value of the signal. But you can do anything, and it will be called every time the value of the signal changes. Also, you can have multiple effects on the same signal. And they will all be called when the value of the signal changes. Also, you can use multiple signals in the same effect. And the effect will be updated every time any of the signals change. This whole process is called `reactive programming`. And it is the core of Angular Signals.
 
@@ -109,7 +109,7 @@ However that does not mean the  `effects` that are using that signal will be tri
 
 ## Wherefor art thou Angular Signals?
 
-Yeah, that doesn't sound right. But I can't think of a better title. In this part of the article, In this part I will list the things that didn't fit in the above 2 sections. A large part of me being really happy about this direction is that it will allow us to build a lot of stuff on top of it. And it will make the interop between all of concepts and programming paradigms a lot easier.
+Yeah, that doesn't sound right. But I can't think of a better title. In this part of the article, I will list the things that didn't fit in the above 2 sections. A large part of me being really happy about this direction is that it will allow us to build a lot of stuff on top of it. And it will make the interop between all of concepts and programming paradigms a lot easier.
 
 <sub>(note this section is updated from the original article)</sub>
 An example: 
@@ -163,9 +163,9 @@ No more `async` pipes. Change detection will only be fired when there are real c
 <sub>(end of update)</sub>
 
 
-### what else is possible?
+### What else is possible?
 
-Of course there will be an way to go the other way around. meaning you can create an observable from one (or more) signals. 
+Of course there will be a way to go the other way around. Meaning you can create an observable from one (or more) signals. 
 Right now, I don't really think that is very interesting. However, I have high hopes for the future. I can see things like life-cycle-hooks and inputs being signals. 
 
 Imagine this:
@@ -233,10 +233,10 @@ So it turns out my `futureMagicalSignalFromLifeCycleHook('destroy')` is going to
 
 ### learnability
 
-Ok, this is one more concept to learn, so its a hit for learnability, right?. Well, not really. the API will be really simple, and even easier to grasp as promises. And it will be a lot easier to grasp than observables. Having this in the toolbox will help both sides. Both the nay, as well as the yay-sayers on observables will be able to use this (remember the 50-50 divide!). And that is a win for everyone.
+Ok, this is one more concept to learn, so its a hit for learnability, right?. Well, not really. The API will be really simple, and even easier to grasp as promises. And it will be a lot easier to grasp than observables. Having this in the toolbox will help both sides. Both the nay, as well as the yay-sayers on observables will be able to use this (remember the 50-50 divide!). And that is a win for everyone.
 Right now ZoneJS is a black box. You can't really see what is going on. And that is a problem. With signals, you will be able to see what is going on. And that is a win for everyone.
 
-### computed values
+### Computed values
 
 In this article I have only been talking `signals` and `effect`. This is actually the bulk of the API. But there is more. There is also `computed`. This is actually both a signal and an effect. It is a signal that is driven by an effect. 
 It is easier to show than to explain. So here is an example:
