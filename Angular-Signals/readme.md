@@ -1,8 +1,8 @@
 # Angular Signals WWW
 
-In this Article, I will go into the ***Why***, ***What***, and ***Wherefor*** of Angular Signals. And why this is such a big deal that everyone seems to have an opinion on. How it is a going to be a complementary technology to Angular, and not a replacement to anything already there. (spoiler alert: it is not a replacement for RxJS)
+In this Article, I will go into the ***Why***, ***What***, and ***Wherefor*** of Angular Signals. And why this is such a big deal that everyone seems to have an opinion on. How it is going to be a complementary technology to Angular, and not a replacement to anything already there. (spoiler alert: it is not a replacement for RxJS)
 
-> DISCLAIMER: this is not the current API of Angular Signals. As the current API doesn't really exist just yet. Yes, there is a POC implementation, but it is not the final API. The API is still being discussed. But this is the API that I think will make the easer to read samples. And it is the API that I think will be the most intuitive to use. So I will use it in this article. But it is not the final API, and it is also not the current implementation.
+> DISCLAIMER: this is not the current API of Angular Signals. As the current API doesn't really exist just yet. Yes, there is a POC implementation, but it is not the final API. The API is still being discussed. But this is the API that I think will make it easier to read samples. And it is the API that I think will be the most intuitive to use. So I will use it in this article. But it is not the final API, and it is also not the current implementation.
 
 ## Why Angular Signals?
 
@@ -30,27 +30,27 @@ Bottom line: RxJS is great. But it is not for everyone. And it is not for every 
 
 Promises and async functions are a great way to handle async code. But they are not a great way to handle sync code. They are also not a great way to handle multiple values over time (user generated events for example). They are also not a great way to handle errors. And they are async by design. That means you need at least 2 event-loop cycles to get a result into the view.
 
-There is directly also the answer on why not use the `async pipe`. It is a great way to get values into the view, combined with an `NgIf` you can also handle loading indicators and so on. This alone introduces more complexity into the templates. Also, the result of the async pipe only "lives" in the view. What if you need to use that in the component? Or need a couple of side effects from that value. Yes, there are solutions for that, but it becomes hacky and hard to read. And that is not something we want. So that is the reason to `not just use the async pipe`.
+This directly answers the question of why not use the `async pipe`. The `async pipe` is a great way to get values into the view, combined with an `NgIf` you can also handle loading indicators and so on. This alone introduces more complexity into the templates. Also, the result of the async pipe only "lives" in the view. What if you need to use that in the component? Or need a couple of side effects from that value. Yes, there are solutions for that, but it becomes hacky and hard to read. And that is not something we want. So that is the reason to `not just use the async pipe`.
 
 #### Why another reactive library?
 
-Why now use X, or Y, or Z? Well, This one, I can not answer with 100% certainty. I know for a fact that the team has been looking at all kind of implementations. Then they came up with a spec. This spec is built from knowing what is needed in Angular. And what is not. So it is built from the ground up to be a great fit for Angular. And it is build from the ground up to be a great fit for the Angular user-base. As I have been reading the code of the Angular signal POC, and the code of quite a couple of other signal implementations, and did build my own signal prototype, I can say I agree with the team on this. The tradeoffs in the other libraries are not a good fit for Angular.
+Why now use X, or Y, or Z? Well, This one, I can not answer with 100% certainty. I know for a fact that the team has been looking at all kinds of implementations. Then they came up with a spec. This spec is built from knowing what is needed in Angular. And what is not. So it is built from the ground up to be a great fit for Angular. And it is built from the ground up to be a great fit for the Angular user-base. As I have been reading the code of the Angular signal POC, and the code of quite a couple of other signal implementations, and did build my own signal prototype, I can say I agree with the team on this. The tradeoffs in the other libraries are not a good fit for Angular.
 
 #### Why now?
 
-Ah, this is an interesting one. I can only `speculate`. But one of the most asked-for features of Angular is "zone-less" support. This is a big step in making that possible. Right now, Angular is depending on ZoneJS to trigger its change-detection. Having a reactive primitive makes it easy to trigger change-detection. Even more, having this primitive in the core of Angular would even allow to build an app without change-detection. You don't need to detect changes, when you know when and where those changes happen. And that is exactly what the signal primitive brings to Angular.
+Ah, this is an interesting one. I can only `speculate`. But one of the most asked-for features of Angular is "zone-less" support. This is a big step in making that possible. Right now, Angular is depending on ZoneJS to trigger its change-detection. Having a reactive primitive makes it easy to trigger change-detection. Even more, having this primitive in the core of Angular would even allow us to build an app without change-detection. You don't need to detect changes, when you know when and where those changes happen. And that is exactly what the signal primitive brings to Angular.
 Let me put in a quote from Pawel Kozlowski, one of the Angular team members:
->Signals let us understand changes to the data model (what gets modified) and how the model is used (templates that need update).
+>Signals let us understand changes to the data model (what gets modified) and how the model is used (templates that need updating).
 >
 >With this precise info we can just update templates that read changed values, instead of dirty-checking the entire application / all templates.
 
 This is a huge step in making Angular more efficient. And it is a huge step in making Angular more flexible. And it is a huge step in making Angular more powerful. And it is a huge step in making Angular more future-proof.
 
-A side observation is that we are getting more and more streams (like [media capture](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)) in the browser. Signals are a great way create a reactive interface to those streams. And that is something that is going to be more and more important in the future.
+A side observation is that we are getting more and more streams (like [media capture](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)) in the browser. Signals are a great way to create a reactive interface to those streams. And that is something that is going to be more and more important in the future.
 
 ### Wait, wut? does this mean I need to rewrite my app?
 
-Well no, not at all. This is a new primitive. It is not a replacement for anything. You can still do the same things you did before. You can still use Observables. You can still use Promises. You can still use the `async` pipe. In addition to that, you will be able to use the new signal primitive. Embracing that will allow a future you to turn off ZoneJS, if that is something you want to do. But that is a future you. And that is a future that is not here yet. Also, you might not even want to do that. You might want to keep using ZoneJS. And that is fine. This will give future you more possibilities. But it will not take anything away from you.
+Well no, not at all. This is a new primitive. It is not a replacement for anything. You can still do the same things you did before. You can still use Observables. You can still use Promises. You can still use the `async` pipe. In addition to that, you will be able to use the new signal primitive. Embracing that will allow a future where you can turn off ZoneJS, if that is something you want to do. But that is a future you. And that is a future that is not here yet. Also, you might not even want to do that. You might want to keep using ZoneJS. And that is fine. This will give future you more possibilities. But it will not take anything away from you.
 
 
 ## What is the problem Angular Signals solves?
@@ -70,7 +70,7 @@ counter +=1; // Nothing happens here
 
 The problem is that the value of `counter` is not reactive. When you update it, it will not call the `console.log` again. The view will not be updated. The code I use is silly, and it will be really clear to everyone that ever has written any program that this will never work as expected (For the sample, we expect the consoleLog to refire!).
 
-This is exactly where a `signal` comes to play. Lets look at the same code, but with a signal:
+This is exactly where a `signal` comes to play. Let's look at the same code, but with a signal:
 
 ```ts
 import { signal, effect } from '@angular/core';
@@ -107,9 +107,9 @@ However that does not mean the  `effects` that are using that signal will be tri
 - Enables future zone-less applications.
 - Bridge the gap between the imperative and reactive world.
 
-## Wherefor art thou Angular Signals?
+## Wherefore art thou Angular Signals?
 
-Yeah, that doesn't sound right. But I can't think of a better title. In this part of the article, I will list the things that didn't fit in the above 2 sections. A large part of me being really happy about this direction is that it will allow us to build a lot of stuff on top of it. And it will make the interop between all of concepts and programming paradigms a lot easier.
+Yeah, that doesn't sound right. But I can't think of a better title. In this part of the article, I will list the things that didn't fit in the above 2 sections. A large part of me being really happy about this direction is that it will allow us to build a lot of stuff on top of it. And it will make the interop between all of the concepts and programming paradigms a lot easier.
 
 <sub>(note this section is updated from the original article)</sub>
 
@@ -135,8 +135,8 @@ class SampleComponent  {
 // NOTE: see disclaimer at the top.
 ```
 
-Ok, that doesn't look so bad isn't it? The code is nice and short. Easy digestible, and fully reactive. But there is an issue.
-In this case, the observable fires every 100Ms. (yes, its a sample, I have control here, but in RL I might not able to just change the interval). This means that the UI is updated every 100Ms, even if there is no change. Also, there are 2 subscriptions to the `time$` observable. One for the `color$` observable, and one for the `time$` async pipe. And then there is a third subscription by the `color$ | async` in the template. All of those trigger change-detection.
+Ok, that doesn't look so bad does it? The code is nice and short. Easy digestible, and fully reactive. But there is an issue.
+In this case, the observable fires every 100Ms. (yes, its a sample, I have control here, but in RL I might not be able to just change the interval). This means that the UI is updated every 100Ms, even if there is no change. Also, there are 2 subscriptions to the `time$` observable. One for the `color$` observable, and one for the `time$` async pipe. And then there is a third subscription by the `color$ | async` in the template. All of those trigger change-detection.
 (yes, I can use `distinctUntilChanged` to limit the amount of updates, and I can use `shareReplay` to get rid of an extra subscription, but that adds a load of complexity to the code, and not the point of this example)
 
 Now lets create the same example, but with Angular Signals:
@@ -239,7 +239,7 @@ Right now ZoneJS is a black box. You can't really see what is going on. And that
 
 ### Computed values
 
-In this article I have only been talking `signals` and `effect`. This is actually the bulk of the API. But there is more. There is also `computed`. This is actually both a signal and an effect. It is a signal that is driven by an effect.
+In this article I have only been talking about `signals` and `effect`. This is actually the bulk of the API. But there is more. There is also `computed`. This is actually both a signal and an effect. It is a signal that is driven by an effect.
 It is easier to show than to explain. So here is an example:
 
 ```ts
@@ -260,17 +260,17 @@ counter.value = 10;
 
 ### Is this all?
 
-No. There are more details to the whole API, and every part of it is worth looking into it. But that lies outside of the scope of this article. Feel free to contact me, and I will be happy to have an more in depth conversation about it. I opened a [discussion](https://github.com/SanderElias/Samples/discussions/48) on GitHub, where we can have a more in depth conversation about it.
+No. There are more details to the whole API, and every part of it is worth looking into it. But that lies outside of the scope of this article. Feel free to contact me, and I will be happy to have a more in depth conversation about it. I opened a [discussion](https://github.com/SanderElias/Samples/discussions/48) on GitHub, where we can have a more in depth conversation about it.
 
 
 ## Conclusion
 
 Angular signals are all set to green for a bright future. They will be the foundation for a load of cool stuff, and will be the (now missing) grease between lots of things. Especially the interop between observables and signals will be a huge win. Dropping in and out of the reactive stream is where most problems are, and this will decrease the need for this dropping in and out.
-ZoneJS is wonderful, but at the same time, it can be an issue for performance in some cases. Reading the signal tells me that this is also something where by buying into them will make a huge difference.
+ZoneJS is wonderful, but at the same time, it can be an issue for performance in some cases. Reading the signal tells me that this is also something where buying into them will make a huge difference.
 
 
 ---
-Here I want to give thanks to the people that helped me improving the content of this article, by proofreading and giving feedback. And checking the facts and making sure I didn't make any mistakes.
+Here I want to give thanks to the people that helped me improve the content of this article, by proofreading and giving feedback. And checking the facts and making sure I didn't make any mistakes.
 In no particular order:
 - Natalia Venditto [@NataliaVenditto](https://mobile.twitter.com/AnfibiaCreativa)
 - Pawel Kozlowski [@pkozlowski_os](https://mobile.twitter.com/pkozlowski_os)
