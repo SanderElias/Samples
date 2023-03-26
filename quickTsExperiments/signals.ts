@@ -37,14 +37,6 @@ class Signal {
       this.#value = value;
       // for all subscribed effects, including the no-op
       for (const effect of this.#effects) {
-        // verify that the effect was not flagged for disposal
-        if (disposed.has(effect))
-          // if that's the case, delete it and never bother again with it
-          this.#effects.delete(effect);
-        // if not disposed, invoke the effect which will reach again this signal
-        // it won't be added as already known once the value is reached
-        // and it will simply use the latest value the signal provides
-        else
           effect();
       }
     }
@@ -108,6 +100,7 @@ const dispose2 = effect(() => {
 });
 
 ++double.value;
+double.value += 4;
 // logs single 1, double 11
 // logs double 11, triple 100
 

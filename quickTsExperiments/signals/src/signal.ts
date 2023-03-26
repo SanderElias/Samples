@@ -61,9 +61,9 @@ class SettableSignalImpl<T> implements Producer {
 
     // console.log('set', newValue)
     if (!this.equal(this.value, newValue)) {
-      if (hasActiveReactiveContent()) {
-        throw new SignalError('Cannot set a signal from within a reactive context.');
-      }
+      // if (hasActiveReactiveContent()) {
+      //   throw new SignalError('Cannot set a signal from within a reactive context.');
+      // }
       console.log('set', newValue)
       this.value = newValue;
       this.valueVersion++;
