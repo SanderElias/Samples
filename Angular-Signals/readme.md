@@ -21,7 +21,7 @@ Well, I can not answer all of those questions. But I can answer some of them. An
 #### Why not just use RxJS?
 
 The Angular user-base is huge. And it is growing every day. But also it is split in a 50/50 way. 50% want *more* Observable integration. And 50% want *less* Observable integration. There is a point to both sides of the argument. And I will try to explain why.
-The current best solution for Observables is RxJS. A library I personally love. As a nice bonus, Angular is also using RxJS for a few parts of it's own code. But it does have a steep learning curve, and to be fair, you can solve most use-cases where Angular shines fine without it.
+The current best solution for Observables is RxJS. A library I personally love. As a nice bonus, Angular is also using RxJS for a few parts of its own code. But it does have a steep learning curve, and to be fair, you can solve most use-cases where Angular shines fine without it.
 Aside from those issues, if I hand you an observable, there is no way you can know if it is sync or async. You also don't know if it will ever complete, or how many values it will produce. Also, when you subscribe to it, you become responsible for unsubscribing. Forgetting to unsubscribe might lead to a memory leak. You can solve advanced use-cases easily with RxJS, but the trade-off is that you need to know a lot about the specifics surrounding the observable primitive to handle it correctly. And that is not always the case.
 
 Bottom line: RxJS is great. But it is not for everyone. And it is not for every use-case. Embracing this more would make Angular less accessible to a lot of people. And that is not something we want. So that is the reason to `not just use RxJS`.
