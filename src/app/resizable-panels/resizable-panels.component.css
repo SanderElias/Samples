@@ -1,3 +1,9 @@
 :host {
   display: block;
+  border: 1px solid yellow;
+  min-height: 100%;
+
+  --panel-width: 300px;
+  --panel-height: 300px;
+  --panel-gap: .5rem;
 }

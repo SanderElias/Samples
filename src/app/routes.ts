@@ -53,5 +53,6 @@ export const routes = [
   { path: 'rvt', loadChildren: () => import('./rvt/routes') },
   { path: 'gridCalender', loadComponent: () => import('./grid-calender/grid-calender.component').then(m => m.GridCalenderComponent) },
   { path: 'summary', loadComponent: () => import('./html-summary/html-summary.component').then(m => m.HtmlSummaryComponent) },
-  { path: '**', redirectTo: 'summary' },
+  { path: 'resizePanel', loadComponent: () => import('./resizable-panels/resizable-panels.component').then(m => m.ResizablePanelsComponent) },
+  { path: '**', redirectTo: 'resizePanel' },
 ];

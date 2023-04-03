@@ -1,3 +1,16 @@
+
+
 :host {
-  display: block;
+  display: inline-block;
+  --_panel-width: var(--panel-width, 300px);
+  --_panel-height: var(--panel-height, 300px);
+  margin: calc(var(--panel-gap) / 2);
+  width: var(--_panel-width);
+  height: var(--_panel-height);
+  min-height: 1.5rem;
+  min-width: 4rem;
+  resize: both;
+  overflow: auto;
+
+  border: 1px solid white;
 }

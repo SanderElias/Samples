@@ -1,17 +1,24 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
+import { ResizablePanelComponent } from './resizable-panel/resizable-panel.component';
 
 @Component({
   selector: 'se-resizable-panels',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ResizablePanelComponent, NgFor],
   template: `
-    <p>
-      resizable-panels works!
-    </p>
+    <se-resizable-panel *ngFor="let n of panels">
+      <h3>Panel {{n}}</h3>
+    </se-resizable-panel>
   `,
   styleUrls: ['./resizable-panels.component.css']
 })
 export class ResizablePanelsComponent {
+  panels = [
+    "One",
+    "Two",
+    "Three",
+    "Four",
+  ];
 
 }
