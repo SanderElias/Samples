@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormControl, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith, tap } from 'rxjs/operators';
@@ -14,7 +14,12 @@ type Vm = [UserCard[], string];
     standalone: true,
     imports: [NgIf, ɵInternalFormsSharedModule, ReactiveFormsModule, NgForOf, AsyncPipe]
 })
-export class FilterSampleComponent implements OnInit {
+
+export class FilterSampleComponent {
+  private us = inject(AddressService);
+
+  /** ⚠️⚠️⚠️ Injections above this comment ⚠️⚠️⚠️ */
+
   nameFilter = new UntypedFormControl('');
 
   filter$ = this.nameFilter.valueChanges.pipe(
@@ -34,7 +39,4 @@ export class FilterSampleComponent implements OnInit {
     }))
   );
 
-  constructor(private us: AddressService) {}
-
-  ngOnInit() {}
 }
