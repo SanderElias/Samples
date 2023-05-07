@@ -21,8 +21,7 @@ runs:
     - name: Build the dist artifacts, when not yet cached for this workflow
       if: steps.cache-dist.outputs.cache-hit != 'true'
       run: |
-         npm run build.lib
-         npm run build
+         npm run build.deploy
          cp dist/samples/index.html dist/samples/404.html
          npx scully --project samples
       shell: bash
