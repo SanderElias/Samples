@@ -3,7 +3,7 @@ description: Calculates a hash of dependencies and installs them if they are not
 inputs:
   node-version:
     description: The node version to use for the module.
-    default: '16.x'
+    default: '18.x'
 runs:
   using: 'composite'
   steps:
