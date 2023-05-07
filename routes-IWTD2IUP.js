@@ -1,1 +1,0 @@
-import"./chunk-G5KKTNWD.js";var t=[{path:"template",loadComponent:()=>import("./template.component-UWBMVPHK.js")},{path:"reactive",loadComponent:()=>import("./reactive.component-ONDW6DT7.js")},{path:"",loadComponent:()=>import("./both.component-MDDELRFI.js")},{path:"**",redirectTo:"both"}],o=t;export{o as default};
