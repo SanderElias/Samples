@@ -3,7 +3,7 @@
     "path": "/bigData",
     "modulePath": "/src/app/big-data",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/big-data",
-    "title": "Sanders demo page",
+    "title": "Big data and performance demo",
     "largeImage": "/assets/snapshots/bigData.png",
     "description": ""
   },
@@ -11,7 +11,7 @@
     "path": "/bintree",
     "modulePath": "/src/app/bintree",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/bintree",
-    "title": "Binary tree",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/bintree.png",
     "description": ""
   },
@@ -25,16 +25,16 @@
   },
   {
     "path": "/complexAPI",
-    "modulePath": "/src/app/complex-api",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/complex-api",
+    "modulePath": "/src/app/complex-api/apisample",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/complex-api/apisample",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/complexAPI.png",
     "description": ""
   },
   {
     "path": "/DirectiveSamp",
-    "modulePath": "/src/app/directives",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/directives",
+    "modulePath": "/src/app/directives/directives-sample",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/directives/directives-sample",
     "title": " directives-sample!\n",
     "largeImage": "/assets/snapshots/DirectiveSamp.png",
     "description": ""
@@ -57,8 +57,8 @@
   },
   {
     "path": "/filterSamp",
-    "modulePath": "/src/app/filter-samp",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/filter-samp",
+    "modulePath": "/src/app/filter-samp/filter-sample",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/filter-samp/filter-sample",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/filterSamp.png",
     "description": ""
@@ -89,8 +89,8 @@
   },
   {
     "path": "/htmlLoad",
-    "modulePath": "/src/app/html-load",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/html-load",
+    "modulePath": "/src/app/html-load/htmlload",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/html-load/htmlload",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/htmlLoad.png",
     "description": ""
@@ -121,16 +121,16 @@
   },
   {
     "path": "/mixinSamp",
-    "modulePath": "/src/app/mixins",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/mixins",
+    "modulePath": "/src/app/mixins/mixins",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/mixins/mixins",
     "title": "Mixins rule",
     "largeImage": "/assets/snapshots/mixinSamp.png",
     "description": ""
   },
   {
     "path": "/modalSamp",
-    "modulePath": "/src/app/modal-samp",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/modal-samp",
+    "modulePath": "/src/app/modal-samp/modal-demo",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/modal-samp/modal-demo",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/modalSamp.png",
     "description": ""
@@ -139,7 +139,7 @@
     "path": "/observableState",
     "modulePath": "/src/app/observable-state",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/observable-state",
-    "title": "Sanders demo page",
+    "title": "Observable state",
     "largeImage": "/assets/snapshots/observableState.png",
     "description": ""
   },
@@ -169,18 +169,26 @@
   },
   {
     "path": "/pokeAPI",
-    "modulePath": "/src/app/poke-api",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/poke-api",
+    "modulePath": "/src/app/poke-api/pokemain",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/poke-api/pokemain",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/pokeAPI.png",
     "description": ""
   },
   {
     "path": "/requiredAttributes",
-    "modulePath": "/src/app/required-attributes",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/required-attributes",
+    "modulePath": "/src/app/required-attributes/required-attributes",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/required-attributes/required-attributes",
     "title": "Host for actual components",
     "largeImage": "/assets/snapshots/requiredAttributes.png",
+    "description": ""
+  },
+  {
+    "path": "/resizePanel",
+    "modulePath": "/src/app/resizable-panels",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/resizable-panels",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/resizePanel.png",
     "description": ""
   },
   {
@@ -241,8 +249,8 @@
   },
   {
     "path": "/svg",
-    "modulePath": "/src/app/svg-calendar",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-calendar",
+    "modulePath": "/src/app/svg-calendar/svg-calender",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-calendar/svg-calender",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/svg.png",
     "description": ""
@@ -256,19 +264,19 @@
     "description": ""
   },
   {
-    "path": "/svgTest",
-    "modulePath": "/src/app/svg-test",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-test",
-    "title": "Quick test with svg ",
-    "largeImage": "/assets/snapshots/svgTest.png",
-    "description": ""
-  },
-  {
     "path": "/svgTimer",
     "modulePath": "/src/app/svg-timer",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-timer",
     "title": "SVG timer sample",
     "largeImage": "/assets/snapshots/svgTimer.png",
+    "description": ""
+  },
+  {
+    "path": "/symbolsForm",
+    "modulePath": "/src/app/symbols-form",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/symbols-form",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/symbolsForm.png",
     "description": ""
   },
   {
@@ -301,14 +309,6 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/unsub-sample",
     "title": "Unsubscribe sample",
     "largeImage": "/assets/snapshots/unsubSample.png",
-    "description": ""
-  },
-  {
-    "path": "/unsubSample/:id",
-    "modulePath": "/src/app/unsub-sample",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/unsub-sample",
-    "title": "Unsubscribe sample",
-    "largeImage": "/assets/snapshots/unsubSample-:id.png",
     "description": ""
   },
   {
