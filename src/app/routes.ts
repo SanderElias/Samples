@@ -55,5 +55,6 @@ export const routes:Routes = [
   { path: 'gridCalender', loadComponent: () => import('./grid-calender/grid-calender.component').then(m => m.GridCalenderComponent) },
   { path: 'summary', loadComponent: () => import('./html-summary/html-summary.component').then(m => m.HtmlSummaryComponent) },
   { path: 'resizePanel', loadComponent: () => import('./resizable-panels/resizable-panels.component').then(m => m.ResizablePanelsComponent) },
-  { path: '**', redirectTo: 'resizePanel' },
+  { path: 'symbolsForm', loadComponent: () => import('./symbols-form/symbols-form.component').then(m => m.SymbolsFormComponent) },
+  { path: '**', redirectTo: 'symbolsForm' },
 ];

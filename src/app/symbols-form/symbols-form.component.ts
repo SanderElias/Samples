@@ -1,0 +1,42 @@
+import { Component, Injectable, computed, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'se-symbols-form',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <h3>Symbol Form for "{{fullName()}}"</h3>
+    <label>First Name
+      <input type="text" [value]="vm().firstName()" (input)="vm().firstName.set($any($event).target.value)">
+    </label>
+    <label>Last Name
+      <input type="text" [value]="vm().lastName()" (input)="vm().lastName.set($any($event).target.value)">
+    </label>
+  `,
+  styleUrls: ['./symbols-form.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SymbolsFormComponent {
+  fullName = inject(SymbolsFormSampleService).fullName
+  vm = inject(SymbolsFormSampleService).vm
+
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SymbolsFormSampleService {
+  readonly vm = signal({
+    firstName: signal('Sander'),
+    lastName: signal('Elias')
+  })
+
+  readonly fullName = computed(() => `${this.vm().firstName()} ${this.vm().lastName()}`.trim())
+
+  constructor() {
+    effect(() => {
+      console.log(`full name: "${this.fullName()}"`)
+    })
+  }}
