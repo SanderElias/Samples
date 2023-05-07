@@ -12,16 +12,19 @@ import {
   shareReplay,
   switchMap,
 } from 'rxjs/operators';
+import { NgForOf, AsyncPipe } from '@angular/common';
 
 const apiKey = `RSIq08oTL7lA1DyETOmqujDSph7rvP4akG8NRPz9os6ywJjBhE`;
 const clientId = 'e972ca06cc4b961';
 
 @Component({
-  selector: 'app-tumblr',
-  templateUrl: './tumblr-component.html',
+    selector: 'app-tumblr',
+    templateUrl: './tumblr-component.html',
+    standalone: true,
+    imports: [NgForOf, AsyncPipe]
 })
 export class TumblrComponent implements OnInit {
-  largePositions = Array.from({ length: 250 }, () => (Math.random() < 0.2 ? 1 : 0));
+  largePositions: (0|1|2)[] = Array.from({ length: 250 }, () => (Math.random() < 0.2 ? 1 : 0));
   searchKey$ = new BehaviorSubject('kitten');
   results$ = this.searchKey$.pipe(
     filter(s => !!s),

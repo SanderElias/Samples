@@ -7,10 +7,10 @@ import { ScullyLibModule } from '@scullyio/ng-lib';
 
 
 @NgModule({
-  declarations: [ViewSlideComponent],
-  imports: [
-    CommonModule,
-    ViewSlideRoutingModule,ScullyLibModule
-  ]
+    imports: [
+        CommonModule,
+        ViewSlideRoutingModule, ScullyLibModule,
+        ViewSlideComponent
+    ]
 })
 export class ViewSlideModule { }

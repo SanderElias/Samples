@@ -12,8 +12,9 @@ import { isObservable, Subscriber, Subscription, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
-  selector: '[seLet]',
+    // tslint:disable-next-line: directive-selector
+    selector: '[seLet]',
+    standalone: true
 })
 export class SeLetDirective<T> implements OnInit, OnDestroy {
   private context = { $implicit: undefined, seLet: undefined } as {

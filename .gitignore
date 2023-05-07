@@ -52,3 +52,4 @@ src/assets/scully-routes.json
 projects/slipnslide/src/assets/scully-routes.json
 scully/runtime
 .wireit
+scully.samples.config.mjs

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
 
 @Component({
-  selector: 'app-lazy-component',
-  templateUrl: './lazy-component.component.html',
-  styles: [
-  ]
+    selector: 'app-lazy-component',
+    templateUrl: './lazy-component.component.html',
+    styles: [],
+    standalone: true,
+    imports: [NgComponentOutlet]
 })
 export class LazyComponentComponent implements OnInit {
   steps = [

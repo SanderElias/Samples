@@ -1,9 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-cell',
-  template: `<ng-content></ng-content>`,
-  styles: [`
+    selector: 'app-cell',
+    template: `<ng-content></ng-content>`,
+    styles: [`
   :host {
     display:grid;
     box-sizing: border-box;
@@ -17,11 +17,12 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
     overflow: none;
   }
   `
-  ]
+    ],
+    standalone: true
 })
 export class CellComponent implements OnInit {
-  @Input() @HostBinding('style.grid-column-start') x:number
-  @Input() @HostBinding('style.grid-row-start') y:number
+  @Input() @HostBinding('style.grid-column-start') x:number|string
+  @Input() @HostBinding('style.grid-row-start') y:number|string
 
   constructor() { }
 

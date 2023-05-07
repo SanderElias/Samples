@@ -1,4 +1,5 @@
 
+
 interface linkedListNode<T> {
   value: T;
   next?: linkedListNode<T>;

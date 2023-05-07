@@ -8,10 +8,10 @@ import { SelectFileComponent } from './select-file/select-file.component';
 
 
 @NgModule({
-  declarations: [EditComponent, MdEditComponent, SelectFileComponent],
-  imports: [
-    CommonModule,
-    EditRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        EditRoutingModule,
+        EditComponent, MdEditComponent, SelectFileComponent
+    ]
 })
 export class EditModule { }

@@ -2,13 +2,16 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { get, set } from 'idb-keyval';
 import { Subject } from 'rxjs';
 import { addNode, BinNode, createNode, dump, getRoot, getSorted, height, reBalance, reset, rotateLeft, rotateRight } from './BinNode';
+import { AsyncPipe } from '@angular/common';
+import { BNodeComponent } from './b-node/b-node.component';
 
 @Component({
-  selector: 'app-bintree',
-  templateUrl: './bintree.component.html',
-  styles: [
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-bintree',
+    templateUrl: './bintree.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [BNodeComponent, AsyncPipe]
 })
 export class BintreeComponent implements OnInit {
   count = 31;

@@ -32,18 +32,18 @@ class DynDataComponent {
 }
 
 @Component({
-  selector: 'app-dynamichtml',
-  template: `
+    selector: 'app-dynamichtml',
+    template: `
     <h1>Dynamic HTML sample</h1>
 
-    <input type="text" [value]="name" (input)="name = $event.target.value" />
-    <textarea [value]="html" (input)="update($event.target.value)"></textarea>
+    <input type="text" [value]="name" (input)="name = $any($event.target).value" />
+    <textarea [value]="html" (input)="update($any($event.target).value)"></textarea>
     <button>Update</button>
 
     <div id="target"></div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       textarea {
         display: block;
         height: 6rem;
@@ -51,7 +51,8 @@ class DynDataComponent {
         padding: 0;
       }
     `,
-  ],
+    ],
+    standalone: true
 })
 export class DynamicHtmlComponent implements OnInit {
   elm = this.elmRef.nativeElement as HTMLDivElement;

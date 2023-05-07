@@ -1,10 +1,13 @@
 import { AfterContentInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
+import { ShowSourceComponent } from './show-source/show-source.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styles: [],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styles: [],
+    standalone: true,
+    imports: [RouterLinkActive, RouterLink, ShowSourceComponent, RouterOutlet]
 })
 export class AppComponent implements AfterContentInit {
   /** the 'input' element that toggles the menu */

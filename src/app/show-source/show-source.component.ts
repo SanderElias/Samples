@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-show-source',
-  template: `
+    selector: 'app-show-source',
+    template: `
      <!-- Only show the button if we actually have a gitFolder string -->
     <a *ngIf="(routeInfo$|async)?.gitFolder as i" [href]="i" target="_blank">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="256px" height="250px" viewBox="0 0 256 250" version="1.1" preserveAspectRatio="xMidYMid">
@@ -16,7 +17,7 @@ import { combineLatest, filter, map, tap } from 'rxjs';
       View Source
     </a>
   `,
-  styles: [`
+    styles: [`
     /** put the host on right top */
     :host {
       display: block;
@@ -39,7 +40,9 @@ import { combineLatest, filter, map, tap } from 'rxjs';
       width: 24px;
       height: 24px;
     }
-  `]
+  `],
+    standalone: true,
+    imports: [NgIf, AsyncPipe]
 })
 export class ShowSourceComponent {
   /** get path after navigation is done */

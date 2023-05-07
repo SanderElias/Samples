@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { seAfterContentChecked, seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { NgForOf, AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-mixins',
-  templateUrl: './mixins.component.html',
-  styles: [],
+    selector: 'app-mixins',
+    templateUrl: './mixins.component.html',
+    styles: [],
+    standalone: true,
+    imports: [NgForOf, AsyncPipe, JsonPipe]
 })
 export class MixinsComponent extends seOnDestroy(seAfterContentChecked(seOnInit(class {}))) {
   /**

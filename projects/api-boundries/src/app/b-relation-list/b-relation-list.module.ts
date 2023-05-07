@@ -10,16 +10,14 @@ import { ProductDetailComponent } from './order-row/product-detail/product-detai
 
 
 @NgModule({
-  declarations: [
-    BRelationListComponent,
-    RelationComponent,
-    RelationDetailComponent,
-    OrderRowComponent,
-    ProductDetailComponent
-  ],
-  imports: [
-    CommonModule,
-    BRelationListRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        BRelationListRoutingModule,
+        BRelationListComponent,
+        RelationComponent,
+        RelationDetailComponent,
+        OrderRowComponent,
+        ProductDetailComponent
+    ]
 })
 export class BRelationListModule { }

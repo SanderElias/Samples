@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { timer } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 const twoPi = Math.PI * 2;
 const circumference = (radius: number) => twoPi * radius;
 
 @Component({
-  selector: 'app-svg-timer',
-  templateUrl: './svg-timer.component.html'
+    selector: 'app-svg-timer',
+    templateUrl: './svg-timer.component.html',
+    standalone: true,
+    imports: [NgIf, NgForOf, AsyncPipe]
 })
 export class SvgTimerComponent {
   // the colors for the circls we want to show

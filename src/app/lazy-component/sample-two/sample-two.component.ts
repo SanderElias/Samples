@@ -1,10 +1,10 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sample-two',
-  templateUrl: './sample-two.component.html',
-  styles: [
-  ]
+    selector: 'app-sample-two',
+    templateUrl: './sample-two.component.html',
+    styles: [],
+    standalone: true
 })
 export default class SampleTwoComponent implements OnInit {
 
@@ -15,10 +15,4 @@ export default class SampleTwoComponent implements OnInit {
 
 }
 
-@NgModule({
-  imports: [],
-  exports: [],
-  declarations: [SampleTwoComponent],
-  providers: [],
-})
-class Step1Module { }
+

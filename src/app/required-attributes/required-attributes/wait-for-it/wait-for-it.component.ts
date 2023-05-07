@@ -1,11 +1,14 @@
 // tslint:disable:no-unused-expression
 import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-wait-for-it',
-  templateUrl: './wait-for-it.component.html',
-  styles: [],
+    selector: 'app-wait-for-it',
+    templateUrl: './wait-for-it.component.html',
+    styles: [],
+    standalone: true,
+    imports: [NgIf, NgForOf, AsyncPipe]
 })
 export class WaitForItComponent {
   someVar: string[];

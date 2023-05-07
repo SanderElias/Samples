@@ -2,13 +2,15 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { balance, BinNode, getNode, height } from "../BinNode";
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'b-node',
-  templateUrl: './b-node.component.html',
-  styles: [
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'b-node',
+    templateUrl: './b-node.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, BNodeComponent, AsyncPipe]
 })
 export class BNodeComponent {
   node$ = new ReplaySubject<BinNode>()

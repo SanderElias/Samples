@@ -1,0 +1,51 @@
+<h1>Experiments with summary component</h1>
+
+
+
+
+
+<hr>
+<h3>Base case</h3>
+
+
+
+  <details>
+    <summary>
+      <label><input type="radio" name="sel" >click to expand</label>
+    </summary>
+    <main>
+      <h4>test</h4>
+    </main>
+  </details>
+  <details>
+    <summary>
+      <label><input type="radio" name="sel" checked >click to expand</label>
+    </summary>
+    <main>
+      <h4>test</h4>
+    </main>
+  </details>
+  <details>
+    <summary>
+      <label><input type="radio" name="sel" >click to expand</label>
+    </summary>
+    <main>
+      <h4>test</h4>
+    </main>
+  </details>
+
+<style>
+  details {
+    border: 1px solid black;
+    padding: 1rem;
+    width: 15rem;
+  }
+
+  details :has(input:checked) {
+    background: #ccc;
+  }
+
+  input[type=radio] {
+    display: none;
+  }
+</style>

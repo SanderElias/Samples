@@ -1,5 +1,6 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { modelFromLatest } from '@se-ng/observable-utils';
 import { SpaceShip, SwapiService } from '@se-ng/swapi';
@@ -10,6 +11,8 @@ import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
   selector: 'app-lifeycle-hooks-sample',
   templateUrl: './lifeycle-hooks-sample.component.html',
   styles: [],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgFor, NgIf, AsyncPipe]
 })
 export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
   search = new UntypedFormControl();

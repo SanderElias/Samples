@@ -4,12 +4,18 @@ import { filter, map, pluck, scan, startWith, switchMap, tap, shareReplay } from
 import { RakiService } from '../../../app/rijks/raki.service';
 import { QuoteService } from '../quote/quote.service';
 import { ObsFromEvent } from './ObsFromEvent';
+import { PlayButtonComponent } from '../play-button/play-button.component';
+import { QuoteComponent } from '../quote/quote.component';
+import { PaintingComponent } from '../painting/painting.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'vm-home',
-  templateUrl: './vm-home.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    // tslint:disable-next-line:component-selector
+    selector: 'vm-home',
+    templateUrl: './vm-home.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe]
 })
 export class VmHomeComponent {
   /** create observable with clicks from viewChildren */

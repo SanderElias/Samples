@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { RelationsService } from '../../relations.service';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-relation',
-  template: `
+    selector: 'app-relation',
+    template: `
     <h4 *ngIf="!detail">{{ (relation$|async)?.name }}</h4>
     <section *ngIf="detail && relation$|async as relation">
       <h4>{{ relation.name }}</h4>
@@ -15,7 +16,9 @@ import { RelationsService } from '../../relations.service';
       <p>📱 {{ relation.phone }}</p>
     </section>
   `,
-  styleUrls: ['./relation.component.css']
+    styleUrls: ['./relation.component.css'],
+    standalone: true,
+    imports: [NgIf, AsyncPipe]
 })
 export class RelationComponent {
   private relationId$ = new ReplaySubject<string>(1);

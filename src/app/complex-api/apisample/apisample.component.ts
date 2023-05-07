@@ -1,5 +1,6 @@
+import { AsyncPipe, NgFor } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl,ReactiveFormsModule } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
 import { combineLatest, of } from 'rxjs';
 import {
@@ -12,11 +13,14 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
+import { ShowRecComponent } from '../show-rec/show-rec.component';
 
 @Component({
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
   styles: [],
+  standalone: true,
+  imports: [ReactiveFormsModule, ShowRecComponent, AsyncPipe, NgFor]
 })
 export class APISampleComponent implements AfterViewInit {
   /** select the table/set */
@@ -33,12 +37,12 @@ export class APISampleComponent implements AfterViewInit {
 
   /** combine all of the above into a resulting record for the view */
   // tslint:disable-next-line: deprecation
-  result$ = combineLatest(
+  result$ = combineLatest([
     /** act on changes in the set/table */
     this.chosenSet.valueChanges,
     /** handle the search input */
     this.name.valueChanges.pipe(debounceTime(250), distinctUntilChanged(), filter(Boolean))
-  ).pipe(
+  ]).pipe(
     /** load the raw data from the API */
     switchMap(([setname, name]: [any, string]) => this.sw.findIn(setname, name)),
     /** don't let empty results in */

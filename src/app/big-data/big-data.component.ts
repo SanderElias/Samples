@@ -1,7 +1,7 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { modelFromLatest } from '@se-ng/observable-utils';
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap, pluck, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { DemoUser, DemoUserService } from 'src/app/demo-users.service';
 
 interface LocalState {
@@ -12,6 +12,8 @@ interface LocalState {
 }
 
 @Component({
+  standalone: true,
+  imports: [AsyncPipe, NgIf, NgFor],
   selector: 'app-big-data',
   template: `
     <h1>Big data and performance demo</h1>
@@ -173,9 +175,9 @@ export class BigDataComponent {
    * takes a property-name from the state, and an event.
    * In here I'm casting the event to `ev: { target: HTMLInputElement }` to make it easier to consume
    */
-  setProp<T extends keyof LocalState>(prop: T, ev: { target: HTMLInputElement }) {
+  setProp<T extends keyof LocalState>(prop: T, ev: MouseEvent | KeyboardEvent | InputEvent| Event) {
     /** extract the dom element from the event. */
-    const domElement = ev.target;
+    const domElement = ev.target as HTMLInputElement;
     /** extract the current state from the behavior subject */
     const state = this.state$.value;
     /** should it be a number? */

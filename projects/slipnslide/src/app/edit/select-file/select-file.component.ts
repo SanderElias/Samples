@@ -3,13 +3,16 @@ import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { SlidesService } from '../../slides.service';
+import { NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'select-file',
-  template: `<select>
+    selector: 'select-file',
+    template: `<select>
     <option *ngFor="let file of files$ | async">{{ file }}</option>
   </select>`,
-  styles: [`":host{display:block}`],
+    styles: [`":host{display:block}`],
+    standalone: true,
+    imports: [NgForOf, AsyncPipe]
 })
 export class SelectFileComponent implements OnDestroy, OnInit {
   @Output() fileName = new EventEmitter<string>();
