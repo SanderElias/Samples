@@ -14,12 +14,12 @@ import { CommonModule } from '@angular/common';
       <input type="text" [value]="vm().lastName()" (input)="vm().lastName.set($any($event).target.value)">
     </label>
   `,
-  styleUrls: ['./symbols-form.component.css'],
+  styleUrls: ['./signals-form.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SymbolsFormComponent {
-  fullName = inject(SymbolsFormSampleService).fullName
-  vm = inject(SymbolsFormSampleService).vm
+export class SignalsFormsComponent {
+  fullName = inject(SignalsFormSampleService).fullName
+  vm = inject(SignalsFormSampleService).vm
 
 }
 
@@ -27,7 +27,7 @@ export class SymbolsFormComponent {
 @Injectable({
   providedIn: 'root'
 })
-export class SymbolsFormSampleService {
+export class SignalsFormSampleService {
   readonly vm = signal({
     firstName: signal('Sander'),
     lastName: signal('Elias')

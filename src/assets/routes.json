@@ -232,6 +232,14 @@
     "description": ""
   },
   {
+    "path": "/signalsForms",
+    "modulePath": "/src/app/signals-form",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signals-form",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/signalsForms.png",
+    "description": ""
+  },
+  {
     "path": "/snow",
     "modulePath": "/src/app/snow",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/snow",
@@ -269,14 +277,6 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-timer",
     "title": "SVG timer sample",
     "largeImage": "/assets/snapshots/svgTimer.png",
-    "description": ""
-  },
-  {
-    "path": "/symbolsForm",
-    "modulePath": "/src/app/symbols-form",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/symbols-form",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/symbolsForm.png",
     "description": ""
   },
   {
