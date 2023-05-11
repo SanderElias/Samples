@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
-import { RelationDetailComponent } from './relation-detail/relation-detail.component';
-import { RelationListComponent } from './relation-list.component';
 
 export const routes: Routes = [
-  { path: ':id', component: RelationDetailComponent },
-  { path: '', component: RelationListComponent }];
+  { path: ':id', loadComponent: () => import('./relation-detail/relation-detail.component').then(m => m.RelationDetailComponent) },
+  { path: '', loadComponent: () => import('./relation-list.component').then(m => m.RelationListComponent) },
+];
 

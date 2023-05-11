@@ -19,7 +19,7 @@ import { pluck } from '../../../pluck';
   standalone: true,
   imports: [NgIf, RelationComponent, NgForOf, OrderRowComponent, AsyncPipe]
 })
-export class RelationDetailComponent {
+export class BRelationDetailComponent {
   relationId$ = inject(ActivatedRoute).params.pipe(pluck('id'));
   rel = inject(RelationsService);
 
