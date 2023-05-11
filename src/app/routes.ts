@@ -56,5 +56,5 @@ export const routes:Routes = [
   { path: 'summary', loadComponent: () => import('./html-summary/html-summary.component').then(m => m.HtmlSummaryComponent) },
   { path: 'resizePanel', loadComponent: () => import('./resizable-panels/resizable-panels.component').then(m => m.ResizablePanelsComponent) },
   { path: 'signalsForms', loadComponent: () => import('./signals-form/signals-form.component').then(m => m.SignalsFormsComponent) },
-  { path: '**', redirectTo: 'symbolsForm' },
+  { path: '**', redirectTo: 'signalsForms' },
 ];

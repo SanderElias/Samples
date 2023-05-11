@@ -1,14 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, Input, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ProductsService } from '../../../products.service';
-import { ObservableInput } from '../../../../observable-input-decorator.ts';
 import { RelationComponent } from '../../relation/relation.component';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-product-detail',
-    template: `
+  selector: 'app-product-detail',
+  template: `
     <ng-container *ngIf="product$|async as product">
       {{product.name}}
       <section>
@@ -17,26 +16,22 @@ import { NgIf, AsyncPipe } from '@angular/common';
       </section>
     </ng-container>
   `,
-    styles: [`:host { display: block;   margin: 0 20px; }
+  styles: [`:host { display: block;   margin: 0 20px; }
   section { margin-left:20px; }
   :host:not(:last-child) { border-bottom: 1px dashed black;  }`],
-    standalone: true,
-    imports: [NgIf, RelationComponent, AsyncPipe]
+  standalone: true,
+  imports: [NgIf, RelationComponent, AsyncPipe]
 })
 export class ProductDetailComponent {
-  @Input()
-  @ObservableInput()
-  productId!: ReplaySubject<string>;
+  #prod = inject(ProductsService);
+  #productId = new ReplaySubject<string>(1);
+  @Input() set productId(x: string) { if (typeof x === 'string' && x.length > 0) { this.#productId.next(x); } };
 
   @Input() relationId: string
 
-  product$ = this.productId.pipe(
-    switchMap(id => this.prod.getProduct(id))
+  product$ = this.#productId.pipe(
+    switchMap(id => this.#prod.getProduct(id))
   );
 
-  constructor(
-    private prod: ProductsService
-  ) {
-  }
 }
 

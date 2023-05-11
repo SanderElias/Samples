@@ -1,13 +1,14 @@
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReplaySubject } from 'rxjs';
-import { pluck, take } from 'rxjs/operators';
+import { ReplaySubject, firstValueFrom } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Relation } from '../../relations.service';
 import { NgIf, AsyncPipe } from '@angular/common';
+import { pluck } from '../../../pluck';
 
 @Component({
-    selector: 'app-relation',
-    template: `
+  selector: 'app-relation',
+  template: `
     <h4 *ngIf="!detail">{{ (relation$|async)?.name }}</h4>
     <section *ngIf="detail && relation$|async as relation">
       <h4>{{ relation.name }}</h4>
@@ -16,25 +17,28 @@ import { NgIf, AsyncPipe } from '@angular/common';
       <p>📱 {{ relation.phone }}</p>
     </section>
   `,
-    styleUrls: ['./relation.component.css'],
-    standalone: true,
-    imports: [NgIf, AsyncPipe]
+  styleUrls: ['./relation.component.css'],
+  standalone: true,
+  imports: [NgIf, AsyncPipe]
 })
 export class RelationComponent {
+  elm = inject(ElementRef).nativeElement as HTMLElement;
+  router = inject(Router);
+
   relation$ = new ReplaySubject<Relation>(1);
   @Input() set relation(relation: Relation) { this.relation$.next(relation); }
 
-  detail = this.elmRef.nativeElement?.hasAttribute('detail');
+  detail = this.elm?.hasAttribute('detail'); // check if the attribute `detail` is present
 
   @HostListener('click') async onClick() {
-    const relationId = await this.relation$.pipe(pluck('id'), take(1)).toPromise();
+    const relationId = await firstValueFrom(this.relation$.pipe(pluck('id'), take(1)))
     this.router.navigate(['/relations', relationId]);
   }
 
-  constructor(
-    private elmRef: ElementRef<HTMLElement>,
-    private router: Router,
-  ) { }
+
+
 
 
 }
+
+
