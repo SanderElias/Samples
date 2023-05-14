@@ -1,4 +1,4 @@
-# Angular components API-boundaries talk.
+ng# Angular components API-boundaries talk.
 
 In this talk I will go over the beginnings of API design, what makes a good API, and how we can apply that to angular components.
 
