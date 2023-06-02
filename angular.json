@@ -388,7 +388,7 @@
             "outputPath": "dist/ApiBoundries",
             "index": "projects/api-boundries/src/index.html",
             "main": "projects/api-boundries/src/main.ts",
-            "polyfills": "projects/api-boundries/src/polyfills.ts",
+            "polyfills": "zone.js",
             "tsConfig": "projects/api-boundries/tsconfig.app.json",
             "assets": [
               "projects/api-boundries/src/favicon.ico",

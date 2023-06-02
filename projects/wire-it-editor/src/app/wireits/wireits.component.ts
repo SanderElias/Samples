@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, CreateSignalOptions, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { combineLatest, filter, map, startWith, tap } from 'rxjs';
+import { Observable, catchError, combineLatest, filter, firstValueFrom, map, of, startWith, tap } from 'rxjs';
 import { PackageJsonService } from '../package.json.service';
 import { WireitComponent } from './wireit/wireit.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { string } from 'yargs';
 
 @Component({
   selector: 'se-wireits',
@@ -45,3 +46,28 @@ export class WireitsComponent {
   )
 
 }
+
+/** sample error handler, this one just ignores it! */
+const ignoreErrorHandler = <I>(err:any, initialValue:I) => {
+  // TODO: handle error
+  return of(initialValue); //probably not the best way to handle this
+}
+
+/**
+ * Create a wirtable signal from an observable, will set the signal to the value once the observable emits
+ * until that time, it will hold the initialValue. Make sure the types match! (a type of (someType | undefined) will work.
+ * @param observable
+ * @param options
+ * @param handleError
+ * @returns
+ */
+function createSignal<T>(observable: Observable<T>, options?: { initialValue?: T } & CreateSignalOptions<T>, handleError= ignoreErrorHandler ) {
+  const initialValue = options?.hasOwnProperty('initialValue') ? options.initialValue : [] as T
+  const sgn = signal(initialValue, options)
+  firstValueFrom(observable.pipe(
+    catchError((err) => handleError(err, initialValue))
+  )).then(value => sgn.set(value))
+
+  return signal
+}
+

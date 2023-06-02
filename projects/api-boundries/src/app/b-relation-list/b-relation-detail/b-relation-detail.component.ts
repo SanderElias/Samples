@@ -23,7 +23,7 @@ export class BRelationDetailComponent {
   relationId$ = inject(ActivatedRoute).params.pipe(pluck('id'));
   rel = inject(RelationsService);
 
-  relation$ = this.relationId$.pipe(
+  relation$ =  this.relationId$.pipe(
     switchMap(id => this.rel.getRelation(id))
   );
 

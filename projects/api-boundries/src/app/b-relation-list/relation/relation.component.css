@@ -12,6 +12,9 @@
 h4 {
   padding:2px;
   margin:0px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 :host.inline {
   display: inline;
@@ -38,4 +41,10 @@ h4 {
 section p {
   margin:0;
   padding-left:15px;
+}
+
+img {
+  height: 24px;
+  aspect-ratio: 1;
+
 }

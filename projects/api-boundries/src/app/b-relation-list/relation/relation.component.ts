@@ -1,19 +1,20 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ReplaySubject, firstValueFrom } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { RelationsService } from '../../relations.service';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-relation',
   template: `
-    <h4 *ngIf="!detail">{{ (relation$|async)?.name }}</h4>
-    <section *ngIf="detail && relation$|async as relation">
-      <h4>{{ relation.name }}</h4>
-      <p>{{ relation.company.name }}</p>
-      <p>📧 {{ relation.email }}</p>
-      <p>📱 {{ relation.phone }}</p>
+    <h4 *ngIf="!detail"><img [src]="relation()?.avatar">  {{ relation()?.name }}</h4>
+    <section *ngIf="detail ">
+      <h4>{{ relation().name }}</h4>
+      <p>{{ relation().company.name }}</p>
+      <p>📧 {{ relation().email }}</p>
+      <p>📱 {{ relation().phone }}</p>
     </section>
   `,
   styleUrls: ['./relation.component.css'],
@@ -35,9 +36,9 @@ export class RelationComponent {
     this.router.navigate(['/bRelations', relationId]);
   }
 
-  relation$ = this.relationId$.pipe(
+  relation = toSignal(this.relationId$.pipe(
     switchMap(id => this.rel.getRelation(id)),
-  );
+  ));
 
 }
 

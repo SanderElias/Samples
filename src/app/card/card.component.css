@@ -1,0 +1,38 @@
+:host {
+  display: grid;
+  gap: 1cm;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100vh;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1cm;
+  width: 100vw;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8cm;
+  height: 12cm;
+  border: 1px solid black;
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  color: black;
+}
+
+.green {
+  background: green;
+  color: white;
+}
+
+.red {
+  background: red;
+  color: white;
+}
+
+section > h2 {
+  font-size: 132px;
+}
