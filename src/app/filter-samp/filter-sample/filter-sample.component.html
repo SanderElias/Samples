@@ -1,7 +1,10 @@
 <div *ngIf="(vm$ | async) as vm; else: loading">
   <input type="text" [formControl]="nameFilter" />
   <ul>
-    <li *ngFor="let item of vm.users">{{ item.name }} <img [src]="item.avatar" alt=""></li>
+    <li *ngFor="let item of vm.users">
+      <img [src]="item.avatar" alt="">
+      {{ item.name }}
+    </li>
   </ul>
 </div>
 
@@ -17,7 +20,27 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 5px;
+    overflow: auto;
+    max-height: 83dvh;
+    padding-right: .5rem;
+  }
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid black;
+    background-color: #444242;
+    padding: 0;
+    gap: .5rem;
+    border-radius: .25rem;
+  }
+
+  li>img {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: .25rem .25rem 0 0;
+    object-fit: cover;
   }
 
 </style>
-cd [class]="expression"

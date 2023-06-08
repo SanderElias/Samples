@@ -11,14 +11,18 @@
   <a target="blank" href="https://swapi.dev">SWAPI</a> and caches it to indexedDB. This is also the reason the first load takes longer.
 </p>
 <select [formControl]="chosenSet">
-  <option *ngFor="let item of (availableSets$ | async)">{{ item }}</option>
+  <option *ngFor="let item of availableSets()">{{ item }}</option>
 </select>
-
-<input type="text" [formControl]="name" autofocus />
+<br>
+<input type="text" list="listOptions" [formControl]="name" autofocus />
 <app-show-rec
-  [record]="result$ | async"
+  [record]="result()"
   (selected)="changeTo($event)"
 ></app-show-rec>
+
+<datalist id="listOptions">
+  <option *ngFor="let item of availableOptions()">{{item}} </option>
+</datalist>
 
 <style>
   :host {

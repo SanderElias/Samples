@@ -10,6 +10,8 @@ interface Record {
 export type Entry = [string, any];
 export type Selection = [string, string];
 
+const key = (e: Entry) => e[0];
+const val = (e: Entry) => e[1];
 @Component({
     selector: 'app-show-rec',
     templateUrl: './show-rec.component.html',
@@ -26,13 +28,13 @@ export class ShowRecComponent implements OnInit {
   }
   @Output() selected = new EventEmitter<Selection>();
 
-  key = (e: Entry) => e[0];
-  val = (e: Entry) => e[1];
+  key = key;
+  val = val;
 
   constructor() {}
 
   isRecArray(e: Entry) {
-    const i = e[1];
+    const i = val(e);
     if (Array.isArray(i) && i.length > 0) {
       const firstEnt = i[0];
       return !Array.isArray(firstEnt) && typeof firstEnt === 'object';

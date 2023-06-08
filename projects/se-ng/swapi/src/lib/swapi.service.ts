@@ -56,7 +56,7 @@ export class SwapiService {
     map((r: PeopleRoot) => r.results),
 
     // scan to accumulate the pages (emitted by expand)
-    reduce<Person[],Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), [] as Person[]),
+    reduce<Person[], Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), [] as Person[]),
 
     map(persons =>
       persons.map(
@@ -228,6 +228,11 @@ export class SwapiService {
           (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())
         )
       )
+    );
+
+  getSetNames = (selectedSet: keyof SwapiRoot): Observable<string[]> =>
+    this.getAllRows(selectedSet).pipe(
+      map(list => list.map(row => row.name || row.title || ''))
     );
 
   /**

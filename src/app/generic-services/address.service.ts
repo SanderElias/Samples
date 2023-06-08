@@ -47,7 +47,7 @@ export class AddressService {
           const {faker} = fakerModule;
           return Array.from({ length }, () => ({
             ...userCard(faker),
-            avatar: faker.image.avatar(),
+            // avatar: faker.image.avatar(),
           }))
         }),
       tap(r => console.dir(r)),
@@ -57,28 +57,25 @@ export class AddressService {
 }
 
 function userCard(faker:any): UserCard {
-  console.warn(
-    'Deprecation Warning: If you need some specific object you should create your own method.'
-  );
   return {
-    name: faker.name.findName(),
+    name: faker.person.fullName(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
     address: {
-      street: faker.address.streetName(),
-      suite: faker.address.secondaryAddress(),
-      city: faker.address.city(),
-      zipcode: faker.address.zipCode(),
+      street: faker.location.street(),
+      suite: faker.location.secondaryAddress(),
+      city: faker.location.city(),
+      zipcode: faker.location.zipCode(),
       geo: {
-        lat: faker.address.latitude(),
-        lng: faker.address.longitude(),
+        lat: faker.location.latitude(),
+        lng: faker.location.longitude(),
       },
     },
-    phone: faker.phone.phoneNumber(),
+    phone: faker.phone.number(),
     website: faker.internet.domainName(),
     company: {
-      name: faker.company.companyName(),
+      name: faker.company.name(),
       catchPhrase: faker.company.catchPhrase(),
       bs: faker.company.bs(),
     },

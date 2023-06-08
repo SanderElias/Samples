@@ -2,7 +2,6 @@
   <dt>{{ key(item) }}</dt>
   <dd>
     <ng-container *ngIf="!isRecArray(item); else handleArray">
-      <!-- <pre>{{isRecord(val(item))}}</pre> -->
       <ng-container *ngIf="isRecord(val(item)) as rec; else handleRec">
         <details>
           <summary
