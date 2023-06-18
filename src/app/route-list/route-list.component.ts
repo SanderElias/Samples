@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 

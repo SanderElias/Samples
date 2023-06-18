@@ -26,8 +26,8 @@ a {
   width: 100%;
   height: var(--heigth);
   flex-direction: row;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
   text-decoration: none;
   color: #fff;
   font-size: 1.5rem;
