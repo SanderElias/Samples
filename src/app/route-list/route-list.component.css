@@ -1,0 +1,46 @@
+:host {
+  --width: 40rem;
+  --heigth: 6rem;
+  display: grid;
+  max-height: 98vh;
+  overflow: auto;
+  justify-content: start;
+  grid-template-columns: repeat(auto-fit, minmax(var(--width), 1fr));
+  grid-template-rows:  var(--height);
+  gap: 1rem;
+}
+
+section {
+  display: block;
+  width: 100%;
+  height: var(--heigth);
+  padding: 0rem;
+  border-radius: 1rem;
+  background-color: #1d171d;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  border: 1px solid #000;
+}
+
+a {
+  display: flex;
+  width: 100%;
+  height: var(--heigth);
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+h2 {
+  padding: 0 1rem;
+}
+
+img {
+  height: var(--heigth);
+  aspect-ratio: 16/9;
+  border-radius: 1rem 0 0 1rem;
+}

@@ -1,36 +1,37 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnDestroy, inject } from '@angular/core';
 import { BogusLoadService } from '../bogus-load.service';
 
 @Component({
-    selector: 'app-htmlload',
-    templateUrl: './htmlload.component.html',
-    styles: [
-        `
+  selector: 'app-htmlload',
+  templateUrl: './htmlload.component.html',
+  styles: [
+    `
       :host {
         display: block;
       }
     `,
-    ],
-    standalone: true
+  ],
+  standalone: true
 })
-export class HtmlloadComponent implements OnInit {
+export class HtmlloadComponent implements OnDestroy {
+  /* injections */
+  html = inject(BogusLoadService);
   /** gets the native element.  */
-  private elm = this.elmRef.nativeElement as HTMLElement;
+  elm = inject(ElementRef).nativeElement as HTMLElement;
 
-  constructor(private html: BogusLoadService, private elmRef: ElementRef) {}
+  sub = this.html.load('Some url provided').subscribe(html => {
+    /**
+     * setting innerHTML doesn't "run" scripts,
+     * instead create a document fragment
+     */
+    const frag = document.createRange().createContextualFragment(html);
+    /** erase old content */
+    this.elm.innerHTML = '';
+    /** add the new 'html' to the page */
+    this.elm.appendChild(frag);
+  });
 
-  ngOnInit() {
-    /** I don't need to unsubscribe, because htmlLoad completes */
-    this.html.load('Some url provided').subscribe(html => {
-      /**
-       * setting innerHTML doesn't "run" scripts,
-       * instead create a document fragment
-       */
-      const frag = document.createRange().createContextualFragment(html);
-      /** erase old content */
-      this.elm.innerHTML = '';
-      /** add the new 'html' to the page */
-      this.elm.appendChild(frag);
-    });
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

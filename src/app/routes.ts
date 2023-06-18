@@ -57,5 +57,6 @@ export const routes:Routes = [
   { path: 'resizePanel', loadComponent: () => import('./resizable-panels/resizable-panels.component').then(m => m.ResizablePanelsComponent) },
   { path: 'signalsForms', loadComponent: () => import('./signals-form/signals-form.component').then(m => m.SignalsFormsComponent) },
   { path: 'card', loadComponent: () => import('./card/card.component').then(m => m.CardComponent) },
-  { path: '**', redirectTo: 'card' },
+  { path: 'routeList', loadComponent: () => import('./route-list/route-list.component').then(m => m.RouteListComponent) },
+  { path: '**', redirectTo: 'routeList' },
 ];

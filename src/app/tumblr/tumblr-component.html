@@ -1,5 +1,9 @@
-<div>
+<div class="tools">
   <input type="search" [value]="searchKey$ | async" />
+  <button (click)="allTo(0)">all small</button>
+  <button (click)="allTo(1)">all med</button>
+  <button (click)="allTo(2)">all large</button>
+  <button (click)="allRandom()">all random</button>
 </div>
 <div id="grid">
   <article
@@ -42,5 +46,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .tools {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 1rem;
   }
 </style>

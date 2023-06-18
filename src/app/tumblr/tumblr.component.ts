@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, inject } from '@angular/core';
 // import { wrapGrid } from 'animate-css-grid';
+import { AsyncPipe, NgForOf } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, EMPTY, from, fromEvent } from 'rxjs';
 import {
   catchError,
@@ -8,34 +10,39 @@ import {
   distinctUntilChanged,
   filter,
   map,
-  pluck,
   shareReplay,
-  switchMap,
+  switchMap
 } from 'rxjs/operators';
-import { NgForOf, AsyncPipe } from '@angular/common';
 
 const apiKey = `RSIq08oTL7lA1DyETOmqujDSph7rvP4akG8NRPz9os6ywJjBhE`;
 const clientId = 'e972ca06cc4b961';
 
 @Component({
-    selector: 'app-tumblr',
-    templateUrl: './tumblr-component.html',
-    standalone: true,
-    imports: [NgForOf, AsyncPipe]
+  selector: 'app-tumblr',
+  templateUrl: './tumblr-component.html',
+  standalone: true,
+  imports: [NgForOf, AsyncPipe]
 })
 export class TumblrComponent implements OnInit {
-  largePositions: (0|1|2)[] = Array.from({ length: 250 }, () => (Math.random() < 0.2 ? 1 : 0));
+  /** injections */
+  #http = inject(HttpClient)
+  #elm = inject(ElementRef).nativeElement as HTMLElement;
+
+  /** array with the size of every position */
+  largePositions: (0 | 1 | 2)[] = this.allRandom();
+  /* the search key */
   searchKey$ = new BehaviorSubject('kitten');
+  /* the search results */
   results$ = this.searchKey$.pipe(
     filter(s => !!s),
     switchMap(key =>
-      this.http
+      this.#http
         .get<ImgurTags>(`https://api.imgur.com/3/gallery/t/${key}`, {
           headers: { Authorization: `Client-ID ${clientId}` },
         })
         .pipe(catchError(e => EMPTY))
     ),
-    pluck('data', 'items'),
+    map(data => data?.data?.items),
     filter(s => !!s),
     map(items =>
       items.filter((item: Item) =>
@@ -45,31 +52,48 @@ export class TumblrComponent implements OnInit {
     shareReplay(1)
   );
 
-  constructor(private http: HttpClient, private ref: ElementRef) {}
 
-  setSearch(x) {
-    console.log(x);
+  // set the size of all the images to the same value
+  allTo(n: 0 | 1 | 2) {
+    this.largePositions = this.largePositions.map(() => n);
   }
 
+  // set the size of all the images to random values
+  allRandom() {
+    return this.largePositions = Array.from({ length: 250 }, () => {
+      const r = Math.random()
+      if (r < 0.2) { return 1; } // ~20% chance
+      if (r > 0.8) { return 2; } // ~20% chance
+      return 0;
+    })
+  };
+
+  // switch the size of a single image to the next step, will go small -> medium -> large -> small
   switch(y: number) {
     this.largePositions[y] += 1;
     if (this.largePositions[y] > 2) {
       this.largePositions[y] = 0;
     }
   }
+
   ngOnInit(): void {
-    const elm = this.ref.nativeElement as HTMLElement;
+    const elm = this.#elm;
     if (elm) {
       const inp = elm.getElementsByTagName('input')[0];
+      // lazy load the animate-css-grid module
       from(import('animate-css-grid'))
         .pipe(
+          /** wait for the module to load */
           map(({ wrapGrid }) => wrapGrid(elm.querySelector('#grid'))),
+          /** start listening for inputs */
           switchMap(() => fromEvent(inp, 'input')),
-          map((ev: InputEvent) => ev.target['value'] as string),
+          map((ev: InputEvent) => ev.target['value'] as string), // get the value as string
           debounceTime(400),
           distinctUntilChanged(),
-          filter(key => key.length > 0)
+          filter(key => key.length > 0), // only search for keys with a length > 0
+          takeUntilDestroyed(), // use the V16 takeUntilDestroyed operator 😁
         )
+        /** push them into the subject */
         .subscribe(this.searchKey$);
     }
   }
@@ -260,4 +284,4 @@ export enum Description {
   VideosWithSound = 'videos with sound',
 }
 
-export interface DescriptionAnnotations {}
+export interface DescriptionAnnotations { }
