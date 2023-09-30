@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  width: var(--cellSize);
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cellBg);
+  border-radius: 0.25rem;
+  padding: 0rem;
+  overflow: none;
+  text-overflow: ellipsis;
+}

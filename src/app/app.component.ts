@@ -1,13 +1,28 @@
-import { AfterContentInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
+import {
+  AfterContentInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  NgZone,
+  ViewChild,
+  inject,
+  ɵNoopNgZone,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLinkActive,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { ShowSourceComponent } from './show-source/show-source.component';
+import { I } from 'dist/samples/chunk-IWWGYS2Z';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styles: [],
-    standalone: true,
-    imports: [RouterLinkActive, RouterLink, ShowSourceComponent, RouterOutlet]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styles: [],
+  standalone: true,
+  imports: [RouterLinkActive, RouterLink, ShowSourceComponent, RouterOutlet],
 })
 export class AppComponent implements AfterContentInit {
   /** the 'input' element that toggles the menu */
@@ -19,10 +34,6 @@ export class AppComponent implements AfterContentInit {
     }
   }
   title = 'samples';
-  constructor(private elmRef: ElementRef, private r: ActivatedRoute) {
-    window['ar'] = r;
-    // console.log('rs', r);
-  }
 
   ngAfterContentInit() {
     /**
@@ -34,8 +45,29 @@ export class AppComponent implements AfterContentInit {
       host.querySelectorAll('#menu a').forEach(a =>
         a.addEventListener('click', () => {
           this.checked.checked = false;
-        })
+        }),
       );
+    }
+  }
+
+  cdr = inject(ChangeDetectorRef);
+  zone = inject(NgZone);
+  r = inject(ActivatedRoute);
+  elmRef = inject(ElementRef);
+  constructor() {
+    window['ar'] = this.r;
+    // console.log('rs', r);
+    if (this.zone instanceof ɵNoopNgZone) {
+      /**
+       * This is a very crude way to get the app going.
+       * As long as zoneLess isn't fully driven by signals,
+       * we need something to tell Angular to update the view.
+       */
+      console.warn(
+        `[appComponent] NoopZone detected, run CDR.detectChanges every 15Ms`,
+      );
+      setTimeout(() => this.cdr.detectChanges(), 500);
+      // setInterval(() => this.cdr.detectChanges(), 15); // cater for 60 fps.
     }
   }
 }

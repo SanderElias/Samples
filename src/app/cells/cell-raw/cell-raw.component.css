@@ -1,0 +1,33 @@
+@property --cellBg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: black;
+}
+
+@property --cellSize {
+  syntax: '<length> | <percentage>';
+  inherits: true;
+  initial-value: 1.25rem;
+}
+:root {
+  --cellBg: oklch(0.5 0.5 150);
+  --cellSize: 2px;
+}
+
+#outlet > se-cell-raw {
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fit, var(--cellSize)); */
+  /* gap: 0.15rem; */
+}
+
+cell {
+  display: block;
+  float: left;
+  margin: 1px;
+  width: var(--cellSize);
+  aspect-ratio: 1;
+  background-color: var(--cellBg);
+  border-radius: calc(var(--cellSize / 20));
+  padding: 0rem;
+  text-overflow: ellipsis;
+}

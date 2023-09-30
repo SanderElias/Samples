@@ -1,0 +1,19 @@
+@property --cellBg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: black;
+}
+
+@property --cellSize {
+  syntax: '<length> | <percentage>';
+  inherits: true;
+  initial-value: 1.25rem;
+}
+
+:host {
+  --cellBg: oklch(0.5 0.5 150);
+  --cellSize: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, var(--cellSize));
+  gap: 0.15rem;
+}
