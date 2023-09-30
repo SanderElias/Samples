@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+/* the props */
+@import "open-props/style";
+
+
+/* just light or dark themes */
+@import "open-props/normalize/dark";
+@import "open-props/buttons/dark";
+
+body {
+  padding: var(--size-2);
+}

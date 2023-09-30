@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+div {
+  display: flex;
+  padding: var(--size-3);
+  gap: var(--size-3);
+  flex-direction: column;
+  width: var(--size-content-1);
+
+}
