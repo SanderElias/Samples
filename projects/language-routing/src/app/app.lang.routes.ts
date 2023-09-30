@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
-import {routes as appRoutes} from './app.routes'
 
 export const routes: Routes = [
   {
     path: ':langId',
-    loadComponent: () => import('./lang/lang.component').then(m => m.LangComponent),
-    children: appRoutes
+    loadComponent: () =>
+      import('./lang/lang.component').then(m => m.LangComponent),
+    loadChildren: () => import('./app.routes').then(m => m.routes),
   },
   {
-    "path": '',
+    path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./pick-lang/pick-lang.component').then(m => m.PickLangComponent)
-  }
+    loadComponent: () =>
+      import('./pick-lang/pick-lang.component').then(m => m.PickLangComponent),
+  },
 ];

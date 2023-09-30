@@ -17,10 +17,7 @@ export class LangComponent implements OnDestroy {
   langSub = inject(ActivatedRoute)
     .params.pipe(map(params => params.langId))
     .subscribe({
-      next: (lang: string) => {
-        console.log(this.ls);
-        this.ls.pick(lang);
-      },
+      next: (lang: string) => this.ls.pick(lang),
     });
 
   ngOnDestroy(): void {
