@@ -1,7 +1,7 @@
 import {fork} from 'child_process';
 import {join} from 'path';
 import {Subject} from 'rxjs';
-import {filter, first, map, take} from 'rxjs/operators/index.js';
+import {filter, first, map, take} from 'rxjs';
 import {performance} from 'perf_hooks';
 
 class Worker {
@@ -16,7 +16,7 @@ class Worker {
   );
   #lastSend = {type: undefined, msg: undefined};
   #worker = undefined;
-  constructor(task = `/home/sander/Documents/temp/demo/test.js`) {
+  constructor(task = `${process.cwd()}/test.js`) {
     this.#init(task);
   }
   get id() {
@@ -144,14 +144,16 @@ async function handleJobs(jobs, poolSize = 100) {
   }
 
   await Promise.all(tasks);
-  return Promise.all(jobs.map(j => j.done));
+  const done = await Promise.all(jobs.map(j => j.done));
+  pool.forEach(worker => worker.kill());
+  return done;
   // merge(...pool.map(w => w.messages$))
   //   .pipe(tap(m => console.log(m.worker.id, m.msg)))
   //   .subscribe();
 }
 
-const poolSize = 100;
-const jobs = Array.from({length: 1000}, () => new job('block', 100, 'done'));
+const poolSize = 500;
+const jobs = Array.from({length: 2500}, () => new job('block', 100, 'done'));
 const start = performance.now();
 handleJobs(jobs, poolSize).then(r => {
   const end = performance.now() - start;
@@ -163,7 +165,7 @@ handleJobs(jobs, poolSize).then(r => {
   In this time I iterated ${iterations.toLocaleString()} times.
 
   That makes ${Math.floor((iterations/secs) ).toLocaleString()} iterations per second
-  -----------------------------------------------  
+  -----------------------------------------------
   `);
 });
 
