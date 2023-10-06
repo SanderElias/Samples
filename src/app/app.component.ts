@@ -15,7 +15,6 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { ShowSourceComponent } from './show-source/show-source.component';
-import { I } from 'dist/samples/chunk-IWWGYS2Z';
 
 @Component({
   selector: 'app-root',

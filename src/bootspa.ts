@@ -1,3 +1,7 @@
+/**
+ * I'm importing zoneJs in here, so I can quickly switch to using the NoopZone if I want to test something around that
+ */
+import "zone.js"
 import {
   NgZone,
   enableProdMode,
@@ -31,6 +35,6 @@ bootstrapApplication(AppComponent, {
       ScullyLibModule,
     ),
     provideRouter(routes),
-    { provide: NgZone, useClass: ɵNoopNgZone },
+    // { provide: NgZone, useClass: ɵNoopNgZone },
   ],
 }).catch(err => console.error(err));
