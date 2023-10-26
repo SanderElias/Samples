@@ -10,10 +10,10 @@ import { RouterLink } from '@angular/router';
   imports: [NgFor, RouterLink],
   template: `
     <section *ngFor="let item of routes()">
-      <a [routerLink]="item.path">
-        <img [src]="item.largeImage" [alt]="item.title" />
-        <h2>{{ item.title }}</h2>
-        <p>{{ item.description }}</p>
+      <a [routerLink]="item?.path">
+        <img [src]="item?.largeImage" [alt]="item?.title" />
+        <h2>{{ item?.title }}</h2>
+        <p>{{ item?.description }}</p>
       </a>
     </section>
   `,
