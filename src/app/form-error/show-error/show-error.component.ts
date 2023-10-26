@@ -8,23 +8,25 @@ import { FormGroup, NgForm } from '@angular/forms';
   imports: [CommonModule],
   template: `<ng-content></ng-content>`,
   styleUrls: ['./show-error.component.css'],
-  providers: [
-    {provide:FormGroup, useExisting: NgForm}
-  ]
 })
 export class ShowErrorComponent {
-  @Input({ required: true }) name: string;
-  #form = inject(FormGroup); // use the injector to find the nearest form group, usually the form itself
+  #form = inject(NgForm); // use the injector to find the nearest form group, usually the form itself
   #elm = inject(ElementRef).nativeElement as HTMLDivElement;
 
-  #sub = this.#form.statusChanges.subscribe({
+  #sub = this.#form.form.statusChanges.subscribe({
     next: () => {
-      const form = this.#form;
-      const field = form.get(this.name);
-      if (field === undefined) {
-        throw new Error(`Field with name: "${this.name}" not found`);
+      const form = this.#form.form;
+      const inp = this.#elm.parentElement?.querySelector('[name]') as HTMLInputElement;
+      const name = inp?.name;
+      const field = form.get(name);
+
+      if (field == undefined) {
+        // only warn when the form is touched, otherwise its probably a false positive
+        form.touched && console.warn(`Field with name: "${name}" not found`);
+        return;
       }
-      if (field?.errors !== undefined) {
+      if (field?.pristine) return; // never show errors on pristine, might want to change this
+      if (field?.errors != undefined) {
         this.#elm.style.display = 'block';
       } else {
         this.#elm.style.display = 'none';
@@ -33,6 +35,6 @@ export class ShowErrorComponent {
   });
 
   ngOnDestroy() {
-    this.#sub.unsubscribe()
+    this.#sub.unsubscribe();
   }
 }

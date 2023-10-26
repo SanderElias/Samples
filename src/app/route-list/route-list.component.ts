@@ -9,22 +9,24 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [NgFor, RouterLink],
   template: `
-    <section *ngFor="let item of routes()">
+    @for (item of routes(); track $index) {
+      @if (item != undefined) {
+    <section>
       <a [routerLink]="item?.path">
         <img [src]="item?.largeImage" [alt]="item?.title" />
         <h2>{{ item?.title }}</h2>
         <p>{{ item?.description }}</p>
       </a>
     </section>
+    }
+  }
   `,
-  styleUrls: ['./route-list.component.css']
+  styleUrls: ['./route-list.component.css'],
 })
 export class RouteListComponent {
-  #http = inject(HttpClient)
-  routes = toSignal(this.#http.get<RouteData[]>('../../assets/routes.json'))
-
+  #http = inject(HttpClient);
+  routes = toSignal(this.#http.get<RouteData[]>('../../assets/routes.json'));
 }
-
 
 export interface RouteData {
   path: string;
