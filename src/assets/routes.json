@@ -16,6 +16,30 @@
     "description": ""
   },
   {
+    "path": "/card",
+    "modulePath": "/src/app/card",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/card",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/card.png",
+    "description": ""
+  },
+  {
+    "path": "/cells",
+    "modulePath": "/src/app/cells",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/cells",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/cells.png",
+    "description": ""
+  },
+  {
+    "path": "/cellsRaw",
+    "modulePath": "/src/app/cells/cell-raw",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/cells/cell-raw",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/cellsRaw.png",
+    "description": ""
+  },
+  {
     "path": "/clock",
     "modulePath": "/src/app/analog-clock",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/analog-clock",
@@ -64,6 +88,14 @@
     "description": ""
   },
   {
+    "path": "/formErrors",
+    "modulePath": "/src/app/form-errors/form-errors",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/form-errors/form-errors",
+    "title": "Show how to show errors in a form",
+    "largeImage": "/assets/snapshots/formErrors.png",
+    "description": ""
+  },
+  {
     "path": "/gridCalender",
     "modulePath": "/src/app/grid-calender",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/grid-calender",
@@ -101,6 +133,14 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/lazy-component",
     "title": "dynamic lazy loading of components",
     "largeImage": "/assets/snapshots/lazyComponents.png",
+    "description": ""
+  },
+  {
+    "path": "/localState",
+    "modulePath": "/src/app/local-state",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/local-state",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/localState.png",
     "description": ""
   },
   {
@@ -184,6 +224,14 @@
     "description": ""
   },
   {
+    "path": "/routeList",
+    "modulePath": "/src/app/route-list",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/route-list",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/routeList.png",
+    "description": ""
+  },
+  {
     "path": "/rvt",
     "modulePath": "/src/app/rvt",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rvt",
@@ -261,6 +309,14 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-clock",
     "title": "SVG Clock sample",
     "largeImage": "/assets/snapshots/svgClock.png",
+    "description": ""
+  },
+  {
+    "path": "/svgTest",
+    "modulePath": "/src/app/svg-test",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-test",
+    "title": "Quick test with svg ",
+    "largeImage": "/assets/snapshots/svgTest.png",
     "description": ""
   },
   {

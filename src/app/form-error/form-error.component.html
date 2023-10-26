@@ -1,0 +1,13 @@
+<h1>Form with error shown</h1>
+<form >
+  <label>
+    <span>Name</span>
+    <input type="text" name="name" [(ngModel)]="name" required min-length="2" />
+    <se-show-error [name]="'name'">Name is mandatory and at least 2 long</se-show-error>
+  </label>
+  <label>
+    <span>Age</span>
+    <input type="number" name="age" [(ngModel)]="age" min="0", max="130">
+    <se-show-error [name]="'age'">Age must be between 0 and 130</se-show-error>
+  </label>
+</form>

@@ -243,5 +243,9 @@ export const routes: Routes = [
         m => m.RouteListComponent,
       ),
   },
+  {
+    path: 'formErrors',
+    loadComponent: () => import('./form-error/form-error.component')
+  },
   { path: '**', redirectTo: 'routeList' },
 ];

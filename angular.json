@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "samples:build"
+            "buildTarget": "samples:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "samples:build:production"
+              "buildTarget": "samples:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "samples:build"
+            "buildTarget": "samples:build"
           }
         },
         "test": {
@@ -302,18 +302,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "slipnslide:build"
+            "buildTarget": "slipnslide:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "slipnslide:build:production"
+              "buildTarget": "slipnslide:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "slipnslide:build"
+            "buildTarget": "slipnslide:build"
           }
         },
         "test": {
@@ -435,10 +435,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ApiBoundries:build:production"
+              "buildTarget": "ApiBoundries:build:production"
             },
             "development": {
-              "browserTarget": "ApiBoundries:build:development"
+              "buildTarget": "ApiBoundries:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -446,7 +446,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ApiBoundries:build"
+            "buildTarget": "ApiBoundries:build"
           }
         },
         "test": {
@@ -535,10 +535,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "wireItEditor:build:production"
+              "buildTarget": "wireItEditor:build:production"
             },
             "development": {
-              "browserTarget": "wireItEditor:build:development"
+              "buildTarget": "wireItEditor:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -546,7 +546,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wireItEditor:build"
+            "buildTarget": "wireItEditor:build"
           }
         },
         "test": {
@@ -636,10 +636,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "LanguageRouting:build:production"
+              "buildTarget": "LanguageRouting:build:production"
             },
             "development": {
-              "browserTarget": "LanguageRouting:build:development"
+              "buildTarget": "LanguageRouting:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -647,7 +647,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LanguageRouting:build"
+            "buildTarget": "LanguageRouting:build"
           }
         },
         "test": {
