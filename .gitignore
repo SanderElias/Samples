@@ -52,3 +52,4 @@ projects/slipnslide/src/assets/scully-routes.json
 scully/runtime
 .wireit
 scully.samples.config.mjs
+scully/plugins/render-once.js.map

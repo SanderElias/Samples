@@ -247,5 +247,9 @@ export const routes: Routes = [
     path: 'formErrors',
     loadComponent: () => import('./form-error/form-error.component')
   },
+  {
+    path: 'dialog',
+    loadComponent: () => import('./dialog/dialog.component')
+  },
   { path: '**', redirectTo: 'routeList' },
 ];
