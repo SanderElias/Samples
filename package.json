@@ -108,7 +108,7 @@
     "@types/jsdom": "^21.1.5",
     "@types/msgpack-lite": "^0.1.11",
     "@types/wicg-file-system-access": "^2023.10.3",
-    "@validointi/core": "^1.4.1",
+    "@validointi/core": "^1.4.2",
     "animate-css-grid": "^1.5.1",
     "bson": "^6.2.0",
     "chance": "^1.1.11",
