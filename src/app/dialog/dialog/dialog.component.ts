@@ -24,7 +24,7 @@ export class SeDialogComponent {
 
   constructor() {
     afterNextRenderEffect(() => {
-      const dlg = this.elm.querySelector('dialog') as HTMLDialogElement;
+      const dlg = this.elm.firstElementChild as HTMLDialogElement;
       if (this.shown()) {
         dlg.showModal();
       } else {
