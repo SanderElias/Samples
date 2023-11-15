@@ -8,7 +8,9 @@ import { NgForOf, AsyncPipe } from '@angular/common';
 @Component({
   selector: 'select-file',
   template: `<select>
-    <option *ngFor="let file of files$ | async">{{ file }}</option>
+    @for (file of files$ | async; track file) {
+      <option>{{ file }}</option>
+    }
   </select>`,
   styles: [`":host{display:block}`],
   standalone: true,

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <ng-container *ngFor="let i of arr">
+    @for (i of arr; track i) {
       <section>
         <h2>{{ i }}</h2>
       </section>
@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
       <section class="red">
         <h2>{{ i }}</h2>
       </section>
-    </ng-container>
+    }
   `,
   styleUrls: ['./card.component.css'],
 })

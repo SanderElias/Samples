@@ -44,37 +44,30 @@ import { DepedenciesComponent } from './depedencies/depedencies.component';
         <label>
           <span>Files <button class="action" type="button" (click)="addFile()">➕</button></span>
           <div>
-            <se-arr-input
-              name="files"
-              *ngFor="let file of props.files; let index = index"
-              [index]="index"
-              [value]="file"
-              (delete)="props.files.splice(index, 1)"
-            ></se-arr-input>
+            @for (file of props.files; track file; let index = $index) {
+              <se-arr-input name="files" [index]="index" [value]="file" (delete)="props.files.splice(index, 1)"></se-arr-input>
+            }
           </div>
         </label>
         <label>
           <span>Output <button class="action" type="button" (click)="addOutput()">➕</button></span>
           <div>
-            <se-arr-input
-              name="output"
-              *ngFor="let file of props.output; let index = index"
-              [index]="index"
-              [value]="file"
-              (delete)="props.output.splice(index, 1)"
-            ></se-arr-input>
+            @for (file of props.output; track file; let index = $index) {
+              <se-arr-input name="output" [index]="index" [value]="file" (delete)="props.output.splice(index, 1)"></se-arr-input>
+            }
           </div>
         </label>
         <label>
           <span>PackageLocks <button class="action" type="button" (click)="addLock()">➕</button></span>
           <div>
-            <se-arr-input
-              name="packageLocks"
-              *ngFor="let file of props.packageLocks; let index = index"
-              [index]="index"
-              [value]="file"
-              (delete)="props.packageLocks.splice(index, 1)"
-            ></se-arr-input>
+            @for (file of props.packageLocks; track file; let index = $index) {
+              <se-arr-input
+                name="packageLocks"
+                [index]="index"
+                [value]="file"
+                (delete)="props.packageLocks.splice(index, 1)"
+              ></se-arr-input>
+            }
           </div>
         </label>
         <label>

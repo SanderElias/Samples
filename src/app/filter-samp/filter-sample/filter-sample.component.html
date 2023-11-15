@@ -1,18 +1,20 @@
-<div *ngIf="vm$ | async as vm; else loading">
-  <input type="text" [formControl]="nameFilter" />
-  <ul>
-    <li *ngFor="let item of vm.users">
-      <img [src]="item.avatar" alt="" />
-      {{ item.name }}
-    </li>
-  </ul>
-</div>
-
-<ng-template #loading>
+@if (vm$ | async; as vm) {
+  <div>
+    <input type="text" [formControl]="nameFilter" />
+    <ul>
+      @for (item of vm.users; track item) {
+        <li>
+          <img [src]="item.avatar" alt="" />
+          {{ item.name }}
+        </li>
+      }
+    </ul>
+  </div>
+} @else {
   <div class="backDrop">
     <div><h2>Loading...</h2></div>
   </div>
-</ng-template>
+}
 
 <style>
   ul {

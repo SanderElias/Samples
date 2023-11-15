@@ -7,13 +7,9 @@ import {
   filter,
   firstValueFrom,
   map,
-  mergeMap,
-  Observable,
-  pipe,
-  shareReplay,
   startWith,
   switchMap,
-  tap,
+  tap
 } from 'rxjs';
 import { AddressesService } from '../addresses.service';
 

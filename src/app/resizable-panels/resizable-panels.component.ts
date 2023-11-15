@@ -7,9 +7,11 @@ import { ResizablePanelComponent } from './resizable-panel/resizable-panel.compo
   standalone: true,
   imports: [ResizablePanelComponent, NgFor],
   template: `
-    <se-resizable-panel *ngFor="let n of panels">
-      <h3>Panel {{ n }}</h3>
-    </se-resizable-panel>
+    @for (n of panels; track n) {
+      <se-resizable-panel>
+        <h3>Panel {{ n }}</h3>
+      </se-resizable-panel>
+    }
   `,
   styleUrls: ['./resizable-panels.component.css'],
 })

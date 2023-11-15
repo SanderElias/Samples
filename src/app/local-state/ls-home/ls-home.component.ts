@@ -14,12 +14,12 @@ interface LocalState {
   selector: 'app-ls-home',
   template: `
     <h2>test some state</h2>
-    <ng-container *ngIf="vm$ | async as vm">
+    @if (vm$ | async; as vm) {
       <button #b (click)="updateCounterWith(-1)">-1</button>
       <span>{{ vm.count }}</span>
       <button #b (click)="updateCounterWith(1)">+1</button>
       <!-- <button #b *ngIf="vm.count%2" (click)="updateCounterWith(2)">+2</button> -->
-    </ng-container>
+    }
   `,
   styles: [],
   standalone: true,

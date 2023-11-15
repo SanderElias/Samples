@@ -11,7 +11,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
     <section class="full-width">
       <input type="text" [formControl]="search" placeholder="🔎 Filter" />
     </section>
-    <app-relation *ngFor="let rel of relations$ | async" [relationId]="rel.id" />
+    @for (rel of relations$ | async; track rel) {
+      <app-relation [relationId]="rel.id" />
+    }
   `,
   styleUrls: ['./b-relation-list.css'],
   standalone: true,

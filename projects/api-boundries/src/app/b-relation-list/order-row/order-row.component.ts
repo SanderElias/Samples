@@ -9,18 +9,16 @@ import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-order-row',
   template: `
-    <ng-container *ngIf="order$ | async as order">
+    @if (order$ | async; as order) {
       <section>
         <h5>Products:</h5>
-        <app-product-detail
-          *ngFor="let item of order.products"
-          [productId]="item.productId"
-          [relationId]="item.handler"
-        ></app-product-detail>
+        @for (item of order.products; track item) {
+          <app-product-detail [productId]="item.productId" [relationId]="item.handler"></app-product-detail>
+        }
       </section>
       <app-relation [relationId]="order.processor"></app-relation>
       <app-relation [relationId]="order.transporter"></app-relation>
-    </ng-container>
+    }
   `,
   styles: [
     `

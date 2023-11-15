@@ -7,7 +7,9 @@ import { NgForOf } from '@angular/common';
   template: `
     <ul>
       <li><h5>Products:</h5></li>
-      <li *ngFor="let item of order.products">{{ item.productName }} by {{ item.handlerName }}</li>
+      @for (item of order.products; track item) {
+        <li>{{ item.productName }} by {{ item.handlerName }}</li>
+      }
     </ul>
     <app-relation [relation]="order.processor"></app-relation>
     <app-relation [relation]="order.transporter"></app-relation>

@@ -2,9 +2,15 @@
 <h4>{{ artDetail.title }}</h4>
 Maker{{ artDetail.principalMakers.length > 1 ? 's' : '' }}
 <ul>
-  <li *ngFor="let maker of artDetail.principalMakers">{{ maker.name }}</li>
+  @for (maker of artDetail.principalMakers; track maker) {
+    <li>{{ maker.name }}</li>
+  }
 </ul>
-<div class="colorboxes" *ngIf="artDetail.colors.length > 0">
-  <div class="box" *ngFor="let c of artDetail.colors" [title]="c" [style.background]="c"></div>
-</div>
+@if (artDetail.colors.length > 0) {
+  <div class="colorboxes">
+    @for (c of artDetail.colors; track c) {
+      <div class="box" [title]="c" [style.background]="c"></div>
+    }
+  </div>
+}
 <!-- <pre><code>{{artDetail|json:true}}</code></pre> -->

@@ -25,15 +25,17 @@ import { combinator } from './combinator';
   standalone: true,
   imports: [CommonModule],
   template: `<h1>Rxjs cleanup test</h1>
-    <ng-container *ngIf="vm$ | async as vm">
+    @if (vm$ | async; as vm) {
       <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp?.length }}</span>
       <ul>
-        <li *ngFor="let item of vm.comp; trackBy: identify">
-          <button (click)="remove(item.value)">🗑️</button>
-          {{ item?.value }} - {{ item?.iteration }}
-        </li>
+        @for (item of vm.comp; track identify($index, item)) {
+          <li>
+            <button (click)="remove(item.value)">🗑️</button>
+            {{ item?.value }} - {{ item?.iteration }}
+          </li>
+        }
       </ul>
-    </ng-container> `,
+    } `,
   styleUrls: ['./rxjstest.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

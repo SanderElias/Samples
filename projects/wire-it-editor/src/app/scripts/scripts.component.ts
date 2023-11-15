@@ -12,7 +12,9 @@ import { ScriptComponent } from './script/script.component';
       <h2>NPM scripts</h2>
       <small>(click one to upgrade it to WireIt!<br />Only non-upgraded ones are shown)</small>
     </header>
-    <app-script *ngFor="let script of scripts$ | async" [script]="script"></app-script>`,
+    @for (script of scripts$ | async; track script) {
+      <app-script [script]="script"></app-script>
+    }`,
   styles: [
     `
       :host {

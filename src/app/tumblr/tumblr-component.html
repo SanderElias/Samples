@@ -6,14 +6,11 @@
   <button (click)="allRandom()">all random</button>
 </div>
 <div id="grid">
-  <article
-    *ngFor="let i of results$ | async; let y = index"
-    [class.large]="largePositions[y]===1"
-    [class.super]="largePositions[y]===2"
-    (click)="switch(y)"
-  >
+  @for (i of results$ | async; track i; let y = $index) {
+  <article [class.large]="largePositions[y]===1" [class.super]="largePositions[y]===2" (click)="switch(y)">
     <img [src]="i.images[0]?.link" loading="lazy" />
   </article>
+  }
 </div>
 <style>
   root {

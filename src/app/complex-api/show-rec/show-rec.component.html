@@ -1,31 +1,33 @@
-<dl *ngFor="let item of entries">
-  <dt>{{ key(item) }}</dt>
-  <dd>
-    <ng-container *ngIf="!isRecArray(item); else handleArray">
-      <ng-container *ngIf="isRecord(val(item)) as rec; else handleRec">
-        <details>
-          <summary>
-            {{ rec.name || rec.title }}
-            <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
-          </summary>
-          <app-show-rec [record]="rec"></app-show-rec>
-        </details>
-      </ng-container>
-      <ng-template #handleRec>
-        {{ val(item) }}
-      </ng-template>
-    </ng-container>
-    <ng-template #handleArray>
-      <details *ngFor="let rec of val(item)">
-        <summary>
-          {{ rec.name || rec.title }}
-          <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
-        </summary>
-        <app-show-rec [record]="rec"></app-show-rec>
-      </details>
-    </ng-template>
-  </dd>
-</dl>
+@for (item of entries; track item) {
+  <dl>
+    <dt>{{ key(item) }}</dt>
+    <dd>
+      @if (!isRecArray(item)) {
+        @if (isRecord(val(item)); as rec) {
+          <details>
+            <summary>
+              {{ rec.name || rec.title }}
+              <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
+            </summary>
+            <app-show-rec [record]="rec"></app-show-rec>
+          </details>
+        } @else {
+          {{ val(item) }}
+        }
+      } @else {
+        @for (rec of val(item); track rec) {
+          <details>
+            <summary>
+              {{ rec.name || rec.title }}
+              <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
+            </summary>
+            <app-show-rec [record]="rec"></app-show-rec>
+          </details>
+        }
+      }
+    </dd>
+  </dl>
+}
 
 <style>
   dl {

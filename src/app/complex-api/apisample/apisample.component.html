@@ -10,14 +10,18 @@
   longer.
 </p>
 <select [formControl]="chosenSet">
-  <option *ngFor="let item of availableSets()">{{ item }}</option>
+  @for (item of availableSets(); track item) {
+    <option>{{ item }}</option>
+  }
 </select>
 <br />
 <input type="text" list="listOptions" [formControl]="name" autofocus />
 <app-show-rec [record]="result()" (selected)="changeTo($event)"></app-show-rec>
 
 <datalist id="listOptions">
-  <option *ngFor="let item of availableOptions()">{{ item }}</option>
+  @for (item of availableOptions(); track item) {
+    <option>{{ item }}</option>
+  }
 </datalist>
 
 <style>

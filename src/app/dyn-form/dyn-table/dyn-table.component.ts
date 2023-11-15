@@ -14,11 +14,17 @@ import { CommonModule } from '@angular/common';
      -->
       <table>
         <thead>
-          <th *ngFor="let name of vm.names">{{ name }}</th>
+          @for (name of vm.names; track name) {
+            <th>{{ name }}</th>
+          }
         </thead>
-        <tr *ngFor="let row of vm.addresses" (click)="openWith(row.id)">
-          <td *ngFor="let name of vm.names">{{ row[name] }}</td>
-        </tr>
+        @for (row of vm.addresses; track row) {
+          <tr (click)="openWith(row.id)">
+            @for (name of vm.names; track name) {
+              <td>{{ row[name] }}</td>
+            }
+          </tr>
+        }
       </table>
     </div>
   `,

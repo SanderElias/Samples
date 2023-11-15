@@ -9,13 +9,17 @@ import { RelationsService } from '../../relations.service';
 @Component({
   selector: 'app-relation',
   template: `
-    <h4 *ngIf="!detail"><img [src]="relation()?.avatar" /> {{ relation()?.name }}</h4>
-    <section *ngIf="detail">
-      <h4>{{ relation().name }}</h4>
-      <p>{{ relation().company.name }}</p>
-      <p>📧 {{ relation().email }}</p>
-      <p>📱 {{ relation().phone }}</p>
-    </section>
+    @if (!detail) {
+      <h4><img [src]="relation()?.avatar" /> {{ relation()?.name }}</h4>
+    }
+    @if (detail) {
+      <section>
+        <h4>{{ relation().name }}</h4>
+        <p>{{ relation().company.name }}</p>
+        <p>📧 {{ relation().email }}</p>
+        <p>📱 {{ relation().phone }}</p>
+      </section>
+    }
   `,
   styleUrls: ['./relation.component.css'],
   standalone: true,

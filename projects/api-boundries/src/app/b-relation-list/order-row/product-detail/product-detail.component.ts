@@ -8,13 +8,13 @@ import { RelationComponent } from '../../relation/relation.component';
 @Component({
   selector: 'app-product-detail',
   template: `
-    <ng-container *ngIf="product$ | async as product">
+    @if (product$ | async; as product) {
       {{ product.name }}
       <section>
         Created by <app-relation class="inline" [relationId]="product.creator"></app-relation><br />
         product handled by <app-relation class="inline" [relationId]="relationId"></app-relation>
       </section>
-    </ng-container>
+    }
   `,
   styles: [
     `

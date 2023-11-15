@@ -39,10 +39,14 @@
 <app-cell x="9" y="10"> here</app-cell>
 
 <!-- x headers -->
-<app-cell *ngFor="let x of labels" [x]="x" y="1">
-  <h1>{{ x }}</h1>
-</app-cell>
+@for (x of labels; track x) {
+  <app-cell [x]="x" y="1">
+    <h1>{{ x }}</h1>
+  </app-cell>
+}
 <!-- y headers -->
-<app-cell *ngFor="let y of labels.slice(1, labels.length)" [y]="y" x="1">
-  <h1>{{ y }}</h1>
-</app-cell>
+@for (y of labels.slice(1, labels.length); track y) {
+  <app-cell [y]="y" x="1">
+    <h1>{{ y }}</h1>
+  </app-cell>
+}

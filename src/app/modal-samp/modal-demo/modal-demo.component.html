@@ -1,13 +1,15 @@
 <button (click)="shown = true">show</button>
 
 <div #modal>
-  <div class="backDrop" *ngIf="shown">
-    <div>
-      <h1>Whatevever</h1>
-      <p>Hi {{ 'string from view' }}, your order is being processed</p>
-      <button (click)="shown = false">Hide modal</button>
+  @if (shown) {
+    <div class="backDrop">
+      <div>
+        <h1>Whatevever</h1>
+        <p>Hi {{ 'string from view' }}, your order is being processed</p>
+        <button (click)="shown = false">Hide modal</button>
+      </div>
     </div>
-  </div>
+  }
 </div>
 
 <style>

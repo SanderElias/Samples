@@ -16,7 +16,9 @@ import { CalenderDay } from '../calenderDay';
     <span>T</span>
     <span>F</span>
     <span>S</span>
-    <se-day-cell *ngFor="let day of days" [day]="day" (click)="select(day)"></se-day-cell>
+    @for (day of days; track day) {
+      <se-day-cell [day]="day" (click)="select(day)"></se-day-cell>
+    }
   `,
   styleUrls: ['./month.component.css'],
 })

@@ -10,7 +10,9 @@ import { MonthComponent } from './month/month.component';
   imports: [CommonModule, MonthComponent],
   template: `<h1>Grid Calender</h1>
     <div>
-      <se-month *ngFor="let m of months" [date]="m"></se-month>
+      @for (m of months; track m) {
+        <se-month [date]="m"></se-month>
+      }
     </div> `,
   styleUrls: ['./grid-calender.component.css'],
 })

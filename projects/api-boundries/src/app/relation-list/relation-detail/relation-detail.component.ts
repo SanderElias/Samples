@@ -13,11 +13,13 @@ import { OrderRowComponent } from './order-row/order-row.component';
 @Component({
   selector: 'app-relation-detail',
   template: `
-    <ng-container *ngIf="relation$ | async as relation">
+    @if (relation$ | async; as relation) {
       <app-relation [relation]="relation" detail></app-relation>
-    </ng-container>
+    }
     <h4>Orders:</h4>
-    <app-order-row *ngFor="let order of orders$ | async" [order]="order"></app-order-row>
+    @for (order of orders$ | async; track order) {
+      <app-order-row [order]="order"></app-order-row>
+    }
   `,
   standalone: true,
   imports: [NgIf, RelationComponent, NgForOf, OrderRowComponent, AsyncPipe],

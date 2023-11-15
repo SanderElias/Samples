@@ -9,36 +9,38 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <main *ngIf="data$ | async as data">
-      <h1>Reactive</h1>
-      <form [formGroup]="form" (ngSubmit)="save()">
-        <label>
-          <span>Name</span>
-          <input name="name" type="text" placeholder="Name" formControlName="name" />
-        </label>
-        <label>
-          <span>Date of birth</span>
-          <input name="dob" type="date" placeholder="Date of birth" formControlName="dob" />
-        </label>
-        <label>
-          <span>Email Address</span>
-          <input name="email" type="email" placeholder="Email Address" formControlName="email" />
-        </label>
-        <label>
-          <span>Favorite Number</span>
-          <input name="favNumber" type="number" placeholder="Favorite Number" formControlName="favNumber" />
-        </label>
-        <label>
-          <span><input name="admin" type="checkbox" formControlName="admin" /> Admin</span>
-        </label>
-        <label>
-          <span>Level {{ level$ | async }}</span>
-          <input name="level" type="range" min="1" max="5" formControlName="level" />
-        </label>
-        <button type="cancel" (click)="updateForm(data); $event.preventDefault()">Reset form</button>
-        <button type="submit" [disabled]="!form.valid">Submit</button>
-      </form>
-    </main>
+    @if (data$ | async; as data) {
+      <main>
+        <h1>Reactive</h1>
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <label>
+            <span>Name</span>
+            <input name="name" type="text" placeholder="Name" formControlName="name" />
+          </label>
+          <label>
+            <span>Date of birth</span>
+            <input name="dob" type="date" placeholder="Date of birth" formControlName="dob" />
+          </label>
+          <label>
+            <span>Email Address</span>
+            <input name="email" type="email" placeholder="Email Address" formControlName="email" />
+          </label>
+          <label>
+            <span>Favorite Number</span>
+            <input name="favNumber" type="number" placeholder="Favorite Number" formControlName="favNumber" />
+          </label>
+          <label>
+            <span><input name="admin" type="checkbox" formControlName="admin" /> Admin</span>
+          </label>
+          <label>
+            <span>Level {{ level$ | async }}</span>
+            <input name="level" type="range" min="1" max="5" formControlName="level" />
+          </label>
+          <button type="cancel" (click)="updateForm(data); $event.preventDefault()">Reset form</button>
+          <button type="submit" [disabled]="!form.valid">Submit</button>
+        </form>
+      </main>
+    }
   `,
   styleUrls: ['./reactive.component.css'],
 })

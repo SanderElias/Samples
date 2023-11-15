@@ -10,11 +10,13 @@ import { BehaviorSubject, combineLatest, debounceTime, map, ReplaySubject, take 
   template: `
     <h1>Unsubscribe sample</h1>
     <p>Click the buttons to navigate to the next or previous id.</p>
-    <div *ngIf="vm$ | async as vm">
-      <button (click)="change$.next(1)">up</button>
-      <p>id: {{ vm.id }}</p>
-      <button (click)="change$.next(-1)">down</button>
-    </div>
+    @if (vm$ | async; as vm) {
+      <div>
+        <button (click)="change$.next(1)">up</button>
+        <p>id: {{ vm.id }}</p>
+        <button (click)="change$.next(-1)">down</button>
+      </div>
+    }
     <style>
       div {
         display: flex;

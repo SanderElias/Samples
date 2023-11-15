@@ -9,18 +9,22 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <ng-container *ngIf="vm$ | async as vm">
+    @if (vm$ | async; as vm) {
       <input type="hidden" name="dependencies" [ngModel]="deps" />
-      <button *ngFor="let name of deps" type="button" (click)="del(name)">🗑️ {{ name }}</button>
+      @for (name of deps; track name) {
+        <button type="button" (click)="del(name)">🗑️ {{ name }}</button>
+      }
       <dialog>
         <header>Click to pick!</header>
         <main>
-          <button *ngFor="let name of vm.names" (click)="pick(name)">
-            {{ name }}
-          </button>
+          @for (name of vm.names; track name) {
+            <button (click)="pick(name)">
+              {{ name }}
+            </button>
+          }
         </main>
       </dialog>
-    </ng-container>
+    }
   `,
   styleUrls: ['./depedencies.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

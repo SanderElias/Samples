@@ -11,14 +11,16 @@ import { string } from 'yargs';
   standalone: true,
   imports: [CommonModule, WireitComponent, ReactiveFormsModule],
   template: `
-    <ng-container *ngIf="vm$ | async as vm">
+    @if (vm$ | async; as vm) {
       <header>
         <h2>WireIt scripts</h2>
         <input type="text" [formControl]="search" placeholder="🔎 Filter" />
         <button (click)="pjs.addWireitScript('newScript', {})">➕</button>
       </header>
-      <se-wireit *ngFor="let wireit of vm.wireits" [name]="wireit[0]" [props]="wireit[1]"></se-wireit>
-    </ng-container>
+      @for (wireit of vm.wireits; track wireit) {
+        <se-wireit [name]="wireit[0]" [props]="wireit[1]"></se-wireit>
+      }
+    }
   `,
   styleUrls: ['./wireits.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

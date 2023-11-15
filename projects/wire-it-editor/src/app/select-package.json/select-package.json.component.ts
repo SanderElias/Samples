@@ -15,11 +15,15 @@ declare global {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <ng-container *ngIf="vm$ | async as vm">
-      <button *ngIf="vm.hasHandle === false" (click)="readPackageJson()">Open a Package.json</button>
+    @if (vm$ | async; as vm) {
+      @if (vm.hasHandle === false) {
+        <button (click)="readPackageJson()">Open a Package.json</button>
+      }
       <!-- <button *ngIf="vm.hasHandle===true" (click)="readPackageJson()">Write Package.json back to disk</button> -->
-      <h4 *ngIf="vm.hasHandle === true">Opened project Name: {{ vm.name }}</h4>
-    </ng-container>
+      @if (vm.hasHandle === true) {
+        <h4>Opened project Name: {{ vm.name }}</h4>
+      }
+    }
   `,
   styles: [
     `
