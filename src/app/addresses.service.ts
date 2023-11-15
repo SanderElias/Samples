@@ -9,12 +9,15 @@ export class AddressesService {
   addresses$ = this.http.get('assets/addresses.csv', { responseType: 'text' }).pipe(
     map(csv => csv.split('\r').map(line => line.split(','))),
     map(([header, ...rows]) =>
-      rows.map(row =>
-        row.reduce((rec, val, i) => {
-          rec['id'] = i * 133;
-          rec[unquote(header[i])] = unquote(val);
-          return rec;
-        }, {})
+      rows.map((row, id) =>
+        row.reduce(
+          (rec, val, i) => {
+            // rec['id'] = i * 133;
+            rec[unquote(header[i])] = unquote(val);
+            return rec;
+          },
+          { id }
+        )
       )
     )
   );

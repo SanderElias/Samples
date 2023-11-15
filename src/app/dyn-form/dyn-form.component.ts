@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, QueryList, ViewChildren } from '@angular/core';
+import { Component, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import {
   BehaviorSubject,
@@ -45,6 +45,7 @@ const extractInputType = value => {
   styles: [],
 })
 export class DynFormComponent {
+  adr = inject(AddressesService);
   @ViewChildren('myForm') formList: QueryList<NgForm>;
   person$ = new BehaviorSubject({} as any);
   fieldData$ = this.person$.pipe(
@@ -58,7 +59,6 @@ export class DynFormComponent {
     map(({ person, fields, addresses }) => ({ person, fields, addresses, names: Object.keys(addresses[0]) }))
   );
 
-  constructor(private adr: AddressesService) {}
 
   ngAfterViewInit(): void {
     /** this is here to show you can subscribe to changes from template driven */
