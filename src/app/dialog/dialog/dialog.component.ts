@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Injector, Input, WritableSignal, afterNextRender, effect, inject } from '@angular/core';
+import { Component, EffectCleanupFn, ElementRef, Injector, Input, WritableSignal, afterNextRender, effect, inject } from '@angular/core';
 
 @Component({
   selector: 'se-dialog',
@@ -24,7 +24,13 @@ export class SeDialogComponent {
   }
 }
 
-function afterNextRenderEffect(fn: Function) {
+// added those types as those seem not te be exported by angular!
+/**
+ * A callback passed to the effect function that makes it possible to register cleanup logic.
+ */
+export type EffectCleanupRegisterFn = (cleanupFn: EffectCleanupFn) => void;
+
+function afterNextRenderEffect(fn:  (onCleanup: EffectCleanupRegisterFn) => void) {
   const injector = inject(Injector);
-  afterNextRender(() => effect(fn as any, { injector }));
+  afterNextRender(() => effect(fn , { injector }));
 }
