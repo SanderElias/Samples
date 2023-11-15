@@ -2,18 +2,18 @@ import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angu
 import { NgForOf } from '@angular/common';
 
 @Component({
-    selector: 'app-blocks',
-    templateUrl: './blocks.component.svg',
-    styles: [
-        `
+  selector: 'app-blocks',
+  templateUrl: './blocks.component.svg',
+  styles: [
+    `
       :host {
         display: block;
       }
     `,
-    ],
-    encapsulation: ViewEncapsulation.ShadowDom,
-    standalone: true,
-    imports: [NgForOf]
+  ],
+  encapsulation: ViewEncapsulation.ShadowDom,
+  standalone: true,
+  imports: [NgForOf],
 })
 export class BlocksComponent {
   colCount = Math.floor(1000 / 6);

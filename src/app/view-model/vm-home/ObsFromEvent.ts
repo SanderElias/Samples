@@ -29,11 +29,11 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
           /**
            * Make sure we have an querylist during runtime!
            * just ignore all other incoming things
-          */
-         if (isDevMode()) {
-           console.warn(`obsFromEvent called with ${ql['constructor']['name']} instead of queryList`)
-         }
-          return
+           */
+          if (isDevMode()) {
+            console.warn(`obsFromEvent called with ${ql['constructor']['name']} instead of queryList`);
+          }
+          return;
         }
         /** fetch the subject. */
         const eventSubject = fetchSubject(this, propertyKey);

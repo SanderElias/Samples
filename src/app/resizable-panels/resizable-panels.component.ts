@@ -8,17 +8,11 @@ import { ResizablePanelComponent } from './resizable-panel/resizable-panel.compo
   imports: [ResizablePanelComponent, NgFor],
   template: `
     <se-resizable-panel *ngFor="let n of panels">
-      <h3>Panel {{n}}</h3>
+      <h3>Panel {{ n }}</h3>
     </se-resizable-panel>
   `,
-  styleUrls: ['./resizable-panels.component.css']
+  styleUrls: ['./resizable-panels.component.css'],
 })
 export class ResizablePanelsComponent {
-  panels = [
-    "One",
-    "Two",
-    "Three",
-    "Four",
-  ];
-
+  panels = ['One', 'Two', 'Three', 'Four'];
 }

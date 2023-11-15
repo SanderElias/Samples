@@ -1,5 +1,3 @@
-
 (async function () {
-  import('./bootspa')
-
+  import('./bootspa');
 })();

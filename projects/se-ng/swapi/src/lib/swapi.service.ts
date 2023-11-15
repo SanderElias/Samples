@@ -1,13 +1,24 @@
 // tslint:disable:member-ordering
 import { Injectable } from '@angular/core';
 import {
-  catchError, concat, concatAll,
-  concatMap, EMPTY, expand,
-  filter, from, map,
-  mergeMap, Observable, of, reduce,
-  shareReplay, switchMap, take,
+  catchError,
+  concat,
+  concatAll,
+  concatMap,
+  EMPTY,
+  expand,
+  filter,
+  from,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  reduce,
+  shareReplay,
+  switchMap,
+  take,
   tap,
-  toArray
+  toArray,
 } from 'rxjs';
 import { addToCache, cacheHas, getFromCache, initCache } from './cache';
 import { Film, FilmsRoot } from './FilmsRoot.interface';
@@ -36,7 +47,7 @@ export class SwapiService {
         .catch(e => undefined);
       await addToCache(url, liveData);
     }
-    return (getFromCache(url) as unknown) as T;
+    return getFromCache(url) as unknown as T;
   };
 
   /** the 'root' of swapi, as an reuable observable. */
@@ -61,7 +72,7 @@ export class SwapiService {
     map(persons =>
       persons.map(
         /** add a real random date to the persons */
-        p => ({ ...p, date: getRandomDateInPast(), id: p.url } as Person)
+        p => ({ ...p, date: getRandomDateInPast(), id: p.url }) as Person
       )
     ),
 
@@ -121,9 +132,7 @@ export class SwapiService {
    * @param url
    */
   get<T>(url: string): Observable<T> {
-    const base = Object.values(this.swapiRoot).find(topUrl =>
-      url.toLowerCase().includes(topUrl.toLowerCase())
-    ) as string;
+    const base = Object.values(this.swapiRoot).find(topUrl => url.toLowerCase().includes(topUrl.toLowerCase())) as string;
     if (base) {
       return this.getAllPagedData(base).pipe(
         reduce((allData, page: any) => allData.concat(page.results), []),
@@ -223,17 +232,11 @@ export class SwapiService {
    */
   findIn = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
     this.getAllRows(selectedSet).pipe(
-      map(list =>
-        list.find(row =>
-          (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())
-        )
-      )
+      map(list => list.find(row => (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())))
     );
 
   getSetNames = (selectedSet: keyof SwapiRoot): Observable<string[]> =>
-    this.getAllRows(selectedSet).pipe(
-      map(list => list.map(row => row.name || row.title || ''))
-    );
+    this.getAllRows(selectedSet).pipe(map(list => list.map(row => row.name || row.title || '')));
 
   /**
    * Helper to detect the table of an url. return the name of the set, or undefined/false
@@ -241,10 +244,8 @@ export class SwapiService {
    */
   detectSet(url) {
     if (typeof url === 'string') {
-      const entry = Object.entries(this.swapiRoot).find(([setName, setBaseUrl]) =>
-        url.includes(setBaseUrl)
-      );
-      return entry && ((entry[0] as unknown) as keyof SwapiRoot);
+      const entry = Object.entries(this.swapiRoot).find(([setName, setBaseUrl]) => url.includes(setBaseUrl));
+      return entry && (entry[0] as unknown as keyof SwapiRoot);
     }
   }
 

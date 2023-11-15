@@ -21,7 +21,7 @@ const SIGNAL = Symbol('SIGNAL');
  *
  * @developerPreview
  */
-export type Signal<T> = (() => T)&{
+export type Signal<T> = (() => T) & {
   [SIGNAL]: true;
 };
 
@@ -36,14 +36,13 @@ export function isSignal(value: Function): value is Signal<unknown> {
  * Marks `fn` such that `isSignal(fn)` will be `true`.
  */
 export function markSignal<T>(fn: () => T): Signal<T>;
-export function markSignal<T, U extends {}>(fn: () => T, extraApi: U): Signal<T>&U;
-export function markSignal<T, U extends {} = {}>(fn: () => T, extraApi: U = ({} as U)): Signal<T>&
-    U {
+export function markSignal<T, U extends {}>(fn: () => T, extraApi: U): Signal<T> & U;
+export function markSignal<T, U extends {} = {}>(fn: () => T, extraApi: U = {} as U): Signal<T> & U {
   (fn as any)[SIGNAL] = true;
   for (const key in extraApi) {
     (fn as any)[key] = extraApi[key];
   }
-  return fn as (Signal<T>& U);
+  return fn as Signal<T> & U;
 }
 
 /**

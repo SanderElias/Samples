@@ -4,11 +4,11 @@ import { Subject } from 'rxjs';
 import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-wait-for-it',
-    templateUrl: './wait-for-it.component.html',
-    styles: [],
-    standalone: true,
-    imports: [NgIf, NgForOf, AsyncPipe]
+  selector: 'app-wait-for-it',
+  templateUrl: './wait-for-it.component.html',
+  styles: [],
+  standalone: true,
+  imports: [NgIf, NgForOf, AsyncPipe],
 })
 export class WaitForItComponent {
   someVar: string[];

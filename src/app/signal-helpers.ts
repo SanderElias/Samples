@@ -1,24 +1,19 @@
 import { signal } from '@angular/core';
 import { Observable, firstValueFrom, of, shareReplay } from 'rxjs';
 
-
 export type ToWritableSignalOptions<T> = {
   initialValue: T | undefined;
   errorCallback: (err: any) => void | undefined;
 };
 
-export const toWritableSignal = <T>(
-  src: Observable<T>, {
-    initialValue,
-    errorCallback,
-  } = {} as ToWritableSignalOptions<T>
-) => {
+export const toWritableSignal = <T>(src: Observable<T>, { initialValue, errorCallback } = {} as ToWritableSignalOptions<T>) => {
   const sig = signal<T | undefined>(initialValue);
-  errorCallback ??= (err: any) => undefined
-  firstValueFrom(src).then((val) => sig.set(val)).catch(errorCallback);
+  errorCallback ??= (err: any) => undefined;
+  firstValueFrom(src)
+    .then(val => sig.set(val))
+    .catch(errorCallback);
   return sig;
-}
-
+};
 
 // class Sample {
 //   data$ = of([1, 2, 3]).pipe( // any observable will do, most often an http-get

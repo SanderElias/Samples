@@ -11,15 +11,15 @@ import { RouterLink } from '@angular/router';
   template: `
     @for (item of routes(); track $index) {
       @if (item != undefined) {
-    <section>
-      <a [routerLink]="item?.path">
-        <img [src]="item?.largeImage" [alt]="item?.title" />
-        <h2>{{ item?.title }}</h2>
-        <p>{{ item?.description }}</p>
-      </a>
-    </section>
+        <section>
+          <a [routerLink]="item?.path">
+            <img [src]="item?.largeImage" [alt]="item?.title" />
+            <h2>{{ item?.title }}</h2>
+            <p>{{ item?.description }}</p>
+          </a>
+        </section>
+      }
     }
-  }
   `,
   styleUrls: ['./route-list.component.css'],
 })

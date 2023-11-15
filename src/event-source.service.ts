@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { InMemoryDataService } from './in-memory.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventSourceService {
   faker = import('faker');
 
-  constructor(public db: InMemoryDataService) { }
+  constructor(public db: InMemoryDataService) {}
 
   async createEvent(maxRows = 25) {
     const faker = await this.faker;
-    const curDb = this.db.list('contact')
+    const curDb = this.db.list('contact');
     const actions = ['update'];
     if (curDb.length < maxRows) {
       actions.push('create');
@@ -35,7 +35,7 @@ export class EventSourceService {
     };
     const field = Object.keys(fieldOptions)[Math.floor(Math.random() * Object.keys(fieldOptions).length)];
     const value = fieldOptions[field]();
-    const row = { id, type: 'contact', [field]: value }
+    const row = { id, type: 'contact', [field]: value };
     if (action === 'create') {
       row.name = faker.name.firstName();
     }
@@ -48,7 +48,7 @@ export class EventSourceService {
 const actions = [
   ['create', 5],
   ['update', 1000],
-  ['delete', 1]
+  ['delete', 1],
 ].reduce((acc, [action, weight]) => {
   for (let i = 0; i < weight; i++) {
     acc.push(action);
@@ -68,5 +68,3 @@ function getWeightedAction() {
   }
   // console.table(es.db.list('contact'));
 })();
-
-

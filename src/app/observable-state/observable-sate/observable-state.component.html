@@ -1,6 +1,6 @@
 <h1>Observable state</h1>
 
-<main *ngIf="(viewModel$ | async) as vm">
+<main *ngIf="viewModel$ | async as vm">
   <section class="display">
     <button (click)="down()" [disabled]="vm.underMin">-</button>
     <h3>{{ vm.count }}</h3>
@@ -25,4 +25,3 @@
     font-size: 30px;
   }
 </style>
-

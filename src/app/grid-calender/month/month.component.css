@@ -70,13 +70,10 @@
   }
 
   /** hover "cursor" after */
-  .last ~ se-day-cell:hover
-  {
+  .last ~ se-day-cell:hover {
     background-color: hsla(49, 61%, 45%, 0.768);
     border-left: 0;
     border-radius: 0 25% 25% 0;
     margin-left: -0.5rem;
   }
-
-
 }

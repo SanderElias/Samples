@@ -1,4 +1,4 @@
-<div class='pannel'>
+<div class="pannel">
   <header></header>
   <main>
     <ng-content></ng-content>
@@ -7,14 +7,14 @@
 </div>
 <style>
   .pannel {
-    display:grid;
+    display: grid;
     grid-template-rows: 0 1fr 0;
     position: relative;
     width: 40vw;
     background-color: dimgray;
     height: 200px;
     border-radius: 10px;
-    padding:10px;
+    padding: 10px;
     margin-top: 5px;
   }
 
@@ -28,13 +28,13 @@
     grid-template-rows: 40px 1fr 40px;
   }
 
-  .pannel.header>header, .pannel.footer>footer {
+  .pannel.header > header,
+  .pannel.footer > footer {
     border-top: 1px solid white;
-    display:grid;
+    display: grid;
     align-content: center;
     justify-content: center;
   }
-
 
   /** css trickery to create a cross, removes all style from the button first.*/
   #closeButton {
@@ -55,7 +55,8 @@
   #closeButton:hover {
     opacity: 1;
   }
-  #closeButton:before, #closeButton:after {
+  #closeButton:before,
+  #closeButton:after {
     position: absolute;
     left: 15px;
     content: ' ';

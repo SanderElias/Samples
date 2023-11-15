@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Consumer} from './internal.js';
-import {Watch} from './watch.js';
+import { Consumer } from './internal.js';
+import { Watch } from './watch.js';
 
 /**
  * A global reactive effect, which can be manually scheduled or destroyed.
@@ -69,7 +69,7 @@ export function resetEffects(): void {
 const globalWatches = new Set<Watch>();
 const queuedWatches = new Set<Watch>();
 
-let watchQueuePromise: {promise: Promise<void>; resolveFn: () => void;}|null = null;
+let watchQueuePromise: { promise: Promise<void>; resolveFn: () => void } | null = null;
 
 /**
  * Helper to check if there is an active reactive context.
@@ -89,7 +89,7 @@ function queueWatch(watch: Watch): void {
     Promise.resolve().then(runWatchQueue);
 
     let resolveFn!: () => void;
-    const promise = new Promise<void>((resolve) => {
+    const promise = new Promise<void>(resolve => {
       resolveFn = resolve;
     });
 

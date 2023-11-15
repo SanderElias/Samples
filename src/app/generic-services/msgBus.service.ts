@@ -65,8 +65,10 @@ export class MsgBusSerrvice {
    * ```
    */
 
-  createEmitter = <T>(type: MsgBusType, subType?: string) => (payload: T) =>
-    this.emit({ type, payload, subType });
+  createEmitter =
+    <T>(type: MsgBusType, subType?: string) =>
+    (payload: T) =>
+      this.emit({ type, payload, subType });
 
   /**
    *  !! FOR DEBUGGING ONLY !!
@@ -87,9 +89,7 @@ export class MsgBusSerrvice {
 
   filteredObservable = <T>(filterOn: MsgBusType, subTypeToFilter?: string): Observable<T> => {
     return this.messages$.pipe(
-      filter(
-        m => m.type === filterOn && (subTypeToFilter === undefined || m.subType === subTypeToFilter)
-      ),
+      filter(m => m.type === filterOn && (subTypeToFilter === undefined || m.subType === subTypeToFilter)),
       pluck('payload')
       // tap<T>(pl => console.log('msg', type, subType, pl))
     );

@@ -6,12 +6,7 @@ import { EditComponent } from './edit.component';
 import { MdEditComponent } from './md-edit/md-edit.component';
 import { SelectFileComponent } from './select-file/select-file.component';
 
-
 @NgModule({
-    imports: [
-        CommonModule,
-        EditRoutingModule,
-        EditComponent, MdEditComponent, SelectFileComponent
-    ]
+  imports: [CommonModule, EditRoutingModule, EditComponent, MdEditComponent, SelectFileComponent],
 })
-export class EditModule { }
+export class EditModule {}

@@ -9,8 +9,8 @@ import { RelationsService } from '../../relations.service';
 @Component({
   selector: 'app-relation',
   template: `
-    <h4 *ngIf="!detail"><img [src]="relation()?.avatar">  {{ relation()?.name }}</h4>
-    <section *ngIf="detail ">
+    <h4 *ngIf="!detail"><img [src]="relation()?.avatar" /> {{ relation()?.name }}</h4>
+    <section *ngIf="detail">
       <h4>{{ relation().name }}</h4>
       <p>{{ relation().company.name }}</p>
       <p>📧 {{ relation().email }}</p>
@@ -19,7 +19,7 @@ import { RelationsService } from '../../relations.service';
   `,
   styleUrls: ['./relation.component.css'],
   standalone: true,
-  imports: [NgIf, AsyncPipe]
+  imports: [NgIf, AsyncPipe],
 })
 export class RelationComponent {
   rel = inject(RelationsService);
@@ -27,7 +27,9 @@ export class RelationComponent {
   router = inject(Router);
 
   private relationId$ = new ReplaySubject<string>(1);
-  @Input() set relationId(x: string) { this.relationId$.next(x); };
+  @Input() set relationId(x: string) {
+    this.relationId$.next(x);
+  }
 
   detail = this.elm?.hasAttribute('detail'); // check if the attribute `detail` is present
 
@@ -36,9 +38,5 @@ export class RelationComponent {
     this.router.navigate(['/bRelations', relationId]);
   }
 
-  relation = toSignal(this.relationId$.pipe(
-    switchMap(id => this.rel.getRelation(id)),
-  ));
-
+  relation = toSignal(this.relationId$.pipe(switchMap(id => this.rel.getRelation(id))));
 }
-

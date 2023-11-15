@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { get, set } from 'idb-keyval';
 import { firstValueFrom, map, merge, mergeMap, ReplaySubject, shareReplay, startWith, switchMap, tap } from 'rxjs';
-import { PackageJson } from '@npm/types'
+import { PackageJson } from '@npm/types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PackageJsonService {
   fileHandle$ = new ReplaySubject<FileSystemFileHandle>(1);
@@ -15,20 +15,20 @@ export class PackageJsonService {
     switchMap(fileHandle => fileHandle.getFile()),
     tap(file => console.log('file', file)),
     shareReplay({ bufferSize: 1, refCount: true })
-  )
+  );
 
   pjObject$ = merge(
     this.file$.pipe(
       switchMap(file => file.text()),
-      map(contents => JSON.parse(contents) as WireItPackageJson),
+      map(contents => JSON.parse(contents) as WireItPackageJson)
     ),
     this.#contents$
   ).pipe(
     map(this.optimize),
     tap(contents => set('lastPackageJson', contents)),
-    tap(contents => console.table(Object.values(contents.wireit||{}))),
-    shareReplay({ bufferSize: 1, refCount: true }),
-  )
+    tap(contents => console.table(Object.values(contents.wireit || {}))),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
   /**
    * Remove all empty properties from the wireit object
@@ -38,34 +38,37 @@ export class PackageJsonService {
   optimize(c: WireItPackageJson) {
     const { wireit, ...rest } = c;
     if (!wireit) return c;
-    const result = Object.entries(wireit).reduce((acc, [key, value]) => {
-      const newVal = Object.entries(value).reduce((acc, [key, value]) => {
-        if (Array.isArray(value)) {
-          const arr = value.filter(val => !!val);
-          if (arr.length === 0) {
-            return acc
+    const result = Object.entries(wireit).reduce(
+      (acc, [key, value]) => {
+        const newVal = Object.entries(value).reduce((acc, [key, value]) => {
+          if (Array.isArray(value)) {
+            const arr = value.filter(val => !!val);
+            if (arr.length === 0) {
+              return acc;
+            }
+            return { ...acc, [key]: arr };
           }
-          return { ...acc, [key]: arr };
-        };
-        if (value === '') return acc;
-        if (value === undefined) return acc;
-        if (value === null) return acc;
-        if (value === false) return acc;
-        return { ...acc, [key]: value };
-      }, {})
-      return { ...acc, [key]: newVal };
-    }, {} as Record<string, WireItEntry>)
+          if (value === '') return acc;
+          if (value === undefined) return acc;
+          if (value === null) return acc;
+          if (value === false) return acc;
+          return { ...acc, [key]: value };
+        }, {});
+        return { ...acc, [key]: newVal };
+      },
+      {} as Record<string, WireItEntry>
+    );
     /** maintain the order */
     const copy = { ...c };
     copy.wireit = result;
-    return copy
+    return copy;
   }
 
   async upgrade(key: string) {
     const current = await firstValueFrom(this.pjObject$);
     const command = current?.scripts?.[key];
     if (command && !command.includes('wireit')) {
-      current.wireit ??= {};;
+      current.wireit ??= {};
       const entry = this.#undoBuffer.get(key) || {
         command,
         dependencies: [],
@@ -89,8 +92,8 @@ export class PackageJsonService {
       delete current.scripts[name];
       current.scripts[newName] = `wireit`;
       Object.values(current.wireit).forEach(entry => {
-        entry.dependencies = entry.dependencies?.map(dep => dep === name ? newName : dep);
-      })
+        entry.dependencies = entry.dependencies?.map(dep => (dep === name ? newName : dep));
+      });
     }
     this.#contents$.next(current);
   }
@@ -106,19 +109,16 @@ export class PackageJsonService {
     return true;
   }
 
-  async addWireitScript(
-    name: string,
-    props: WireItEntry
-  ) {
+  async addWireitScript(name: string, props: WireItEntry) {
     const current = await firstValueFrom(this.pjObject$);
-    current.wireit ??= {}
+    current.wireit ??= {};
     if (current.wireit[name]) {
       console.warn('already exists');
       return false;
     }
     current.wireit[name] = {
-      command: "",
-      ...props
+      command: '',
+      ...props,
     };
     current.scripts[name] = `wireit`;
     this.#contents$.next(current);
@@ -159,18 +159,14 @@ export class PackageJsonService {
       if (contents.name) {
         this.#contents$.next(contents as WireItPackageJson);
       }
-    })
+    });
   }
-
-
-
 }
 
 export interface WireItPackageJson extends PackageJson {
-
   wireit?: {
-    [key: string]: WireItEntry
-  }
+    [key: string]: WireItEntry;
+  };
 }
 
 export interface WireItEntry {
@@ -179,11 +175,9 @@ export interface WireItEntry {
   service?: boolean;
   files?: string[];
   output?: string[];
-  clean?: boolean | "if-file-deleted"
+  clean?: boolean | 'if-file-deleted';
   packageLocks?: string[];
 }
-
-
 
 async function verifyPermission(fileHandle: FileSystemFileHandle, readWrite = true) {
   console.log('verifyPermission', fileHandle, readWrite);

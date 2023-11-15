@@ -14,7 +14,6 @@
     grid-template-columns: repeat(var(--cols), calc(100% / var(--cols)));
     grid-template-rows: repeat(var(--rows), calc(100% / var(--rows)));
 
-
     background: linear-gradient(90deg, transparent calc(100% - 1px), white 1px);
     background-size: calc(100% / var(--cols));
   }
@@ -30,41 +29,20 @@
     left: 0;
 
     background-image: linear-gradient(transparent 50%, #ffffff30 50%);
-    background-size: 100% calc(100% / (var(--rows) /2));
+    background-size: 100% calc(100% / (var(--rows) / 2));
   }
 </style>
 
-<app-cell
-  x=3
-  y=5
-> Hello,</app-cell>
-<app-cell
-  x=4
-  y=6
-> Dark</app-cell>
-<app-cell
-  x=8
-  y=9
-> I'm</app-cell>
-<app-cell
-  x=9
-  y=10
-> here</app-cell>
-
+<app-cell x="3" y="5"> Hello,</app-cell>
+<app-cell x="4" y="6"> Dark</app-cell>
+<app-cell x="8" y="9"> I'm</app-cell>
+<app-cell x="9" y="10"> here</app-cell>
 
 <!-- x headers -->
-<app-cell
-  *ngFor="let x of labels"
-  [x]='x'
-  y=1
->
-  <h1>{{x}}</h1>
+<app-cell *ngFor="let x of labels" [x]="x" y="1">
+  <h1>{{ x }}</h1>
 </app-cell>
 <!-- y headers -->
-<app-cell
-  *ngFor="let y of labels.slice(1,labels.length)"
-  [y]='y'
-  x=1
->
-  <h1>{{y}}</h1>
+<app-cell *ngFor="let y of labels.slice(1, labels.length)" [y]="y" x="1">
+  <h1>{{ y }}</h1>
 </app-cell>

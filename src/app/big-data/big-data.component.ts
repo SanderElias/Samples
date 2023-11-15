@@ -43,11 +43,7 @@ interface LocalState {
           I'm using the state to set the max,
           and using the setProp again to update the position property in the state$
         -->
-        <input
-          type="range"
-          [max]="vm.users.length / vm.state.pageSize"
-          (input)="setProp('position', $event)"
-        />
+        <input type="range" [max]="vm.users.length / vm.state.pageSize" (input)="setProp('position', $event)" />
         <table>
           <tbody>
             <!--
@@ -147,7 +143,7 @@ export class BigDataComponent {
   /** when in doubt, use console.log */
   // .pipe(tap(s => console.log(s)));
 
-  constructor(private user: DemoUserService) { }
+  constructor(private user: DemoUserService) {}
 
   /** utility method to extract the users I need to display. */
   findFirst(users: DemoUser[], { position, pageSize, search }): DemoUser[] {
@@ -175,7 +171,7 @@ export class BigDataComponent {
    * takes a property-name from the state, and an event.
    * In here I'm casting the event to `ev: { target: HTMLInputElement }` to make it easier to consume
    */
-  setProp<T extends keyof LocalState>(prop: T, ev: MouseEvent | KeyboardEvent | InputEvent| Event) {
+  setProp<T extends keyof LocalState>(prop: T, ev: MouseEvent | KeyboardEvent | InputEvent | Event) {
     /** extract the dom element from the event. */
     const domElement = ev.target as HTMLInputElement;
     /** extract the current state from the behavior subject */

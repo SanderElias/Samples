@@ -1,5 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, EffectCleanupFn, ElementRef, Injector, Input, WritableSignal, afterNextRender, effect, inject } from '@angular/core';
+import {
+  Component,
+  EffectCleanupFn,
+  ElementRef,
+  Injector,
+  Input,
+  WritableSignal,
+  afterNextRender,
+  effect,
+  inject,
+} from '@angular/core';
 
 @Component({
   selector: 'se-dialog',
@@ -30,7 +40,7 @@ export class SeDialogComponent {
  */
 export type EffectCleanupRegisterFn = (cleanupFn: EffectCleanupFn) => void;
 
-function afterNextRenderEffect(fn:  (onCleanup: EffectCleanupRegisterFn) => void) {
+function afterNextRenderEffect(fn: (onCleanup: EffectCleanupRegisterFn) => void) {
   const injector = inject(Injector);
-  afterNextRender(() => effect(fn , { injector }));
+  afterNextRender(() => effect(fn, { injector }));
 }

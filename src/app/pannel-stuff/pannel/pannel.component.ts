@@ -12,12 +12,12 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'app-pannel',
-    templateUrl: './pannel.component.html',
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.ShadowDom,
-    standalone: true
+  selector: 'app-pannel',
+  templateUrl: './pannel.component.html',
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.ShadowDom,
+  standalone: true,
 })
 export class PannelComponent {
   shadowRoot = this.elmRef.nativeElement?.shadowRoot;
@@ -25,8 +25,8 @@ export class PannelComponent {
 }
 
 @Directive({
-    selector: 'app-pannel[close]',
-    standalone: true
+  selector: 'app-pannel[close]',
+  standalone: true,
 })
 export class PannelCloseDirective implements OnInit {
   private root = this.pannel.shadowRoot;
@@ -53,8 +53,8 @@ export class PannelCloseDirective implements OnInit {
 }
 
 @Directive({
-    selector: 'app-pannel[footer]',
-    standalone: true
+  selector: 'app-pannel[footer]',
+  standalone: true,
 })
 export class PannelFooterDirective implements OnInit {
   private root = this.panel.shadowRoot;

@@ -39,8 +39,8 @@ const shareOptions = <T>(): ShareConfig<T> => {
       return merge(ig.pipe(filter(g => g === true)), timer(defaultTimeout)).pipe(
         tap(() => {
           console.log(`[cache delete] `);
-          inGrace.next(false)
-        }),
+          inGrace.next(false);
+        })
       );
     },
   };
@@ -51,7 +51,10 @@ const shareOptions = <T>(): ShareConfig<T> => {
     next: r => console.log(r),
     complete: () => console.log('competed'),
   };
-  const something$ = interval(250).pipe(tap(c => console.log('o',c)),share(shareOptions()));
+  const something$ = interval(250).pipe(
+    tap(c => console.log('o', c)),
+    share(shareOptions())
+  );
 
   // prime the cache.
   await lastValueFrom(something$.pipe(take(4), tap(logSub)));

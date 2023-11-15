@@ -9,7 +9,7 @@ import { SeLetDirective } from '@se-ng/let';
   templateUrl: './pokemain.component.html',
   styles: [],
   standalone: true,
-  imports: [SeLetDirective]
+  imports: [SeLetDirective],
 })
 export class PokeMainComponent implements OnInit {
   fakePost$ = timer(1500).pipe(
@@ -18,7 +18,7 @@ export class PokeMainComponent implements OnInit {
     shareReplay({ refCount: true, bufferSize: 1 })
   );
 
-  constructor(private pa: PokeApiService) { }
+  constructor(private pa: PokeApiService) {}
 
   ngOnInit() {
     console.log('pokeMain');

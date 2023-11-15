@@ -23,12 +23,12 @@ interface LocalState {
 }
 
 @Component({
-    selector: 'app-observable-state',
-    templateUrl: './observable-state.component.html',
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [AsyncPipe, NgIf, JsonPipe],
+  selector: 'app-observable-state',
+  templateUrl: './observable-state.component.html',
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [AsyncPipe, NgIf, JsonPipe],
 })
 export class ObservableStateComponent {
   /**
@@ -101,5 +101,4 @@ export class ObservableStateComponent {
     this.setState('count', count - 1);
     this.setState({ min: 3, max: 5 });
   }
-
 }

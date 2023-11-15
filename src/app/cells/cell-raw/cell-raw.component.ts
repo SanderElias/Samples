@@ -1,14 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  NgZone,
-  ViewEncapsulation,
-  inject,
-} from '@angular/core';
+import { Component, ElementRef, NgZone, ViewEncapsulation, inject } from '@angular/core';
 
-const clampedRandom = (min: number, max: number) =>
-  Math.round(Math.random() * (max - min)) + min;
+const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 
 @Component({
   selector: 'se-cell-raw',
@@ -32,10 +25,7 @@ export class CellRawComponent {
     const addCell = (id: number) => {
       const cell = document.createElement('cell');
       const alive = Math.random() < 0.06;
-      cell.style.setProperty(
-        '--cellBg',
-        alive ? this.aliveColor : this.deadColor,
-      );
+      cell.style.setProperty('--cellBg', alive ? this.aliveColor : this.deadColor);
       cells.push({ id, cell, alive });
 
       elm.appendChild(cell);
@@ -47,10 +37,7 @@ export class CellRawComponent {
       id % 1000 === 0 && (await new Promise(r => setTimeout(r, 4)));
     }
     await new Promise(r => setTimeout(r, 10));
-    const rowLength = window
-      .getComputedStyle(elm)
-      .getPropertyValue('grid-template-columns')
-      .split(' ').length;
+    const rowLength = window.getComputedStyle(elm).getPropertyValue('grid-template-columns').split(' ').length;
     let i = cells.length - 1;
     console.log(elm, cells.length, rowLength);
     while (cells.length < rowLength * rowLength) {

@@ -4,8 +4,7 @@ export const walkSync = function (dir: string, filelist: string[] = []) {
   files.forEach(function (file) {
     if (statSync(dir + file).isDirectory()) {
       filelist = walkSync(dir + file + '/', filelist);
-    }
-    else {
+    } else {
       filelist.push(dir + file);
     }
   });

@@ -12,7 +12,7 @@ import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
   templateUrl: './lifeycle-hooks-sample.component.html',
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor, NgIf, AsyncPipe]
+  imports: [ReactiveFormsModule, NgFor, NgIf, AsyncPipe],
 })
 export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
   search = new UntypedFormControl();

@@ -10,32 +10,32 @@
   height: 1.5rem;
 }
 h4 {
-  padding:2px;
-  margin:0px;
+  padding: 2px;
+  margin: 0px;
 }
 :host.inline {
   display: inline;
-  border:none;
-  padding:0;
-  margin:0;
+  border: none;
+  padding: 0;
+  margin: 0;
   background-color: inherit;
   box-shadow: none;
 }
 :host.inline h4 {
   display: inline;
   font-weight: normal;
-  color: #0000ee
+  color: #0000ee;
 }
 :host[detail] {
   height: fit-content;
-  border:1px solid ;
-  padding:5px;
-  border-radius:0;
-  margin:0;
+  border: 1px solid;
+  padding: 5px;
+  border-radius: 0;
+  margin: 0;
   background-color: inherit;
   box-shadow: none;
 }
 section p {
-  margin:0;
-  padding-left:15px;
+  margin: 0;
+  padding-left: 15px;
 }

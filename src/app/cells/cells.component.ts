@@ -27,7 +27,7 @@ const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (
   imports: [CommonModule, CellComponent],
   template: `@for (cell of cells(); track $index) {
     <se-cell [cellData]="cell" />
-    } `,
+  } `,
   styleUrls: ['./cells.component.css'],
 })
 export class CellsComponent {
@@ -40,8 +40,8 @@ export class CellsComponent {
       signal<Cell>({
         id: i,
         alive: Math.random() < 0.06, // populate ~5%
-      }),
-    ),
+      })
+    )
   );
 
   growList = async () => {
@@ -49,7 +49,7 @@ export class CellsComponent {
     const neededCells = this.gridSize() * this.gridSize();
     while (this.cells().length < neededCells) {
       const len = this.cells().length;
-      const addNum = 50
+      const addNum = 50;
       const add = len + addNum > neededCells ? neededCells - len : addNum;
       const newCells: WritableSignal<Cell>[] = [];
       for (let i = 0; i < add; i += 1) {
@@ -57,13 +57,13 @@ export class CellsComponent {
           signal({
             id: len + i,
             alive: Math.random() < 0.06, // populate ~5%
-          }),
+          })
         );
       }
       this.cells.update(c => c.concat(newCells));
       await new Promise(r => setTimeout(r, 25));
     }
-    console.log(`Done, created ${neededCells} in a ${this.gridSize()} x ${this.gridSize()} grid.`)
+    console.log(`Done, created ${neededCells} in a ${this.gridSize()} x ${this.gridSize()} grid.`);
   };
 
   repopulate = () => this.cells().forEach(cell => cell.update(({ id }) => ({ id, alive: Math.random() < 0.06 })));
@@ -111,7 +111,7 @@ export class CellsComponent {
 
   ngOnInit() {
     this.calcGrid();
-    this.growList()
+    this.growList();
   }
 }
 

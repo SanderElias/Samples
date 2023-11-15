@@ -1,19 +1,5 @@
-import {
-  AfterContentInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  NgZone,
-  ViewChild,
-  inject,
-  ɵNoopNgZone,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  RouterLinkActive,
-  RouterLink,
-  RouterOutlet,
-} from '@angular/router';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, NgZone, ViewChild, inject, ɵNoopNgZone } from '@angular/core';
+import { ActivatedRoute, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 import { ShowSourceComponent } from './show-source/show-source.component';
 
 @Component({
@@ -44,7 +30,7 @@ export class AppComponent implements AfterContentInit {
       host.querySelectorAll('#menu a').forEach(a =>
         a.addEventListener('click', () => {
           this.checked.checked = false;
-        }),
+        })
       );
     }
   }
@@ -62,9 +48,7 @@ export class AppComponent implements AfterContentInit {
        * As long as zoneLess isn't fully driven by signals,
        * we need something to tell Angular to update the view.
        */
-      console.warn(
-        `[appComponent] NoopZone detected, run CDR.detectChanges every 15Ms`,
-      );
+      console.warn(`[appComponent] NoopZone detected, run CDR.detectChanges every 15Ms`);
       setTimeout(() => this.cdr.detectChanges(), 500);
       // setInterval(() => this.cdr.detectChanges(), 15); // cater for 60 fps.
     }

@@ -4,15 +4,12 @@
   use viewBox trickery to get 0.0 in the center of the svg.
   that way, we can skip the cX and CY attributes.
 -->
-<svg
-  viewBox="-50 -50 100 100"
-  *ngIf="time$ |async as time"
->
+<svg viewBox="-50 -50 100 100" *ngIf="time$ | async as time">
   <circle
     *ngFor="let color of strokeColors; let i = index"
     [attr.r]="radiusFromPosition(i)"
     stroke="lightgray"
-    style="stroke-width:2;"
+    style="stroke-width: 2"
   />
   <circle
     *ngFor="let color of strokeColors; let i = index"
@@ -20,12 +17,7 @@
     [attr.stroke]="color"
     [attr.stroke-dasharray]="dashArray(time[i], i)"
   />
-  <text
-    dominant-baseline="central"
-    text-anchor="middle"
-  >{{zerod(time[0])}}:{{zerod(time[1])}}:{{zerod(time[2])}}</text>
-
-
+  <text dominant-baseline="central" text-anchor="middle">{{ zerod(time[0]) }}:{{ zerod(time[1]) }}:{{ zerod(time[2]) }}</text>
 </svg>
 
 <style>
@@ -37,7 +29,6 @@
     /** turn so 0,0 is at top */
     transform: rotate(-0.25turn);
     max-height: 90vh;
-    ;
   }
 
   circle {
@@ -48,7 +39,7 @@
   text {
     transform: rotate(0.25turn);
     /* put back right up */
-    font-size: .5rem;
+    font-size: 0.5rem;
     font-weight: bold;
     fill: lightgray;
   }

@@ -10,12 +10,12 @@ import { PaintingComponent } from '../painting/painting.component';
 import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'vm-home',
-    templateUrl: './vm-home.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe]
+  // tslint:disable-next-line:component-selector
+  selector: 'vm-home',
+  templateUrl: './vm-home.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeComponent {
   /** create observable with clicks from viewChildren */
@@ -50,9 +50,7 @@ export class VmHomeComponent {
     // shareReplay({bufferSize: 1, refCount: true})
   );
 
-  quote$ = this.speed$.pipe(
-    switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean)))
-  );
+  quote$ = this.speed$.pipe(switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))));
 
   /** helpers to handle pausing */
   pauseQuote$ = this.bqClicks$.pipe(switchMap(b => (b ? NEVER : this.quote$)));
@@ -66,7 +64,10 @@ export class VmHomeComponent {
     /** count down from 20 */
     scan((duration, t) => 20 - t, 1)
   );
-  constructor(private raki: RakiService, private q: QuoteService) {
+  constructor(
+    private raki: RakiService,
+    private q: QuoteService
+  ) {
     setTimeout(() => {
       console.log(this.artClick$);
     }, 100);
@@ -81,7 +82,7 @@ export class VmHomeComponent {
       /** on every msg toggle, start of with true */
       scan(acc => !acc, false),
       /** make sure the stream starts */
-      startWith(false),
+      startWith(false)
       /** log to console so we can see what's happening */
       // tap(r => console.log('clicked', name, r))
     );

@@ -2,14 +2,13 @@ import { Observable, Subscriber, Subscription } from 'rxjs';
 
 declare global {
   interface Window {
-    '__zone_symbol__setTimeout': typeof setTimeout;
-    '__zone_symbol__clearTimeout': typeof clearTimeout;
+    __zone_symbol__setTimeout: typeof setTimeout;
+    __zone_symbol__clearTimeout: typeof clearTimeout;
   }
 }
 
 const timeOut = (globalThis['__zone_symbol__setTimeout'] || setTimeout) as typeof setTimeout;
 const clearTime = (globalThis['__zone_symbol__clearTimeout'] || clearTimeout) as typeof clearTimeout;
-
 
 type CombinatorFn<R, T> = (source: R) => Observable<T>[];
 
@@ -33,7 +32,7 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
   return (source: Observable<R>) => {
     debounceTime = typeof fn === 'number' ? fn : debounceTime;
     source.subscribe((x: R) => {
-      const sources = typeof fn === 'function' ? fn(x) : x as Observable<T>[];
+      const sources = typeof fn === 'function' ? fn(x) : (x as Observable<T>[]);
       cleanStaleSubscriptions(sources);
       sources.forEach(checkAndSubscribeWhenNew);
     });
@@ -53,14 +52,19 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
     const client = clients.get(source);
     if (client === undefined) {
       const subObserver = {
-        next: value => { if (res.last !== value) { res.last = value; emitResults(); } },
+        next: value => {
+          if (res.last !== value) {
+            res.last = value;
+            emitResults();
+          }
+        },
         error: err => subscriber.error(err),
-        complete: () => { }
+        complete: () => {},
       };
       const res = {
         sub: source.subscribe(subObserver),
         last: undefined,
-        index
+        index,
       };
       clients.set(source, res);
       return;
@@ -72,15 +76,15 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
     clearTime(debounceTimer);
     clients.forEach(client => client.sub.unsubscribe());
     clients.clear();
-  };
+  }
 
   function doEmit() {
     result.length = clients.size; // make sure there are no stale values when the array has shrunken
-    clients.forEach(({ last, index }) => result[index] = last);
+    clients.forEach(({ last, index }) => (result[index] = last));
     lastEmitTime = Date.now();
     debounceTimer = undefined;
     subscriber.next(result);
-  };
+  }
   function emitResults() {
     debounceTimer && clearTime(debounceTimer);
     debounceTimer = timeOut(doEmit, debounceTime);
@@ -90,7 +94,3 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
     }
   }
 }
-
-
-
-

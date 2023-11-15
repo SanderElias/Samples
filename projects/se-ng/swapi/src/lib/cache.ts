@@ -1,4 +1,4 @@
-import { get, set,del } from 'idb-keyval';
+import { get, set, del } from 'idb-keyval';
 let cache: Map<string, object>;
 const cacheName = 'sample-cache';
 

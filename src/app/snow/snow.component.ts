@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 
 // import html2canvas from 'html2canvas';
 @Component({
-    selector: 'app-snow',
-    templateUrl: './snow.component.html',
-    styles: [],
-    standalone: true
+  selector: 'app-snow',
+  templateUrl: './snow.component.html',
+  styles: [],
+  standalone: true,
 })
 export class SnowComponent implements OnInit {
   constructor() {}

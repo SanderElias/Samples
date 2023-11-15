@@ -7,19 +7,12 @@
     "allowSyntheticDefaultImports": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "lib": [
-      "ES2020",
-      "DOM"
-    ],
-    "types": [
-      "node"
-    ],
+    "lib": ["ES2020", "DOM"],
+    "types": ["node"],
     "moduleResolution": "Node",
     "module": "ES2020"
   },
-  "files": [
-    "../src/app/app.sps.module.ts"
-  ],
+  "files": ["../src/app/app.sps.module.ts"],
   "angularCompilerOptions": {
     "enableIvy": true,
     "compilationMode": "partial"

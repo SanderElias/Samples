@@ -16,13 +16,9 @@ const invoice$ = modelFromLatest<testModel>({
 })
  ```
  */
-export function modelFromLatest<T>(
-  modelBase: { [P in keyof T]: Observable<T[P]> | T[P] }
-): Observable<T> {
+export function modelFromLatest<T>(modelBase: { [P in keyof T]: Observable<T[P]> | T[P] }): Observable<T> {
   /** work in non-observable defaults into the array */
-  const sources = Object.values(modelBase).map(val =>
-    isObservable(val) ? val : of(val)
-  ) as Observable<unknown>[];
+  const sources = Object.values(modelBase).map(val => (isObservable(val) ? val : of(val))) as Observable<unknown>[];
 
   /** spread out the values into an array, and use combineLatest to "watch" for changes */
   return combineLatest(sources).pipe(

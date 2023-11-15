@@ -11,7 +11,7 @@ import { BogusLoadService } from '../bogus-load.service';
       }
     `,
   ],
-  standalone: true
+  standalone: true,
 })
 export class HtmlloadComponent implements OnDestroy {
   /* injections */

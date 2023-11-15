@@ -1,21 +1,8 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  ViewChildren
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren } from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
-import {
-  debounceTime, distinctUntilChanged, filter,
-  map,
-  pluck,
-  scan,
-  startWith,
-  switchMap,
-  tap
-} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, pluck, scan, startWith, switchMap, tap } from 'rxjs/operators';
 import { RakiService } from '../../../app/rijks/raki.service';
 import { PaintingComponent } from '../painting/painting.component';
 import { PlayButtonComponent } from '../play-button/play-button.component';
@@ -32,11 +19,11 @@ interface Vm {
   speed: number;
 }
 @Component({
-    selector: 'vm-home-vm',
-    templateUrl: './vm-home-vm.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe]
+  selector: 'vm-home-vm',
+  templateUrl: './vm-home-vm.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeVmComponent {
   private viewModal: Vm;
@@ -70,9 +57,7 @@ export class VmHomeVmComponent {
     // shareReplay({bufferSize: 1, refCount: true})/
   );
 
-  quote$ = this.speed$.pipe(
-    switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean)))
-  );
+  quote$ = this.speed$.pipe(switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))));
 
   /** helpers to handle pausing */
   pauseQuote$ = this.bqClicks$.pipe(switchMap(b => (b ? NEVER : this.quote$)));
@@ -126,7 +111,10 @@ export class VmHomeVmComponent {
     tap(vm => (this.viewModal = vm))
   );
 
-  constructor(private raki: RakiService, private q: QuoteService) {}
+  constructor(
+    private raki: RakiService,
+    private q: QuoteService
+  ) {}
 
   /**
    * helper, takes a event observable,
@@ -137,7 +125,7 @@ export class VmHomeVmComponent {
       /** on every msg toggle, start of with true */
       scan(acc => !acc, false),
       /** make sure the stream starts */
-      startWith(false),
+      startWith(false)
       /** log to console so we can see what's happening */
       // tap(r => console.log('clicked', name, r))
     );

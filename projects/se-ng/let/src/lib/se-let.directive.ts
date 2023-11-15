@@ -1,20 +1,12 @@
 // tslint:disable: no-unused-expression
-import {
-  Directive,
-  Input,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { isObservable, Subscriber, Subscription, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Directive({
-    // tslint:disable-next-line: directive-selector
-    selector: '[seLet]',
-    standalone: true
+  // tslint:disable-next-line: directive-selector
+  selector: '[seLet]',
+  standalone: true,
 })
 export class SeLetDirective<T> implements OnInit, OnDestroy {
   private context = { $implicit: undefined, seLet: undefined } as {

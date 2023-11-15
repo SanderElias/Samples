@@ -9,9 +9,13 @@ export function ObservableInput() {
   return (target: any, propertyName: string) => {
     Object.defineProperty(target, propertyName, {
       set: function (this: any, x) {
-        if (x) { getSub(this).next(x); }
+        if (x) {
+          getSub(this).next(x);
+        }
       },
-      get: function (this: any) { return getSub(this); },
+      get: function (this: any) {
+        return getSub(this);
+      },
       configurable: false,
       enumerable: true,
     });

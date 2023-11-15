@@ -1,15 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, EMPTY, from, Observable, of, ReplaySubject } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  pluck,
-  shareReplay,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 // import * as monaco from 'monaco-editor';
 declare const monaco: any;
 
@@ -21,17 +13,17 @@ interface State {
 }
 
 @Component({
-    selector: 'code-sample',
-    template: ``,
-    styles: [
-        `
+  selector: 'code-sample',
+  template: ``,
+  styles: [
+    `
       :host {
         display: block;
         height: 300px;
       }
     `,
-    ],
-    standalone: true
+  ],
+  standalone: true,
 })
 export class CodeSampleComponent implements OnInit, OnDestroy {
   state$ = new BehaviorSubject<State>({ src: '', startLine: 0, originalCode: '' });
@@ -49,8 +41,6 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
     this.state$.next({ ...this.state$.value, startLine });
   }
 
-
-
   fileUrl = src => `http://localhost:8201/file/${src}`;
   elm = this.elmRef.nativeElement;
   code$ = this.state$.pipe(
@@ -61,17 +51,19 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
-  constructor(private http: HttpClient, private elmRef: ElementRef, private zone: NgZone) {
-    console.log('init code-sample')
+  constructor(
+    private http: HttpClient,
+    private elmRef: ElementRef,
+    private zone: NgZone
+  ) {
+    console.log('init code-sample');
   }
 
   async save(newContent) {
     combineLatest([this.state$, this.code$])
       .pipe(
         take(1),
-        switchMap(([state, oldContent]) =>
-          oldContent !== newContent ? this.http.put(this.fileUrl(state.src), newContent) : EMPTY
-        )
+        switchMap(([state, oldContent]) => (oldContent !== newContent ? this.http.put(this.fileUrl(state.src), newContent) : EMPTY))
       )
       .subscribe();
   }
@@ -80,33 +72,34 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.zone.runOutsideAngular(() => {
-      from(monacoFromCdn()).pipe(
-        // tap(mn => console.log({ mn })),
-        switchMap(() => this.code$),
-        map(value => {
-          const editor = monaco.editor.create(this.elm, {
-            value,
-            language: 'typescript',
-            theme: 'vs-dark',
-            fontSize: "28px",
-            roundedSelection: false,
-            scrollBeyondLastLine: false,
-            renderValidationDecorations: 'off',
-            minimap: { enabled: false },
-          });
-          window['e'] = editor;
-          window.addEventListener('keydown', ev => {
-            if (ev.ctrlKey && ev.key === 's') {
-              this.save(editor.getValue());
-              ev.preventDefault();
-            }
-          });
-          return editor;
-        }),
-        take(1),
-        tap(editor => this.state$.next({ ...this.state$.value, editor }))
-      ).subscribe();
-
+      from(monacoFromCdn())
+        .pipe(
+          // tap(mn => console.log({ mn })),
+          switchMap(() => this.code$),
+          map(value => {
+            const editor = monaco.editor.create(this.elm, {
+              value,
+              language: 'typescript',
+              theme: 'vs-dark',
+              fontSize: '28px',
+              roundedSelection: false,
+              scrollBeyondLastLine: false,
+              renderValidationDecorations: 'off',
+              minimap: { enabled: false },
+            });
+            window['e'] = editor;
+            window.addEventListener('keydown', ev => {
+              if (ev.ctrlKey && ev.key === 's') {
+                this.save(editor.getValue());
+                ev.preventDefault();
+              }
+            });
+            return editor;
+          }),
+          take(1),
+          tap(editor => this.state$.next({ ...this.state$.value, editor }))
+        )
+        .subscribe();
     });
   }
   ngOnDestroy() {

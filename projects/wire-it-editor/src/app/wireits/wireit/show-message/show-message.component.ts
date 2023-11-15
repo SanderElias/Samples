@@ -7,43 +7,42 @@ import { map, ReplaySubject, tap } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   template: `
-  <dialog>
-    <header>
-      <h4>System message:</h4>
-    </header>
-    <main>
-      <p>{{(vm$|async)?.message}}</p>
-    </main>
-    <footer>
-      <button (click)="close()">❌</button>
-    </footer>
-  </dialog>
+    <dialog>
+      <header>
+        <h4>System message:</h4>
+      </header>
+      <main>
+        <p>{{ (vm$ | async)?.message }}</p>
+      </main>
+      <footer>
+        <button (click)="close()">❌</button>
+      </footer>
+    </dialog>
   `,
   styleUrls: ['./show-message.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowMessageComponent {
   @Output() dismissed = new EventEmitter<void>();
-  elm = inject(ElementRef).nativeElement as HTMLElement
-  dialog?: HTMLDialogElement
+  elm = inject(ElementRef).nativeElement as HTMLElement;
+  dialog?: HTMLDialogElement;
 
-  #message = new ReplaySubject(1)
+  #message = new ReplaySubject(1);
   @Input() set message(message) {
-    message && this.#message.next(message)
+    message && this.#message.next(message);
   }
 
   vm$ = this.#message.pipe(
-    tap(message =>{
-      this.elm.style.display = 'block'
-      this.dialog ??= this.elm.querySelector('dialog') as HTMLDialogElement
-      this.dialog.showModal()
+    tap(message => {
+      this.elm.style.display = 'block';
+      this.dialog ??= this.elm.querySelector('dialog') as HTMLDialogElement;
+      this.dialog.showModal();
     }),
-    map(message => ({message}))
-    )
+    map(message => ({ message }))
+  );
 
-    close() {
-    this.elm.style.display = 'none'
-    this.dialog?.close()
+  close() {
+    this.elm.style.display = 'none';
+    this.dialog?.close();
   }
-
 }

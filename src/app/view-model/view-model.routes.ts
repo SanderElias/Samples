@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   { path: 'theBad', loadComponent: () => import('./vm-home/vm-home.component').then(m => m.VmHomeComponent) },
-  { path: 'theGood', loadComponent: () => import('./vm-home-vm/vm-home-vm.component').then(m => m.VmHomeVmComponent)},
+  { path: 'theGood', loadComponent: () => import('./vm-home-vm/vm-home-vm.component').then(m => m.VmHomeVmComponent) },
   { path: 'user', loadComponent: () => import('./demo-user/demo-user.component').then(m => m.DemoUserComponent) },
   {
     path: 'user/:id',
@@ -18,5 +18,3 @@ export const routes: Routes = [
   },
   { path: '**', redirectTo: 'theGood' },
 ];
-
-

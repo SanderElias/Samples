@@ -1,13 +1,12 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-    selector: '[id]',
-    standalone: true
+  selector: '[id]',
+  standalone: true,
 })
 export class IdDirective {
   @Input() id: string;
 }
-
 
 @Directive({
   selector: 'img[src]',
@@ -21,4 +20,3 @@ export class lazyImagesLoadDirective implements OnInit {
     this.#elm.setAttribute('loading', 'lazy');
   }
 }
-

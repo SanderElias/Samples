@@ -12,11 +12,11 @@
 // alias it as a local export by reading it off of the global context.
 
 export interface WeakRef<T extends object> {
-  deref(): T|undefined;
+  deref(): T | undefined;
 }
 
 export interface WeakRefCtor {
-  new<T extends object>(value: T): WeakRef<T>;
+  new <T extends object>(value: T): WeakRef<T>;
 }
 
 declare const global: any;

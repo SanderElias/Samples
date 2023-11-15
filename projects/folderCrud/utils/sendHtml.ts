@@ -1,8 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { brotliCompressSync } from 'zlib';
 
-export const sendHtml = (req: IncomingMessage, response: ServerResponse) => (body: string) =>
-  send(body, undefined, response, req);
+export const sendHtml = (req: IncomingMessage, response: ServerResponse) => (body: string) => send(body, undefined, response, req);
 
 export const sendJson = (req: IncomingMessage, response: ServerResponse) => (body: object) =>
   send(JSON.stringify(body), 'application/json', response, req);

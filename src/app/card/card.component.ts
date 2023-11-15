@@ -6,14 +6,20 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-  <ng-container *ngFor="let i of arr">
-  <section > <h2>{{i}}</h2> </section>
-  <section class="green"> <h2>{{i}}</h2> </section>
-  <section class="red"> <h2>{{i}}</h2> </section>
-  </ng-container>
+    <ng-container *ngFor="let i of arr">
+      <section>
+        <h2>{{ i }}</h2>
+      </section>
+      <section class="green">
+        <h2>{{ i }}</h2>
+      </section>
+      <section class="red">
+        <h2>{{ i }}</h2>
+      </section>
+    </ng-container>
   `,
-  styleUrls: ['./card.component.css']
+  styleUrls: ['./card.component.css'],
 })
 export class CardComponent {
-  arr = [1, 2, 3, 4]
+  arr = [1, 2, 3, 4];
 }

@@ -56,7 +56,7 @@ export class DemoUserService {
   }
 
   async addUsers(newUserCount) {
-    const users = await firstValueFrom(this.allUsers$) //.pipe(first()).toPromise();
+    const users = await firstValueFrom(this.allUsers$); //.pipe(first()).toPromise();
     const base = users.length;
     // users.reduce((min, line) => (min = Math.max(min, line.id)), 0) + 1;
     const newUsers = await Promise.all(
@@ -96,9 +96,7 @@ export class DemoUserService {
   /** helper to 'delete' a user  */
   async deleteUser(user: DemoUser) {
     /** get a list of users with the chosen one filtered out */
-    const users = (await this.allUsers$.pipe(first()).toPromise()).filter(
-      row => row.id !== user.id
-    );
+    const users = (await this.allUsers$.pipe(first()).toPromise()).filter(row => row.id !== user.id);
     /** in a non-sample function you are probably also saving stuff to the server! */
     this.updatedUsers$.next(users);
   }
@@ -128,7 +126,6 @@ async function fakeUser() {
     email: chance.email(),
   };
 }
-
 
 // console.log('start');
 // const u = new DemoUserService();

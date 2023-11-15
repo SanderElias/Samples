@@ -26,27 +26,14 @@
       <li>
         Reactive viewmodel
         <ul>
-          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'user']"
-            ><li>
-              User list
-            </li></a
-          >
-          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theGood']"
-            ><li>
-              The Good
-            </li></a
-          >
-          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theBad']"
-            ><li>
-              The bad
-            </li></a
-          >
+          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'user']"><li>User list</li></a>
+          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theGood']"><li>The Good</li></a>
+          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theBad']"><li>The bad</li></a>
         </ul>
       </li>
       <a [routerLink]="['complexAPI']"><li>Complex API</li></a>
       <a [routerLink]="['observableState']"><li>Observable State</li></a>
       <a [routerLink]="['dynhtml']"><li>Dynamic HTML</li></a>
-
     </ul>
   </div>
   <app-show-source></app-show-source>
@@ -56,13 +43,13 @@
 <style>
   :host {
     display: grid;
-    grid-template-rows: 40px 1fr ;
+    grid-template-rows: 40px 1fr;
     grid-row-gap: 4px;
     min-height: 99vh;
   }
 
   #popup {
-    display: none  -;
+    display: none -;
     margin: 0 3rem;
     border: 2px solid green;
   }
@@ -131,7 +118,9 @@
 
     transform-origin: 4px 0px;
 
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    transition:
+      transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
       opacity 0.55s ease;
   }
 
@@ -198,7 +187,6 @@
 
   #menu ul {
     list-style-type: none;
-
   }
 
   /*

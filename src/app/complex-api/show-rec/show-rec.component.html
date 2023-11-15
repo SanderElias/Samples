@@ -4,11 +4,9 @@
     <ng-container *ngIf="!isRecArray(item); else handleArray">
       <ng-container *ngIf="isRecord(val(item)) as rec; else handleRec">
         <details>
-          <summary
-            >{{ rec.name || rec.title }}
-            <button (click)="selected.emit([key(item), rec.name || rec.title])">
-              Select
-            </button>
+          <summary>
+            {{ rec.name || rec.title }}
+            <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
           </summary>
           <app-show-rec [record]="rec"></app-show-rec>
         </details>
@@ -19,11 +17,9 @@
     </ng-container>
     <ng-template #handleArray>
       <details *ngFor="let rec of val(item)">
-        <summary
-          >{{ rec.name || rec.title }}
-          <button (click)="selected.emit([key(item), rec.name || rec.title])">
-            Select
-          </button>
+        <summary>
+          {{ rec.name || rec.title }}
+          <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
         </summary>
         <app-show-rec [record]="rec"></app-show-rec>
       </details>
@@ -43,7 +39,7 @@
   }
   dd {
     font-weight: bolder;
-    margin-left: .5em;
+    margin-left: 0.5em;
   }
   summary button {
     display: inline-block;

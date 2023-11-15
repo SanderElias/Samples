@@ -38,25 +38,24 @@ export interface Company {
 export class AddressService {
   userCards$ = this.users(25);
 
-  constructor() { }
+  constructor() {}
 
   private users(length): Observable<UserCard[]> {
     return from(import('@faker-js/faker')).pipe(
-      map(
-        (fakerModule) => {
-          const {faker} = fakerModule;
-          return Array.from({ length }, () => ({
-            ...userCard(faker),
-            // avatar: faker.image.avatar(),
-          }))
-        }),
+      map(fakerModule => {
+        const { faker } = fakerModule;
+        return Array.from({ length }, () => ({
+          ...userCard(faker),
+          // avatar: faker.image.avatar(),
+        }));
+      }),
       tap(r => console.dir(r)),
       shareReplay(1)
     );
   }
 }
 
-function userCard(faker:any): UserCard {
+function userCard(faker: any): UserCard {
   return {
     name: faker.person.fullName(),
     username: faker.internet.userName(),

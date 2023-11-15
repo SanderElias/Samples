@@ -28,15 +28,15 @@ npm i @se-ng/let
 then import in the module where you want to use it:
 
 ```typescript
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SomeComponent} from './some.component';
-import {Routes, RouterModule} from '@angular/router';
-import {SeLetModule} from '@se-ng/let';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SomeComponent } from './some.component';
+import { Routes, RouterModule } from '@angular/router';
+import { SeLetModule } from '@se-ng/let';
 
 const routes: Routes = [
-  {path: '', component: SomeComponent},
-  {path: '**', redirectTo: ''},
+  { path: '', component: SomeComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

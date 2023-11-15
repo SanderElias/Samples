@@ -21,7 +21,7 @@ export class PokeApiService {
         .catch(e => undefined);
       await addToCache(url, liveData);
     }
-    return (getFromCache(url) as unknown) as T;
+    return getFromCache(url) as unknown as T;
   }
 
   init() {

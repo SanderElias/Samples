@@ -5,13 +5,8 @@ import { SlideRoutingModule } from './slide-routing.module';
 import { SlideComponent } from './slide.component';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 
-
 @NgModule({
   declarations: [SlideComponent],
-  imports: [
-    CommonModule,
-    SlideRoutingModule,
-    ScullyLibModule
-  ]
+  imports: [CommonModule, SlideRoutingModule, ScullyLibModule],
 })
-export class SlideModule { }
+export class SlideModule {}
