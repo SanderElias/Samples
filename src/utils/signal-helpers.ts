@@ -1,4 +1,4 @@
-import { EffectCleanupRegisterFn, Injector, afterNextRender, effect, inject, signal } from '@angular/core';
+import { EffectCleanupRegisterFn, Injector, afterNextRender, computed, effect, inject, signal } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
 
 export type ToWritableSignalOptions<T> = {
@@ -20,7 +20,6 @@ export const toWritableSignal = <T>(src: Observable<T>, { initialValue, errorCal
     .catch(errorCallback);
   return sig;
 };
-
 
 /**
  * A helper function to run an effect after the next render. must be run during initialization of a component.
@@ -57,3 +56,17 @@ export function afterNextRenderEffect(fn: (onCleanup: EffectCleanupRegisterFn) =
 //     this.#$data.set([...list, p]);
 //   }
 // }
+
+const test = signal({
+  prop1: 'test',
+  prop2: 123,
+  prop3: true,
+});
+
+const blah = computed(() => {
+  const entries = Object.entries(test());
+  return entries.reduce((acc, [key, value]) => {
+    acc[key] = signal(value);
+    return acc;
+  }, {});
+});
