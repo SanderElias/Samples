@@ -11,13 +11,16 @@
 }
 :root {
   --cellBg: oklch(0.5 0.5 150);
-  --cellSize: 2px;
+  --cellSize: 10px;
 }
 
 #outlet > se-cell-raw {
-  /* display: grid; */
-  /* grid-template-columns: repeat(auto-fit, var(--cellSize)); */
-  /* gap: 0.15rem; */
+  display: grid;
+  height: 95vh;
+  aspect-ratio: 1;
+  grid-template-columns: repeat(auto-fit, var(--cellSize));
+  grid-template-rows: repeat(auto-fit, var(--cellSize));
+  gap: 0.15rem;
 }
 
 cell {

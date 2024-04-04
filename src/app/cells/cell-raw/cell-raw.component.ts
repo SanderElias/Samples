@@ -14,7 +14,7 @@ const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (
 export class CellRawComponent {
   zone = inject(NgZone);
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
-  gridSize = 750;
+  gridSize = 100;
   cells = [];
   aliveColor = `oklch(${clampedRandom(55, 95)}% 75% 173`;
   deadColor = `oklch(${clampedRandom(10, 55)}% 50% 280`;
@@ -34,7 +34,7 @@ export class CellRawComponent {
     console.log(`adding ${this.gridSize * this.gridSize} cells`);
     for (let id = 0; id < this.gridSize * this.gridSize; id += 1) {
       addCell(id);
-      id % 1000 === 0 && (await new Promise(r => setTimeout(r, 4)));
+      id % 1000 === 0 && (await new Promise(r => setTimeout(r, 15)));
     }
     await new Promise(r => setTimeout(r, 10));
     const rowLength = window.getComputedStyle(elm).getPropertyValue('grid-template-columns').split(' ').length;
