@@ -1,9 +1,14 @@
-import { EffectCleanupRegisterFn, Injector, afterNextRender, computed, effect, inject, signal } from '@angular/core';
-import { Observable, firstValueFrom } from 'rxjs';
+import { EffectCleanupRegisterFn, Injector, afterNextRender, effect, inject, signal, type WritableSignal } from '@angular/core';
+import { Observable, firstValueFrom, of } from 'rxjs';
 
 export type ToWritableSignalOptions<T> = {
-  initialValue?: T | undefined;
+  initialValue?: T;
   errorCallback?: (err: any) => void | undefined;
+};
+
+type ToWritableSignal = {
+  <T>(src: Observable<T>): WritableSignal<T | undefined>;
+  <T>(src: Observable<T>, options: ToWritableSignalOptions<T>): WritableSignal<T>;
 };
 
 /**
@@ -12,8 +17,8 @@ export type ToWritableSignalOptions<T> = {
  * @param options, takes an optional initial value and an optional error callback.
  * @returns a writeable signal that will be updated with the first value from the observable.
  */
-export const toWritableSignal = <T>(src: Observable<T>, { initialValue, errorCallback } = {} as ToWritableSignalOptions<T>) => {
-  const sig = signal<T | undefined>(initialValue);
+export const toWritableSignal = <T,U>(src: Observable<T>, { initialValue, errorCallback } = {} as ToWritableSignalOptions<T | U>) => {
+  const sig = signal(initialValue);
   errorCallback ??= (err: any) => undefined;
   firstValueFrom(src)
     .then(val => sig.set(val))
@@ -31,3 +36,4 @@ export function afterNextRenderEffect(fn: (onCleanup: EffectCleanupRegisterFn) =
   afterNextRender(() => effect(fn, { injector }));
 }
 
+const $demo1 = toWritableSignal(of('demo'), {initialValue:true});
