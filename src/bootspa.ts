@@ -13,6 +13,7 @@ import { ScullyLibModule } from '@scullyio/ng-lib';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/routes';
 import { environment } from './environments/environment';
+import { provideHttpClient } from '@angular/common/http';
 
 /** load icons from FontAwseome */
 library.add(faPlay as any, faPause as any);
@@ -25,11 +26,10 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
-      // BrowserModule,
-      // HttpClientModule,
       ScullyLibModule
     ),
     provideRouter(routes),
+    provideHttpClient(),
     // { provide: NgZone, useClass: ɵNoopNgZone },
   ],
 }).catch(err => console.error(err));
