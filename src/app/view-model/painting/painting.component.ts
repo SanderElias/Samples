@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy, input, computed, inject } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
@@ -9,17 +9,12 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
   standalone: true,
 })
 export class PaintingComponent {
+  #san = inject(DomSanitizer);
   /** Add an class to the host */
   @HostBinding('class.z2') shadow = true;
 
-  url: SafeStyle;
+  art = input<string|null>();
 
-  /** use an setter, to make sure I can render this */
-  @Input() set art(l: string) {
-    if (l) {
-      this.url = this.san.bypassSecurityTrustStyle(l);
-    }
-  }
+  url = computed(() => this.#san.bypassSecurityTrustStyle(this.art() ?? ''));
 
-  constructor(private san: DomSanitizer) {}
 }

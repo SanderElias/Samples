@@ -11,7 +11,7 @@ import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
   imports: [NgIf, NgForOf, AsyncPipe],
 })
 export class WaitForItComponent {
-  someVar: string[];
+  someVar: string[]|undefined;
   @Input('someVar') private set _someVar(newContent) {
     /** do some stuff */
     this.someVar = newContent;
@@ -27,7 +27,7 @@ export class WaitForItComponent {
     val && this.setIt('prop3', val);
   }
 
-  requiredProps = [];
+  requiredProps = [] as Record<string,string>[];
 
   goodToGo$ = new Subject<any[]>();
 

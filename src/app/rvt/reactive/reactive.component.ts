@@ -48,12 +48,21 @@ export default class ReactiveComponent implements OnDestroy {
   ds = inject(SampledataService);
   data$ = this.ds.data$.pipe(shareReplay({ refCount: true, bufferSize: 1 }));
 
-  form: FormGroup;
-  level$: Observable<number>;
+  form = new FormGroup(
+    {} as {
+      name: FormControl<string | null>;
+      dob: FormControl<string | null>;
+      email: FormControl<string | null>;
+      favNumber: FormControl<number | null>;
+      admin: FormControl<boolean | null>;
+      level: FormControl<5 | 4 | 1 | 2 | 3 | null>;
+    }
+  );
+  level$: Observable<5 | 4 | 1 | 2 | 3 | null> | undefined;
 
   sub = this.data$.subscribe(data => {
     this.updateForm(data);
-    this.level$ = this.form.get('level').valueChanges.pipe(startWith(data.level));
+    this.level$ = this.form.get('level')!.valueChanges.pipe(startWith(data.level));
   });
 
   updateForm(data: Model) {
@@ -72,8 +81,8 @@ export default class ReactiveComponent implements OnDestroy {
 
   save() {
     console.log(`saving reactive ${JSON.stringify(this.form.value, undefined, 2)}`);
-    const dob = new Date(this.form.value.dob);
-    this.ds.save({ ...this.form.value, dob });
+    const dob = new Date(this.form.value.dob!);
+    this.ds.save({ ...this.form.value, dob } as any);
   }
 
   ngOnDestroy() {

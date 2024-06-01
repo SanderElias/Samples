@@ -14,7 +14,7 @@ export const getId = () => randChars(4) + '-' + Math.round(performance.now() * 1
   providedIn: 'root',
 })
 export class RelationsService {
-  faker = import('@faker-js/faker');
+  fakerModule = import('@faker-js/faker');
   relationList$ = new BehaviorSubject<Relation[]>([]);
 
   constructor() {
@@ -43,7 +43,7 @@ export class RelationsService {
   }
 
   async addGeneratedUser(id: string) {
-    const { faker } = await this.faker;
+    const { faker } = await this.fakerModule;
     const relation: Relation = {
       ...userCard(faker),
       avatar: faker.image.avatar(),

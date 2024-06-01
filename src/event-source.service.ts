@@ -5,12 +5,12 @@ import { InMemoryDataService } from './in-memory.service';
   providedIn: 'root',
 })
 export class EventSourceService {
-  faker = import('faker');
+  faker = import('@faker-js/faker');
 
   constructor(public db: InMemoryDataService) {}
 
   async createEvent(maxRows = 25) {
-    const faker = await this.faker;
+    const { faker } = await this.faker;
     const curDb = this.db.list('contact');
     const actions = ['update'];
     if (curDb.length < maxRows) {
@@ -45,11 +45,13 @@ export class EventSourceService {
   }
 }
 
-const actions = [
-  ['create', 5],
-  ['update', 1000],
-  ['delete', 1],
-].reduce((acc, [action, weight]) => {
+const actions = (
+  [
+    ['create', 5],
+    ['update', 1000],
+    ['delete', 1],
+  ] as [string, number][]
+).reduce((acc, [action, weight]) => {
   for (let i = 0; i < weight; i++) {
     acc.push(action);
   }

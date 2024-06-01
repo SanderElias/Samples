@@ -21,7 +21,7 @@ export class SvgTestComponent {
   }
 
   /** log out to console when a block is clicked. */
-  bit(n) {
+  bit(n:number) {
     console.log(`rectangle number ${n} is clicked`);
   }
 }

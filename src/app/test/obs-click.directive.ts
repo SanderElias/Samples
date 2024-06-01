@@ -6,7 +6,7 @@ import { Directive, Input } from '@angular/core';
   standalone: true,
 })
 export class ObsClickDirective {
-  @Input('my-click') set click(x) {
+  @Input('my-click') set click(x: any) {
     console.log('click testup', x);
   }
 

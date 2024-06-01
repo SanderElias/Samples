@@ -43,7 +43,7 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
             /** check for the proper type, we need an elementRef here */
             throw new Error('ObsFromEvent expects a QueryList<ElementRef>');
           }
-          const el = elementRef.nativeElement as HTMLElement;
+          const el = elementRef.nativeElement as HTMLElement & { [EventStream]: Symbol };
           if (!el[EventStream]) {
             /**
              * Don't hook up more as once for each element.
@@ -62,7 +62,7 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
 /**
  * Helper to fetch/generate the subject for this instance/propertyKey pair
  */
-function fetchSubject(instance: object, propertyKey: string | symbol): Subject<Event> {
+function fetchSubject(instance: any, propertyKey: string | symbol): Subject<Event> {
   /** use the symbol EventStream to prevent clashes with anything else */
   const ref = (instance[EventStream] = instance[EventStream] || {});
   if (!ref[propertyKey]) {

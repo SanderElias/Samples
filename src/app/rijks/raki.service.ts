@@ -76,7 +76,7 @@ export class RakiService {
     console.log(q, serialize({ q }));
     return this.http.get<CollectionObject>(collection({ q })).pipe(
       map(r => r.artObjects),
-      map((artObjects: ArtObject[]) => artObjects.reduce((acc, e) => (e.hasImage ? acc.concat(e) : acc), [])),
+      map((artObjects: ArtObject[]) => artObjects.reduce((acc, e) => (e.hasImage ? acc.concat(e) : acc), [] as ArtObject[])),
       tap(r => console.log(r))
     );
   }

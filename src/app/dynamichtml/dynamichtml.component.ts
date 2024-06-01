@@ -86,7 +86,7 @@ export class DynamicHtmlComponent implements OnInit {
   update(newHtml) {
 
 
-    const target = this.elm.querySelector('#target');
+    const target = this.elm.querySelector('#target')!;
     /**
      * To do it this way is really dangerous, as it will expose to all kind of security issues.
      *   (the most importand one: https://owasp.org/www-community/attacks/xss/)
@@ -105,6 +105,7 @@ export class DynamicHtmlComponent implements OnInit {
     return;
 
     /** this is the version you should be using */
+    // @ts-ignore
     target.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML, newHtml);
   }
 }

@@ -30,7 +30,7 @@
   }
 </style>
 <!-- Use a bit of css to set the backgroundimage from the quote -->
-<div class="quote" [style.background-image]="'url(' + quote?.imgSrc + ')'">
-  <p class="text">{{ quote?.quote }}</p>
-  <p class="who">{{ quote?.author }}</p>
+<div class="quote" [style.background-image]="'url(' + quote()?.imgSrc + ')'">
+  <p class="text">{{ quote()?.quote }}</p>
+  <p class="who">{{ quote()?.author }}</p>
 </div>

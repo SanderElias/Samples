@@ -1,8 +1,8 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-show-source',
@@ -67,8 +67,8 @@ export class ShowSourceComponent {
   );
   routes$ = this.http.get<RouteInfo[]>('/assets/routes.json'); // load the routes from the assets folder
 
-  routeInfo$ = combineLatest({ route: this.routes$, path: this.path$ }).pipe(
-    map(({ route: routes, path }) => routes.find(r => r.path.startsWith(path))), // extract the current one.
+  routeInfo$ = combineLatest({ routes: this.routes$, path: this.path$ }).pipe(
+    map(({ routes, path }) => routes.find(r => r.path.startsWith(path))!), // extract the current one.
     // tap(data => console.log(data)), // debugging check the data. seems off in production.
     tap(updateRouteInfo)
   );

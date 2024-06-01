@@ -40,7 +40,7 @@ function debounce(fn: Function, wait: number) {
 }
 
 function path(elm) {
-  let a = [];
+  let a:string[] = [];
   while (elm.parentNode) {
     let d = [
       elm.tagName.toLowerCase(),

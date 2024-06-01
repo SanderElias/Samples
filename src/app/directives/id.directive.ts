@@ -5,7 +5,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
   standalone: true,
 })
 export class IdDirective {
-  @Input() id: string;
+  @Input({ required: true }) id!: string;
 }
 
 @Directive({

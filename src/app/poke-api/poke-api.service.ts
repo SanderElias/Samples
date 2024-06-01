@@ -26,7 +26,7 @@ export class PokeApiService {
 
   init() {
     console.log('ps init');
-    this.load(this.base).then(list => {
+    this.load(this.base).then((list: any) => {
       console.log(list);
       from(Object.entries(list))
         .pipe(
@@ -52,7 +52,7 @@ export class PokeApiService {
   getAllPagedData(url): Observable<any> {
     return from(this.load(`${url}`)).pipe(
       /** use the expand operator to feed in the remaining pages */
-      expand(r => (r['next'] ? this.load(r['next']) : EMPTY))
+      expand((r: any) => (r['next'] ? this.load(r['next']) : EMPTY))
     );
   }
 }

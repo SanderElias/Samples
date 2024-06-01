@@ -26,7 +26,7 @@ export function modelFromLatest<T>(modelBase: { [P in keyof T]: Observable<T[P]>
       /** user reduce to reassemble the original structure, but then with the data */
       Object.keys(modelBase).reduce(
         (vm, key, i) => {
-          vm[key] = values[i];
+          vm[key as keyof T] = values[i];
           return vm;
         },
         /** make sure it conforms to given types. */

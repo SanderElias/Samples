@@ -26,7 +26,7 @@ interface Vm {
   imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeVmComponent {
-  private viewModal: Vm;
+  private viewModal!: Vm;
   @ObsFromEvent('click')
   @ViewChildren('ba', { read: ElementRef })
   artClick$: Observable<Event> = of();
@@ -49,7 +49,7 @@ export class VmHomeVmComponent {
     /** read teh value out of the event */
     pluck('target', 'value'),
     /** cast to number */
-    map(x => +x),
+    map(x => Number(x)),
     /** set a start speed */
     startWith(3.5),
     /** log so we can see when an event is triggered */

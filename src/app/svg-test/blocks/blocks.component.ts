@@ -26,7 +26,7 @@ export class BlocksComponent {
     id: i,
   }));
   /** input so e can do something */
-  @Input() set recolor(x) {
+  @Input() set recolor(x: any) {
     if (x) {
       this._recolor();
     }
@@ -38,8 +38,8 @@ export class BlocksComponent {
   @Output() cellCount = new EventEmitter<number>();
   constructor() {
     setTimeout(() => {
-      this.cellCount.emit(this.blocks.length-1);
-    })
+      this.cellCount.emit(this.blocks.length - 1);
+    });
   }
 
   /** lick handler */
@@ -48,26 +48,26 @@ export class BlocksComponent {
     ev.stopPropagation();
     const rect = ev.target as SVGRectElement;
     /** only handle clicks on rectangles, those will have an ID */
-    if (!isNaN(+rect.dataset.id)) {
-      this.rectClicked.emit(+rect.dataset.id);
+    if (!isNaN(Number(rect.dataset.id))) {
+      this.rectClicked.emit(Number(rect.dataset.id));
     }
   }
 
   /** calculate column number */
-  calcX(i) {
+  calcX(i: number) {
     const rowsDone = Math.floor(i / this.colCount) * this.colCount;
     return (i - rowsDone) * this.blockSize;
   }
 
   /** calculate row number */
-  calcY(i) {
+  calcY(i: number) {
     return Math.floor(i / this.colCount) * this.blockSize;
   }
 
   /** give all the blocks a new color */
   _recolor() {
     this.blocks.forEach(block => (block.fillColor = this.randomColor()));
-    console.log(`Changed the color of ${this.blocks.length-1} blocks`);
+    console.log(`Changed the color of ${this.blocks.length - 1} blocks`);
   }
 
   /** helper to generate a random color */

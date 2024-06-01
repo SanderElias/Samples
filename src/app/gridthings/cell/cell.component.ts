@@ -22,8 +22,8 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
   standalone: true,
 })
 export class CellComponent implements OnInit {
-  @Input() @HostBinding('style.grid-column-start') x: number | string;
-  @Input() @HostBinding('style.grid-row-start') y: number | string;
+  @Input() @HostBinding('style.grid-column-start') x: number | string | undefined;
+  @Input() @HostBinding('style.grid-row-start') y: number | string | undefined;
 
   constructor() {}
 

@@ -1,5 +1,4 @@
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, ReplaySubject, firstValueFrom, map, tap } from 'rxjs';
 
 /**
  * Function that takes a state subject and returns a method for your component
@@ -12,9 +11,8 @@ export function createSetStateMethod<T>(stateSubject: ReplaySubject<T> | Behavio
   function setState(newState: Partial<T>): Promise<T>;
   function setState<K extends keyof T>(property: K, newValue: T[K]): Promise<T>;
   function setState<K extends keyof T>(prop: K | Partial<T>, newValue?: T[K]): Promise<T> {
-    return stateSubject
-      .pipe(
-        take(1), // Only update once!
+    return firstValueFrom(
+      stateSubject.pipe(
         map(currentState => {
           if (typeof prop === 'string') {
             return { ...currentState, [prop]: newValue };
@@ -26,7 +24,7 @@ export function createSetStateMethod<T>(stateSubject: ReplaySubject<T> | Behavio
         }), // insert the state.
         tap(newState => stateSubject.next(newState)) // push the update to the view.
       )
-      .toPromise(); // return a promise with handled state, normally unused.
+    );
   }
   return setState;
 }

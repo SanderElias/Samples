@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./day-cell.component.css'],
 })
 export class DayCellComponent {
-  @Input() day: {
+  @Input() day!: {
     date: Date;
     day: number;
     isCurrentMonth: boolean;

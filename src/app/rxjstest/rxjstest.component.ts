@@ -58,7 +58,7 @@ export class RxjstestComponent {
           )
         );
       }
-      return this.result.get(value);
+      return this.result.get(value)!;
     });
 
   completed$ = this.zone.runOutsideAngular(() =>

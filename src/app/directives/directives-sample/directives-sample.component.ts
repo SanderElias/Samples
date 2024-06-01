@@ -12,7 +12,7 @@ import { NgForOf, AsyncPipe } from '@angular/common';
   imports: [IdDirective, NgForOf, AsyncPipe],
 })
 export class DirectivesSampleComponent extends seAfterContentInit() {
-  @ViewChildren(IdDirective) ids: QueryList<IdDirective>;
+  @ViewChildren(IdDirective) ids!: QueryList<IdDirective>;
 
   ids$ = this.seAfterContentInit$.pipe(map(() => this.ids.map(idD => idD.id)));
 }

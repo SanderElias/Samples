@@ -30,7 +30,7 @@ import { SwapiRoot } from './SwapiRoot.interface';
 })
 export class SwapiService {
   baseUrl = `https://swapi.dev/api/`;
-  swapiRoot: SwapiRoot;
+  swapiRoot!: SwapiRoot;
   /**
    * Helper. uses fetch to load data from an URL
    * first checks the indexedDB cache if the data is already there,
@@ -61,7 +61,7 @@ export class SwapiService {
   swPeople$ = from(this.load<PeopleRoot>(`${this.baseUrl}people/`)).pipe(
     // expand to get additional pages
     // hint: r.next means there's another page
-    expand(r => (r.next ? this.load(r.next) : EMPTY)),
+    expand(r => (r.next ? this.load<PeopleRoot>(r.next) : EMPTY)),
 
     // for each page, extract the people (in results)
     map((r: PeopleRoot) => r.results),
@@ -92,8 +92,8 @@ export class SwapiService {
   swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(shareReplay(1));
 
   /** helper to fetch all the page of an swapi root endpoint */
-  getAllPagedData(url): Observable<any> {
-    return from(this.load(`${url}`)).pipe(
+  getAllPagedData(url: string): Observable<any> {
+    return from(this.load<any>(`${url}`)).pipe(
       /** use the expand operator to feed in the remaining pages */
       expand(r => (r['next'] ? this.load(r['next']) : EMPTY))
     );
@@ -172,12 +172,17 @@ export class SwapiService {
     /**
      * Helper to create an observable<{propname:value}> for each property
      */
-    const keyHandler = (propName: string) => {
+    const keyHandler = <P extends keyof T>(
+      propName: P
+    ): Observable<{
+      [x: string]: any;
+    }> => {
       const value = rec[propName];
       if (Array.isArray(value) && value.length > 0) {
         /** make an observable from the array in the current prop */
-        return from<string[]>(rec[propName]).pipe(
-          /** turn each url to an observable */
+        return from(value).pipe(
+          /** turn e
+           * ach url to an observable */
           concatMap(url => this.get(url)),
           /** combine the array of observables to an array */
           toArray(),
@@ -196,11 +201,11 @@ export class SwapiService {
 
     return this.swapiRoot$.pipe(
       /** Split out the record to an array of observables, one for each property */
-      concatMap(root => Object.keys(rec).map(keyHandler)),
+      concatMap(root => Object.keys(rec as any).map(<any>keyHandler) as any[]),
       /** flatten the array of observables into results */
       concatAll(),
       /** reduce all the results back into 1 object */
-      reduce((combine, res) => ({ ...combine, ...res }), {} as T),
+      reduce((combine, res) => ({ ...combine, ...<any>res }), {} as T),
       /** complete and emit an empty result if there is an error */
       catchError((e: Error) => {
         console.warn(e);
@@ -232,17 +237,17 @@ export class SwapiService {
    */
   findIn = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
     this.getAllRows(selectedSet).pipe(
-      map(list => list.find(row => (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())))
+      map(list => list.find((row: any) => (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())))
     );
 
   getSetNames = (selectedSet: keyof SwapiRoot): Observable<string[]> =>
-    this.getAllRows(selectedSet).pipe(map(list => list.map(row => row.name || row.title || '')));
+    this.getAllRows(selectedSet).pipe(map(list => list.map((row: any) => row.name || row.title || '')));
 
   /**
    * Helper to detect the table of an url. return the name of the set, or undefined/false
    * @param url String to test
    */
-  detectSet(url) {
+  detectSet(url: unknown) {
     if (typeof url === 'string') {
       const entry = Object.entries(this.swapiRoot).find(([setName, setBaseUrl]) => url.includes(setBaseUrl));
       return entry && (entry[0] as unknown as keyof SwapiRoot);

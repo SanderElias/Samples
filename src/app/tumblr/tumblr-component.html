@@ -8,7 +8,7 @@
 <div id="grid">
   @for (i of results$ | async; track i; let y = $index) {
   <article [class.large]="largePositions[y]===1" [class.super]="largePositions[y]===2" (click)="switch(y)">
-    <img [src]="i.images[0]?.link" loading="lazy" />
+    <img [src]="i.images?.[0]?.link" loading="lazy" />
   </article>
   }
 </div>

@@ -8,6 +8,7 @@ import { PlayButtonComponent } from '../play-button/play-button.component';
 import { QuoteComponent } from '../quote/quote.component';
 import { PaintingComponent } from '../painting/painting.component';
 import { NgIf, AsyncPipe } from '@angular/common';
+import { number } from 'yargs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -42,7 +43,7 @@ export class VmHomeComponent {
     /** read teh value out of the event */
     pluck('target', 'value'),
     /** cast to number */
-    map(x => +x),
+    map(x => Number(x)),
     /** set a start speed */
     startWith(3.5),
     /** log so we can see when an event is triggered */

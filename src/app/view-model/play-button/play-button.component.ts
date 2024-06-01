@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -6,12 +6,12 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button>
-      <span [hidden]="isPaused"><i class="fas fa-fw fa-pause"></i></span>
-      <span [hidden]="!isPaused"><i class="fas fa-fw fa-play"></i></span>
+      <span [hidden]="isPaused()"><i class="fas fa-fw fa-pause"></i></span>
+      <span [hidden]="!isPaused()"><i class="fas fa-fw fa-play"></i></span>
     </button>
   `,
   standalone: true,
 })
 export class PlayButtonComponent {
-  @Input() isPaused: boolean;
+  isPaused = input<boolean | null>();
 }

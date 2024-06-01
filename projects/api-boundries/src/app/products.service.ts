@@ -10,9 +10,12 @@ import { RelationsService } from './relations.service';
 export class ProductsService {
   rel = inject(RelationsService);
   productList$ = new BehaviorSubject<Product[]>([]);
+  fakerModule = import('@faker-js/faker')
+
+
 
   getProduct(id: string) {
-    return from(import('@faker-js/faker')).pipe(
+    return from(this.fakerModule).pipe(
       map(({ faker }) => {
         const product = this.productList$.value.find(o => o.id === id);
         if (!product) {

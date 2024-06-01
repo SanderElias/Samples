@@ -18,7 +18,7 @@ export class SnowComponent implements OnInit {
 
 function makeItSnow() {
   const snowCanvas = createSnowCanvas();
-  const ctx = snowCanvas.getContext('2d');
+  const ctx = snowCanvas.getContext('2d')!;
   const height = snowCanvas.height;
   const width = snowCanvas.width;
   /** create a gray between `aaaaaa` and `ffffff`, and convert it back to a number */

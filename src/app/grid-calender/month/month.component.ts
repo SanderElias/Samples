@@ -34,7 +34,7 @@ export class MonthComponent {
       this.days[17].isLastSelected = true;
     }
   }
-  days: CalenderDay[];
+  days!: CalenderDay[];
 
   get monthName() {
     return this.days[10].date.toLocaleString('default', { month: 'long' });
@@ -68,7 +68,7 @@ export class MonthComponent {
     const dateFromDay = (day: number) => new Date(date.getFullYear(), date.getMonth(), day);
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const dayArray = [];
+    const dayArray:CalenderDay[] = [];
     for (let i = 0; i < firstDay.getDay(); i++) {
       // get the dates from past month that are still in the first week
       const prevDate = date.getTime() - (firstDay.getDay() - i) * 24 * 60 * 60 * 1000;

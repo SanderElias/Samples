@@ -2,7 +2,7 @@ import { EffectCleanupRegisterFn, Injector, afterNextRender, effect, inject, sig
 import { Observable, firstValueFrom, of } from 'rxjs';
 
 export type ToWritableSignalOptions<T> = {
-  initialValue?: T;
+  initialValue?: T| undefined;
   errorCallback?: (err: any) => void | undefined;
 };
 
@@ -17,8 +17,16 @@ type ToWritableSignal = {
  * @param options, takes an optional initial value and an optional error callback.
  * @returns a writeable signal that will be updated with the first value from the observable.
  */
-export const toWritableSignal = <T,U>(src: Observable<T>, { initialValue, errorCallback } = {} as ToWritableSignalOptions<T | U>) => {
-  const sig = signal(initialValue);
+export const toWritableSignal = <T, U>(
+  src: Observable<T>,
+  { initialValue, errorCallback } = {} as ToWritableSignalOptions<T | U | undefined>
+) => {
+
+
+  const sig = signal<T | U | undefined>(initialValue);
+
+
+
   errorCallback ??= (err: any) => undefined;
   firstValueFrom(src)
     .then(val => sig.set(val))
@@ -36,4 +44,6 @@ export function afterNextRenderEffect(fn: (onCleanup: EffectCleanupRegisterFn) =
   afterNextRender(() => effect(fn, { injector }));
 }
 
-const $demo1 = toWritableSignal(of('demo'), {initialValue:true});
+const $demo1 = toWritableSignal(of('demo'), { initialValue: true });
+
+const test = signal<string | number | undefined>(0);

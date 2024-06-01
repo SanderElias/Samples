@@ -80,7 +80,7 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
 
   function doEmit() {
     result.length = clients.size; // make sure there are no stale values when the array has shrunken
-    clients.forEach(({ last, index }) => (result[index] = last));
+    clients.forEach(({ last, index }) => (result[index] = last!));
     lastEmitTime = Date.now();
     debounceTimer = undefined;
     subscriber.next(result);

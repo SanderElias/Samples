@@ -13,6 +13,9 @@
     "target": "ES2022",
     "allowJs": true,
     "typeRoots": ["node_modules/@types"],
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "lib": ["es2022", "dom"],
     "paths": {
       "@se-ng/observable-hooks": ["dist/se-ng/observable-hooks"],
@@ -27,6 +30,6 @@
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
-    "strictTemplates": true
+    "strictTemplates": true,
   }
 }

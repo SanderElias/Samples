@@ -17,7 +17,7 @@ export function addToCache(key: string, anyData: object) {
 export function cacheHas(key: string): boolean {
   return cache.has(key);
 }
-export function getFromCache(key) {
+export function getFromCache(key:string) {
   return cache.get(key);
 }
 

@@ -173,5 +173,10 @@ export const routes: Routes = [
     path: 'dialog',
     loadComponent: () => import('./dialog/dialog.component'),
   },
-  { path: '**', redirectTo: 'routeList' },
+  {
+    path: 'signalInputMusings',
+    loadComponent: () => import('./signal-input-musings/signal-input-musings.component').then(m => m.SignalInputMusingsComponent),
+  },
+  { path: '**', redirectTo: 'signalInputMusings' },
+  // { path: '**', redirectTo: 'routeList' },
 ];

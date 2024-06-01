@@ -36,7 +36,7 @@ export class TumblrComponent implements OnInit {
     ),
     map(data => data?.data?.items),
     filter(s => !!s),
-    map(items => items.filter((item: Item) => [Type.ImageJPEG, Type.ImagePNG].includes(item.images && item.images[0].type))),
+    map(items => items!.filter((item: Item) => [Type.ImageJPEG, Type.ImagePNG].includes(item?.images?.[0].type || Type.VideoMp4))),
     shareReplay(1)
   );
 
@@ -75,10 +75,13 @@ export class TumblrComponent implements OnInit {
       from(import('animate-css-grid'))
         .pipe(
           /** wait for the module to load */
-          map(({ wrapGrid }) => wrapGrid(elm.querySelector('#grid'))),
+          map(({ wrapGrid }) => wrapGrid(elm!.querySelector('#grid')!)),
           /** start listening for inputs */
           switchMap(() => fromEvent(inp, 'input')),
-          map((ev: InputEvent) => ev.target['value'] as string), // get the value as string
+          map((ev: Event) => {
+            const target = ev.target as HTMLInputElement
+            return target.value
+          }), // get the value as string
           debounceTime(400),
           distinctUntilChanged(),
           filter(key => key.length > 0), // only search for keys with a length > 0

@@ -37,11 +37,12 @@ export interface Company {
 })
 export class AddressService {
   userCards$ = this.users(25);
+  fakerModule = import('@faker-js/faker')
 
   constructor() {}
 
   private users(length): Observable<UserCard[]> {
-    return from(import('@faker-js/faker')).pipe(
+    return from(this.fakerModule).pipe(
       map(fakerModule => {
         const { faker } = fakerModule;
         return Array.from({ length }, () => ({

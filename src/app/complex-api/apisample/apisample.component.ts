@@ -1,5 +1,5 @@
 import { AsyncPipe, NgFor } from '@angular/common';
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { Component, inject, type Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
@@ -69,7 +69,7 @@ export class APISampleComponent {
         });
       })
     )
-  );
+  ) as unknown as Signal<{ [x: string]: unknown; name: string; url: string }>;
 
   ngAfterViewInit() {
     /** put in defaults to get the thing going */

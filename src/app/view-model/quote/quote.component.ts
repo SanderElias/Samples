@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, input } from '@angular/core';
 import { Quote } from './quote.service';
 
 @Component({
@@ -13,5 +13,5 @@ export class QuoteComponent {
   @HostBinding('class.z2') shadow = true;
 
   /** simple element, only respons to on incoming quote */
-  @Input() quote: Quote;
+  quote = input<Quote | null>();
 }

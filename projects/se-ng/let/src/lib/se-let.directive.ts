@@ -13,7 +13,7 @@ export class SeLetDirective<T> implements OnInit, OnDestroy {
     $implicit: T | unknown;
     seLet: T | unknown;
   };
-  private sub: Subscription;
+  private sub!: Subscription;
   @Input() set seLet(x: Observable<T> | unknown) {
     this.assign(x);
   }
@@ -27,7 +27,7 @@ export class SeLetDirective<T> implements OnInit, OnDestroy {
   assign(value: Observable<T> | unknown) {
     this.sub && this.sub.unsubscribe();
     if (isObservable(value)) {
-      this.sub = value.pipe(tap(() => this.cdr.markForCheck())).subscribe((data: T) => {
+      this.sub = value.pipe(tap(() => this.cdr.markForCheck())).subscribe((data: any) => {
         this.context.$implicit = data;
         this.context.seLet = data;
       });

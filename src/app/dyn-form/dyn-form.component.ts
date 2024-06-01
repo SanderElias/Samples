@@ -46,7 +46,7 @@ const extractInputType = value => {
 })
 export class DynFormComponent {
   adr = inject(AddressesService);
-  @ViewChildren('myForm') formList: QueryList<NgForm>;
+  @ViewChildren('myForm') formList!: QueryList<NgForm>;
   person$ = new BehaviorSubject({} as any);
   fieldData$ = this.person$.pipe(
     map(person => Object.entries(person).map(([name, value]) => ({ name, value, type: extractInputType(value) }))),
@@ -67,7 +67,7 @@ export class DynFormComponent {
         startWith(undefined), // the first time it doesn't emit anything
         map(() => this.formList.first), // get the form
         filter(form => form !== undefined), // filter out when it's undefined
-        switchMap(form => form.valueChanges), // get the value changes
+        switchMap(form => form.valueChanges!), // get the value changes
         tap(vc => console.log('form value changed', vc))
       )
       .subscribe();

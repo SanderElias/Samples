@@ -38,7 +38,7 @@ export class LsHomeComponent implements OnInit {
   clicks$ = this.localState$
     .pipe(
       pluck('buttons'),
-      filter(ql => ql instanceof QueryList),
+      filter((ql): ql is QueryList<ElementRef<HTMLButtonElement>> => ql instanceof QueryList),
       map(ql => ql.toArray().map(b => b.nativeElement)),
       tap(btns => btns.forEach(b => console.log(b))),
       switchMap(buttons => fromEvent(buttons, 'click')),
@@ -48,7 +48,7 @@ export class LsHomeComponent implements OnInit {
 
   @ObservableInput('localState$')
   @ViewChildren('b', { read: ElementRef })
-  buttons: QueryList<HTMLButtonElement>;
+  buttons: QueryList<HTMLButtonElement> | undefined;
 
   vm$ = combineLatest({ id: this.id$, state: this.localState$ }).pipe(
     map(preVm => ({
@@ -65,7 +65,7 @@ export class LsHomeComponent implements OnInit {
   updateCounterWith(value: number) {
     this.localState$.next({
       ...this.localState$.value,
-      count: this.localState$.value.count + value,
+      count: this.localState$.value.count ?? 0 + value,
     });
   }
 }
