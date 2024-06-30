@@ -1,6 +1,7 @@
 import { Component, ElementRef, Injector, Input, OnInit, SecurityContext } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
+import { number } from 'yargs';
 
 /**
  * I did put those in 1 file because those 2 components
@@ -83,6 +84,8 @@ export class DynamicHtmlComponent implements OnInit {
   }
 
   update(newHtml) {
+
+
     const target = this.elm.querySelector('#target');
     /**
      * To do it this way is really dangerous, as it will expose to all kind of security issues.

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Injector, Input, NgZone, Signal, computed, inject, effect } from '@angular/core';
+import { Component, ElementRef, Injector, Input, NgZone, Signal, computed, inject, effect, model } from '@angular/core';
 import { Cell } from '../cells.component';
 
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
@@ -12,7 +12,8 @@ const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (
   styleUrls: ['./cell.component.css'],
 })
 export class CellComponent {
-  @Input() cellData: Signal<Cell>;
+  // @Input() cellData: Signal<Cell>;
+  cellData = model.required<Cell>()
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
   zone = inject(NgZone);
 

@@ -1,16 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostBinding,
   HostListener,
   NgZone,
-  computed,
-  inject,
-  effect,
-  signal,
   WritableSignal,
+  inject,
+  signal,
 } from '@angular/core';
 import { CellComponent } from './cell/cell.component';
 
@@ -26,15 +24,17 @@ const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (
   standalone: true,
   imports: [CommonModule, CellComponent],
   template: `@for (cell of cells(); track $index) {
-    <se-cell [cellData]="cell" />
+    <se-cell [(cellData)]="cell" />
   } `,
   styleUrls: ['./cells.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CellsComponent {
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
   zone = inject(NgZone);
   cdr = inject(ChangeDetectorRef);
-  gridSize = signal(15);
+  isAlive = signal(false);
+  gridSize = signal(100);
   cells = signal(
     Array.from({ length: 200 }, (_, i) =>
       signal<Cell>({
@@ -49,7 +49,7 @@ export class CellsComponent {
     const neededCells = this.gridSize() * this.gridSize();
     while (this.cells().length < neededCells) {
       const len = this.cells().length;
-      const addNum = 50;
+      const addNum = 250;
       const add = len + addNum > neededCells ? neededCells - len : addNum;
       const newCells: WritableSignal<Cell>[] = [];
       for (let i = 0; i < add; i += 1) {
@@ -61,7 +61,7 @@ export class CellsComponent {
         );
       }
       this.cells.update(c => c.concat(newCells));
-      await new Promise(r => setTimeout(r, 25));
+      await new Promise(r => setTimeout(r, 5));
     }
     console.log(`Done, created ${neededCells} in a ${this.gridSize()} x ${this.gridSize()} grid.`);
   };
@@ -77,7 +77,7 @@ export class CellsComponent {
 
   aliveColor = `oklch(${clampedRandom(55, 95)}% 75% 173`;
   deadColor = `oklch(${clampedRandom(10, 55)}% 50% 280`;
-  cycle = () => {
+  cycle = async () => {
     const cells = this.cells();
     const gs = this.gridSize();
     for (const cell of cells) {
@@ -92,6 +92,9 @@ export class CellsComponent {
         // reproduce!
         cell.set({ id, alive: true });
       }
+    }
+    if (this.isAlive()) {
+      await new Promise(r => setTimeout(() => this.cycle(), 100));
     }
   };
 
@@ -109,9 +112,11 @@ export class CellsComponent {
     });
   };
 
-  ngOnInit() {
+  async ngOnInit() {
     this.calcGrid();
-    this.growList();
+    await this.growList();
+    this.isAlive.set(true)
+    this.cycle();
   }
 }
 
