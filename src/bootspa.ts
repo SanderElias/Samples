@@ -8,7 +8,7 @@ import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/routes';
@@ -28,7 +28,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       ScullyLibModule
     ),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(),
     // { provide: NgZone, useClass: ɵNoopNgZone },
   ],

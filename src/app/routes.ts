@@ -177,6 +177,14 @@ export const routes: Routes = [
     path: 'signalInputMusings',
     loadComponent: () => import('./signal-input-musings/signal-input-musings.component').then(m => m.SignalInputMusingsComponent),
   },
-  { path: '**', redirectTo: 'signalInputMusings' },
+  {
+    path: 'signalPlay',
+    loadComponent: () => import('./signal-play/signal-play.component'),
+  },
+  {
+    path: 'signalPlay/:id',
+    loadComponent: () => import('./signal-play/signal-play.component'),
+  },
   // { path: '**', redirectTo: 'routeList' },
+  { path: '**', redirectTo: 'signalPlay' },
 ];
