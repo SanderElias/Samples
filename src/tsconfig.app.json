@@ -7,6 +7,6 @@
   "angularCompilerOptions": {
     "_enabledBlockTypes": ["if", "for", "switch", "defer", "track"]
   },
-  "files": ["main.ts", "polyfills.ts"],
+  "files": ["main.ts","main.server.ts", "../server.ts"],
   "include": ["src/**/*.d.ts"]
 }

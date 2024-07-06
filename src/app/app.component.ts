@@ -40,17 +40,17 @@ export class AppComponent implements AfterContentInit {
   r = inject(ActivatedRoute);
   elmRef = inject(ElementRef);
   constructor() {
-    window['ar'] = this.r;
-    // console.log('rs', r);
-    if (this.zone instanceof ɵNoopNgZone) {
-      /**
-       * This is a very crude way to get the app going.
-       * As long as zoneLess isn't fully driven by signals,
-       * we need something to tell Angular to update the view.
-       */
-      console.warn(`[appComponent] NoopZone detected, run CDR.detectChanges every 15Ms`);
-      setTimeout(() => this.cdr.detectChanges(), 500);
-      // setInterval(() => this.cdr.detectChanges(), 15); // cater for 60 fps.
-    }
+    // window['ar'] = this.r;
+    // // console.log('rs', r);
+    // if (this.zone instanceof ɵNoopNgZone) {
+    //   /**
+    //    * This is a very crude way to get the app going.
+    //    * As long as zoneLess isn't fully driven by signals,
+    //    * we need something to tell Angular to update the view.
+    //    */
+    //   console.warn(`[appComponent] NoopZone detected, run CDR.detectChanges every 15Ms`);
+    //   setTimeout(() => this.cdr.detectChanges(), 500);
+    //   // setInterval(() => this.cdr.detectChanges(), 15); // cater for 60 fps.
+    // }
   }
 }

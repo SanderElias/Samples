@@ -40,9 +40,9 @@ export class LsHomeComponent implements OnInit {
       pluck('buttons'),
       filter((ql): ql is QueryList<ElementRef<HTMLButtonElement>> => ql instanceof QueryList),
       map(ql => ql.toArray().map(b => b.nativeElement)),
-      tap(btns => btns.forEach(b => console.log(b))),
+      // tap(btns => btns.forEach(b => console.log(b))),
       switchMap(buttons => fromEvent(buttons, 'click')),
-      tap(cl => console.log({ cl }))
+      // tap(cl => console.log({ cl }))
     )
     .subscribe(console.log);
 
@@ -55,7 +55,7 @@ export class LsHomeComponent implements OnInit {
       id: preVm.id,
       count: preVm.state.count || 0,
     })),
-    tap(console.log)
+    // tap(console.log)
   );
 
   constructor(private route: ActivatedRoute) {}

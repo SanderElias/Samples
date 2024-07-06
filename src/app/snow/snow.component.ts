@@ -12,6 +12,7 @@ export class SnowComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    if (typeof document === 'undefined') return;
     makeItSnow();
   }
 }
@@ -60,6 +61,7 @@ function makeItSnow() {
  * @param max the maximum returned
  */
 function getRandomInt(max: number): number {
+  if (typeof window === "undefined") return
   const randomBuffer = new Uint32Array(1);
   window.crypto.getRandomValues(randomBuffer);
   let randomNumber = randomBuffer[0] / (0xffffffff + 1);
@@ -68,6 +70,8 @@ function getRandomInt(max: number): number {
 
 // var particleCanvas, particleCtx;
 function createSnowCanvas() {
+  if (typeof window === "undefined") return
+  if (typeof document === "undefined") return
   const snowFlakesCanvas = document.createElement('canvas');
   snowFlakesCanvas.width = window.innerWidth;
   snowFlakesCanvas.height = window.innerHeight;

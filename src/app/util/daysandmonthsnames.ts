@@ -1,9 +1,13 @@
 export const weekDayNames: string[] = weekDays();
 export const monthNames: string[] = months();
 
-function weekDays(countryCode = navigator.language): string[] {
+function weekDays(countryCode?: string): string[] {
   const date = new Date();
   const day = date.getDate();
+  if (typeof navigator === "undefined") {
+    return [];
+  }
+  countryCode ??= navigator.language;
   return Array.from({ length: 7 })
     .map((e, i) => {
       const workDate = new Date(date.setDate(day + i));
@@ -18,7 +22,11 @@ function weekDays(countryCode = navigator.language): string[] {
     .map(d => d[0] as string);
 }
 
-function months(countryCode = navigator.language) {
+function months(countryCode?:string) {
+  if (typeof navigator === "undefined") {
+    return [];
+  }
+  countryCode ??= navigator.language;
   return Array.from({ length: 12 }).map((e, i) => {
     return new Intl.DateTimeFormat(countryCode, {
       month: 'short',

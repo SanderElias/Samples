@@ -20,6 +20,8 @@ export class CellRawComponent {
   deadColor = `oklch(${clampedRandom(10, 55)}% 50% 280`;
 
   setup = async () => {
+    if (typeof window === 'undefined') return;
+    if (typeof document === 'undefined') return;
     const elm = this.elm;
     const cells = this.cells;
     const addCell = (id: number) => {

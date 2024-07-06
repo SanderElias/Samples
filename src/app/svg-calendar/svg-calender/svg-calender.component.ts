@@ -33,7 +33,7 @@ export class SvgCalenderComponent {
   }
 
   splitDate(d = new Date()) {
-    console.log('set', d);
+    if (typeof document === "undefined") return;
     this.month = monthNames[d.getMonth()].toUpperCase();
     this.dim = d.getDate();
     this.day = weekDayNames[d.getDay()];

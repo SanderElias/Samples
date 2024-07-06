@@ -37,6 +37,7 @@ export class BintreeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+
     this.reset();
   }
   async reset() {
@@ -84,7 +85,7 @@ async function getData(): Promise<number[]> {
   let data = undefined; // await get('binTreeSampleData')
   if (!data) {
     data = randomArr(100);
-    set('binTreeSampleData', data);
+    // set('binTreeSampleData', data);
   }
 
   return data;

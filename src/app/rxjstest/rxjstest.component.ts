@@ -46,6 +46,7 @@ export class RxjstestComponent {
   data$ = new BehaviorSubject<number[]>(Array.from({ length: 300 }, () => Math.floor(Math.random() * 100000) + 1));
   enrich = (value: number) =>
     this.zone.runOutsideAngular(() => {
+      if (typeof document === 'undefined') return this.result.get(value);
       if (!this.result.has(value)) {
         this.result.set(
           value,
@@ -61,12 +62,14 @@ export class RxjstestComponent {
       return this.result.get(value)!;
     });
 
-  completed$ = this.zone.runOutsideAngular(() =>
-    this.data$.pipe(
-      // map((data) => data.map(this.enrich)),
-      combinator(data => data.map(this.enrich), 250),
-      tap(data => this.cdr.detectChanges())
-    )
+  completed$ = this.zone.runOutsideAngular(
+    () =>
+      this.data$.pipe(
+        // map((data) => data.map(this.enrich)),
+        combinator(data => data.map(this.enrich), 250),
+        tap(data => this.cdr.detectChanges())
+      )
+    // this.data$
   );
 
   vm$ = combineLatest({

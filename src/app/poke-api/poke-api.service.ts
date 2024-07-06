@@ -35,7 +35,7 @@ export class PokeApiService {
             this.getAllPagedData(baseUrl).pipe(
               reduce((data, page) => data.concat(page.results), []),
               // concatMap((data: any) => data.map(row => from(this.load(row.url)))),
-              tap((data: any) => console.log('d', data)),
+              // tap((data: any) => console.log('d', data)),
               // concatMap((subData:any) => subData.url && this.load(subData.url) || subData),
               map(data => ({ name, baseUrl, data }))
             )

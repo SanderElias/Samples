@@ -69,6 +69,7 @@ export class TumblrComponent implements OnInit {
 
   ngOnInit(): void {
     const elm = this.#elm;
+    if (typeof document === 'undefined') return;
     if (elm) {
       const inp = elm.getElementsByTagName('input')[0];
       // lazy load the animate-css-grid module

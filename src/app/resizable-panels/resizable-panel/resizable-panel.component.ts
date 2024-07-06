@@ -21,9 +21,11 @@ export class ResizablePanelComponent implements OnInit, OnDestroy {
     this.elm.style.setProperty('--_panel-width', `${inlineSize}px`);
     this.elm.style.setProperty('--_panel-height', `${blockSize}px`);
   };
-  resObs = new ResizeObserver(debounce(this.resHandler, 250));
+  resObs: ResizeObserver;
 
   ngOnInit(): void {
+    if (typeof document === 'undefined') return;
+    this.resObs = new ResizeObserver(debounce(this.resHandler, 250));
     this.resObs.observe(this.elm);
   }
   ngOnDestroy(): void {
@@ -40,7 +42,7 @@ function debounce(fn: Function, wait: number) {
 }
 
 function path(elm) {
-  let a:string[] = [];
+  let a: string[] = [];
   while (elm.parentNode) {
     let d = [
       elm.tagName.toLowerCase(),

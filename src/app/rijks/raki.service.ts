@@ -63,7 +63,8 @@ export class RakiService {
         catchError(() => timer(500).pipe(switchMap(() => this.getArtObject$)))
       )
     ),
-    switchMap((artObject: ArtObject) => (artObject.webImage && artObject.webImage.url ? of(artObject) : this.getArtObject$))
+    switchMap((artObject: ArtObject) => (artObject.webImage && artObject.webImage.url ? of(artObject) : this.getArtObject$)),
+    catchError(_e => of([]))
   );
 
   constructor(private http: HttpClient) {}
@@ -82,6 +83,7 @@ export class RakiService {
   }
 
   private preload(url): Promise<string> {
+    if (typeof document === 'undefined') return;
     return new Promise((resolve, reject) => {
       const resolveWithUrl = () => resolve(`url(${url})`);
       const img = document.createElement('img');

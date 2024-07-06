@@ -15,6 +15,10 @@
             "outputPath": {
               "base": "dist/samples"
             },
+            "server": "src/main.server.ts",
+            "prerender": {
+              "discoverRoutes": true
+            },
             "index": "src/index.html",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],

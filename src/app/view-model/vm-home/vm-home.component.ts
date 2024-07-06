@@ -1,14 +1,13 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren } from '@angular/core';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
-import { filter, map, pluck, scan, startWith, switchMap, tap, shareReplay } from 'rxjs/operators';
+import { catchError, filter, map, pluck, scan, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { RakiService } from '../../../app/rijks/raki.service';
-import { QuoteService } from '../quote/quote.service';
-import { ObsFromEvent } from './ObsFromEvent';
+import { PaintingComponent } from '../painting/painting.component';
 import { PlayButtonComponent } from '../play-button/play-button.component';
 import { QuoteComponent } from '../quote/quote.component';
-import { PaintingComponent } from '../painting/painting.component';
-import { NgIf, AsyncPipe } from '@angular/common';
-import { number } from 'yargs';
+import { QuoteService } from '../quote/quote.service';
+import { ObsFromEvent } from './ObsFromEvent';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -41,14 +40,15 @@ export class VmHomeComponent {
 
   speed$ = this.speedChange$.pipe(
     /** read teh value out of the event */
-    pluck('target', 'value'),
+    map((ev: any) => ev?.target?.value),
     /** cast to number */
     map(x => Number(x)),
     /** set a start speed */
     startWith(3.5),
     /** log so we can see when an event is triggered */
-    tap(r => console.log('speed', r))
+    // tap(r => console.log('speed', r)),
     // shareReplay({bufferSize: 1, refCount: true})
+    catchError(e => of(3.5))
   );
 
   quote$ = this.speed$.pipe(switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))));
@@ -63,16 +63,13 @@ export class VmHomeComponent {
     /** when there user clicks, stop this stream */
     switchMap(([artPaused, timeVal]) => (artPaused ? NEVER : of(timeVal))),
     /** count down from 20 */
-    scan((duration, t) => 20 - t, 1)
+    scan((duration, t) => 20 - t, 1),
+    catchError(() => NEVER)
   );
   constructor(
     private raki: RakiService,
     private q: QuoteService
-  ) {
-    setTimeout(() => {
-      console.log(this.artClick$);
-    }, 100);
-  }
+  ) {}
 
   /**
    * helper, takes a event observable,

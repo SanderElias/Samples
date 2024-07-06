@@ -10,6 +10,7 @@ export class AnalogClockComponent implements OnInit {
   constructor(private zone: NgZone) {}
 
   ngOnInit(): void {
+    if (typeof document === 'undefined') return;
     this.zone.runOutsideAngular(() => {
       analogClock(getCanvasCtx());
       function getCanvasCtx() {
@@ -116,7 +117,9 @@ function analogClock(ctx) {
   function clock(time) {
     drawClock(time);
     // and set it to repeat on the next frame.
-    window.requestAnimationFrame(() => clock(new Date()));
+    if (typeof window !== 'undefined') {
+      window.requestAnimationFrame(() => clock(new Date()));
+    }
   }
 
   function drawClock(time) {

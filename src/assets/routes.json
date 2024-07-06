@@ -56,6 +56,14 @@
     "description": ""
   },
   {
+    "path": "/dialog",
+    "modulePath": "/src/app/dialog",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/dialog",
+    "title": "Dialog doesn't need a service",
+    "largeImage": "/assets/snapshots/dialog.png",
+    "description": ""
+  },
+  {
     "path": "/DirectiveSamp",
     "modulePath": "/src/app/directives/directives-sample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/directives/directives-sample",
@@ -269,6 +277,22 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rxjstest",
     "title": "Rxjs cleanup test",
     "largeImage": "/assets/snapshots/rxjsTest.png",
+    "description": ""
+  },
+  {
+    "path": "/signalInputMusings",
+    "modulePath": "/src/app/signal-input-musings",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signal-input-musings",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/signalInputMusings.png",
+    "description": ""
+  },
+  {
+    "path": "/signalPlay",
+    "modulePath": "/src/app/signal-play",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signal-play",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/signalPlay.png",
     "description": ""
   },
   {

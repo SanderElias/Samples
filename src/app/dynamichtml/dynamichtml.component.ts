@@ -75,11 +75,13 @@ export class DynamicHtmlComponent implements OnInit {
     injector: Injector,
     private sanitizer: DomSanitizer
   ) {
+    if (typeof document === 'undefined') return;
     const dyn = createCustomElement(DynDataComponent, { injector });
     customElements.define('dyn-data', dyn);
   }
 
   ngOnInit() {
+    if (typeof document === 'undefined') return;
     this.update(this.html);
   }
 

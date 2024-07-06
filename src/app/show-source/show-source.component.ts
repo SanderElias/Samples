@@ -80,6 +80,8 @@ export class ShowSourceComponent {
 }
 
 function updateRouteInfo(routeInfo: RouteInfo) {
+  if (typeof window === "undefined") return
+  if (typeof document === "undefined") return
   if (routeInfo?.path) {
     const origin = `https://samples.selias.dev`;
     const desc =
@@ -116,6 +118,7 @@ function updateRouteInfo(routeInfo: RouteInfo) {
 
 /** helper to update the head with new metadata, will replace if already there */
 function updateMeta(prop: string, content: string) {
+  if (typeof document === 'undefined') return;
   const metaElement = document.querySelector(`meta[property="${prop}"]`);
   if (metaElement) {
     metaElement.setAttribute('content', content);
