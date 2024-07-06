@@ -9,7 +9,6 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { ScullyLibModule } from '@scullyio/ng-lib';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/routes';
 import { environment } from './environments/environment';
@@ -25,9 +24,6 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(
-      ScullyLibModule
-    ),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(),
     // { provide: NgZone, useClass: ɵNoopNgZone },
