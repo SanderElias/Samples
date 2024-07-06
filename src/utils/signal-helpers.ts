@@ -1,4 +1,4 @@
-import { EffectCleanupRegisterFn, Injector, afterNextRender, computed, effect, inject, signal } from '@angular/core';
+import { DestroyRef, EffectCleanupRegisterFn, Injector, Signal, afterNextRender, effect, inject, signal } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
 
 export type ToWritableSignalOptions<T> = {
@@ -31,3 +31,18 @@ export function afterNextRenderEffect(fn: (onCleanup: EffectCleanupRegisterFn) =
   afterNextRender(() => effect(fn, { injector }));
 }
 
+export const asyncComputed = <T = unknown, F = unknown>(fn: () => Promise<T>, initialValue?: undefined | T | F): Signal<T | F> => {
+  const result = signal<T | F>(initialValue);
+  fn().then(r => result.set(r));
+
+  return result.asReadonly();
+};
+
+export const observableComputed = <T = unknown>(fn: () => Observable<T>, initial?: T): Signal<T | undefined> => {
+  const result = signal<T | undefined>(initial);
+  inject(DestroyRef).onDestroy(() => unSub.unsubscribe());
+
+  const unSub = fn().subscribe(x => result.set(x));
+
+  return result;
+};

@@ -173,5 +173,14 @@ export const routes: Routes = [
     path: 'dialog',
     loadComponent: () => import('./dialog/dialog.component'),
   },
-  { path: '**', redirectTo: 'routeList' },
+  {
+    path: 'signalPlay',
+    loadComponent: () => import('./signal-play/signal-play.component'),
+  },
+  {
+    path: 'signalPlay/:id',
+    loadComponent: () => import('./signal-play/signal-play.component'),
+  },
+  // { path: '**', redirectTo: 'routeList' },
+  { path: '**', redirectTo: 'signalPlay' },
 ];
