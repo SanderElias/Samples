@@ -13,7 +13,7 @@ export class ModalDemoComponent implements OnInit {
   shown = false;
 
   ngOnInit() {
-    console.log(this.modal);
+    // console.log(this.modal);
     setTimeout(() => (this.shown = true), 1500);
   }
 }

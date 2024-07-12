@@ -72,6 +72,7 @@ export const routes: Routes = [
     path: 'snow',
     loadComponent: () => import('./snow/snow.component').then(m => m.SnowComponent),
   },
+
   {
     path: 'tumblr',
     loadComponent: () => import('./tumblr/tumblr.component').then(m => m.TumblrComponent),
@@ -84,6 +85,7 @@ export const routes: Routes = [
     path: 'svgTest',
     loadComponent: () => import('./svg-test/svg-test.component').then(m => m.SvgTestComponent),
   },
+
   {
     path: 'pannel',
     loadComponent: () => import('./pannel-stuff/pannel-stuff.component').then(m => m.PannelStuffComponent),
@@ -124,6 +126,7 @@ export const routes: Routes = [
     path: 'rxjsTest',
     loadComponent: () => import('./rxjstest/rxjstest.component').then(m => m.RxjstestComponent),
   },
+
   {
     path: 'unsubSample',
     loadComponent: () => import('./unsub-sample/unsub-sample.component').then(m => m.UnsubSampleComponent),
@@ -149,6 +152,7 @@ export const routes: Routes = [
     path: 'signalsForms',
     loadComponent: () => import('./signals-form/signals-form.component').then(m => m.SignalsFormsComponent),
   },
+
   {
     path: 'card',
     loadComponent: () => import('./card/card.component').then(m => m.CardComponent),
@@ -161,6 +165,7 @@ export const routes: Routes = [
     path: 'cellsRaw',
     loadComponent: () => import('./cells/cell-raw/cell-raw.component').then(m => m.CellRawComponent),
   },
+
   {
     path: 'routeList',
     loadComponent: () => import('./route-list/route-list.component').then(m => m.RouteListComponent),

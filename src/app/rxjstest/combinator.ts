@@ -1,15 +1,5 @@
 import { Observable, Subscriber, Subscription } from 'rxjs';
 
-declare global {
-  interface Window {
-    __zone_symbol__setTimeout: typeof setTimeout;
-    __zone_symbol__clearTimeout: typeof clearTimeout;
-  }
-}
-
-const timeOut = (globalThis['__zone_symbol__setTimeout'] || setTimeout) as typeof setTimeout;
-const clearTime = (globalThis['__zone_symbol__clearTimeout'] || clearTimeout) as typeof clearTimeout;
-
 type CombinatorFn<R, T> = (source: R) => Observable<T>[];
 
 export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime = 50): (source: Observable<R>) => Observable<T[]> {
@@ -73,7 +63,7 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
   }
 
   function cleanUp() {
-    clearTime(debounceTimer);
+    clearTimeout(debounceTimer);
     clients.forEach(client => client.sub.unsubscribe());
     clients.clear();
   }
@@ -86,10 +76,10 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
     subscriber.next(result);
   }
   function emitResults() {
-    debounceTimer && clearTime(debounceTimer);
-    debounceTimer = timeOut(doEmit, debounceTime);
+    debounceTimer && clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(doEmit, debounceTime);
     if (Date.now() - lastEmitTime > debounceTime) {
-      debounceTimer && clearTime(debounceTimer);
+      debounceTimer && clearTimeout(debounceTimer);
       doEmit();
     }
   }

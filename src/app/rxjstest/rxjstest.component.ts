@@ -40,36 +40,28 @@ import { combinator } from './combinator';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RxjstestComponent {
-  zone = inject(NgZone);
   cdr = inject(ChangeDetectorRef);
   result = new Map<number, Observable<{ value: number; iteration: number }>>();
   data$ = new BehaviorSubject<number[]>(Array.from({ length: 300 }, () => Math.floor(Math.random() * 100000) + 1));
-  enrich = (value: number) =>
-    this.zone.runOutsideAngular(() => {
-      if (typeof document === 'undefined') return this.result.get(value);
-      if (!this.result.has(value)) {
-        this.result.set(
-          value,
-          timer(Math.floor(Math.random() * 10000), Math.floor(Math.random() * 500) + 500).pipe(
-            map(iteration => ({ value, iteration })),
-            finalize(() => {
-              this.result.delete(value);
-              console.log(`deleted ${value}`);
-            })
-          )
-        );
-      }
-      return this.result.get(value)!;
-    });
+  enrich = (value: number) => {
+    if (!this.result.has(value)) {
+      this.result.set(
+        value,
+        timer(Math.floor(Math.random() * 10000), Math.floor(Math.random() * 500) + 500).pipe(
+          map(iteration => ({ value, iteration })),
+          finalize(() => {
+            this.result.delete(value);
+          })
+        )
+      );
+    }
+    return this.result.get(value)!;
+  };
 
-  completed$ = this.zone.runOutsideAngular(
-    () =>
-      this.data$.pipe(
-        // map((data) => data.map(this.enrich)),
-        combinator(data => data.map(this.enrich), 250),
-        tap(data => this.cdr.detectChanges())
-      )
-    // this.data$
+  completed$ = this.data$.pipe(
+    // map((data) => data.map(this.enrich)),
+    combinator(data => data.map(this.enrich), 250),
+    tap(data => this.cdr.detectChanges())
   );
 
   vm$ = combineLatest({

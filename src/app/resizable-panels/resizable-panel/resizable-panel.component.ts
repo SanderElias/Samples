@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject, OnInit, OnDestroy, DestroyRef, afterNextRender } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,8 +8,9 @@ import { CommonModule } from '@angular/common';
   template: `<ng-content></ng-content>`,
   styleUrls: ['./resizable-panel.component.css'],
 })
-export class ResizablePanelComponent implements OnInit, OnDestroy {
+export class ResizablePanelComponent {
   elm = inject(ElementRef).nativeElement as HTMLElement;
+  des = inject(DestroyRef);
   name = path(this.elm);
   resHandler = (e: ResizeObserverEntry[]) => {
     const [
@@ -17,19 +18,18 @@ export class ResizablePanelComponent implements OnInit, OnDestroy {
         borderBoxSize: [{ inlineSize, blockSize }],
       },
     ] = e;
-    console.dir(this.name);
+    // console.dir(this.name);
     this.elm.style.setProperty('--_panel-width', `${inlineSize}px`);
     this.elm.style.setProperty('--_panel-height', `${blockSize}px`);
   };
   resObs: ResizeObserver;
 
-  ngOnInit(): void {
-    if (typeof document === 'undefined') return;
-    this.resObs = new ResizeObserver(debounce(this.resHandler, 250));
-    this.resObs.observe(this.elm);
-  }
-  ngOnDestroy(): void {
-    this.resObs.unobserve(this.elm);
+  constructor() {
+    afterNextRender(() => {
+      this.resObs = new ResizeObserver(debounce(this.resHandler, 250));
+      this.resObs.observe(this.elm);
+      this.des.onDestroy(() => this.resObs.unobserve(this.elm));
+    });
   }
 }
 

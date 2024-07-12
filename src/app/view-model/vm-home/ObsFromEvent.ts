@@ -19,13 +19,13 @@ const EventStream = Symbol('ObsFromEvent');
  */
 export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K): any {
   return (target: any, propertyKey: string | symbol): PropertyDescriptor => {
-    if (typeof document === 'undefined') {
+    if (globalThis.isServer) {
       return {
         get() {
           /** return an debounce observable when read. */
           // return fetchSubject(this, propertyKey).pipe(debounceTime(4));
           console.log({propertyKey})
-          return ;
+          return  NEVER;
         },
         set() {},
       };

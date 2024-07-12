@@ -25,7 +25,7 @@ export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})
 
   filteredShips$ = modelFromLatest({ ships: this.starships$, s: this.searchText$ }).pipe(
     map(data => data.ships.filter(row => row.name.includes(data.s))),
-    tap(ships => console.log(ships))
+    // tap(ships => console.log(ships))
   );
 
   viewModel$ = modelFromLatest({

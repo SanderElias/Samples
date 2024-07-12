@@ -21,7 +21,7 @@ export class MixinsComponent extends seOnDestroy(seAfterContentChecked(seOnInit(
   /** demo, this is subscribed in the template by asyncPipe */
   demo$ = this.seOnInit$.pipe(
     switchMap(() => of([1, 2, 3, 4])),
-    tap(r => console.log('init Fired', r))
+    // tap(r => console.log('init Fired', r))
   );
 
   /** I don't need to unsubscribe, all life cycle hooks are completed on destroy */
@@ -31,7 +31,7 @@ export class MixinsComponent extends seOnDestroy(seAfterContentChecked(seOnInit(
        * this shows that on destroy the subject is completed
        * and will be garbage collected
        */
-      console.log('seAfterContentChecked$ is completed,');
+      // console.log('seAfterContentChecked$ is completed,');
     },
   });
 

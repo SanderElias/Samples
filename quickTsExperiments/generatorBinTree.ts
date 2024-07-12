@@ -34,7 +34,6 @@ root.right.left.left = createNode('leaf L1');
 root.right.left.right = createNode('leaf L2');
 root.right.right.left = createNode('leaf R1');
 
-console.log([...root]);
 
 function keepState<T>(initialState?: Partial<T>): Generator<T> {
   function* intKeepState(initialState?: Partial<T>) {
@@ -62,7 +61,7 @@ const state = keepState({
 console.log(state.next({ d: 7 }).value);
 
 const currentState = state.next().value;
-console.dir(currentState);
+// console.dir(currentState);
 
 const logDeco = (preString = 'logDeco') => {
   return <T, K extends keyof T>(target: T, name: K) => {

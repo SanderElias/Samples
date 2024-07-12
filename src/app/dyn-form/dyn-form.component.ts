@@ -26,7 +26,7 @@ const sampleRecord = {
 
 const extractInputType = value => {
   const type: string = (value.constructor.name || 'unknown').toLowerCase();
-  console.log(type);
+  // console.log(type);
   if (value === null || value === undefined) {
     return 'hidden';
   }

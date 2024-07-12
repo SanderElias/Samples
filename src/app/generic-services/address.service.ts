@@ -50,7 +50,7 @@ export class AddressService {
           // avatar: faker.image.avatar(),
         }));
       }),
-      tap(r => console.dir(r)),
+      // tap(r => console.dir(r)),
       shareReplay(1),
       catchError(e => of([]))
     );

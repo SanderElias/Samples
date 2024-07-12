@@ -1,4 +1,4 @@
-import "zone.js"
+// import "zone.js"
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -8,6 +8,6 @@ export const appConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withFetch()),
-    // provideExperimentalZonelessChangeDetection(),
+    provideExperimentalZonelessChangeDetection(),
   ],
 };

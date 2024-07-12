@@ -85,7 +85,7 @@ export class APISampleComponent {
       const orgval = this.rawData[property];
       chosenSet = this.#sw.detectSet(Array.isArray(orgval) ? orgval[0] : orgval);
     }
-    console.log(chosenSet, findValue);
+    // console.log(chosenSet, findValue);
     /** use the formControl observables to propangate the changes */
     this.chosenSet.setValue(chosenSet, { emitEvent: true });
     this.name.setValue(findValue, { emitEvent: true });

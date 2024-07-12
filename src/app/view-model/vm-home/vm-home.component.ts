@@ -69,7 +69,11 @@ export class VmHomeComponent {
   constructor(
     private raki: RakiService,
     private q: QuoteService
-  ) {}
+  ) {
+    if (typeof document === 'undefined') {
+      return;
+    }
+  }
 
   /**
    * helper, takes a event observable,

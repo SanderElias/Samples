@@ -47,7 +47,7 @@ export class SelectPackageJsonComponent {
     name: this.pjs.pjObject$.pipe(map(contents => contents.name)),
     oldContent: this.storedPackageJson,
   }).pipe(
-    tap(console.log),
+    // tap(console.log),
     startWith({
       hasHandle: false,
       handle: null,

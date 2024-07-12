@@ -69,6 +69,7 @@ export class CellsComponent {
   repopulate = () => this.cells().forEach(cell => cell.update(({ id }) => ({ id, alive: Math.random() < 0.06 })));
 
   calcGrid = () => {
+    if (typeof window === 'undefined') return;
     // get the number off cells that are fitting the browsers window.
     const gridStyle = window.getComputedStyle(this.elm);
     const cols = gridStyle.getPropertyValue('grid-template-columns').split(' ').length;
