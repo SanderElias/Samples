@@ -24,7 +24,7 @@ type ToWritableSignal = {
 /**
  * Convert an observable into a writable signal.
  * @param src the observable. Will only take the first submitted value.
- * @param options, takes an optional initial value and an optional error callback.
+ * @param options, takes an optional initial value and an optional error callback.O
  * @returns a writeable signal that will be updated with the first value from the observable.
  */
 export const toWritableSignal = <T, U>(

@@ -7,7 +7,7 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   imports: [JsonPipe],
   template: `
-    <h3>{{ sps.$lastId() }}</h3>
+    <h3>{{ $availableUserCount() }}</h3>
     <hr />
     <pre><code>{{$user()|json}}</code></pre>
     <hr />
@@ -18,9 +18,17 @@ import { JsonPipe } from '@angular/common';
 })
 export default class SignalPlayComponent {
   sps = inject(SignalPlayService);
-  id = model<number>(0);
+  id = model<string>('');
 
-  $user = computed(() => this.sps.getUser(this.id()));
+  $user = computed(() => {
+    const user = this.sps.getUser(this.id());
+    if (user) return user;
+    // none found, get first one!
+    return this.sps.$users()[0];
+  });
+
+  $availableUserCount = computed(() => this.sps.$users().length);
+
   relId = (n = 1) => {
     const newId = this.sps.getRelative(this.id(), n);
     return newId ? newId : this.id();

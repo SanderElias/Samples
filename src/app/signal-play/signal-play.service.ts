@@ -10,14 +10,14 @@ export class SignalPlayService {
 
   $users = observableComputed(() => this.users.allUsers$);
 
-  getUser = (n: number) => {
+  getUser = (n: string) => {
     const users = this.$users();
-    return users?.find(user => +user.id === +n);
+    return users?.find(user => user.id === n);
   };
 
-  getRelative = (id: number, offset = 1) => {
+  getRelative = (id: string, offset = 1) => {
     const users = this.$users() || [];
-    const userIndex = users.findIndex(u => +u.id === +id);
+    const userIndex = users.findIndex(u => u.id === id);
     if (userIndex === -1) {
       return users[0]?.id; // not found, return first id
     }

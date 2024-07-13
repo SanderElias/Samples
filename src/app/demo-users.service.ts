@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { first, map, mergeMap, shareReplay, startWith, Subject, take, tap, timer, firstValueFrom } from 'rxjs';
+import { createUniqueId } from './util/random-things';
 
 const chanceProm = import('chance')
   /** some trickery as the typings apparently don't match the reality */
@@ -15,7 +16,7 @@ enum UserState {
 }
 
 export interface DemoUser {
-  id: number;
+  id: string;
   username: string;
   password?: string;
   email: string;
@@ -61,7 +62,7 @@ export class DemoUserService {
     // users.reduce((min, line) => (min = Math.max(min, line.id)), 0) + 1;
     const newUsers = await Promise.all(
       Array.from({ length: newUserCount }).map(async (e, i) => ({
-        id: base + i,
+        id: createUniqueId(),
         ...(await fakeUser()),
       }))
     );
@@ -72,18 +73,14 @@ export class DemoUserService {
   /** async helper to 'save' users. async makes it easier to read if we wait on the suer promise */
   async saveUser(user: DemoUser) {
     /** get a current list of users out of the 'cache'*/
-    const users = await this.allUsers$.pipe(take(1)).toPromise();
+    const users = await firstValueFrom(this.allUsers$);
     const index = users.findIndex(row => row.id === user.id);
     if (index > -1) {
       /** update the found user */
       Object.assign(users[index], user);
     } else {
       // create a new id
-      let id;
-      while (!id || users.findIndex(row => row.id === id) > -1) {
-        /** create an random id and check if its used */
-        id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-      }
+      let id = createUniqueId();
       /** add it to th array of users.  */
 
       users.unshift({ ...user, id });

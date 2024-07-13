@@ -191,6 +191,6 @@ export const routes: Routes = [
     path: 'signalPlay/:id',
     loadComponent: () => import('./signal-play/signal-play.component'),
   },
-  { path: '**', redirectTo: 'routeList' },
-  // { path: '**', redirectTo: 'signalPlay' },
+  // { path: '**', redirectTo: 'routeList' },
+  { path: '**', redirectTo: 'signalPlay' },
 ];
