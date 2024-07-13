@@ -100,7 +100,7 @@ We refer to this as the "push/pull" algorithm: "dirtyness" is eagerly _pushed_ t
 When a reactive context operation (for example, an `effect`'s side effect function) is executed, the signals that it reads are tracked as dependencies. However, this may not be the same set of signals from one execution to the next. For example, this computed signal:
 
 ```typescript
-const dynamic = computed(() => useA() ? dataA() : dataB());
+const dynamic = computed(() => (useA() ? dataA() : dataB()));
 ```
 
 reads either `dataA` or `dataB` depending on the value of the `useA` signal. At any given point, it will have a dependency set of either `[useA, dataA]` or `[useA, dataB]`, and it can never depend on `dataA` and `dataB` at the same time.
@@ -111,7 +111,7 @@ A naive approach would be to simply remove all old dependency edges before re-ex
 
 ### Dependency Edge Versioning
 
-Instead, our implementation uses a lighter weight approach to dependency invalidation which relies on a monotonic version counter maintained by the `Consumer`, called the `trackingVersion`. Before the `Consumer`'s reactive operation is executed, its `trackingVersion` is incremented. When a signal is read, the `trackingVersion` of the `Consumer` is stored in the dependency `Edge`, where it is available to the `Producer`. 
+Instead, our implementation uses a lighter weight approach to dependency invalidation which relies on a monotonic version counter maintained by the `Consumer`, called the `trackingVersion`. Before the `Consumer`'s reactive operation is executed, its `trackingVersion` is incremented. When a signal is read, the `trackingVersion` of the `Consumer` is stored in the dependency `Edge`, where it is available to the `Producer`.
 
 When a `Producer` has an updated value, it iterates through its outgoing edges to any interested `Consumer`s to notify them of the change. At this point, the `Producer` can check whether the dependency is current or stale by comparing the `Consumer`'s current `trackingVersion` to the one stored on the dependency `Edge`. A mismatch means that the `Consumer`'s dependencies have changed and no longer include that `Producer`, so that `Consumer` is not notified and the stale edge is instead removed.
 

@@ -28,7 +28,8 @@ const getContent = name => {
 
       let data = '';
       res.on('data', chunk => {
-        data += chunk;
+        console.log(String(chunk));
+        data += String(chunk);
       });
 
       res.on('end', () => {
@@ -46,4 +47,5 @@ const getContent = name => {
 
 const url = `https://www.google.com/search?q=darth+vader`;
 
-
+const r = getContent('puppies');
+console.table(r);

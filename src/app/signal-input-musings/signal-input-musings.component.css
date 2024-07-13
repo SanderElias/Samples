@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+
+pretty-text {
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;;
+}

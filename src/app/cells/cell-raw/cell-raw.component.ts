@@ -1,14 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  NgZone,
-  ViewEncapsulation,
-  inject,
-} from '@angular/core';
+import { Component, ElementRef, NgZone, ViewEncapsulation, inject } from '@angular/core';
 
-const clampedRandom = (min: number, max: number) =>
-  Math.round(Math.random() * (max - min)) + min;
+const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 
 @Component({
   selector: 'se-cell-raw',
@@ -21,21 +14,20 @@ const clampedRandom = (min: number, max: number) =>
 export class CellRawComponent {
   zone = inject(NgZone);
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
-  gridSize = 750;
+  gridSize = 100;
   cells = [];
   aliveColor = `oklch(${clampedRandom(55, 95)}% 75% 173`;
   deadColor = `oklch(${clampedRandom(10, 55)}% 50% 280`;
 
   setup = async () => {
+    if (typeof window === 'undefined') return;
+    if (typeof document === 'undefined') return;
     const elm = this.elm;
     const cells = this.cells;
     const addCell = (id: number) => {
       const cell = document.createElement('cell');
       const alive = Math.random() < 0.06;
-      cell.style.setProperty(
-        '--cellBg',
-        alive ? this.aliveColor : this.deadColor,
-      );
+      cell.style.setProperty('--cellBg', alive ? this.aliveColor : this.deadColor);
       cells.push({ id, cell, alive });
 
       elm.appendChild(cell);
@@ -44,13 +36,10 @@ export class CellRawComponent {
     console.log(`adding ${this.gridSize * this.gridSize} cells`);
     for (let id = 0; id < this.gridSize * this.gridSize; id += 1) {
       addCell(id);
-      id % 1000 === 0 && (await new Promise(r => setTimeout(r, 4)));
+      id % 1000 === 0 && (await new Promise(r => setTimeout(r, 15)));
     }
     await new Promise(r => setTimeout(r, 10));
-    const rowLength = window
-      .getComputedStyle(elm)
-      .getPropertyValue('grid-template-columns')
-      .split(' ').length;
+    const rowLength = window.getComputedStyle(elm).getPropertyValue('grid-template-columns').split(' ').length;
     let i = cells.length - 1;
     console.log(elm, cells.length, rowLength);
     while (cells.length < rowLength * rowLength) {

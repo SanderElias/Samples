@@ -12,8 +12,7 @@ const gitBase = 'https://github.com/SanderElias/Samples/tree/main';
 /** load and parse the old routes file */
 let oldRoutes;
 try {
-  oldRoutes =
-    JSON.parse(readFileSync(routesFile, 'utf8').toString('utf8') || '') || [];
+  oldRoutes = JSON.parse(readFileSync(routesFile, 'utf8').toString('utf8') || '') || [];
 } catch {
   // resort to an empty array if the file is not found or cant be parsed
   oldRoutes = [];
@@ -21,29 +20,27 @@ try {
 
 const manualTraverse = [];
 try {
-  await traverseRoutes(join(cwd(),'./src/app/routes.ts'), '', manualTraverse);
+  await traverseRoutes(join(cwd(), './src/app/routes.ts'), '', manualTraverse);
   manualTraverse.forEach(r => {
     r.gitFolder = `${gitBase}${r.modulePath}`;
-  })
+  });
 } finally {
   // console.dir(manualTraverse.sort((a, b) => a.path.localeCompare(b.path)).map(r => r.path));
 }
 
-
 // process.exit(0);
 
+const startRoutes = [...oldRoutes, ...manualTraverse]
+  .reduce((acc, route) => {
+    const found = acc.find(r => r.path === route.path);
+    if (!found) {
+      acc.push(route);
+    }
+    return acc;
+  }, [])
+  .sort((a, b) => a.path.localeCompare(b.path));
 
-
-
-const startRoutes = [...oldRoutes, ...manualTraverse].reduce((acc, route) => {
-  const found = acc.find(r => r.path === route.path);
-  if (!found) {
-    acc.push(route);
-  }
-  return acc;
-}, []).sort((a, b) => a.path.localeCompare(b.path));
-
-console.dir(startRoutes)
+console.dir(startRoutes);
 // process.exit(0);
 
 const newRoutes = [];

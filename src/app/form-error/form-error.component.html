@@ -1,0 +1,41 @@
+<h1>Form with error shown</h1>
+<form #form="ngForm">
+  <label>
+    <span>Name</span>
+    <input type="text" name="name" [(ngModel)]="name" required minlength="2" />
+    <se-show-error>Name is mandatory and at least 2 long</se-show-error>
+  </label>
+  <label>
+    <span>Age</span>
+    <input type="number" name="age" [(ngModel)]="age" min="10" max="130" required />
+    <se-show-error>Age must be between 10 and 130</se-show-error>
+  </label>
+
+  <button [disabled]="form.status === 'INVALID'">Submit</button>
+</form>
+
+<pre><code>{{form.value | json}}
+</code></pre>
+<pre><code>{{form.status | json}}
+</code></pre>
+
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  label {
+    display: grid;
+    grid-template-columns: 5rem 20rem;
+
+    & se-show-error {
+      grid-column: 2/3;
+    }
+
+    & :has([ng-invalid]) span:after {
+      content: '*';
+      color: red;
+    }
+  }
+</style>

@@ -37,9 +37,8 @@ if (process.send) {
     },
   };
 
-
   process.on('message', async ([cmd, ...rest]) => {
-      handlers[cmd](...rest);
+    handlers[cmd](...rest);
   });
 
   process.send('ready');

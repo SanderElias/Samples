@@ -1,8 +1,8 @@
-import {fork} from 'child_process';
-import {join} from 'path';
-import {Subject} from 'rxjs';
-import {filter, first, map, take} from 'rxjs/operators/index.js';
-import {performance} from 'perf_hooks';
+import { fork } from 'child_process';
+import { join } from 'path';
+import { Subject } from 'rxjs';
+import { filter, first, map, take } from 'rxjs';
+import { performance } from 'perf_hooks';
 
 class Worker {
   #messages = new Subject();
@@ -12,11 +12,11 @@ class Worker {
   messages$ = this.#messages.pipe(
     /** filter out "system" messages, for now its only ready */
     filter(msg => !['ready'].includes(msg)),
-    map(msg => ({worker: this, msg}))
+    map(msg => ({ worker: this, msg }))
   );
-  #lastSend = {type: undefined, msg: undefined};
+  #lastSend = { type: undefined, msg: undefined };
   #worker = undefined;
-  constructor(task = `/home/sander/Documents/temp/demo/test.js`) {
+  constructor(task = `${process.cwd()}/test.js`) {
     this.#init(task);
   }
   get id() {
@@ -30,14 +30,14 @@ class Worker {
     await this.ready;
     this.#worker.send([type, msg]);
     if (this.#lastSend.type !== type || this.#lastSend.msg !== msg) {
-      this.#lastSend = {type, msg};
+      this.#lastSend = { type, msg };
       this.#errCount = 0;
     }
   }
 
   #init(task = this.#lastTask) {
     this.#lastTask = task;
-    const handleFault = source => msg => this.#clean({source, msg});
+    const handleFault = source => msg => this.#clean({ source, msg });
     this.active = true;
     this.#errCount = 0;
     this.#worker = fork(join(task));
@@ -102,7 +102,7 @@ class job {
       worker.messages$
         .pipe(
           filter(m => Array.isArray(m.msg) && m.msg[0] === this.trigger),
-          map(({msg}) => msg),
+          map(({ msg }) => msg),
           map(([trigger, ...rest]) => rest),
           // tap(r => console.log(r)),
           take(1)
@@ -120,7 +120,7 @@ class job {
 }
 
 async function handleJobs(jobs, poolSize = 100) {
-  const pool = Array.from({length: poolSize}, () => new Worker());
+  const pool = Array.from({ length: poolSize }, () => new Worker());
   let tasks = [];
 
   /** start max amount of initial jobs */
@@ -144,14 +144,16 @@ async function handleJobs(jobs, poolSize = 100) {
   }
 
   await Promise.all(tasks);
-  return Promise.all(jobs.map(j => j.done));
+  const done = await Promise.all(jobs.map(j => j.done));
+  pool.forEach(worker => worker.kill());
+  return done;
   // merge(...pool.map(w => w.messages$))
   //   .pipe(tap(m => console.log(m.worker.id, m.msg)))
   //   .subscribe();
 }
 
-const poolSize = 100;
-const jobs = Array.from({length: 1000}, () => new job('block', 100, 'done'));
+const poolSize = 500;
+const jobs = Array.from({ length: 2500 }, () => new job('block', 100, 'done'));
 const start = performance.now();
 handleJobs(jobs, poolSize).then(r => {
   const end = performance.now() - start;
@@ -162,8 +164,8 @@ handleJobs(jobs, poolSize).then(r => {
   Done ${jobs.length} jobs in ${secs} seconden
   In this time I iterated ${iterations.toLocaleString()} times.
 
-  That makes ${Math.floor((iterations/secs) ).toLocaleString()} iterations per second
-  -----------------------------------------------  
+  That makes ${Math.floor(iterations / secs).toLocaleString()} iterations per second
+  -----------------------------------------------
   `);
 });
 

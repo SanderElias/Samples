@@ -1,23 +1,19 @@
-<ng-container *ngIf='node$|async as node'>
-  <div><span *ngIf="node?.value ?? undefined" [title]='title(node)'>
-      {{node?.value ?? '-'}}
-    </span>
+@if (node$ | async; as node) {
+  <div>
+    @if (node?.value ?? undefined) {
+      <span [title]="title(node)">
+        {{ node?.value ?? '-' }}
+      </span>
+    }
   </div>
 
-  <div
-    class="row"
-    *ngIf="node?.left || node?.right"
-  >
-    <b-node
-      class="left"
-      [bNode]="left$|async"
-    ></b-node>
-    <b-node
-      class="right"
-      [bNode]="right$|async"
-    ></b-node>
-  </div>
-</ng-container>
+  @if (node?.left || node?.right) {
+    <div class="row">
+      <b-node class="left" [bNode]="left$ | async"></b-node>
+      <b-node class="right" [bNode]="right$ | async"></b-node>
+    </div>
+  }
+}
 <style>
   :host {
     display: grid;
@@ -48,14 +44,13 @@
     align-self: center;
     justify-self: center;
     background-color: rgba(93, 14, 93);
-
   }
 
-  .left>div:first-child {
+  .left > div:first-child {
     background-color: rgba(0, 0, 255);
   }
 
-  .right>div:first-child {
+  .right > div:first-child {
     background-color: rgba(0, 128, 0);
   }
 </style>

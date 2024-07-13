@@ -9,10 +9,12 @@ import { ScriptComponent } from './script/script.component';
   standalone: true,
   imports: [CommonModule, ScriptComponent],
   template: `<header>
-    <h2>NPM scripts</h2>
-    <small>(click one to upgrade it to WireIt!<br>Only non-upgraded ones are shown)</small>
-  </header>
-  <app-script *ngFor="let script of scripts$ | async" [script]="script"></app-script>`,
+      <h2>NPM scripts</h2>
+      <small>(click one to upgrade it to WireIt!<br />Only non-upgraded ones are shown)</small>
+    </header>
+    @for (script of scripts$ | async; track script) {
+      <app-script [script]="script"></app-script>
+    }`,
   styles: [
     `
       :host {
@@ -20,8 +22,7 @@ import { ScriptComponent } from './script/script.component';
         display: flex;
         flex-wrap: wrap;
         gap: var(--size-1);
-        margin:  var(--size-1) 0;
-
+        margin: var(--size-1) 0;
       }
       header {
         display: flex;
@@ -32,12 +33,12 @@ import { ScriptComponent } from './script/script.component';
       small {
         max-inline-size: inherit;
       }
-    `
+    `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScriptsComponent {
-  pjs = inject(PackageJsonService)
+  pjs = inject(PackageJsonService);
   scripts$ = this.pjs.pjObject$.pipe(
     map(contents => contents.scripts as Record<string, string>),
     map(scripts => Object.entries(scripts).filter(([key, value]) => !value.includes('wireit')))

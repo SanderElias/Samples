@@ -1,15 +1,16 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-analog-clock',
-    template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
-    styles: [],
-    standalone: true
+  selector: 'app-analog-clock',
+  template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
+  styles: [],
+  standalone: true,
 })
 export class AnalogClockComponent implements OnInit {
   constructor(private zone: NgZone) {}
 
   ngOnInit(): void {
+    if (typeof document === 'undefined') return;
     this.zone.runOutsideAngular(() => {
       analogClock(getCanvasCtx());
       function getCanvasCtx() {
@@ -23,15 +24,22 @@ export class AnalogClockComponent implements OnInit {
 function analogClock(ctx) {
   //  Functional helpers, curry and compose
   function curry(fn, ...args) {
-    let _curry = args =>
-      args.length < fn.length ? (..._args) => _curry([...args, ..._args]) : fn(...args);
+    let _curry = args => (args.length < fn.length ? (..._args) => _curry([...args, ..._args]) : fn(...args));
     return _curry(args);
   }
-  const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)));
+  const compose = (...fns) =>
+    fns.reduce(
+      (f, g) =>
+        (...args) =>
+          f(g(...args))
+    );
   const map = curry((fn, value) => value.map(fn));
   const reduce = curry((fn, value) => value.reduce(fn));
 
-  const unCurry = fn => (...args) => args.reduce((ret, cur) => ret(cur), fn);
+  const unCurry =
+    fn =>
+    (...args) =>
+      args.reduce((ret, cur) => ret(cur), fn);
   const unary = fn => arg => fn(arg);
   const identity = x => x;
   const constant = x => () => x;
@@ -109,7 +117,9 @@ function analogClock(ctx) {
   function clock(time) {
     drawClock(time);
     // and set it to repeat on the next frame.
-    window.requestAnimationFrame(() => clock(new Date()));
+    if (typeof window !== 'undefined') {
+      window.requestAnimationFrame(() => clock(new Date()));
+    }
   }
 
   function drawClock(time) {
@@ -159,10 +169,7 @@ function analogClock(ctx) {
    */
   function xxLine(ctx, origin, offset, length, direction) {
     let start = [origin[0] + direction[0] * offset, origin[1] + direction[1] * offset];
-    let end = [
-      origin[0] + direction[0] * (offset + length),
-      origin[1] + direction[1] * (offset + length),
-    ];
+    let end = [origin[0] + direction[0] * (offset + length), origin[1] + direction[1] * (offset + length)];
     /** draw the line */
     line(ctx, start, end);
   }

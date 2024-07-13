@@ -12,12 +12,12 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'app-pannel',
-    templateUrl: './pannel.component.html',
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.ShadowDom,
-    standalone: true
+  selector: 'app-pannel',
+  templateUrl: './pannel.component.html',
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.ShadowDom,
+  standalone: true,
 })
 export class PannelComponent {
   shadowRoot = this.elmRef.nativeElement?.shadowRoot;
@@ -25,8 +25,8 @@ export class PannelComponent {
 }
 
 @Directive({
-    selector: 'app-pannel[close]',
-    standalone: true
+  selector: 'app-pannel[close]',
+  standalone: true,
 })
 export class PannelCloseDirective implements OnInit {
   private root = this.pannel.shadowRoot;
@@ -35,6 +35,8 @@ export class PannelCloseDirective implements OnInit {
   constructor(@Host() private pannel: PannelComponent) {}
 
   ngOnInit() {
+    if (typeof document === 'undefined') return;
+
     if (this.root) {
       const pannel = this.root.querySelector('.pannel');
       const main = this.root.querySelector('main');
@@ -53,13 +55,14 @@ export class PannelCloseDirective implements OnInit {
 }
 
 @Directive({
-    selector: 'app-pannel[footer]',
-    standalone: true
+  selector: 'app-pannel[footer]',
+  standalone: true,
 })
 export class PannelFooterDirective implements OnInit {
   private root = this.panel.shadowRoot;
   @Input('footer') set footerContent(x) {
     if (typeof x === 'string') {
+      if (typeof document === 'undefined') return;
       const footer = this.root.querySelector('footer') as HTMLDivElement;
       footer.innerText = x;
     }
@@ -69,6 +72,7 @@ export class PannelFooterDirective implements OnInit {
   constructor(@Host() private panel: PannelComponent) {}
 
   ngOnInit() {
+    if (typeof document === 'undefined') return;
     if (this.root) {
       const pannel = this.root.querySelector('.pannel') as HTMLDivElement;
       pannel.classList.add('footer');

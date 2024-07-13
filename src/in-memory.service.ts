@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 const randomChar = () => String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 const createId = () => Date.now().toString(36) + '-' + randomChar() + randomChar() + randomChar();
 
-
 export type RowType = 'contact' | 'product' | 'order';
-type Id = string
+type Id = string;
 export interface Row {
   id: Id;
   type: RowType;
@@ -13,12 +12,12 @@ export interface Row {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InMemoryDataService {
   private inMemDb = new Map<Id, Row>();
 
-  constructor() { }
+  constructor() {}
   create(row: Row) {
     const id = row.id || createId();
     if (typeof id !== 'string') {
@@ -37,12 +36,12 @@ export class InMemoryDataService {
     if (!current) {
       throw new Error(`No row with id: ${row.id}`);
     }
-    this.inMemDb.set(row.id, {...current, ...row});
+    this.inMemDb.set(row.id, { ...current, ...row });
   }
   delete(id: Id) {
     this.inMemDb.delete(id);
   }
   list(type: RowType) {
-    return Array.from(this.inMemDb.values());//.filter(row => row.type === type);
+    return Array.from(this.inMemDb.values()); //.filter(row => row.type === type);
   }
 }

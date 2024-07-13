@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { BlocksComponent } from './blocks/blocks.component';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-svg-test',
-    templateUrl: './svg-test.component.html',
-    styles: [],
-    standalone: true,
-    imports: [BlocksComponent]
+  selector: 'app-svg-test',
+  templateUrl: './svg-test.component.html',
+  styles: [],
+  standalone: true,
+  imports: [BlocksComponent, DecimalPipe],
 })
-export class SvgTestComponent implements OnInit {
+export class SvgTestComponent {
   /** simple counter, for no good reason ;) */
   count = 0;
+  cellCount = 0;
 
-  constructor() {}
-
-  ngOnInit(): void {}
 
   /** up the counter */
   reColor() {
@@ -22,7 +21,7 @@ export class SvgTestComponent implements OnInit {
   }
 
   /** log out to console when a block is clicked. */
-  bit(n) {
-    console.log(`rectangle number ${n} is clicked`)
+  bit(n:number) {
+    console.log(`rectangle number ${n} is clicked`);
   }
 }

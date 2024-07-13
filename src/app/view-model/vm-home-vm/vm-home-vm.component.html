@@ -1,47 +1,64 @@
 <!-- main part -->
-<div class="hold" *ngIf="vm$ | async as vm else loading">
-  <section>
-    <h1>Need better inspiration?</h1>
-  </section>
-  <section>
-    <div class="row">
-      <small *ngIf="!vm.baToggle"> Art is updated in {{vm.countDown}} seconds.</small>
-      <small *ngIf="vm.baToggle">  Art updates are paused.</small>
-      <small *ngIf="!vm.bqToggle"> Quotes updates every {{vm.speed}} seconds</small>
-      <small *ngIf="vm.bqToggle">  Quotes are paused</small>
-    </div>
+@if (vm$ | async; as vm) {
+  <div class="hold">
+    <section>
+      <h1>Need better inspiration?</h1>
+    </section>
+    <section>
+      <div class="row">
+        @if (!vm.baToggle) {
+          <small> Art is updated in {{ vm.countDown }} seconds.</small>
+        }
+        @if (vm.baToggle) {
+          <small> Art updates are paused.</small>
+        }
+        @if (!vm.bqToggle) {
+          <small> Quotes updates every {{ vm.speed }} seconds</small>
+        }
+        @if (vm.bqToggle) {
+          <small> Quotes are paused</small>
+        }
+      </div>
 
-    <div class="row">
-      <painting [art]='vm.art'></painting>
-      <quote [quote]="vm.quote"></quote>
-    </div>
+      <div class="row">
+        <painting [art]="vm.art"></painting>
+        <quote [quote]="vm.quote"></quote>
+      </div>
 
-    <div class="row">
-      <play-button #ba [isPaused]="vm.baToggle"></play-button>
-      <play-button #bq [isPaused]="vm.bqToggle"></play-button>
-    </div>
+      <div class="row">
+        <play-button #ba [isPaused]="vm.baToggle"></play-button>
+        <play-button #bq [isPaused]="vm.bqToggle"></play-button>
+      </div>
 
-    <div class="row">
-      <span></span>
-      <input #speed type="range" min="0.5" max=30 step=".5" [value]='vm.speed'>
+      <div class="row">
+        <span></span>
+        <input #speed type="range" min="0.5" max="30" step=".5" [value]="vm.speed" />
+      </div>
+    </section>
+  </div>
+} @else {
+  <div class="hold">
+    <div class="dummy"></div>
+    <div class="wait">
+      <h2 [style.color]="'white'">Hold on loading the data!</h2>
     </div>
-  </section>
-</div>
+  </div>
+}
 
 <!-- loading modal -->
 <ng-template #loading>
-    <div class="hold">
-      <div class="dummy"></div>
-      <div class="wait">
-        <h2 [style.color]="'white'">Hold on loading the data!</h2>
-      </div>
+  <div class="hold">
+    <div class="dummy"></div>
+    <div class="wait">
+      <h2 [style.color]="'white'">Hold on loading the data!</h2>
     </div>
-  </ng-template>
+  </div>
+</ng-template>
 
 <!-- I prefer inline styling  instead of yet another file -->
 <style>
   :host {
-    color:black
+    color: black;
   }
   .hold {
     position: absolute;
@@ -66,10 +83,9 @@
     justify-items: center;
     align-items: center;
     margin-bottom: 20px;
-    ;
   }
 
-  input[type=range] {
+  input[type='range'] {
     width: calc(100% - 40px);
   }
 
@@ -79,8 +95,6 @@
     height: 100px;
     width: 300px;
     background-color: #1f1f1f;
-    color:white;
+    color: white;
   }
 </style>
-
-

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, inject, input } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { map } from 'rxjs';
 import { LangService } from '../lang.service';
@@ -12,15 +12,17 @@ import { LangService } from '../lang.service';
     <router-outlet></router-outlet>`,
   styleUrls: ['./lang.component.css'],
 })
-export class LangComponent implements OnDestroy {
+export class LangComponent  {
   ls = inject(LangService);
-  langSub = inject(ActivatedRoute)
-    .params.pipe(map(params => params.langId))
-    .subscribe({
-      next: (lang: string) => this.ls.pick(lang),
-    });
+  langId = input<string>();
+  // langSub = inject(ActivatedRoute)
+  //   .params.pipe(map(params => params.langId))
+  //   .subscribe({
+  //     next: (lang: string) => this.ls.pick(lang),
+  //   });
 
-  ngOnDestroy(): void {
-    this.langSub.unsubscribe();
-  }
+  dymmy = effect(() => {
+    console.log({ langId: this.langId });
+    this.ls.pick(this.langId);
+  })
 }

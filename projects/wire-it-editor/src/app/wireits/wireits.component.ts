@@ -11,22 +11,24 @@ import { string } from 'yargs';
   standalone: true,
   imports: [CommonModule, WireitComponent, ReactiveFormsModule],
   template: `
-  <ng-container *ngIf="vm$ | async as vm">
-    <header>
-      <h2>WireIt scripts</h2>
-      <input type="text" [formControl]="search" placeholder="🔎 Filter">
-      <button (click)="pjs.addWireitScript('newScript',{})">➕</button>
-    </header>
-    <se-wireit *ngFor="let wireit of vm.wireits" [name]="wireit[0]" [props]="wireit[1]"></se-wireit>
-  </ng-container>
+    @if (vm$ | async; as vm) {
+      <header>
+        <h2>WireIt scripts</h2>
+        <input type="text" [formControl]="search" placeholder="🔎 Filter" />
+        <button (click)="pjs.addWireitScript('newScript', {})">➕</button>
+      </header>
+      @for (wireit of vm.wireits; track wireit) {
+        <se-wireit [name]="wireit[0]" [props]="wireit[1]"></se-wireit>
+      }
+    }
   `,
   styleUrls: ['./wireits.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WireitsComponent {
-  pjs = inject(PackageJsonService)
+  pjs = inject(PackageJsonService);
   wireits$ = this.pjs.pjObject$.pipe(
-    filter((pj) => pj.wireit !== undefined),
+    filter(pj => pj.wireit !== undefined),
     map(contents => contents.wireit as Record<string, string>),
     map(wireits => Object.entries(wireits))
   );
@@ -35,23 +37,22 @@ export class WireitsComponent {
 
   vm$ = combineLatest({
     wireits: this.wireits$,
-    search: this.search.valueChanges.pipe(startWith(''))
+    search: this.search.valueChanges.pipe(startWith('')),
   }).pipe(
     map(({ wireits, search }) => {
       return {
-        wireits: wireits.filter(([name]) => search === '' || name.includes(search))
-      }
+        wireits: wireits.filter(([name]) => search === '' || name.includes(search)),
+      };
     }),
     tap(console.log)
-  )
-
+  );
 }
 
 /** sample error handler, this one just ignores it! */
-const ignoreErrorHandler = <I>(err:any, initialValue:I) => {
+const ignoreErrorHandler = <I>(err: any, initialValue: I) => {
   // TODO: handle error
   return of(initialValue); //probably not the best way to handle this
-}
+};
 
 /**
  * Create a wirtable signal from an observable, will set the signal to the value once the observable emits
@@ -61,13 +62,14 @@ const ignoreErrorHandler = <I>(err:any, initialValue:I) => {
  * @param handleError
  * @returns
  */
-function createSignal<T>(observable: Observable<T>, options?: { initialValue?: T } & CreateSignalOptions<T>, handleError= ignoreErrorHandler ) {
-  const initialValue = options?.hasOwnProperty('initialValue') ? options.initialValue : [] as T
-  const sgn = signal(initialValue, options)
-  firstValueFrom(observable.pipe(
-    catchError((err) => handleError(err, initialValue))
-  )).then(value => sgn.set(value))
+function createSignal<T>(
+  observable: Observable<T>,
+  options?: { initialValue?: T } & CreateSignalOptions<T>,
+  handleError = ignoreErrorHandler
+) {
+  const initialValue = options?.hasOwnProperty('initialValue') ? options.initialValue : ([] as T);
+  const sgn = signal(initialValue, options);
+  firstValueFrom(observable.pipe(catchError(err => handleError(err, initialValue)))).then(value => sgn.set(value));
 
-  return signal
+  return signal;
 }
-

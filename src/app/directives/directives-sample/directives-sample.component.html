@@ -1,6 +1,4 @@
-<h1>
-  directives-sample!
-</h1>
+<h1>directives-sample!</h1>
 <div id="id1">one</div>
 <div id="id3">two</div>
 <div id="dfgs">sdf</div>
@@ -8,6 +6,7 @@
 
 <h4>Available ids:</h4>
 <dl>
-  <dt *ngFor="let id of ids$|async">{{id}}</dt>
+  @for (id of ids$ | async; track id) {
+    <dt>{{ id }}</dt>
+  }
 </dl>
-

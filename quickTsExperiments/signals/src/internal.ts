@@ -6,15 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {WeakRef} from './weak_ref.js';
+import { WeakRef } from './weak_ref.js';
 
-export type ProducerId = number&{__producer: true};
-export type ConsumerId = number&{__consumer: true};
+export type ProducerId = number & { __producer: true };
+export type ConsumerId = number & { __consumer: true };
 
 let _nextReactiveId: number = 0;
 
-export function nextReactiveId(): ProducerId&ConsumerId {
-  return (_nextReactiveId++ as ProducerId & ConsumerId);
+export function nextReactiveId(): ProducerId & ConsumerId {
+  return _nextReactiveId++ as ProducerId & ConsumerId;
 }
 
 export interface Edge {
@@ -235,7 +235,7 @@ export function consumerPollValueStatus(consumer: Consumer): boolean {
  * Tracks the currently active reactive context (or `null` if there is no active
  * context).
  */
-let activeConsumer: Consumer|null = null;
+let activeConsumer: Consumer | null = null;
 
 /**
  * Helper to check if there is an active reactive context.
@@ -248,7 +248,7 @@ export function hasActiveConsumer(): boolean {
  * Set `consumer` as the active reactive context, and return the previous `Consumer`
  * (if any) for later restoration.
  */
-export function setActiveConsumer(consumer: Consumer|null): Consumer|null {
+export function setActiveConsumer(consumer: Consumer | null): Consumer | null {
   const prevConsumer = activeConsumer;
   activeConsumer = consumer;
   return prevConsumer;

@@ -2,26 +2,26 @@
 <h4>(first load might take a while!)</h4>
 <p>
   The complexity is in the API, have an look at
-  <a
-    target="blank"
-    href="https://github.com/SanderElias/Samples/blob/master/projects/se-ng/swapi/src/lib/swapi.service.ts"
+  <a target="blank" href="https://github.com/SanderElias/Samples/blob/master/projects/se-ng/swapi/src/lib/swapi.service.ts"
     >the swapi service</a
   >.<br />
   This sample loads all of
-  <a target="blank" href="https://swapi.dev">SWAPI</a> and caches it to indexedDB. This is also the reason the first load takes longer.
+  <a target="blank" href="https://swapi.dev">SWAPI</a> and caches it to indexedDB. This is also the reason the first load takes
+  longer.
 </p>
 <select [formControl]="chosenSet">
-  <option *ngFor="let item of availableSets()">{{ item }}</option>
+  @for (item of availableSets(); track item) {
+    <option>{{ item }}</option>
+  }
 </select>
-<br>
+<br />
 <input type="text" list="listOptions" [formControl]="name" autofocus />
-<app-show-rec
-  [record]="result()"
-  (selected)="changeTo($event)"
-></app-show-rec>
+<app-show-rec [record]="result()" (selected)="changeTo($event)"></app-show-rec>
 
 <datalist id="listOptions">
-  <option *ngFor="let item of availableOptions()">{{item}} </option>
+  @for (item of availableOptions(); track item) {
+    <option>{{ item }}</option>
+  }
 </datalist>
 
 <style>

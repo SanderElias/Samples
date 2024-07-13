@@ -1,40 +1,55 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { get, set } from 'idb-keyval';
 import { Subject } from 'rxjs';
-import { addNode, BinNode, createNode, dump, getRoot, getSorted, height, reBalance, reset, rotateLeft, rotateRight } from './BinNode';
+import {
+  addNode,
+  BinNode,
+  createNode,
+  dump,
+  getRoot,
+  getSorted,
+  height,
+  reBalance,
+  reset,
+  rotateLeft,
+  rotateRight,
+} from './BinNode';
 import { AsyncPipe } from '@angular/common';
 import { BNodeComponent } from './b-node/b-node.component';
 
 @Component({
-    selector: 'app-bintree',
-    templateUrl: './bintree.component.html',
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [BNodeComponent, AsyncPipe]
+  selector: 'app-bintree',
+  templateUrl: './bintree.component.html',
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [BNodeComponent, AsyncPipe],
 })
 export class BintreeComponent implements OnInit {
   count = 31;
   root$ = new Subject<BinNode>();
-  nodes = getSorted()
+  nodes = getSorted();
   dump = () => {
     dump();
     this.refresh();
+  };
+
+  constructor() {}
+
+  ngOnInit() {
+
+    this.reset();
   }
-
-  constructor() { }
-
-  ngOnInit() { this.reset() }
   async reset() {
     reset();
     // const [first, ...rest] = Array.from({length:this.count}, (_, i) => (this.count*2)-(i*2));
     // const [first, ...rest] = [4,3,1,2,5,6,7]
-    const [first, ...rest] = await getData()
+    const [first, ...rest] = await getData();
     const root = createNode(first);
-    rest.forEach(int => addNode(createNode(int), root))
+    rest.forEach(int => addNode(createNode(int), root));
     height(root);
-    setTimeout(() => this.root$.next(root), 20)
-    this.nodes = getSorted()
+    setTimeout(() => this.root$.next(root), 20);
+    this.nodes = getSorted();
   }
 
   deb: any = null;
@@ -43,18 +58,17 @@ export class BintreeComponent implements OnInit {
       clearTimeout(this.deb);
     }
     this.deb = setTimeout(() => {
-      this.root$.next({ ...getRoot(), time: Date.now() })
+      this.root$.next({ ...getRoot(), time: Date.now() });
     }, 0);
-    height(getRoot())
-
+    height(getRoot());
   }
 
   rl(node = getRoot()) {
-    rotateLeft(node)
+    rotateLeft(node);
     this.refresh();
   }
   rr(node = getRoot()) {
-    rotateRight(node)
+    rotateRight(node);
     this.refresh();
   }
   rb(node = getRoot()) {
@@ -62,20 +76,17 @@ export class BintreeComponent implements OnInit {
     // this.reset()
     this.refresh();
   }
-
 }
 
 /** this is a playground to build a binary tree from scratch */
-const randomInt = (max = 2000) => Math.floor(Math.random() * max)
-const randomArr = (count) => [...new Set(Array.from({ length: count }, () => randomInt()))]
+const randomInt = (max = 2000) => Math.floor(Math.random() * max);
+const randomArr = count => [...new Set(Array.from({ length: count }, () => randomInt()))];
 async function getData(): Promise<number[]> {
-  let data = undefined// await get('binTreeSampleData')
+  let data = undefined; // await get('binTreeSampleData')
   if (!data) {
     data = randomArr(100);
-    set('binTreeSampleData', data);
+    // set('binTreeSampleData', data);
   }
 
-  return data
+  return data;
 }
-
-

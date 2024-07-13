@@ -1,7 +1,7 @@
 <h1>User list demo</h1>
-<ng-container *ngIf="(viewModel$ | async) as vm">
+@if (viewModel$ | async; as vm) {
   <input type="text" (input)="setState('searchText', $any($event.target).value)" />
-  <span>{{ vm.total }} found: {{ vm.found }} {{vm.pages}}</span>
+  <span>{{ vm.total }} found: {{ vm.found }} {{ vm.pages }}</span>
   <table>
     <thead>
       <th>#</th>
@@ -10,31 +10,33 @@
       <th>email</th>
     </thead>
     <tbody>
-      <tr *ngFor="let user of vm.foundUsers">
-        <td>{{user.id}}</td>
-        <!-- <td>{{user.lineState}}</td> -->
-        <td>{{user.username}}</td>
-        <td>{{user.email}}</td>
-      </tr>
+      @for (user of vm.foundUsers; track user) {
+        <tr>
+          <td>{{ user.id }}</td>
+          <!-- <td>{{user.lineState}}</td> -->
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+        </tr>
+      }
     </tbody>
   </table>
-</ng-container>
+}
 
 <style>
-tr:nth-child(odd) {
-  background-color: #444849;
-}
-table {
-  width: 90vw;
-  margin: 1rem;
-  padding:0;
-  border: 1px solid #404040;
-  border-collapse: collapse;
-
-}
-td,th {
-  border-right: 1px solid #404040;
-  text-align: left;
-  padding:4px;
-}
+  tr:nth-child(odd) {
+    background-color: #444849;
+  }
+  table {
+    width: 90vw;
+    margin: 1rem;
+    padding: 0;
+    border: 1px solid #404040;
+    border-collapse: collapse;
+  }
+  td,
+  th {
+    border-right: 1px solid #404040;
+    text-align: left;
+    padding: 4px;
+  }
 </style>

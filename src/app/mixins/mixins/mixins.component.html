@@ -1,7 +1,9 @@
 <h1>Mixins rule</h1>
 
 <ul>
-  <li *ngFor="let item of demo$ | async">{{item}}</li>
+  @for (item of demo$ | async; track item) {
+    <li>{{ item }}</li>
+  }
 </ul>
 
-{{ demo$ | async | json}}
+{{ demo$ | async | json }}

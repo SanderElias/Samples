@@ -11,7 +11,7 @@ import { BogusLoadService } from '../bogus-load.service';
       }
     `,
   ],
-  standalone: true
+  standalone: true,
 })
 export class HtmlloadComponent implements OnDestroy {
   /* injections */
@@ -20,6 +20,8 @@ export class HtmlloadComponent implements OnDestroy {
   elm = inject(ElementRef).nativeElement as HTMLElement;
 
   sub = this.html.load('Some url provided').subscribe(html => {
+    if (typeof document === 'undefined') return;
+
     /**
      * setting innerHTML doesn't "run" scripts,
      * instead create a document fragment

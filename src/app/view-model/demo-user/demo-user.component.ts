@@ -7,11 +7,11 @@ import { createSetStateMethod, modelFromLatest } from '@se-ng/observable-utils';
 import { DemoUserService } from '../../../../src/app/demo-users.service';
 
 @Component({
-    selector: 'app-demo-user',
-    templateUrl: './demo-user.component.html',
-    styles: [],
-    standalone: true,
-    imports: [NgIf, NgForOf, AsyncPipe]
+  selector: 'app-demo-user',
+  templateUrl: './demo-user.component.html',
+  styles: [],
+  standalone: true,
+  imports: [NgIf, NgForOf, AsyncPipe],
 })
 export class DemoUserComponent implements OnInit {
   state$ = new BehaviorSubject({
@@ -42,7 +42,10 @@ export class DemoUserComponent implements OnInit {
     pages: this.searchCount$.pipe(map(n => Math.ceil(n / 25))),
   });
 
-  constructor(private us: DemoUserService, private route: ActivatedRoute) {}
+  constructor(
+    private us: DemoUserService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.route.params

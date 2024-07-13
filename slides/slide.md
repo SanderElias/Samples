@@ -3,7 +3,7 @@ position: 1
 title: Four Slide Four
 ---
 
-# Slide 
+# Slide
 
 <row>
 <code-editor src="slipnslide/src/app/show-comp/show-comp.component.ts"></code-editor>

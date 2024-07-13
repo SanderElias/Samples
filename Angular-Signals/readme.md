@@ -1,26 +1,27 @@
 # Angular Signals WWW
 
-In this Article, I will go into the ***Why***, ***What***, and ***Wherefor*** of Angular Signals. And why this is such a big deal that everyone seems to have an opinion on. How it is going to be a complementary technology to Angular, and not a replacement to anything already there. (spoiler alert: it is not a replacement for RxJS)
+In this Article, I will go into the **_Why_**, **_What_**, and **_Wherefor_** of Angular Signals. And why this is such a big deal that everyone seems to have an opinion on. How it is going to be a complementary technology to Angular, and not a replacement to anything already there. (spoiler alert: it is not a replacement for RxJS)
 
 > DISCLAIMER: this is not the current API of Angular Signals. As the current API doesn't really exist just yet. Yes, there is a POC implementation, but it is not the final API. The API is still being discussed. But this is the API that I think will make it easier to read samples. And it is the API that I think will be the most intuitive to use. So, I will use it in this article. But it is not the final API, and it is also not the current implementation.
 
 ## Why Angular Signals?
 
 Ah, yes, the question that everyone is asking.
- - Why do we need another reactive library?
- - Why now?
- - Why not just use RxJS?
- - Why not use promises?
- - Why not just use the `async` pipe?
- - Why not just use the `async` pipe with RxJS?
- - Why this and not my favorite feature that is missing?
- - Why is this list ending here?
+
+- Why do we need another reactive library?
+- Why now?
+- Why not just use RxJS?
+- Why not use promises?
+- Why not just use the `async` pipe?
+- Why not just use the `async` pipe with RxJS?
+- Why this and not my favorite feature that is missing?
+- Why is this list ending here?
 
 Well, I can not answer all of those questions. But I can answer some of them. And I will try to answer them in a way that is not just my opinion. But also in a way that is backed up by facts.
 
 #### Why not just use RxJS?
 
-The Angular user-base is huge. And it is growing every day. But also it is split in a 50/50 way. 50% want *more* Observable integration. And 50% want *less* Observable integration. There is a point to both sides of the argument. And I will try to explain why.
+The Angular user-base is huge. And it is growing every day. But also it is split in a 50/50 way. 50% want _more_ Observable integration. And 50% want _less_ Observable integration. There is a point to both sides of the argument. And I will try to explain why.
 The current best solution for Observables is RxJS. A library I personally love. As a nice bonus, Angular is also using RxJS for a few parts of its own code. But it does have a steep learning curve, and to be fair, you can solve most use-cases where Angular shines fine without it.
 Aside from those issues, if I hand you an observable, there is no way you can know if it is sync or async. You also don't know if it will ever complete, or how many values it will produce. Also, when you subscribe to it, you become responsible for unsubscribing. Forgetting to unsubscribe might lead to a memory leak. You can solve advanced use-cases easily with RxJS, but the trade-off is that you need to know a lot about the specifics surrounding the observable primitive to handle it correctly. And that is not always the case.
 
@@ -40,9 +41,10 @@ Why now use X, or Y, or Z? Well, This one, I can not answer with 100% certainty.
 
 Ah, this is an interesting one. I can only `speculate`. But one of the most asked-for features in Angular is "zone-less" support. This is a big step in making that possible. Right now, Angular is depending on ZoneJS to trigger its change-detection. Having a reactive primitive makes it easy to trigger change-detection. Even more, having this primitive in the core of Angular would even allow us to build an app without change-detection. You don't need to detect changes when you know when and where those changes happen. And that is exactly what the signal primitive brings to Angular.
 Let me put in a quote from Pawel Kozlowski, one of the Angular team members:
->Signals let us understand changes to the data model (what gets modified) and how the model is used (templates that need updating).
+
+> Signals let us understand changes to the data model (what gets modified) and how the model is used (templates that need updating).
 >
->With this precise info we can just update templates that read changed values, instead of dirty-checking the entire application / all templates.
+> With this precise info we can just update templates that read changed values, instead of dirty-checking the entire application / all templates.
 
 This is a huge step in making Angular more efficient. And it is a huge step in making Angular more flexible. And it is a huge step in making Angular more powerful. And it is a huge step in making Angular more future-proof.
 
@@ -52,10 +54,9 @@ A side observation is that we are getting more and more streams (like [media cap
 
 Well no, not at all. This is a new primitive. It is not a replacement for anything. You can still do the same things you did before. You can still use Observables. You can still use Promises. You can still use the `async` pipe. In addition to that, you will be able to use the new signal primitive. Embracing that will allow a future where you can turn off ZoneJS, if that is something you want to do. But that is a future you. And that is a future that is not here yet. Also, you might not even want to do that. You might want to keep using ZoneJS. And that is fine. This will give future you more possibilities. But it will not take anything away from you.
 
-
 ## What is the problem Angular Signals solves?
 
-First let me show you *what* the problem that Angular Signals is trying to solve. And then I will show you how it solves it. Not the technical how, as there are numbers of explanations on that already. But the conceptual how.
+First let me show you _what_ the problem that Angular Signals is trying to solve. And then I will show you how it solves it. Not the technical how, as there are numbers of explanations on that already. But the conceptual how.
 
 The problem:
 
@@ -63,9 +64,9 @@ The problem:
 let counter = 0;
 
 /** I'm using console.log here, but look at this as a component that is rendering a counter into the view */
-console.log(counter) // 0
+console.log(counter); // 0
 
-counter +=1; // Nothing happens here
+counter += 1; // Nothing happens here
 ```
 
 The problem is that the value of `counter` is not reactive. When you update it, it will not call the `console.log` again. The view will not be updated. The code I use is silly and it will be really clear to anyone who has ever written a program that this will never work as expected (for the sample, we expect the console.log to refire!).
@@ -78,19 +79,19 @@ import { signal, effect } from '@angular/core';
 let counter = signal(0);
 
 /** here we wrap our console log into an "effect" */
-effect(() => console.log(counter.value)) // 0
+effect(() => console.log(counter.value)); // 0
 
-counter.value +=1; // this will now log 1 to the console! (in our viewpoint for this doc, It does update the view)
+counter.value += 1; // this will now log 1 to the console! (in our viewpoint for this doc, It does update the view)
 
 // NOTE: see disclaimer at the top.
 ```
 
-A `signal` is a *synchronous* value. It is a value that can be updated.
+A `signal` is a _synchronous_ value. It is a value that can be updated.
 When updated it will trigger all `effects` that are using it. This is the core of it.
 
 Let that sync in.
 
-- A `signal` is a ***synchronous*** value.
+- A `signal` is a **_synchronous_** value.
 
 But what does that even mean? Well, it means that when you update the value of a signal, it is updated immediately. It is not updated in the next tick. It is not updated in the next frame. It is updated immediately. When you read it on the next line of code, it will have the updated value right away.
 
@@ -98,7 +99,7 @@ But what does that even mean? Well, it means that when you update the value of a
 
 A bit of background on the `effect` function. You might never have encountered this before. But it is a very common pattern in functional programming. It is a function that takes a function as an argument. And it will call that function. But it will also call that function when the value of the signal changes. In the above sample, we are using a function that logs the value of the signal. But you can do anything and it will be called every time the value of the signal changes. Also, you can have multiple effects on the same signal. And they will all be called when the value of the signal changes. Also, you can use multiple signals in the same effect. And the effect will be updated every time any of the signals change. This whole process is called `reactive programming`. And it is the core of Angular Signals.
 
-However that does not mean the `effects` that are using that signal will be triggered in the same cycle of the event loop. The current implementation uses a micro-task to trigger the effects. But that is an implementation detail. And it might change in the future. The effects are triggered `batched` and  `lazy`. This means that if an effect uses multiple signals, it will only be triggered once. And it will be triggered after all the signals have been updated.
+However that does not mean the `effects` that are using that signal will be triggered in the same cycle of the event loop. The current implementation uses a micro-task to trigger the effects. But that is an implementation detail. And it might change in the future. The effects are triggered `batched` and `lazy`. This means that if an effect uses multiple signals, it will only be triggered once. And it will be triggered after all the signals have been updated.
 
 ### The problems Angular Signals solve:
 
@@ -116,7 +117,7 @@ It is easier to show than to explain. So here is an example:
 const counter = signal(0);
 const double = computed(() => counter.value * 2);
 const triple = computed(() => double.value * 3);
-const pickOne = computed(() => counter.value %2 === 0 ? double.value : triple.value);
+const pickOne = computed(() => (counter.value % 2 === 0 ? double.value : triple.value));
 
 effect(() => {
   console.log(`counter: ${counter.value}`);
@@ -139,19 +140,15 @@ An example:
 ```ts
 @Component({
   selector: 'sample',
-  template: `
-    <div [style.color]='color$ |async '> {{ time$ | async }} </div>
-  `
+  template: ` <div [style.color]="color$ | async">{{ time$ | async }}</div> `,
 })
-class SampleComponent  {
+class SampleComponent {
   alarmList = inject(AlarmService).alarmList;
-  time$ = timer(0,100).pipe( // this is too fast for a reason.
-    map(() => new Date().toISOString().split('T')[1].split('.')[0]),
-  )
-  color$ = this.time.pipe(
-    map(time => this.alarmList.includes(time) ? 'red' : 'green')
+  time$ = timer(0, 100).pipe(
+    // this is too fast for a reason.
+    map(() => new Date().toISOString().split('T')[1].split('.')[0])
   );
-
+  color$ = this.time.pipe(map(time => (this.alarmList.includes(time) ? 'red' : 'green')));
 }
 // NOTE: see disclaimer at the top.
 ```
@@ -162,28 +159,28 @@ In this case, the observable fires every 100Ms. (Yes, it's a sample and I have c
 
 Now lets create the same example, but with Angular Signals:
 
-
 ```ts
 @Component({
   selector: 'sample',
-  template: `
-    <div [style.color]='color'> {{ time }} </div>
-  `
+  template: ` <div [style.color]="color">{{ time }}</div> `,
 })
-class SampleComponent  {
+class SampleComponent {
   alarmList = inject(AlarmService).alarmList;
-  time = fromObservable(timer(0,100).pipe( // this is too fast for a reason.
-    map(() => new Date().toISOString().split('T')[1].split('.')[0]),
-  ))
-  color = compute(() => this.alarmList.includes(this.time.value) ? 'red' : 'green');
+  time = fromObservable(
+    timer(0, 100).pipe(
+      // this is too fast for a reason.
+      map(() => new Date().toISOString().split('T')[1].split('.')[0])
+    )
+  );
+  color = compute(() => (this.alarmList.includes(this.time.value) ? 'red' : 'green'));
 }
 // NOTE: see disclaimer at the top.
 ```
+
 Notice that this already made the code a lot more readable. And it is a lot more concise. And it is also more performant.
 No more `async` pipes. Change detection will only be fired when there are real changes. A signal will only be updated when the value changes. (in RxJS speak, it has a built-in `distinctUntilChanged`). The color isn't overwritten every 100Ms. It is only updated when the value of the `time` signal changes. And it is only updated once. Also, under the hood, there is only 1 subscription to the `time$` observable. And that subscription is fully managed by the `fromObservable` function.
 
 <sub>(end of update)</sub>
-
 
 ### What else is possible?
 
@@ -200,7 +197,7 @@ Imagine this:
       {{ customer.value?.name }}
       {{ customer.value?.email }}
     </div>
-  `
+  `,
 })
 class SomeComponent {
   customerService = inject(CustomerService);
@@ -208,14 +205,13 @@ class SomeComponent {
    * think of this as a alternative to the @Input decorator. but then reactive.
    * I'm casting only for the example, this will be done automatically
    */
-  customerId = futureMagicalSignalFromInput('customerId',undefined) as signal<number | undefined>;
+  customerId = futureMagicalSignalFromInput('customerId', undefined) as signal<number | undefined>;
 
   // make a Observable stream from a signal
-  customer$ = observableFromSignal(this.customerId)
-    .pipe(
-      /** do Observable stuff here, driven from the above "@Input"  */
-      switchMap(id => id ? this.customerService.getCustomer(id) : of(undefined))
-    )
+  customer$ = observableFromSignal(this.customerId).pipe(
+    /** do Observable stuff here, driven from the above "@Input"  */
+    switchMap(id => (id ? this.customerService.getCustomer(id) : of(undefined)))
+  );
 
   /**
    * Convert an observable stream into a signal.
@@ -223,18 +219,18 @@ class SomeComponent {
    * more complex and combined streams.
    * This takes care of the subscription and unsubscribing.
    * and it easily allow you to react to changes in the stream.
-  */
+   */
   customer = signalFromObservable(this.customer$);
 
   // make a signal from a life-cycle hook
-  destroy = futureMagicalSignalFromLifeCycleHook('destroy') ;
+  destroy = futureMagicalSignalFromLifeCycleHook('destroy');
 
   // use the life-cycle hook signal to do something
   destroyEffect = effect(() => {
     if (this.destroy) {
       console.log('destroying the customer signal, while destroying the component');
     }
-  })
+  });
 }
 // NOTE: see disclaimer at the top.
 ```
@@ -262,16 +258,16 @@ Right now ZoneJS is a black box. You can't really see what is going on. And that
 
 No. There are more details to the whole API, and every part of it is worth looking into it. But that lies outside of the scope of this article. Feel free to contact me, and I will be happy to have a more in depth conversation about it. I opened a [discussion](https://github.com/SanderElias/Samples/discussions/48) on GitHub, where we can have a more in depth conversation about it.
 
-
 ## Conclusion
 
 Angular signals are all set to green for a bright future. They will be the foundation for a load of cool stuff and will be the (now missing) grease between lots of things. The interop between observables and signals will be an especially huge win. Dropping in and out of the reactive stream is where most problems exist and this will decrease the need for this dropping in and out.
 ZoneJS is wonderful, but at the same time, it can be an issue for performance in some cases. Reading the signal tells me that this is also something where buying into them will make a huge difference.
 
-
 ---
+
 Here I want to give thanks to the people that helped me improve the content of this article, by proofreading and giving feedback. And checking the facts and making sure I didn't make any mistakes.
 In no particular order:
+
 - Natalia Venditto [@NataliaVenditto](https://mobile.twitter.com/AnfibiaCreativa)
 - Pawel Kozlowski [@pkozlowski_os](https://mobile.twitter.com/pkozlowski_os)
 - Alex Rickabaugh [@synalx](https://mobile.twitter.com/synalx)

@@ -1,6 +1,7 @@
 import { Component, ElementRef, Injector, Input, OnInit, SecurityContext } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
+import { number } from 'yargs';
 
 /**
  * I did put those in 1 file because those 2 components
@@ -32,8 +33,8 @@ class DynDataComponent {
 }
 
 @Component({
-    selector: 'app-dynamichtml',
-    template: `
+  selector: 'app-dynamichtml',
+  template: `
     <h1>Dynamic HTML sample</h1>
 
     <input type="text" [value]="name" (input)="name = $any($event.target).value" />
@@ -42,8 +43,8 @@ class DynDataComponent {
 
     <div id="target"></div>
   `,
-    styles: [
-        `
+  styles: [
+    `
       textarea {
         display: block;
         height: 6rem;
@@ -51,8 +52,8 @@ class DynDataComponent {
         padding: 0;
       }
     `,
-    ],
-    standalone: true
+  ],
+  standalone: true,
 })
 export class DynamicHtmlComponent implements OnInit {
   elm = this.elmRef.nativeElement as HTMLDivElement;
@@ -69,17 +70,25 @@ export class DynamicHtmlComponent implements OnInit {
   <button onclick="alert('hi')">hi</button>
   `;
 
-  constructor(private elmRef: ElementRef, injector: Injector, private sanitizer: DomSanitizer) {
+  constructor(
+    private elmRef: ElementRef,
+    injector: Injector,
+    private sanitizer: DomSanitizer
+  ) {
+    if (typeof document === 'undefined') return;
     const dyn = createCustomElement(DynDataComponent, { injector });
     customElements.define('dyn-data', dyn);
   }
 
   ngOnInit() {
+    if (typeof document === 'undefined') return;
     this.update(this.html);
   }
 
   update(newHtml) {
-    const target = this.elm.querySelector('#target');
+
+
+    const target = this.elm.querySelector('#target')!;
     /**
      * To do it this way is really dangerous, as it will expose to all kind of security issues.
      *   (the most importand one: https://owasp.org/www-community/attacks/xss/)
@@ -95,10 +104,10 @@ export class DynamicHtmlComponent implements OnInit {
     /** DANGER AHEAD */ target.innerHTML = newHtml; /** I mean it, this might cost you your job */
     // REALLY, DON'T
     // (Really don't! They even send out Igor to comment on your sample code ;-P )
-    return ;
+    return;
 
     /** this is the version you should be using */
-    target.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML,newHtml);
-
+    // @ts-ignore
+    target.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML, newHtml);
   }
 }

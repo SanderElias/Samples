@@ -20,9 +20,7 @@
     "inlineSourceMap": true,
     "lib": ["es2022", "dom"],
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
-  "files": [
-    "index.ts"
-  ],
+  "files": ["index.ts"]
 }

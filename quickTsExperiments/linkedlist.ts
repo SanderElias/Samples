@@ -1,10 +1,8 @@
-
-
 interface linkedListNode<T> {
   value: T;
   next?: linkedListNode<T>;
   prev?: linkedListNode<T>;
-  [Symbol.iterator]: any
+  [Symbol.iterator]: any;
 }
 
 class LinkedList<T> {
@@ -35,22 +33,24 @@ class LinkedList<T> {
           return { done: false, value };
         }
         return { done: true, value: undefined };
-      }
+      },
     };
   }
 }
 
 function createNode<T>(value: T): linkedListNode<T> {
-  const node = { value } as linkedListNode<T>
+  const node = { value } as linkedListNode<T>;
   node[Symbol.iterator] = function* () {
-    yield node.value
-    if (node.next) { yield* node.next }
-  }
-  return node
+    yield node.value;
+    if (node.next) {
+      yield* node.next;
+    }
+  };
+  return node;
 }
 
-const list = createNode(1)
-list.next = createNode(2)
-list.next.next = createNode(3)
+const list = createNode(1);
+list.next = createNode(2);
+list.next.next = createNode(3);
 
-console.log([...list])
+console.log([...list]);
