@@ -1,0 +1,1 @@
+import{bb as c,db as u,fa as n,oc as i,xa as o,za as s}from"./chunk-XM75YRED.js";function b(e){let t=n(o);c(()=>i(e,{injector:t}))}var d=(e,t)=>{let r=u(t);n(s).onDestroy(()=>f.unsubscribe());let f=e().subscribe(a=>r.set(a));return r};export{b as a,d as b};

@@ -1,1 +1,0 @@
-import"./chunk-G5KKTNWD.js";var o=[{path:"",loadComponent:()=>import("./local-state.component-FS2L4GPW.js").then(t=>t.LocalStateComponent),children:[{path:":id",loadComponent:()=>import("./ls-home.component-PXIUDRUG.js").then(t=>t.LsHomeComponent)},{path:"",redirectTo:"./1",pathMatch:"full"}]}];export{o as routes};
