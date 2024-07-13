@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         # for future expansion, for now only node 16 is supported
-        node: [18.x]
+        node: [20.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         # for future expansion, for now only node 16 is supported
-        node: [18.x]
+        node: [20.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -38,4 +38,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: dist/static # The folder the action should deploy.
+          folder: dist/samples/browser # The folder the action should deploy.
