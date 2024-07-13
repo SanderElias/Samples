@@ -31,11 +31,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./required-attributes/required-attributes/required-attributes.component').then(m => m.RequiredAttributesComponent),
   },
-  {
-    path: 'viewModel',
-    loadChildren: () => import('./view-model/view-model.routes').then(m => m.routes),
-    canActivate: [() => !globalThis.isServer],
-  },
+  // {
+  //   path: 'viewModel',
+  //   loadChildren: () => import('./view-model/view-model.routes').then(m => m.routes),
+  //   canActivate: [() => !globalThis.isServer],
+  // },
   {
     path: 'complexAPI',
     loadComponent: () => import('./complex-api/apisample/apisample.component').then(m => m.APISampleComponent),
