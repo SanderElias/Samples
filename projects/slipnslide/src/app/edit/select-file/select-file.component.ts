@@ -6,13 +6,15 @@ import { SlidesService } from '../../slides.service';
 import { NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'select-file',
-    template: `<select>
-    <option *ngFor="let file of files$ | async">{{ file }}</option>
+  selector: 'select-file',
+  template: `<select>
+    @for (file of files$ | async; track file) {
+      <option>{{ file }}</option>
+    }
   </select>`,
-    styles: [`":host{display:block}`],
-    standalone: true,
-    imports: [NgForOf, AsyncPipe]
+  styles: [`":host{display:block}`],
+  standalone: true,
+  imports: [NgForOf, AsyncPipe],
 })
 export class SelectFileComponent implements OnDestroy, OnInit {
   @Output() fileName = new EventEmitter<string>();
@@ -33,7 +35,10 @@ export class SelectFileComponent implements OnDestroy, OnInit {
 
   private sub = this.inputs$.subscribe(this.fileName);
 
-  constructor(private elmRef: ElementRef, private slides: SlidesService) {}
+  constructor(
+    private elmRef: ElementRef,
+    private slides: SlidesService
+  ) {}
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

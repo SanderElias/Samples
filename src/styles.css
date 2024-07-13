@@ -1,39 +1,43 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+/* @import url('https://fonts.googleapis.com/css?family=Roboto'); */
 
-html, body {
+html,
+body {
   height: 100%;
 }
-
 
 html {
   overflow: hidden;
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
 body {
-  font: 18px/1 'Roboto', sans-serif;
+  font:
+    18px/1 'Roboto',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
   min-height: 99vh;
-  color:rgb(230, 234, 238);
-  background-color:#333;
+  color: rgb(230, 234, 238);
+  background-color: #333;
 }
 
 a {
-  color:rgb(95, 197, 228);
+  color: rgb(95, 197, 228);
 }
 
 .backDrop {
   display: flex;
-  background-color: rgba(40,40,40, 0.6);
+  background-color: rgba(40, 40, 40, 0.6);
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
   align-items: center;
@@ -42,12 +46,11 @@ a {
 
 .backDrop > * {
   background-color: white;
-  color:rgb(8, 8, 8);
+  color: rgb(8, 8, 8);
   padding: 5px 10px;
   border-radius: 10px;
   display: inline;
 }
-
 
 button,
 input,
@@ -61,17 +64,16 @@ textarea {
   color: #fff;
   padding: 8px 12px 10px 12px;
   margin-bottom: 4px;
-  background: rgba(0,0,0,.25);
+  background: rgba(0, 0, 0, 0.25);
 }
 
-input[type=checkbox] {
+input[type='checkbox'] {
   scale: 2;
   margin: 0 10px 0 0;
 }
 
 option {
-
-  background: rgba(0,0,0,.25);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 button::-moz-focus-inner,
@@ -84,24 +86,23 @@ textarea {
   overflow: auto;
   vertical-align: top;
   resize: none;
-  background: rgba(0,0,0,.25);
-
+  background: rgba(0, 0, 0, 0.25);
 }
 
-input[type="text"] {
+input[type='text'] {
   display: block;
   margin: 0 0 20px;
   padding: 8px 12px 10px 12px;
-  border: 1px solid rgba(0,0,0,.5);
-  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 textarea {
   display: block;
   margin: 0 0 20px;
   padding: 8px 12px 10px 12px;
-  border: 1px solid rgba(0,0,0,.5);
-  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 button {
@@ -110,6 +111,6 @@ button {
   margin: 0 0 20px;
   padding: 8px 0 10px 0;
   text-align: center;
-  border: 1px solid rgba(0,0,0,.5);
-  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
 }

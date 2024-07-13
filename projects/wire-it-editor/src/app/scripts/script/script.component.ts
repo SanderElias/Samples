@@ -6,9 +6,7 @@ import { PackageJsonService } from '../../package.json.service';
   selector: 'app-script',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <button  (click)="pjs.upgrade(script[0])" [title]="script[1]">{{script[0]}}</button>
-  `,
+  template: ` <button (click)="pjs.upgrade(script[0])" [title]="script[1]">{{ script[0] }}</button> `,
   styles: [
     `
       :host {
@@ -16,14 +14,11 @@ import { PackageJsonService } from '../../package.json.service';
         border: 1px solid black;
         width: max(auto, 4rem);
       }
-    `
+    `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScriptComponent {
-  pjs = inject(PackageJsonService)
+  pjs = inject(PackageJsonService);
   @Input() script: [string, string] = ['', ''];
-
-
-
 }

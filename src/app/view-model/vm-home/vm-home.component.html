@@ -5,10 +5,18 @@
   </section>
   <section>
     <div class="row">
-      <small *ngIf="!(baClicks$ | async)"> Art is updated in {{ countDown$ | async }} seconds.</small>
-      <small *ngIf="(baClicks$ | async)"> Art updates are paused.</small>
-      <small *ngIf="!(bqClicks$ | async)"> Quotes updates every {{ speed$ | async }} seconds</small>
-      <small *ngIf="(bqClicks$ | async)"> Quotes are paused</small>
+      @if (!(baClicks$ | async)) {
+        <small> Art is updated in {{ countDown$ | async }} seconds.</small>
+      }
+      @if (baClicks$ | async) {
+        <small> Art updates are paused.</small>
+      }
+      @if (!(bqClicks$ | async)) {
+        <small> Quotes updates every {{ speed$ | async }} seconds</small>
+      }
+      @if (bqClicks$ | async) {
+        <small> Quotes are paused</small>
+      }
     </div>
 
     <div class="row">
@@ -41,7 +49,7 @@
 <!-- I prefer inline styling instead of yet another file -->
 <style>
   :host {
-    color:black;
+    color: black;
   }
   .hold {
     position: absolute;
@@ -58,7 +66,7 @@
     grid-template-rows: 40px 1fr;
   }
 
-  input[type=range] {
+  input[type='range'] {
     width: calc(100% - 40px);
   }
 

@@ -2,6 +2,15 @@
   "singleQuote": true,
   "arrowParens": "avoid",
   "bracketSpacing": true,
-  "printWidth": 80,
-  "tabWidth": 2
+  "embeddedLanguageFormatting": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "printWidth": 132,
+  "tabWidth": 2,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "semi": true,
+  "singleAttributePerLine": false,
+  "trailingComma": "es5",
+  "useTabs": false
 }

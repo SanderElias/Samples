@@ -9,36 +9,35 @@ import { pluck } from '../../../pluck';
 @Component({
   selector: 'app-relation',
   template: `
-    <h4 *ngIf="!detail">{{ (relation$|async)?.name }}</h4>
-    <section *ngIf="detail && relation$|async as relation">
-      <h4>{{ relation.name }}</h4>
-      <p>{{ relation.company.name }}</p>
-      <p>📧 {{ relation.email }}</p>
-      <p>📱 {{ relation.phone }}</p>
-    </section>
+    @if (!detail) {
+      <h4>{{ (relation$ | async)?.name }}</h4>
+    }
+    @if (detail && relation$ | async; as relation) {
+      <section>
+        <h4>{{ relation.name }}</h4>
+        <p>{{ relation.company.name }}</p>
+        <p>📧 {{ relation.email }}</p>
+        <p>📱 {{ relation.phone }}</p>
+      </section>
+    }
   `,
   styleUrls: ['./relation.component.css'],
   standalone: true,
-  imports: [NgIf, AsyncPipe]
+  imports: [NgIf, AsyncPipe],
 })
 export class RelationComponent {
   elm = inject(ElementRef).nativeElement as HTMLElement;
   router = inject(Router);
 
   relation$ = new ReplaySubject<Relation>(1);
-  @Input() set relation(relation: Relation) { this.relation$.next(relation); }
+  @Input() set relation(relation: Relation) {
+    this.relation$.next(relation);
+  }
 
   detail = this.elm?.hasAttribute('detail'); // check if the attribute `detail` is present
 
   @HostListener('click') async onClick() {
-    const relationId = await firstValueFrom(this.relation$.pipe(pluck('id'), take(1)))
+    const relationId = await firstValueFrom(this.relation$.pipe(pluck('id'), take(1)));
     this.router.navigate(['/relations', relationId]);
   }
-
-
-
-
-
 }
-
-

@@ -39,7 +39,10 @@ export interface SettableSignal<T> extends Signal<T> {
  * Backing type for a `SettableSignal`, a mutable reactive value.
  */
 class SettableSignalImpl<T> implements Producer {
-  constructor(private value: T, private equal: ValueEqualityFn<T>) {}
+  constructor(
+    private value: T,
+    private equal: ValueEqualityFn<T>
+  ) {}
 
   readonly id = nextReactiveId();
   readonly ref = new WeakRef(this);
@@ -58,20 +61,17 @@ class SettableSignalImpl<T> implements Producer {
    * a no-op.
    */
   set(newValue: T): void {
-
     // console.log('set', newValue)
     if (!this.equal(this.value, newValue)) {
       // if (hasActiveReactiveContent()) {
       //   throw new SignalError('Cannot set a signal from within a reactive context.');
       // }
-      console.log('set', newValue)
+      console.log('set', newValue);
       this.value = newValue;
       this.valueVersion++;
       producerNotifyConsumers(this);
     }
   }
-
-
 
   /**
    * Derive a new value for the signal from its current value using the `updater` function.
@@ -104,8 +104,7 @@ class SettableSignalImpl<T> implements Producer {
  *
  * @developerPreview
  */
-export function signal<T>(
-    initialValue: T, equal: ValueEqualityFn<T> = defaultEquals): SettableSignal<T> {
+export function signal<T>(initialValue: T, equal: ValueEqualityFn<T> = defaultEquals): SettableSignal<T> {
   const sig = new SettableSignalImpl(initialValue, equal);
   const res = markSignal(sig.signal.bind(sig), {
     set: sig.set.bind(sig),

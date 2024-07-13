@@ -7,13 +7,11 @@ export interface Model {
   dob: Date;
   email: string;
   admin: boolean;
-  level: 1 | 2 | 3 | 4 | 5
+  level: 1 | 2 | 3 | 4 | 5;
 }
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SampledataService {
   #data$ = new BehaviorSubject<Model>({
@@ -22,13 +20,11 @@ export class SampledataService {
     dob: new Date('1990-01-01'),
     email: 'sander@noyb.eu',
     admin: true,
-    level: 4
-  })
+    level: 4,
+  });
 
   /** get a fresh clone on each use */
-  data$ = this.#data$.pipe(
-    map(data => structuredClone(data))
-  );
+  data$ = this.#data$.pipe(map(data => structuredClone(data)));
 
   save(data: Model) {
     this.#data$.next(data);

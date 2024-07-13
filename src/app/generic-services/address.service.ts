@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 
 export interface UserCard {
   name: string;
@@ -36,27 +36,28 @@ export interface Company {
   providedIn: 'root',
 })
 export class AddressService {
+  fakerModule = import('@faker-js/faker')
   userCards$ = this.users(25);
 
-  constructor() { }
+  constructor() {}
 
   private users(length): Observable<UserCard[]> {
-    return from(import('@faker-js/faker')).pipe(
-      map(
-        (fakerModule) => {
-          const {faker} = fakerModule;
-          return Array.from({ length }, () => ({
-            ...userCard(faker),
-            // avatar: faker.image.avatar(),
-          }))
-        }),
-      tap(r => console.dir(r)),
-      shareReplay(1)
+    return from(this.fakerModule).pipe(
+      map(fakerModule => {
+        const { faker } = fakerModule;
+        return Array.from({ length }, () => ({
+          ...userCard(faker),
+          // avatar: faker.image.avatar(),
+        }));
+      }),
+      // tap(r => console.dir(r)),
+      shareReplay(1),
+      catchError(e => of([]))
     );
   }
 }
 
-function userCard(faker:any): UserCard {
+function userCard(faker: any): UserCard {
   return {
     name: faker.person.fullName(),
     username: faker.internet.userName(),
@@ -77,7 +78,7 @@ function userCard(faker:any): UserCard {
     company: {
       name: faker.company.name(),
       catchPhrase: faker.company.catchPhrase(),
-      bs: faker.company.bs(),
+      bs: faker.company.buzzPhrase(),
     },
   };
 }

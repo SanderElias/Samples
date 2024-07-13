@@ -8,8 +8,8 @@ describe('SwapiComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [SwapiComponent]
-}).compileComponents();
+      declarations: [SwapiComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,12 +1,11 @@
-import { computed, effect, Signal, signal } from './signals/index.js'
-import { Observable } from 'rxjs'
+import { computed, effect, Signal, signal } from './signals/index.js';
+import { Observable } from 'rxjs';
 
-
-const a = signal(1)
+const a = signal(1);
 const result = computed(() => a() * a());
 
 // log the result of the computation
-effect(() => console.log('a', a(), result()))
+effect(() => console.log('a', a(), result()));
 
 /**
  * sample of effect, simulating stuff that _will_ happen in apps if not prevented.
@@ -16,18 +15,11 @@ effect(() => console.log('a', a(), result()))
  */
 effect(() => {
   if (result() % 10 === 0) {
-    a.set(a() - 4)
+    a.set(a() - 4);
   } else {
     /** using setTimeout to prevent 100% loop inside of 1 cycle */
-    setTimeout(() => a.set(a() + 2), 500)
+    setTimeout(() => a.set(a() + 2), 500);
   }
-})
+});
 
-a.set(3)
-
-
-
-
-
-
-
+a.set(3);

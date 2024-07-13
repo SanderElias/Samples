@@ -3,22 +3,23 @@ import { Component, OnInit } from '@angular/core';
 
 // import html2canvas from 'html2canvas';
 @Component({
-    selector: 'app-snow',
-    templateUrl: './snow.component.html',
-    styles: [],
-    standalone: true
+  selector: 'app-snow',
+  templateUrl: './snow.component.html',
+  styles: [],
+  standalone: true,
 })
 export class SnowComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    if (typeof document === 'undefined') return;
     makeItSnow();
   }
 }
 
 function makeItSnow() {
   const snowCanvas = createSnowCanvas();
-  const ctx = snowCanvas.getContext('2d');
+  const ctx = snowCanvas.getContext('2d')!;
   const height = snowCanvas.height;
   const width = snowCanvas.width;
   /** create a gray between `aaaaaa` and `ffffff`, and convert it back to a number */
@@ -60,6 +61,7 @@ function makeItSnow() {
  * @param max the maximum returned
  */
 function getRandomInt(max: number): number {
+  if (typeof window === "undefined") return
   const randomBuffer = new Uint32Array(1);
   window.crypto.getRandomValues(randomBuffer);
   let randomNumber = randomBuffer[0] / (0xffffffff + 1);
@@ -68,6 +70,8 @@ function getRandomInt(max: number): number {
 
 // var particleCanvas, particleCtx;
 function createSnowCanvas() {
+  if (typeof window === "undefined") return
+  if (typeof document === "undefined") return
   const snowFlakesCanvas = document.createElement('canvas');
   snowFlakesCanvas.width = window.innerWidth;
   snowFlakesCanvas.height = window.innerHeight;

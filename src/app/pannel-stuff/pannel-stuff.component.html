@@ -1,19 +1,16 @@
 <h1>Pannel composition</h1>
 
-
 <app-pannel>
   <h1>Basic no frills pannel</h1>
   <p>You might want to add some styling to the base pannel.</p>
 </app-pannel>
-
 
 <app-pannel (close)="alert('bye')">
   <h1>Closable pannel</h1>
   <p>the directive adds a close emitter, so you can react on close.</p>
 </app-pannel>
 
-
-<app-pannel (close)="alert('bye')" [footer]="time$|async|date:'HH:mm:ss'">
+<app-pannel (close)="alert('bye')" [footer]="time$ | async | date: 'HH:mm:ss'">
   <h1>Closable pannel with footer</h1>
   <p>the directive adds a close emitter, so you can react on close.</p>
 </app-pannel>

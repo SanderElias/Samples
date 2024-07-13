@@ -6,7 +6,7 @@
   overflow: auto;
   justify-content: start;
   grid-template-columns: repeat(auto-fit, minmax(var(--width), 1fr));
-  grid-template-rows:  var(--height);
+  grid-template-rows: var(--height);
   gap: 1rem;
 }
 

@@ -4,14 +4,14 @@ import { Subject } from 'rxjs';
 import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-wait-for-it',
-    templateUrl: './wait-for-it.component.html',
-    styles: [],
-    standalone: true,
-    imports: [NgIf, NgForOf, AsyncPipe]
+  selector: 'app-wait-for-it',
+  templateUrl: './wait-for-it.component.html',
+  styles: [],
+  standalone: true,
+  imports: [NgIf, NgForOf, AsyncPipe],
 })
 export class WaitForItComponent {
-  someVar: string[];
+  someVar: string[]|undefined;
   @Input('someVar') private set _someVar(newContent) {
     /** do some stuff */
     this.someVar = newContent;
@@ -27,7 +27,7 @@ export class WaitForItComponent {
     val && this.setIt('prop3', val);
   }
 
-  requiredProps = [];
+  requiredProps = [] as Record<string,string>[];
 
   goodToGo$ = new Subject<any[]>();
 

@@ -4,15 +4,7 @@ import { Component, ElementRef, OnInit, inject } from '@angular/core';
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, EMPTY, from, fromEvent } from 'rxjs';
-import {
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  shareReplay,
-  switchMap
-} from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 const apiKey = `RSIq08oTL7lA1DyETOmqujDSph7rvP4akG8NRPz9os6ywJjBhE`;
 const clientId = 'e972ca06cc4b961';
@@ -21,11 +13,11 @@ const clientId = 'e972ca06cc4b961';
   selector: 'app-tumblr',
   templateUrl: './tumblr-component.html',
   standalone: true,
-  imports: [NgForOf, AsyncPipe]
+  imports: [NgForOf, AsyncPipe],
 })
 export class TumblrComponent implements OnInit {
   /** injections */
-  #http = inject(HttpClient)
+  #http = inject(HttpClient);
   #elm = inject(ElementRef).nativeElement as HTMLElement;
 
   /** array with the size of every position */
@@ -44,14 +36,9 @@ export class TumblrComponent implements OnInit {
     ),
     map(data => data?.data?.items),
     filter(s => !!s),
-    map(items =>
-      items.filter((item: Item) =>
-        [Type.ImageJPEG, Type.ImagePNG].includes(item.images && item.images[0].type)
-      )
-    ),
+    map(items => items!.filter((item: Item) => [Type.ImageJPEG, Type.ImagePNG].includes(item?.images?.[0].type || Type.VideoMp4))),
     shareReplay(1)
   );
-
 
   // set the size of all the images to the same value
   allTo(n: 0 | 1 | 2) {
@@ -60,13 +47,17 @@ export class TumblrComponent implements OnInit {
 
   // set the size of all the images to random values
   allRandom() {
-    return this.largePositions = Array.from({ length: 250 }, () => {
-      const r = Math.random()
-      if (r < 0.2) { return 1; } // ~20% chance
-      if (r > 0.8) { return 2; } // ~20% chance
+    return (this.largePositions = Array.from({ length: 250 }, () => {
+      const r = Math.random();
+      if (r < 0.2) {
+        return 1;
+      } // ~20% chance
+      if (r > 0.8) {
+        return 2;
+      } // ~20% chance
       return 0;
-    })
-  };
+    }));
+  }
 
   // switch the size of a single image to the next step, will go small -> medium -> large -> small
   switch(y: number) {
@@ -78,20 +69,24 @@ export class TumblrComponent implements OnInit {
 
   ngOnInit(): void {
     const elm = this.#elm;
+    if (typeof document === 'undefined') return;
     if (elm) {
       const inp = elm.getElementsByTagName('input')[0];
       // lazy load the animate-css-grid module
       from(import('animate-css-grid'))
         .pipe(
           /** wait for the module to load */
-          map(({ wrapGrid }) => wrapGrid(elm.querySelector('#grid'))),
+          map(({ wrapGrid }) => wrapGrid(elm!.querySelector('#grid')!)),
           /** start listening for inputs */
           switchMap(() => fromEvent(inp, 'input')),
-          map((ev: InputEvent) => ev.target['value'] as string), // get the value as string
+          map((ev: Event) => {
+            const target = ev.target as HTMLInputElement
+            return target.value
+          }), // get the value as string
           debounceTime(400),
           distinctUntilChanged(),
           filter(key => key.length > 0), // only search for keys with a length > 0
-          takeUntilDestroyed(), // use the V16 takeUntilDestroyed operator 😁
+          takeUntilDestroyed() // use the V16 takeUntilDestroyed operator 😁
         )
         /** push them into the subject */
         .subscribe(this.searchKey$);
@@ -284,4 +279,4 @@ export enum Description {
   VideosWithSound = 'videos with sound',
 }
 
-export interface DescriptionAnnotations { }
+export interface DescriptionAnnotations {}

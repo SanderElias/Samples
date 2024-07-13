@@ -1,18 +1,13 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-sample-one',
-    templateUrl: './sample-one.component.html',
-    styles: [],
-    standalone: true
+  selector: 'app-sample-one',
+  templateUrl: './sample-one.component.html',
+  styles: [],
+  standalone: true,
 })
 export default class SampleOneComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
-
-

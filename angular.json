@@ -10,12 +10,16 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser-esbuild",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/samples",
+            "outputPath": {
+              "base": "dist/samples"
+            },
+            "server": "src/main.server.ts",
+            "prerender": {
+              "discoverRoutes": true
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -26,12 +30,11 @@
             ],
             "scripts": [],
             "aot": true,
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -46,8 +49,6 @@
               "sourceMap": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "namedChunks": true,
               "budgets": [
                 {
@@ -67,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "samples:build"
+            "buildTarget": "samples:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "samples:build:production"
+              "buildTarget": "samples:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "samples:build"
+            "buildTarget": "samples:build"
           }
         },
         "test": {
@@ -247,12 +248,15 @@
       "prefix": "",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/slipnslide",
+            "outputPath": {
+              "base": "dist/slipnslide"
+            },
             "index": "projects/slipnslide/src/index.html",
-            "main": "projects/slipnslide/src/main.ts",
-            "polyfills": "projects/slipnslide/src/polyfills.ts",
+            "polyfills": [
+              "projects/slipnslide/src/polyfills.ts"
+            ],
             "tsConfig": "projects/slipnslide/tsconfig.app.json",
             "assets": [
               "projects/slipnslide/src/favicon.ico",
@@ -262,12 +266,11 @@
               "projects/slipnslide/src/styles.css"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/slipnslide/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -282,8 +285,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -303,18 +304,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "slipnslide:build"
+            "buildTarget": "slipnslide:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "slipnslide:build:production"
+              "buildTarget": "slipnslide:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "slipnslide:build"
+            "buildTarget": "slipnslide:build"
           }
         },
         "test": {
@@ -383,12 +384,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ApiBoundries",
+            "outputPath": {
+              "base": "dist/ApiBoundries"
+            },
             "index": "projects/api-boundries/src/index.html",
-            "main": "projects/api-boundries/src/main.ts",
-            "polyfills": "zone.js",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/api-boundries/tsconfig.app.json",
             "assets": [
               "projects/api-boundries/src/favicon.ico",
@@ -397,7 +401,8 @@
             "styles": [
               "projects/api-boundries/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/api-boundries/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -422,9 +427,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -436,10 +439,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ApiBoundries:build:production"
+              "buildTarget": "ApiBoundries:build:production"
             },
             "development": {
-              "browserTarget": "ApiBoundries:build:development"
+              "buildTarget": "ApiBoundries:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -447,7 +450,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ApiBoundries:build"
+            "buildTarget": "ApiBoundries:build"
           }
         },
         "test": {
@@ -487,11 +490,12 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser-esbuild",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/wire-it-editor",
+            "outputPath": {
+              "base": "dist/wire-it-editor"
+            },
             "index": "projects/wire-it-editor/src/index.html",
-            "main": "projects/wire-it-editor/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -503,7 +507,8 @@
             "styles": [
               "projects/wire-it-editor/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/wire-it-editor/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -522,9 +527,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -536,10 +539,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "wireItEditor:build:production"
+              "buildTarget": "wireItEditor:build:production"
             },
             "development": {
-              "browserTarget": "wireItEditor:build:development"
+              "buildTarget": "wireItEditor:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -547,7 +550,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wireItEditor:build"
+            "buildTarget": "wireItEditor:build"
           }
         },
         "test": {
@@ -588,11 +591,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/language-routing",
+            "outputPath": {
+              "base": "dist/language-routing"
+            },
             "index": "projects/language-routing/src/index.html",
-            "main": "projects/language-routing/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -604,7 +608,8 @@
             "styles": [
               "projects/language-routing/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/language-routing/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -623,9 +628,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -637,10 +640,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "LanguageRouting:build:production"
+              "buildTarget": "LanguageRouting:build:production"
             },
             "development": {
-              "browserTarget": "LanguageRouting:build:development"
+              "buildTarget": "LanguageRouting:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -648,7 +651,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LanguageRouting:build"
+            "buildTarget": "LanguageRouting:build"
           }
         },
         "test": {

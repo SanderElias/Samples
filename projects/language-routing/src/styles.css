@@ -1,10 +1,9 @@
 /* the props */
-@import "open-props/style";
-
+@import 'open-props/style';
 
 /* just light or dark themes */
-@import "open-props/normalize/dark";
-@import "open-props/buttons/dark";
+@import 'open-props/normalize/dark';
+@import 'open-props/buttons/dark';
 
 body {
   padding: var(--size-2);

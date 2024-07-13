@@ -8,7 +8,7 @@ dialog > main {
   flex-wrap: wrap;
   gap: var(--size-1);
 }
-:host>button {
+:host > button {
   background: var(--color-1);
   border-radius: 2rem;
   height: 1.5rem;

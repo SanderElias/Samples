@@ -6,7 +6,7 @@
   <button (click)="dump()">dump</button>
 </div>
 
-<b-node [bNode]="root$|async"></b-node>
+<b-node [bNode]="root$ | async"></b-node>
 
 <!-- <div class="row">
   RL <span (click)="rl(item)" *ngFor="let item of nodes">{{item.value}}</span>
@@ -21,12 +21,12 @@
 <style>
   .button-bar {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
     max-width: 100vw;
   }
   .row {
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(10,1fr);
+    grid-template-columns: repeat(10, 1fr);
   }
 </style>

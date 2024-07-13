@@ -11,7 +11,7 @@ It removes the duplications from that, and makes sure typing flow correctly.
 const invoice$ = modelFromLatest<testModel>({
   customer: customer$,
   invoiceHeader: ivh$,
-  invoiceLines: ivh$.pipe(switchmap(ivh => this.loadLines(ivh.id)))
+  invoiceLines: ivh$.pipe(switchmap(ivh => this.loadLines(ivh.id))),
 });
 ```
 

@@ -21,47 +21,47 @@ interface LocalState {
       use the VM$ and assign it to the vm view-variable,
       only show when the first complete set of results is there.
     -->
-    <section *ngIf="vm$ | async as vm">
-      <!-- show how many users are currently available, and how much e have done. -->
-      Available users:{{ vm.users.length }} (Loading done:{{ vm.done }}%)<br />
-      <!-- update the search property in the state when the user inputs something. -->
-      <label>Search <input (input)="setProp('search', $event)" /></label>
-      <div id="buttons">
-        <!--
+    @if (vm$ | async; as vm) {
+      <section>
+        <!-- show how many users are currently available, and how much e have done. -->
+        Available users:{{ vm.users.length }} (Loading done:{{ vm.done }}%)<br />
+        <!-- update the search property in the state when the user inputs something. -->
+        <label>Search <input (input)="setProp('search', $event)" /></label>
+        <div id="buttons">
+          <!--
           set a value on a button so we can use that in the click handler.
           use a button to update the 'sort' state
         -->
-        <button value="" (click)="setProp('sort', $event)">none</button>
-        <button value="username" (click)="setProp('sort', $event)">username</button>
-        <button value="email" (click)="setProp('sort', $event)">email</button>
-        <button value="id" (click)="setProp('sort', $event)">id</button>
-      </div>
-      <div id="scroll">
-        <!--
+          <button value="" (click)="setProp('sort', $event)">none</button>
+          <button value="username" (click)="setProp('sort', $event)">username</button>
+          <button value="email" (click)="setProp('sort', $event)">email</button>
+          <button value="id" (click)="setProp('sort', $event)">id</button>
+        </div>
+        <div id="scroll">
+          <!--
           Use a range-input to select the current page.
           using css, you are able to mimic a scroll-bar, I didn't went into this trouble for a demo.
           I'm using the state to set the max,
           and using the setProp again to update the position property in the state$
         -->
-        <input
-          type="range"
-          [max]="vm.users.length / vm.state.pageSize"
-          (input)="setProp('position', $event)"
-        />
-        <table>
-          <tbody>
-            <!--
+          <input type="range" [max]="vm.users.length / vm.state.pageSize" (input)="setProp('position', $event)" />
+          <table>
+            <tbody>
+              <!--
               A simple ngFor to display the current page of users.
              -->
-            <tr *ngFor="let user of vm.page">
-              <td>{{ user.id }}</td>
-              <td>{{ user.username }}</td>
-              <td>{{ user.email }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+              @for (user of vm.page; track user) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.email }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
     <!-- I like my styling inlined. -->
     <style>
       /* use a bit of css to position the range upright, next to the table. I did choose before, but it can be after just as easily */
@@ -147,7 +147,7 @@ export class BigDataComponent {
   /** when in doubt, use console.log */
   // .pipe(tap(s => console.log(s)));
 
-  constructor(private user: DemoUserService) { }
+  constructor(private user: DemoUserService) {}
 
   /** utility method to extract the users I need to display. */
   findFirst(users: DemoUser[], { position, pageSize, search }): DemoUser[] {
@@ -175,7 +175,7 @@ export class BigDataComponent {
    * takes a property-name from the state, and an event.
    * In here I'm casting the event to `ev: { target: HTMLInputElement }` to make it easier to consume
    */
-  setProp<T extends keyof LocalState>(prop: T, ev: MouseEvent | KeyboardEvent | InputEvent| Event) {
+  setProp<T extends keyof LocalState>(prop: T, ev: MouseEvent | KeyboardEvent | InputEvent | Event) {
     /** extract the dom element from the event. */
     const domElement = ev.target as HTMLInputElement;
     /** extract the current state from the behavior subject */

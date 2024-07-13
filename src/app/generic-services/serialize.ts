@@ -33,9 +33,7 @@ export function fromBase(hash: string): number {
 
   const l = hash.length - 1;
 
-  const ret = hash
-    .split('')
-    .reduce((tot, car, i) => (tot += seed.indexOf(car) * Math.pow(radix, l - i)), 0);
+  const ret = hash.split('').reduce((tot, car, i) => (tot += seed.indexOf(car) * Math.pow(radix, l - i)), 0);
 
   if (isNaN(ret)) {
     throw new Error(`Unknown error: Can not decode '${hash}'`);

@@ -4,17 +4,17 @@ import { delay, filter, map, take } from 'rxjs/operators';
 import { RelationId } from './orders.service';
 
 const seed = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-export const randomInt = (max = 2000) => Math.floor(Math.random() * max)
+export const randomInt = (max = 2000) => Math.floor(Math.random() * max);
 const randChar = () => seed[randomInt(seed.length)];
 const randChars = (n = 3) => Array.from({ length: n }, () => randChar()).join('');
 
 export const getId = () => randChars(4) + '-' + Math.round(performance.now() * 10000000000).toString(36);
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RelationsService {
-  faker = import('@faker-js/faker');
+  fakerModule = import('@faker-js/faker');
   relationList$ = new BehaviorSubject<Relation[]>([]);
 
   constructor() {
@@ -23,9 +23,7 @@ export class RelationsService {
     }
   }
   getRelationIdList() {
-    return this.relationList$.pipe(
-      map(relations => relations.map(r => r.id)),
-    )
+    return this.relationList$.pipe(map(relations => relations.map(r => r.id)));
   }
   getRelation(id): Observable<Relation> {
     const relation = this.relationList$.value.find(user => user.id === id);
@@ -36,7 +34,7 @@ export class RelationsService {
       map(relations => relations.find(o => o.id === id)),
       filter(o => o !== undefined),
       take(1)
-    )
+    );
   }
 
   getExistingRandomId() {
@@ -45,13 +43,13 @@ export class RelationsService {
   }
 
   async addGeneratedUser(id: string) {
-    const { faker } = await this.faker
+    const { faker } = await this.fakerModule;
     const relation: Relation = {
       ...userCard(faker),
       avatar: faker.image.avatar(),
       id,
-      orders: Array.from({ length: randomInt(4) + 1 }, () => getId())
-    }
+      orders: Array.from({ length: randomInt(4) + 1 }, () => getId()),
+    };
     this.relationList$.next([...this.relationList$.value, relation]);
     return relation as Relation;
   }
@@ -82,7 +80,6 @@ function userCard(faker: any) {
     },
   };
 }
-
 
 export interface Relation {
   name: string;

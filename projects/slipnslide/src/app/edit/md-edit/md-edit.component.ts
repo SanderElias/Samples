@@ -1,13 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import Editor from '@toast-ui/editor';
 // import { safeDump } from 'js-yaml';
 import { Subject } from 'rxjs';
@@ -19,31 +10,31 @@ const styles = [
 ];
 
 @Component({
-    selector: 'md-edit',
-    template: ``,
-    styles: [
-        `
+  selector: 'md-edit',
+  template: ``,
+  styles: [
+    `
       :host {
         display: block;
         background-color: white;
       }
     `,
-    ],
-    standalone: true
+  ],
+  standalone: true,
 })
 export class MdEditComponent implements OnInit, OnDestroy {
   attributes: { [key: string]: any };
   _markdown: string;
   @Input() set markdown(x: string) {
     if (x) {
-        this._markdown = x.trimStart();
-        if (this.editor) {
-          /**
-           * the if is needed because on creation editor doesn't exist yet
-           * this way it sets it via _markdown on init, and otherwise with the setMarkdown.
-           */
-          this.editor.setMarkdown(this._markdown);
-        }
+      this._markdown = x.trimStart();
+      if (this.editor) {
+        /**
+         * the if is needed because on creation editor doesn't exist yet
+         * this way it sets it via _markdown on init, and otherwise with the setMarkdown.
+         */
+        this.editor.setMarkdown(this._markdown);
+      }
     }
   }
   @Output() updates = new EventEmitter<string>();
@@ -52,7 +43,7 @@ export class MdEditComponent implements OnInit, OnDestroy {
     debounceTime(500),
     map(() => this.editor.getMarkdown().trimStart()),
     distinctUntilChanged(),
-    filter(x => x !== this._markdown),
+    filter(x => x !== this._markdown)
   );
 
   /** feed the new content into the output emitter */
@@ -61,7 +52,10 @@ export class MdEditComponent implements OnInit, OnDestroy {
   private elm = this.elmRef.nativeElement;
   private editor: Editor;
 
-  constructor(private elmRef: ElementRef, private zone: NgZone) {}
+  constructor(
+    private elmRef: ElementRef,
+    private zone: NgZone
+  ) {}
 
   ngOnInit(): void {
     if (this.elm) {

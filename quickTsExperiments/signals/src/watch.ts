@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Consumer, consumerPollValueStatus, Edge, nextReactiveId, ProducerId, setActiveConsumer} from './internal.js';
-import {WeakRef} from './weak_ref.js';
+import { Consumer, consumerPollValueStatus, Edge, nextReactiveId, ProducerId, setActiveConsumer } from './internal.js';
+import { WeakRef } from './weak_ref.js';
 
 /**
  * Watches a reactive expression and allows it to be scheduled to re-run
@@ -24,7 +24,10 @@ export class Watch implements Consumer {
 
   private dirty = false;
 
-  constructor(private watch: () => void, private schedule: (watch: Watch) => void) {}
+  constructor(
+    private watch: () => void,
+    private schedule: (watch: Watch) => void
+  ) {}
 
   notify(): void {
     if (!this.dirty) {
@@ -50,7 +53,7 @@ export class Watch implements Consumer {
     try {
       this.watch();
     } catch (e) {
-      console.error('error',e);
+      console.error('error', e);
       throw e;
     } finally {
       setActiveConsumer(prevConsumer);

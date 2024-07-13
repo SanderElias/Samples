@@ -9,7 +9,9 @@ import { LangService } from '../lang.service';
   template: `
     <h1>Pick a language</h1>
     <div>
-      <button *ngFor="let lang of availableLanguages" (click)="pick(lang)">{{ lang }}</button>
+      @for (lang of availableLanguages; track lang) {
+        <button (click)="pick(lang)">{{ lang }}</button>
+      }
     </div>
   `,
   styleUrls: ['./pick-lang.component.css'],

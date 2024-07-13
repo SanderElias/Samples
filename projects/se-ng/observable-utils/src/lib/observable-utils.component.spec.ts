@@ -8,8 +8,8 @@ describe('ObservableUtilsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [ObservableUtilsComponent]
-}).compileComponents();
+      declarations: [ObservableUtilsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

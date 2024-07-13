@@ -21,12 +21,12 @@ export class PokeApiService {
         .catch(e => undefined);
       await addToCache(url, liveData);
     }
-    return (getFromCache(url) as unknown) as T;
+    return getFromCache(url) as unknown as T;
   }
 
   init() {
     console.log('ps init');
-    this.load(this.base).then(list => {
+    this.load(this.base).then((list: any) => {
       console.log(list);
       from(Object.entries(list))
         .pipe(
@@ -35,7 +35,7 @@ export class PokeApiService {
             this.getAllPagedData(baseUrl).pipe(
               reduce((data, page) => data.concat(page.results), []),
               // concatMap((data: any) => data.map(row => from(this.load(row.url)))),
-              tap((data: any) => console.log('d', data)),
+              // tap((data: any) => console.log('d', data)),
               // concatMap((subData:any) => subData.url && this.load(subData.url) || subData),
               map(data => ({ name, baseUrl, data }))
             )
@@ -52,7 +52,7 @@ export class PokeApiService {
   getAllPagedData(url): Observable<any> {
     return from(this.load(`${url}`)).pipe(
       /** use the expand operator to feed in the remaining pages */
-      expand(r => (r['next'] ? this.load(r['next']) : EMPTY))
+      expand((r: any) => (r['next'] ? this.load(r['next']) : EMPTY))
     );
   }
 }

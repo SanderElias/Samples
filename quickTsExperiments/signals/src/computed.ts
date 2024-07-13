@@ -6,17 +6,27 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {defaultEquals, markSignal, Signal, ValueEqualityFn} from './api.js';
-import {Consumer, ConsumerId, consumerPollValueStatus, Edge, nextReactiveId, Producer, producerAccessed, ProducerId, producerNotifyConsumers, setActiveConsumer} from './internal.js';
-import {WeakRef} from './weak_ref.js';
+import { defaultEquals, markSignal, Signal, ValueEqualityFn } from './api.js';
+import {
+  Consumer,
+  ConsumerId,
+  consumerPollValueStatus,
+  Edge,
+  nextReactiveId,
+  Producer,
+  producerAccessed,
+  ProducerId,
+  producerNotifyConsumers,
+  setActiveConsumer,
+} from './internal.js';
+import { WeakRef } from './weak_ref.js';
 
 /**
  * Create a computed `Signal` which derives a reactive value from an expression.
  *
  * @developerPreview
  */
-export function computed<T>(
-    computation: () => T, equal: ValueEqualityFn<T> = defaultEquals): Signal<T> {
+export function computed<T>(computation: () => T, equal: ValueEqualityFn<T> = defaultEquals): Signal<T> {
   const node = new ComputedImpl(computation, equal);
   return markSignal(node.signal.bind(node));
 }
@@ -73,7 +83,10 @@ class ComputedImpl<T> implements Producer, Consumer {
    */
   stale = true;
 
-  constructor(private computation: () => T, private equal: (oldValue: T, newValue: T) => boolean) {}
+  constructor(
+    private computation: () => T,
+    private equal: (oldValue: T, newValue: T) => boolean
+  ) {}
 
   checkForChangedValue(): void {
     if (!this.stale) {
@@ -120,8 +133,7 @@ class ComputedImpl<T> implements Producer, Consumer {
 
     this.stale = false;
 
-    if (oldValue !== UNSET && oldValue !== ERRORED && newValue !== ERRORED &&
-        this.equal(oldValue, newValue)) {
+    if (oldValue !== UNSET && oldValue !== ERRORED && newValue !== ERRORED && this.equal(oldValue, newValue)) {
       // No change to `valueVersion` - old and new values are
       // semantically equivalent.
       this.value = oldValue;

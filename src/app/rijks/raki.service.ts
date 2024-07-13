@@ -12,14 +12,11 @@ import { ArtObject, CollectionObject, RakiObject } from './rakiCollection';
  */
 const key = '4a3Fxmua';
 
-const serialize = o =>
-  Object.keys(o).reduce((search, k) => (search += `${k}=${encodeURIComponent(o[k])}&`), '');
+const serialize = o => Object.keys(o).reduce((search, k) => (search += `${k}=${encodeURIComponent(o[k])}&`), '');
 
-const collection = searchObj =>
-  `https://www.rijksmuseum.nl/api/en/collection/?${serialize(searchObj)}key=${key}&format=json`;
+const collection = searchObj => `https://www.rijksmuseum.nl/api/en/collection/?${serialize(searchObj)}key=${key}&format=json`;
 
-const detail = detailNumber =>
-  `https://www.rijksmuseum.nl/api/en/collection/${detailNumber}?key=${key}&format=json`;
+const detail = detailNumber => `https://www.rijksmuseum.nl/api/en/collection/${detailNumber}?key=${key}&format=json`;
 
 /**
  * If you want to use this get your own key at:
@@ -36,11 +33,7 @@ export class RakiService {
   private detailNumber = new Subject<string | undefined>();
 
   detail$: Observable<RakiObject.ArtDetailObject[]> = this.detailNumber.pipe(
-    switchMap(number =>
-      number
-        ? this.http.get<RakiObject.RootObject>(detail(number)).pipe(map(r => [r.artObject]))
-        : of([])
-    )
+    switchMap(number => (number ? this.http.get<RakiObject.RootObject>(detail(number)).pipe(map(r => [r.artObject])) : of([])))
   );
 
   private selection = {
@@ -70,9 +63,8 @@ export class RakiService {
         catchError(() => timer(500).pipe(switchMap(() => this.getArtObject$)))
       )
     ),
-    switchMap((artObject: ArtObject) =>
-      artObject.webImage && artObject.webImage.url ? of(artObject) : this.getArtObject$
-    )
+    switchMap((artObject: ArtObject) => (artObject.webImage && artObject.webImage.url ? of(artObject) : this.getArtObject$)),
+    catchError(_e => of([]))
   );
 
   constructor(private http: HttpClient) {}
@@ -85,14 +77,13 @@ export class RakiService {
     console.log(q, serialize({ q }));
     return this.http.get<CollectionObject>(collection({ q })).pipe(
       map(r => r.artObjects),
-      map((artObjects: ArtObject[]) =>
-        artObjects.reduce((acc, e) => (e.hasImage ? acc.concat(e) : acc), [])
-      ),
+      map((artObjects: ArtObject[]) => artObjects.reduce((acc, e) => (e.hasImage ? acc.concat(e) : acc), [] as ArtObject[])),
       tap(r => console.log(r))
     );
   }
 
   private preload(url): Promise<string> {
+    if (typeof document === 'undefined') return;
     return new Promise((resolve, reject) => {
       const resolveWithUrl = () => resolve(`url(${url})`);
       const img = document.createElement('img');

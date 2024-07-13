@@ -26,7 +26,7 @@ export const createNode = (value: number | string, parentId?: BinNodeId, left?: 
     value,
     left,
     right,
-  }
+  };
   nodes.set(newNode.id, newNode);
   return newNode;
 };
@@ -34,7 +34,9 @@ export const createNode = (value: number | string, parentId?: BinNodeId, left?: 
 export const getNode = (id: BinNodeId): BinNode => nodes.get(id);
 export const set = (node: BinNode): Map<BinNodeId, BinNode> => nodes.set(node.id, node);
 export const getRoot = () => [...nodes.values()].find(n => n.parentId === undefined);
-export const reset = () => { nodes.clear() };
+export const reset = () => {
+  nodes.clear();
+};
 
 export function addNode(node: BinNode, parent = getRoot()) {
   if (parent === undefined) {
@@ -54,7 +56,9 @@ export function addNode(node: BinNode, parent = getRoot()) {
       parent.right = node.id;
       node.parentId = parent.id;
       return node;
-    } else { return addNode(node, getNode(parent.right)); }
+    } else {
+      return addNode(node, getNode(parent.right));
+    }
   }
   if (node.value === parent.value) {
     console.warn('thrown away duplicate value');
@@ -64,17 +68,20 @@ export function addNode(node: BinNode, parent = getRoot()) {
 }
 
 export function dump() {
-  console.table([...nodes.values()]
-    .sort((a, b) => a.value < b.value ? -1 : 1)
-    .map(n => ({ ...n, leftVal: getNode(n.left)?.value, cur: n.value, rightVal: getNode(n.right)?.value }))
-  )
+  console.table(
+    [...nodes.values()]
+      .sort((a, b) => (a.value < b.value ? -1 : 1))
+      .map(n => ({ ...n, leftVal: getNode(n.left)?.value, cur: n.value, rightVal: getNode(n.right)?.value }))
+  );
 }
 
 export function rotateLeft(node = getRoot()) {
   const grandParent = getNode(node.parentId);
   const replaceNode = getNode(node.right);
   /** when there is no right child, we are done */
-  if (replaceNode === undefined) { return node; }
+  if (replaceNode === undefined) {
+    return node;
+  }
   replaceNode.parentId = grandParent?.id;
   if (grandParent !== undefined) {
     if (grandParent.left === node.id) {
@@ -90,20 +97,22 @@ export function rotateLeft(node = getRoot()) {
     node.right = left.id;
     left.parentId = node.id;
   } else {
-    node.right = undefined
+    node.right = undefined;
   }
   // console.table([grandParent,newParent,node,left])
 
-  return replaceNode
+  return replaceNode;
 }
 
-export const getSorted = () => [...nodes.values()].sort((a, b) => a.value < b.value ? -1 : 1);
+export const getSorted = () => [...nodes.values()].sort((a, b) => (a.value < b.value ? -1 : 1));
 
 export function rotateRight(node = getRoot()) {
   const grandParent = getNode(node.parentId);
   const replaceNode = getNode(node.left);
   /** when there is no left child, we are done */
-  if (replaceNode === undefined) { return node; }
+  if (replaceNode === undefined) {
+    return node;
+  }
   replaceNode.parentId = grandParent?.id;
   if (grandParent !== undefined) {
     if (grandParent.left === node.id) {
@@ -119,23 +128,27 @@ export function rotateRight(node = getRoot()) {
     node.left = right.id;
     right.parentId = node.id;
   } else {
-    node.left = undefined
+    node.left = undefined;
   }
   // console.table([grandParent,newParent,node,right])
-  return replaceNode
+  return replaceNode;
 }
 
 export function height(node: BinNode) {
   // return undefined;
-  if (node === undefined) { return 0; }
+  if (node === undefined) {
+    return 0;
+  }
 
-  const childHeight =  Math.max(height(getNode(node.left)), height(getNode(node.right)));
-  node.height = childHeight + 1 ;
+  const childHeight = Math.max(height(getNode(node.left)), height(getNode(node.right)));
+  node.height = childHeight + 1;
   return node.height;
 }
 
 export function balance(node: BinNode) {
-  if (node === undefined) { return 0; }
+  if (node === undefined) {
+    return 0;
+  }
   const getChildHeight = (childId: BinNodeId) => getNode(childId)?.height || 0;
   node.balance = getChildHeight(node.left) - getChildHeight(node.right);
   return node.balance;
@@ -143,17 +156,21 @@ export function balance(node: BinNode) {
 
 export function reBalance() {
   let maxIterations = 100;
-  balanceNode()
+  balanceNode();
   while (true) {
-    const n = [...nodes.values()].find(n => Math.abs(balance(n)) > 1)
-    console.log(nodes.size,n?.value, balance(n));
-    if (n === undefined || !--maxIterations) { break; }
+    const n = [...nodes.values()].find(n => Math.abs(balance(n)) > 1);
+    console.log(nodes.size, n?.value, balance(n));
+    if (n === undefined || !--maxIterations) {
+      break;
+    }
     balanceNode(n);
   }
 }
 
 export function balanceNode(node = getRoot()) {
-  if (node === undefined) { return; }
+  if (node === undefined) {
+    return;
+  }
   const nodeBalance = balance(node);
   if (nodeBalance < -1) {
     const right = getNode(node.right);
@@ -173,11 +190,12 @@ export function balanceNode(node = getRoot()) {
     height(getRoot());
     return balanceNode(r);
   }
-  const balanceIfNeeded = (n) => {
+  const balanceIfNeeded = n => {
     const b = balance(n);
-    if (Math.abs(n?.balance) > 1) { balanceNode(n); }
-  }
+    if (Math.abs(n?.balance) > 1) {
+      balanceNode(n);
+    }
+  };
   balanceIfNeeded(getNode(node.left));
   balanceIfNeeded(getNode(node.right));
 }
-

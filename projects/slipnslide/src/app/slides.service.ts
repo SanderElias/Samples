@@ -35,7 +35,7 @@ export class SlidesService {
         return keyA < keyB ? -1 : 1;
       })
     ),
-    shareReplay({bufferSize:1,refCount:false})
+    shareReplay({ bufferSize: 1, refCount: false })
   );
 
   slideSub = this.http
@@ -44,23 +44,21 @@ export class SlidesService {
       concatMap(files =>
         forkJoin(
           files.map(filename =>
-            this.http
-              .get(`http://localhost:8201/slides/${filename}`, { responseType: 'text' })
-              .pipe(
-                catchError(e => {
-                  console.log(e);
-                  return EMPTY;
-                }),
-                map(rawContent => {
-                  const { attributes, body } = fm(rawContent);
-                  return {
-                    filename,
-                    yaml: attributes as SlideHeader,
-                    markdown: body,
-                    position: attributes['position'] || 999,
-                  };
-                })
-              )
+            this.http.get(`http://localhost:8201/slides/${filename}`, { responseType: 'text' }).pipe(
+              catchError(e => {
+                console.log(e);
+                return EMPTY;
+              }),
+              map(rawContent => {
+                const { attributes, body } = fm(rawContent);
+                return {
+                  filename,
+                  yaml: attributes as SlideHeader,
+                  markdown: body,
+                  position: attributes['position'] || 999,
+                };
+              })
+            )
           )
         )
       ),

@@ -8,13 +8,16 @@ const host = 'localhost';
 const options = {
   port,
   host: 'localhost',
-
 };
 
-const handlers = new Map(Object.entries({
-  '': (req, res) => { res.end('Hello root') },
-  'imgSearch': imgSearch,
-}))
+const handlers = new Map(
+  Object.entries({
+    '': (req, res) => {
+      res.end('Hello root');
+    },
+    imgSearch: imgSearch,
+  })
+);
 
 const requestListener = function (req, res) {
   const url = new URL(req.url, `http://${host}:${port}`);
@@ -23,7 +26,7 @@ const requestListener = function (req, res) {
     return handlers.get(apiName)(req, res, options);
   }
   res.writeHead(404);
-  res.end("not found");
+  res.end('not found');
 };
 
 const server = http.createServer(requestListener);

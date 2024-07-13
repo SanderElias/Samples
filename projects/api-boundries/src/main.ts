@@ -11,8 +11,5 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(routes)
-  ]
-})
-  .catch(err => console.error(err));
+  providers: [provideRouter(routes)],
+}).catch(err => console.error(err));

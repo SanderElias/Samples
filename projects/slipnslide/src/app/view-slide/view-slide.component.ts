@@ -9,11 +9,11 @@ import { SlidesService } from '../slides.service';
 import { ScullyContentModule } from '@scullyio/ng-lib';
 
 @Component({
-    selector: 'view-slide',
-    template: ` <scully-content></scully-content> `,
-    styleUrls: ['./vied-slide.component.css'],
-    standalone: true,
-    imports: [ScullyContentModule]
+  selector: 'view-slide',
+  template: ` <scully-content></scully-content> `,
+  styleUrls: ['./vied-slide.component.css'],
+  standalone: true,
+  imports: [ScullyContentModule],
 })
 export class ViewSlideComponent implements OnInit, OnDestroy {
   init$ = new Subject<void>();
@@ -21,19 +21,12 @@ export class ViewSlideComponent implements OnInit, OnDestroy {
   subscriber = this.init$
     .pipe(
       filter(() => !!this.elm),
-      switchMap(() =>
-        combineLatest([this.sls.slides$, fromEvent<KeyboardEvent>(document, 'keyup')])
-      ),
+      switchMap(() => combineLatest([this.sls.slides$, fromEvent<KeyboardEvent>(document, 'keyup')])),
       filter(([_, { key }]) => key === 'ArrowRight' || key === 'ArrowLeft'),
       throttleTime(100),
       tap(([slides, { key }]) => {
-        const currentIndex = slides.findIndex(
-          ({ filename }) => filename.replace('.md', '') === this.router.url.slice(1)
-        );
-        const nextSlide =
-          key === 'ArrowLeft'
-            ? Math.max(0, currentIndex - 1)
-            : Math.min(slides.length - 1, currentIndex + 1);
+        const currentIndex = slides.findIndex(({ filename }) => filename.replace('.md', '') === this.router.url.slice(1));
+        const nextSlide = key === 'ArrowLeft' ? Math.max(0, currentIndex - 1) : Math.min(slides.length - 1, currentIndex + 1);
         this.router.navigate(['/' + slides[nextSlide].filename.replace('.md', '')]);
       })
     )

@@ -98,7 +98,6 @@ export const seAfterViewInit = <T extends Constructor>(base: T = class {} as T) 
         this[_avi].next();
         this[_avi].complete();
       });
-      // tslint:disable-next-line:no-unused-expression
       super['ngAfterViewInit'] && super['ngAfterViewInit']();
     }
   };
@@ -147,6 +146,7 @@ export const seOnInit = <T extends Constructor>(base: T = class {} as T) =>
         this[_oi].next();
         this[_oi].complete();
       });
+
       super['ngOnInit'] && super['ngOnInit']();
     }
   };

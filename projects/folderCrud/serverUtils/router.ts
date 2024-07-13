@@ -22,7 +22,10 @@ type RouteHandler = (req: Request, res: ServerResponse, params?: Params) => void
 class Handler {
   types = ['GET'];
   match: Function | undefined;
-  constructor(private handle: RouteHandler, private url?: string) {
+  constructor(
+    private handle: RouteHandler,
+    private url?: string
+  ) {
     if (url) {
       this.match = match(url);
     }
@@ -122,9 +125,7 @@ export class Router {
   }
 }
 
-function matchRoute(
-  req: IncomingMessage
-): (value: string, index: number, obj: string[]) => boolean {
+function matchRoute(req: IncomingMessage): (value: string, index: number, obj: string[]) => boolean {
   return route => {
     try {
       const path = req.url || '';

@@ -3,7 +3,6 @@ order: 100
 title: Four Slide Four
 ---
 
-
 # Slide 4?
 
 O **yeah**

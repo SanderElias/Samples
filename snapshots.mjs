@@ -12,9 +12,7 @@ const routesFile = join(folder, 'src/assets/routes.json');
 
 const baseUrl = 'http://localhost:4200';
 const outputFile = join(folder, 'src/assets/snapshots/');
-const foreground = await sharp(join(folder, './assets/overlay.png'))
-  .resize({ height: 650 })
-  .toBuffer({ resolveWithObject: true });
+const foreground = await sharp(join(folder, './assets/overlay.png')).resize({ height: 650 }).toBuffer({ resolveWithObject: true });
 
 const twitterHandle =
   new Buffer.from(`<svg width="250" height="50" xmlns="http://www.w3.org/2000/svg" version="1.1" enable-background="new 0 0 600 220" xml:space="preserve">
@@ -30,8 +28,7 @@ export async function createSnapshotFor(route) {
   await page.goto(`${baseUrl}${route.path}`);
   /** give the page a moment to settle */
   await new Promise(r => setTimeout(r, 750));
-  const title =
-    (await page.locator('h1').allTextContents())[0] || 'Sanders demo page';
+  const title = (await page.locator('h1').allTextContents())[0] || 'Sanders demo page';
   route.title = route.title || title;
   /** drop the starting '/' and replace the rest with '-' */
   const name = route.path.substr(1).replace(/\//g, '-');

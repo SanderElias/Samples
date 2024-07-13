@@ -1,8 +1,9 @@
-<ul *ngIf="goodToGo$|async as goodToGo else loading">
-  <li *ngFor="let item of goodToGo">{{item.propName}} - {{item.value}}</li>
-</ul>
-
-
-<ng-template #loading>
+@if (goodToGo$ | async; as goodToGo) {
+  <ul>
+    @for (item of goodToGo; track item) {
+      <li>{{ item.propName }} - {{ item.value }}</li>
+    }
+  </ul>
+} @else {
   <h2>Loading ...</h2>
-</ng-template>
+}

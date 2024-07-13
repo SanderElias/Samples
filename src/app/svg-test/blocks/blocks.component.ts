@@ -1,22 +1,23 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { NgForOf } from '@angular/common';
+import { set } from 'idb-keyval';
 
 @Component({
-    selector: 'app-blocks',
-    templateUrl: './blocks.component.svg',
-    styles: [
-        `
+  selector: 'app-blocks',
+  templateUrl: './blocks.component.svg',
+  styles: [
+    `
       :host {
         display: block;
       }
     `,
-    ],
-    encapsulation: ViewEncapsulation.ShadowDom,
-    standalone: true,
-    imports: [NgForOf]
+  ],
+  encapsulation: ViewEncapsulation.ShadowDom,
+  standalone: true,
 })
 export class BlocksComponent {
-  colCount = Math.floor(1000 / 6);
+  blockSize = 3;
+  colCount = Math.floor(1000 / this.blockSize);
   /** generate the blocks.. create the ammount that will fit */
   blocks = Array.from({ length: this.colCount * this.colCount }, (_, i) => ({
     fillColor: this.randomColor(),
@@ -25,7 +26,7 @@ export class BlocksComponent {
     id: i,
   }));
   /** input so e can do something */
-  @Input() set recolor(x) {
+  @Input() set recolor(x: any) {
     if (x) {
       this._recolor();
     }
@@ -33,32 +34,40 @@ export class BlocksComponent {
   /** fire an event when an rectangle is clicked. */
   @Output() rectClicked = new EventEmitter<number>();
 
+  /** export the number of cells */
+  @Output() cellCount = new EventEmitter<number>();
+  constructor() {
+    setTimeout(() => {
+      this.cellCount.emit(this.blocks.length - 1);
+    });
+  }
+
   /** lick handler */
   sendRectNumber(ev: MouseEvent) {
     ev.preventDefault();
     ev.stopPropagation();
     const rect = ev.target as SVGRectElement;
     /** only handle clicks on rectangles, those will have an ID */
-    if (!isNaN(+rect.dataset.id)) {
-      this.rectClicked.emit(+rect.dataset.id);
+    if (!isNaN(Number(rect.dataset.id))) {
+      this.rectClicked.emit(Number(rect.dataset.id));
     }
   }
 
   /** calculate column number */
-  calcX(i) {
+  calcX(i: number) {
     const rowsDone = Math.floor(i / this.colCount) * this.colCount;
-    return (i - rowsDone) * 6;
+    return (i - rowsDone) * this.blockSize;
   }
 
   /** calculate row number */
-  calcY(i) {
-    return Math.floor(i / this.colCount) * 6;
+  calcY(i: number) {
+    return Math.floor(i / this.colCount) * this.blockSize;
   }
 
   /** give all the blocks a new color */
   _recolor() {
     this.blocks.forEach(block => (block.fillColor = this.randomColor()));
-    console.log(`Changed the color of ${this.blocks.length} blocks`);
+    console.log(`Changed the color of ${this.blocks.length - 1} blocks`);
   }
 
   /** helper to generate a random color */

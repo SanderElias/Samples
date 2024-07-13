@@ -5,24 +5,27 @@ import { RelationId } from './orders.service';
 import { RelationsService } from './relations.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
   rel = inject(RelationsService);
   productList$ = new BehaviorSubject<Product[]>([]);
+  fakerModule = import('@faker-js/faker')
+
+
 
   getProduct(id: string) {
-    return from(import('@faker-js/faker')).pipe(
-      map(({faker}) => {
+    return from(this.fakerModule).pipe(
+      map(({ faker }) => {
         const product = this.productList$.value.find(o => o.id === id);
         if (!product) {
-          const newProduct:Product = {
+          const newProduct: Product = {
             id,
             name: faker.commerce.productName(),
             department: faker.commerce.department(),
             description: faker.commerce.productDescription(),
             image: faker.image.imageUrl(),
-            creator: this.rel.getExistingRandomId()
+            creator: this.rel.getExistingRandomId(),
           };
           this.productList$.next([...this.productList$.value, newProduct]);
         }
@@ -31,7 +34,7 @@ export class ProductsService {
       map(orders => orders.find(o => o.id === id)),
       filter((o): o is Product => o !== undefined),
       take(1)
-    )
+    );
   }
 }
 
