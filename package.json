@@ -19,8 +19,6 @@
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
-    "scully": "scully",
-    "scully:serve": "scully serve --404=index",
     "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
     "serveHtml": "npx light-server -s ./ -w '*' --port 8080 ",
     "start": "ng serve --port 4301 --open",
@@ -28,7 +26,7 @@
   },
   "wireit": {
     "build.deploy": {
-      "command": "node node_modules/@scullyio/scully/bin/scully.mjs --project samples",
+      "command": "echo 'Deploying to production'",
       "dependencies": [
         "build.samples"
       ]
@@ -36,7 +34,7 @@
     "build.samples": {
       "command": "ng build --configuration production",
       "files": [
-        "src/*",
+        "src/**",
         "tsconfig.app.json"
       ],
       "output": [

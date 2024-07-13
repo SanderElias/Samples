@@ -20,6 +20,7 @@ const EventStream = Symbol('ObsFromEvent');
 export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K): any {
   return (target: any, propertyKey: string | symbol): PropertyDescriptor => {
     if (globalThis.isServer) {
+      // console.log('ObsFromEvent is not supported on the server!')
       return {
         get() {
           /** return an debounce observable when read. */
