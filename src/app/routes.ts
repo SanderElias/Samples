@@ -34,6 +34,7 @@ export const routes: Routes = [
   {
     path: 'viewModel',
     loadChildren: () => import('./view-model/view-model.routes').then(m => m.routes),
+    canActivate: [() => !globalThis.isServer],
   },
   {
     path: 'complexAPI',
