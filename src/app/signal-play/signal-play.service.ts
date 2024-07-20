@@ -1,6 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { observableComputed } from 'src/utils/signal-helpers';
+
 import { DemoUserService } from '../demo-users.service';
+import { observableComputed } from 'src/utils/signals/observable-computed';
 
 @Injectable({
   providedIn: 'root',

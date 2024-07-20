@@ -41,7 +41,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     value: initialValue,
     error: undefined,
   } as { value?: T | Y | undefined; error?: any });
-  destroyRef.onDestroy(() => ref.destroy());
+  destroyRef?.onDestroy(() => ref.destroy());
   const ref = effect(
     async () => {
       try {
@@ -54,7 +54,6 @@ export const asyncComputed: AsyncComputed = <T, Y>(
           state.set({ value, error: undefined });
         }
       } catch (e) {
-        // todo: Handle this better somehow.
         state.set({ value: undefined, error: e });
         ref.destroy();
       } finally {

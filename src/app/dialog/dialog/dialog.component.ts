@@ -6,7 +6,7 @@ import {
   WritableSignal,
   inject
 } from '@angular/core';
-import { afterNextRenderEffect } from '../../../utils/signal-helpers';
+import { afterNextRenderEffect } from '../../../utils/signals/signal-helpers';
 
 @Component({
   selector: 'se-dialog',

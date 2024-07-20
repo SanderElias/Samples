@@ -2,7 +2,12 @@ import { CreateComputedOptions, DestroyRef, inject, isSignal, Signal, signal, Wr
 import { toObservable, ToObservableOptions } from '@angular/core/rxjs-interop';
 import { from, isObservable, Observable, of, switchMap } from 'rxjs';
 
-import { DataResult } from './data-result.model';
+// export interface DataResult<T> { loading: boolean; data?: T; error?: any; }
+
+export interface DataResultInitial { loading: true  }
+export interface DataResultSucces<T> { loading: false; data:T  }
+export interface DataResultError { loading: false; error: any }
+export type DataResult<T> = DataResultInitial | DataResultSucces<T> | DataResultError;
 
 export type AsyncInput<I> = Signal<I> | WritableSignal<I> | Observable<I> | Promise<I> | I;
 /**

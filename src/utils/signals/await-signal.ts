@@ -1,7 +1,6 @@
 import { effect, type Signal } from '@angular/core';
 
 import { Deferred } from './deferred';
-import { ca } from 'dist/samples/browser/chunk-XM75YRED';
 
 export type Predicate<T> = (x: Partial<T>) => boolean;
 
