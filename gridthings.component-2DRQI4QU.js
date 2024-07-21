@@ -1,0 +1,32 @@
+import"./chunk-IN7EUNJS.js";import{Hb as y,Ib as x,Ob as a,Pb as u,Wa as l,Xb as p,ha as s,nb as d,ob as h,tb as m,ub as g,vb as f,wb as o,xb as r}from"./chunk-BFR4IEYA.js";import"./chunk-KAT7YFEL.js";var b=["*"],C=(()=>{class e{constructor(){}ngOnInit(){}static{this.\u0275fac=function(t){return new(t||e)}}static{this.\u0275cmp=s({type:e,selectors:[["app-cell"]],hostVars:4,hostBindings:function(t,i){t&2&&h("grid-column-start",i.x)("grid-row-start",i.y)},inputs:{x:"x",y:"y"},standalone:!0,features:[p],ngContentSelectors:b,decls:1,vars:0,template:function(t,i){t&1&&(y(),x(0))},styles:["[_nghost-%COMP%]{display:grid;box-sizing:border-box;width:100%;height:100%;border-radius:15px;align-items:center;justify-items:center;background-color:#00cc0020;overflow:none}"]})}}return e})();function w(e,c){if(e&1&&(o(0,"app-cell",4)(1,"h1"),a(2),r()()),e&2){let n=c.$implicit;d("x",n),l(2),u(n)}}function _(e,c){if(e&1&&(o(0,"app-cell",5)(1,"h1"),a(2),r()()),e&2){let n=c.$implicit;d("y",n),l(2),u(n)}}var I=(()=>{class e{constructor(){this.labels=Array.from({length:10},(n,t)=>t+1)}ngOnInit(){}static{this.\u0275fac=function(t){return new(t||e)}}static{this.\u0275cmp=s({type:e,selectors:[["app-gridthings"]],standalone:!0,features:[p],decls:12,vars:0,consts:[["x","3","y","5"],["x","4","y","6"],["x","8","y","9"],["x","9","y","10"],["y","1",3,"x"],["x","1",3,"y"]],template:function(t,i){t&1&&(o(0,"app-cell",0),a(1," Hello,"),r(),o(2,"app-cell",1),a(3," Dark"),r(),o(4,"app-cell",2),a(5," I'm"),r(),o(6,"app-cell",3),a(7," here"),r(),g(8,w,3,2,"app-cell",4,m),g(10,_,3,2,"app-cell",5,m)),t&2&&(l(8),f(i.labels),l(2),f(i.labels.slice(1,i.labels.length)))},dependencies:[C],styles:[`[_ngcontent-%COMP%]:root {
+    --cols: 10;
+    --rows: 10;
+  }
+
+  [_nghost-%COMP%] {
+    --cols: 10;
+    position: relative;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+    grid-template-columns: repeat(var(--cols), calc(100% / var(--cols)));
+    grid-template-rows: repeat(var(--rows), calc(100% / var(--rows)));
+
+    background: linear-gradient(90deg, transparent calc(100% - 1px), white 1px);
+    background-size: calc(100% / var(--cols));
+  }
+
+  [_nghost-%COMP%]::after {
+    --rows: 10;
+    content: ' ';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    background-image: linear-gradient(transparent 50%, #ffffff30 50%);
+    background-size: 100% calc(100% / (var(--rows) / 2));
+  }`]})}}return e})();export{I as GridthingsComponent};

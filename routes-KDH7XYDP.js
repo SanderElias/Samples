@@ -1,1 +1,0 @@
-import"./chunk-KAT7YFEL.js";var t=[{path:"template",loadComponent:()=>import("./template.component-OL47O5ZK.js")},{path:"reactive",loadComponent:()=>import("./reactive.component-4XKPFR6T.js")},{path:"",loadComponent:()=>import("./both.component-MEC5EMAL.js")},{path:"**",redirectTo:"both"}],o=t;export{o as default};
