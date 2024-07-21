@@ -2,12 +2,21 @@ import { CreateComputedOptions, DestroyRef, inject, isSignal, Signal, signal, Wr
 import { toObservable, ToObservableOptions } from '@angular/core/rxjs-interop';
 import { from, isObservable, Observable, of, switchMap } from 'rxjs';
 
-// export interface DataResult<T> { loading: boolean; data?: T; error?: any; }
-
-export interface DataResultInitial { loading: true  }
-export interface DataResultSucces<T> { loading: false; data:T  }
-export interface DataResultError { loading: false; error: any }
-export type DataResult<T> = DataResultInitial | DataResultSucces<T> | DataResultError;
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
+export interface DataResultInitial {
+  loading: true;
+}
+export interface DataResultSucces<T> {
+  loading: false;
+  data: T;
+}
+export interface DataResultError {
+  loading: false;
+  error: any;
+}
+export type DataResult<T> = Prettify< DataResultInitial | DataResultSucces<T> | DataResultError>;
 
 export type AsyncInput<I> = Signal<I> | WritableSignal<I> | Observable<I> | Promise<I> | I;
 /**
@@ -23,7 +32,7 @@ export type AsyncInput<I> = Signal<I> | WritableSignal<I> | Observable<I> | Prom
 export function asyncToSignal<I, T>(
   input: AsyncInput<I>,
   loader: (start: I) => Observable<DataResult<T>> | Promise<DataResult<T>>,
-  options: AsyncToSignalOptions<T> = {},
+  options: AsyncToSignalOptions<T> = {}
 ): Signal<DataResult<T>> {
   try {
     inject(DestroyRef).onDestroy(() => {
@@ -34,8 +43,8 @@ export function asyncToSignal<I, T>(
     const outputSignal = options.signalToUse ?? signal(startData);
     const start = convertToObservable(input);
     const unSub = start.pipe(switchMap(loader)).subscribe({
-      next: (data) => outputSignal.set(data),
-      error: (error) => outputSignal.set({ loading: false, error }),
+      next: data => outputSignal.set(data),
+      error: error => outputSignal.set({ loading: false, error }),
       complete: () => undefined, // todo: decide if we want to handle completion
     });
 

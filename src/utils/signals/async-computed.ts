@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
 import { firstValueFrom, isObservable, Observable } from 'rxjs';
+import { isPromise } from 'util/types';
 
-type AsyncComputedFn<T> = () => Promise<T> | Observable<T>;
+type AsyncComputedFn<T> = () => Promise<T> | Observable<T> | T;
 interface AsyncComputed {
   /**
    * @description Helper to get the result of a promise, or the first emission form a observable into an signal.
@@ -41,23 +42,25 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     value: initialValue,
     error: undefined,
   } as { value?: T | Y | undefined; error?: any });
-  destroyRef?.onDestroy(() => ref.destroy());
+  if (!destroyRef) {
+    throw new Error('destroyRef is mandatory when used outside a injection context');
+  }
+  destroyRef.onDestroy(() => ref.destroy());
   const ref = effect(
     async () => {
+      let value: T | Y | undefined;
       try {
         const outcome = cb();
         if (isObservable(outcome)) {
-          const value = await firstValueFrom(outcome);
-          state.set({ value, error: undefined });
+          value = await firstValueFrom(outcome);
+        } else if (isPromise(outcome)) {
+          value = await outcome;
         } else {
-          const value = await outcome;
-          state.set({ value, error: undefined });
+          value = outcome;
         }
+        state.set({ value, error: undefined });
       } catch (e) {
         state.set({ value: undefined, error: e });
-        ref.destroy();
-      } finally {
-        ref.destroy();
       }
     },
     { manualCleanup: true }
@@ -66,7 +69,9 @@ export const asyncComputed: AsyncComputed = <T, Y>(
   return computed(() => {
     const currentState = state();
     if (currentState.error) {
+      // rethrow error to be handled by the user
       throw currentState.error;
+      // note to self: do not wrap this in a new error, as it will hide the original stack trace
     }
     return currentState.value;
   });

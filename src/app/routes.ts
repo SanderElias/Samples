@@ -188,6 +188,10 @@ export const routes: Routes = [
     loadComponent: () => import('./signal-play/signal-play.component'),
   },
   {
+    path: 'signalError',
+    loadComponent: () => import('./signal-error/signal-error.component'),
+  },
+  {
     path: 'signalPlay/:id',
     loadComponent: () => import('./signal-play/signal-play.component'),
   },

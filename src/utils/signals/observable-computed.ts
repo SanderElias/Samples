@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
 import { firstValueFrom, isObservable, Observable, type Subscription } from 'rxjs';
+import { isPromise } from './is-promise';
 
-type ObservableComputedFn<T> = () => Observable<T>;
+type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | T;
 interface AsyncComputed {
   /**
    * @description Helper to get the result of a promise, or the first emission form a observable into an signal.
@@ -33,15 +34,21 @@ interface AsyncComputed {
 }
 
 export const observableComputed: AsyncComputed = <T, Y>(
-  cb: () => Observable<T>,
+  cb: ObservableComputedFn<T>,
   initialValue?: Y,
   destroyRef = inject(DestroyRef)
 ): Signal<T | Y | undefined> => {
   const state = signal({
     value: initialValue,
     error: undefined,
+    // not adding the completed state. a Signals has no way to communicate this
+    // to its consumers without custom wrapping. That is a different concern that
+    // is outside the scope of this helper
   } as { value?: T | Y | undefined; error?: any });
-  destroyRef?.onDestroy(() => {
+  if (!destroyRef) {
+    throw new Error('destroyRef is mandatory when used outside a injection context');
+  }
+  destroyRef.onDestroy(() => {
     obs?.unsubscribe();
     ref.destroy();
   });
@@ -49,19 +56,23 @@ export const observableComputed: AsyncComputed = <T, Y>(
   const ref = effect(
     async () => {
       try {
-        obs?.unsubscribe();
+        obs?.unsubscribe(); // cleanup previous subscription (on new signal emission)
         const outcome = cb();
-        if (!isObservable(outcome)) {
-          throw new Error('Expected an observable');
+        if (isObservable(outcome)) {
+          obs = outcome.subscribe({
+            next: value => state.set({ value, error: undefined }),
+            error: error => {
+              state.set({ value: undefined, error });
+            },
+          });
+        } else if (isPromise(outcome)) {
+          const value = await outcome;
+          state.set({ value, error: undefined });
+        } else {
+          state.set({ value: outcome, error: undefined });
         }
-        obs = outcome.subscribe({
-          next: value => state.set({ value, error: undefined }),
-          error: error => {
-            state.set({ value: undefined, error });
-          },
-          complete: () => ref.destroy()
-        });
       } catch (e) {
+        // this is needed because there might be an error in the CD that is not inside the observable stream
         state.set({ value: undefined, error: e });
       }
     },
@@ -76,3 +87,5 @@ export const observableComputed: AsyncComputed = <T, Y>(
     return currentState.value;
   });
 };
+
+
