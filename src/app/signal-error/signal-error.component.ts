@@ -1,4 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
+import { map, timer } from 'rxjs';
 import { asyncComputed } from 'src/utils/signals/async-computed';
 
 @Component({
@@ -17,7 +18,16 @@ import { asyncComputed } from 'src/utils/signals/async-computed';
   styleUrl: './signal-error.component.css',
 })
 export default class SignalErrorComponent {
-  $count = signal(10);
+  $count = signal(11);
+
+  faultyTimer$ = timer(0, 500).pipe(
+    map(i => {
+      if (i === 10) {
+        throw new Error('You left me hanging...');
+      }
+      return i;
+    })
+  );
 
   even = async n => {
     await new Promise(r => setTimeout(r, 250));
@@ -28,12 +38,19 @@ export default class SignalErrorComponent {
     }
   };
 
-  $result = asyncComputed(async () => {
+  stupidFn = asyncComputed(() => {
     const c = this.$count();
+    if (c % 3 === 0) {
+      return this.faultyTimer$;  // return an observable that will throw an error in time
+    }
+    return this.even(c); // return a promise that will throw an error if the number is not even
+  });
+
+  $result = computed(() => {
     try {
-      return await this.even(c);
+      return this.stupidFn();
     } catch (error: any) {
-      console.error(error);
+      // console.error(error);
       return `Error: ${error.message}`;
     }
   });

@@ -1,7 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
 
 import { DemoUserService } from '../demo-users.service';
-import { observableComputed } from 'src/utils/signals/observable-computed';
+import { asyncComputed } from 'src/utils/signals/async-computed';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { observableComputed } from 'src/utils/signals/observable-computed';
 export class SignalPlayService {
   users = inject(DemoUserService);
 
-  $users = observableComputed(() => this.users.allUsers$);
+  $users = asyncComputed(() => this.users.allUsers$);
 
   getUser = (n: string) => {
     const users = this.$users();
