@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren, inject } from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
 import {
@@ -37,6 +37,9 @@ interface Vm {
   imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeVmComponent {
+  private raki = inject(RakiService);
+  private q = inject(QuoteService);
+
   private viewModal!: Vm;
   @ObsFromEvent('click')
   @ViewChildren('ba', { read: ElementRef })
@@ -125,10 +128,7 @@ export class VmHomeVmComponent {
     catchError(() => NEVER)
   );
 
-  constructor(
-    private raki: RakiService,
-    private q: QuoteService
-  ) {
+  constructor() {
     if (typeof document === 'undefined') {
       return;
     }

@@ -1,5 +1,5 @@
 // tslint:disable: no-unused-expression
-import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef, ChangeDetectorRef, inject } from '@angular/core';
 import { isObservable, Subscriber, Subscription, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -9,6 +9,10 @@ import { tap } from 'rxjs/operators';
   standalone: true,
 })
 export class SeLetDirective<T> implements OnInit, OnDestroy {
+  private templateRef = inject<TemplateRef<any>>(TemplateRef<any>);
+  private viewContainer = inject(ViewContainerRef);
+  private cdr = inject(ChangeDetectorRef);
+
   private context = { $implicit: undefined, seLet: undefined } as {
     $implicit: T | unknown;
     seLet: T | unknown;
@@ -37,11 +41,7 @@ export class SeLetDirective<T> implements OnInit, OnDestroy {
     }
   }
 
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef,
-    private cdr: ChangeDetectorRef
-  ) {
+  constructor() {
     this.assign = this.assign.bind(this);
   }
 

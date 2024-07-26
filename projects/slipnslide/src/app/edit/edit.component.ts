@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Slide, SlidesService } from '../slides.service';
@@ -17,6 +17,8 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, SelectFileComponent, MdEditComponent, AsyncPipe],
 })
 export class EditComponent implements OnInit, OnDestroy {
+  private slides = inject(SlidesService);
+
   @ViewChild(MdEditComponent, { static: true }) mde: MdEditComponent;
   filename = new ReplaySubject<string>(1);
   updateSub;
@@ -25,8 +27,6 @@ export class EditComponent implements OnInit, OnDestroy {
     switchMap(filename => this.slides.getByFilename(filename)),
     shareReplay({ bufferSize: 1, refCount: true })
   );
-
-  constructor(private slides: SlidesService) {}
 
   ngOnInit() {
     this.updateSub = this.mde.updates

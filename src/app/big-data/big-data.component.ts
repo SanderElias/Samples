@@ -1,5 +1,5 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { DemoUser, DemoUserService } from 'src/app/demo-users.service';
@@ -83,6 +83,8 @@ interface LocalState {
   `,
 })
 export class BigDataComponent {
+  private user = inject(DemoUserService);
+
   /**
    * The local state I'm using. its in a behavior subject so I can pull anything I need when I need it.
    */
@@ -144,10 +146,6 @@ export class BigDataComponent {
     page: this.curPage$,
     done: this.doneLoadingPer$,
   });
-  /** when in doubt, use console.log */
-  // .pipe(tap(s => console.log(s)));
-
-  constructor(private user: DemoUserService) {}
 
   /** utility method to extract the users I need to display. */
   findFirst(users: DemoUser[], { position, pageSize, search }): DemoUser[] {

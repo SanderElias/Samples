@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { InMemoryDataService } from './in-memory.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventSourceService {
-  faker = import('@faker-js/faker');
+  db = inject(InMemoryDataService);
 
-  constructor(public db: InMemoryDataService) {}
+  faker = import('@faker-js/faker');
 
   async createEvent(maxRows = 25) {
     const { faker } = await this.faker;

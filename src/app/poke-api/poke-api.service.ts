@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { addToCache, cacheHas, getFromCache, initCache } from '@se-ng/swapi';
 import { EMPTY, from, Observable } from 'rxjs';
 import { expand, scan, mergeMap, tap, reduce, map, toArray, concatMap } from 'rxjs/operators';
@@ -8,9 +8,9 @@ import { expand, scan, mergeMap, tap, reduce, map, toArray, concatMap } from 'rx
   providedIn: 'root',
 })
 export class PokeApiService {
-  private base = 'https://pokeapi.co/api/v2';
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private base = 'https://pokeapi.co/api/v2';
 
   async load<T>(url: string): Promise<T> {
     /** wait until the cache is loaded */

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, pluck, tap } from 'rxjs/operators';
@@ -14,6 +14,9 @@ import { DemoUserService } from '../../../../src/app/demo-users.service';
   imports: [NgIf, NgForOf, AsyncPipe],
 })
 export class DemoUserComponent implements OnInit {
+  private us = inject(DemoUserService);
+  private route = inject(ActivatedRoute);
+
   state$ = new BehaviorSubject({
     searchText: '',
   });
@@ -41,11 +44,6 @@ export class DemoUserComponent implements OnInit {
     found: this.searchCount$,
     pages: this.searchCount$.pipe(map(n => Math.ceil(n / 25))),
   });
-
-  constructor(
-    private us: DemoUserService,
-    private route: ActivatedRoute
-  ) {}
 
   ngOnInit() {
     this.route.params

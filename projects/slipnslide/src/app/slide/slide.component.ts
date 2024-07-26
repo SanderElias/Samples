@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, inject } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { CodeSampleComponent } from '../code-sample/code-sample.component';
 import { DemoComponent } from '../demo/demo.component';
@@ -12,7 +12,7 @@ const availableComps = {
   template: `<scully-content></scully-content>`,
 })
 export class SlideComponent {
-  constructor(injector: Injector) {
+  constructor() {
     const dyn = createCustomElement(CodeSampleComponent, { injector });
     customElements.define('code-editor', dyn);
     const sh = createCustomElement(ShowCompComponent, { injector });

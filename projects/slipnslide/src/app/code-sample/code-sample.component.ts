@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, EMPTY, from, Observable, of, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 // import * as monaco from 'monaco-editor';
@@ -26,6 +26,10 @@ interface State {
   standalone: true,
 })
 export class CodeSampleComponent implements OnInit, OnDestroy {
+  private http = inject(HttpClient);
+  private elmRef = inject(ElementRef);
+  private zone = inject(NgZone);
+
   state$ = new BehaviorSubject<State>({ src: '', startLine: 0, originalCode: '' });
   @Input() set src(src) {
     // = ''; //'slipnslide/src/app/code-sample/code-sample.component.ts';
@@ -51,11 +55,7 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
-  constructor(
-    private http: HttpClient,
-    private elmRef: ElementRef,
-    private zone: NgZone
-  ) {
+  constructor() {
     console.log('init code-sample');
   }
 

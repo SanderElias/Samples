@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { from, Observable, Observer, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
@@ -29,7 +29,8 @@ export const fileRead = (blob: Blob) =>
   providedIn: 'root',
 })
 export class ImageToUrlDataService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+
 
   convert(url: string) {
     return this.http.get(url, { responseType: 'blob' }).pipe(

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import Editor from '@toast-ui/editor';
 // import { safeDump } from 'js-yaml';
 import { Subject } from 'rxjs';
@@ -23,6 +23,9 @@ const styles = [
   standalone: true,
 })
 export class MdEditComponent implements OnInit, OnDestroy {
+  private elmRef = inject(ElementRef);
+  private zone = inject(NgZone);
+
   attributes: { [key: string]: any };
   _markdown: string;
   @Input() set markdown(x: string) {
@@ -51,11 +54,6 @@ export class MdEditComponent implements OnInit, OnDestroy {
 
   private elm = this.elmRef.nativeElement;
   private editor: Editor;
-
-  constructor(
-    private elmRef: ElementRef,
-    private zone: NgZone
-  ) {}
 
   ngOnInit(): void {
     if (this.elm) {

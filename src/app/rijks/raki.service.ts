@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { Observable, Subject, of, timer } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
@@ -29,6 +29,8 @@ const detail = detailNumber => `https://www.rijksmuseum.nl/api/en/collection/${d
   deps: [HttpClient],
 })
 export class RakiService {
+  private http = inject(HttpClient);
+
   private artCount = 4000;
   private detailNumber = new Subject<string | undefined>();
 
@@ -66,8 +68,6 @@ export class RakiService {
     switchMap((artObject: ArtObject) => (artObject.webImage && artObject.webImage.url ? of(artObject) : this.getArtObject$)),
     catchError(_e => of([]))
   );
-
-  constructor(private http: HttpClient) {}
 
   loadDetail(objectNumber: string | undefined) {
     this.detailNumber.next(objectNumber);

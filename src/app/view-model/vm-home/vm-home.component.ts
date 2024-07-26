@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren, inject } from '@angular/core';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
 import { catchError, filter, map, pluck, scan, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { RakiService } from '../../../app/rijks/raki.service';
@@ -18,6 +18,9 @@ import { ObsFromEvent } from './ObsFromEvent';
   imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeComponent {
+  private raki = inject(RakiService);
+  private q = inject(QuoteService);
+
   /** create observable with clicks from viewChildren */
   @ObsFromEvent('click')
   @ViewChildren('ba', { read: ElementRef })
@@ -66,10 +69,7 @@ export class VmHomeComponent {
     scan((duration, t) => 20 - t, 1),
     catchError(() => NEVER)
   );
-  constructor(
-    private raki: RakiService,
-    private q: QuoteService
-  ) {
+  constructor() {
     if (typeof document === 'undefined') {
       return;
     }

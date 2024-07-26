@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ElementRef, OnInit, QueryList, TemplateRef, ViewChildren } from '@angular/core';
+import { Component, ContentChildren, ElementRef, OnInit, QueryList, TemplateRef, ViewChildren, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent, merge, of, ReplaySubject } from 'rxjs';
 import { delay, filter, map, pluck, switchMap, tap } from 'rxjs/operators';
@@ -26,6 +26,8 @@ interface LocalState {
   imports: [NgIf, AsyncPipe],
 })
 export class LsHomeComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+
   localState$ = new BehaviorSubject<LocalState>({
     count: 0,
   });
@@ -57,8 +59,6 @@ export class LsHomeComponent implements OnInit {
     })),
     // tap(console.log)
   );
-
-  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { SlidesService } from '../../slides.service';
@@ -17,6 +17,9 @@ import { NgForOf, AsyncPipe } from '@angular/common';
   imports: [NgForOf, AsyncPipe],
 })
 export class SelectFileComponent implements OnDestroy, OnInit {
+  private elmRef = inject(ElementRef);
+  private slides = inject(SlidesService);
+
   @Output() fileName = new EventEmitter<string>();
   init$ = new Subject();
 
@@ -34,11 +37,6 @@ export class SelectFileComponent implements OnDestroy, OnInit {
   );
 
   private sub = this.inputs$.subscribe(this.fileName);
-
-  constructor(
-    private elmRef: ElementRef,
-    private slides: SlidesService
-  ) {}
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

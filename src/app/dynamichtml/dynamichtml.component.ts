@@ -1,7 +1,6 @@
-import { Component, ElementRef, Injector, Input, OnInit, SecurityContext } from '@angular/core';
+import { Component, ElementRef, Injector, Input, OnInit, SecurityContext, inject } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
-import { number } from 'yargs';
 
 /**
  * I did put those in 1 file because those 2 components
@@ -22,8 +21,9 @@ import { number } from 'yargs';
   ],
 })
 class DynDataComponent {
+  private parent = inject(DynamicHtmlComponent);
+
   @Input() property = '';
-  constructor(private parent: DynamicHtmlComponent) {}
 
   get content() {
     if (this.parent && this.property && this.parent[this.property]) {
@@ -56,6 +56,9 @@ class DynDataComponent {
   standalone: true,
 })
 export class DynamicHtmlComponent implements OnInit {
+  private elmRef = inject(ElementRef);
+  private sanitizer = inject(DomSanitizer);
+
   elm = this.elmRef.nativeElement as HTMLDivElement;
   name = 'Angular';
   html = `
@@ -70,11 +73,8 @@ export class DynamicHtmlComponent implements OnInit {
   <button onclick="alert('hi')">hi</button>
   `;
 
-  constructor(
-    private elmRef: ElementRef,
-    injector: Injector,
-    private sanitizer: DomSanitizer
-  ) {
+  constructor() {
+    const injector = inject(Injector);
     if (typeof document === 'undefined') return;
     const dyn = createCustomElement(DynDataComponent, { injector });
     customElements.define('dyn-data', dyn);
@@ -86,8 +86,6 @@ export class DynamicHtmlComponent implements OnInit {
   }
 
   update(newHtml) {
-
-
     const target = this.elm.querySelector('#target')!;
     /**
      * To do it this way is really dangerous, as it will expose to all kind of security issues.

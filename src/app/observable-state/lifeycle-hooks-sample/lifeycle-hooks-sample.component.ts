@@ -1,5 +1,5 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { modelFromLatest } from '@se-ng/observable-utils';
@@ -15,6 +15,8 @@ import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
   imports: [ReactiveFormsModule, NgFor, NgIf, AsyncPipe],
 })
 export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
+  private swapi = inject(SwapiService);
+
   search = new UntypedFormControl();
   searchText$: Observable<string> = this.search.valueChanges.pipe(startWith(''));
 
@@ -34,7 +36,7 @@ export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})
     search: this.searchText$,
   });
 
-  constructor(private swapi: SwapiService) {
+  constructor() {
     super();
   }
 }

@@ -1,15 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  ElementRef,
-  EventEmitter,
-  Host,
-  Input,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, Host, Input, OnInit, Output, ViewEncapsulation, inject } from '@angular/core';
 
 @Component({
   selector: 'app-pannel',
@@ -20,8 +9,9 @@ import {
   standalone: true,
 })
 export class PannelComponent {
+  private elmRef = inject(ElementRef);
+
   shadowRoot = this.elmRef.nativeElement?.shadowRoot;
-  constructor(private elmRef: ElementRef) {}
 }
 
 @Directive({
@@ -29,10 +19,10 @@ export class PannelComponent {
   standalone: true,
 })
 export class PannelCloseDirective implements OnInit {
+  private pannel = inject(PannelComponent, { host: true });
+
   private root = this.pannel.shadowRoot;
   @Output() close = new EventEmitter<void>();
-
-  constructor(@Host() private pannel: PannelComponent) {}
 
   ngOnInit() {
     if (typeof document === 'undefined') return;
@@ -59,6 +49,8 @@ export class PannelCloseDirective implements OnInit {
   standalone: true,
 })
 export class PannelFooterDirective implements OnInit {
+  private panel = inject(PannelComponent, { host: true });
+
   private root = this.panel.shadowRoot;
   @Input('footer') set footerContent(x) {
     if (typeof x === 'string') {
@@ -68,8 +60,6 @@ export class PannelFooterDirective implements OnInit {
     }
   }
   @Output() footer = new EventEmitter<void>();
-
-  constructor(@Host() private panel: PannelComponent) {}
 
   ngOnInit() {
     if (typeof document === 'undefined') return;

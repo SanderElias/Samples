@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AddressesService {
+  private http = inject(HttpClient);
+
   addresses$ = this.http.get('assets/addresses.csv', { responseType: 'text' }).pipe(
     map(csv => csv.split('\r').map(line => line.split(','))),
     map(([header, ...rows]) =>
@@ -21,8 +23,6 @@ export class AddressesService {
       )
     )
   );
-
-  constructor(private http: HttpClient) {}
 }
 
 function unquote(str) {

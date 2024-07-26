@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import fm from 'front-matter';
 import { combineLatest, EMPTY, forkJoin, Observable, ReplaySubject, Subject } from 'rxjs';
 import { catchError, concatMap, debounceTime, map, repeat, shareReplay, take, tap } from 'rxjs/operators';
@@ -25,6 +25,8 @@ export interface Slide {
   providedIn: 'root',
 })
 export class SlidesService {
+  private http = inject(HttpClient);
+
   private saves = new Subject<Slide>();
   private slides = new ReplaySubject<Slide[]>(1);
   slides$ = this.slides.pipe(
@@ -83,8 +85,6 @@ ${slide.markdown.trimStart()}
       repeat()
     )
     .subscribe();
-
-  constructor(private http: HttpClient) {}
 
   async save(slide: Slide) {
     this.saves.next(slide);

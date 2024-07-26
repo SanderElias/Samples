@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Injector, OnDestroy, OnInit, inject } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { Router } from '@angular/router';
 import { combineLatest, fromEvent, Subject } from 'rxjs';
@@ -16,6 +16,10 @@ import { ScullyContentModule } from '@scullyio/ng-lib';
   imports: [ScullyContentModule],
 })
 export class ViewSlideComponent implements OnInit, OnDestroy {
+  private elmRef = inject(ElementRef);
+  private sls = inject(SlidesService);
+  private router = inject(Router);
+
   init$ = new Subject<void>();
   elm = this.elmRef.nativeElement;
   subscriber = this.init$
@@ -32,12 +36,7 @@ export class ViewSlideComponent implements OnInit, OnDestroy {
     )
     .subscribe();
 
-  constructor(
-    private elmRef: ElementRef,
-    private sls: SlidesService,
-    private router: Router,
-    injector: Injector
-  ) {
+  constructor() {
     if (!customElements.get('code-editor')) {
       const dyn = createCustomElement(CodeSampleComponent, { injector });
       customElements.define('code-editor', dyn);

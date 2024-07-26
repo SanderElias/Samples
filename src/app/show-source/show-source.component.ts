@@ -1,6 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
 
@@ -60,6 +60,9 @@ import { combineLatest, filter, map, tap } from 'rxjs';
   imports: [NgIf, AsyncPipe],
 })
 export class ShowSourceComponent {
+  private router = inject(Router);
+  private http = inject(HttpClient);
+
   /** get path after navigation is done */
   path$ = this.router.events.pipe(
     filter(isGuardsCheckEnd), // note the typeGuard function, which makes sure that the event is a GuardsCheckEnd
@@ -72,11 +75,6 @@ export class ShowSourceComponent {
     // tap(data => console.log(data)), // debugging check the data. seems off in production.
     tap(updateRouteInfo)
   );
-
-  constructor(
-    private router: Router,
-    private http: HttpClient
-  ) {}
 }
 
 function updateRouteInfo(routeInfo: RouteInfo) {

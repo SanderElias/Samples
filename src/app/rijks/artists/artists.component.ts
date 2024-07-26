@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
@@ -10,6 +10,8 @@ import { RakiService } from '../raki.service';
   styleUrls: ['./artists.component.css'],
 })
 export class ArtistsComponent implements OnInit {
+  raki = inject(RakiService);
+
   search = new FormControl();
 
   list$ = this.search.valueChanges.pipe(
@@ -18,8 +20,6 @@ export class ArtistsComponent implements OnInit {
     switchMap(artist => this.raki.artist(artist)),
     take(5)
   );
-
-  constructor(public raki: RakiService) {}
 
   ngOnInit() {}
 }

@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-analog-clock',
@@ -7,7 +7,8 @@ import { Component, NgZone, OnInit } from '@angular/core';
   standalone: true,
 })
 export class AnalogClockComponent implements OnInit {
-  constructor(private zone: NgZone) {}
+  private zone = inject(NgZone);
+
 
   ngOnInit(): void {
     if (typeof document === 'undefined') return;

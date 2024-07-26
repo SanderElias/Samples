@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter, map, shareReplay, take, tap } from 'rxjs/operators';
 import { getId, randomInt, RelationsService } from './relations.service';
@@ -7,10 +7,10 @@ import { getId, randomInt, RelationsService } from './relations.service';
   providedIn: 'root',
 })
 export class OrdersService {
+  private rel = inject(RelationsService);
+
   private orderList = new BehaviorSubject<Order[]>([]);
   orderList$ = this.orderList.asObservable();
-
-  constructor(private rel: RelationsService) {}
 
   getClientFromOrder(id: string) {
     return this.rel.relationList$.pipe(
