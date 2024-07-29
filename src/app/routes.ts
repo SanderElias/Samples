@@ -195,6 +195,10 @@ export const routes: Routes = [
     path: 'signalPlay/:id',
     loadComponent: () => import('./signal-play/signal-play.component'),
   },
+  {
+    path: 'eventedOutputs',
+    loadComponent: () => import('./evented-outputs/evented-outputs.component').then(m => m.EventedOutputsComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalPlay' },
+  { path: '**', redirectTo: 'eventedOutputs' },
 ];
