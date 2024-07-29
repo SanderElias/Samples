@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  background-color: #404040;
+  padding: .35rem;
+  border-radius: .35rem;
+  color: whitesmoke;
+
+}
+:host.selected {
+  display: block;
+  background-color: #606060;
+  color:white;
+
+}
