@@ -16,7 +16,7 @@ export class EvChildComponent<T = unknown> {
   value = model.required<T>();
   id = `evChild-${childId++}`;
 
-  onSelected = eventOutput('onSelected');
+  onSelected = domEventOutput('onSelected');
 
   handleClick() {
     this.selected.set(!this.selected());
@@ -26,9 +26,9 @@ export class EvChildComponent<T = unknown> {
   }
 }
 
-let childId = 0;
+let childId = 0n;
 
-const eventOutput = <T = string>(name: string, options: { bubbles?: boolean; cancelable?: boolean } = { bubbles: true }) => {
+const domEventOutput = <T = string>(name: string, options: { bubbles?: boolean; cancelable?: boolean } = { bubbles: true }) => {
   const elm = inject(ElementRef).nativeElement as HTMLElement;
   return {
     emit: (payload: T) => {
