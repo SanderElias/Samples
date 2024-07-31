@@ -3,7 +3,7 @@ import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } 
 import { isObservable, Observable, type Subscription } from 'rxjs';
 import { isPromise } from './is-promise';
 
-type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | T;
+type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {
   /**
    * @description Helper to put the outcome(s) of a promise or observable into a signal
@@ -68,6 +68,10 @@ export const asyncComputed: AsyncComputed = <T, Y>(
         } else if (isPromise(outcome)) {
           const value = await outcome;
           state.set({ value, error: undefined });
+        } else if (isAsyncIterable(outcome)) {
+          for await (const value of outcome) {
+            state.set({ value, error: undefined });
+          }
         } else {
           state.set({ value: outcome, error: undefined });
         }
@@ -87,4 +91,8 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     }
     return currentState.value;
   });
+};
+
+const isAsyncIterable = (x: any): x is AsyncIterable<any> => {
+  return x && typeof x[Symbol.asyncIterator] === 'function';
 };

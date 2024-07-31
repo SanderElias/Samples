@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, input, computed } from '@angular/core';
 
 interface Record {
   name: string;
@@ -20,12 +20,8 @@ const val = (e: Entry) => e[1];
   imports: [NgFor, NgIf],
 })
 export class ShowRecComponent implements OnInit {
-  entries: Entry[];
-  @Input() set record(record: Record) {
-    if (record) {
-      this.entries = Object.entries(record);
-    }
-  }
+  record = input.required<Record>();
+  entries = computed(() => this.record() && Object.entries(this.record()));
   @Output() selected = new EventEmitter<Selection>();
 
   key = key;

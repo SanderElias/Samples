@@ -111,7 +111,7 @@ export class BigDataComponent {
          * as the list is hot, and will grow, this is a bad idea, and will
          * block the stack. This is done here anyway to be able to show the impact of doing this
          */
-        map(users => (sort === '' ? users : users.sort((a, b) => (a[sort] < b[sort] ? -1 : 1))))
+        map(users => (sort === '' ? users : users.sort((a, b) => (a[sort]! < b[sort]! ? -1 : 1))))
       )
     )
   );

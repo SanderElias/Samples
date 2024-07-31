@@ -11,7 +11,7 @@ import { ShowSourceComponent } from './show-source/show-source.component';
 })
 export class AppComponent implements AfterContentInit {
   /** the 'input' element that toggles the menu */
-  checked: HTMLInputElement;
+  checked!: HTMLInputElement;
   /** a setter function to hook up the above */
   @ViewChild('menuToggle', { static: true }) set _toggle(x: ElementRef) {
     if (x && !this.checked) {

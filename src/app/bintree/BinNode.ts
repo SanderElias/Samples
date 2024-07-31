@@ -31,9 +31,9 @@ export const createNode = (value: number | string, parentId?: BinNodeId, left?: 
   return newNode;
 };
 
-export const getNode = (id: BinNodeId): BinNode => nodes.get(id);
+export const getNode = (id?: BinNodeId): BinNode | undefined => (id ? nodes.get(id) : undefined);
 export const set = (node: BinNode): Map<BinNodeId, BinNode> => nodes.set(node.id, node);
-export const getRoot = () => [...nodes.values()].find(n => n.parentId === undefined);
+export const getRoot = () => [...nodes.values()].find(n => n.parentId === undefined)!;
 export const reset = () => {
   nodes.clear();
 };
@@ -134,7 +134,7 @@ export function rotateRight(node = getRoot()) {
   return replaceNode;
 }
 
-export function height(node: BinNode) {
+export function height(node?: BinNode) {
   // return undefined;
   if (node === undefined) {
     return 0;
@@ -145,11 +145,11 @@ export function height(node: BinNode) {
   return node.height;
 }
 
-export function balance(node: BinNode) {
+export function balance(node?: BinNode) {
   if (node === undefined) {
     return 0;
   }
-  const getChildHeight = (childId: BinNodeId) => getNode(childId)?.height || 0;
+  const getChildHeight = (childId?: BinNodeId) => getNode(childId)?.height || 0;
   node.balance = getChildHeight(node.left) - getChildHeight(node.right);
   return node.balance;
 }
@@ -183,7 +183,7 @@ export function balanceNode(node = getRoot()) {
   }
   if (nodeBalance > 1) {
     const left = getNode(node.left);
-    if (left && left.balance < 0) {
+    if (left && (left.balance??0) < 0) {
       rotateLeft(left);
     }
     const r = rotateRight(node);

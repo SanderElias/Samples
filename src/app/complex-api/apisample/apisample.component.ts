@@ -19,7 +19,7 @@ export class APISampleComponent {
   #sw = inject(SwapiService);
 
   /** select the table/set */
-  chosenSet = new FormControl('');
+  chosenSet = new FormControl<string>('', { nonNullable: true });
   /** search for this name */
   name = new FormControl('');
   /** keep the raw data */

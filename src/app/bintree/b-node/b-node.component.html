@@ -1,4 +1,4 @@
-@if (node$ | async; as node) {
+@if (bNode(); as node) {
   <div>
     @if (node?.value ?? undefined) {
       <span [title]="title(node)">
@@ -9,8 +9,8 @@
 
   @if (node?.left || node?.right) {
     <div class="row">
-      <b-node class="left" [bNode]="left$ | async"></b-node>
-      <b-node class="right" [bNode]="right$ | async"></b-node>
+      <b-node class="left" [bNode]="$left()"></b-node>
+      <b-node class="right" [bNode]="$right()"></b-node>
     </div>
   }
 }

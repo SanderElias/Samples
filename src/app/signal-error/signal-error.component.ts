@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, Signal } from '@angular/core';
 import { map, timer } from 'rxjs';
 import { asyncComputed } from 'src/utils/signals/async-computed';
 
@@ -14,6 +14,7 @@ import { asyncComputed } from 'src/utils/signals/async-computed';
     </p>
     <p>Count: {{ $count() }}</p>
     <p>Result: {{ $result() }}</p>
+    <p>Counter {{$testIterator()}}</p>
   `,
   styleUrl: './signal-error.component.css',
 })
@@ -28,6 +29,19 @@ export default class SignalErrorComponent {
       return i;
     })
   );
+  $faultyTimer = asyncComputed(() => this.faultyTimer$,'');
+
+
+
+  $testIterator = asyncComputed(async function* () {
+    for (let i = 0; i < 10; i++) {
+      yield i;
+      await new Promise(r => setTimeout(r, 1000));
+    }
+  })
+
+
+
 
   even = async n => {
     await new Promise(r => setTimeout(r, 250));
@@ -57,3 +71,10 @@ export default class SignalErrorComponent {
 
   changeCount = (n = 1) => this.$count.update(v => v + n);
 }
+
+const test:Signal<number|undefined> = computed(() => {
+  if (performance.now() %5 === 0) {
+    return 5
+  }
+  return undefined
+})

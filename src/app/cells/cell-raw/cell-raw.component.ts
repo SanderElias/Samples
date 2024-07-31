@@ -15,7 +15,7 @@ export class CellRawComponent {
   zone = inject(NgZone);
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
   gridSize = 100;
-  cells = [];
+  cells: { id: number; alive: boolean; cell: HTMLElement }[] = [];
   aliveColor = `oklch(${clampedRandom(55, 95)}% 75% 173`;
   deadColor = `oklch(${clampedRandom(10, 55)}% 50% 280`;
 

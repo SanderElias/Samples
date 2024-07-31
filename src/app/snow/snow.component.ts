@@ -61,7 +61,7 @@ function makeItSnow() {
  * @param max the maximum returned
  */
 function getRandomInt(max: number): number {
-  if (typeof window === "undefined") return
+  if (typeof window === "undefined") throw new Error("window is not defined");
   const randomBuffer = new Uint32Array(1);
   window.crypto.getRandomValues(randomBuffer);
   let randomNumber = randomBuffer[0] / (0xffffffff + 1);
@@ -70,8 +70,8 @@ function getRandomInt(max: number): number {
 
 // var particleCanvas, particleCtx;
 function createSnowCanvas() {
-  if (typeof window === "undefined") return
-  if (typeof document === "undefined") return
+  if (typeof window === "undefined") throw new Error("window is not defined");
+  if (typeof document === "undefined") throw new Error("document is not defined");
   const snowFlakesCanvas = document.createElement('canvas');
   snowFlakesCanvas.width = window.innerWidth;
   snowFlakesCanvas.height = window.innerHeight;
