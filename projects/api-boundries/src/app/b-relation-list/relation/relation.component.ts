@@ -14,10 +14,10 @@ import { RelationsService } from '../../relations.service';
     }
     @if (detail) {
       <section>
-        <h4>{{ relation().name }}</h4>
-        <p>{{ relation().company.name }}</p>
-        <p>📧 {{ relation().email }}</p>
-        <p>📱 {{ relation().phone }}</p>
+        <h4>{{ relation()?.name }}</h4>
+        <p>{{ relation()?.company?.name }}</p>
+        <p>📧 {{ relation()?.email }}</p>
+        <p>📱 {{ relation()?.phone }}</p>
       </section>
     }
   `,

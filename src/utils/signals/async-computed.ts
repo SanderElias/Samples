@@ -48,35 +48,55 @@ export const asyncComputed: AsyncComputed = <T, Y>(
   if (!destroyRef) {
     throw new Error('destroyRef is mandatory when used outside a injection context');
   }
+  let abortPrevious: AbortController | undefined;
   destroyRef.onDestroy(() => {
     obs?.unsubscribe();
     ref.destroy();
+    abortPrevious?.abort();
   });
   let obs: Subscription | undefined;
+  const assertContinue = (s:AbortSignal) => {
+    if (a.signal.aborted) {
+      throw new Error('aborted');
+    }
+  };
   const ref = effect(
     async () => {
       try {
+        abortPrevious?.abort();
+        abortPrevious = new AbortController();
+        const AbortSignal = abortPrevious.signal;
         obs?.unsubscribe(); // cleanup previous subscription (on new signal emission)
         const outcome = cb();
+        assertContinue(AbortSignal);
         if (isObservable(outcome)) {
           obs = outcome.subscribe({
-            next: value => state.set({ value, error: undefined }),
+            next: value => {
+              assertContinue(AbortSignal!);
+              state.set({ value, error: undefined });
+            },
             error: error => {
+              assertContinue(AbortSignal!);
               state.set({ value: undefined, error });
             },
           });
         } else if (isPromise(outcome)) {
           const value = await outcome;
+          assertContinue(AbortSignal);
           state.set({ value, error: undefined });
         } else if (isAsyncIterable(outcome)) {
           for await (const value of outcome) {
+            assertContinue(AbortSignal);
             state.set({ value, error: undefined });
           }
         } else {
+          assertContinue(AbortSignal);
           state.set({ value: outcome, error: undefined });
         }
-      } catch (e) {
-        state.set({ value: undefined, error: e });
+      } catch (e: any) {
+        if (e.message !== 'aborted') {
+          state.set({ value: undefined, error: e });
+        }
       }
     },
     { manualCleanup: true, allowSignalWrites: true }

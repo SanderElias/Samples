@@ -7,7 +7,7 @@ import { RelationComponent } from './relation/relation.component';
   selector: 'app-relation-list',
   template: `
     @for (rel of relations$ | async; track rel) {
-      <app-relation [relation]="rel"><app-relation> </app-relation></app-relation>
+      <app-relation [relation]="rel" />
     }
   `,
   styles: [],
