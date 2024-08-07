@@ -55,46 +55,50 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     abortPrevious?.abort();
   });
   let obs: Subscription | undefined;
-  const assertContinue = (s:AbortSignal) => {
-    if (a.signal.aborted) {
+  const assertContinue = (as:AbortSignal) => {
+    if (as.aborted) {
+      obs?.unsubscribe();
       throw new Error('aborted');
     }
   };
   const ref = effect(
     async () => {
       try {
+        // abort the previous requests, and clean up the subscription
         abortPrevious?.abort();
+        // create a new AbortController for the current iteration
         abortPrevious = new AbortController();
-        const AbortSignal = abortPrevious.signal;
-        obs?.unsubscribe(); // cleanup previous subscription (on new signal emission)
+        // keep an reference to the signal to be able to clean up the subscription
+        const abortSignal = abortPrevious.signal;
         const outcome = cb();
-        assertContinue(AbortSignal);
+        assertContinue(abortSignal);
         if (isObservable(outcome)) {
           obs = outcome.subscribe({
             next: value => {
-              assertContinue(AbortSignal!);
+              assertContinue(abortSignal!);
               state.set({ value, error: undefined });
             },
             error: error => {
-              assertContinue(AbortSignal!);
+              assertContinue(abortSignal!);
               state.set({ value: undefined, error });
             },
           });
         } else if (isPromise(outcome)) {
           const value = await outcome;
-          assertContinue(AbortSignal);
+          assertContinue(abortSignal);
           state.set({ value, error: undefined });
         } else if (isAsyncIterable(outcome)) {
           for await (const value of outcome) {
-            assertContinue(AbortSignal);
+            assertContinue(abortSignal);
             state.set({ value, error: undefined });
           }
         } else {
-          assertContinue(AbortSignal);
+          assertContinue(abortSignal);
           state.set({ value: outcome, error: undefined });
         }
       } catch (e: any) {
         if (e.message !== 'aborted') {
+          // only set the error if it is not an abort
           state.set({ value: undefined, error: e });
         }
       }
