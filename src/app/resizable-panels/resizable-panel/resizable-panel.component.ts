@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { afterNextRender,Component, DestroyRef, ElementRef, HostBinding, inject, OnDestroy, OnInit } from '@angular/core';
+import { afterNextRender,Component, DestroyRef, ElementRef, inject } from '@angular/core';
 
 @Component({
   selector: 'se-resizable-panel',

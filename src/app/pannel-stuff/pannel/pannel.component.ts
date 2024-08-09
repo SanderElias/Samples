@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, Host, inject,Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, inject,Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-pannel',

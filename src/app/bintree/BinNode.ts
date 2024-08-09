@@ -1,5 +1,3 @@
-import { getSupportedCodeFixes } from 'typescript';
-import { help } from 'yargs';
 
 const randomChar = () => String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 const createId = () => Date.now().toString(36) + '-' + randomChar() + randomChar() + randomChar();

@@ -1,7 +1,7 @@
 import { Component, inject,OnInit } from '@angular/core';
 import { SeLetDirective } from '@se-ng/let';
 import { timer } from 'rxjs';
-import { map, shareReplay,tap, timeInterval } from 'rxjs/operators';
+import { map, shareReplay,tap } from 'rxjs/operators';
 
 import { PokeApiService } from '../poke-api.service';
 

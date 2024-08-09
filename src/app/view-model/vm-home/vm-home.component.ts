@@ -1,7 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, inject,ViewChildren } from '@angular/core';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
-import { catchError, filter, map, pluck, scan, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, scan, startWith, switchMap } from 'rxjs/operators';
 
 import { RakiService } from '../../../app/rijks/raki.service';
 import { PaintingComponent } from '../painting/painting.component';

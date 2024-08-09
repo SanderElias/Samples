@@ -1,6 +1,6 @@
 import { AsyncPipe,NgForOf, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { map,take, timer } from 'rxjs';
+import { Component } from '@angular/core';
+import { map, timer } from 'rxjs';
 
 const twoPi = Math.PI * 2;
 const circumference = (radius: number) => twoPi * radius;

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, debounceTime, map, ReplaySubject, take } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, map, take } from 'rxjs';
 
 @Component({
   selector: 'se-unsub-sample',

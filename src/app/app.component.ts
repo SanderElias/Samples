@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, inject, NgZone, ɵNoopNgZone,ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, inject, NgZone,ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { ShowSourceComponent } from './show-source/show-source.component';

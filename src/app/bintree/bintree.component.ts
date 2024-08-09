@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { get, set } from 'idb-keyval';
 import { Subject } from 'rxjs';
 
 import { BNodeComponent } from './b-node/b-node.component';

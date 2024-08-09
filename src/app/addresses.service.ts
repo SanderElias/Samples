@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject,Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

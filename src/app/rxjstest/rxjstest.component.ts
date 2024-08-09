@@ -1,22 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import {
   BehaviorSubject,
   combineLatest,
-  concat,
-  concatMap,
   finalize,
-  forkJoin,
   map,
-  merge,
-  mergeAll,
-  mergeMap,
   Observable,
-  Subscriber,
-  switchMap,
   tap,
   timer,
-  toArray,
 } from 'rxjs';
 
 import { combinator } from './combinator';

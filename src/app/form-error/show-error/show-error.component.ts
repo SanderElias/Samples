@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject,Input } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { Component, ElementRef, inject } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'se-show-error',

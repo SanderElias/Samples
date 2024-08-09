@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, input, model } from '@angular/core';
+import { Component, computed, inject, model } from '@angular/core';
 
 import { SignalPlayService } from './signal-play.service';
 

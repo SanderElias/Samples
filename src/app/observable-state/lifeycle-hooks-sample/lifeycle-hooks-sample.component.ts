@@ -5,7 +5,7 @@ import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { modelFromLatest } from '@se-ng/observable-utils';
 import { SpaceShip, SwapiService } from '@se-ng/swapi';
 import { Observable } from 'rxjs';
-import { map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lifeycle-hooks-sample',
