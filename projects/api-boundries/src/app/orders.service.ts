@@ -15,7 +15,7 @@ export class OrdersService {
   getClientFromOrder(id: string) {
     return this.rel.relationList$.pipe(
       map(rels => {
-        const rel = rels.find(r => r.orders.includes(id));
+        const rel = rels.find(r => r.orders.includes(id))!;
         return rel.id;
       })
     );

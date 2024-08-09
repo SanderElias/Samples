@@ -1,5 +1,5 @@
-import { Component, Injectable, computed, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy,Component, computed, effect, inject, Injectable, signal } from '@angular/core';
 
 @Component({
   selector: 'se-symbols-form',

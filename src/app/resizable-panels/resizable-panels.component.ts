@@ -1,5 +1,6 @@
 import { NgFor } from '@angular/common';
-import { Component, ElementRef, effect, inject, signal } from '@angular/core';
+import { Component, effect, ElementRef, inject, signal } from '@angular/core';
+
 import { ResizablePanelComponent } from './resizable-panel/resizable-panel.component';
 
 @Component({

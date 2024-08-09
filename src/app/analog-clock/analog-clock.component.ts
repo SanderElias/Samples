@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, inject } from '@angular/core';
+import { Component, inject,NgZone, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-analog-clock',

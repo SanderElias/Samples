@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { from, Observable, Observer, throwError } from 'rxjs';
+import { inject,Injectable } from '@angular/core';
+import { Observable, Observer, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
 export const fileRead = (blob: Blob) =>

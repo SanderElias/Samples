@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Input, inject } from '@angular/core';
+import { Component, Directive, inject, Input } from '@angular/core';
 
 @Component({
   selector: 'pretty-text',
@@ -9,20 +9,20 @@ import { Component, Directive, ElementRef, Input, inject } from '@angular/core';
     '[style.color]': 'color',
   },
 })
-class PrettyText {
+class PrettyTextComponent {
   @Input() color = 'white';
-  @Input() bg = 'red'
+  @Input() bg = 'red';
 }
 
 @Directive({
   selector: 'pretty-text[reversed]',
   standalone: true,
 })
-class PrettyReversed {
-  pt = inject(PrettyText);
+class PrettyReversedComponent {
+  pt = inject(PrettyTextComponent);
   ngOnInit() {
-    const tmp = this.pt.bg
-    this.pt.bg = this.pt.color
+    const tmp = this.pt.bg;
+    this.pt.bg = this.pt.color;
     this.pt.color = tmp;
   }
 }
@@ -30,7 +30,7 @@ class PrettyReversed {
 @Component({
   selector: 'se-signal-input-musings',
   standalone: true,
-  imports: [PrettyText, PrettyReversed],
+  imports: [PrettyTextComponent, PrettyReversedComponent],
   template: `<h3>Signal stuff</h3>
     <pretty-text>test</pretty-text>
     <pretty-text reversed>test</pretty-text> `,

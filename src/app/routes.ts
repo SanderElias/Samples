@@ -187,14 +187,18 @@ export const routes: Routes = [
     path: 'signalPlay',
     loadComponent: () => import('./signal-play/signal-play.component'),
   },
+  // {
+  //   path: 'signalError',
+  //   loadComponent: () => import('./signal-error/signal-error.component'),
+  // },
+  // {
+  //   path: 'signalPlay/:id',
+  //   loadComponent: () => import('./signal-play/signal-play.component'),
+  // },
   {
-    path: 'signalError',
-    loadComponent: () => import('./signal-error/signal-error.component'),
+    path: 'eventedOutputs',
+    loadComponent: () => import('./evented-outputs/evented-outputs.component').then(m => m.EventedOutputsComponent),
   },
-  {
-    path: 'signalPlay/:id',
-    loadComponent: () => import('./signal-play/signal-play.component'),
-  },
-  // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalPlay' },
+  { path: '**', redirectTo: 'routeList' },
+  // { path: '**', redirectTo: 'eventedOutputs' },
 ];

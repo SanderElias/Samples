@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { PokeApiService } from '../poke-api.service';
-import { timeInterval, tap, map, shareReplay } from 'rxjs/operators';
-import { timer } from 'rxjs';
+import { Component, inject,OnInit } from '@angular/core';
 import { SeLetDirective } from '@se-ng/let';
+import { timer } from 'rxjs';
+import { map, shareReplay,tap } from 'rxjs/operators';
+
+import { PokeApiService } from '../poke-api.service';
 
 @Component({
   selector: 'app-pokemain',

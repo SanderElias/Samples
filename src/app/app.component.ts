@@ -1,5 +1,6 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, NgZone, ViewChild, inject, ɵNoopNgZone } from '@angular/core';
-import { ActivatedRoute, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, inject, NgZone,ViewChild } from '@angular/core';
+import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
 import { ShowSourceComponent } from './show-source/show-source.component';
 
 @Component({
@@ -11,7 +12,7 @@ import { ShowSourceComponent } from './show-source/show-source.component';
 })
 export class AppComponent implements AfterContentInit {
   /** the 'input' element that toggles the menu */
-  checked: HTMLInputElement;
+  checked!: HTMLInputElement;
   /** a setter function to hook up the above */
   @ViewChild('menuToggle', { static: true }) set _toggle(x: ElementRef) {
     if (x && !this.checked) {

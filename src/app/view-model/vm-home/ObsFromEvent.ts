@@ -1,6 +1,6 @@
 import { ElementRef, isDevMode, QueryList } from '@angular/core';
-import { NEVER, of, Subject } from 'rxjs';
-import { catchError, debounceTime } from 'rxjs/operators';
+import { NEVER, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 const EventStream = Symbol('ObsFromEvent');
 

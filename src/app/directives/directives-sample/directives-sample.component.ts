@@ -1,8 +1,9 @@
+import { AsyncPipe,NgForOf } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { seAfterContentInit } from '@se-ng/observable-hooks';
 import { map } from 'rxjs/operators';
+
 import { IdDirective } from '../id.directive';
-import { NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-directives-sample',

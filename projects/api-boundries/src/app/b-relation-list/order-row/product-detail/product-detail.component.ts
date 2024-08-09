@@ -42,7 +42,7 @@ export class ProductDetailComponent {
     }
   }
 
-  @Input() relationId: string;
+  @Input() relationId='';
 
   product$ = this.#productId.pipe(switchMap(id => this.#prod.getProduct(id)));
 }

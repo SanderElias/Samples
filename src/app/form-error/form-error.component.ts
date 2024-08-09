@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { ShowErrorComponent } from './show-error/show-error.component';
 
 @Component({

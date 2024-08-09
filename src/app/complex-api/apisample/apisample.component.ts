@@ -5,6 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
 import { combineLatest, firstValueFrom, of } from 'rxjs';
 import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+
 import { ShowRecComponent } from '../show-rec/show-rec.component';
 
 @Component({
@@ -19,7 +20,7 @@ export class APISampleComponent {
   #sw = inject(SwapiService);
 
   /** select the table/set */
-  chosenSet = new FormControl('');
+  chosenSet = new FormControl<string>('', { nonNullable: true });
   /** search for this name */
   name = new FormControl('');
   /** keep the raw data */

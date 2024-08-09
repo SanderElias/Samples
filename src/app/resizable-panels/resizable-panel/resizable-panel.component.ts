@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostBinding, inject, OnInit, OnDestroy, DestroyRef, afterNextRender } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { afterNextRender,Component, DestroyRef, ElementRef, inject } from '@angular/core';
 
 @Component({
   selector: 'se-resizable-panel',
@@ -22,7 +22,7 @@ export class ResizablePanelComponent {
     this.elm.style.setProperty('--_panel-width', `${inlineSize}px`);
     this.elm.style.setProperty('--_panel-height', `${blockSize}px`);
   };
-  resObs: ResizeObserver;
+  resObs!: ResizeObserver;
 
   constructor() {
     afterNextRender(() => {

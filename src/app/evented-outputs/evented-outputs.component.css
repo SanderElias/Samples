@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  gap: .35rem;
+  flex-direction: column;
+}
+
+p {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}

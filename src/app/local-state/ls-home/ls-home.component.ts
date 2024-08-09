@@ -1,8 +1,8 @@
-import { Component, ContentChildren, ElementRef, OnInit, QueryList, TemplateRef, ViewChildren, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, fromEvent, merge, of, ReplaySubject } from 'rxjs';
-import { delay, filter, map, pluck, switchMap, tap } from 'rxjs/operators';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe,NgIf } from '@angular/common';
+import { Component, ElementRef, inject,OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
+import { filter, map, pluck, switchMap } from 'rxjs/operators';
 
 interface LocalState {
   count?: number;

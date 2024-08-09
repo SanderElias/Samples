@@ -1,5 +1,5 @@
-import { Component, HostBinding, Input, ChangeDetectionStrategy, input, computed, inject } from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, Component, computed, HostBinding, inject, input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   // tslint:disable-next-line:component-selector

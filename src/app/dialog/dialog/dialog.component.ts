@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
+  inject,
   Input,
-  WritableSignal,
-  inject
-} from '@angular/core';
+  WritableSignal} from '@angular/core';
+
 import { afterNextRenderEffect } from '../../../utils/signals/signal-helpers';
 
 @Component({

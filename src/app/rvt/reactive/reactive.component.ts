@@ -1,8 +1,9 @@
-import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Model, SampledataService } from '../sampledata.service';
-import { Observable, shareReplay, startWith } from 'rxjs';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Observable, shareReplay, startWith } from 'rxjs';
+
+import { Model, SampledataService } from '../sampledata.service';
 
 @Component({
   selector: 'se-reactive',
