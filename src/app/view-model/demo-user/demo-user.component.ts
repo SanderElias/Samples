@@ -1,9 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { Component, inject,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { createSetStateMethod, modelFromLatest } from '@se-ng/observable-utils';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, pluck, tap } from 'rxjs/operators';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { createSetStateMethod, modelFromLatest } from '@se-ng/observable-utils';
+
 import { DemoUserService } from '../../../../src/app/demo-users.service';
 
 @Component({

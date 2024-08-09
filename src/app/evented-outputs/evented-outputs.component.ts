@@ -1,4 +1,5 @@
-import { Component, computed, viewChildren, signal } from '@angular/core';
+import { Component, computed, signal,viewChildren } from '@angular/core';
+
 import { EvChildComponent } from './ev-child/ev-child.component';
 
 declare global {

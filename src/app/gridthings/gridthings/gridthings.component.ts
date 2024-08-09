@@ -1,6 +1,7 @@
+import { NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Arr } from 'messagepack';
-import { NgForOf } from '@angular/common';
+
 import { CellComponent } from '../cell/cell.component';
 
 @Component({

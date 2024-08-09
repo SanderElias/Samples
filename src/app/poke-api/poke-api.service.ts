@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject,Injectable } from '@angular/core';
 import { addToCache, cacheHas, getFromCache, initCache } from '@se-ng/swapi';
 import { EMPTY, from, Observable } from 'rxjs';
-import { expand, scan, mergeMap, tap, reduce, map, toArray, concatMap } from 'rxjs/operators';
+import { concatMap,expand, map, mergeMap, reduce, scan, tap, toArray } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

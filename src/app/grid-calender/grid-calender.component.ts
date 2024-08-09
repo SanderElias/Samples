@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+
 import { DayCellComponent } from './day-cell/day-cell.component';
-import { CalenderDay } from './calenderDay';
 import { MonthComponent } from './month/month.component';
+import { CalenderDay } from './calenderDay';
 
 @Component({
   selector: 'se-grid-calender',

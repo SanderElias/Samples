@@ -1,5 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+
 import { balance, BinNode, getNode, height } from '../BinNode';
 
 @Component({

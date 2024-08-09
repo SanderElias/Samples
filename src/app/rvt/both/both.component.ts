@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import TemplateComponent from '../template/template.component';
+import { Component } from '@angular/core';
+
 import ReactiveComponent from '../reactive/reactive.component';
+import TemplateComponent from '../template/template.component';
 
 @Component({
   selector: 'se-both',

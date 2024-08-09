@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { weekDayNames, monthNames } from 'src/app/util/daysandmonthsnames';
+import { monthNames,weekDayNames } from 'src/app/util/daysandmonthsnames';
 
 @Component({
   selector: 'app-svg-calender',

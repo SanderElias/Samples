@@ -1,6 +1,7 @@
-import { Component, computed, inject, input, model } from '@angular/core';
-import { SignalPlayService } from './signal-play.service';
 import { JsonPipe } from '@angular/common';
+import { Component, computed, inject, input, model } from '@angular/core';
+
+import { SignalPlayService } from './signal-play.service';
 
 @Component({
   selector: 'se-signal-play',

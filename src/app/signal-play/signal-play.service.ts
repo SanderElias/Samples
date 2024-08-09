@@ -1,7 +1,7 @@
 import { computed, DestroyRef, inject, Injectable, Injector, signal } from '@angular/core';
-
-import { DemoUserService, type DemoUser } from '../demo-users.service';
 import { asyncComputed } from 'src/utils/signals/async-computed';
+
+import { type DemoUser,DemoUserService } from '../demo-users.service';
 
 @Injectable({
   providedIn: 'root',

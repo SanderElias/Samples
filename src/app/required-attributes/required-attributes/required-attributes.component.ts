@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+
 import { WaitForItComponent } from './wait-for-it/wait-for-it.component';
 
 @Component({

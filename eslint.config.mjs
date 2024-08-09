@@ -1,11 +1,9 @@
 import angular from '@angular-eslint/eslint-plugin';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import eslint from 'eslint';
-import { type } from 'os';
-import tsParser from '@typescript-eslint/parser';
 import ngParser from '@angular-eslint/template-parser';
-import { parse } from 'path';
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import unusedImports from 'eslint-plugin-unused-imports';
 
 export default [
   {
@@ -16,6 +14,7 @@ export default [
       '@typescript-eslint': typescriptEslint,
       'simple-import-sort': simpleImportSort,
       '@angular-eslint': angular,
+      'unused-imports': unusedImports,
     },
 
     languageOptions: {
@@ -30,11 +29,22 @@ export default [
     },
 
     rules: {
+      'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+        },
+      ],
+
       '@angular-eslint/component-selector': [
         'error',
         {
           type: 'element',
-          prefix: 'payment',
           style: 'kebab-case',
         },
       ],

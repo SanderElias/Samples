@@ -1,5 +1,6 @@
-import { Component, ElementRef, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, effect, ElementRef, inject, signal } from '@angular/core';
+
 import { SeDialogComponent } from './dialog/dialog.component';
 
 @Component({

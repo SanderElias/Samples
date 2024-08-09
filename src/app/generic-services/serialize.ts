@@ -1,6 +1,6 @@
-import * as Replicator from 'replicator';
 // import { encode, decode } from 'messagepack';
-import { encode, decode, createCodec } from 'msgpack-lite';
+import { createCodec,decode, encode } from 'msgpack-lite';
+import * as Replicator from 'replicator';
 
 const options = { codec: createCodec({ usemap: true, preset: true }) };
 

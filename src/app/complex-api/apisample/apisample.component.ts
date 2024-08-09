@@ -5,6 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
 import { combineLatest, firstValueFrom, of } from 'rxjs';
 import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+
 import { ShowRecComponent } from '../show-rec/show-rec.component';
 
 @Component({

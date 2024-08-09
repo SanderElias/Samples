@@ -1,7 +1,7 @@
 // tslint:disable:no-unused-expression
+import { AsyncPipe,NgForOf, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-wait-for-it',

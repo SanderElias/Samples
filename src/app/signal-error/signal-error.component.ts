@@ -1,4 +1,4 @@
-import { Component, computed, signal, Signal } from '@angular/core';
+import { Component, computed, Signal,signal } from '@angular/core';
 import { map, timer } from 'rxjs';
 import { asyncComputed } from 'src/utils/signals/async-computed';
 

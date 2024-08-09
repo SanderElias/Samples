@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, Input, Output, EventEmitter, input, computed } from '@angular/core';
+import { Component, computed,EventEmitter, Input, input, OnInit, Output } from '@angular/core';
 
 interface Record {
   name: string;

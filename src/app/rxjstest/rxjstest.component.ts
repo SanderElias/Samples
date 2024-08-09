@@ -18,6 +18,7 @@ import {
   timer,
   toArray,
 } from 'rxjs';
+
 import { combinator } from './combinator';
 
 @Component({

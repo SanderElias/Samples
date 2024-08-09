@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, NgZone, ViewEncapsulation, inject } from '@angular/core';
+import { Component, ElementRef, inject,NgZone, ViewEncapsulation } from '@angular/core';
 
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 

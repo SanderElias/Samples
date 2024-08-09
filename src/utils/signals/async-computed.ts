@@ -1,6 +1,7 @@
-/* eslint-disable max-len */
+ 
 import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } from '@angular/core';
 import { isObservable, Observable, type Subscription } from 'rxjs';
+
 import { isPromise } from './is-promise';
 
 type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | AsyncIterable<T> | T;
