@@ -99,25 +99,6 @@
         }
       }
     },
-    "samples-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "samples:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "samples:serve:production"
-            }
-          }
-        }
-      }
-    },
     "@se-ng/observable-hooks": {
       "root": "projects/se-ng/observable-hooks",
       "sourceRoot": "projects/se-ng/observable-hooks/src",
@@ -137,11 +118,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/se-ng/observable-hooks/src/test.ts",
             "tsConfig": "projects/se-ng/observable-hooks/tsconfig.spec.json",
-            "karmaConfig": "projects/se-ng/observable-hooks/karma.conf.js"
           }
         }
       }
@@ -165,11 +145,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/se-ng/swapi/src/test.ts",
             "tsConfig": "projects/se-ng/swapi/tsconfig.spec.json",
-            "karmaConfig": "projects/se-ng/swapi/karma.conf.js"
           }
         }
       }
@@ -193,11 +172,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/se-ng/observable-utils/src/test.ts",
             "tsConfig": "projects/se-ng/observable-utils/tsconfig.spec.json",
-            "karmaConfig": "projects/se-ng/observable-utils/karma.conf.js"
           }
         }
       }
@@ -221,11 +199,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/se-ng/let/src/test.ts",
             "tsConfig": "projects/se-ng/let/tsconfig.spec.json",
-            "karmaConfig": "projects/se-ng/let/karma.conf.js"
           }
         }
       }
@@ -317,12 +294,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/slipnslide/src/test.ts",
             "polyfills": "projects/slipnslide/src/polyfills.ts",
             "tsConfig": "projects/slipnslide/tsconfig.spec.json",
-            "karmaConfig": "projects/slipnslide/karma.conf.js",
             "assets": [
               "projects/slipnslide/src/favicon.ico",
               "projects/slipnslide/src/assets"
@@ -452,12 +428,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/api-boundries/src/test.ts",
             "polyfills": "projects/api-boundries/src/polyfills.ts",
             "tsConfig": "projects/api-boundries/tsconfig.spec.json",
-            "karmaConfig": "projects/api-boundries/karma.conf.js",
             "assets": [
               "projects/api-boundries/src/favicon.ico",
               "projects/api-boundries/src/assets"
@@ -552,7 +527,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "polyfills": [
               "zone.js",
@@ -653,7 +628,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "polyfills": [
               "zone.js",
