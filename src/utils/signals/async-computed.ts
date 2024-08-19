@@ -1,8 +1,8 @@
- 
+
 import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
 import { isObservable, Observable, type Subscription } from 'rxjs';
 
-import { isPromise } from './is-promise';
+import { isPromise } from './is-promise.js';
 
 type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {

@@ -22,9 +22,28 @@
     "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
     "serveHtml": "npx light-server -s ./ -w '*' --port 8080 ",
     "start": "ng serve --port 4301 --open",
-    "test": "ng test"
+    "test": "ng test",
+    "ntest": "wireit"
   },
   "wireit": {
+    "ntest": {
+      "command": "node --test  out-tsc/spec/utils/signals/async-computed.spec.js",
+      "files": [
+        "src/utils/signals/**"
+      ],
+      "dependencies": [
+        "compileTest"
+      ]
+    },
+    "compileTest": {
+      "command": "ngc --project src/tsconfig.spec.json",
+      "files": [
+        "src/signals/**"
+      ],
+      "dependencies": [
+        "build.lib"
+      ]
+    },
     "build.deploy": {
       "command": "echo 'Deploying to production'",
       "dependencies": [
@@ -109,6 +128,7 @@
     "front-matter": "^4.0.2",
     "idb-keyval": "^6.2.1",
     "jasmine": "^5.2.0",
+    "jsdom": "^24.1.1",
     "messagepack": "^1.1.12",
     "msgpack-lite": "^0.1.26",
     "open-props": "^1.7.5",
@@ -152,6 +172,7 @@
     "sharp": "^0.33.4",
     "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.0",
+    "tsx": "^4.16.5",
     "typescript": "5.5.4",
     "wireit": "^0.14.7",
     "yargs": "^17.7.2"
