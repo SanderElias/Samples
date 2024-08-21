@@ -199,6 +199,12 @@ export const routes: Routes = [
     path: 'eventedOutputs',
     loadComponent: () => import('./evented-outputs/evented-outputs.component').then(m => m.EventedOutputsComponent),
   },
-  { path: '**', redirectTo: 'routeList' },
-  // { path: '**', redirectTo: 'eventedOutputs' },
+  {
+    path: 'indexDb',
+    loadComponent: () => import('./indexdb/indexdb.component').then(m => m.IndexdbComponent),
+    title: 'IndexDb sample',
+
+  },
+  // { path: '**', redirectTo: 'routeList' },
+  { path: '**', redirectTo: 'indexDb' },
 ];
