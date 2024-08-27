@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Deferred } from 'src/utils/signals/deferred';
 
-const dbName = 'sample';
-const storeName = 'testPeople';
+const globalDbName = 'sample';
+const globalStoreName = 'testPeople';
 
 @Component({
   selector: 'se-indexdb',
@@ -12,60 +13,82 @@ const storeName = 'testPeople';
 })
 export class IndexdbComponent {
   async addData() {
-    const db = await openDb();
+    try {
+      const db = await openDb();
 
-    // Start a new transaction
-    var tx = db.transaction(storeName, 'readwrite');
-    var store = tx.objectStore(storeName);
+      // Start a new transaction
+      var tx = db.transaction(globalStoreName, 'readwrite');
+      var store = tx.objectStore(globalStoreName);
 
-    // Add some data
-    store.put({ id: 1, name: { first: 'John', last: 'Doe' }, age: 42 });
-    store.put({ id: 2, name: { first: 'Bob', last: 'Smith' }, age: 35 });
-    store.put({ id: 3, name: { first: 'John', last: 'Doe' }, age: 42 });
-    store.put({ id: 4, name: { first: 'Bob', last: 'Smith' }, age: 35 });
-    store.put({ id: 5, name: { first: 'John', last: 'Doe' }, age: 42 });
-    store.put({ id: 6, name: { first: 'Bob', last: 'Smith' }, age: 35 });
-    store.put({ id: 7, name: { first: 'John', last: 'Doe' }, age: 42 });
-    store.put({ id: 8, name: { first: 'Bob', last: 'Smith' }, age: 35 });
-    store.put({ id: 9, name: { first: 'John', last: 'Doe' }, age: 42 });
-    store.put({ id: 10, name: { first: 'Bob', last: 'Smith' }, age: 35 });
+      // Add some data
+      store.put({ id: 1, name: { first: 'John', last: 'Doe' }, age: 42 });
+      store.put({ id: 2, name: { first: 'Bob', last: 'Smith' }, age: 35 });
+      store.put({ id: 3, name: { first: 'John', last: 'Doe' }, age: 42 });
+      store.put({ id: 4, name: { first: 'Bob', last: 'Smith' }, age: 35 });
+      store.put({ id: 5, name: { first: 'John', last: 'Doe' }, age: 42 });
+      store.put({ id: 6, name: { first: 'Bob', last: 'Smith' }, age: 35 });
+      store.put({ id: 7, name: { first: 'John', last: 'Doe' }, age: 42 });
+      store.put({ id: 8, name: { first: 'Bob', last: 'Smith' }, age: 35 });
+      store.put({ id: 9, name: { first: 'John', last: 'Doe' }, age: 42 });
+      store.put({ id: 10, name: { first: 'Bob', last: 'Smith' }, age: 35 });
 
-    // Close the db when the transaction is done
-    tx.oncomplete = function () {
-      db.close();
-    };
+      // Close the db when the transaction is done
+      tx.oncomplete = function () {
+        db.close();
+      };
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   async getData() {
-    const db = await openDb();
-
-    var tx = db.transaction(storeName, 'readonly');
-    var store = tx.objectStore(storeName);
-    let cursor: IDBCursorWithValue | null;
-    store.openCursor().addEventListener('success', function (event: Event) {
-      cursor = (event.target as IDBRequest<IDBCursorWithValue>)?.result;
-    });
-
-    // @ts-expect-error - cursor is not null
-    while (cursor) {
-      console.log(cursor.value);
-      cursor.continue();
+    try {
+      for await (const data of getAllFromStore()) {
+        console.log(data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
-    // Close the db when the transaction is done
-    tx.oncomplete = function () {
-      db.close();
-    };
   }
 
   constructor() {
-    this.addData();
+    // this.addData();
     this.getData();
   }
 }
 
+const getAllFromStore = async function* (dbName = globalDbName, storeName = globalStoreName) {
+  const db = await openDb(dbName);
+  var tx = db.transaction(storeName);
+  var store = tx.objectStore(storeName);
+  let cursorDef = new Deferred<IDBCursorWithValue | null>();
+  store.openCursor().addEventListener('success', function (event: Event) {
+    cursorDef.resolve((event.target as IDBRequest<IDBCursorWithValue>)?.result);
+  });
+
+  while (true) {
+    const cursor = await cursorDef.promise;
+    if (!cursor) {
+      break;
+    }
+    yield await {key: cursor.primaryKey, value: cursor.value};
+    cursorDef = new Deferred();
+    cursor.continue();
+  }
+
+  tx.onerror = function (event) {
+    console.error('error', event);
+  };
+  // Close the db when the transaction is done
+  tx.oncomplete = function (ev) {
+    console.log('tx complete', ev);
+    db.close();
+  };
+};
+
 const openDb = (
-  db = dbName,
-  upgrades = [(db: IDBDatabase) => db.createObjectStore(storeName, { autoIncrement: true })]
+  db = globalDbName,
+  upgrades = [(db: IDBDatabase) => db.createObjectStore(globalStoreName, { autoIncrement: true })]
 ): Promise<IDBDatabase> =>
   new Promise((resolve, reject) => {
     // handle the upgrades
@@ -82,6 +105,10 @@ const openDb = (
           }
         }
       };
+
+    if (typeof window === 'undefined') {
+      return reject('Window not found');
+    }
 
     const idb = window.indexedDB;
     if (!idb) {
