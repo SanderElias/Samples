@@ -52,8 +52,14 @@ export class IndexdbComponent {
   }
 
   constructor() {
+    try {
+      // this.addData();
+      this.getData();
+    } catch (error) {
+      console.error('No server-side indexedDB:', error);
+    }
     // this.addData();
-    this.getData();
+    // this.getData();
   }
 }
 
