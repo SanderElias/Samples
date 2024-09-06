@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, effect, ElementRef, inject, signal } from '@angular/core';
 
 import { ResizablePanelComponent } from './resizable-panel/resizable-panel.component';
@@ -6,7 +5,7 @@ import { ResizablePanelComponent } from './resizable-panel/resizable-panel.compo
 @Component({
   selector: 'se-resizable-panels',
   standalone: true,
-  imports: [ResizablePanelComponent, NgFor],
+  imports: [ResizablePanelComponent],
   template: `
     <input type="range" [value]="$range()" (change)="$range.set($any($event.target).value)" />
     @for (n of panels; track n) {

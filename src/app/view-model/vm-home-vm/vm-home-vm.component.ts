@@ -1,5 +1,5 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, inject,ViewChildren } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChildren } from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
 import {
@@ -35,7 +35,7 @@ interface Vm {
   templateUrl: './vm-home-vm.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
+  imports: [PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeVmComponent {
   private raki = inject(RakiService);

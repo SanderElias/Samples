@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
@@ -12,7 +12,7 @@ import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
   templateUrl: './lifeycle-hooks-sample.component.html',
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor, NgIf, AsyncPipe],
+  imports: [ReactiveFormsModule, AsyncPipe],
 })
 export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
   private swapi = inject(SwapiService);
@@ -26,7 +26,7 @@ export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})
   );
 
   filteredShips$ = modelFromLatest({ ships: this.starships$, s: this.searchText$ }).pipe(
-    map(data => data.ships.filter(row => row.name.includes(data.s))),
+    map(data => data.ships.filter(row => row.name.includes(data.s)))
     // tap(ships => console.log(ships))
   );
 

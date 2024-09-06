@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
@@ -13,7 +13,7 @@ interface LocalState {
 
 @Component({
   standalone: true,
-  imports: [AsyncPipe, NgIf, NgFor],
+  imports: [AsyncPipe],
   selector: 'app-big-data',
   template: `
     <h1>Big data and performance demo</h1>

@@ -1,5 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, computed,EventEmitter, input, OnInit, Output } from '@angular/core';
+import { Component, computed, EventEmitter, input, OnInit, Output } from '@angular/core';
 
 interface Record {
   name: string;
@@ -17,7 +16,7 @@ const val = (e: Entry) => e[1];
   templateUrl: './show-rec.component.html',
   styles: [],
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [],
 })
 export class ShowRecComponent implements OnInit {
   record = input.required<Record>();

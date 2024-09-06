@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RelationComponent } from '../../relation/relation.component';
-import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-order-row',
@@ -31,7 +30,7 @@ import { NgForOf } from '@angular/common';
     `,
   ],
   standalone: true,
-  imports: [NgForOf, RelationComponent],
+  imports: [RelationComponent],
 })
 export class OrderRowComponent implements OnInit {
   @Input() order: any;

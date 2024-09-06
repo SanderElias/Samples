@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { RelationsService } from '../../relations.service';
   `,
   styleUrls: ['./relation.component.css'],
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class RelationComponent {
   rel = inject(RelationsService);

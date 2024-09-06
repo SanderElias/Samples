@@ -1,4 +1,3 @@
-import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { createGetStateMethod, createSetStateMethod } from '@se-ng/observable-utils';
 import { BehaviorSubject } from 'rxjs';
@@ -28,7 +27,7 @@ interface LocalState {
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [AsyncPipe, NgIf, JsonPipe],
+  imports: [],
 })
 export class ObservableStateComponent {
   /**

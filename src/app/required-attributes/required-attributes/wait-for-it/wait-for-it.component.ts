@@ -1,5 +1,5 @@
 // tslint:disable:no-unused-expression
-import { AsyncPipe,NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -8,10 +8,10 @@ import { Subject } from 'rxjs';
   templateUrl: './wait-for-it.component.html',
   styles: [],
   standalone: true,
-  imports: [NgIf, NgForOf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class WaitForItComponent {
-  someVar: string[]|undefined;
+  someVar: string[] | undefined;
   @Input('someVar') private set _someVar(newContent) {
     /** do some stuff */
     this.someVar = newContent;
@@ -27,7 +27,7 @@ export class WaitForItComponent {
     val && this.setIt('prop3', val);
   }
 
-  requiredProps = [] as Record<string,string>[];
+  requiredProps = [] as Record<string, string>[];
 
   goodToGo$ = new Subject<any[]>();
 

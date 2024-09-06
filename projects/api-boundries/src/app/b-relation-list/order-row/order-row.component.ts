@@ -1,10 +1,10 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, Input, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { OrdersService } from '../../orders.service';
 import { RelationComponent } from '../relation/relation.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-order-row',
@@ -33,7 +33,7 @@ import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
     `,
   ],
   standalone: true,
-  imports: [NgIf, NgForOf, ProductDetailComponent, RelationComponent, AsyncPipe],
+  imports: [ProductDetailComponent, RelationComponent, AsyncPipe],
 })
 export class OrderRowComponent {
   order = inject(OrdersService);

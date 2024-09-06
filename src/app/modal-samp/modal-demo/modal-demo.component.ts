@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
@@ -6,7 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   templateUrl: './modal-demo.component.html',
   styles: [],
   standalone: true,
-  imports: [NgIf],
+  imports: [],
 })
 export class ModalDemoComponent implements OnInit {
   @ViewChild('modal', { static: true }) modal: any;

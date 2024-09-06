@@ -1,4 +1,3 @@
-import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, inject, type Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +12,7 @@ import { ShowRecComponent } from '../show-rec/show-rec.component';
   templateUrl: './apisample.component.html',
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, ShowRecComponent, AsyncPipe, NgFor],
+  imports: [ReactiveFormsModule, ShowRecComponent],
 })
 export class APISampleComponent {
   /** injections */

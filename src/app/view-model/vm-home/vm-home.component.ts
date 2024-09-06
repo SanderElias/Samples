@@ -1,5 +1,5 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, inject,ViewChildren } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChildren } from '@angular/core';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
 import { catchError, filter, map, scan, startWith, switchMap } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ import { ObsFromEvent } from './ObsFromEvent';
   templateUrl: './vm-home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
+  imports: [PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeComponent {
   private raki = inject(RakiService);

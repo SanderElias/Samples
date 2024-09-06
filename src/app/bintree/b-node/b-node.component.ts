@@ -1,4 +1,3 @@
-import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 import { balance, BinNode, getNode, height } from '../BinNode';
@@ -9,7 +8,7 @@ import { balance, BinNode, getNode, height } from '../BinNode';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, BNodeComponent, AsyncPipe],
+  imports: [BNodeComponent],
 })
 export class BNodeComponent {
   bNode = input<BinNode | undefined | null>(undefined);

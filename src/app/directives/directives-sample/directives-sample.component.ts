@@ -1,4 +1,4 @@
-import { AsyncPipe,NgForOf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { seAfterContentInit } from '@se-ng/observable-hooks';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { IdDirective } from '../id.directive';
   templateUrl: './directives-sample.component.html',
   styles: [],
   standalone: true,
-  imports: [IdDirective, NgForOf, AsyncPipe],
+  imports: [IdDirective, AsyncPipe],
 })
 export class DirectivesSampleComponent extends seAfterContentInit() {
   @ViewChildren(IdDirective) ids!: QueryList<IdDirective>;

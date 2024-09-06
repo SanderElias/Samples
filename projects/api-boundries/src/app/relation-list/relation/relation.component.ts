@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject, firstValueFrom } from 'rxjs';
@@ -12,19 +12,19 @@ import { Relation } from '../../relations.service';
     @if (!detail()) {
       <h4>{{ (relation$ | async)?.name }}</h4>
     } @else {
-    @if ( relation$ | async; as relation) {
-      <section>
-        <h4>{{ relation.name }}</h4>
-        <p>{{ relation.company.name }}</p>
-        <p>📧 {{ relation.email }}</p>
-        <p>📱 {{ relation.phone }}</p>
-      </section>
+      @if (relation$ | async; as relation) {
+        <section>
+          <h4>{{ relation.name }}</h4>
+          <p>{{ relation.company.name }}</p>
+          <p>📧 {{ relation.email }}</p>
+          <p>📱 {{ relation.phone }}</p>
+        </section>
+      }
     }
-  }
   `,
   styleUrls: ['./relation.component.css'],
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
   host: {
     '[detail]': '$detail',
   },

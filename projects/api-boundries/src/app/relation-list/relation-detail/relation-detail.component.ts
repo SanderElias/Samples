@@ -1,4 +1,4 @@
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, of, zip } from 'rxjs';
@@ -22,7 +22,7 @@ import { OrderRowComponent } from './order-row/order-row.component';
     }
   `,
   standalone: true,
-  imports: [NgIf, RelationComponent, NgForOf, OrderRowComponent, AsyncPipe],
+  imports: [RelationComponent, OrderRowComponent, AsyncPipe],
 })
 export class RelationDetailComponent {
   private route = inject(ActivatedRoute);

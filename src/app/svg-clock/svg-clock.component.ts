@@ -1,4 +1,4 @@
-import { AsyncPipe,NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { map, timer } from 'rxjs';
 
@@ -10,7 +10,7 @@ const circumference = (radius: number) => twoPi * radius;
   templateUrl: './svg-clock.component.html',
   styles: [],
   standalone: true,
-  imports: [NgIf, NgForOf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class SvgClockComponent {
   // the colors for the circls we want to show
