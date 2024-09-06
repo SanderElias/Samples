@@ -646,6 +646,39 @@
           }
         }
       }
+    },
+    "@se-ng/signalUtils": {
+      "projectType": "library",
+      "root": "projects/se-ng/signal-utils",
+      "sourceRoot": "projects/se-ng/signal-utils/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/se-ng/signal-utils/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/signal-utils/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/se-ng/signal-utils/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/se-ng/signal-utils/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

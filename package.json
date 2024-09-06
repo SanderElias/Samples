@@ -21,11 +21,21 @@
     "ng": "ng",
     "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
     "serveHtml": "npx light-server -s ./ -w '*' --port 8080 ",
-    "start": "ng serve --port 4301 --open",
+    "start": "wireit",
     "test": "ng test",
     "ntest": "wireit"
   },
   "wireit": {
+    "start": {
+      "command": "ng serve samples --port 4204",
+      "files": [
+        "src/**",
+        "tsconfig.app.json"
+      ],
+      "dependencies": [
+        "build.lib"
+      ]
+    },
     "ntest": {
       "command": "node --test  out-tsc/spec/utils/signals/async-computed.spec.js",
       "files": [
@@ -68,7 +78,8 @@
         "build.lib.observable-hooks",
         "build.lib.swapi",
         "build.lib.observable-utils",
-        "build.lib.let"
+        "build.lib.let",
+        "build.lib.signalUtils"
       ]
     },
     "build.lib.let": {
@@ -97,6 +108,13 @@
       "files": [
         "projects/se-ng/swapi/src/*",
         "projects/se-ng/swapi/tsconfig.lib.json"
+      ]
+    },
+    "build.lib.signalUtils": {
+      "command": "ng build @se-ng/signalUtils --configuration production",
+      "files": [
+        "projects/se-ng/signal-utils/src/*",
+        "projects/se-ng/signal-utils/tsconfig.lib.json"
       ]
     }
   },

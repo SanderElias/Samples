@@ -23,7 +23,12 @@
       "@se-ng/swapi": ["dist/se-ng/swapi"],
       "@se-ng/swapi/*": ["dist/se-ng/swapi/*"],
       "@se-ng/observable-utils": ["dist/se-ng/observable-utils"],
-      "@se-ng/observable-utils/*": ["dist/se-ng/observable-utils/*"],
+      "@se-ng/observable-utils/*": [
+        "dist/se-ng/observable-utils/*"
+      ],
+      "@se-ng/signalUtils": [
+        "./dist/se-ng/signal-utils"
+      ],
       "@se-ng/let": ["dist/se-ng/let"],
       "@se-ng/let/*": ["dist/se-ng/let/*"]
     },

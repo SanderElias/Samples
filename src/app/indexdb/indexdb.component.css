@@ -1,3 +1,16 @@
 :host {
   display: block;
 }
+
+div.cmdRow, td:first-child {
+  display: flex;
+  gap: 1ch;
+}
+
+td:first-child {
+  button {
+    width: 2.3rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+}

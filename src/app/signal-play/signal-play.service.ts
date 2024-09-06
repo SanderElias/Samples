@@ -1,5 +1,5 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { asyncComputed } from 'src/utils/signals/async-computed';
+import { asyncComputed } from 'projects/se-ng/signal-utils/src/async-computed';
 
 import {DemoUserService } from '../demo-users.service';
 

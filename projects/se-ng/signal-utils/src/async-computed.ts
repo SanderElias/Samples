@@ -1,8 +1,9 @@
 
 import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
-import { isObservable, Observable, type Subscription } from 'rxjs';
+import { isObservable, type Observable, type Subscription } from 'rxjs';
 
-import { isPromise } from './is-promise.js';
+import { isPromise } from './is-promise';
+import { isAsyncIterable } from './is-async-iterable';
 
 type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {
@@ -118,6 +119,4 @@ export const asyncComputed: AsyncComputed = <T, Y>(
   });
 };
 
-const isAsyncIterable = (x: any): x is AsyncIterable<any> => {
-  return x && typeof x[Symbol.asyncIterator] === 'function';
-};
+

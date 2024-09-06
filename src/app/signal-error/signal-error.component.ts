@@ -1,6 +1,6 @@
 import { Component, computed, Signal,signal } from '@angular/core';
 import { map, timer } from 'rxjs';
-import { asyncComputed } from 'src/utils/signals/async-computed';
+import { asyncComputed } from 'projects/se-ng/signal-utils/src/async-computed';
 
 @Component({
   selector: 'se-signal-error',

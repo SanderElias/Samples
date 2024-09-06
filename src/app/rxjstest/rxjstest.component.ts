@@ -18,7 +18,7 @@ import { combinator } from './combinator';
   imports: [CommonModule],
   template: `<h1>Rxjs cleanup test</h1>
     @if (vm$ | async; as vm) {
-      <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp?.length }}</span>
+      <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp.length }}</span>
       <ul>
         @for (item of vm.comp; track identify($index, item)) {
           <li>
