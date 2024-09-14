@@ -1,6 +1,7 @@
 import { Component, computed, inject, input, signal, effect, untracked, output } from '@angular/core';
-import type { DbRecord, Id } from '../event-source.types';
+import type { DbRecord } from '../event-source.types';
 import { EvSourceDbService } from '../ev-source-db.service';
+import type { UniqueId } from '../unique-id-helpers';
 
 @Component({
   selector: 'se-edit-record',
@@ -27,7 +28,7 @@ import { EvSourceDbService } from '../ev-source-db.service';
 })
 export class EditRecordComponent {
   #evDb = inject(EvSourceDbService);
-  id = input<Id>();
+  id = input<UniqueId>();
   fields = input<string[]>([]);
   keys = computed(() => Array.from(new Set([...this.fields(), ...Object.keys(this.data())])));
   data = signal({ id: this.id() } as DbRecord);

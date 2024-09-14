@@ -1,13 +1,11 @@
-import exp from 'constants';
-
-export type Id = string;
+import type { UniqueId } from './unique-id-helpers';
 
 /**
  * Base type for a record in the database
  */
 export interface BaseDbRecord {
   /** mandatory id, must be unique in the entire DB */
-  id: Id;
+  id: UniqueId;
   /** mandatory, the table to use to store this record */
   table: string;
   /** tags make everything better ;-P */
@@ -25,5 +23,5 @@ export interface DbRecord extends BaseDbRecord {
 export interface DbEvent<T extends BaseDbRecord = DbRecord> {
   date?: Date;
   type?: 'update' | 'delete';
-  payload: T | { id: Id };
+  payload: T | { id: UniqueId };
 }

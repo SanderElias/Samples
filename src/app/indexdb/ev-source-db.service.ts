@@ -1,34 +1,22 @@
-import { computed, DestroyRef, effect, inject, Injectable, signal, type WritableSignal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal, type WritableSignal } from '@angular/core';
+import { deepEqual } from '../../utils/objects/deep-equal';
 import { EventSourceService } from './event-source.service';
-import type { DbEvent, DbRecord, Id } from './event-source.types';
-
-const randomChar = () => String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-// create a unique id, based on the current time, with a random character inserted between each digit.
-export const createId = () =>
-  Date.now()
-    .toString(36)
-    .split('')
-    .map(ch => `${ch}${randomChar()}`)
-    .join('');
+import type { DbRecord } from './event-source.types';
+import { createId, isId, type UniqueId } from './unique-id-helpers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EvSourceDbService {
-  #inMemDb = signal(new Map<Id, WritableSignal<DbRecord>>(), { equal: () => false });
+  #inMemDb = signal(new Map<UniqueId, WritableSignal<DbRecord>>(), { equal: () => false });
+  #availableTables = signal<Set<string>>(new Set(), { equal: () => false });
+
   #evs = inject(EventSourceService);
   #des = inject(DestroyRef).onDestroy(() => {
     this.#sub.unsubscribe();
   });
 
-  availableTables = computed(() => {
-    const data = this.#inMemDb().values();
-    const tables = new Set<string>();
-    for (const row of data) {
-      tables.add(row().table);
-    }
-    return Array.from(tables);
-  });
+  availableTables = computed(() => Array.from(this.#availableTables()));
 
   // listen for events from the event source service, and update the DB accordingly
   #sub = this.#evs.events$.subscribe(dbEvent => {
@@ -36,7 +24,9 @@ export class EvSourceDbService {
     if (dbEvent.type === 'delete') {
       db.delete(dbEvent.payload.id);
       this.#inMemDb.set(db); //remove record, trigger change
-    } else if (dbEvent.type === 'update') {
+      return; // no need to continue
+    }
+    if (dbEvent.type === 'update') {
       const dbRecord = dbEvent.payload as DbRecord;
       const old = db.get(dbEvent.payload.id);
       if (old) {
@@ -45,13 +35,21 @@ export class EvSourceDbService {
         db.set(dbEvent.payload.id, signal(removeUndefined(dbRecord)));
         this.#inMemDb.set(db); // extra record, trigger change
       }
+      const newRec = db.get(dbEvent.payload.id)!();
+      if (!this.#availableTables().has(newRec.table)) {
+        /* add the table to the list of available tables, and trigger signal change */
+        this.#availableTables.update(tables => {
+          tables.add(newRec.table);
+          return tables;
+        });
+      }
     }
   });
 
   create = (row: DbRecord) => {
     const id = row.id || createId();
-    if (typeof id !== 'string') {
-      throw new Error('id must be a string');
+    if (!isId(id)) {
+      throw new Error('id must be a unique identifier');
     }
     if (this.#inMemDb().has(row.id)) {
       throw new Error(`Duplicate id: ${row.id}`);
@@ -60,14 +58,14 @@ export class EvSourceDbService {
     this.#evs.post({ type: 'update', payload: { ...row, id } });
   };
 
-  read = (id: Id) => this.#inMemDb().get(id)?.asReadonly();
-  getData = (id: Id) => {
+  read = (id: UniqueId) => this.#inMemDb().get(id)?.asReadonly();
+  getData = (id: UniqueId) => {
     const data = this.#inMemDb().get(id)?.();
     if (!data) {
       throw new Error(`No row with id: ${id}`);
     }
-    return {...data}; // return a shallow copy
-  }
+    return { ...data }; // return a shallow copy
+  };
 
   update = (row: DbRecord): void => {
     const current = this.#inMemDb().get(row.id)?.();
@@ -75,24 +73,24 @@ export class EvSourceDbService {
       throw new Error(`No row with id: ${row.id}`);
     }
 
-    // create a diff of the current and new row, aside from the ID, we only want to store the actual changes.
+    // create a diff of the current and new row, aside from the ID, we only want to store the actual changed properties.
     const diff = Object.entries(row).reduce(
       (acc, [key, value]) => {
-        if (current[key] !== value) {
+        if (!deepEqual(current[key], value)) {
           acc[key] = value;
         }
         return acc;
       },
       { id: row.id }
     );
-    if (Object.keys(diff).length === 1 && diff.id!==undefined) {
+    if (Object.keys(diff).length === 1 && diff.id !== undefined) {
       // no changes
       return;
     }
     this.#evs.post({ type: 'update', payload: diff });
   };
 
-  delete = (id: Id): void => this.#evs.post({ type: 'delete', payload: { id } });
+  delete = (id: UniqueId): void => this.#evs.post({ type: 'delete', payload: { id } });
 
   list = (table: string) =>
     computed(() =>

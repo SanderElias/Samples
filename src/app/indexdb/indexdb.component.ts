@@ -1,5 +1,6 @@
-import { Component, computed, inject, signal, viewChild, type ElementRef } from '@angular/core';
-import { createId, EvSourceDbService } from './ev-source-db.service';
+import { Component, computed, effect, inject, signal, viewChild, type ElementRef } from '@angular/core';
+import { EvSourceDbService } from './ev-source-db.service';
+import { createId, type UniqueId } from './unique-id-helpers';
 import { EditRecordComponent } from './edit-record/edit-record.component';
 
 @Component({
@@ -10,7 +11,7 @@ import { EditRecordComponent } from './edit-record/edit-record.component';
     <h2>Sample with event-source DB</h2>
     <div class="cmdRow">
       <button (click)="newRow()">New Row</button>
-      <select [(value)]="currentTable">
+      <select (change)="currentTable.set($any($event.target).value)">
         @for (table of availableTables(); track $index) {
           <option [selected]="currentTable() === table">{{ table }}</option>
         }
@@ -51,8 +52,8 @@ export class IndexdbComponent {
   #evsDb = inject(EvSourceDbService);
   dlg = viewChild<ElementRef<HTMLDialogElement>>('dlg');
   currentTable = signal('demo-1');
-  activeId = signal('');
-  availableTables = () => Array.from(new Set<string>([this.currentTable(), ...this.#evsDb.availableTables()]));
+  activeId = signal<UniqueId | undefined>(undefined);
+  availableTables = this.#evsDb.availableTables;
 
   rows = computed(() => this.#evsDb.list(this.currentTable())());
   availableCols = computed(() => {
@@ -66,13 +67,12 @@ export class IndexdbComponent {
     return Array.from(cols);
   });
 
-  edit = (id: string) => {
+  edit = (id: UniqueId) => {
     this.activeId.set(id);
-    console.log('edit', id, this.dlg())
+    console.log('edit', id, this.dlg());
     const dlg = this.dlg()?.nativeElement as HTMLDialogElement;
     dlg?.showModal();
   };
-
 
   newRow = () => {
     const row = { id: createId(), table: this.currentTable(), tags: ['new'], date: new Date() };
@@ -81,4 +81,10 @@ export class IndexdbComponent {
   };
 
   del = this.#evsDb.delete;
+
+  constructor() {
+    effect(() => {
+      console.log('table changed', this.currentTable());
+    });
+  }
 }
