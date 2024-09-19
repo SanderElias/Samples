@@ -4,12 +4,15 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
+    "target": "es2023",
+    "module": "ESNext",
     "types": []
   },
-  "files": [
-    "src/main.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.d.ts"],
+  "angularCompilerOptions": {
+    "strict": true,
+    "angularCompilerOptions": false,
+    "_enabledBlockTypes": ["if", "for", "switch", "defer", "track"]
+  }
 }

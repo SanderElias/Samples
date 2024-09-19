@@ -2,10 +2,10 @@ import { Deferred } from 'src/utils/signals/deferred';
 
 const allDbUpgrades = new Map<string, ((db: IDBDatabase) => IDBObjectStore)[]>();
 
-export const getAllFromStore = async function* (
+export const getAllFromStore = async function* <T = any>(
   dbName: string,
   storeName: string
-): AsyncGenerator<{ key: IDBValidKey; payload: any }, void, unknown> {
+): AsyncGenerator<{ key: IDBValidKey; value: T }, void, unknown> {
   const db = await openDb(dbName);
   var tx = db.transaction(storeName);
   var store = tx.objectStore(storeName);
@@ -19,7 +19,7 @@ export const getAllFromStore = async function* (
     if (!cursor) {
       break;
     }
-    yield await { key: cursor.primaryKey, payload: cursor.value };
+    yield await { key: cursor.primaryKey, value: cursor.value };
     cursorDef = new Deferred();
     cursor.continue();
   }

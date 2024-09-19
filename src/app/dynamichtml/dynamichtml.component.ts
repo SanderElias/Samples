@@ -7,18 +7,19 @@ import { DomSanitizer } from '@angular/platform-browser';
  * are co-dependent, and you will get circular warnings otherwise
  */
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'dyn-data',
-  template: `{{ content }}`,
-  styles: [
-    `
+    // tslint:disable-next-line: component-selector
+    selector: 'dyn-data',
+    template: `{{ content }}`,
+    styles: [
+        `
       :host {
         display: inline-block;
         border: 1px solid green;
         padding: 5px 2px;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 class DynDataComponent {
   private parent = inject(DynamicHtmlComponent);

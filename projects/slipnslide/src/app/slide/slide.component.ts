@@ -8,8 +8,9 @@ const availableComps = {
   demo: DemoComponent,
 };
 @Component({
-  selector: 'app-slide',
-  template: `<scully-content></scully-content>`,
+    selector: 'app-slide',
+    template: `<scully-content></scully-content>`,
+    standalone: false
 })
 export class SlideComponent {
   constructor() {

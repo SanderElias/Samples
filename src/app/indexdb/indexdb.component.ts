@@ -1,7 +1,7 @@
-import { Component, computed, effect, inject, signal, viewChild, type ElementRef } from '@angular/core';
+import { Component, computed, inject, signal, viewChild, type ElementRef } from '@angular/core';
+import { EditRecordComponent } from './edit-record/edit-record.component';
 import { EvSourceDbService } from './ev-source-db.service';
 import { createId, type UniqueId } from './unique-id-helpers';
-import { EditRecordComponent } from './edit-record/edit-record.component';
 
 @Component({
   selector: 'se-indexdb',
@@ -21,19 +21,19 @@ import { EditRecordComponent } from './edit-record/edit-record.component';
       <thead>
         <tr>
           <th></th>
-          @for (col of availableCols(); track $index) {
+          @for (col of state().cols; track $index) {
             <th>{{ col }}</th>
           }
         </tr>
       </thead>
       <tbody>
-        @for (row of rows(); track $index) {
+        @for (row of state().rows; track $index) {
           <tr>
             <td>
               <button (click)="edit(row().id)">✏️</button>
               <button (click)="del(row().id)">🗑️</button>
             </td>
-            @for (col of availableCols(); track $index) {
+            @for (col of state().cols; track $index) {
               <td>{{ row()[col] }}</td>
             }
           </tr>
@@ -41,8 +41,8 @@ import { EditRecordComponent } from './edit-record/edit-record.component';
       </tbody>
     </table>
     <dialog #dlg>
-      @if (activeId() !== '') {
-        <se-edit-record [id]="activeId()" [fields]="availableCols()" (done)="dlg.close()" />
+      @if (state().activeId() !== undefined) {
+        <se-edit-record [id]="state().activeId()!" [fields]="state().cols" (done)="dlg.close()" />
       }
     </dialog>
   `,
@@ -52,39 +52,35 @@ export class IndexdbComponent {
   #evsDb = inject(EvSourceDbService);
   dlg = viewChild<ElementRef<HTMLDialogElement>>('dlg');
   currentTable = signal('demo-1');
-  activeId = signal<UniqueId | undefined>(undefined);
-  availableTables = this.#evsDb.availableTables;
+  availableTables = this.#evsDb.$availableTables;
 
-  rows = computed(() => this.#evsDb.list(this.currentTable())());
-  availableCols = computed(() => {
-    const data = this.rows();
+  state = computed(() => {
+    const rows = this.#evsDb.list(this.currentTable())();
     const cols = new Set<string>();
-    for (const row of data) {
+    for (const row of rows) {
       for (const col of Object.keys(row())) {
         cols.add(col);
       }
     }
-    return Array.from(cols);
+    return {
+      currentTable: this.currentTable(),
+      rows,
+      cols: Array.from(cols),
+      activeId: signal<UniqueId | undefined>(undefined),
+    };
   });
 
   edit = (id: UniqueId) => {
-    this.activeId.set(id);
-    console.log('edit', id, this.dlg());
+    this.state().activeId.set(id);
     const dlg = this.dlg()?.nativeElement as HTMLDialogElement;
     dlg?.showModal();
   };
 
   newRow = () => {
     const row = { id: createId(), table: this.currentTable(), tags: ['new'], date: new Date() };
-    this.activeId.set(row.id);
+    this.state().activeId.set(row.id);
     this.#evsDb.create(row);
   };
 
   del = this.#evsDb.delete;
-
-  constructor() {
-    effect(() => {
-      console.log('table changed', this.currentTable());
-    });
-  }
 }

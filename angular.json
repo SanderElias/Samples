@@ -694,7 +694,6 @@
             "index": "projects/extreme-lazy-test/src/index.html",
             "browser": "projects/extreme-lazy-test/src/main.ts",
             "polyfills": [
-              "zone.js"
             ],
             "tsConfig": "projects/extreme-lazy-test/tsconfig.app.json",
             "assets": [
@@ -722,7 +721,9 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "namedChunks": true,
+              "optimization": false
             },
             "development": {
               "optimization": false,

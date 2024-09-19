@@ -9,7 +9,8 @@ export class IdDirective {
 }
 
 @Directive({
-  selector: 'img[src]',
+    selector: 'img[src]',
+    standalone: false
 })
 export class lazyImagesLoadDirective implements OnInit {
   private elmRef = inject<ElementRef<HTMLImageElement>>(ElementRef<HTMLImageElement>);
