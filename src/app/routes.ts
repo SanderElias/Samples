@@ -205,6 +205,11 @@ export const routes: Routes = [
     title: 'IndexDb sample',
 
   },
+  {
+    path: 'acnhorPosition',
+    loadComponent: () => import('./anchor-pos/anchor-pos.component').then(m => m.AnchorPosComponent),
+    title: 'Anchor Position demo',
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'indexDb' },
+  { path: '**', redirectTo: 'acnhorPosition' },
 ];

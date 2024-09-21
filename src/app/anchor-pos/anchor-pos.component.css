@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.anchored {
+  position: absolute;
+  /*  Anchor reference  */
+  position-anchor: --myAnchor;
+
+  /* some styles */
+  background: linear-gradient(45deg, blueviolet, blue);
+  font-size: 1rem;
+  display: grid;
+  place-items: center;
+  border-radius: .5ch;
+  padding: .5ch;
+  width: fit-content;
+  margin: .5ch;
+
+}
+
+.infobox {
+  /* Anchor reference  */
+  anchor-name: --myAnchor;
+
+  /* some styles */
+  width: fit-content;
+  background-color: #0a0a0a;
+  padding: 0.6ch;
+  border-radius: 0.6ch;
+}
+
+/** container styles */
+section {
+  display: grid;
+  place-items: center;
+  border: 1px solid #000;
+  width: 60rem;
+  height: 30rem;
+}
