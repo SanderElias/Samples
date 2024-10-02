@@ -1,23 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import {
   BehaviorSubject,
   combineLatest,
-  concat,
-  concatMap,
   finalize,
-  forkJoin,
   map,
-  merge,
-  mergeAll,
-  mergeMap,
   Observable,
-  Subscriber,
-  switchMap,
   tap,
   timer,
-  toArray,
 } from 'rxjs';
+
 import { combinator } from './combinator';
 
 @Component({
@@ -26,7 +18,7 @@ import { combinator } from './combinator';
   imports: [CommonModule],
   template: `<h1>Rxjs cleanup test</h1>
     @if (vm$ | async; as vm) {
-      <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp?.length }}</span>
+      <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp.length }}</span>
       <ul>
         @for (item of vm.comp; track identify($index, item)) {
           <li>

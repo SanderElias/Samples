@@ -187,14 +187,29 @@ export const routes: Routes = [
     path: 'signalPlay',
     loadComponent: () => import('./signal-play/signal-play.component'),
   },
+  // {
+  //   path: 'signalError',
+  //   loadComponent: () => import('./signal-error/signal-error.component'),
+  // },
+  // {
+  //   path: 'signalPlay/:id',
+  //   loadComponent: () => import('./signal-play/signal-play.component'),
+  // },
   {
-    path: 'signalError',
-    loadComponent: () => import('./signal-error/signal-error.component'),
+    path: 'eventedOutputs',
+    loadComponent: () => import('./evented-outputs/evented-outputs.component').then(m => m.EventedOutputsComponent),
   },
   {
-    path: 'signalPlay/:id',
-    loadComponent: () => import('./signal-play/signal-play.component'),
+    path: 'indexDb',
+    loadComponent: () => import('./indexdb/indexdb.component').then(m => m.IndexdbComponent),
+    title: 'IndexDb sample',
+
+  },
+  {
+    path: 'acnhorPosition',
+    loadComponent: () => import('./anchor-pos/anchor-pos.component').then(m => m.AnchorPosComponent),
+    title: 'Anchor Position demo',
   },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalPlay' },
+  { path: '**', redirectTo: 'acnhorPosition' },
 ];

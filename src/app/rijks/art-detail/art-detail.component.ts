@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { RakiObject } from '../rakiCollection';
 @Component({
   selector: 'app-art-detail',

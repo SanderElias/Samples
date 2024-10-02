@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -7,7 +6,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'se-route-list',
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [RouterLink],
   template: `
     @for (item of routes(); track $index) {
       @if (item != undefined) {

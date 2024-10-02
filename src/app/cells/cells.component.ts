@@ -5,11 +5,12 @@ import {
   Component,
   ElementRef,
   HostListener,
-  NgZone,
-  WritableSignal,
   inject,
+  NgZone,
   signal,
+  WritableSignal,
 } from '@angular/core';
+
 import { CellComponent } from './cell/cell.component';
 
 export interface Cell {

@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Model, SampledataService } from '../sampledata.service';
+import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { BehaviorSubject, switchMap } from 'rxjs';
+
+import { Model, SampledataService } from '../sampledata.service';
 
 @Component({
   selector: 'se-template',

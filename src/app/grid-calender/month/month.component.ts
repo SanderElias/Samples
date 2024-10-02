@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DayCellComponent } from '../day-cell/day-cell.component';
+import { Component, Input } from '@angular/core';
+
 import { CalenderDay } from '../calenderDay';
+import { DayCellComponent } from '../day-cell/day-cell.component';
 
 @Component({
   selector: 'se-month',

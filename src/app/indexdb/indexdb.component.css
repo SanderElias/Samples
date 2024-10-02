@@ -1,0 +1,42 @@
+/* the props */
+@import "open-props/style";
+
+/* optional imports that use the props */
+@import "open-props/normalize";
+
+:host {
+  display: block;
+}
+
+div.cmdRow, td:first-child {
+  display: flex;
+  gap: 1ch;
+}
+
+td:first-child {
+  button {
+    width: 2.3rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+}
+
+table {
+  margin-top: var(--size-2);
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+tr:nth-child(even) {
+  background-color: var(--surface-1);
+}
+tr:nth-child(odd) {
+  background-color: var(--surface-0);
+}
+
+/* tr:has(td:hover) {
+  background-color: var(--surface-3);
+  font-style: italic;
+  font-weight: bolder;
+} */

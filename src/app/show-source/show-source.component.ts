@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { GuardsCheckEnd, Router } from '@angular/router';
@@ -57,7 +57,7 @@ import { combineLatest, filter, map, tap } from 'rxjs';
     `,
   ],
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class ShowSourceComponent {
   private router = inject(Router);
@@ -78,8 +78,8 @@ export class ShowSourceComponent {
 }
 
 function updateRouteInfo(routeInfo: RouteInfo) {
-  if (typeof window === "undefined") return
-  if (typeof document === "undefined") return
+  if (typeof window === 'undefined') return;
+  if (typeof document === 'undefined') return;
   if (routeInfo?.path) {
     const origin = `https://samples.selias.dev`;
     const desc =

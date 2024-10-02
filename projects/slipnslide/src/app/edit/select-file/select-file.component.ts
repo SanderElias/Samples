@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, ElementRef, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { SlidesService } from '../../slides.service';
-import { NgForOf, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'select-file',
@@ -14,7 +13,7 @@ import { NgForOf, AsyncPipe } from '@angular/common';
   </select>`,
   styles: [`":host{display:block}`],
   standalone: true,
-  imports: [NgForOf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class SelectFileComponent implements OnDestroy, OnInit {
   private elmRef = inject(ElementRef);

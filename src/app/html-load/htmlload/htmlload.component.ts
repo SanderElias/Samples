@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnDestroy, inject } from '@angular/core';
+import { Component, ElementRef, inject,OnDestroy } from '@angular/core';
+
 import { BogusLoadService } from '../bogus-load.service';
 
 @Component({

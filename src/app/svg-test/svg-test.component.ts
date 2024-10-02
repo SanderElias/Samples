@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { BlocksComponent } from './blocks/blocks.component';
 import { DecimalPipe } from '@angular/common';
+import { Component } from '@angular/core';
+
+import { BlocksComponent } from './blocks/blocks.component';
 
 @Component({
   selector: 'app-svg-test',

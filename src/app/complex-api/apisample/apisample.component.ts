@@ -1,10 +1,10 @@
-import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, inject, type Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SwapiRoot, SwapiService } from '@se-ng/swapi';
 import { combineLatest, firstValueFrom, of } from 'rxjs';
 import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+
 import { ShowRecComponent } from '../show-rec/show-rec.component';
 
 @Component({
@@ -12,14 +12,14 @@ import { ShowRecComponent } from '../show-rec/show-rec.component';
   templateUrl: './apisample.component.html',
   styles: [],
   standalone: true,
-  imports: [ReactiveFormsModule, ShowRecComponent, AsyncPipe, NgFor],
+  imports: [ReactiveFormsModule, ShowRecComponent],
 })
 export class APISampleComponent {
   /** injections */
   #sw = inject(SwapiService);
 
   /** select the table/set */
-  chosenSet = new FormControl('');
+  chosenSet = new FormControl<string>('', { nonNullable: true });
   /** search for this name */
   name = new FormControl('');
   /** keep the raw data */

@@ -1,7 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
+import { asyncComputed } from 'projects/se-ng/signal-utils/src/async-computed';
 
-import { DemoUserService } from '../demo-users.service';
-import { asyncComputed } from 'src/utils/signals/async-computed';
+import {DemoUserService } from '../demo-users.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,9 @@ import { asyncComputed } from 'src/utils/signals/async-computed';
 export class SignalPlayService {
   users = inject(DemoUserService);
 
-  $users = asyncComputed(() => this.users.allUsers$);
+
+  $users = asyncComputed(() => this.users.allUsers$,[]);
+  // $users = signal<DemoUser[]>([])
 
   getUser = (n: string) => {
     const users = this.$users();
@@ -30,7 +32,7 @@ export class SignalPlayService {
 
   $lastId = computed(() => {
     const users = this.$users();
-    return users && users.length > 0 ? users.at(-1).id : -2;
+    return (users && users.length > 0) ? users.at(-1)!.id : -2;
   });
 
   constructor() {}

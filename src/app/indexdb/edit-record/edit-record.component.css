@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  width: 30rem;
+  border: 1px solid gray;
+  background-color: rgb(38, 38, 38);
+  padding: 1rem;
+  gap: 1ch;
+  flex-direction: column;
+}
+
+label {
+  display: grid;
+  gap: 1ch;
+  grid-template-columns: 5rem 1fr;
+  align-items: center;
+
+  span {
+    text-align: right;
+  }
+}
+
+label.addProp {
+  display: flex;
+  gap: 1ch;
+  align-items: flex-start;
+}
+
+div {
+  display: flex;
+  gap: 1ch;
+}

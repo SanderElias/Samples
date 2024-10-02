@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -31,7 +31,7 @@ import { RelationComponent } from '../../relation/relation.component';
     `,
   ],
   standalone: true,
-  imports: [NgIf, RelationComponent, AsyncPipe],
+  imports: [RelationComponent, AsyncPipe],
 })
 export class ProductDetailComponent {
   #prod = inject(ProductsService);
@@ -42,7 +42,7 @@ export class ProductDetailComponent {
     }
   }
 
-  @Input() relationId: string;
+  @Input() relationId = '';
 
   product$ = this.#productId.pipe(switchMap(id => this.#prod.getProduct(id)));
 }

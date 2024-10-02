@@ -1,12 +1,14 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChildren, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChildren } from '@angular/core';
 import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
-import { catchError, filter, map, pluck, scan, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, scan, startWith, switchMap } from 'rxjs/operators';
+
 import { RakiService } from '../../../app/rijks/raki.service';
 import { PaintingComponent } from '../painting/painting.component';
 import { PlayButtonComponent } from '../play-button/play-button.component';
 import { QuoteComponent } from '../quote/quote.component';
 import { QuoteService } from '../quote/quote.service';
+
 import { ObsFromEvent } from './ObsFromEvent';
 
 @Component({
@@ -15,7 +17,7 @@ import { ObsFromEvent } from './ObsFromEvent';
   templateUrl: './vm-home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
+  imports: [PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
 })
 export class VmHomeComponent {
   private raki = inject(RakiService);

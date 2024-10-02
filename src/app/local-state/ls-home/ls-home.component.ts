@@ -1,8 +1,8 @@
-import { Component, ContentChildren, ElementRef, OnInit, QueryList, TemplateRef, ViewChildren, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, fromEvent, merge, of, ReplaySubject } from 'rxjs';
-import { delay, filter, map, pluck, switchMap, tap } from 'rxjs/operators';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { Component, ElementRef, inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
+import { filter, map, pluck, switchMap } from 'rxjs/operators';
 
 interface LocalState {
   count?: number;
@@ -23,7 +23,7 @@ interface LocalState {
   `,
   styles: [],
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class LsHomeComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -43,7 +43,7 @@ export class LsHomeComponent implements OnInit {
       filter((ql): ql is QueryList<ElementRef<HTMLButtonElement>> => ql instanceof QueryList),
       map(ql => ql.toArray().map(b => b.nativeElement)),
       // tap(btns => btns.forEach(b => console.log(b))),
-      switchMap(buttons => fromEvent(buttons, 'click')),
+      switchMap(buttons => fromEvent(buttons, 'click'))
       // tap(cl => console.log({ cl }))
     )
     .subscribe(console.log);
@@ -56,7 +56,7 @@ export class LsHomeComponent implements OnInit {
     map(preVm => ({
       id: preVm.id,
       count: preVm.state.count || 0,
-    })),
+    }))
     // tap(console.log)
   );
 

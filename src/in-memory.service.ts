@@ -7,7 +7,7 @@ export type RowType = 'contact' | 'product' | 'order';
 type Id = string;
 export interface Row {
   id: Id;
-  type: RowType;
+  table: Array<string>;
   [field: string]: any;
 }
 
@@ -41,7 +41,7 @@ export class InMemoryDataService {
   delete(id: Id) {
     this.inMemDb.delete(id);
   }
-  list(type: RowType) {
-    return Array.from(this.inMemDb.values()); //.filter(row => row.type === type);
+  list(table: string) {
+    return Array.from(this.inMemDb.values()).filter(row => row.table.includes(table));
   }
 }

@@ -21,10 +21,53 @@
     "ng": "ng",
     "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
     "serveHtml": "npx light-server -s ./ -w '*' --port 8080 ",
-    "start": "ng serve --port 4301 --open",
-    "test": "ng test"
+    "start": "wireit",
+    "start.lazy": "wireit",
+    "test": "ng test",
+    "ntest": "wireit"
   },
   "wireit": {
+    "start": {
+      "command": "ng serve samples --port 4204",
+      "service": true,
+      "files": [
+        "tsconfig.app.json",
+        "angular.json"
+      ],
+      "dependencies": [
+        "build.lib",
+        "start.lazy"
+      ]
+    },
+    "start.lazy": {
+      "command": "ng serve extremeLazyTest --port 4205",
+      "service": true,
+      "files": [
+        "projects/extreme-lazy-test/**",
+        "angular.json"
+      ],
+      "dependencies": [
+        "build.lib"
+      ]
+    },
+    "ntest": {
+      "command": "node --test  out-tsc/spec/utils/signals/async-computed.spec.js",
+      "files": [
+        "src/utils/signals/**"
+      ],
+      "dependencies": [
+        "compileTest"
+      ]
+    },
+    "compileTest": {
+      "command": "ngc --project src/tsconfig.spec.json",
+      "files": [
+        "src/signals/**"
+      ],
+      "dependencies": [
+        "build.lib"
+      ]
+    },
     "build.deploy": {
       "command": "echo 'Deploying to production'",
       "dependencies": [
@@ -49,7 +92,8 @@
         "build.lib.observable-hooks",
         "build.lib.swapi",
         "build.lib.observable-utils",
-        "build.lib.let"
+        "build.lib.let",
+        "build.lib.signalUtils"
       ]
     },
     "build.lib.let": {
@@ -79,82 +123,90 @@
         "projects/se-ng/swapi/src/*",
         "projects/se-ng/swapi/tsconfig.lib.json"
       ]
+    },
+    "build.lib.signalUtils": {
+      "command": "ng build @se-ng/signalUtils --configuration production",
+      "files": [
+        "projects/se-ng/signal-utils/src/*",
+        "projects/se-ng/signal-utils/tsconfig.lib.json"
+      ]
     }
   },
   "dependencies": {
-    "@angular/animations": "18.2.0-next.2",
-    "@angular/common": "18.2.0-next.2",
-    "@angular/compiler": "18.2.0-next.2",
-    "@angular/core": "18.2.0-next.2",
-    "@angular/elements": "^18.2.0-next.2",
-    "@angular/forms": "18.2.0-next.2",
-    "@angular/platform-browser": "18.2.0-next.2",
-    "@angular/platform-browser-dynamic": "18.2.0-next.2",
-    "@angular/platform-server": "^18.2.0-next.2",
-    "@angular/router": "18.2.0-next.2",
-    "@angular/ssr": "^18.2.0-next.2",
-    "@faker-js/faker": "^8.4.1",
-    "@fortawesome/fontawesome-free": "^6.5.2",
-    "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "@fortawesome/free-regular-svg-icons": "^6.5.2",
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@angular/animations": "19.0.0-next.8",
+    "@angular/common": "19.0.0-next.8",
+    "@angular/compiler": "19.0.0-next.8",
+    "@angular/core": "19.0.0-next.8",
+    "@angular/elements": "19.0.0-next.8",
+    "@angular/forms": "19.0.0-next.8",
+    "@angular/platform-browser": "19.0.0-next.8",
+    "@angular/platform-browser-dynamic": "19.0.0-next.8",
+    "@angular/platform-server": "19.0.0-next.8",
+    "@angular/router": "19.0.0-next.8",
+    "@angular/ssr": "19.0.0-next.9",
+    "@faker-js/faker": "^9.0.0",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@ngneat/falso": "^7.2.0",
-    "@npm/types": "^1.0.2",
     "@toast-ui/editor": "^3.2.2",
-    "@validointi/core": "^1.6.0",
     "animate-css-grid": "^1.5.1",
     "bson": "^6.8.0",
     "chance": "^1.1.12",
     "colorjs.io": "^0.5.2",
-    "core-js": "^3.37.1",
-    "devcert": "^1.2.2",
-    "document-register-element": "^1.7.2",
-    "express": "^4.19.2",
+    "core-js": "^3.38.1",
+    "express": "^4.21.0",
     "front-matter": "^4.0.2",
-    "guess-parser": "^0.4.22",
     "idb-keyval": "^6.2.1",
+    "jasmine": "^5.3.0",
+    "jsdom": "^25.0.0",
     "messagepack": "^1.1.12",
     "msgpack-lite": "^0.1.26",
-    "open-props": "^1.7.5",
-    "path-to-regexp": "^7.0.0",
+    "open-props": "^1.7.6",
+    "path-to-regexp": "^8.1.0",
     "replicator": "^1.0.5",
     "rxjs": "^7.8.1",
-    "tslib": "^2.6.3",
-    "typescipt": "^1.0.0",
-    "yaml": "^2.4.5"
+    "tslib": "^2.7.0",
+    "yaml": "^2.5.1"
   },
   "overrides": {
     "asciidoctor.js": {}
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.2.0-next.2",
-    "@angular-eslint/builder": "18.1.0",
-    "@angular-eslint/eslint-plugin": "18.1.0",
-    "@angular-eslint/eslint-plugin-template": "18.1.0",
-    "@angular-eslint/schematics": "18.1.0",
-    "@angular-eslint/template-parser": "18.1.0",
-    "@angular/cli": "18.2.0-next.2",
-    "@angular/compiler-cli": "18.2.0-next.2",
-    "@angular/language-service": "18.2.0-next.2",
-    "@playwright/test": "^1.45.1",
+    "@angular-devkit/build-angular": "19.0.0-next.9",
+    "@angular-eslint/builder": "18.3.1",
+    "@angular-eslint/eslint-plugin": "18.3.1",
+    "@angular-eslint/eslint-plugin-template": "18.3.1",
+    "@angular-eslint/schematics": "18.3.1",
+    "@angular-eslint/template-parser": "18.3.1",
+    "@angular/cli": "19.0.0-next.9",
+    "@angular/compiler-cli": "19.0.0-next.8",
+    "@angular/language-service": "19.0.0-next.8",
+    "@playwright/test": "^1.47.1",
     "@types/chance": "^1.1.6",
-    "@types/node": "^20.14.10",
-    "@types/yargs": "^17.0.32",
+    "@types/eslint": "^9.6.1",
     "@types/express": "^4.17.21",
+    "@types/jasmine": "^5.1.4",
     "@types/js-yaml": "^4.0.9",
     "@types/jsdom": "^21.1.7",
     "@types/msgpack-lite": "^0.1.11",
+    "@types/node": "^22.5.5",
     "@types/wicg-file-system-access": "^2023.10.5",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
-    "eslint": "^8.57.0",
-    "ng-packagr": "^18.1.0",
-    "prettier": "^3.3.2",
-    "sharp": "^0.33.4",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
+    "@web/test-runner": "^0.19.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "ng-packagr": "^19.0.0-next.1",
+    "prettier": "^3.3.3",
+    "sharp": "^0.33.5",
     "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.0",
-    "typescript": "5.5.3",
-    "wireit": "^0.14.5",
+    "tsx": "^4.19.1",
+    "typescript": "5.6.2",
+    "wireit": "^0.14.9",
     "yargs": "^17.7.2"
   }
 }

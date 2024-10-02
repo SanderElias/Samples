@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { NgForOf } from '@angular/common';
-import { set } from 'idb-keyval';
 
 @Component({
   selector: 'app-blocks',

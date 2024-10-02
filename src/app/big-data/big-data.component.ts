@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
@@ -13,7 +13,7 @@ interface LocalState {
 
 @Component({
   standalone: true,
-  imports: [AsyncPipe, NgIf, NgFor],
+  imports: [AsyncPipe],
   selector: 'app-big-data',
   template: `
     <h1>Big data and performance demo</h1>
@@ -111,7 +111,7 @@ export class BigDataComponent {
          * as the list is hot, and will grow, this is a bad idea, and will
          * block the stack. This is done here anyway to be able to show the impact of doing this
          */
-        map(users => (sort === '' ? users : users.sort((a, b) => (a[sort] < b[sort] ? -1 : 1))))
+        map(users => (sort === '' ? users : users.sort((a, b) => (a[sort]! < b[sort]! ? -1 : 1))))
       )
     )
   );

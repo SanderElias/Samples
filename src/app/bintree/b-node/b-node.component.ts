@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+
 import { balance, BinNode, getNode, height } from '../BinNode';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'b-node',
@@ -10,16 +8,18 @@ import { NgIf, AsyncPipe } from '@angular/common';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, BNodeComponent, AsyncPipe],
+  imports: [BNodeComponent],
 })
 export class BNodeComponent {
-  node$ = new ReplaySubject<BinNode>();
-  left$ = this.node$.pipe(map(n => ({ ...getNode(n.left), time: Date.now() })));
-  right$ = this.node$.pipe(map(n => ({ ...getNode(n.right), time: Date.now() })));
-
-  @Input() set bNode(bNode: BinNode) {
-    setTimeout(() => this.node$.next({ ...bNode, time: Date.now() }), 10);
-  }
+  bNode = input<BinNode | undefined | null>(undefined);
+  $left = computed(() => {
+    const left = getNode(this.bNode()?.left);
+    return left && { ...left, time: Date.now() };
+  });
+  $right = computed(() => {
+    const right = getNode(this.bNode()?.right);
+    return right && { ...right, time: Date.now() };
+  });
   height = height;
   balance = balance;
 

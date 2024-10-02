@@ -1,11 +1,11 @@
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { pluck } from '../../../pluck';
 import { RelationsService } from '../../relations.service';
 import { OrderRowComponent } from '../order-row/order-row.component';
 import { RelationComponent } from '../relation/relation.component';
-import { pluck } from '../../../pluck';
 
 @Component({
   selector: 'app-relation-detail',
@@ -19,7 +19,7 @@ import { pluck } from '../../../pluck';
     }
   `,
   standalone: true,
-  imports: [NgIf, RelationComponent, NgForOf, OrderRowComponent, AsyncPipe],
+  imports: [RelationComponent, OrderRowComponent, AsyncPipe],
 })
 export class BRelationDetailComponent {
   relationId$ = inject(ActivatedRoute).params.pipe(pluck('id'));

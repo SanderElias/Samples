@@ -1,9 +1,11 @@
-/* eslint-disable max-len */
-import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } from '@angular/core';
-import { isObservable, Observable, type Subscription } from 'rxjs';
-import { isPromise } from './is-promise';
 
-type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | T;
+import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
+import { isObservable, type Observable, type Subscription } from 'rxjs';
+
+import { isPromise } from './is-promise';
+import { isAsyncIterable } from './is-async-iterable';
+
+type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {
   /**
    * @description Helper to put the outcome(s) of a promise or observable into a signal
@@ -48,31 +50,59 @@ export const asyncComputed: AsyncComputed = <T, Y>(
   if (!destroyRef) {
     throw new Error('destroyRef is mandatory when used outside a injection context');
   }
+  let abortPrevious: AbortController | undefined;
   destroyRef.onDestroy(() => {
     obs?.unsubscribe();
     ref.destroy();
+    abortPrevious?.abort();
   });
   let obs: Subscription | undefined;
+  const assertContinue = (as:AbortSignal) => {
+    if (as.aborted) {
+      obs?.unsubscribe();
+      throw new Error('aborted');
+    }
+  };
   const ref = effect(
     async () => {
       try {
-        obs?.unsubscribe(); // cleanup previous subscription (on new signal emission)
+        // abort the previous requests, and clean up the subscription
+        abortPrevious?.abort();
+        // create a new AbortController for the current iteration
+        abortPrevious = new AbortController();
+        // keep an reference to the signal to be able to clean up the subscription
+        const abortSignal = abortPrevious.signal;
         const outcome = cb();
+        assertContinue(abortSignal);
         if (isObservable(outcome)) {
           obs = outcome.subscribe({
-            next: value => state.set({ value, error: undefined }),
+            next: value => {
+              assertContinue(abortSignal!);
+              state.set({ value, error: undefined });
+            },
             error: error => {
+              assertContinue(abortSignal!);
               state.set({ value: undefined, error });
             },
           });
         } else if (isPromise(outcome)) {
           const value = await outcome;
+          assertContinue(abortSignal);
           state.set({ value, error: undefined });
+        } else if (isAsyncIterable(outcome)) {
+          for await (const value of outcome) {
+            assertContinue(abortSignal);
+            state.set({ value, error: undefined });
+          }
         } else {
+          assertContinue(abortSignal);
           state.set({ value: outcome, error: undefined });
         }
-      } catch (e) {
-        state.set({ value: undefined, error: e });
+      } catch (e: any) {
+        if (e.message !== 'aborted') {
+          // only set the error if it is not an abort
+          state.set({ value: undefined, error: e });
+        }
       }
     },
     { manualCleanup: true, allowSignalWrites: true }
@@ -88,3 +118,5 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     return currentState.value;
   });
 };
+
+

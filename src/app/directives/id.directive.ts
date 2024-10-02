@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, inject,Input, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[id]',
@@ -9,7 +9,8 @@ export class IdDirective {
 }
 
 @Directive({
-  selector: 'img[src]',
+    selector: 'img[src]',
+    standalone: false
 })
 export class lazyImagesLoadDirective implements OnInit {
   private elmRef = inject<ElementRef<HTMLImageElement>>(ElementRef<HTMLImageElement>);

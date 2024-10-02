@@ -1,9 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { UntypedFormControl, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormControl, ɵInternalFormsSharedModule } from '@angular/forms';
 import { combineLatest } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
+
 import { AddressService, UserCard } from '../../generic-services/address.service';
-import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 
 type Vm = [UserCard[], string];
 
@@ -12,7 +13,7 @@ type Vm = [UserCard[], string];
   templateUrl: './filter-sample.component.html',
   styles: [],
   standalone: true,
-  imports: [NgIf, ɵInternalFormsSharedModule, ReactiveFormsModule, NgForOf, AsyncPipe],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, AsyncPipe],
 })
 export class FilterSampleComponent {
   private us = inject(AddressService);

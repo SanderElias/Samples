@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, inject } from '@angular/core';
 // import { wrapGrid } from 'animate-css-grid';
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, EMPTY, from, fromEvent } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
@@ -13,7 +13,7 @@ const clientId = 'e972ca06cc4b961';
   selector: 'app-tumblr',
   templateUrl: './tumblr-component.html',
   standalone: true,
-  imports: [NgForOf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class TumblrComponent implements OnInit {
   /** injections */
@@ -80,8 +80,8 @@ export class TumblrComponent implements OnInit {
           /** start listening for inputs */
           switchMap(() => fromEvent(inp, 'input')),
           map((ev: Event) => {
-            const target = ev.target as HTMLInputElement
-            return target.value
+            const target = ev.target as HTMLInputElement;
+            return target.value;
           }), // get the value as string
           debounceTime(400),
           distinctUntilChanged(),

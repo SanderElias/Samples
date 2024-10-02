@@ -1,4 +1,4 @@
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RelationsService } from '../relations.service';
 import { RelationComponent } from './relation/relation.component';
@@ -7,12 +7,12 @@ import { RelationComponent } from './relation/relation.component';
   selector: 'app-relation-list',
   template: `
     @for (rel of relations$ | async; track rel) {
-      <app-relation [relation]="rel"><app-relation> </app-relation></app-relation>
+      <app-relation [relation]="rel" />
     }
   `,
   styles: [],
   standalone: true,
-  imports: [NgForOf, RelationComponent, AsyncPipe],
+  imports: [RelationComponent, AsyncPipe],
 })
 export class RelationListComponent {
   rel = inject(RelationsService);

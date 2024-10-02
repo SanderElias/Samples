@@ -1,9 +1,9 @@
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { map, mergeMap, startWith, tap } from 'rxjs';
 import { RelationsService } from '../relations.service';
 import { RelationComponent } from './relation/relation.component';
-import { map, merge, mergeMap, startWith, tap } from 'rxjs';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-b-relation-list',
@@ -17,7 +17,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   `,
   styleUrls: ['./b-relation-list.css'],
   standalone: true,
-  imports: [NgForOf, RelationComponent, AsyncPipe, ReactiveFormsModule],
+  imports: [RelationComponent, AsyncPipe, ReactiveFormsModule],
 })
 export class BRelationListComponent {
   rel = inject(RelationsService);

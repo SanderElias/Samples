@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, NgZone, ViewEncapsulation, inject } from '@angular/core';
+import { Component, ElementRef, inject,NgZone, ViewEncapsulation } from '@angular/core';
 
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 
@@ -15,7 +15,7 @@ export class CellRawComponent {
   zone = inject(NgZone);
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
   gridSize = 100;
-  cells = [];
+  cells: { id: number; alive: boolean; cell: HTMLElement }[] = [];
   aliveColor = `oklch(${clampedRandom(55, 95)}% 75% 173`;
   deadColor = `oklch(${clampedRandom(10, 55)}% 50% 280`;
 

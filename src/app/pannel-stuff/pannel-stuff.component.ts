@@ -1,8 +1,9 @@
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { PannelComponent, PannelCloseDirective, PannelFooterDirective } from './pannel/pannel.component';
+
+import { PannelCloseDirective, PannelComponent, PannelFooterDirective } from './pannel/pannel.component';
 
 @Component({
   selector: 'app-pannel-stuff',
