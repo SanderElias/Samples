@@ -1,11 +1,10 @@
-
 import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
 import { isObservable, type Observable, type Subscription } from 'rxjs';
 
 import { isPromise } from './is-promise';
 import { isAsyncIterable } from './is-async-iterable';
 
-type ObservableComputedFn<T> = () => Observable<T> | Promise<T> | AsyncIterable<T> | T;
+type ObservableComputedFn<T> = (abortSignal?: AbortSignal) => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {
   /**
    * @description Helper to put the outcome(s) of a promise or observable into a signal
@@ -38,7 +37,7 @@ interface AsyncComputed {
 export const asyncComputed: AsyncComputed = <T, Y>(
   cb: ObservableComputedFn<T>,
   initialValue?: Y,
-  destroyRef = inject(DestroyRef)
+  destroyRef?: DestroyRef
 ): Signal<T | Y | undefined> => {
   const state = signal({
     value: initialValue,
@@ -47,6 +46,9 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     // to its consumers without custom wrapping. That is a different concern that
     // is outside the scope of this helper
   } as { value?: T | Y | undefined; error?: any });
+  try {
+    destroyRef = destroyRef ?? inject(DestroyRef);
+  } catch (e) {} // ignore the error, as it is expected when used outside a injection
   if (!destroyRef) {
     throw new Error('destroyRef is mandatory when used outside a injection context');
   }
@@ -57,7 +59,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     abortPrevious?.abort();
   });
   let obs: Subscription | undefined;
-  const assertContinue = (as:AbortSignal) => {
+  const assertContinue = (as: AbortSignal) => {
     if (as.aborted) {
       obs?.unsubscribe();
       throw new Error('aborted');
@@ -72,7 +74,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
         abortPrevious = new AbortController();
         // keep an reference to the signal to be able to clean up the subscription
         const abortSignal = abortPrevious.signal;
-        const outcome = cb();
+        const outcome = cb(abortSignal);
         assertContinue(abortSignal);
         if (isObservable(outcome)) {
           obs = outcome.subscribe({
@@ -118,5 +120,3 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     return currentState.value;
   });
 };
-
-

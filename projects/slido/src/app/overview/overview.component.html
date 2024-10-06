@@ -1,0 +1,36 @@
+<h1>Slido overview</h1>
+
+<section class="buttonGroup">
+  <button (click)="selFile()">Select a different presentation</button>
+  <button (click)="addSlide()">Add slide</button>
+</section>
+
+@if ($needToAskPermission()) {
+  <div>
+    <span>Need to ask permission</span>
+    <button (click)="askPermission()">Ask permission</button>
+  </div>
+} @else {
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>content</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (slide of deck.$slides(); track $index) {
+        <tr>
+          <td>{{ $index }}</td>
+          <td><se-slide [index]="$index"/></td>
+          <td class="actionGroup">
+            <button>✏️</button>
+            <button (click)="deck.removeSlide($index)">🗑️</button>
+            <a [routerLink]="['/present',$index]">🔗</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

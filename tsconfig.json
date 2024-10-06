@@ -12,11 +12,11 @@
     "importHelpers": true,
     "target": "ES2023",
     "allowJs": true,
-    "typeRoots": ["node_modules/@types"],
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": true,
     "lib": ["es2023", "dom"],
+    "types": ["node", "@types/wicg-file-system-access"],
     "paths": {
       "@se-ng/observable-hooks": ["dist/se-ng/observable-hooks"],
       "@se-ng/observable-hooks/*": ["dist/se-ng/observable-hooks/*"],

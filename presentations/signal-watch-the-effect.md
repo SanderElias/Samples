@@ -16,3 +16,8 @@ some _first_ __content__ to get things started
 ## Subtitle
 
 Some more content to show off the new slide
+
+---NextSlide
+# New Slide
+---NextSlide
+# New Slide

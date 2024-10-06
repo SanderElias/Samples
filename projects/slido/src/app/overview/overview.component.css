@@ -1,0 +1,26 @@
+:host {
+  display: block;
+
+  se-slide {
+    --slide-scale: .5;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--size-2);
+  padding: var(--size-2);
+}
+
+.actionGroup {
+  display: flex;
+  gap: var(--size-2);
+  padding: var(--size-2);
+
+  button {
+    width: 2rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+}
+

@@ -1,0 +1,99 @@
+/* You can add global styles to this file, and also import other style files */
+/* the props */
+@import "open-props/style";
+
+/* optional imports that use the props */
+@import "open-props/normalize";
+@import "open-props/buttons";
+
+:root {
+  --brand: #4d148c;
+}
+
+form {
+  border-radius: 0;
+  outline-style: none;
+}
+label {
+  width: 30rem;
+  padding: 0 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+
+  span {
+    display: block;
+    margin-left: -1rem;
+  }
+}
+
+input {
+  outline: 2px solid transparent;
+  outline-offset: 5px;
+}
+
+input {
+  accent-color: var(--brand);
+  caret-color: auto;
+  width: 29rem;
+  padding: var(--size-2);
+  border: 1px solid var(--surface-3);
+  border-left: 4px solid var(--surface-3);
+  border-radius: 0;
+  background-color: var(--surface-2);
+  font-size: var(--size-4);
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
+
+  &:focus-visible {
+    outline-color: var(--brand);
+    border-color: var(--surface-4);
+    border-left-color: var(--brand);
+    background-color: var(--surface-3);
+  }
+}
+
+input[type=radio] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+label:has(input[type=radio]) {
+  border: 1px solid transparent;
+  &:has(input:checked) {
+    border: 1px solid var(--brand);
+  }
+
+  &:hover {
+    border: 1px dashed var(--surface-3);
+  }
+
+}
+
+fieldset {
+  border-radius: 0;
+  display: flex;
+  margin-top: var(--size-2);
+  flex-direction: column;
+  gap: var(--size-2);
+  width: 30rem;
+  padding-left: 1rem;
+}
+
+label:has(input:invalid:not(.pristine)) {
+  --brand: var(--red-8);
+
+  input {
+    border-color: var(--brand);
+    /* background-color: var(--red-2); */
+  }
+}
+
+fieldset:focus-within {
+  border-left: 3px solid var(--brand);
+  padding-left: calc(1rem - 2px);
+}

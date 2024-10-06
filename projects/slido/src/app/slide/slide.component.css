@@ -1,0 +1,49 @@
+@import 'open-props/style';
+
+/* optional imports that use the props */
+@import 'open-props/normalize';
+@import 'open-props/buttons';
+:host-context {
+  display: block;
+  height: 100dhv;
+
+}
+
+section {
+  display: block;
+  min-height: 100%;
+  min-width: 100%;
+  align-content: center;
+  div {
+    display: block;
+    text-align: start;
+    width: fit-content;
+    height: auto;
+    margin-inline: auto;
+    transform: scale(var(--slide-scale, 1));
+    h1 {
+      width: max-content;
+      anchor-name: --my-title;
+      padding-bottom: 1rem;
+    }
+    h1:has(+ h2) {
+      padding-bottom: 3.5rem;
+    }
+    h1 + h2 {
+      width: anchor-size(width);
+      position: absolute;
+      position-anchor: --my-title;
+      position-area: end center;
+      top: -3.95rem;
+      font-style: italic;
+      text-align: end;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      max-inline-size: none;
+    }
+  }
+}
