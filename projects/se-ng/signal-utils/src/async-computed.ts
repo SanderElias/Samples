@@ -1,20 +1,24 @@
 import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
 import { isObservable, type Observable, type Subscription } from 'rxjs';
 
-import { isPromise } from './is-promise';
 import { isAsyncIterable } from './is-async-iterable';
+import { isPromise } from './is-promise';
 
+/**
+ * @param {AbortSignal} [abortSignal] signal that allows to cancel the ongoing operation. (can be passed to fetch!)
+ * @description returns a promise, observable, async iterable or a value
+ */
 type ObservableComputedFn<T> = (abortSignal?: AbortSignal) => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {
   /**
-   * @description Helper to put the outcome(s) of a promise or observable into a signal
+   * @description Helper to put the outcome(s) of a promise or observable into a signal, will run in a microtask
    * @template T type to use for the output signal, defaults to return type of the AsyncComputedFn
    * @param {ObservableComputedFn<T>} AsyncComputedFn function returning a promise or observable or a value. the result is put into the signal when it arrives
    * @returns {*}  {(Signal<T | undefined>)}
    */
   <T>(cb: ObservableComputedFn<T>): Signal<T | undefined>;
   /**
-   * @description Helper to put the outcome(s) of a promise or observable into a signal
+   * @description Helper to put the outcome(s) of a promise or observable into a signal, will run in a microtask
    * @template T type to use for the output signal, defaults to return type of the AsyncComputedFn
    * @template Y Type to use for the initalValue, default to the type of the initialValue
    * @param {ObservableComputedFn<T>} AsyncComputedFn function returning a promise or observable. the result is put into the signal when it arrives
@@ -23,7 +27,7 @@ interface AsyncComputed {
    */
   <X, Y>(cb: ObservableComputedFn<X>, initialValue: Y): Signal<X | Y>;
   /**
-   * @description Helper to put the outcome(s) of a promise or observable into a signal
+   * @description Helper to put the outcome(s) of a promise or observable into a signal, will run in a microtask
    * @template T type to use for the output signal, defaults to return type of the AsyncComputedFn
    * @template Y Type to use for the initalValue, default to the type of the initialValue
    * @param {ObservableComputedFn<T>} AsyncComputedFn function returning a promise or observable. the result is put into the signal when it arrives
@@ -53,61 +57,66 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     throw new Error('destroyRef is mandatory when used outside a injection context');
   }
   let abortPrevious: AbortController | undefined;
-  destroyRef.onDestroy(() => {
-    obs?.unsubscribe();
-    ref.destroy();
-    abortPrevious?.abort();
-  });
-  let obs: Subscription | undefined;
+  let subscription: Subscription | undefined;
+  const cleanUp = () => (subscription?.unsubscribe(), abortPrevious?.abort()); // helper to clean up subscribers or promises
+  /**
+   * helper to assert that the signal is not aborted throw an error if it is.
+   */
   const assertContinue = (as: AbortSignal) => {
     if (as.aborted) {
-      obs?.unsubscribe();
       throw new Error('aborted');
     }
   };
+  destroyRef.onDestroy(() => {
+    cleanUp();
+    ref.destroy(); // clean up the effect
+  });
   const ref = effect(
-    async () => {
+    async onCleanup => {
+      onCleanup(cleanUp); // cancel promises and observables when the effect is cleaned up (every iteration)
       try {
         // abort the previous requests, and clean up the subscription
-        abortPrevious?.abort();
         // create a new AbortController for the current iteration
         abortPrevious = new AbortController();
         // keep an reference to the signal to be able to clean up the subscription
         const abortSignal = abortPrevious.signal;
-        const outcome = cb(abortSignal);
+        const outcome = cb(abortSignal); // call the function, and pass in the abortSignal to allow cleanup in the function
         assertContinue(abortSignal);
         if (isObservable(outcome)) {
-          obs = outcome.subscribe({
+          subscription = outcome.subscribe({
             next: value => {
               assertContinue(abortSignal!);
-              state.set({ value, error: undefined });
+              state.set({ value });
             },
             error: error => {
               assertContinue(abortSignal!);
-              state.set({ value: undefined, error });
+              state.set({ error });
             },
           });
         } else if (isPromise(outcome)) {
           const value = await outcome;
           assertContinue(abortSignal);
-          state.set({ value, error: undefined });
+          state.set({ value });
         } else if (isAsyncIterable(outcome)) {
           for await (const value of outcome) {
             assertContinue(abortSignal);
-            state.set({ value, error: undefined });
+            state.set({ value });
           }
         } else {
-          assertContinue(abortSignal);
-          state.set({ value: outcome, error: undefined });
+          state.set({ value: outcome });
         }
-      } catch (e: any) {
-        if (e.message !== 'aborted') {
+      } catch (error: any) {
+        if (error.message !== 'aborted') {
           // only set the error if it is not an abort
-          state.set({ value: undefined, error: e });
+          state.set({ error });
         }
       }
     },
-    { manualCleanup: true, allowSignalWrites: true }
+    /**
+     * ManualCleanup to make sure that the cleanup is called when the effect is cleaned up, so we don't leak
+     * ForceRoot to make sure that the effect runs inside a microtask, so we can predictably use async/await
+     */
+    { manualCleanup: true, forceRoot: true }
   );
 
   return computed(() => {
