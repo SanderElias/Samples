@@ -75,7 +75,6 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     async onCleanup => {
       onCleanup(cleanUp); // cancel promises and observables when the effect is cleaned up (every iteration)
       try {
-        // abort the previous requests, and clean up the subscription
         // create a new AbortController for the current iteration
         abortPrevious = new AbortController();
         // keep an reference to the signal to be able to clean up the subscription

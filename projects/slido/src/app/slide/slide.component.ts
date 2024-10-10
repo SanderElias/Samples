@@ -4,6 +4,7 @@ import { asyncComputed } from '@se-ng/signalUtils';
 
 const mm = import('micromark');
 
+
 @Component({
   selector: 'se-slide',
   standalone: true,
@@ -16,8 +17,15 @@ const mm = import('micromark');
   styleUrl: './slide.component.css',
   encapsulation: ViewEncapsulation.ShadowDom,
 })
+/**
+ * @deprecated use something else?
+ * @description SlideComponent is a standalone component that renders a slide
+ * @export
+ * @class SlideComponent
+ */
 export class SlideComponent {
   deck = inject(SlidesHandlerService);
+  /** the number of trhe slide to show */
   index = input.required<number>();
 
   slide = computed(() => this.deck.$slides()[this.index()]);

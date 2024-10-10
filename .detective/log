@@ -1,3 +1,46 @@
+"sanderelias <sanderelias+git@gmail.com>,Tue Oct 8 08:05:27 2024 +0200	6c379f3bef09a91058d5bf32e326f513771d73fc,feat: update asyncComputed"
+1	0	projects/se-ng/signal-utils/README.md
+1	1	projects/se-ng/signal-utils/package.json
+34	25	projects/se-ng/signal-utils/src/async-computed.ts
+
+"sanderelias <sanderelias+git@gmail.com>,Sun Oct 6 13:50:17 2024 +0200	a40ca04d9eb159e96475adb57c464f91bd43d397,add simple slide deck thingie"
+22	0	.detective/config.json
+1	0	.detective/hash
+3540	0	.detective/log
+7	1	.vscode/settings.json
+90	2	angular.json
+634	139	package-lock.json
+14	12	package.json
+23	0	presentations/signal-watch-the-effect.md
+7	7	projects/se-ng/signal-utils/src/async-computed.ts
+-	-	projects/slido/public/favicon.ico
+57	0	projects/slido/server.ts
+0	0	projects/slido/src/app/app.component.css
+2	0	projects/slido/src/app/app.component.html
+29	0	projects/slido/src/app/app.component.spec.ts
+20	0	projects/slido/src/app/app.component.ts
+11	0	projects/slido/src/app/app.config.server.ts
+21	0	projects/slido/src/app/app.config.ts
+19	0	projects/slido/src/app/app.routes.ts
+146	0	projects/slido/src/app/file-handler.service.ts
+39	0	projects/slido/src/app/inject-route-part.ts
+26	0	projects/slido/src/app/overview/overview.component.css
+36	0	projects/slido/src/app/overview/overview.component.html
+29	0	projects/slido/src/app/overview/overview.component.ts
+28	0	projects/slido/src/app/present/present.component.css
+56	0	projects/slido/src/app/present/present.component.ts
+49	0	projects/slido/src/app/slide/slide.component.css
+34	0	projects/slido/src/app/slide/slide.component.ts
+64	0	projects/slido/src/app/slides-handler.service.ts
+13	0	projects/slido/src/index.html
+7	0	projects/slido/src/main.server.ts
+6	0	projects/slido/src/main.ts
+99	0	projects/slido/src/styles.css
+11	0	projects/slido/tsconfig.app.json
+15	0	projects/slido/tsconfig.spec.json
+16	6	slides/slide-1.md
+1	1	tsconfig.json
+
 "Sander Elias <SanderElias@users.noreply.github.com>,Wed Oct 2 16:00:53 2024 +0200	2d28d992efea9888a7c845f23aec3763fc661250,add eventOuput (#58)"
 0	47	.eslintrc.json
 2	1	.npmrc

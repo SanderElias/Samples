@@ -1,8 +1,22 @@
 {
   "scopes": [
-    "src"
+    "dist/se-ng/signal-utils",
+    "dist/se-ng/observable-utils",
+    "dist/se-ng/observable-hooks",
+    "dist/se-ng/let",
+    "dist/se-ng/swapi",
+    "projects/slido",
+    "projects/slipnslide",
+    "projects/wire-it-editor",
+    "projects/language-routing",
+    "projects/extreme-lazy-test",
+    "projects/api-boundries"
   ],
-  "groups": [],
+  "groups": [
+    "dist/se-ng",
+    "dist",
+    "projects"
+  ],
   "entries": [],
   "filter": {
     "files": [],
