@@ -1,48 +1,53 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { injectRoutePart } from './inject-route-part.js';
 import { SlidesHandlerService } from './slides-handler.service.js';
-import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavSLidesService {
   index = injectRoutePart(2);
   router = inject(Router);
   deck = inject(SlidesHandlerService);
-  decklen = computed(() => this.deck.$slides().length -1 );
+  decklen = computed(() => this.deck.$slides().length - 1);
+  lastMove = signal(0);
 
   #$state = computed(() => {
     const index = +this.index();
-    const lastSlide = this.decklen();
-    return { index, lastSlide,
-      $liCount : signal(0),
-     };
+    return { index, $liCount: signal(0), $lastLi: signal(-1) };
   });
 
-  #activeLi = computed(() => {
-    const liCount = this.#$state().$liCount();
-    const $active = signal(-1)
-    return { liCount, $active };
-  });
+  $activeLi = () => this.#$state().$lastLi();
 
-  $activeLi = this.#activeLi().$active.asReadonly();
+  setCount = (count: number) => {
+    this.#$state().$liCount.set(count);
+    this.#$state().$lastLi.set(this.lastMove()<0?count:0);
+  }
 
-  setCount = (count: number) => this.#$state().$liCount.set(count);
+  calcNext = (rel) => {
+    let nextLi = this.#$state().$lastLi() + rel;
 
-
-
-  constructor() {
-    console.log('NavSLidesService');
+    return nextLi;
   }
 
   navRel = (rel: number) => {
-    const lastSlide = this.decklen();
+    const nextLi = this.calcNext(rel);
+    const lastLi = this.#$state().$liCount();
+
+    if (nextLi < 0 || nextLi >= lastLi+1) {
+      return this.navSlide(rel);
+    }
+    this.#$state().$lastLi.set(nextLi);
+  };
+
+  navSlide = (rel: number) => {
     const { min, max } = Math;
+    this.lastMove.set(rel);
 
-    console.log('navRel', rel, );
-
-    this.router.navigate(['/present', min(lastSlide, max(0, +this.index() + rel))]);
-  }
-
+    const lastSlide = this.decklen();
+    const index = +this.index();
+    const next = index + rel;
+    this.router.navigate(['/present', min(lastSlide, max(0, next))]);
+  };
 }

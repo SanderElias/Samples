@@ -13,6 +13,11 @@ section {
   min-height: 100%;
   min-width: 100%;
   align-content: center;
+
+  * {
+    user-select: none;
+  }
+
   #slide {
     display: grid;
     justify-items: center;
@@ -55,12 +60,13 @@ section {
       & * {
         display:none;
       }
+      transition: color 0.75s var(--ease-elastic-in-out-1);
     }
 
     li.revealed {
       color: var(--text1);
       & * {
-        display: inherit;
+        display: unset;
       }
     }
   }

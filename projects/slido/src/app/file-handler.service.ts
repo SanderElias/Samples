@@ -76,7 +76,6 @@ export class FileHandlerService {
     const handler = async (records:any[]) => {
       for (const record of records) {
         if (record.type === 'modified' && this.$state().permission()) {
-          console.log('file modified');
           try {
             const file = await fileHandle.getFile();
             const updatedContent = await file.text();
@@ -100,7 +99,6 @@ export class FileHandlerService {
     this.#fileHandle.set(fileHandle);
     set('lastPresentationUsed', fileHandle);
 
-    console.log('fileHandle', fileHandle.getFile());
   };
 
   _ = afterNextRender(async () => {
@@ -137,7 +135,6 @@ async function verifyPermission(
   fileHandle: FileSystemFileHandle,
   mode: FileSystemHandlePermissionDescriptor['mode'] = 'readwrite'
 ): Promise<boolean> {
-  console.log('verifyPermission', fileHandle);
   const options: FileSystemHandlePermissionDescriptor = {
     mode,
   };

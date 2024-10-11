@@ -14,8 +14,8 @@ import { NavSLidesService } from '../nav-slides.service.js';
   styleUrl: './present.component.css',
   host: {
     '(document:keydown)': 'keyHandler($event)',
-    '(document:contextmenu)': 'navRel(-1);',
-    '(document:click)': 'navRel(1);',
+    '(document:contextmenu)': 'navRel(-1);$event.preventDefault();',
+    '(document:click)': 'navRel(1);$event.preventDefault();',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -25,7 +25,7 @@ export class PresentComponent {
 
 
   keyHandler = async (e: KeyboardEvent) => {
-    e.preventDefault();
+    // e.preventDefault();
     const { key } = e;
 
     switch (key) {
@@ -38,6 +38,12 @@ export class PresentComponent {
       case 'ArrowLeft':
       case 'ArrowUp':
         this.navRel(-1);
+        break;
+      case 'PageDown':
+        this.navSlides.navSlide(1);
+        break;
+      case 'PageUp':
+        this.navSlides.navSlide(-1);
         break;
       case 'Home':
         this.router.navigate(['/overview']);

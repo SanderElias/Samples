@@ -20,7 +20,6 @@ export function injectRoutePart(pos: number): Signal<string> {
     )
     .subscribe({
       next: url => {
-        console.log('url', url);
         const parts = url.split('/');
         state.set({ value: parts[pos] ?? '' });
       },
@@ -29,7 +28,6 @@ export function injectRoutePart(pos: number): Signal<string> {
 
   return computed(() => {
     const curState = state();
-    console.log('curState', curState);
     if (curState.error) {
       throw curState.error;
     }

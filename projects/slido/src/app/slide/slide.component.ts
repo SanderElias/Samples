@@ -1,10 +1,9 @@
-import { afterRender, afterRenderEffect, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
+import { afterRenderEffect, ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { asyncComputed } from '@se-ng/signalUtils';
-import { SlidesHandlerService } from '../slides-handler.service.js';
 import { NavSLidesService } from '../nav-slides.service.js';
-import { ElementRef } from 'dist/extreme-lazy-test/browser/chunk-QDRWWDB2.js';
-import e from 'express';
+import { SlidesHandlerService } from '../slides-handler.service.js';
+import { set } from 'idb-keyval';
 
 const mm = import('micromark');
 
@@ -19,6 +18,7 @@ const mm = import('micromark');
   `,
   styleUrl: './slide.component.css',
   encapsulation: ViewEncapsulation.ShadowDom,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[document:title]': 'title()',
   },
@@ -31,10 +31,10 @@ const mm = import('micromark');
  */
 export class SlideComponent {
   deck = inject(SlidesHandlerService);
-  san = inject(DomSanitizer)
+  san = inject(DomSanitizer);
   slideNav = inject(NavSLidesService);
-  elm:HTMLDivElement = inject(ElementRef).nativeElement
-  titleService = inject(Title)
+  elm = inject(ElementRef).nativeElement;
+  titleService = inject(Title);
   /** the number of trhe slide to show */
   index = input.required<number>();
 
@@ -51,27 +51,33 @@ export class SlideComponent {
     }
     this.titleService.setTitle(this.title());
     const { micromark } = await mm;
-    const html= micromark(content, { allowDangerousHtml: true });
-    return this.san.bypassSecurityTrustHtml( html);
+    const html = micromark(content, { allowDangerousHtml: true });
+    return this.san.bypassSecurityTrustHtml(html);
   }, '');
 
-  _ = afterRender( { read:
-    () => {
-      const lis = Array.from(this.elm.querySelectorAll('li'));
-      this.slideNav.setCount(lis.length);
-  }})
+  _ = afterRenderEffect({
+    read: () => {
+      const index = this.index();
+      setTimeout(() => {
+        const frag: DocumentFragment = this.elm.shadowRoot;
+        const lis = Array.from(frag.querySelectorAll('li'));
+        this.slideNav.setCount(lis.length);
+      }, 50);
+    },
+  });
 
   _ref = afterRenderEffect({
     write: () => {
       const lastActive = this.slideNav.$activeLi();
-      const lis = Array.from(this.elm.querySelectorAll('li'));
+      const frag: DocumentFragment = this.elm.shadowRoot;
+      const lis = Array.from(frag.querySelectorAll('li'));
       lis.forEach((li, i) => {
-        if (lastActive <= i) {
-          li.classList.remove('revealed');
-        }else {
+        if (i < lastActive) {
           li.classList.add('revealed');
+        } else {
+          li.classList.remove('revealed');
         }
       });
-    }
-  })
+    },
+  });
 }
