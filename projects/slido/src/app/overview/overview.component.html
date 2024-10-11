@@ -25,9 +25,9 @@
           <td>{{ $index }}</td>
           <td><se-slide [index]="$index"/></td>
           <td class="actionGroup">
-            <button>✏️</button>
+            <!-- <button>✏️</button> -->
             <button (click)="deck.removeSlide($index)">🗑️</button>
-            <a [routerLink]="['/present',$index]">🔗</a>
+            <button [routerLink]="['/present',$index]">🔗</button>
           </td>
         </tr>
       }

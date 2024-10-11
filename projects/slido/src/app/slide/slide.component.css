@@ -6,7 +6,6 @@
 :host-context {
   display: block;
   height: 100dhv;
-
 }
 
 section {
@@ -14,8 +13,12 @@ section {
   min-height: 100%;
   min-width: 100%;
   align-content: center;
-  div {
-    display: block;
+  #slide {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     text-align: start;
     width: fit-content;
     height: auto;
@@ -44,6 +47,21 @@ section {
     h3,
     h4 {
       max-inline-size: none;
+    }
+
+    li {
+      color: var(--surface-1);
+
+      & * {
+        display:none;
+      }
+    }
+
+    li.revealed {
+      color: var(--text1);
+      & * {
+        display: inherit;
+      }
     }
   }
 }

@@ -1,8 +1,10 @@
-import { computed, inject, Injectable, signal, effect } from '@angular/core';
-import { FileHandlerService } from './file-handler.service';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { asyncComputed } from '@se-ng/signalUtils';
-import { constants } from 'node:crypto';
+import { extractToml } from '@std/front-matter';
+import { stringify } from '@std/toml';
+import { FileHandlerService } from './file-handler.service';
 
+const separator = '\n---NextSlide\n';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +16,7 @@ export class SlidesHandlerService {
     if (!content) {
       return;
     }
-    const slides = signal(content.split('\n---NextSlide\n').map(content => ({ content })));
+    const slides = signal(parseContentToSlides(content));
     return {
       name: this.file.$state().name,
       slides,
@@ -29,7 +31,7 @@ export class SlidesHandlerService {
     if (slides[index] !== undefined) {
       throw new Error('Slide already exists');
     }
-    slides[index] = { content };
+    slides[index] = { content, index, changed: true };
     state.slides.set(slides);
   };
 
@@ -43,6 +45,9 @@ export class SlidesHandlerService {
   removeSlide = (index: number) => {
     const state = this.assertState(this.$state());
     const slides = [...state.slides()];
+    if (slides.length === 1) {
+      throw new Error('Cannot remove last slide');
+    }
     if (slides[index] === undefined) {
       return;
     }
@@ -52,13 +57,52 @@ export class SlidesHandlerService {
 
   constructor() {
     effect(() => {
-      const original = this.file.$state().content();
-      const newContent = this.$slides().map(slide => slide.content).join('\n---NextSlide\n');
-      if (newContent && original !== newContent) {
-        // this.file.$state().content.set(newContent);
-        console.log('content changed', newContent);
-        this.file.save(newContent);
+      const slides = this.$slides();
+      if (slides.length === 0) {
+        return; // no slides yet, nothing to do. Also, we don't allow removing the last slide
+      }
+      const orgSlides = parseContentToSlides(this.file.$state().content());
+      const changed =
+        slides.length !== orgSlides.length || !slides.every((slide, index) => slide.content === orgSlides[index].content);
+      if (changed) {
+        console.log('changed', changed);
       }
     });
   }
 }
+
+const parseContentToSlides = (content: string) => {
+  return content
+    .split(separator)
+    .filter(content => content.trim() !== '')
+    .map((content, index) => parseIntoSlide(content, index));
+};
+
+interface Slide {
+  content: string;
+  title?: string;
+  description?: string;
+  index?: number;
+}
+const parseIntoSlide = (content: string, index: number): Slide => {
+  try {
+    const { frontMatter, attrs, body } = extractToml(content);
+    return {
+      content: body,
+      index,
+      ...(attrs ?? {}),
+    };
+  } catch (e) {
+    return {
+      content,
+      index,
+    };
+  }
+};
+const parseIntoText = (slide: Slide) => {
+  const { content, ...data } = slide;
+  data.title ??= 'slide';
+  const toml = stringify(data);
+  const result = `---toml\n${toml}---\n${content}`;
+  return result;
+};

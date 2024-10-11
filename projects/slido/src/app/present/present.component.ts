@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { injectRoutePart } from '../inject-route-part';
-import { SlidesHandlerService } from '../slides-handler.service';
+import { NavSLidesService } from '../nav-slides.service.js';
 
 @Component({
   selector: 'se-present',
   standalone: true,
   imports: [RouterOutlet],
-  template: ` <router-outlet />
+  template: `<router-outlet />
     <section>
       <span class="logos--mastodon-icon"></span>
       <span> {{"@sanderelias@mastodon.social"}}</span>
@@ -15,19 +14,19 @@ import { SlidesHandlerService } from '../slides-handler.service';
   styleUrl: './present.component.css',
   host: {
     '(document:keydown)': 'keyHandler($event)',
-    '(document:contextmenu)': 'navRel(-1);$event.preventDefault()',
-    '(document:click)': 'navRel(1);$event.preventDefault()',
+    '(document:contextmenu)': 'navRel(-1);',
+    '(document:click)': 'navRel(1);',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresentComponent {
-  index = injectRoutePart(2);
   router = inject(Router);
-  deck = inject(SlidesHandlerService);
+  navSlides = inject(NavSLidesService);
+
 
   keyHandler = async (e: KeyboardEvent) => {
+    e.preventDefault();
     const { key } = e;
-    const lastSlide = this.deck.$slides().length - 1;
 
     switch (key) {
       case 'ArrowRight':
@@ -46,11 +45,6 @@ export class PresentComponent {
     }
   };
 
-  navRel = (rel: number) => {
-    const lastSlide = this.deck.$slides().length - 1;
-    const { min, max } = Math;
-
-    this.router.navigate(['/present', min(lastSlide, max(0, +this.index() + rel))]);
-  }
+  navRel = (rel: number) => this.navSlides.navRel(rel);
 
 }

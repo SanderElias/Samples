@@ -6,8 +6,8 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "declaration": false,
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2023",
@@ -23,18 +23,15 @@
       "@se-ng/swapi": ["dist/se-ng/swapi"],
       "@se-ng/swapi/*": ["dist/se-ng/swapi/*"],
       "@se-ng/observable-utils": ["dist/se-ng/observable-utils"],
-      "@se-ng/observable-utils/*": [
-        "dist/se-ng/observable-utils/*"
-      ],
-      "@se-ng/signalUtils": [
-        "./dist/se-ng/signal-utils"
-      ],
+      "@se-ng/observable-utils/*": ["dist/se-ng/observable-utils/*"],
+      "@se-ng/signalUtils": ["./dist/se-ng/signal-utils"],
+      "@se-ng/signalUtils/*": ["./dist/se-ng/signal-utils/*"],
       "@se-ng/let": ["dist/se-ng/let"],
       "@se-ng/let/*": ["dist/se-ng/let/*"]
     },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
-    "strictTemplates": true,
+    "strictTemplates": true
   }
 }

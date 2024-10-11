@@ -784,10 +784,24 @@
             "browser": "projects/slido/src/main.ts",
             "polyfills": [],
             "tsConfig": "projects/slido/tsconfig.app.json",
+            "namedChunks": true,
+            "statsJson": false,
+            "sourceMap": true,
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/slido/public"
+                "input": "projects/slido/public",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "presentations/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "assets",
+                "output": "/assets"
               }
             ],
             "styles": [

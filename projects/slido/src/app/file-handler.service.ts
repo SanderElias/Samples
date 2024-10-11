@@ -1,4 +1,4 @@
-import { afterNextRender, computed, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { afterNextRender, effect, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { asyncComputed } from '@se-ng/signalUtils';
 import { get, set } from 'idb-keyval';
 
@@ -63,6 +63,35 @@ export class FileHandlerService {
     };
   }, defaultState);
 
+  #monitor = effect(() => {
+    if (!('FileSystemObserver' in self)) {
+      console.warn('FileSystemObserver not available, perhaps enable it in "about:flags"');
+      this.#monitor.destroy();
+      return;
+    }
+    const fileHandle = this.$state().handle;
+    if (!fileHandle) {
+      return;
+    }
+    const handler = async (records:any[]) => {
+      for (const record of records) {
+        if (record.type === 'modified' && this.$state().permission()) {
+          console.log('file modified');
+          try {
+            const file = await fileHandle.getFile();
+            const updatedContent = await file.text();
+            this.$state().content.set(updatedContent);
+          } catch (e) {
+            console.error('error', e);
+          }
+        }
+      }
+    };
+    // @ts-expect-error
+    const observer = new FileSystemObserver(handler);
+    observer.observe(fileHandle);
+  });
+
   select = async () => {
     if (window?.showOpenFilePicker === undefined) {
       return;
@@ -84,7 +113,7 @@ export class FileHandlerService {
     }
   });
 
-  save = async (newContent:string) => {
+  save = async (newContent: string) => {
     const handle = this.#fileHandle();
     if (!handle || !newContent.trim()) {
       return;
