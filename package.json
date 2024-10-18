@@ -45,7 +45,8 @@
       "command": "ng serve slido --ssl --port 4242",
       "service": true,
       "files": [
-        "angular.json"
+        "angular.json",
+        "presentations/assets"
       ],
       "dependencies": [
         "build.lib"

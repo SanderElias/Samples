@@ -62,11 +62,8 @@ export class SlideComponent {
         const frag: DocumentFragment = this.elm.shadowRoot;
         const lis = Array.from(frag.querySelectorAll('li'));
         this.slideNav.setCount(lis.length);
-      }, 50);
+      }, 5);
     },
-  });
-
-  _ref = afterRenderEffect({
     write: () => {
       const lastActive = this.slideNav.$activeLi();
       const frag: DocumentFragment = this.elm.shadowRoot;

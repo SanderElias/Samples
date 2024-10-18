@@ -4,6 +4,8 @@ title = "Welcome"
 
 <!-- markdownlint-disable MD003 -->
 <!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD022 -->
+<!-- markdownlint-disable MD024 -->
 
 # Signals, watch the effect
 
@@ -30,7 +32,7 @@ title = "Who I am"
 
 <div>
 
-## About me
+# Who I am
 
 - Sander Elias
 - husband
@@ -89,18 +91,81 @@ title = "What I do"
     font-size: .5rem;
   }
 </style>
+---NextSlide
+---toml
+title = ""
+---
 
+# Signals, watch the effect
+## so, what's that about?
+
+Once upon a time, in a land far far away, there was a developer who used Angular. He had heard about the new `effect()` function and wanted to use it. But he was warned. He was told not to use it. But he did not listen. He used it anyway. And he lived happily ever after. Or did he?
+
+<style>
+  h1 {
+    width: 20rem;
+  }
+</style>
+---NextSlide
+---toml
+title = ""
+---
+
+# Signals, watch the effect
+## bummer!
+
+Well, to be honest, he did.
+
+<style>
+  h1 {
+    width: 20rem;
+  }
+  h2 {
+    animation: myEntry 3s;
+  }
+</style>
+---NextSlide
+---toml
+title = ""
+---
+
+# Signals, watch the effect
+## shortest talk ever!
+
+### the end!
+
+<style>
+  h1 {
+    width: 20rem;
+  }
+  h2{
+    animation: myEntry 4s;
+  }
+  h3 {
+    font-size: 5rem;
+    animation: myEntry 2.5s;
+  }
+
+</style>
+---NextSlide
+---toml
+title = ""
+---
+
+# Shortest talk ever!
+## or is it?
+
+
+<style>
+
+</style>
 ---NextSlide
 ---toml
 title = "Takeaways"
 
 ---
 
-<svg fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-<title>exclamation</title>
-<path d="M10.656 8.864q0-2.208 1.568-3.776t3.776-1.568 3.776 1.568 1.6 3.776q0 0.256-0.064 0.448l-1.76 6.944q-0.096 1.408-1.12 2.368t-2.432 0.96q-1.376 0-2.4-0.928t-1.152-2.304q-0.32-0.96-0.672-2.112t-0.736-2.784-0.384-2.592zM12.416 24.928q0-1.472 1.056-2.496t2.528-1.056 2.528 1.056 1.056 2.496q0 1.504-1.056 2.528t-2.528 1.056-2.528-1.056-1.056-2.528z"></path>
-</svg>
-
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" viewBox="0 0 33.694 122.88" enable-background="new 0 0 33.694 122.88" xml:space="preserve"><g><path d="M6.402,104.495h20.799v18.385H6.402V104.495L6.402,104.495z M27.19,94.451H6.406C4.341,69.195,0,42.066,0,16.845 C0,7.543,7.545,0,16.847,0s16.847,7.543,16.847,16.845C33.694,42.053,29.299,69.214,27.19,94.451L27.19,94.451z"/></g></svg>
 <div>
 
 # key takeaway
@@ -111,7 +176,7 @@ title = "Takeaways"
 <div>
 <style>
   div#slide {
-    grid-template-columns: .4fr 1fr;
+    grid-template-columns: .15fr 1fr;
     gap: 2rem;
     align-items: top
   }
@@ -120,10 +185,8 @@ title = "Takeaways"
   }
   svg {
     grid-row: span 2;
-    height: calc(100vh - 10px);
-    transform: scale(3);
+    height: calc(100vh - 9rem);
   }
-  
 
 </style>
 
@@ -148,10 +211,9 @@ title = "Thank you"
 		c0.087,2.72-0.401,6.407-2.818,9.951c4.63-0.074,8.89-3.298,9.705-3.95L20.361,65.078z"/>
 </g>
 </svg>
-
 <style>
-    img {
-    height: calc(100vh - 10px);
+  img {
+    height: calc(100vh - 30px);
     object-fit: contain;
   }
   div#slide {
@@ -160,14 +222,37 @@ title = "Thank you"
     align-items: top
   } 
   h1 {
-    width: 20rem;
+    width: 23rem;
     padding: 0 2rem ;
+
+  }
+  ul {
+    list-style: none;
   }
   svg {
     width: anchor-size(width);
+    height: 7.6rem;
+    transform: scaleX(3.5) translateY(-.55rem);
+
     position: absolute;
     position-anchor: --my-title;
     position-area: center center;
     color: --var(--text-1);
+  }
+</style>
+
+---NextSlide
+---toml
+title = "Questions"
+
+---
+# testing
+
+![exml](/assets/exclamation.svg)
+
+<style>
+  img {
+    height: calc(100vh - 30px);
+    object-fit: contain;
   }
 </style>

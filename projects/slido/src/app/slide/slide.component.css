@@ -8,6 +8,18 @@
   height: 100dhv;
 }
 
+@keyframes myEntry {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 section {
   display: block;
   min-height: 100%;
@@ -16,6 +28,7 @@ section {
 
   * {
     user-select: none;
+    overflow: hidden;
   }
 
   #slide {
@@ -29,6 +42,7 @@ section {
     height: auto;
     margin-inline: auto;
     transform: scale(var(--slide-scale, 1));
+
     h1 {
       width: max-content;
       anchor-name: --my-title;
@@ -58,7 +72,7 @@ section {
       color: var(--surface-1);
 
       & * {
-        display:none;
+        display: none;
       }
       transition: color 0.75s var(--ease-elastic-in-out-1);
     }
@@ -69,5 +83,7 @@ section {
         display: unset;
       }
     }
+
+
   }
 }

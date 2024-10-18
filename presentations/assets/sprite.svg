@@ -1,0 +1,37 @@
+<svg width="0" height="0" class="hidden">
+  <section id="ngLogo" fill="none" viewBox="0 0 242 256">
+    <g clip-path="url(#a)">
+      <mask id="b" width="242" height="256" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:luminance">
+        <path fill="#fff" d="M0 0h242v256H0V0Z"/>
+      </mask>
+      <g mask="url(#b)">
+        <path fill="url(#c)" d="m241 43-9 136L149 0l92 43Zm-58 176-62 36-63-36 12-31h101l12 31ZM121 68l32 80H88l33-80ZM9 179 0 43 92 0 9 179Z"/>
+        <path fill="url(#d)" d="m241 43-9 136L149 0l92 43Zm-58 176-62 36-63-36 12-31h101l12 31ZM121 68l32 80H88l33-80ZM9 179 0 43 92 0 9 179Z"/>
+      </g>
+    </g>
+    <defs>
+      <linearGradient id="c" x1="53.2" x2="245" y1="231.9" y2="140.7" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#E40035"/>
+        <stop offset=".2" stop-color="#F60A48"/>
+        <stop offset=".4" stop-color="#F20755"/>
+        <stop offset=".5" stop-color="#DC087D"/>
+        <stop offset=".7" stop-color="#9717E7"/>
+        <stop offset="1" stop-color="#6C00F5"/>
+      </linearGradient>
+      <linearGradient id="d" x1="44.5" x2="170" y1="30.7" y2="174" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#FF31D9"/>
+        <stop offset="1" stop-color="#FF5BE1" stop-opacity="0"/>
+      </linearGradient>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h242v256H0z"/>
+      </clipPath>
+    </defs>
+  </section>
+  <section id="exlm" fill="white1!
+  " viewBox="0 0 32 32" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <title>exclamation</title>
+    <path d="M10.656 8.864q0-2.208 1.568-3.776t3.776-1.568 3.776 1.568 1.6 3.776q0 0.256-0.064 0.448l-1.76 6.944q-0.096 1.408-1.12 2.368t-2.432 0.96q-1.376 0-2.4-0.928t-1.152-2.304q-0.32-0.96-0.672-2.112t-0.736-2.784-0.384-2.592zM12.416 24.928q0-1.472 1.056-2.496t2.528-1.056 2.528 1.056 1.056 2.496q0 1.504-1.056 2.528t-2.528 1.056-2.528-1.056-1.056-2.528z"></path>
+  </section>
+
+
+</svg>
