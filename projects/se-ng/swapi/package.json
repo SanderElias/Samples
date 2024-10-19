@@ -9,6 +9,7 @@
   "dependencies": {
     "tslib": "^2.4.0"
   },
+  "type": "module",
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0",

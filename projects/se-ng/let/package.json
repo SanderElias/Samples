@@ -2,6 +2,7 @@
   "name": "@se-ng/let",
   "version": "0.0.7",
   "private": false,
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/SanderElias/Samples/tree/master/projects/se-ng/let"
