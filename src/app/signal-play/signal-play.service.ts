@@ -1,16 +1,16 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { asyncComputed } from 'projects/se-ng/signal-utils/src/async-computed';
+import { DemoUserService } from '../demo-users.service.js';
+import { asyncComputed } from '@se-ng/signal-utils';
 
-import {DemoUserService } from '../demo-users.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignalPlayService {
-  users = inject(DemoUserService);
+  usersSrv = inject(DemoUserService);
 
 
-  $users = asyncComputed(() => this.users.allUsers$,[]);
+  $users = asyncComputed(() => this.usersSrv.allUsers$,[]);
   // $users = signal<DemoUser[]>([])
 
   getUser = (n: string) => {

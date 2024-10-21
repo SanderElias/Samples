@@ -1,14 +1,14 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, inject, model } from '@angular/core';
 
-import { SignalPlayService } from './signal-play.service';
+import { JsonPlaceHolderService } from './json-place-holder.service';
 
 @Component({
   selector: 'se-signal-play',
   standalone: true,
   imports: [JsonPipe],
   template: `
-    <h3>{{ $availableUserCount() }}</h3>
+    <h3>Available:{{ $availableUserCount() }} current:{{ id() }}</h3>
     <hr />
     <pre><code>{{$user()|json}}</code></pre>
     <hr />
@@ -18,21 +18,18 @@ import { SignalPlayService } from './signal-play.service';
   styleUrl: './signal-play.component.css',
 })
 export default class SignalPlayComponent {
-  sps = inject(SignalPlayService);
-  id = model<string>('');
+  // sps = inject(SignalPlayService);
+  jph = inject(JsonPlaceHolderService);
+  id = model(1);
 
-  $user = computed(() => {
-    const user = this.sps.getUser(this.id());
-    if (user) return user;
-    // none found, get first one!
-    return this.sps.$users()[0];
-  });
+  userResource = this.jph.getUser(this.id);
+  $user = computed(() => this.userResource.value() ?? {});
 
-  $availableUserCount = computed(() => this.sps.$users().length);
+  $availableUserCount = computed(() => this.jph.usersResource.value()?.length ?? 0);
 
   relId = (n = 1) => {
-    const newId = this.sps.getRelative(this.id(), n);
-    return newId ? newId : this.id();
+    const currentId = +this.id() || 0;
+    return Math.max(1, Math.min(this.$availableUserCount(), currentId + n));
   };
 
   next() {

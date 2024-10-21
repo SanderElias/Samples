@@ -211,5 +211,5 @@ export const routes: Routes = [
     title: 'Anchor Position demo',
   },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'acnhorPosition' },
+  { path: '**', redirectTo: 'signalPlay' },
 ];

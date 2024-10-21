@@ -1,6 +1,6 @@
 import { afterRenderEffect, ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
-import { asyncComputed } from '@se-ng/signalUtils';
+import { asyncComputed } from '@se-ng/signal-utils';
 import { NavSLidesService } from '../nav-slides.service.js';
 import { SlidesHandlerService } from '../slides-handler.service.js';
 import { set } from 'idb-keyval';

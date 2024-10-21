@@ -37,8 +37,7 @@
         "angular.json"
       ],
       "dependencies": [
-        "build.lib",
-        "start.lazy"
+        "build.lib"
       ]
     },
     "start.slido": {
@@ -114,6 +113,9 @@
       "files": [
         "projects/se-ng/let/src/*",
         "projects/se-ng/let/tsconfig.lib.json"
+      ],
+      "output": [
+        "dist/se-ng/let"
       ]
     },
     "build.lib.observable-hooks": {
@@ -121,6 +123,9 @@
       "files": [
         "projects/se-ng/observable-hooks/src/*",
         "projects/se-ng/observable-hooks/tsconfig.lib.json"
+      ],
+      "output": [
+        "dist/se-ng/observable-hooks"
       ]
     },
     "build.lib.observable-utils": {
@@ -128,6 +133,9 @@
       "files": [
         "projects/se-ng/observable-utils/src/*",
         "projects/se-ng/observable-utils/tsconfig.lib.json"
+      ],
+      "output": [
+        "dist/se-ng/observable-utils"
       ]
     },
     "build.lib.swapi": {
@@ -135,6 +143,9 @@
       "files": [
         "projects/se-ng/swapi/src/*",
         "projects/se-ng/swapi/tsconfig.lib.json"
+      ],
+      "output": [
+        "dist/se-ng/swapi"
       ]
     },
     "build.lib.signalUtils": {
@@ -142,6 +153,9 @@
       "files": [
         "projects/se-ng/signal-utils/src/*",
         "projects/se-ng/signal-utils/tsconfig.lib.json"
+      ],
+      "output": [
+        "dist/se-ng/signal-utils"
       ]
     }
   },

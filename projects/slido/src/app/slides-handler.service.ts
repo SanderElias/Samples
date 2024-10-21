@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { asyncComputed } from '@se-ng/signalUtils';
+import { asyncComputed } from '@se-ng/signal-utils';
 import { extractToml } from '@std/front-matter';
 import { stringify } from '@std/toml';
 import { FileHandlerService } from './file-handler.service';

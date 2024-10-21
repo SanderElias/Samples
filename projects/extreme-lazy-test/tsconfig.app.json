@@ -4,8 +4,6 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
-    "target": "es2023",
-    "module": "ESNext",
     "types": []
   },
   "files": ["src/main.ts"],

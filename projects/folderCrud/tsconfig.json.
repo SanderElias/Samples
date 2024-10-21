@@ -3,9 +3,6 @@
 		"outDir": "../../dist/folderCrud",
 		"downlevelIteration": true,
 		"experimentalDecorators": true,
-		"module": "CommonJS",
-		"moduleResolution": "node",
-		"target": "ESNext",
 		"strict": true,
 		"allowSyntheticDefaultImports": true,
 		"skipLibCheck": true
