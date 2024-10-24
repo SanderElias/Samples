@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, model } from '@angular/core';
+import { Component, computed, inject, model, signal } from '@angular/core';
 
 import { JsonPlaceHolderService } from './json-place-holder.service';
 
@@ -12,6 +12,7 @@ import { JsonPlaceHolderService } from './json-place-holder.service';
     <hr />
     <pre><code>{{$user()|json}}</code></pre>
     <hr />
+
     <button (click)="next()">next</button>
     <button (click)="prev()">prev</button>
   `,
@@ -20,10 +21,15 @@ import { JsonPlaceHolderService } from './json-place-holder.service';
 export default class SignalPlayComponent {
   // sps = inject(SignalPlayService);
   jph = inject(JsonPlaceHolderService);
-  id = model(1);
+  id = signal(1);
 
   userResource = this.jph.getUser(this.id);
   $user = computed(() => this.userResource.value() ?? {});
+
+  $state = computed(() => this.userResource.status());
+
+  // $street = linkedSignal(this.$user, user => user.address.street);
+
 
   $availableUserCount = computed(() => this.jph.usersResource.value()?.length ?? 0);
 

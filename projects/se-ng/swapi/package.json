@@ -1,10 +1,10 @@
 {
   "name": "@se-ng/swapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/SanderElias/Samples"
+    "url": "https://github.com/SanderElias/Samples/tree/main/projects/se-ng/swapi"
   },
   "dependencies": {
     "tslib": "^2.4.0"

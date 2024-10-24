@@ -193,6 +193,7 @@
     "messagepack": "^1.1.12",
     "micromark": "^4.0.0",
     "msgpack-lite": "^0.1.26",
+    "npm": "^10.9.0",
     "open-props": "^1.7.6",
     "path-to-regexp": "^8.2.0",
     "replicator": "^1.0.5",

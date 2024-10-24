@@ -23,6 +23,12 @@ export class JsonPlaceHolderService {
       request: id,
       loader: loadUser,
     });
+
+  getUserById = (id: Signal<number>) =>
+    resource({
+      request: id,
+      loader: loadUser,
+    });
 }
 
 const loadUser = async ({ request: id, abortSignal }) => {
