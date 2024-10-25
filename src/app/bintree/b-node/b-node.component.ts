@@ -3,12 +3,11 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { balance, BinNode, getNode, height } from '../BinNode';
 
 @Component({
-  selector: 'b-node',
-  templateUrl: './b-node.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [BNodeComponent],
+    selector: 'b-node',
+    templateUrl: './b-node.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [BNodeComponent]
 })
 export class BNodeComponent {
   bNode = input<BinNode | undefined | null>(undefined);

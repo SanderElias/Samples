@@ -11,8 +11,8 @@ interface LocalState {
 }
 
 @Component({
-  selector: 'app-ls-home',
-  template: `
+    selector: 'app-ls-home',
+    template: `
     <h2>test some state</h2>
     @if (vm$ | async; as vm) {
       <button #b (click)="updateCounterWith(-1)">-1</button>
@@ -21,9 +21,8 @@ interface LocalState {
       <!-- <button #b *ngIf="vm.count%2" (click)="updateCounterWith(2)">+2</button> -->
     }
   `,
-  styles: [],
-  standalone: true,
-  imports: [AsyncPipe],
+    styles: [],
+    imports: [AsyncPipe]
 })
 export class LsHomeComponent implements OnInit {
   private route = inject(ActivatedRoute);

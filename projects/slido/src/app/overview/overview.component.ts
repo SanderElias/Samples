@@ -5,11 +5,10 @@ import { SlideComponent } from '../slide/slide.component.js';
 import { SlidesHandlerService } from '../slides-handler.service.js';
 
 @Component({
-  selector: 'se-overview',
-  standalone: true,
-  imports: [SlideComponent, RouterLink],
-  templateUrl: './overview.component.html',
-  styleUrl: './overview.component.css',
+    selector: 'se-overview',
+    imports: [SlideComponent, RouterLink],
+    templateUrl: './overview.component.html',
+    styleUrl: './overview.component.css'
 })
 export class OverviewComponent {
   file = inject(FileHandlerService);

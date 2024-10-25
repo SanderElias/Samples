@@ -7,8 +7,8 @@ import { pluck } from '../../../pluck';
 import { Relation } from '../../relations.service';
 
 @Component({
-  selector: 'app-relation',
-  template: `
+    selector: 'app-relation',
+    template: `
     @if (!detail()) {
       <h4>{{ (relation$ | async)?.name }}</h4>
     } @else {
@@ -22,12 +22,11 @@ import { Relation } from '../../relations.service';
       }
     }
   `,
-  styleUrls: ['./relation.component.css'],
-  standalone: true,
-  imports: [AsyncPipe],
-  host: {
-    '[detail]': '$detail',
-  },
+    styleUrls: ['./relation.component.css'],
+    imports: [AsyncPipe],
+    host: {
+        '[detail]': '$detail',
+    }
 })
 export class RelationComponent {
   elm = inject(ElementRef).nativeElement as HTMLElement;

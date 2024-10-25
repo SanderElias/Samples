@@ -4,9 +4,9 @@ import { isObservable, Subscriber, Subscription, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
-  selector: '[seLet]',
-  standalone: true,
+    // tslint:disable-next-line: directive-selector
+    selector: '[seLet]',
+
 })
 export class SeLetDirective<T> implements OnInit, OnDestroy {
   private templateRef = inject<TemplateRef<any>>(TemplateRef<any>);

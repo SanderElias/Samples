@@ -8,20 +8,19 @@ import { set } from 'idb-keyval';
 const mm = import('micromark');
 
 @Component({
-  selector: 'se-slide',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'se-slide',
+    imports: [],
+    template: `
     <section>
       <div id="slide" [innerHTML]="html()"></div>
     </section>
   `,
-  styleUrl: './slide.component.css',
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[document:title]': 'title()',
-  },
+    styleUrl: './slide.component.css',
+    encapsulation: ViewEncapsulation.ShadowDom,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[document:title]': 'title()',
+    }
 })
 /**
  * @deprecated use something else?

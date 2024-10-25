@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, inject,Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-pannel',
-  templateUrl: './pannel.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.ShadowDom,
-  standalone: true,
+    selector: 'app-pannel',
+    templateUrl: './pannel.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.ShadowDom
 })
 export class PannelComponent {
   private elmRef = inject(ElementRef);
@@ -15,8 +14,7 @@ export class PannelComponent {
 }
 
 @Directive({
-  selector: 'app-pannel[close]',
-  standalone: true,
+    selector: 'app-pannel[close]'
 })
 export class PannelCloseDirective implements OnInit {
   private pannel = inject(PannelComponent, { host: true });
@@ -45,8 +43,7 @@ export class PannelCloseDirective implements OnInit {
 }
 
 @Directive({
-  selector: 'app-pannel[footer]',
-  standalone: true,
+    selector: 'app-pannel[footer]'
 })
 export class PannelFooterDirective implements OnInit {
   private panel = inject(PannelComponent, { host: true });

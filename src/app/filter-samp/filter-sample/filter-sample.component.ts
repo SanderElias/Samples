@@ -9,11 +9,10 @@ import { AddressService, UserCard } from '../../generic-services/address.service
 type Vm = [UserCard[], string];
 
 @Component({
-  selector: 'app-filter-sample',
-  templateUrl: './filter-sample.component.html',
-  styles: [],
-  standalone: true,
-  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, AsyncPipe],
+    selector: 'app-filter-sample',
+    templateUrl: './filter-sample.component.html',
+    styles: [],
+    imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, AsyncPipe]
 })
 export class FilterSampleComponent {
   private us = inject(AddressService);

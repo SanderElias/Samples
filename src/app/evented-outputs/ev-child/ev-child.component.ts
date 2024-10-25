@@ -1,15 +1,14 @@
 import { Component, ElementRef, inject, model } from '@angular/core';
 
 @Component({
-  selector: 'ev-child',
-  standalone: true,
-  imports: [],
-  template: ` <ng-content /> `,
-  styleUrl: './ev-child.component.css',
-  host: {
-    '[class.selected]': 'selected()',
-    '(click)': 'handleClick()',
-  },
+    selector: 'ev-child',
+    imports: [],
+    template: ` <ng-content /> `,
+    styleUrl: './ev-child.component.css',
+    host: {
+        '[class.selected]': 'selected()',
+        '(click)': 'handleClick()',
+    }
 })
 export class EvChildComponent<T = unknown> {
   selected = model(false);

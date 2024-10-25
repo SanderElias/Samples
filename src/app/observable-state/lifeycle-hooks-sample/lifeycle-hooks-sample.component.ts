@@ -8,11 +8,10 @@ import { Observable } from 'rxjs';
 import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-lifeycle-hooks-sample',
-  templateUrl: './lifeycle-hooks-sample.component.html',
-  styles: [],
-  standalone: true,
-  imports: [ReactiveFormsModule, AsyncPipe],
+    selector: 'app-lifeycle-hooks-sample',
+    templateUrl: './lifeycle-hooks-sample.component.html',
+    styles: [],
+    imports: [ReactiveFormsModule, AsyncPipe]
 })
 export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
   private swapi = inject(SwapiService);

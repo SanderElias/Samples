@@ -6,11 +6,10 @@ const twoPi = Math.PI * 2;
 const circumference = (radius: number) => twoPi * radius;
 
 @Component({
-  selector: 'app-svg-clock',
-  templateUrl: './svg-clock.component.html',
-  styles: [],
-  standalone: true,
-  imports: [AsyncPipe],
+    selector: 'app-svg-clock',
+    templateUrl: './svg-clock.component.html',
+    styles: [],
+    imports: [AsyncPipe]
 })
 export class SvgClockComponent {
   // the colors for the circls we want to show

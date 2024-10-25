@@ -5,10 +5,9 @@ import { map } from 'rxjs';
 import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'se-dependencies',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
+    selector: 'se-dependencies',
+    imports: [CommonModule, FormsModule],
+    template: `
     @if (vm$ | async; as vm) {
       <input type="hidden" name="dependencies" [ngModel]="deps" />
       @for (name of deps; track name) {
@@ -26,9 +25,10 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
       </dialog>
     }
   `,
-  styleUrls: ['./depedencies.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
+    styleUrls: ['./depedencies.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
+
 })
 export class DepedenciesComponent {
   /** injections */

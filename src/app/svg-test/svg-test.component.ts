@@ -4,11 +4,10 @@ import { Component } from '@angular/core';
 import { BlocksComponent } from './blocks/blocks.component';
 
 @Component({
-  selector: 'app-svg-test',
-  templateUrl: './svg-test.component.html',
-  styles: [],
-  standalone: true,
-  imports: [BlocksComponent, DecimalPipe],
+    selector: 'app-svg-test',
+    templateUrl: './svg-test.component.html',
+    styles: [],
+    imports: [BlocksComponent, DecimalPipe]
 })
 export class SvgTestComponent {
   /** simple counter, for no good reason ;) */

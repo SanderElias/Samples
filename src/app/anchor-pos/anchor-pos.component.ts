@@ -2,10 +2,9 @@ import { Component, computed, signal } from '@angular/core';
 import { set } from 'idb-keyval';
 
 @Component({
-  selector: 'se-anchor-pos',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'se-anchor-pos',
+    imports: [],
+    template: `
     <h1>Anchor Position</h1>
 
     <label>
@@ -29,7 +28,7 @@ import { set } from 'idb-keyval';
       </section>
     </label>
   `,
-  styleUrl: './anchor-pos.component.css',
+    styleUrl: './anchor-pos.component.css'
 })
 export class AnchorPosComponent {
   posOptions = ['start start', 'start center', 'start end', 'center end', 'end end', 'end center', 'end start', 'center start'];

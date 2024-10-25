@@ -6,11 +6,10 @@ import { map, shareReplay,tap } from 'rxjs/operators';
 import { PokeApiService } from '../poke-api.service';
 
 @Component({
-  selector: 'app-pokemain',
-  templateUrl: './pokemain.component.html',
-  styles: [],
-  standalone: true,
-  imports: [SeLetDirective],
+    selector: 'app-pokemain',
+    templateUrl: './pokemain.component.html',
+    styles: [],
+    imports: [SeLetDirective]
 })
 export class PokeMainComponent implements OnInit {
   private pa = inject(PokeApiService);

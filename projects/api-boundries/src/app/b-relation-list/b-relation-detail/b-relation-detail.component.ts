@@ -8,8 +8,8 @@ import { OrderRowComponent } from '../order-row/order-row.component';
 import { RelationComponent } from '../relation/relation.component';
 
 @Component({
-  selector: 'app-relation-detail',
-  template: `
+    selector: 'app-relation-detail',
+    template: `
     @if (relation$ | async; as relation) {
       <app-relation [relationId]="relation.id" detail></app-relation>
       <h4>Orders:</h4>
@@ -18,8 +18,7 @@ import { RelationComponent } from '../relation/relation.component';
       }
     }
   `,
-  standalone: true,
-  imports: [RelationComponent, OrderRowComponent, AsyncPipe],
+    imports: [RelationComponent, OrderRowComponent, AsyncPipe]
 })
 export class BRelationDetailComponent {
   relationId$ = inject(ActivatedRoute).params.pipe(pluck('id'));

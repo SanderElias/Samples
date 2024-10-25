@@ -7,8 +7,8 @@ import { switchMap, take } from 'rxjs/operators';
 import { RelationsService } from '../../relations.service';
 
 @Component({
-  selector: 'app-relation',
-  template: `
+    selector: 'app-relation',
+    template: `
     @if (!detail) {
       <h4><img [src]="relation()?.avatar" /> {{ relation()?.name }}</h4>
     }
@@ -21,9 +21,8 @@ import { RelationsService } from '../../relations.service';
       </section>
     }
   `,
-  styleUrls: ['./relation.component.css'],
-  standalone: true,
-  imports: [AsyncPipe],
+    styleUrls: ['./relation.component.css'],
+    imports: [AsyncPipe]
 })
 export class RelationComponent {
   rel = inject(RelationsService);

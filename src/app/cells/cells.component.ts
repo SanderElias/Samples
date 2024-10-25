@@ -21,14 +21,13 @@ export interface Cell {
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 
 @Component({
-  selector: 'se-cells',
-  standalone: true,
-  imports: [CommonModule, CellComponent],
-  template: `@for (cell of cells(); track $index) {
+    selector: 'se-cells',
+    imports: [CommonModule, CellComponent],
+    template: `@for (cell of cells(); track $index) {
     <se-cell [(cellData)]="cell" />
   } `,
-  styleUrls: ['./cells.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./cells.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellsComponent {
   elm = inject(ElementRef).nativeElement as HTMLDivElement;

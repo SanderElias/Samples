@@ -3,10 +3,9 @@ import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, I
 import { map, ReplaySubject, tap } from 'rxjs';
 
 @Component({
-  selector: 'se-show-message',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'se-show-message',
+    imports: [CommonModule],
+    template: `
     <dialog>
       <header>
         <h4>System message:</h4>
@@ -19,8 +18,9 @@ import { map, ReplaySubject, tap } from 'rxjs';
       </footer>
     </dialog>
   `,
-  styleUrls: ['./show-message.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./show-message.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ShowMessageComponent {
   @Output() dismissed = new EventEmitter<void>();

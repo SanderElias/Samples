@@ -3,21 +3,20 @@ import { Router, RouterOutlet } from '@angular/router';
 import { NavSLidesService } from '../nav-slides.service.js';
 
 @Component({
-  selector: 'se-present',
-  standalone: true,
-  imports: [RouterOutlet],
-  template: `<router-outlet />
+    selector: 'se-present',
+    imports: [RouterOutlet],
+    template: `<router-outlet />
     <section>
       <span class="logos--mastodon-icon"></span>
       <span> {{"@sanderelias@mastodon.social"}}</span>
     </section>`,
-  styleUrl: './present.component.css',
-  host: {
-    '(document:keydown)': 'keyHandler($event)',
-    '(document:contextmenu)': 'navRel(-1);$event.preventDefault();',
-    '(document:click)': 'navRel(1);$event.preventDefault();',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrl: './present.component.css',
+    host: {
+        '(document:keydown)': 'keyHandler($event)',
+        '(document:contextmenu)': 'navRel(-1);$event.preventDefault();',
+        '(document:click)': 'navRel(1);$event.preventDefault();',
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresentComponent {
   router = inject(Router);

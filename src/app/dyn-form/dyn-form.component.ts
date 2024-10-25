@@ -39,11 +39,10 @@ const extractInputType = value => {
 };
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  selector: 'app-dyn-form',
-  templateUrl: './dyn-form.component.html',
-  styles: [],
+    imports: [CommonModule, FormsModule],
+    selector: 'app-dyn-form',
+    templateUrl: './dyn-form.component.html',
+    styles: []
 })
 export class DynFormComponent {
   adr = inject(AddressesService);

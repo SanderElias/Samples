@@ -1,17 +1,16 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-blocks',
-  templateUrl: './blocks.component.svg',
-  styles: [
-    `
+    selector: 'app-blocks',
+    templateUrl: './blocks.component.svg',
+    styles: [
+        `
       :host {
         display: block;
       }
     `,
-  ],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  standalone: true,
+    ],
+    encapsulation: ViewEncapsulation.ShadowDom
 })
 export class BlocksComponent {
   blockSize = 3;

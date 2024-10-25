@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { LangService } from '../lang.service';
 
 @Component({
-  selector: 'se-home',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'se-home',
+    imports: [CommonModule],
+    template: `
     <h1>
       Welcome
       <h1>
@@ -14,7 +13,7 @@ import { LangService } from '../lang.service';
       </h1>
     </h1>
   `,
-  styleUrls: ['./home.component.css'],
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   lang = inject(LangService).current;

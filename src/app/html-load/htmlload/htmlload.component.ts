@@ -3,16 +3,15 @@ import { Component, ElementRef, inject,OnDestroy } from '@angular/core';
 import { BogusLoadService } from '../bogus-load.service';
 
 @Component({
-  selector: 'app-htmlload',
-  templateUrl: './htmlload.component.html',
-  styles: [
-    `
+    selector: 'app-htmlload',
+    templateUrl: './htmlload.component.html',
+    styles: [
+        `
       :host {
         display: block;
       }
     `,
-  ],
-  standalone: true,
+    ]
 })
 export class HtmlloadComponent implements OnDestroy {
   /* injections */

@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { afterNextRender,Component, DestroyRef, ElementRef, inject } from '@angular/core';
 
 @Component({
-  selector: 'se-resizable-panel',
-  standalone: true,
-  imports: [CommonModule],
-  template: `<ng-content></ng-content>`,
-  styleUrls: ['./resizable-panel.component.css'],
+    selector: 'se-resizable-panel',
+    imports: [CommonModule],
+    template: `<ng-content></ng-content>`,
+    styleUrls: ['./resizable-panel.component.css']
 })
 export class ResizablePanelComponent {
   elm = inject(ElementRef).nativeElement as HTMLElement;

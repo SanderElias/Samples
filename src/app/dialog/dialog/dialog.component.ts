@@ -9,11 +9,10 @@ import {
 import { afterNextRenderEffect } from '../../../utils/signals/signal-helpers';
 
 @Component({
-  selector: 'se-dialog',
-  standalone: true,
-  imports: [CommonModule],
-  template: ` <dialog><ng-content></ng-content></dialog> `,
-  styleUrls: ['./dialog.component.css'],
+    selector: 'se-dialog',
+    imports: [CommonModule],
+    template: ` <dialog><ng-content></ng-content></dialog> `,
+    styleUrls: ['./dialog.component.css']
 })
 export class SeDialogComponent {
   @Input({ required: true }) shown!: WritableSignal<boolean>;

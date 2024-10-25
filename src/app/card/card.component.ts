@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'se-card',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'se-card',
+    imports: [CommonModule],
+    template: `
     @for (i of arr; track i) {
       <section>
         <h2>{{ i }}</h2>
@@ -18,7 +17,7 @@ import { Component } from '@angular/core';
       </section>
     }
   `,
-  styleUrls: ['./card.component.css'],
+    styleUrls: ['./card.component.css']
 })
 export class CardComponent {
   arr = [1, 2, 3, 4];

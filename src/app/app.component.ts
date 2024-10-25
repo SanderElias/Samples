@@ -4,11 +4,10 @@ import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@ang
 import { ShowSourceComponent } from './show-source/show-source.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styles: [],
-  standalone: true,
-  imports: [RouterLinkActive, RouterLink, ShowSourceComponent, RouterOutlet],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styles: [],
+    imports: [RouterLinkActive, RouterLink, ShowSourceComponent, RouterOutlet]
 })
 export class AppComponent implements AfterContentInit {
   /** the 'input' element that toggles the menu */

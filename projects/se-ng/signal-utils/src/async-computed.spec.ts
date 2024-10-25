@@ -13,9 +13,8 @@ const dom = new jsdom.JSDOM(`<!DOCTYPE html><test-component />`);
 globalThis.document = dom.window.document;
 
 @Component({
-  selector: 'test-component',
-  template: '',
-  standalone: true,
+    selector: 'test-component',
+    template: ''
 })
 class TestComponent {}
 

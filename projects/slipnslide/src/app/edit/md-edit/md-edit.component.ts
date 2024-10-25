@@ -10,17 +10,17 @@ const styles = [
 ];
 
 @Component({
-  selector: 'md-edit',
-  template: ``,
-  styles: [
-    `
+    selector: 'md-edit',
+    template: ``,
+    styles: [
+        `
       :host {
         display: block;
         background-color: white;
       }
     `,
-  ],
-  standalone: true,
+    ],
+
 })
 export class MdEditComponent implements OnInit, OnDestroy {
   private elmRef = inject(ElementRef);

@@ -9,10 +9,9 @@ declare global {
 }
 
 @Component({
-  selector: 'se-evented-outputs',
-  standalone: true,
-  imports: [EvChildComponent],
-  template: `
+    selector: 'se-evented-outputs',
+    imports: [EvChildComponent],
+    template: `
     <h3>Evented Outputs</h3>
     <div>Selected items: {{ $selected() }}</div>
     <p>
@@ -27,11 +26,11 @@ declare global {
       <ev-child [value]="item"> {{ item }}</ev-child>
     }
   `,
-  styleUrl: './evented-outputs.component.css',
-  host: {
-    // use a custom DOM event to signal selection
-    '(onSelected)': 'handleSelected($event.detail)',
-  },
+    styleUrl: './evented-outputs.component.css',
+    host: {
+        // use a custom DOM event to signal selection
+        '(onSelected)': 'handleSelected($event.detail)',
+    }
 })
 export class EventedOutputsComponent {
   arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
