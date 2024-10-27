@@ -441,7 +441,7 @@ title = "finally.. ship it"
 
 # Ok! Now, Push to production!
 
-## Yes of coarse<span>, but...</span>
+## Yes of course<span>, but...</span>
 
 - what about error handling?
 - should we have a way to refresh?
