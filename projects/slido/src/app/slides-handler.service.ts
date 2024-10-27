@@ -56,19 +56,28 @@ export class SlidesHandlerService {
     state.slides.set(slides);
   };
 
+  save = async (persists = false) => {
+    const slides = this.$slides();
+    if (slides.length === 0) {
+      return; // no slides yet, nothing to do. Also, we don't allow removing the last slide
+    }
+    const orgSlides = parseContentToSlides(this.file.$state().content());
+    const changed =
+      slides.length !== orgSlides.length || !slides.every((slide, index) => slide.content === orgSlides[index].content);
+    if (changed) {
+      const newContent = slides.map(parseIntoText).join(separator + '\n');
+      console.log(newContent);
+      if (persists) {
+        if (newContent !== this.file.$state().content()) {
+          this.file.save(newContent);
+          console.log('saved')
+        }
+      }
+    }
+  };
+
   constructor() {
-    effect(() => {
-      const slides = this.$slides();
-      if (slides.length === 0) {
-        return; // no slides yet, nothing to do. Also, we don't allow removing the last slide
-      }
-      const orgSlides = parseContentToSlides(this.file.$state().content());
-      const changed =
-        slides.length !== orgSlides.length || !slides.every((slide, index) => slide.content === orgSlides[index].content);
-      if (changed) {
-        console.log('changed', changed);
-      }
-    });
+    effect(() => this.save());
   }
 }
 
@@ -102,8 +111,9 @@ const parseIntoSlide = (content: string, index: number): Slide => {
 };
 const parseIntoText = (slide: Slide) => {
   const { content, ...data } = slide;
-  data.title ??= 'slide';
-  const toml = stringify(data);
-  const result = `---toml\n${toml}---\n${content}`;
-  return result;
+  // data.title ??= 'slide';
+  // const toml = stringify(data);
+  // const result = `---toml\n${toml}---\n${content}`;
+  // return result;
+  return content;
 };

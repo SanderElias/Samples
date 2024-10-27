@@ -25,11 +25,9 @@ export class PresentComponent {
   keyHandler = async (e: KeyboardEvent) => {
     // e.preventDefault();
     const { key } = e;
-    console.log(key);
     // @ts-expect-error
     const rootStyles = document.querySelector(':root').style;
     const curSize = +rootStyles.getPropertyValue('--chars-wide-aim') || 63;
-    console.log({ curSize });
     switch (key) {
       case '=':
       case '+':
