@@ -16,6 +16,7 @@ export class SlidesHandlerService {
     if (!content) {
       return;
     }
+    // console.log('content', content);
     const slides = signal(parseContentToSlides(content));
     return {
       name: this.file.$state().name,

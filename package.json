@@ -187,6 +187,7 @@
     "core-js": "^3.38.1",
     "express": "^4.21.0",
     "front-matter": "^4.0.2",
+    "highlight.js": "^11.10.0",
     "idb-keyval": "^6.2.1",
     "jasmine": "^5.3.1",
     "jsdom": "^25.0.1",

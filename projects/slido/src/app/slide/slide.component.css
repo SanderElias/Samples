@@ -3,9 +3,20 @@
 /* optional imports that use the props */
 @import 'open-props/normalize';
 @import 'open-props/buttons';
+@import 'highlight.js/styles/atom-one-dark.min.css';
+
+:host {
+  display: block;
+  container-name: slide;
+  container-type: inline-size;
+  min-height: 100%;
+  min-width: 100%;
+  overflow: auto;
+}
 :host-context {
   display: block;
-  height: 100dhv;
+  /* height: 100cqh; */
+  /* container-type: inline-size; */
 }
 
 @keyframes myEntry {
@@ -19,12 +30,65 @@
     opacity: 1;
   }
 }
+@keyframes myAppear {
+  0% {
+    font-size: 0;
+  }
+  75% {
+    font-size: 0;
+  }
+  100% {
+    font-size: inherit;
+  }
+}
+:host,
+html,
+body {
+  --_forFitInWith: calc(98cqi / var(--chars-wide-aim, 63));
+  --_forFitInHeight: calc(98cqh / var(--char-height-aim, 40));
+  --base-font-size: min(var(--_forFitInWith), var(--_forFitInHeight));
+  /* --base-font-size: var(--_forFitInWith); */
+  --font-size-00: calc(0.5 * var(--base-font-size));
+  --font-size-0: calc(0.75 * var(--base-font-size));
+  --font-size-1: calc(1 * var(--base-font-size));
+  --font-size-2: calc(1.1 * var(--base-font-size));
+  --font-size-3: calc(1.25 * var(--base-font-size));
+  --font-size-4: calc(1.5 * var(--base-font-size));
+  --font-size-5: calc(2 * var(--base-font-size));
+  --font-size-6: calc(2.5 * var(--base-font-size));
+}
+
+h1 {
+  font-size: calc(4 * var(--base-font-size));
+}
+h2 {
+  font-size: calc(3 * var(--base-font-size));
+}
+h3 {
+  font-size: calc(2 * var(--base-font-size));
+}
+h4,
+h5,
+h6 {
+  font-size: calc(1.5 * var(--base-font-size));
+}
+
+pre {
+  margin: 0 auto;
+}
+
+code {
+  opacity: 0;
+
+  transition: opacity 0.75s var(--ease-elastic-in-out-1);
+}
 
 section {
   display: block;
-  min-height: 100%;
+  min-height: 100cqh;
   min-width: 100%;
-  align-content: center;
+  /* align-content: center; */
+  font-size: calc(1 * var(--base-font-size));
 
   * {
     user-select: none;
@@ -34,56 +98,103 @@ section {
   #slide {
     display: grid;
     justify-items: center;
-    align-items: center;
+    align-items: \center;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     text-align: start;
+    padding-block-start: 1em;
     width: fit-content;
-    height: auto;
+    min-height: 96cqh;
     margin-inline: auto;
     transform: scale(var(--slide-scale, 1));
+
+    p:has(img) {
+      display: grid;
+      padding: var(--size-2);
+      align-items: center;
+      justify-items: center;
+      height: 100%;
+      width: 100%;
+
+      img {
+        height: 90%;
+        width: 90%;
+        aspect-ratio: 408/612;
+        object-fit: contain;
+      }
+    }
+
+    div p {
+      width: fit-content;
+      max-width: 65cqi;
+      margin: 0 auto;
+      text-wrap: balance;
+    }
 
     h1 {
       width: max-content;
       anchor-name: --my-title;
-      padding-bottom: 1rem;
+      padding-bottom: var(--base-font-size);
     }
     h1:has(+ h2) {
-      padding-bottom: 3.5rem;
+      padding-bottom: calc(4 * var(--base-font-size));
     }
     h1 + h2 {
       width: anchor-size(width);
       position: absolute;
       position-anchor: --my-title;
       position-area: end center;
-      top: -3.95rem;
+      top: calc(-5.4 * var(--base-font-size));
+      margin-top: calc(0.6 * var(--base-font-size));
       font-style: italic;
       text-align: end;
     }
 
-    h1,
-    h2,
-    h3,
-    h4 {
+    :is(h1, h2, h3, h4, h5, h6) {
       max-inline-size: none;
+      margin: 0;
     }
 
     li {
-      color: var(--surface-1);
+      width: fit-content;
+      max-inline-size: none;
+      opacity: 0.3;
 
-      & * {
-        display: none;
-      }
-      transition: color 0.75s var(--ease-elastic-in-out-1);
+      transition: opacity 0.75s var(--ease-elastic-in-out-1);
     }
 
     li.revealed {
-      color: var(--text1);
-      & * {
-        display: unset;
+      opacity: 1;
+    }
+
+    li:before {
+      content: '';
+      margin-inline-end: calc(0.4 * var(--base-font-size));
+    }
+
+    &:has(h3 + pre) {
+      pre {
+        margin-block-start: 1rem;
+        anchor-name: --my-code;
+      }
+
+      h3:has(+ pre) {
+        width: fit-content;
+        white-space: nowrap;
+        margin-inline-start: calc(-3.5 * var(--base-font-size));
+        position: absolute;
+        position-anchor: --my-code;
+        position-area: start center;
       }
     }
 
-
+    ul {
+      margin-inline: auto;
+      width: fit-content;
+      max-inline-size: none;
+      list-style-image: url('/assets/angular.svg');
+      list-style-position: inside;
+      font-size: calc(1.75 * var(--base-font-size));
+    }
   }
 }
