@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -210,6 +211,10 @@ export const routes: Routes = [
     loadComponent: () => import('./anchor-pos/anchor-pos.component').then(m => m.AnchorPosComponent),
     title: 'Anchor Position demo',
   },
+  {
+    path: 'outOfOrder',
+    loadComponent: () => import('./out-of-order/out-of-order.component').then(m => m.OutOfOrderComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalPlay' },
+  { path: '**', redirectTo: 'outOfOrder' },
 ];

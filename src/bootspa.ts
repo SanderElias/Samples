@@ -1,6 +1,3 @@
-/**
- * I'm importing zoneJs in here, so I can quickly switch to using the NoopZone if I want to test something around that
- */
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { dom, library } from '@fortawesome/fontawesome-svg-core';
