@@ -158,7 +158,7 @@ section {
     li {
       width: fit-content;
       max-inline-size: none;
-      opacity: 0.3;
+      opacity: 0;
 
       transition: opacity 0.75s var(--ease-elastic-in-out-1);
     }

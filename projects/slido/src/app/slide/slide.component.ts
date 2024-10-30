@@ -77,7 +77,6 @@ export class SlideComponent {
         const code = Array.from(frag.querySelectorAll('code'));
 
         code.forEach((el) => {
-          console.log('highlighting', el);
           hljs.highlightBlock(el);
           el.style.opacity = '1';
         });

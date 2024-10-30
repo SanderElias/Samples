@@ -1,11 +1,9 @@
----toml
-title = "Welcome"
----
 
 <!-- markdownlint-disable MD003 -->
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD022 -->
 <!-- markdownlint-disable MD024 -->
+<!-- markdownlint-disable MD041 -->
 <div>
 
 # Signals, watch the effect
@@ -33,10 +31,6 @@ title = "Welcome"
 </style>
 
 ---NextSlide
----toml
-title = "Who I am"
-
----
 
 ![me](/assets/sander.png)
 
@@ -62,10 +56,6 @@ title = "Who I am"
 </style>
 
 ---NextSlide
----toml
-title = "What I do"
-
----
 
 ![me](/assets/sander.png)
 
@@ -100,10 +90,6 @@ title = "What I do"
 </style>
 
 ---NextSlide
----toml
-title = ""
-
----
 
 <div>
 
@@ -116,10 +102,6 @@ Once upon a time, in a land far far away, there was a developer who used Angular
 </div>
 
 ---NextSlide
----toml
-title = ""
-
----
 
 <div>
 
@@ -137,10 +119,6 @@ Well, to be honest, he did.
 </style>
 
 ---NextSlide
----toml
-title = ""
-
----
 
 <div>
 
@@ -166,10 +144,6 @@ title = ""
 </style>
 
 ---NextSlide
----toml
-title = ""
-
----
 
 <div>
 
@@ -194,9 +168,6 @@ title = ""
 
 </style>
 ---NextSlide
----toml
-title = "Why Effects"
----
 
 <div>
 
@@ -223,10 +194,6 @@ title = "Why Effects"
 </style>
 
 ---NextSlide
----toml
-title = "But first"
-
----
 
 <div>
 
@@ -260,9 +227,6 @@ class UserService {
   h2 { animation: myEntry 1s; }
 </style>
 ---NextSlide
----toml
-title = "Why Effects"
----
 
 <div>
 
@@ -293,10 +257,6 @@ class MyComponent {
 </style>
 
 ---NextSlide
----toml
-title = "ship it"
-
----
 
 <div>
 
@@ -313,9 +273,6 @@ title = "ship it"
 
 </div>
 ---NextSlide
----toml
-title = "Why Effects"
----
 
 <div>
 
@@ -356,10 +313,6 @@ h2 {
 }
 </style>
 ---NextSlide
----toml
-title = "finally.. ship it"
-
----
 
 <div>
 
@@ -387,9 +340,6 @@ h2 {
 
 </div>
 ---NextSlide
----toml
-title = "Why Effects"
----
 
 <div>
 
@@ -432,16 +382,12 @@ h2 {
   }
 }
 ---NextSlide
----toml
-title = "finally.. ship it"
-
----
 
 <div>
 
 # Ok! Now, Push to production!
 
-## Yes of coarse<span>, but...</span>
+## Yes of course<span>, but...</span>
 
 - what about error handling?
 - should we have a way to refresh?
@@ -462,10 +408,6 @@ h2 {
 </div>
 
 ---NextSlide
----toml
-title = "realisation"
-
----
 
 <div>
 
@@ -513,10 +455,6 @@ h2 {
 </style>
 
 ---NextSlide
----toml
-title = "realisation"
-
----
 
 <div>
 
@@ -560,10 +498,6 @@ h2 {
 
 </style>
 ---NextSlide
----toml
-title = "realisation"
-
----
 
 <div>
 
@@ -601,10 +535,6 @@ h2 {
 </style>
 
 ---NextSlide
----toml
-title = "realisation"
-
----
 
 <div>
 
@@ -621,10 +551,6 @@ title = "realisation"
 
 </div>
 ---NextSlide
----toml
-title = "Takeaways"
-
----
 
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" viewBox="0 0 33.694 122.88" enable-background="new 0 0 33.694 122.88" xml:space="preserve"><g><path d="M6.402,104.495h20.799v18.385H6.402V104.495L6.402,104.495z M27.19,94.451H6.406C4.341,69.195,0,42.066,0,16.845 C0,7.543,7.545,0,16.847,0s16.847,7.543,16.847,16.845C33.694,42.053,29.299,69.214,27.19,94.451L27.19,94.451z"/></g></svg>
 
@@ -655,10 +581,6 @@ title = "Takeaways"
 </style>
 
 ---NextSlide
----toml
-title = "the end"
-
----
 
 <div>
 
@@ -684,10 +606,6 @@ title = "the end"
 </style>
 
 ---NextSlide
----toml
-title = "Thank you"
-
----
 
 ![me](/assets/sander.png)
 

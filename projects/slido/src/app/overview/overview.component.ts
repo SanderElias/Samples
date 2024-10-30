@@ -24,4 +24,5 @@ export class OverviewComponent {
   };
 
   addSlide = () => this.deck.addSlide(this.deck.$slides().length, '# New Slide');
+  save = () => this.deck.save(true)
 }
