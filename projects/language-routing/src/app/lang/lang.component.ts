@@ -5,12 +5,11 @@ import { map } from 'rxjs';
 import { LangService } from '../lang.service';
 
 @Component({
-  selector: 'se-lang',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  template: ` <a href="/">Pick a language</a>
+    selector: 'se-lang',
+    imports: [CommonModule, RouterOutlet],
+    template: ` <a href="/">Pick a language</a>
     <router-outlet></router-outlet>`,
-  styleUrls: ['./lang.component.css'],
+    styleUrls: ['./lang.component.css']
 })
 export class LangComponent  {
   ls = inject(LangService);

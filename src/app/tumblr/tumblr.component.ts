@@ -10,10 +10,9 @@ const apiKey = `RSIq08oTL7lA1DyETOmqujDSph7rvP4akG8NRPz9os6ywJjBhE`;
 const clientId = 'e972ca06cc4b961';
 
 @Component({
-  selector: 'app-tumblr',
-  templateUrl: './tumblr-component.html',
-  standalone: true,
-  imports: [AsyncPipe],
+    selector: 'app-tumblr',
+    templateUrl: './tumblr-component.html',
+    imports: [AsyncPipe]
 })
 export class TumblrComponent implements OnInit {
   /** injections */

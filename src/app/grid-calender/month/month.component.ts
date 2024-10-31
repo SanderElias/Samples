@@ -5,10 +5,9 @@ import { CalenderDay } from '../calenderDay';
 import { DayCellComponent } from '../day-cell/day-cell.component';
 
 @Component({
-  selector: 'se-month',
-  standalone: true,
-  imports: [CommonModule, DayCellComponent],
-  template: `
+    selector: 'se-month',
+    imports: [CommonModule, DayCellComponent],
+    template: `
     <h2>{{ monthName }}</h2>
     <span>S</span>
     <span>M</span>
@@ -21,7 +20,7 @@ import { DayCellComponent } from '../day-cell/day-cell.component';
       <se-day-cell [day]="day" (click)="select(day)"></se-day-cell>
     }
   `,
-  styleUrls: ['./month.component.css'],
+    styleUrls: ['./month.component.css']
 })
 export class MonthComponent {
   @Input() set date(x: Date) {

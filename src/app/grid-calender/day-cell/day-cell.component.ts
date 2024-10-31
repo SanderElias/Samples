@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
-  selector: 'se-day-cell',
-  standalone: true,
-  imports: [CommonModule],
-  template: ` {{ day.day }} `,
-  styleUrls: ['./day-cell.component.css'],
+    selector: 'se-day-cell',
+    imports: [CommonModule],
+    template: ` {{ day.day }} `,
+    styleUrls: ['./day-cell.component.css']
 })
 export class DayCellComponent {
   @Input() day!: {

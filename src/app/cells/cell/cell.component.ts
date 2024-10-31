@@ -6,11 +6,10 @@ import { Cell } from '../cells.component';
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 
 @Component({
-  selector: 'se-cell',
-  standalone: true,
-  imports: [CommonModule],
-  template: ``,
-  styleUrls: ['./cell.component.css'],
+    selector: 'se-cell',
+    imports: [CommonModule],
+    template: ``,
+    styleUrls: ['./cell.component.css']
 })
 export class CellComponent {
   // @Input() cellData: Signal<Cell>;

@@ -1,7 +1,6 @@
 import { Injectable, Signal } from '@angular/core';
 import { resource } from '@se-ng/signal-utils';
 
-const jphUrl = (path: string) => `https://jsonplaceholder.typicode.com/${path}`;
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +30,13 @@ export class JsonPlaceHolderService {
     });
 }
 
+const jphUrl = (path: string) => `https://jsonplaceholder.typicode.com/${path}`;
+
 const loadUser = async ({ request: id, abortSignal }) => {
   const res = await fetch(jphUrl(`users/${id}`), { signal: abortSignal });
+  if (!res.ok) {
+    throw new Error(`Failed to load user's data, ${res.status} ${res.statusText}`);
+  }
   const user: JphUser = await res.json();
   return user;
 };

@@ -5,8 +5,8 @@ import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-show-source',
-  template: `
+    selector: 'app-show-source',
+    template: `
     <!-- Only show the button if we actually have a gitFolder string -->
     @if ((routeInfo$ | async)?.gitFolder; as i) {
       <a [href]="i" target="_blank">
@@ -30,8 +30,8 @@ import { combineLatest, filter, map, tap } from 'rxjs';
       </a>
     }
   `,
-  styles: [
-    `
+    styles: [
+        `
       /** put the host on right top */
       :host {
         display: block;
@@ -55,9 +55,8 @@ import { combineLatest, filter, map, tap } from 'rxjs';
         height: 24px;
       }
     `,
-  ],
-  standalone: true,
-  imports: [AsyncPipe],
+    ],
+    imports: [AsyncPipe]
 })
 export class ShowSourceComponent {
   private router = inject(Router);

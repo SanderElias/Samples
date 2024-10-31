@@ -10,7 +10,7 @@ const availableComps = {
 @Component({
     selector: 'app-slide',
     template: `<scully-content></scully-content>`,
-    standalone: false
+
 })
 export class SlideComponent {
   constructor() {

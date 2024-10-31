@@ -19,7 +19,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       }
     `,
     ],
-    standalone: false
+
 })
 class DynDataComponent {
   private parent = inject(DynamicHtmlComponent);
@@ -34,8 +34,8 @@ class DynDataComponent {
 }
 
 @Component({
-  selector: 'app-dynamichtml',
-  template: `
+    selector: 'app-dynamichtml',
+    template: `
     <h1>Dynamic HTML sample</h1>
 
     <input type="text" [value]="name" (input)="name = $any($event.target).value" />
@@ -44,8 +44,8 @@ class DynDataComponent {
 
     <div id="target"></div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       textarea {
         display: block;
         height: 6rem;
@@ -53,8 +53,7 @@ class DynDataComponent {
         padding: 0;
       }
     `,
-  ],
-  standalone: true,
+    ]
 })
 export class DynamicHtmlComponent implements OnInit {
   private elmRef = inject(ElementRef);

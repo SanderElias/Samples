@@ -4,10 +4,9 @@ import { EvSourceDbService } from './ev-source-db.service';
 import { createId, type UniqueId } from './unique-id-helpers';
 
 @Component({
-  selector: 'se-indexdb',
-  standalone: true,
-  imports: [EditRecordComponent],
-  template: `
+    selector: 'se-indexdb',
+    imports: [EditRecordComponent],
+    template: `
     <h2>Sample with event-source DB</h2>
     <div class="cmdRow">
       <button (click)="newRow()">New Row</button>
@@ -46,7 +45,7 @@ import { createId, type UniqueId } from './unique-id-helpers';
       }
     </dialog>
   `,
-  styleUrl: './indexdb.component.css',
+    styleUrl: './indexdb.component.css'
 })
 export class IndexdbComponent {
   #evsDb = inject(EvSourceDbService);

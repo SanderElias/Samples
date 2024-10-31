@@ -1,8 +1,22 @@
 :host {
   display: block;
+  padding: var(--size-2);
+}
 
-  se-slide {
-    --slide-scale: .5;
+td {
+  max-inline-size: none;
+  height: auto;
+}
+
+td:nth-child(2) {
+  overflow: hidden;
+  container-type: inline-size;
+  container-name: table-cell-holder;
+
+  & > main {
+    aspect-ratio: 16 / 9;
+    width: 1024px;
+    overflow: hidden;
   }
 }
 
@@ -27,4 +41,3 @@
 td {
   overflow: hidden;
 }
-

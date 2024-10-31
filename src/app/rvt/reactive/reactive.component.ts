@@ -6,10 +6,9 @@ import { Observable, shareReplay, startWith } from 'rxjs';
 import { Model, SampledataService } from '../sampledata.service';
 
 @Component({
-  selector: 'se-reactive',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  template: `
+    selector: 'se-reactive',
+    imports: [CommonModule, ReactiveFormsModule],
+    template: `
     @if (data$ | async; as data) {
       <main>
         <h1>Reactive</h1>
@@ -43,7 +42,7 @@ import { Model, SampledataService } from '../sampledata.service';
       </main>
     }
   `,
-  styleUrls: ['./reactive.component.css'],
+    styleUrls: ['./reactive.component.css']
 })
 export default class ReactiveComponent implements OnDestroy {
   ds = inject(SampledataService);

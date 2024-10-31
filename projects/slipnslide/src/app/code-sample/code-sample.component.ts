@@ -13,17 +13,17 @@ interface State {
 }
 
 @Component({
-  selector: 'code-sample',
-  template: ``,
-  styles: [
-    `
+    selector: 'code-sample',
+    template: ``,
+    styles: [
+        `
       :host {
         display: block;
         height: 300px;
       }
     `,
-  ],
-  standalone: true,
+    ],
+
 })
 export class CodeSampleComponent implements OnInit, OnDestroy {
   private http = inject(HttpClient);

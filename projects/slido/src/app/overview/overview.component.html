@@ -3,6 +3,7 @@
 <section class="buttonGroup">
   <button (click)="selFile()">Select a different presentation</button>
   <button (click)="addSlide()">Add slide</button>
+  <button (click)="save()">Save</button>
 </section>
 
 @if ($needToAskPermission()) {
@@ -23,7 +24,11 @@
       @for (slide of deck.$slides(); track $index) {
         <tr>
           <td>{{ $index }}</td>
-          <td><se-slide [index]="$index"/></td>
+          <td>
+            <main>
+              <se-slide [index]="$index"/>
+            </main>
+          </td>
           <td class="actionGroup">
             <!-- <button>✏️</button> -->
             <button (click)="deck.removeSlide($index)">🗑️</button>

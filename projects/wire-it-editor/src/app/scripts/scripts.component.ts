@@ -5,18 +5,17 @@ import { map } from 'rxjs';
 import { ScriptComponent } from './script/script.component';
 
 @Component({
-  selector: 'app-scripts',
-  standalone: true,
-  imports: [CommonModule, ScriptComponent],
-  template: `<header>
+    selector: 'app-scripts',
+    imports: [CommonModule, ScriptComponent],
+    template: `<header>
       <h2>NPM scripts</h2>
       <small>(click one to upgrade it to WireIt!<br />Only non-upgraded ones are shown)</small>
     </header>
     @for (script of scripts$ | async; track script) {
       <app-script [script]="script"></app-script>
     }`,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         width: 100%;
         display: flex;
@@ -34,8 +33,9 @@ import { ScriptComponent } from './script/script.component';
         max-inline-size: inherit;
       }
     `,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ScriptsComponent {
   pjs = inject(PackageJsonService);

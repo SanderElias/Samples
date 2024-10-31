@@ -4,10 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, debounceTime, map, take } from 'rxjs';
 
 @Component({
-  selector: 'se-unsub-sample',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'se-unsub-sample',
+    imports: [CommonModule],
+    template: `
     <h1>Unsubscribe sample</h1>
     <p>Click the buttons to navigate to the next or previous id.</p>
     @if (vm$ | async; as vm) {
@@ -26,7 +25,7 @@ import { BehaviorSubject, combineLatest, debounceTime, map, take } from 'rxjs';
         justify-items: center;
       }
     </style>
-  `,
+  `
 })
 export class UnsubSampleComponent implements OnDestroy {
   route = inject(ActivatedRoute);

@@ -11,8 +11,8 @@ import { RelationComponent } from '../relation/relation.component';
 import { OrderRowComponent } from './order-row/order-row.component';
 
 @Component({
-  selector: 'app-relation-detail',
-  template: `
+    selector: 'app-relation-detail',
+    template: `
     @if (relation$ | async; as relation) {
       <app-relation [relation]="relation" detail></app-relation>
     }
@@ -21,8 +21,7 @@ import { OrderRowComponent } from './order-row/order-row.component';
       <app-order-row [order]="order"></app-order-row>
     }
   `,
-  standalone: true,
-  imports: [RelationComponent, OrderRowComponent, AsyncPipe],
+    imports: [RelationComponent, OrderRowComponent, AsyncPipe]
 })
 export class RelationDetailComponent {
   private route = inject(ActivatedRoute);

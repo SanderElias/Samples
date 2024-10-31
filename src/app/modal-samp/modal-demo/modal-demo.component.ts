@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-modal-demo',
-  templateUrl: './modal-demo.component.html',
-  styles: [],
-  standalone: true,
-  imports: [],
+    selector: 'app-modal-demo',
+    templateUrl: './modal-demo.component.html',
+    styles: [],
+    imports: []
 })
 export class ModalDemoComponent implements OnInit {
   @ViewChild('modal', { static: true }) modal: any;

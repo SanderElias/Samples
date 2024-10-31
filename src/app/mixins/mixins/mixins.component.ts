@@ -5,11 +5,10 @@ import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-mixins',
-  templateUrl: './mixins.component.html',
-  styles: [],
-  standalone: true,
-  imports: [AsyncPipe, JsonPipe],
+    selector: 'app-mixins',
+    templateUrl: './mixins.component.html',
+    styles: [],
+    imports: [AsyncPipe, JsonPipe]
 })
 export class MixinsComponent extends seOnDestroy(seAfterContentChecked(seOnInit(class {}))) {
   /**

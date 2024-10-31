@@ -5,11 +5,10 @@ import { take, tap } from 'rxjs/operators';
 import { WaitForItComponent } from './wait-for-it/wait-for-it.component';
 
 @Component({
-  selector: 'app-required-attributes',
-  templateUrl: './required-attributes.component.html',
-  styles: [],
-  standalone: true,
-  imports: [WaitForItComponent],
+    selector: 'app-required-attributes',
+    templateUrl: './required-attributes.component.html',
+    styles: [],
+    imports: [WaitForItComponent]
 })
 export class RequiredAttributesComponent implements OnInit {
   reqProps: string[] = [];

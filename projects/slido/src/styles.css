@@ -8,6 +8,8 @@
 
 :root {
   --brand: #4d148c;
+  --chars-wide-aim: 63;
+  --char-height-aim: 40;
 }
 
 form {

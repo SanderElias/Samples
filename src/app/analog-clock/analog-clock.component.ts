@@ -1,10 +1,9 @@
 import { Component, inject,NgZone, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-analog-clock',
-  template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
-  styles: [],
-  standalone: true,
+    selector: 'app-analog-clock',
+    template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
+    styles: []
 })
 export class AnalogClockComponent implements OnInit {
   private zone = inject(NgZone);

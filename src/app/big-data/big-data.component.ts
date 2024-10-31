@@ -12,10 +12,9 @@ interface LocalState {
 }
 
 @Component({
-  standalone: true,
-  imports: [AsyncPipe],
-  selector: 'app-big-data',
-  template: `
+    imports: [AsyncPipe],
+    selector: 'app-big-data',
+    template: `
     <h1>Big data and performance demo</h1>
     <!--
       use the VM$ and assign it to the vm view-variable,
@@ -80,7 +79,7 @@ interface LocalState {
         height: 40px; /** ballpark guess :-D */
       }
     </style>
-  `,
+  `
 })
 export class BigDataComponent {
   private user = inject(DemoUserService);

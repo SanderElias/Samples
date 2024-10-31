@@ -3,10 +3,9 @@ import { Component, effect, ElementRef, inject, signal } from '@angular/core';
 import { ResizablePanelComponent } from './resizable-panel/resizable-panel.component';
 
 @Component({
-  selector: 'se-resizable-panels',
-  standalone: true,
-  imports: [ResizablePanelComponent],
-  template: `
+    selector: 'se-resizable-panels',
+    imports: [ResizablePanelComponent],
+    template: `
     <input type="range" [value]="$range()" (change)="$range.set($any($event.target).value)" />
     @for (n of panels; track n) {
       <se-resizable-panel>
@@ -14,7 +13,7 @@ import { ResizablePanelComponent } from './resizable-panel/resizable-panel.compo
       </se-resizable-panel>
     }
   `,
-  styleUrls: ['./resizable-panels.component.css'],
+    styleUrls: ['./resizable-panels.component.css']
 })
 export class ResizablePanelsComponent {
   $range = signal(1.5);

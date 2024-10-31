@@ -1,15 +1,24 @@
-import { afterRenderEffect, ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, ViewEncapsulation } from '@angular/core';
+import {
+  afterRenderEffect,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  ViewEncapsulation,
+} from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { asyncComputed } from '@se-ng/signal-utils';
+import hljs from 'highlight.js/lib/core';
+import typescript from 'highlight.js/lib/languages/typescript.js';
 import { NavSLidesService } from '../nav-slides.service.js';
 import { SlidesHandlerService } from '../slides-handler.service.js';
-import { set } from 'idb-keyval';
-
+hljs.registerLanguage('typescript', typescript);
 const mm = import('micromark');
 
 @Component({
   selector: 'se-slide',
-  standalone: true,
   imports: [],
   template: `
     <section>
@@ -58,11 +67,20 @@ export class SlideComponent {
   _ = afterRenderEffect({
     read: () => {
       const index = this.index();
+      // this timeout is needed to wait for the shadow dom to be created
+      // or some other race condition that I'm going to spend time on
+      // to figure out
       setTimeout(() => {
         const frag: DocumentFragment = this.elm.shadowRoot;
         const lis = Array.from(frag.querySelectorAll('li'));
         this.slideNav.setCount(lis.length);
-      }, 5);
+        const code = Array.from(frag.querySelectorAll('code'));
+
+        code.forEach((el) => {
+          hljs.highlightBlock(el);
+          el.style.opacity = '1';
+        });
+      }, 50);
     },
     write: () => {
       const lastActive = this.slideNav.$activeLi();
@@ -75,6 +93,8 @@ export class SlideComponent {
           li.classList.remove('revealed');
         }
       });
+
+
     },
   });
 }

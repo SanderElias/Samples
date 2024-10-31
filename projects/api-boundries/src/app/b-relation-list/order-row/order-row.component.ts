@@ -7,8 +7,8 @@ import { RelationComponent } from '../relation/relation.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @Component({
-  selector: 'app-order-row',
-  template: `
+    selector: 'app-order-row',
+    template: `
     @if (order$ | async; as order) {
       <section>
         <h5>Products:</h5>
@@ -20,8 +20,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
       <app-relation [relationId]="order.transporter"></app-relation>
     }
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         display: grid;
         border: 1px solid #ccc;
@@ -31,9 +31,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
         margin: 0;
       }
     `,
-  ],
-  standalone: true,
-  imports: [ProductDetailComponent, RelationComponent, AsyncPipe],
+    ],
+    imports: [ProductDetailComponent, RelationComponent, AsyncPipe]
 })
 export class OrderRowComponent {
   order = inject(OrdersService);

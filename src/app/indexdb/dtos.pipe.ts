@@ -11,9 +11,8 @@ export const dTos = (date: Date) => {
 
 import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
-  name: 'dTos',
-  pure: false,
-  standalone: true,
+    name: 'dTos',
+    pure: false
 })
 export class DTosPipe implements PipeTransform {
   transform<T>(value: any): T | string {

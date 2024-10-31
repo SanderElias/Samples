@@ -8,11 +8,10 @@ import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map,
 import { ShowRecComponent } from '../show-rec/show-rec.component';
 
 @Component({
-  selector: 'app-apisample',
-  templateUrl: './apisample.component.html',
-  styles: [],
-  standalone: true,
-  imports: [ReactiveFormsModule, ShowRecComponent],
+    selector: 'app-apisample',
+    templateUrl: './apisample.component.html',
+    styles: [],
+    imports: [ReactiveFormsModule, ShowRecComponent]
 })
 export class APISampleComponent {
   /** injections */

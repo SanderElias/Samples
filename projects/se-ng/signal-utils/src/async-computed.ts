@@ -1,4 +1,4 @@
-import { computed, DestroyRef, effect, inject, type Signal, signal } from '@angular/core';
+import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } from '@angular/core';
 import { isObservable, type Observable, type Subscription } from 'rxjs';
 
 import { isAsyncIterable } from './is-async-iterable';
@@ -52,9 +52,13 @@ export const asyncComputed: AsyncComputed = <T, Y>(
   } as { value?: T | Y | undefined; error?: any });
   try {
     destroyRef = destroyRef ?? inject(DestroyRef);
-  } catch (e) {} // ignore the error, as it is expected when used outside a injection
-  if (!destroyRef) {
-    throw new Error('destroyRef is mandatory when used outside a injection context');
+  } catch (e) {
+    if (!destroyRef) {
+      throw new Error('[asyncComputed] destroyRef is mandatory when used outside a injection context');
+    }
+    if (!(destroyRef instanceof DestroyRef)) {
+      throw new Error('[asyncComputed] parameter destroyRef is not a DestroyRef');
+    }
   }
   let abortPrevious: AbortController | undefined;
   let subscription: Subscription | undefined;
@@ -121,6 +125,18 @@ export const asyncComputed: AsyncComputed = <T, Y>(
   return computed(() => {
     const currentState = state();
     if (currentState.error) {
+      if (isDevMode()) {
+        console.warn(`
+  [asyncComputed] error: ${currentState.error.message}
+    The error was thrown inside the callback function. The best way to handle
+    this error is  inside that function. However, asyncComputed will rethrow
+    the error to make sure that the error is not silently ignored.
+    The error will be reset when one of the signals inside the function changes.
+    Until that happens, the error will be re-thrown by Angular on every use
+    of the signal. (usually every change detection cycle)
+    (this warning is only shown in dev mode)
+`);
+      }
       // rethrow error to be handled by the user
       throw currentState.error;
       // note to self: do not wrap this in a new error, as it will hide the original stack trace

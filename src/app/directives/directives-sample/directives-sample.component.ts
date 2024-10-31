@@ -6,11 +6,10 @@ import { map } from 'rxjs/operators';
 import { IdDirective } from '../id.directive';
 
 @Component({
-  selector: 'app-directives-sample',
-  templateUrl: './directives-sample.component.html',
-  styles: [],
-  standalone: true,
-  imports: [IdDirective, AsyncPipe],
+    selector: 'app-directives-sample',
+    templateUrl: './directives-sample.component.html',
+    styles: [],
+    imports: [IdDirective, AsyncPipe]
 })
 export class DirectivesSampleComponent extends seAfterContentInit() {
   @ViewChildren(IdDirective) ids!: QueryList<IdDirective>;

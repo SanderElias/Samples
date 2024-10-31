@@ -13,10 +13,9 @@ import {
 import { combinator } from './combinator';
 
 @Component({
-  selector: 'se-rxjstest',
-  standalone: true,
-  imports: [CommonModule],
-  template: `<h1>Rxjs cleanup test</h1>
+    selector: 'se-rxjstest',
+    imports: [CommonModule],
+    template: `<h1>Rxjs cleanup test</h1>
     @if (vm$ | async; as vm) {
       <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp.length }}</span>
       <ul>
@@ -28,8 +27,8 @@ import { combinator } from './combinator';
         }
       </ul>
     } `,
-  styleUrls: ['./rxjstest.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./rxjstest.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RxjstestComponent {
   cdr = inject(ChangeDetectorRef);

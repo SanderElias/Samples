@@ -4,10 +4,9 @@ import { Component, computed, inject, model, signal } from '@angular/core';
 import { JsonPlaceHolderService } from './json-place-holder.service';
 
 @Component({
-  selector: 'se-signal-play',
-  standalone: true,
-  imports: [JsonPipe],
-  template: `
+    selector: 'se-signal-play',
+    imports: [JsonPipe],
+    template: `
     <h3>Available:{{ $availableUserCount() }} current:{{ id() }}</h3>
     <hr />
     <pre><code>{{$user()|json}}</code></pre>
@@ -16,7 +15,7 @@ import { JsonPlaceHolderService } from './json-place-holder.service';
     <button (click)="next()">next</button>
     <button (click)="prev()">prev</button>
   `,
-  styleUrl: './signal-play.component.css',
+    styleUrl: './signal-play.component.css'
 })
 export default class SignalPlayComponent {
   // sps = inject(SignalPlayService);

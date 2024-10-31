@@ -7,10 +7,9 @@ import { FieldEditComponent } from './field-edit/field-edit.component';
 export type FieldType = 'string' | 'number' | 'boolean' | 'symbol' | 'date' | 'nonEditable';
 
 @Component({
-  selector: 'se-edit-record',
-  standalone: true,
-  imports: [FieldEditComponent],
-  template: `
+    selector: 'se-edit-record',
+    imports: [FieldEditComponent],
+    template: `
     <h4>Edit record</h4>
     @if (id()) {
       <label>
@@ -44,7 +43,7 @@ export type FieldType = 'string' | 'number' | 'boolean' | 'symbol' | 'date' | 'n
       </div>
     }
   `,
-  styleUrl: './edit-record.component.css',
+    styleUrl: './edit-record.component.css'
 })
 export class EditRecordComponent {
   #evDb = inject(EvSourceDbService);

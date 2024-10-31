@@ -4,10 +4,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'se-route-list',
-  standalone: true,
-  imports: [RouterLink],
-  template: `
+    selector: 'se-route-list',
+    imports: [RouterLink],
+    template: `
     @for (item of routes(); track $index) {
       @if (item != undefined) {
         <section>
@@ -20,7 +19,7 @@ import { RouterLink } from '@angular/router';
       }
     }
   `,
-  styleUrls: ['./route-list.component.css'],
+    styleUrls: ['./route-list.component.css']
 })
 export class RouteListComponent {
   #http = inject(HttpClient);

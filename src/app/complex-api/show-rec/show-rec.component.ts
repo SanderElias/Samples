@@ -12,11 +12,10 @@ export type Selection = [string, string];
 const key = (e: Entry) => e[0];
 const val = (e: Entry) => e[1];
 @Component({
-  selector: 'app-show-rec',
-  templateUrl: './show-rec.component.html',
-  styles: [],
-  standalone: true,
-  imports: [],
+    selector: 'app-show-rec',
+    templateUrl: './show-rec.component.html',
+    styles: [],
+    imports: []
 })
 export class ShowRecComponent implements OnInit {
   record = input.required<Record>();
