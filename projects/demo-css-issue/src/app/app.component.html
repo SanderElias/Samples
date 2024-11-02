@@ -1,0 +1,23 @@
+<style>
+  :host {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    padding:1rem;
+  }
+
+  div {
+    padding: 1rem;
+    border: 1px solid #ccc;
+  }
+
+  </style>
+
+<div>
+  <h1>normal DOM</h1>
+  <se-no-shadow />
+</div>
+<div>
+  <h1>Shadow DOM</h1>
+  <se-shadow />
+</div>
