@@ -3,6 +3,7 @@
  */
 
 export { asyncComputed } from './async-computed';
+export { computedResource } from './async-resource';
 export { isAsyncIterable } from './is-async-iterable';
 export { isPromise } from './is-promise';
 export type {

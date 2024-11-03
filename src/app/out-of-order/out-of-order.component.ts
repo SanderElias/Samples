@@ -1,5 +1,5 @@
 import { Component, computed, effect, resource, signal } from '@angular/core';
-import { asyncComputed } from '@se-ng/signal-utils';
+import { asyncComputed, computedResource } from '@se-ng/signal-utils';
 
 @Component({
   selector: 'se-out-of-order',
@@ -13,6 +13,9 @@ import { asyncComputed } from '@se-ng/signal-utils';
     <p>Data using resource: {{ datUsingResource.value() }}</p>
     <p>Data using resource has status: {{ status() }}</p>
     <p>Data using async computed: {{ usingAsyncComputed() }}</p>
+    <p>Data using async resource: {{ usingComputedResource().value() }}</p>
+    <p>async resource status {{ usingComputedResource().status }}</p>
+    <p>async resource status {{ usingComputedResource().stream }}</p>
   `,
   styleUrl: './out-of-order.component.css',
 })
@@ -62,6 +65,8 @@ export class OutOfOrderComponent {
 
   // related data using `asyncComputed` that is stable and availabe on NPM as `@se-ng/signal-utils`
   usingAsyncComputed = asyncComputed(() => simulateFetch({ request: this.myId() }));
+
+  usingComputedResource = computedResource(() => simulateFetch({ request: this.myId() }));
 
   constructor() {
     // make the ID change every second
