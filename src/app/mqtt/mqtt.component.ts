@@ -17,6 +17,7 @@ export class MqttComponent {
   mqtt = inject(MqttService)
 
   msgs$ = this.mqtt.messages$
+  homie = this.mqtt.listenFor('*')
 
   constructor() {
 
@@ -40,9 +41,9 @@ interface MqttMessage {
 @Injectable({ providedIn: 'root' })
 export class MqttService {
   mqtt = import('mqtt');
-  client = this.mqtt.then((m) => m.default.connectAsync(`ws://bookworm.local:1884`));
+  client = this.mqtt.then((m) => m.default.connectAsync(`ws://10.0.0.100:1884`));
   /** base topic */
-  readonly bt = 'zigbee2mqtt';
+  readonly bt = 'homie';
   messages$ = new Observable<MqttMessage>((subscriber) => {
     const cb: OnMessageCallback = (topic, message): void => {
       // console.log({ topic });
@@ -50,7 +51,7 @@ export class MqttService {
     };
 
     this.client.then((client) => {
-      // console.log('start listening for MQTT messages');
+      console.log('start listening for MQTT messages');
       client.on('message', cb);
     });
     return () => {
