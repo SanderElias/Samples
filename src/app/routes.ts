@@ -215,6 +215,10 @@ export const routes: Routes = [
     path: 'outOfOrder',
     loadComponent: () => import('./out-of-order/out-of-order.component').then(m => m.OutOfOrderComponent),
   },
+  {
+    path: 'mqtt',
+    loadComponent: () => import('./mqtt/mqtt.component').then(m => m.MqttComponent)
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'outOfOrder' },
+  { path: '**', redirectTo: 'mqtt' },
 ];
