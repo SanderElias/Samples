@@ -71,6 +71,7 @@
             "buildTarget": "samples:build"
           },
           "configurations": {
+            "ssr": false,
             "production": {
               "buildTarget": "samples:build:production"
             }

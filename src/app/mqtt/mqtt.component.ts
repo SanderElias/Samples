@@ -1,67 +1,99 @@
-import { Component, inject, Injectable, signal } from '@angular/core';
-import mqtt, { type OnMessageCallback } from 'mqtt'
-import { Observable, share, Subject,  tap, filter, map } from 'rxjs';
-
+import { JsonPipe } from '@angular/common';
+import { Component, computed, inject, Injectable, signal } from '@angular/core';
+import { type OnMessageCallback } from 'mqtt';
+import { filter, map, Observable, share, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'se-mqtt',
-  imports: [],
+  imports: [JsonPipe],
   template: `
-    <p>
-      mqtt works!
-    </p>
-    `,
-  styleUrl: './mqtt.component.css'
+    <p>mqtt works!</p>
+    <pre><code>{{cleanState()| json}}</code></pre>
+  `,
+  styleUrl: './mqtt.component.css',
 })
 export class MqttComponent {
-  mqtt = inject(MqttService)
+  mqtt = inject(MqttService);
+  state = signal<Record<string, any>>({});
+  cleanState = computed(() => cleanUp(this.state()));
 
-  msgs$ = this.mqtt.messages$
-  homie = this.mqtt.listenFor('*')
+  msgs$ = this.mqtt.messages$;
+  homie = this.mqtt.listenFor('homey/#');
 
   constructor() {
+    this.homie.subscribe({
+      next(msg) {
+        console.log(msg);
+      },
+    });
 
     this.msgs$.subscribe({
-      next(msg) {
-        console.log(msg)
-      }
-    })
+      next: val => {
+        const { topic, message } = val;
 
+        const keys = topic.split('/');
+        this.state.update(s => {
+          let x = s;
+          keys.forEach((key, i) => {
+            if (i === keys.length - 1) {
+              x[key] = { value: message };
+              return;
+            }
+            if (!x[key]) {
+              x[key] = {};
+            }
+            x = x[key];
+          });
+
+          return { ...s };
+        });
+      },
+    });
   }
-
 }
 
+const cleanUp = (obj: Record<string, unknown>, path = ''): any => {
+  const { value, ...rest } = obj;
+  if (Object.keys(rest).length === 0) return value;
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, val]) => {
+      // @ts-expect-error
+      return [key, typeof val === 'object' ? cleanUp(val) : val];
+    })
+  );
+};
 
 interface MqttMessage {
   topic: string;
   message: string;
 }
 
-
 @Injectable({ providedIn: 'root' })
 export class MqttService {
   mqtt = import('mqtt');
-  client = this.mqtt.then((m) => m.default.connectAsync(`ws://10.0.0.100:1884`));
+  client = this.mqtt.then(m => m.default.connectAsync(`ws://10.0.0.100:1884`));
   /** base topic */
   readonly bt = 'homie';
-  messages$ = new Observable<MqttMessage>((subscriber) => {
+  messages$ = new Observable<MqttMessage>(subscriber => {
     const cb: OnMessageCallback = (topic, message): void => {
       // console.log({ topic });
       subscriber.next({ topic, message: message.toString() });
     };
 
-    this.client.then((client) => {
+    this.client.then(client => {
       console.log('start listening for MQTT messages');
       client.on('message', cb);
     });
     return () => {
       console.log('stop listening for MQTT messages');
-      this.client.then((client) => client.off('message', cb));
+      this.client.then(client => client.off('message', cb));
     };
-  }).pipe(share({
-    connector: () => new Subject(),
-    resetOnComplete: true
-  }));
+  }).pipe(
+    share({
+      connector: () => new Subject(),
+      resetOnComplete: true,
+    })
+  );
 
   state = signal<Record<string, unknown>>({});
 
@@ -76,206 +108,203 @@ export class MqttService {
 
   listenFor(topics: string | string[]) {
     const cl = this.client;
-    topics = (Array.isArray(topics) ? topics : [topics]).map((topic) =>
-      topic.startsWith(this.bt) ? topic : `${this.bt}/${topic}`,
-    );
-    cl.then((client) => {
+    topics = (Array.isArray(topics) ? topics : [topics]).map(topic => (topic.startsWith(this.bt) ? topic : `${this.bt}/${topic}`));
+    cl.then(client => {
       client.subscribe(topics);
       console.log('start listening', topics);
     });
 
     return this.messages$.pipe(
-      tap(console.log),
+      // tap(console.log),
       filter(({ topic }) => (Array.isArray(topics) ? topics.includes(topic) : topics === topic)),
       tap({
         error() {
-          cl.then((client) => client.unsubscribe(topics));
+          cl.then(client => client.unsubscribe(topics));
         },
         complete() {
-          cl.then((client) => client.unsubscribe(topics));
+          cl.then(client => client.unsubscribe(topics));
         },
       }),
-      map(({ message }: { message: string }) => message),
+      tap(r => console.log({ r })),
+      map(({ message }: { message: string }) => message)
     );
   }
 }
 
 export interface Z2MDevices {
-  definition:          Definition | null;
-  disabled:            boolean;
-  endpoints:           { [key: string]: Endpoint };
-  friendly_name:       string;
-  ieee_address:        string;
+  definition: Definition | null;
+  disabled: boolean;
+  endpoints: { [key: string]: Endpoint };
+  friendly_name: string;
+  ieee_address: string;
   interview_completed: boolean;
-  interviewing:        boolean;
-  network_address:     number;
-  supported:           boolean;
-  type:                Z2MDeviceType;
-  date_code?:          string;
-  manufacturer?:       Manufacturer;
-  model_id?:           string;
-  power_source?:       PowerSource;
-  software_build_id?:  string;
+  interviewing: boolean;
+  network_address: number;
+  supported: boolean;
+  type: Z2MDeviceType;
+  date_code?: string;
+  manufacturer?: Manufacturer;
+  model_id?: string;
+  power_source?: PowerSource;
+  software_build_id?: string;
 }
 
 export interface Definition {
-  description:  string;
-  exposes:      Expose[];
-  icon:         string;
-  model:        string;
-  options:      Option[];
+  description: string;
+  exposes: Expose[];
+  icon: string;
+  model: string;
+  options: Option[];
   supports_ota: boolean;
-  vendor:       Vendor;
+  vendor: Vendor;
 }
 
 export interface Expose {
-  access?:      number;
+  access?: number;
   description?: string;
-  label?:       string;
-  name?:        string;
-  property?:    string;
-  type:         ItemTypeType;
-  value_off?:   boolean;
-  value_on?:    boolean;
-  category?:    Category;
-  unit?:        string;
-  value_max?:   number;
-  value_min?:   number;
-  features?:    Feature[];
-  values?:      string[];
+  label?: string;
+  name?: string;
+  property?: string;
+  type: ItemTypeType;
+  value_off?: boolean;
+  value_on?: boolean;
+  category?: Category;
+  unit?: string;
+  value_max?: number;
+  value_min?: number;
+  features?: Feature[];
+  values?: string[];
 }
 
 export enum Category {
-  Config = "config",
-  Diagnostic = "diagnostic",
+  Config = 'config',
+  Diagnostic = 'diagnostic',
 }
 
 export interface Feature {
-  access:        number;
-  description:   string;
-  label:         string;
-  name:          string;
-  property:      string;
-  type:          ItemTypeType;
-  value_off?:    boolean | string;
-  value_on?:     boolean | string;
+  access: number;
+  description: string;
+  label: string;
+  name: string;
+  property: string;
+  type: ItemTypeType;
+  value_off?: boolean | string;
+  value_on?: boolean | string;
   value_toggle?: string;
-  value_max?:    number;
-  value_min?:    number;
-  presets?:      Preset[];
-  unit?:         string;
-  features?:     ItemType[];
+  value_max?: number;
+  value_min?: number;
+  presets?: Preset[];
+  unit?: string;
+  features?: ItemType[];
 }
 
 export interface ItemType {
-  access:    number;
-  label:     string;
-  name:      string;
+  access: number;
+  label: string;
+  name: string;
   property?: string;
-  type:      ItemTypeType;
+  type: ItemTypeType;
 }
 
 export enum ItemTypeType {
-  Binary = "binary",
-  Composite = "composite",
-  Enum = "enum",
-  Light = "light",
-  Numeric = "numeric",
-  Switch = "switch",
+  Binary = 'binary',
+  Composite = 'composite',
+  Enum = 'enum',
+  Light = 'light',
+  Numeric = 'numeric',
+  Switch = 'switch',
 }
 
 export interface Preset {
   description: string;
-  name:        string;
-  value:       number;
+  name: string;
+  value: number;
 }
 
 export interface Option {
-  access:      number;
+  access: number;
   description: string;
-  label:       string;
-  name:        string;
-  property:    string;
-  type:        OptionType;
-  value_max?:  number;
-  value_min?:  number;
-  value_off?:  boolean;
-  value_on?:   boolean;
-  item_type?:  ItemType;
+  label: string;
+  name: string;
+  property: string;
+  type: OptionType;
+  value_max?: number;
+  value_min?: number;
+  value_off?: boolean;
+  value_on?: boolean;
+  item_type?: ItemType;
 }
 
 export enum OptionType {
-  Binary = "binary",
-  List = "list",
-  Numeric = "numeric",
+  Binary = 'binary',
+  List = 'list',
+  Numeric = 'numeric',
 }
 
 export enum Vendor {
-  Ikea = "IKEA",
-  TuYa = "TuYa",
-  Xiaomi = "Xiaomi",
+  Ikea = 'IKEA',
+  TuYa = 'TuYa',
+  Xiaomi = 'Xiaomi',
 }
 
 export interface Endpoint {
-  bindings:              Binding[];
-  clusters:              Clusters;
+  bindings: Binding[];
+  clusters: Clusters;
   configured_reportings: ConfiguredReporting[];
-  scenes:                any[];
+  scenes: any[];
 }
 
 export interface Binding {
   cluster: string;
-  target:  Target;
+  target: Target;
 }
 
 export interface Target {
-  endpoint:     number;
+  endpoint: number;
   ieee_address: IEEEAddress;
-  type:         TargetType;
+  type: TargetType;
 }
 
 export enum IEEEAddress {
-  The0Xe0798Dfffebc6E5D = "0xe0798dfffebc6e5d",
+  The0Xe0798Dfffebc6E5D = '0xe0798dfffebc6e5d',
 }
 
 export enum TargetType {
-  Endpoint = "endpoint",
+  Endpoint = 'endpoint',
 }
 
 export interface Clusters {
-  input:  string[];
+  input: string[];
   output: string[];
 }
 
 export interface ConfiguredReporting {
-  attribute:               Attribute;
-  cluster:                 string;
+  attribute: Attribute;
+  cluster: string;
   maximum_report_interval: number;
   minimum_report_interval: number;
-  reportable_change:       number;
+  reportable_change: number;
 }
 
 export enum Attribute {
-  BatteryPercentageRemaining = "batteryPercentageRemaining",
-  MeasuredValue = "measuredValue",
-  OnOff = "onOff",
+  BatteryPercentageRemaining = 'batteryPercentageRemaining',
+  MeasuredValue = 'measuredValue',
+  OnOff = 'onOff',
 }
 
 export enum Manufacturer {
-  IKEAOfSweden = "IKEA of Sweden",
-  Lumi = "LUMI",
-  TZE204Ntcy3Xu1 = "_TZE204_ntcy3xu1",
+  IKEAOfSweden = 'IKEA of Sweden',
+  Lumi = 'LUMI',
+  TZE204Ntcy3Xu1 = '_TZE204_ntcy3xu1',
 }
 
 export enum PowerSource {
-  Battery = "Battery",
-  MainsSinglePhase = "Mains (single phase)",
+  Battery = 'Battery',
+  MainsSinglePhase = 'Mains (single phase)',
 }
 
 export enum Z2MDeviceType {
-  Coordinator = "Coordinator",
-  EndDevice = "EndDevice",
-  Router = "Router",
+  Coordinator = 'Coordinator',
+  EndDevice = 'EndDevice',
+  Router = 'Router',
 }
-
-

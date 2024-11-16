@@ -1,3 +1,5 @@
 :host {
   display: block;
+  max-height: 99vh;
+  overflow-x: auto;
 }
