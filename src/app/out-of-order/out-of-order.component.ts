@@ -2,10 +2,9 @@ import { Component, computed, effect, resource, signal } from '@angular/core';
 import { asyncComputed, computedResource } from '@se-ng/signal-utils';
 
 @Component({
-  selector: 'se-out-of-order',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'se-out-of-order',
+    imports: [],
+    template: `
     <h1>Out of Order problem</h1>
     <p>My ID: {{ myId() }}</p>
     <p>Naive data: {{ naiveData() }}</p>
@@ -17,7 +16,7 @@ import { asyncComputed, computedResource } from '@se-ng/signal-utils';
     <p>async resource status {{ usingComputedResource().status }}</p>
     <p>async resource status {{ usingComputedResource().stream }}</p>
   `,
-  styleUrl: './out-of-order.component.css',
+    styleUrl: './out-of-order.component.css'
 })
 export class OutOfOrderComponent {
   myId = signal(1);
