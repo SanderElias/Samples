@@ -7,12 +7,23 @@
   & > :first-child:before {
     content: '';
     display: inline-block;
-    width: 15px;
-    height: 15px;
-    -moz-border-radius: 7.5px;
-    -webkit-border-radius: 7.5px;
-    border-radius: 7.5px;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
     background-color: #69b6d5;
+  }
+  :last-child::after {
+    display: inline-flexbox;
+    position: relative;
+    top: -1.45rem;
+    right: -0.75rem;
+    font-weight: bold;
+    width: 1rem;
+    height: 1rem;
+    content: ' ';
+    border-radius: 50%;
+    color: white;
+    border: none;
   }
 }
 
@@ -24,6 +35,13 @@
   background-color: var(--color-primary);
   color: var(--color-white);
   & > :first-child:before {
+    background-color: #6cb952;
+  }
+}
+
+:host.touched {
+  :last-child::after {
+    content: '\2713';
     background-color: #6cb952;
   }
 }

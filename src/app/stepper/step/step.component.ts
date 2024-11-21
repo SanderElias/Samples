@@ -9,6 +9,7 @@ import { StepDataService, type StepData } from '../step-data.service';
   host: {
     '[class.selected]': 'isSelected()',
     '[class.disabled]': 'disabled()',
+    '[class.touched]': 'stepperData().touched()',
     '(click)': 'select()',
   }
 })
