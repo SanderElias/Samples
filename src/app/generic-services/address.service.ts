@@ -60,7 +60,7 @@ export class AddressService {
 function userCard(faker: any): UserCard {
   return {
     name: faker.person.fullName(),
-    username: faker.internet.userName(),
+    username: faker.internet.username(),
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
     address: {

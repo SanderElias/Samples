@@ -64,7 +64,7 @@ export class RelationsService {
 function userCard(faker: any) {
   return {
     name: faker.name.fullName(),
-    username: faker.internet.userName(),
+    username: faker.internet.username(),
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
     address: {
