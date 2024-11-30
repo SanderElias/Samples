@@ -35,7 +35,7 @@ export class AnchorPosComponent {
   currentPos = signal(0);
 
   pos = computed(() => {
-    const p = `inset-area: ${this.posOptions[this.currentPos()]}`;
+    const p = `position-area: ${this.posOptions[this.currentPos()]}`;
     console.log(p);
     return p;
   });

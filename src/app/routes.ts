@@ -220,5 +220,5 @@ export const routes: Routes = [
     loadComponent: () => import('./stepper/stepper.component').then(m => m.StepperComponent),
   },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'stepper' },
+  { path: '**', redirectTo: 'acnhorPosition' },
 ];

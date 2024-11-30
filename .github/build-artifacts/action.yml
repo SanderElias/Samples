@@ -18,6 +18,10 @@ runs:
         path: dist
         # I only want to cache the dist folder for this workflow run
         key: dist-${{ inputs.node-version }}-${{ github.run_id }}
+
+    # Set up GitHub Actions caching for Wireit.
+    - uses: google/wireit@setup-github-actions-caching/v2
+
     - name: Build the dist artifacts, when not yet cached for this workflow
       if: steps.cache-dist.outputs.cache-hit != 'true'
       run: |
