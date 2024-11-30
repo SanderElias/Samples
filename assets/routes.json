@@ -1,5 +1,13 @@
 [
   {
+    "path": "/acnhorPosition",
+    "modulePath": "/src/app/anchor-pos",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/anchor-pos",
+    "title": "Anchor Position",
+    "largeImage": "/assets/snapshots/acnhorPosition.png",
+    "description": ""
+  },
+  {
     "path": "/bigData",
     "modulePath": "/src/app/big-data",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/big-data",
@@ -11,7 +19,7 @@
     "path": "/bintree",
     "modulePath": "/src/app/bintree",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/bintree",
-    "title": "Binary tree demo",
+    "title": "Binary tree",
     "largeImage": "/assets/snapshots/bintree.png",
     "description": ""
   },
@@ -43,7 +51,7 @@
     "path": "/clock",
     "modulePath": "/src/app/analog-clock",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/analog-clock",
-    "title": "Analog clock on canvas",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/clock.png",
     "description": ""
   },
@@ -51,7 +59,7 @@
     "path": "/complexAPI",
     "modulePath": "/src/app/complex-api/apisample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/complex-api/apisample",
-    "title": "Demo with dynamic data",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/complexAPI.png",
     "description": ""
   },
@@ -67,7 +75,7 @@
     "path": "/DirectiveSamp",
     "modulePath": "/src/app/directives/directives-sample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/directives/directives-sample",
-    "title": " directives-sample!",
+    "title": "directives-sample!",
     "largeImage": "/assets/snapshots/DirectiveSamp.png",
     "description": ""
   },
@@ -88,18 +96,26 @@
     "description": ""
   },
   {
+    "path": "/eventedOutputs",
+    "modulePath": "/src/app/evented-outputs",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/evented-outputs",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/eventedOutputs.png",
+    "description": ""
+  },
+  {
     "path": "/filterSamp",
     "modulePath": "/src/app/filter-samp/filter-sample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/filter-samp/filter-sample",
-    "title": "Filter in a list using observables",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/filterSamp.png",
     "description": ""
   },
   {
     "path": "/formErrors",
-    "modulePath": "/src/app/form-errors/form-errors",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/form-errors/form-errors",
-    "title": "Show how to show errors in a form",
+    "modulePath": "/src/app/form-error",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/form-error",
+    "title": "Form with error shown",
     "largeImage": "/assets/snapshots/formErrors.png",
     "description": ""
   },
@@ -115,7 +131,7 @@
     "path": "/gridThings",
     "modulePath": "/src/app/gridthings/gridthings",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/gridthings/gridthings",
-    "title": "Sparse gird, using CSS grid. cells only sample",
+    "title": "1",
     "largeImage": "/assets/snapshots/gridThings.png",
     "description": ""
   },
@@ -131,15 +147,23 @@
     "path": "/htmlLoad",
     "modulePath": "/src/app/html-load/htmlload",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/html-load/htmlload",
-    "title": "dynamic loading of HTML including external scripts",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/htmlLoad.png",
+    "description": ""
+  },
+  {
+    "path": "/indexDb",
+    "modulePath": "/src/app/indexdb",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/indexdb",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/indexDb.png",
     "description": ""
   },
   {
     "path": "/lazyComponents",
     "modulePath": "/src/app/lazy-component",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/lazy-component",
-    "title": "dynamic lazy loading of components",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/lazyComponents.png",
     "description": ""
   },
@@ -155,7 +179,7 @@
     "path": "/localState/",
     "modulePath": "/src/app",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
-    "title": "LocalState with BehaviorSubject",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/localState-.png",
     "description": ""
   },
@@ -163,7 +187,7 @@
     "path": "/mixinSamp",
     "modulePath": "/src/app/mixins/mixins",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/mixins/mixins",
-    "title": "Use mixins for observable life-cycle-hooks",
+    "title": "Mixins rule",
     "largeImage": "/assets/snapshots/mixinSamp.png",
     "description": ""
   },
@@ -171,7 +195,7 @@
     "path": "/modalSamp",
     "modulePath": "/src/app/modal-samp/modal-demo",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/modal-samp/modal-demo",
-    "title": "CSS driven modal popup",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/modalSamp.png",
     "description": ""
   },
@@ -195,15 +219,23 @@
     "path": "/observableState/hook",
     "modulePath": "/src/app/lifeycle-hooks-sample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/lifeycle-hooks-sample",
-    "title": "life-cycle-hooks observable state",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/observableState-hook.png",
+    "description": ""
+  },
+  {
+    "path": "/outOfOrder",
+    "modulePath": "/src/app/out-of-order",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/out-of-order",
+    "title": "Out of Order problem",
+    "largeImage": "/assets/snapshots/outOfOrder.png",
     "description": ""
   },
   {
     "path": "/pannel",
     "modulePath": "/src/app/pannel-stuff",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/pannel-stuff",
-    "title": "Panel composition",
+    "title": "Pannel composition",
     "largeImage": "/assets/snapshots/pannel.png",
     "description": ""
   },
@@ -211,7 +243,7 @@
     "path": "/pokeAPI",
     "modulePath": "/src/app/poke-api/pokemain",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/poke-api/pokemain",
-    "title": "Pokemon API",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/pokeAPI.png",
     "description": ""
   },
@@ -227,7 +259,7 @@
     "path": "/resizePanel",
     "modulePath": "/src/app/resizable-panels",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/resizable-panels",
-    "title": "resizable panels using css",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/resizePanel.png",
     "description": ""
   },
@@ -299,7 +331,7 @@
     "path": "/signalsForms",
     "modulePath": "/src/app/signals-form",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signals-form",
-    "title": "sample form using signals",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/signalsForms.png",
     "description": ""
   },
@@ -307,8 +339,16 @@
     "path": "/snow",
     "modulePath": "/src/app/snow",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/snow",
-    "title": "Make it snow using canvas",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/snow.png",
+    "description": ""
+  },
+  {
+    "path": "/stepper",
+    "modulePath": "/src/app/stepper",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/stepper",
+    "title": "no default selected ",
+    "largeImage": "/assets/snapshots/stepper.png",
     "description": ""
   },
   {
@@ -323,7 +363,7 @@
     "path": "/svg",
     "modulePath": "/src/app/svg-calendar/svg-calender",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-calendar/svg-calender",
-    "title": "day calender view using svg",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/svg.png",
     "description": ""
   },
@@ -339,7 +379,7 @@
     "path": "/svgTest",
     "modulePath": "/src/app/svg-test",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-test",
-    "title": "Quick test with svg ",
+    "title": "Quick test with svg",
     "largeImage": "/assets/snapshots/svgTest.png",
     "description": ""
   },
@@ -355,7 +395,7 @@
     "path": "/testOb",
     "modulePath": "/src/app/test",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test",
-    "title": "Something with an observable directive",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/testOb.png",
     "description": ""
   },
@@ -371,7 +411,7 @@
     "path": "/tumblr",
     "modulePath": "/src/app/tumblr",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/tumblr",
-    "title": "Masonry like grid using css grid",
+    "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/tumblr.png",
     "description": ""
   },
@@ -381,38 +421,6 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/unsub-sample",
     "title": "Unsubscribe sample",
     "largeImage": "/assets/snapshots/unsubSample.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel",
-    "modulePath": "/src/app/view-model",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/view-model",
-    "title": "View Model",
-    "largeImage": "/assets/snapshots/viewModel.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel/theBad",
-    "modulePath": "/src/app/vm-home",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/vm-home",
-    "title": "Need some inspiration?",
-    "largeImage": "/assets/snapshots/viewModel-theBad.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel/theGood",
-    "modulePath": "/src/app/vm-home-vm",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/vm-home-vm",
-    "title": "Need some inspiration?",
-    "largeImage": "/assets/snapshots/viewModel-theGood.png",
-    "description": ""
-  },
-  {
-    "path": "/viewModel/user",
-    "modulePath": "/src/app/demo-user",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/demo-user",
-    "title": "User list demo",
-    "largeImage": "/assets/snapshots/viewModel-user.png",
     "description": ""
   }
 ]
