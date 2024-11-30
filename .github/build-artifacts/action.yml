@@ -22,5 +22,6 @@ runs:
       if: steps.cache-dist.outputs.cache-hit != 'true'
       run: |
         npm run build.deploy
+        cp dist/samples/browser/index.csr.html dist/samples/browser/index.html
         cp dist/samples/browser/index.html dist/samples/browser/404.html
       shell: bash
