@@ -1,12 +1,13 @@
 import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
 
 @Component({
-    selector: 'app-show-source',
-    template: `
+  selector: 'app-show-source',
+  template: `
     <!-- Only show the button if we actually have a gitFolder string -->
     @if ((routeInfo$ | async)?.gitFolder; as i) {
       <a [href]="i" target="_blank">
@@ -30,8 +31,8 @@ import { combineLatest, filter, map, tap } from 'rxjs';
       </a>
     }
   `,
-    styles: [
-        `
+  styles: [
+    `
       /** put the host on right top */
       :host {
         display: block;
@@ -55,12 +56,14 @@ import { combineLatest, filter, map, tap } from 'rxjs';
         height: 24px;
       }
     `,
-    ],
-    imports: [AsyncPipe]
+  ],
+  imports: [AsyncPipe],
 })
 export class ShowSourceComponent {
   private router = inject(Router);
   private http = inject(HttpClient);
+  private meta = inject(Meta);
+  private title = inject(Title);
 
   /** get path after navigation is done */
   path$ = this.router.events.pipe(
@@ -72,13 +75,11 @@ export class ShowSourceComponent {
   routeInfo$ = combineLatest({ routes: this.routes$, path: this.path$ }).pipe(
     map(({ routes, path }) => routes.find(r => r.path.startsWith(path))!), // extract the current one.
     // tap(data => console.log(data)), // debugging check the data. seems off in production.
-    tap(updateRouteInfo)
+    tap(updateRouteInfo(this.meta, this.title)) // update the metadata
   );
 }
 
-function updateRouteInfo(routeInfo: RouteInfo) {
-  if (typeof window === 'undefined') return;
-  if (typeof document === 'undefined') return;
+const updateRouteInfo = (meta: Meta, title: Title) => (routeInfo: RouteInfo) => {
   if (routeInfo?.path) {
     const origin = `https://samples.selias.dev`;
     const desc =
@@ -87,45 +88,30 @@ function updateRouteInfo(routeInfo: RouteInfo) {
     sourcecode: ${routeInfo.gitFolder}
     demo: ${`${origin}${routeInfo.path}`}`;
 
+    const updateMeta = (prop: string, content: string) => {
+      if (meta.getTag(`property="${prop}"`)) {
+        meta.updateTag({ property: prop, content });
+      } else {
+        meta.addTag({ property: prop, content });
+      }
+    }
+    const location = new URL(origin+routeInfo.path);
+
     updateMeta('og:type', 'website');
     updateMeta('og:title', routeInfo.title);
     updateMeta('og:description', desc);
     updateMeta('description', desc);
     updateMeta('og:image', `${origin}${routeInfo.largeImage}`);
-    updateMeta('og:url', window.location.href);
+    updateMeta('og:url', location.href);
     updateMeta('twitter:title', routeInfo.title);
     updateMeta('twitter:description', desc);
     updateMeta('twitter:card', 'summary_large_image');
     updateMeta('twitter:domain', origin);
     updateMeta('twitter:image', `${origin}${routeInfo.largeImage}`);
-    updateMeta('twitter:url', window.location.href);
-    const head = document.querySelector('head');
-    if (head) {
-      const oldTitle = head.querySelector('title');
-      if (oldTitle) {
-        oldTitle.textContent = routeInfo.title;
-      } else {
-        const newTitle = document.createElement('title');
-        newTitle.textContent = routeInfo.title;
-        head.appendChild(newTitle);
-      }
-    }
+    updateMeta('twitter:url', location.href);
+    title.setTitle(routeInfo.title);
   }
-}
-
-/** helper to update the head with new metadata, will replace if already there */
-function updateMeta(prop: string, content: string) {
-  if (typeof document === 'undefined') return;
-  const metaElement = document.querySelector(`meta[property="${prop}"]`);
-  if (metaElement) {
-    metaElement.setAttribute('content', content);
-  } else {
-    const newMeta = document.createElement('meta');
-    newMeta.setAttribute('property', prop);
-    newMeta.setAttribute('content', content);
-    document.head.appendChild(newMeta);
-  }
-}
+};
 
 export interface RouteInfo {
   path: string;
