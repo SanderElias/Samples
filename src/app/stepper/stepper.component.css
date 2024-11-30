@@ -19,24 +19,28 @@ label {
   border-radius: 1rem;
   padding: 1rem;
 
-  & > :first-child:before {
-    content: '';
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 1rem;
+  span.id {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 1.2rem;
     background-color: #69b6d5;
   }
   input {
     display:block;
+    position: absolute;
+    left: -150vw;
     width:0;
     height:0;
+
   }
 
   &:has(input:checked) {
     background-color: var(--color-primary);
     color: var(--color-white);
-    & > :first-child:before {
+    span.id {
       background-color: #6cb952;
     }
   }
