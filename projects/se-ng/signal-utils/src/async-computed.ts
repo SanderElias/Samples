@@ -8,7 +8,7 @@ import { isPromise } from './is-promise';
  * @param {AbortSignal} [abortSignal] signal that allows to cancel the ongoing operation. (can be passed to fetch!)
  * @description returns a promise, observable, async iterable or a value
  */
-type ObservableComputedFn<T> = (abortSignal?: AbortSignal) => Observable<T> | Promise<T> | AsyncIterable<T> | T;
+export type ObservableComputedFn<T> = (abortSignal?: AbortSignal) => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {
   /**
    * @description Helper to put the outcome(s) of a promise or observable into a signal, will run in a microtask

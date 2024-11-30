@@ -215,6 +215,10 @@ export const routes: Routes = [
     path: 'outOfOrder',
     loadComponent: () => import('./out-of-order/out-of-order.component').then(m => m.OutOfOrderComponent),
   },
+  {
+    path: 'stepper',
+    loadComponent: () => import('./stepper/stepper.component').then(m => m.StepperComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'outOfOrder' },
+  { path: '**', redirectTo: 'stepper' },
 ];

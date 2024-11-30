@@ -175,7 +175,7 @@
           "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/se-ng/observable-utils/src/test.ts",
-            "tsConfig": "projects/se-ng/observable-utils/tsconfig.spec.json",
+            "tsConfig": "projects/se-ng/observable-utils/tsconfig.spec.json"
           }
         }
       }
@@ -202,7 +202,7 @@
           "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "main": "projects/se-ng/let/src/test.ts",
-            "tsConfig": "projects/se-ng/let/tsconfig.spec.json",
+            "tsConfig": "projects/se-ng/let/tsconfig.spec.json"
           }
         }
       }
@@ -220,7 +220,7 @@
       },
       "root": "projects/slipnslide",
       "sourceRoot": "projects/slipnslide/src",
-      "prefix": "",
+      "prefix": "ss",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -874,7 +874,10 @@
     }
   },
   "cli": {
-    "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982"
+    "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   },
   "schematics": {
     "@schematics/angular:component": {

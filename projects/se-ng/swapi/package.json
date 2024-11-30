@@ -1,6 +1,6 @@
 {
   "name": "@se-ng/swapi",
-  "version": "1.0.1",
+  "version": "19.0.1",
   "private": false,
   "repository": {
     "type": "git",
@@ -11,9 +11,9 @@
   },
   "type": "module",
   "peerDependencies": {
-    "@angular/common": "^15.0.0",
-    "@angular/core": "^15.0.0",
-    "rxjs": "^7.5.0",
+    "@angular/common": ">=18.0.0",
+    "@angular/core": ">=18.0.0",
+    "rxjs": ">=7.5.0",
     "idb-keyval": "^6.2.0"
   }
 }

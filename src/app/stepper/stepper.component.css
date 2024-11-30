@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+label {
+  display: block;
+  width: fit-content;
+  background-color: #3f3b3b;
+  border: 1px solid #cdcbcb;
+  border-radius: 1rem;
+  padding: 1rem;
+
+  span.id {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 1.2rem;
+    background-color: #69b6d5;
+  }
+  input {
+    display:block;
+    position: absolute;
+    left: -150vw;
+    width:0;
+    height:0;
+
+  }
+
+  &:has(input:checked) {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    span.id {
+      background-color: #6cb952;
+    }
+  }
+}

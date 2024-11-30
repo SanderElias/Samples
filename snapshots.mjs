@@ -1,5 +1,4 @@
 import { chromium } from '@playwright/test';
-import { readFileSync, writeFileSync } from 'fs';
 import { createRequire } from 'module';
 import { join } from 'path';
 const require = createRequire(import.meta.url);
@@ -14,15 +13,16 @@ const baseUrl = 'http://localhost:4200';
 const outputFile = join(folder, 'src/assets/snapshots/');
 const foreground = await sharp(join(folder, './assets/overlay.png')).resize({ height: 650 }).toBuffer({ resolveWithObject: true });
 
-const twitterHandle =
-  new Buffer.from(`<svg width="250" height="50" xmlns="http://www.w3.org/2000/svg" version="1.1" enable-background="new 0 0 600 220" xml:space="preserve">
-  <g>
-   <rect stroke="null" fill="#ffffff" stroke-width="0" x="-3.74301" y="-1.29498" width="200" height="52" id="svg_4" rx="8" opacity="0.75"/>
-   <path id="svg_1" d="m9.85184,40.92013c15.93625,11.1446 36.1753,-1.25826 35.85657,-23.36772c1.59363,-1.25826 3.02789,-2.87603 4.14343,-4.8533c-1.59363,0.89876 -3.18725,1.43801 -4.94024,1.61777c1.81673,-1.25826 3.18725,-3.05578 3.8247,-5.2128c-1.59363,1.07851 -3.18725,1.79752 -5.25896,2.33677c-6.85259,-7.42374 -15.93625,0.53926 -14.0239,8.44833c-6.85259,-0.3595 -12.749,-4.13429 -16.89243,-9.70659c-1.91235,4.31404 -1.11554,9.88634 2.70916,12.40287c-1.43426,-0.17975 -3.02789,-0.53926 -3.8247,-1.25826c0,4.67354 2.86853,8.26858 6.53386,9.16734c-1.2749,0.3595 -2.39044,0.53926 -3.66534,0.17975c0.95618,3.59503 4.14343,6.47106 7.6494,6.47106c-3.18725,2.87603 -7.49004,4.31404 -12.11155,3.77479l0,-0.00001z" fill="#1d9bf0"/>
-   <text fill="#1d9bf0" x="54.20018" y="31.86131" id="svg_2" stroke-width="0" font-size="24" text-anchor="start">esosanderelias</text>
-   <rect fill="#1d9bf0" stroke-width="0" x="114.25699" y="24.70502" width="11" height="0" id="svg_5"/>
-  </g>
- </svg>`);
+const blueSkyHandle = new Buffer.from(`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="241.15981" height="33.591812">
+  <path fill="#ffffff"
+    d="M 3.1018103,0 241.1598,0.69258784 238.1486,33.397242 0,33.591812 Z"
+    id="path951" style="stroke-width:0.79246" />
+  <path fill="#1185fe"
+    d="m 12.777637,6.1542141 c 3.125439,2.312825 6.500913,7.1260009 7.626072,9.9388969 a 33.129659,33.129659 0 0 1 7.626072,-9.9388969 c 2.250316,-1.625229 5.875826,-3.000422 5.875826,1.125158 0,0.937632 -0.437561,7.1260019 -0.625088,8.1261419 -0.937632,3.375475 -4.563141,4.375616 -7.688581,3.875546 5.375756,0.937632 7.000985,4.12558 3.750528,7.376037 -5.625792,6.000844 -8.126143,-1.625228 -8.751231,-3.437983 l -0.187526,-0.437562 c 0,-0.250035 0,0 -0.250036,0.437562 -0.687596,1.875264 -3.125439,9.438827 -8.75123,3.437983 C 8.46453,23.40664 9.8397234,20.406218 15.215479,19.28106 12.09004,19.718622 8.46453,18.843498 7.589407,15.343005 7.3393718,14.405374 6.9018103,7.9669681 6.9018103,7.2793721 c 0,-4.12558 3.6255097,-3.000422 5.8758267,-1.125158 z"
+    id="path4" style="stroke-width:0.625088" />
+  <text x="38" y="24" fill="#1185fe" font-size="23px">sanderelias.nl</text>
+</svg>`);
 
 export async function createSnapshotFor(route) {
   await page.goto(`${baseUrl}${route.path}`);
@@ -42,9 +42,9 @@ export async function createSnapshotFor(route) {
         left: 1280 - foreground.info.width,
       },
       {
-        input: twitterHandle,
-        top: 720 - 60,
-        left: 1070,
+        input: blueSkyHandle,
+        top: 720 - 40,
+        left: 1050,
       },
     ])
     .toFile(`${outputFile}${name}.png`);
