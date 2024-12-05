@@ -185,7 +185,7 @@
     "chance": "^1.1.12",
     "colorjs.io": "^0.5.2",
     "core-js": "^3.39.0",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "front-matter": "^4.0.2",
     "highlight.js": "^11.10.0",
     "idb-keyval": "^6.2.1",
