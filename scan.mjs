@@ -72,5 +72,5 @@ for (const route of startRoutes) {
 }
 
 /** write the result back into the assets folder */
-writeFileSync(routesFile, JSON.stringify(newRoutes, null, 2));
+// writeFileSync(routesFile, JSON.stringify(newRoutes, null, 2));
 closeBrowser();
