@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -204,7 +203,6 @@ export const routes: Routes = [
     path: 'indexDb',
     loadComponent: () => import('./indexdb/indexdb.component').then(m => m.IndexdbComponent),
     title: 'IndexDb sample',
-
   },
   {
     path: 'acnhorPosition',
@@ -219,6 +217,10 @@ export const routes: Routes = [
     path: 'stepper',
     loadComponent: () => import('./stepper/stepper.component').then(m => m.StepperComponent),
   },
+  {
+    path: 'iconSprite',
+    loadComponent: () => import('./icon-sprite/icon-sprite.component').then(m => m.IconSpriteComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'acnhorPosition' },
+  { path: '**', redirectTo: 'iconSprite' },
 ];

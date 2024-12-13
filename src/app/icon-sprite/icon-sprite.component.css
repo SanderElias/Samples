@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+svg, img {
+  width: 2rem;
+  aspect-ratio: 1/1;
+  color:white;
+  display: inline-block;
+  fill: white;
+
+}
