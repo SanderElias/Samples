@@ -177,6 +177,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.1",
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@ngneat/falso": "^7.2.0",
+    "@std/front-matter": "npm:@jsr/std__front-matter@^1.0.5",
+    "@std/toml": "npm:@jsr/std__toml@^1.0.2",
     "@toast-ui/editor": "^3.2.2",
     "animate-css-grid": "^1.5.1",
     "bson": "^6.10.0",
