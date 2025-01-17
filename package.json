@@ -99,13 +99,24 @@
         "build.lib"
       ]
     },
+    "build.simpleInjector": {
+      "command": "ng build simpleInjector --configuration production",
+      "files": [
+        "projects/simple-injector/src/*",
+        "projects/simple-injector/tsconfig.lib.json"
+      ],
+      "output": [
+        "dist/se-ng/simple-injector"
+      ]
+    },
     "build.lib": {
       "dependencies": [
         "build.lib.observable-hooks",
         "build.lib.swapi",
         "build.lib.observable-utils",
         "build.lib.let",
-        "build.lib.signalUtils"
+        "build.lib.signalUtils",
+        "build.simpleInjector"
       ]
     },
     "build.lib.let": {
