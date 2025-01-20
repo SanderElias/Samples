@@ -1,4 +1,3 @@
-import { create } from 'domain'
 import {simpleInject, provide, dumpTree} from './dist/simple-injector/fesm2022/simple-injector.mjs'
 
 class Test {
@@ -32,3 +31,4 @@ const service = new ServiceTest()
 
 
  dumpTree()
+
