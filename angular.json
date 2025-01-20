@@ -68,7 +68,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "samples:build"
+            "buildTarget": "samples:build",
+            "hmr": false
           },
           "configurations": {
             "production": {
@@ -868,6 +869,49 @@
               "projects/slido/src/styles.css"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "simpleInjector": {
+      "projectType": "library",
+      "root": "projects/simple-injector",
+      "sourceRoot": "projects/simple-injector/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/simple-injector/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/simple-injector/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/simple-injector/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/simple-injector/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/simple-injector/**/*.ts",
+              "projects/simple-injector/**/*.html"
+            ],
+            "eslintConfig": "projects/simple-injector/eslint.config.mjs"
           }
         }
       }
