@@ -1,31 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, Input } from '@angular/core';
-
+import { Component, HostBinding, input } from '@angular/core';
+import { CalenderDay } from '../calenderDay';
 @Component({
-    selector: 'se-day-cell',
-    imports: [CommonModule],
-    template: ` {{ day.day }} `,
-    styleUrls: ['./day-cell.component.css']
+  selector: 'se-day-cell',
+  imports: [CommonModule],
+  template: ` {{ day().day }} `,
+  styleUrls: ['./day-cell.component.css'],
+  host: {
+    '[class.mute]': '!day().isCurrentMonth',
+    '[class.special]': 'day().isSpecial',
+    '[class.first]': 'day().isFirstSelected',
+    '[class.last]': 'day().isLastSelected',
+  },
 })
 export class DayCellComponent {
-  @Input() day!: {
-    date: Date;
-    day: number;
-    isCurrentMonth: boolean;
-    isSpecial: boolean;
-    isFirstSelected: boolean;
-    isLastSelected: boolean;
-  };
-  @HostBinding('class.mute') get active() {
-    return !this.day.isCurrentMonth;
-  }
-  @HostBinding('class.special') get special() {
-    return this.day.isSpecial;
-  }
-  @HostBinding('class.first') get first() {
-    return this.day.isFirstSelected;
-  }
-  @HostBinding('class.last') get last() {
-    return this.day.isLastSelected;
-  }
+  readonly day = input.required<CalenderDay>();
+
 }

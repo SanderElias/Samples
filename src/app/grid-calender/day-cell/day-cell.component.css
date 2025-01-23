@@ -24,6 +24,7 @@
     font-size: 1.2em;
   }
 
+
   :host.first,
   :host.last {
     background-color: hsla(271, 93%, 11%, 0.8);

@@ -4,7 +4,7 @@ import { afterNextRender, Component, ElementRef, inject } from '@angular/core';
   selector: 'se-icon-sprite',
   imports: [],
   template: `
-    <p>icon-sprite works!</p>
+    <p>icon-sprite WIP!</p>
     <!-- <img src="assets/icons/Ionic-Ionicons-Pause.svg"> -->
     <svg>
       <use href="iconSprite/#assets-icons-cloud-svg"></use>
@@ -39,6 +39,7 @@ export class IconSpriteComponent {
 }
 
 async function svgToSegment(assetName: string): Promise<string> {
+  try {
   const spriteHolder = document.getElementById('icon-sprite') as unknown as SVGElement;
   const id = assetName.replace(/\//g, '-').replace(/\./g, '-').replace(/_/g, '-');
   if (spriteHolder.querySelector(`section#${id}`)) {
@@ -70,4 +71,8 @@ async function svgToSegment(assetName: string): Promise<string> {
   console.log(`#${id}`);
 
   return section.outerHTML;
+} finally {
+  console.log(`added sprite for "${assetName}"`);
+}
+
 }
