@@ -46,6 +46,19 @@ Yes, No, probably.
 Euhm, that's probably not helpful. The thing is, it is about finding balance. You should not over-engineer, but you should not under-engineer either. You should not repeat yourself, but you should not abstract everything away. You should keep it simple, but you should not make it too simple. You should only write the code that you need right now, but still make sure it is written in a way that it can be extended in the future.
 this all is _not_ simple. It is a balancing act. With experience you will get better at it. But you will never be perfect at it. And that is okay. As long as you keep trying to get better at it.
 
+### Interlude.
+
+Writing all this, reminded me of a very old quote from a french mathematician, Blaise Pascal:
+
+> Je n’ai fait celle-ci plus longue que parce que je n’ai pas eu le loisir de la faire plus courte.
+
+Well, not the french version, but the translated version:
+
+> I have made this letter longer than usual because I lack the time to make it shorter.
+
+This _underscribes_ the problem with all of the principles. It is _harder_ and more _time consuming_ to write good code. Why would we do that then? Because it is _easier_ and _less time consuming_ to maintain good code. Also the likelihood of bugs is _lower_. And the likelihood of future requirements being met is _higher_. So, in the end, it is _easier_ and _less time consuming_ to write good code.
+Remember, we usually spend more time on maintaining as we do on writing new code.
+
 ## HELP! I'm lost!
 
 Don't worry. You are not alone. We are all lost. But let's try to get at least a bit less lost. Here are some tips to help you on your way:
