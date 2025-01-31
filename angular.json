@@ -69,7 +69,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "buildTarget": "samples:build",
-            "hmr": true
+            "hmr": false
           },
           "configurations": {
             "production": {

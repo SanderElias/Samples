@@ -10,6 +10,11 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client,
   },
   {
+    path: 'blog/:id',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: async () => [{ id: 'dry-kiss' }, { id: 'dry-kiss-2' }],
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender,
   },

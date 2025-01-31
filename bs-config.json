@@ -1,0 +1,9 @@
+{
+  "desc": "This config file is used to serve everyting in the project folder",
+  "port": 8888,
+  "server": {
+    "baseDir": "./",
+    "cors": true
+
+  }
+}

@@ -90,7 +90,7 @@ When you are writing code, and you think: "I might need this in the future", sto
 
 ### ASAP
 
-Look at your unit. Check for KISS, Check for DRY, Check for YAGNI. If you are OK with all of them, you are probably OK with ASAP. But keep in mind that ASAP is about keeping it simple. _as possible_. So, are you sure _all_ edge-cases are dealt with? Are _all_ requirements indeed met? 
+Look at your unit. Check for KISS, Check for DRY, Check for YAGNI. If you are OK with all of them, you are probably OK with ASAP. But keep in mind that ASAP is about keeping it simple, _as possible_. So, are you sure _all_ edge-cases are dealt with? Are _all_ requirements indeed met? 
 
 ## Conclusion
 

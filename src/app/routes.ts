@@ -221,6 +221,15 @@ export const routes: Routes = [
     path: 'iconSprite',
     loadComponent: () => import('./icon-sprite/icon-sprite.component').then(m => m.IconSpriteComponent),
   },
+  { path: 'blog',
+    loadComponent: () => import('./blogs/blogs.component').then(m => m.BlogsComponent),
+  },
+  { path: 'blog/:id',
+    loadComponent: () => import('./blogs/blogs.component').then(m => m.BlogsComponent),
+  },{
+    path: 'reusableDialog',
+    loadComponent: () => import('./reusable-dialog/reusable-dialog.component').then(m => m.ReusableDialogComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'iconSprite' },
+  { path: '**', redirectTo: 'reusableDialog' },
 ];
