@@ -26,7 +26,8 @@
     "start.lazy": "wireit",
     "test": "ng test",
     "ntest": "wireit",
-    "serve:ssr:slido": "node dist/slido/server/server.mjs"
+    "serve:ssr:slido": "node dist/slido/server/server.mjs",
+    "publish.libs": "npm set \"//registry.npmjs.org/:_authToken=$NPM_TOKEN\" && node scripts/bump-and-publish.mjs"
   },
   "wireit": {
     "start": {
@@ -171,18 +172,18 @@
     }
   },
   "dependencies": {
-    "@angular/animations": "19.2.0-next.1",
-    "@angular/common": "19.2.0-next.1",
-    "@angular/compiler": "19.2.0-next.1",
-    "@angular/core": "19.2.0-next.1",
-    "@angular/elements": "19.2.0-next.1",
-    "@angular/forms": "19.2.0-next.1",
-    "@angular/platform-browser": "19.2.0-next.1",
-    "@angular/platform-browser-dynamic": "19.2.0-next.1",
-    "@angular/platform-server": "19.2.0-next.1",
-    "@angular/router": "19.2.0-next.1",
-    "@angular/ssr": "^19.2.0-next.1",
-    "@faker-js/faker": "^9.4.0",
+    "@angular/animations": "19.2.0",
+    "@angular/common": "19.2.0",
+    "@angular/compiler": "19.2.0",
+    "@angular/core": "19.2.0",
+    "@angular/elements": "19.2.0",
+    "@angular/forms": "19.2.0",
+    "@angular/platform-browser": "19.2.0",
+    "@angular/platform-browser-dynamic": "19.2.0",
+    "@angular/platform-server": "19.2.0",
+    "@angular/router": "19.2.0",
+    "@angular/ssr": "^19.2.0",
+    "@faker-js/faker": "^9.5.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
@@ -190,7 +191,7 @@
     "@ngneat/falso": "^7.3.0",
     "@toast-ui/editor": "^3.2.2",
     "animate-css-grid": "^1.5.1",
-    "bson": "^6.10.2",
+    "bson": "^6.10.3",
     "chance": "^1.1.12",
     "colorjs.io": "^0.5.2",
     "core-js": "^3.40.0",
@@ -198,16 +199,16 @@
     "front-matter": "^4.0.2",
     "highlight.js": "^11.11.1",
     "idb-keyval": "^6.2.1",
-    "jasmine": "^5.5.0",
+    "jasmine": "^5.6.0",
     "jsdom": "^26.0.0",
     "messagepack": "^1.1.12",
     "micromark": "^4.0.1",
     "micromark-extension-gfm": "^3.0.0",
     "msgpack-lite": "^0.1.26",
-    "open-props": "^1.7.12",
+    "open-props": "^1.7.13",
     "path-to-regexp": "^8.2.0",
     "replicator": "^1.0.5",
-    "rxjs": "^7.8.1",
+    "rxjs": "^7.8.2",
     "tslib": "^2.8.1",
     "yaml": "^2.7.0"
   },
@@ -215,35 +216,58 @@
     "asciidoctor.js": {}
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "19.2.0-next.1",
-    "@angular/cli": "19.2.0-next.1",
-    "@angular/compiler-cli": "19.2.0-next.1",
-    "@angular/language-service": "19.2.0-next.1",
+    "@angular-devkit/build-angular": "19.2.0",
+    "@angular/cli": "19.2.0",
+    "@angular/compiler-cli": "19.2.0",
+    "@angular/language-service": "19.2.0",
+    "@npmcli/package-json": "^6.1.1",
     "@playwright/test": "^1.50.1",
     "@types/chance": "^1.1.6",
     "@types/eslint": "^9.6.1",
     "@types/express": "^5.0.0",
-    "@types/jasmine": "^5.1.5",
+    "@types/jasmine": "^5.1.7",
     "@types/js-yaml": "^4.0.9",
     "@types/jsdom": "^21.1.7",
     "@types/msgpack-lite": "^0.1.11",
-    "@types/node": "^22.13.1",
+    "@types/node": "^22.13.5",
     "@types/wicg-file-system-access": "^2023.10.5",
-    "@typescript-eslint/eslint-plugin": "^8.23.0",
-    "@typescript-eslint/parser": "^8.23.0",
-    "@web/test-runner": "^0.19.0",
-    "angular-eslint": "^19.0.2",
-    "eslint": "^9.19.0",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "@web/test-runner": "^0.20.0",
+    "angular-eslint": "^19.1.0",
+    "eslint": "^9.21.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.1.4",
-    "ng-packagr": "^19.1.2",
-    "prettier": "^3.4.2",
+    "ng-packagr": "^19.2.0",
+    "prettier": "^3.5.2",
     "sharp": "^0.33.5",
     "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.1",
-    "tsx": "^4.19.2",
+    "tsx": "^4.19.3",
     "typescript": "5.7.3",
-    "wireit": "^0.14.10",
+    "wireit": "^0.14.11",
     "yargs": "^17.7.2"
+  },
+  "published": {
+    "@se-ng/observable-hooks": {
+      "hash": "0b6ddb3d8aa143004aa0b087ce2a7218512e29407b1d27e6ee5b7ea183c70b7a",
+      "version": "19.0.0"
+    },
+    "@se-ng/swapi": {
+      "hash": "f301ca1d0f99c7974cc270dcabc4bb1698dd09496a319bec7a8579f347fc63f9",
+      "version": "19.0.1"
+    },
+    "@se-ng/observable-utils": {
+      "hash": "de6c2e9d71469c29c2a14ce2b0c9faca71c28924089c7dc968fe59abf573c592",
+      "version": "19.0.0"
+    },
+    "@se-ng/let": {
+      "hash": "34d4d57b52e503cec463548bec99314560846d896b57e1cbdbee46e6b255a5a0",
+      "version": "19.0.0"
+    },
+    "@se-ng/signalUtils": {
+      "hash": "1cae4b9949246011c6d6b855c5565839eb28991755ff8d9beb746c9717c4569f",
+      "version": "19.0.2"
+    }
   }
 }

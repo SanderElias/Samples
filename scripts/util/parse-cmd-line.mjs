@@ -1,13 +1,11 @@
 import { exit } from 'node:process';
 import { readBases } from './bases.mjs';
 
-
-
-const [nodePath, scriptName, projectName, rawAction] = process.argv;
+const [nodePath, scriptName, rawAction, projectName] = process.argv;
 
 const bases = await readBases();
 const project = bases[projectName];
-if (!project) {
+if (projectName && !project) {
   console.log(`❌ Project not found!
     Available projects:
       ${Object.keys(bases).join('\n      ')}`);
@@ -16,11 +14,11 @@ if (!project) {
 }
 
 if (!rawAction) {
-  console.log('⚠️ No action specified, using `info`');
+  console.log('⚠️ No action specified, using `patch`');
 }
-const action = rawAction?.toLowerCase() || 'info';
+const action = rawAction?.toLowerCase() || 'patch';
 
-if (!['info', 'minor', 'major', 'patch'].includes(action)) {
+if (!['info', 'minor', 'patch'].includes(action)) {
   console.log('❌ invalid action specified');
   exit(1);
 }

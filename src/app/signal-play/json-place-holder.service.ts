@@ -1,5 +1,4 @@
-import { Injectable, Signal } from '@angular/core';
-import { resource } from '@se-ng/signal-utils';
+import { Injectable, Signal, resource } from '@angular/core';
 
 
 @Injectable({
