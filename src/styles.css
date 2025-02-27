@@ -1,5 +1,11 @@
-/* @import url('https://fonts.googleapis.com/css?family=Roboto'); */
+/* the props */
+@import "open-props/style";
 
+/* optional imports that use the props */
+@import "open-props/normalize";
+@import "open-props/buttons";
+
+/*
 html,
 body {
   height: 100%;
@@ -31,6 +37,7 @@ body {
 a {
   color: rgb(95, 197, 228);
 }
+*/
 
 .backDrop {
   display: flex;
@@ -52,7 +59,6 @@ a {
   display: inline;
 }
 
-button,
 input,
 select,
 textarea {
@@ -76,11 +82,11 @@ option {
   background: rgba(0, 0, 0, 0.25);
 }
 
-button::-moz-focus-inner,
+/* button::-moz-focus-inner,
 input::-moz-focus-inner {
   border: 0;
   padding: 0;
-}
+} */
 
 textarea {
   overflow: auto;
@@ -105,6 +111,7 @@ textarea {
   background: rgba(0, 0, 0, 0.25);
 }
 
+/*
 button {
   display: block;
   width: 150px;
@@ -114,3 +121,5 @@ button {
   border: 1px solid rgba(0, 0, 0, 0.5);
   background: rgba(0, 0, 0, 0.25);
 }
+
+*/

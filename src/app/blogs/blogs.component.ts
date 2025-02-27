@@ -1,30 +1,39 @@
-import { Component, resource, inject } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, inject, resource, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 
 const mm = import('micromark');
+const mmGfm = import('micromark-extension-gfm');
+// import {gfm, gfmHtml} from 'micromark-extension-gfm'
 
 @Component({
   selector: 'se-blogs',
   imports: [],
   template: `
-    <h1>Blog</h1>
-    <div [innerHTML]="testblog.value()"></div>
+    <!-- @defer (hydrate never) { -->
+    <article class="rich-text" [innerHTML]="testblog.value()"></article>
+    <!-- } -->
   `,
   styleUrl: './blogs.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class BlogsComponent {
   san = inject(DomSanitizer);
+  title = inject(Title);
 
   testblog = resource({
-    request: () => `http://0.0.0.0:8888/articles/dry-kiss.md`, // hardcoded for now.
+    request: () => `/assets/articles/dry-kiss.md`, // hardcoded for now.
     loader: async ({ request }) => {
       console.log('request', request);
       const response = await fetch(request);
-      console.log('response', response);
       const content = await response.text();
       if (content) {
-        const { micromark } = await mm;
-        const html = micromark(content, { allowDangerousHtml: true });
+        const { parser } = await import('./parser');
+        const html = await parser(content);
+
+        const title = content.match(/# (.*)/);
+        if (title) {
+          this.title.setTitle(title[1]);
+        }
         // console.log('html', html);
         return this.san.bypassSecurityTrustHtml(html);
       }
@@ -33,3 +42,4 @@ export class BlogsComponent {
     },
   });
 }
+

@@ -230,6 +230,14 @@ export const routes: Routes = [
     path: 'reusableDialog',
     loadComponent: () => import('./reusable-dialog/reusable-dialog.component').then(m => m.ReusableDialogComponent),
   },
+  {
+    path: 'tableHover',
+    loadComponent: () => import('./table-hover/table-hover.component').then(m => m.TableHoverComponent),
+  },
+  {
+    path: 'signalDebounce',
+    loadComponent: () => import('./signal-debounce/signal-debounce.component').then(m => m.SignalDebounceComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'reusableDialog' },
+  { path: '**', redirectTo: 'signalDebounce' },
 ];

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { ient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import fm from 'front-matter';
 import { combineLatest, EMPTY, forkJoin, Observable, ReplaySubject, Subject } from 'rxjs';
@@ -25,7 +25,7 @@ export interface Slide {
   providedIn: 'root',
 })
 export class SlidesService {
-  private http = inject(HttpClient);
+  private http = inject(ient);
 
   private saves = new Subject<Slide>();
   private slides = new ReplaySubject<Slide[]>(1);

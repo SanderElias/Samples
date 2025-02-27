@@ -46,7 +46,6 @@ export const buildAndPublish = (project, action) => {
     try {
       // publish the project
       // execSync(`cd ${project.distLocation} && npm publish`, { stdio: 'ignore' });
-      execSync(` cp ./.npmrc ${project.distLocation} && cd ${project.distLocation} && npm publish --tag latest`); // temporary to debug the GA.
       console.log(`✅ Project published successfully`);
     } catch (err) {
       console.log('❌ error publishing the project');

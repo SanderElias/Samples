@@ -16,17 +16,18 @@ export const readBases = async () => {
   const { projects } = ang;
   const rawBases = Object.keys(projects).reduce((a, k) => ({ ...a, [k]: projects[k].root }), {});
   const bases = {};
+  // console.log('🛈 reading the angular.json file', JSON.stringify(rawBases,undefined,2));
 
   /**
    * loop over all projects in the angular.json file.
-   *  get the ones that have a package.json file
+   *  get the ones that have a ng-package.json file and start with `@se-ng`
    *  extract the version and locations of the package
    */
-  for (const [name, base] of Object.entries(rawBases)) {
+  for (const [name, base] of Object.entries(rawBases).filter(([name]) => name.startsWith('@se-ng'))) {
     const fullPath = join(projectRoot, base);
     const packageLocation = join(fullPath, 'package.json');
     const ngPackgrLocation = join(fullPath, 'ng-package.json');
-    if (existsSync(packageLocation)) {
+    if (existsSync(ngPackgrLocation)) {
       // read the package.json file
       const pkg = json.parse(await readFile(packageLocation, 'utf8'));
       // read the ng-package.json file
