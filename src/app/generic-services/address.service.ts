@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
+import { createUniqueId } from '../util/random-things';
 
 export interface UserCard {
+  id: string;
   name: string;
   username: string;
   email: string;
@@ -57,8 +59,11 @@ export class AddressService {
   }
 }
 
-function userCard(faker: any): UserCard {
+
+
+export function userCard(faker: any): UserCard {
   return {
+    id: createUniqueId(),
     name: faker.person.fullName(),
     username: faker.internet.username(),
     email: faker.internet.email(),

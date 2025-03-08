@@ -238,6 +238,10 @@ export const routes: Routes = [
     path: 'signalDebounce',
     loadComponent: () => import('./signal-debounce/signal-debounce.component').then(m => m.SignalDebounce),
   },
+  {
+    path: 'crudStuff',
+    loadComponent: () => import('./crud-stuff/crud-stuff.component').then(m => m.CrudStuffComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalDebounce' },
+  { path: '**', redirectTo: 'crudStuff' },
 ];

@@ -1,0 +1,100 @@
+{
+  "relations": [
+    {
+      "id": "w0cHy1iKjHyy7amZ",
+      "name": "Jean Sporer",
+      "username": "Lela19",
+      "email": "Ernestina.Ruecker70@yahoo.com",
+      "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/74.jpg",
+      "address": {
+        "street": "Meggie Rest",
+        "suite": "Apt. 948",
+        "city": "Akron",
+        "zipcode": "16798-0853",
+        "geo": {
+          "lat": 85.2627,
+          "lng": -154.8137
+        }
+      },
+      "phone": "466.374.1007 x03354",
+      "website": "tired-hydrant.net",
+      "company": {
+        "name": "Beer, Hudson and Bradtke",
+        "catchPhrase": "Phased homogeneous definition",
+        "bs": "drive immersive infrastructures"
+      }
+    },
+    {
+      "id": "ta7ez1i1jmyQ7nmH",
+      "name": "Bessie Oberbrunner",
+      "username": "Terence.Schmitt",
+      "email": "Israel82@gmail.com",
+      "avatar": "https://avatars.githubusercontent.com/u/84405809",
+      "address": {
+        "street": "Kuphal Via",
+        "suite": "Apt. 452",
+        "city": "Racine",
+        "zipcode": "55457-4736",
+        "geo": {
+          "lat": -17.6538,
+          "lng": 42.4817
+        }
+      },
+      "phone": "658-412-8785 x26178",
+      "website": "negligible-courtroom.info",
+      "company": {
+        "name": "Boehm - Leannon",
+        "catchPhrase": "Networked incremental capability",
+        "bs": "enhance generative infrastructures"
+      }
+    },
+    {
+      "id": "0PgKzoiqjEyd7LmM",
+      "name": "Casey Boyle",
+      "username": "Gregg12",
+      "email": "Miracle50@yahoo.com",
+      "avatar": "https://avatars.githubusercontent.com/u/6201281",
+      "address": {
+        "street": "4th Avenue",
+        "suite": "Apt. 156",
+        "city": "Declanside",
+        "zipcode": "84830",
+        "geo": {
+          "lat": -78.5934,
+          "lng": 33.3939
+        }
+      },
+      "phone": "612.289.2838",
+      "website": "majestic-seagull.net",
+      "company": {
+        "name": "Johnson, Quigley and Bechtelar",
+        "catchPhrase": "Customer-focused hybrid project",
+        "bs": "unleash customized blockchains"
+      }
+    },
+    {
+      "id": "mlkKzoifjWyn7GmA",
+      "name": "Karen Ziemann",
+      "username": "Caleb64",
+      "email": "Dagmar_Stark58@hotmail.com",
+      "avatar": "https://avatars.githubusercontent.com/u/17873547",
+      "address": {
+        "street": "Beier Shoals",
+        "suite": "Apt. 591",
+        "city": "Flatleyberg",
+        "zipcode": "96654-1142",
+        "geo": {
+          "lat": -14.2434,
+          "lng": -139.8976
+        }
+      },
+      "phone": "843-979-6931 x401",
+      "website": "rundown-birdbath.name",
+      "company": {
+        "name": "Nitzsche - Lakin",
+        "catchPhrase": "Business-focused next generation task-force",
+        "bs": "simplify transparent web services"
+      }
+    }
+  ]
+}

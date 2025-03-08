@@ -123,7 +123,7 @@
     "build.lib.let": {
       "command": "ng build @se-ng/let --configuration production",
       "files": [
-        "projects/se-ng/let/src/*",
+        "projects/se-ng/let/src/",
         "projects/se-ng/let/tsconfig.lib.json"
       ],
       "output": [
@@ -163,7 +163,7 @@
     "build.lib.signalUtils": {
       "command": "ng build @se-ng/signalUtils --configuration production",
       "files": [
-        "projects/se-ng/signal-utils/src/*",
+        "projects/se-ng/signal-utils/src/",
         "projects/se-ng/signal-utils/tsconfig.lib.json"
       ],
       "output": [
@@ -202,7 +202,7 @@
     "jasmine": "^5.6.0",
     "jsdom": "^26.0.0",
     "messagepack": "^1.1.12",
-    "micromark": "^4.0.1",
+    "micromark": "^4.0.2",
     "micromark-extension-gfm": "^3.0.0",
     "msgpack-lite": "^0.1.26",
     "open-props": "^1.7.13",
@@ -234,7 +234,7 @@
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
     "@web/test-runner": "^0.20.0",
-    "angular-eslint": "^19.1.0",
+    "angular-eslint": "^19.2.0",
     "eslint": "^9.21.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.1.4",
