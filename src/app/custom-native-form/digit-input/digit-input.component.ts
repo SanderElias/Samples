@@ -94,7 +94,6 @@ class DigitInput extends HTMLElement {
     }
   }
 
-
   connectedCallback() {
     const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true });
     const form = this.#form;
@@ -106,6 +105,9 @@ class DigitInput extends HTMLElement {
       this.#value = values.join('');
       this.#internals.setFormValue(this.#value);
       this.checkValidity();
+      // this is a workaround for this issue: https://github.com/whatwg/html/issues/9639
+      // @ts-expect-error
+      this.#internals.states.add('interacted');
       console.log('change', this.#value);
     });
     this.render();
@@ -125,7 +127,7 @@ class DigitInput extends HTMLElement {
         }
       });
       this.checkValidity();
-      console.log('value updated')
+      console.log('value updated');
     }
   }
 

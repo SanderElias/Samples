@@ -25,8 +25,12 @@ label {
   gap: 0.5rem;
 }
 
-label:has(:invalid) > span:after {
-  display: inline-block;
-  content: '*';
-  color: red;
+label:has(:user-invalid),
+label:has(:invalid):has(:state(interacted)) {
+  border: 2px solid red;
+  & > span:after {
+    display: inline-block;
+    content: '*';
+    color: red;
+  }
 }
