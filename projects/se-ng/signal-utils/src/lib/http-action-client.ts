@@ -24,6 +24,11 @@ const availableMethods = [
 ] as const;
 type AvailableMethods = (typeof availableMethods)[number];
 
+/**
+ * HttpActionClient is a small wrapper around the HttpClient that
+ * converts the HttpClient methods to async methods.
+ * It also provides a way to track the busy state of each method.
+ */
 @Injectable({
   providedIn: 'root'
 })

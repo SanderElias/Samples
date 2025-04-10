@@ -1,6 +1,6 @@
-import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
@@ -9,7 +9,7 @@ import { combineLatest, filter, map, tap } from 'rxjs';
   selector: 'app-show-source',
   template: `
     <!-- Only show the button if we actually have a gitFolder string -->
-    @if ((routeInfo$ | async)?.gitFolder; as i) {
+    @if (routeInfo()?.gitFolder; as i) {
       <a [href]="i" target="_blank">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,6 +42,9 @@ import { combineLatest, filter, map, tap } from 'rxjs';
       }
       /** make it button-like */
       a {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         padding: 6px;
         border-radius: 6px;
         background-color: #f0f0f0;
@@ -50,14 +53,14 @@ import { combineLatest, filter, map, tap } from 'rxjs';
         color: #333;
       }
       /** resize and position the icon */
-      a svg {
-        padding-top: 8px;
-        width: 24px;
-        height: 24px;
+      svg {
+        display: inline-block;
+        padding: 0;
+        width: 28px;
+        height: 28px;
       }
     `,
   ],
-  imports: [AsyncPipe],
 })
 export class ShowSourceComponent {
   private router = inject(Router);
@@ -72,10 +75,12 @@ export class ShowSourceComponent {
   );
   routes$ = this.http.get<RouteInfo[]>('/assets/routes.json'); // load the routes from the assets folder
 
-  routeInfo$ = combineLatest({ routes: this.routes$, path: this.path$ }).pipe(
-    map(({ routes, path }) => routes.find(r => r.path.startsWith(path))!), // extract the current one.
-    // tap(data => console.log(data)), // debugging check the data. seems off in production.
-    tap(updateRouteInfo(this.meta, this.title)) // update the metadata
+  routeInfo = toSignal(
+    combineLatest({ routes: this.routes$, path: this.path$ }).pipe(
+      map(({ routes, path }) => routes.find(r => r.path.startsWith(path))!), // extract the current one.
+      // tap(data => console.log(data)), // debugging check the data. seems off in production.
+      tap(updateRouteInfo(this.meta, this.title)) // update the metadata
+    )
   );
 }
 
@@ -94,8 +99,8 @@ const updateRouteInfo = (meta: Meta, title: Title) => (routeInfo: RouteInfo) => 
       } else {
         meta.addTag({ property: prop, content });
       }
-    }
-    const location = new URL(origin+routeInfo.path);
+    };
+    const location = new URL(origin + routeInfo.path);
 
     updateMeta('og:type', 'website');
     updateMeta('og:title', routeInfo.title);

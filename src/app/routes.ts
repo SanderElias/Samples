@@ -242,6 +242,10 @@ export const routes: Routes = [
     path: 'crudStuff',
     loadComponent: () => import('./crud-stuff/crud-stuff.component').then(m => m.CrudStuffComponent),
   },
+  {
+    path: 'customNativeForm',
+    loadComponent: () => import('./custom-native-form/custom-native-form.component').then(m => m.CustomNativeFormComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
   { path: '**', redirectTo: 'crudStuff' },
 ];

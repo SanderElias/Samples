@@ -1,14 +1,12 @@
-import { httpResource } from '@angular/common/http';
-import { asNativeElements, Component, computed, contentChild, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { HttpActionClient } from '@se-ng/signal-utils';
-import { UserCard, userCard } from '../generic-services/address.service';
-import { RelationForm } from './relation-form.component';
-
-const fakerModule = import('@faker-js/faker');
+import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { userCard } from '../generic-services/address.service';
+import { RelationForm } from './relation-form/relation-form.component';
+import { RelationsService } from './relations.service';
+import { UserRowComponent } from './user-row/user-row.component';
 
 @Component({
   selector: 'se-crud-stuff',
-  imports: [RelationForm],
+  imports: [RelationForm, UserRowComponent],
   template: `<h1>CRUD Stuff</h1>
     <button (click)="addRelation()">Add relation</button>
     <table>
@@ -20,56 +18,38 @@ const fakerModule = import('@faker-js/faker');
           <th>Email</th>
         </tr>
       </thead>
-      @for (rel of relations(); track rel.id) {
-        <tr>
-          <!-- <td>{{ rel.id }}</td> -->
-          <td>
-            <button (click)="deleteRelation(rel.id)">🗑️</button>
-            <button (click)="edit(rel)">✏️</button>
-          </td>
-          <td>{{ rel.name }}</td>
-          <td>{{ rel.username }}</td>
-          <td>{{ rel.email }}</td>
-        </tr>
-      }
+      <tbody>
+        @for (rel of relationIds(); track rel) {
+          <tr [userId]="rel" (edit)="edit(rel)"></tr>
+        }
+      </tbody>
     </table>
     <dialog #dlg>
-      @defer (on viewport()) {
-        <relation-form [id]="editRec()!" />
+      @defer (on viewport) {
+        <relation-form [id]="editRec()!" (done)="dlg.close()" />
       } @placeholder {
         <p>Loading...</p>
       }
     </dialog> `,
   styleUrl: './crud-stuff.component.css',
+  providers: [RelationsService],
 })
 export class CrudStuffComponent {
-  http = inject(HttpActionClient);
-  relationsResource = httpResource<UserCard[]>('http://localhost:3003/relations')!;
-  relations = computed(() => this.relationsResource.value() ?? []);
+  rs = inject(RelationsService);
+  relationIds = this.rs.list;
   editRec = signal<string | undefined>(undefined);
-  dlg = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
+  dlgRef = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
 
-  async deleteRelation(id: string) {
-    try {
-      await this.http.delete(`http://localhost:3003/relations/${id}`);
-      this.relationsResource.value.update(relations => relations!.filter(rel => rel.id !== id));
-    } catch (e) {
-      // do something better as just logging the error!
-      console.error(e);
-    }
-  }
-
-  async edit(rel: UserCard) {
-    const dlg = this.dlg().nativeElement;
-    this.editRec.set(rel.id);
+  async edit(rel: string) {
+    const dlg = this.dlgRef().nativeElement;
+    this.editRec.set(rel);
     dlg.showModal();
   }
 
   async addRelation() {
     const relation = await generateRelation();
     try {
-      const result = await this.http.post('http://localhost:3003/relations', relation);
-      this.relationsResource.value.update(relations => [...(relations ?? []), relation]);
+      this.rs.create(relation);
     } catch (e) {
       // do something better as just logging the error!
       console.error(e);
@@ -78,6 +58,7 @@ export class CrudStuffComponent {
 }
 
 async function generateRelation() {
-  const m = await fakerModule;
-  return userCard(m.faker);
+  const fakerModule = import('@faker-js/faker');
+  const module = await fakerModule;
+  return userCard(module.faker);
 }
