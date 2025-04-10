@@ -12,7 +12,7 @@ const page = await browser.newPage({
 const folder = process.cwd();
 const routesFile = join(folder, 'src/assets/routes.json');
 
-const baseUrl = 'http://localhost:4200';
+const baseUrl = 'http://localhost:4204';
 const outputFile = join(folder, 'src/assets/snapshots/');
 const foreground = await sharp(join(folder, './assets/overlay.png')).resize({ height: 400 }).toBuffer({ resolveWithObject: true });
 
