@@ -1,0 +1,17 @@
+:host {
+  display: table-row;
+}
+
+td:has(button) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  button {
+    border-radius: 50%;
+    aspect-ratio: 1;
+    padding-inline: 9px;
+    padding-block: 4px;
+  }
+}

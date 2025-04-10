@@ -1,0 +1,402 @@
+{
+  "relations": [
+    {
+      "id": "fhajez9V0waR9mml",
+      "name": "Mabel Mullerin",
+      "username": "Alice87",
+      "email": "Milo19@yahoo.com",
+      "avatar": "https://avatars.githubusercontent.com/u/83441489",
+      "dob": "2004-12-06T19:27:32.091Z",
+      "address.street": "S 1st Avenue",
+      "address.suite": "Apt. 743",
+      "address.city": "DeKalb",
+      "address.zipcode": "09555-8733",
+      "address.geo.lat": "9.8204",
+      "address.geo.lng": "-37.2921",
+      "tags.0": "encouragement",
+      "tags.1.0": 1,
+      "tags.1.1": 2,
+      "tags.1.2": 3,
+      "tags.2": "in-joke",
+      "tags.3": "annual",
+      "tags.4": "disk",
+      "tags.5": "handful",
+      "tags.6": "waist",
+      "tags.7": "premeditation",
+      "tags.8": "bathhouse",
+      "contactBy.0.mean": "pasta",
+      "contactBy.0.value": "collaborate",
+      "contactBy.1.mean": "wear",
+      "contactBy.1.value": "jaywalk",
+      "contactBy.2.mean": "fencing",
+      "contactBy.2.value": "masticate",
+      "website": "lazy-minor.biz",
+      "company.name": "Adams - Brakus",
+      "company.catchPhrase": "Enhanced fault-tolerant instruction set",
+      "company.bs": "orchestrate turn-key communities"
+    },
+    {
+      "id": "5Vkver9F0xaB98mk",
+      "name": "Andrew Baumbach",
+      "username": "Selena83",
+      "email": "Emilio98@gmail.com",
+      "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/72.jpg",
+      "dob": "1985-03-09T02:54:17.994Z",
+      "address": {
+        "street": "Langworth Freeway",
+        "suite": "Suite 456",
+        "city": "Kattieview",
+        "zipcode": "96564",
+        "geo": {
+          "lat": -54.1478,
+          "lng": -41.1909
+        }
+      },
+      "tags": [
+        "lawmaker",
+        "custody",
+        "pants",
+        "attraction",
+        "wriggler",
+        "kick"
+      ],
+      "contactBy": [
+        {
+          "mean": "presume",
+          "value": "disrespect"
+        },
+        {
+          "mean": "viability",
+          "value": "iterate"
+        },
+        {
+          "mean": "kielbasa",
+          "value": "log"
+        },
+        {
+          "mean": "independence",
+          "value": "snow"
+        }
+      ],
+      "website": "gleaming-napkin.name",
+      "company": {
+        "name": "Robel - Fadel",
+        "catchPhrase": "User-centric bifurcated function",
+        "bs": "target quantum synergies"
+      }
+    },
+    {
+      "id": "7mpuev9L0UaJ9vmX",
+      "name": "Josefina Lindgren",
+      "username": "Nolan43",
+      "email": "Alanna.Mann@hotmail.com",
+      "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/42.jpg",
+      "dob": "1969-09-14T08:55:49.901Z",
+      "address": {
+        "street": "Chloe Junction",
+        "suite": "Apt. 323",
+        "city": "Fort Dylan",
+        "zipcode": "20719-6509",
+        "geo": {
+          "lat": -79.3939,
+          "lng": -98.374
+        }
+      },
+      "tags": [
+        "puritan",
+        "guard",
+        "steak",
+        "coin",
+        "netsuke",
+        "whack"
+      ],
+      "contactBy": [
+        {
+          "mean": "pine",
+          "value": "sniff"
+        },
+        {
+          "mean": "babushka",
+          "value": "minor"
+        }
+      ],
+      "website": "paltry-resource.org",
+      "company": {
+        "name": "Quitzon - Marks",
+        "catchPhrase": "Progressive global initiative",
+        "bs": "enable leading-edge content"
+      }
+    },
+    {
+      "id": "zetReG9m0saa9gm9",
+      "name": "Naomi Bosco",
+      "username": "Geovanny_Waters37",
+      "email": "Hector43@yahoo.com",
+      "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/56.jpg",
+      "dob": "1998-11-21T05:30:23.938Z",
+      "address": {
+        "street": "Madison Avenue",
+        "suite": "Apt. 888",
+        "city": "Sawaynberg",
+        "zipcode": "17604-9665",
+        "geo": {
+          "lat": -71.3214,
+          "lng": 139.0376
+        }
+      },
+      "tags": [
+        "sprinkles",
+        "role",
+        "futon",
+        "massage",
+        "pasta",
+        "kiss",
+        "tuxedo",
+        "swordfish"
+      ],
+      "contactBy": [
+        {
+          "mean": "sand",
+          "value": "smarten"
+        },
+        {
+          "mean": "wasabi",
+          "value": "manage"
+        }
+      ],
+      "website": "ornate-secret.org",
+      "company": {
+        "name": "Keeling, Blanda and Murazik",
+        "catchPhrase": "Digitized discrete service-desk",
+        "bs": "incentivize distributed synergies"
+      }
+    },
+    {
+      "id": "uFyKee9200a09nm5",
+      "name": "Raul Lind",
+      "username": "Dario_Cartwright",
+      "email": "Luther6@yahoo.com",
+      "avatar": "https://avatars.githubusercontent.com/u/66921006",
+      "dob": "1964-11-19T06:22:16.416Z",
+      "address": {
+        "street": "S 5th Street",
+        "suite": "Apt. 927",
+        "city": "Colliermouth",
+        "zipcode": "56539",
+        "geo": {
+          "lat": 2.2306,
+          "lng": 124.33
+        }
+      },
+      "tags": [
+        "hawk",
+        "ad",
+        "cook",
+        "surface",
+        "yeast",
+        "oil",
+        "republican",
+        "fireplace",
+        "lox"
+      ],
+      "contactBy": [
+        {
+          "mean": "providence",
+          "value": "forswear"
+        },
+        {
+          "mean": "dish",
+          "value": "essay"
+        }
+      ],
+      "website": "superb-godfather.net",
+      "company": {
+        "name": "Dach - Hammes",
+        "catchPhrase": "Decentralized disintermediate function",
+        "bs": "streamline bleeding-edge experiences"
+      }
+    },
+    {
+      "id": "bb3rfk9h0Iaq9Vmy",
+      "name": "Henry Rosenbaum",
+      "username": "Otilia89",
+      "email": "Marshall82@gmail.com",
+      "avatar": "https://avatars.githubusercontent.com/u/39064998",
+      "dob": "2003-06-14T20:43:08.123Z",
+      "address": {
+        "street": "Orchard Lane",
+        "suite": "Apt. 953",
+        "city": "Altenwerthbury",
+        "zipcode": "66465-4598",
+        "geo": {
+          "lat": -85.548,
+          "lng": 27.848
+        }
+      },
+      "tags": [
+        "solvency",
+        "daughter",
+        "metabolite",
+        "freight",
+        "disclosure",
+        "sightseeing",
+        "kit",
+        "tributary"
+      ],
+      "contactBy": [
+        {
+          "mean": "monocle",
+          "value": "flash"
+        },
+        {
+          "mean": "sweatshop",
+          "value": "pity"
+        },
+        {
+          "mean": "thigh",
+          "value": "antagonize"
+        }
+      ],
+      "website": "emotional-labourer.com",
+      "company": {
+        "name": "Schamberger and Sons",
+        "catchPhrase": "User-centric stable projection",
+        "bs": "drive compelling synergies"
+      }
+    },
+    {
+      "id": "bds9n25v2ebl9Cmw",
+      "name": "Clifton Hahn",
+      "username": "Adolphus.Bradtke",
+      "email": "Sophia.Fadel-Erdman56@hotmail.com",
+      "avatar": "https://avatars.githubusercontent.com/u/24196538",
+      "dob": "2002-06-28T04:14:03.392Z",
+      "address": {
+        "street": "Karl Branch",
+        "suite": "Suite 106",
+        "city": "Apex",
+        "zipcode": "95720",
+        "geo": {
+          "lat": -19.2716,
+          "lng": 44.7498
+        }
+      },
+      "tags": [
+        "instance",
+        "skyscraper",
+        "defendant"
+      ],
+      "contactBy": [
+        {
+          "mean": "granny",
+          "value": "cow"
+        },
+        {
+          "mean": "assist",
+          "value": "burgeon"
+        },
+        {
+          "mean": "louse",
+          "value": "pinion"
+        }
+      ],
+      "website": "orderly-interior.name",
+      "company": {
+        "name": "Langworth and Sons",
+        "catchPhrase": "Realigned demand-driven concept",
+        "bs": "brand next-generation models"
+      }
+    },
+    {
+      "id": "g2nO29ac25by9Nmt",
+      "name": "Kathy Larson",
+      "username": "Jessica.VonRueden",
+      "email": "Andy.Murphy65@hotmail.com",
+      "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/86.jpg",
+      "dob": "1995-03-25T00:27:08.114Z",
+      "address": {
+        "street": "Willow Garden",
+        "suite": "Suite 624",
+        "city": "Braxtonstad",
+        "zipcode": "72404-0747",
+        "geo": {
+          "lat": 69.3708,
+          "lng": 158.3071
+        }
+      },
+      "tags": [
+        "tenement",
+        "accelerator",
+        "hoof",
+        "onset",
+        "place"
+      ],
+      "contactBy": [
+        {
+          "mean": "account",
+          "value": "innovate"
+        },
+        {
+          "mean": "venom",
+          "value": "swat"
+        },
+        {
+          "mean": "heartache",
+          "value": "quiet"
+        }
+      ],
+      "website": "self-reliant-flame.org",
+      "company": {
+        "name": "Jenkins, Lynch and Johns",
+        "catchPhrase": "Realigned immersive toolset",
+        "bs": "synthesize vertical large language models"
+      }
+    },
+    {
+      "id": "bOmNgMbT2Ybn9Xmu",
+      "name": "Julian Glover",
+      "username": "Johnny_Batz13",
+      "email": "Roxanne_Carter@gmail.com",
+      "avatar": "https://avatars.githubusercontent.com/u/85942610",
+      "dob": "1974-02-08T21:03:48.055Z",
+      "address": {
+        "street": "Kelli Harbors",
+        "suite": "Apt. 278",
+        "city": "Hodkiewiczland",
+        "zipcode": "08963",
+        "geo": {
+          "lat": -81.0654,
+          "lng": 148.3396
+        }
+      },
+      "tags": [
+        "giggle",
+        "provision"
+      ],
+      "contactBy": [
+        {
+          "mean": "gloom",
+          "value": "camouflage"
+        },
+        {
+          "mean": "zen",
+          "value": "bore"
+        },
+        {
+          "mean": "traditionalism",
+          "value": "joint"
+        },
+        {
+          "mean": "birth",
+          "value": "hollow"
+        }
+      ],
+      "website": "corny-sustenance.org",
+      "company": {
+        "name": "Hoppe - Ziemann",
+        "catchPhrase": "Configurable user-facing forecast",
+        "bs": "utilize leading-edge convergence"
+      }
+    }
+  ]
+}

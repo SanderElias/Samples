@@ -1,10 +1,10 @@
-export const weekDayNames: string[] = weekDays();
-export const monthNames: string[] = months();
+export const weekDayNames = weekDays();
+export const monthNames = months();
 
-function weekDays(countryCode?: string): string[] {
+function weekDays(countryCode?: string): Readonly<string[]> {
   const date = new Date();
   const day = date.getDate();
-  if (typeof navigator === "undefined") {
+  if (typeof navigator === 'undefined') {
     return [];
   }
   countryCode ??= navigator.language;
@@ -22,8 +22,8 @@ function weekDays(countryCode?: string): string[] {
     .map(d => d[0] as string);
 }
 
-function months(countryCode?:string) {
-  if (typeof navigator === "undefined") {
+function months(countryCode?: string): readonly string[] {
+  if (typeof navigator === 'undefined') {
     return [];
   }
   countryCode ??= navigator.language;

@@ -238,6 +238,14 @@ export const routes: Routes = [
     path: 'signalDebounce',
     loadComponent: () => import('./signal-debounce/signal-debounce.component').then(m => m.SignalDebounce),
   },
+  {
+    path: 'crudStuff',
+    loadComponent: () => import('./crud-stuff/crud-stuff.component').then(m => m.CrudStuffComponent),
+  },
+  {
+    path: 'customNativeForm',
+    loadComponent: () => import('./custom-native-form/custom-native-form.component').then(m => m.CustomNativeFormComponent),
+  },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalDebounce' },
+  { path: '**', redirectTo: 'crudStuff' },
 ];

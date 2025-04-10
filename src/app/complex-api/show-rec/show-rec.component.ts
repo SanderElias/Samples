@@ -2,7 +2,7 @@ import { Component, computed, EventEmitter, input, OnInit, Output } from '@angul
 
 interface Record {
   name: string;
-  url: string;
+  url?: string;
   [key: string]: any;
 }
 

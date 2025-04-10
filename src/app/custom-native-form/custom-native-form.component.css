@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  padding: var(--size-2);
+}
+
+h1 {
+  max-inline-size: unset;
+}
+
+input,
+label {
+  margin: 0;
+}
+
+form {
+  max-inline-size: 25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label:has(:user-invalid),
+label:has(:invalid):has(:state(interacted)) {
+  border: 2px solid red;
+  & > span:after {
+    display: inline-block;
+    content: '*';
+    color: red;
+  }
+}

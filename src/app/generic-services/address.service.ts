@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
+import { createUniqueId } from '../util/random-things';
 
 export interface UserCard {
+  id: string;
   name: string;
   username: string;
   email: string;
   address: Address;
   phone: string;
   website: string;
+  dob: Date;
+  tags: string[];
+  contactBy: { mean: string; value: string }[];
   company: Company;
   avatar: string;
 }
@@ -36,7 +41,7 @@ export interface Company {
   providedIn: 'root',
 })
 export class AddressService {
-  fakerModule = import('@faker-js/faker')
+  fakerModule = import('@faker-js/faker');
   userCards$ = this.users(25);
 
   constructor() {}
@@ -57,12 +62,14 @@ export class AddressService {
   }
 }
 
-function userCard(faker: any): UserCard {
+export function userCard(faker: any): UserCard {
   return {
+    id: createUniqueId(),
     name: faker.person.fullName(),
     username: faker.internet.username(),
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
+    dob: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
     address: {
       street: faker.location.street(),
       suite: faker.location.secondaryAddress(),
@@ -73,7 +80,12 @@ function userCard(faker: any): UserCard {
         lng: faker.location.longitude(),
       },
     },
-    phone: faker.phone.number(),
+    tags: Array.from({ length: faker.number.int({ min: 2, max: 5 }) }, () => faker.word.noun()),
+    contactBy: Array.from({ length: faker.number.int({ min: 2, max: 4 }) }, () => ({
+      mean: faker.word.noun(),
+      value: faker.word.verb(),
+    })),
+    phone: faker.phone.number,
     website: faker.internet.domainName(),
     company: {
       name: faker.company.name(),
