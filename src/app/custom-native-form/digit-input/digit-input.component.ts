@@ -27,8 +27,14 @@ export class DigitInputComponent {
   }
 }
 
+/**
+ * Note: this is a POC, and a load of corners are cut.
+ * It only shows that you can integrate custom validation
+ * in custom form components.
+ */
+
 class DigitInput extends HTMLElement {
-  static observedAttributes = ['value', 'name'] as const;
+  static observedAttributes = ['value'] as const; // we probably need a couple more here.
   static formAssociated = true;
   #localName = 'digit-input' as const;
   #form = document.createElement('form');
@@ -68,7 +74,7 @@ class DigitInput extends HTMLElement {
     return this.#localName;
   }
   get validity() {
-    return this.#internals.validity;
+    return this.checkValidity();
   }
   get validationMessage() {
     return this.#internals.validationMessage;
@@ -88,14 +94,6 @@ class DigitInput extends HTMLElement {
     }
   }
 
-  reportValidity() {
-    return this.#internals.reportValidity();
-  }
-
-  focus() {
-    console.log('onFocus');
-    this.#form.querySelectorAll('input')[0].focus();
-  }
 
   connectedCallback() {
     const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true });
@@ -128,9 +126,6 @@ class DigitInput extends HTMLElement {
       });
       this.checkValidity();
       console.log('value updated')
-    }
-    if (name === 'name') {
-      this.#name = newValue;
     }
   }
 

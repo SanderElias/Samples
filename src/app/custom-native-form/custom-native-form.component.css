@@ -7,12 +7,13 @@ h1 {
   max-inline-size: unset;
 }
 
-input, label {
+input,
+label {
   margin: 0;
 }
 
 form {
-  max-inline-size: 25rem;;
+  max-inline-size: 25rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -22,4 +23,10 @@ label {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+label:has(:invalid) > span:after {
+  display: inline-block;
+  content: '*';
+  color: red;
 }
