@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  position: fixed;
+  background-color: hsla(120, 67%, 65%, 0);
+}
+
+dialog {
+  padding-block: 1rem;
+  padding-inline: 2rem;
+}
+
+dialog::backdrop {
+  background-color: hsla(0, 0%, 3%, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+footer {
+  display: flex;
+  justify-content: end;
+  margin-block-start: 1rem;
+  gap: 1rem;
+  padding: 0.5rem;
+}

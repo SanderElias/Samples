@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+    couchdb:
+        image: 'couchdb:3.4.3'
+        ports:
+            - '5984:5984'
+        volumes:
+            - './.couchdb/data:/opt/couchdb/data'
+            - './.couchdb/config:/opt/couchdb/etc/local.d'
+        environment:
+            - COUCHDB_PASSWORD=password
+            - COUCHDB_USER=admin
+        container_name: my-couchdb

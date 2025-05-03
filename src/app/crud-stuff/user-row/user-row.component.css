@@ -2,8 +2,39 @@
   display: table-row;
 }
 
+:host:nth-child(even) {
+  td {
+    background-color: var(--surface-2);
+  }
+}
+
+td {
+  inline-size: 15rem;
+  max-inline-size: 15rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+td:has(img) {
+  justify-content: center;
+  align-items: center;
+  inline-size: 3.5rem;
+  max-inline-size: 3.5rem;
+
+  img {
+    aspect-ratio: 1;
+    inline-size: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
 td:has(button) {
   display: flex;
+  inline-size: 7rem;
+  max-inline-size: 7rem;
   justify-content: center;
   align-items: center;
   gap: 8px;

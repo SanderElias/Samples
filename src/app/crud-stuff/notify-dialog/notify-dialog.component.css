@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+dialog {
+  padding: 0;
+}
+
+dialog {
+  & > div {
+    padding-inline: 2rem;
+    padding-block: 1rem;
+
+    & > section {
+      margin-block: .75rem;
+    }
+  }
+
+  footer,
+  header {
+    display: flex;
+    inline-size: 100%;
+    align-content: center;
+    justify-content: center;
+  }
+}

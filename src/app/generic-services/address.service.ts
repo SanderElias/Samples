@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { createUniqueId } from '../util/random-things';
+import { fi } from '@faker-js/faker';
 
 export interface UserCard {
   id: string;
@@ -63,11 +64,16 @@ export class AddressService {
 }
 
 export function userCard(faker: any): UserCard {
+  const sex = faker.person.sex();
+  const firstName = faker.person.firstName({sex});
+  const lastName = faker.person.lastName({sex});
+
+  const name = faker.person.fullName({ firstName, lastName, sex });
   return {
     id: createUniqueId(),
-    name: faker.person.fullName(),
-    username: faker.internet.username(),
-    email: faker.internet.email(),
+    name,
+    username: faker.internet.username({ firstName, lastName }),
+    email: faker.internet.exampleEmail({ lastName }),
     avatar: faker.image.avatar(),
     dob: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
     address: {
