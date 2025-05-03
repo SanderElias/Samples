@@ -1,19 +1,33 @@
-import { Component, input, inject, output, ResourceStatus } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { RelationsService } from '../relations.service';
+import { ConfirmItComponent } from '../confirm-it/confirm-it.component';
+import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
 
 @Component({
   selector: 'tr [userId]',
-  imports: [],
+  imports: [ConfirmItComponent, HighLightTDComponent],
   template: `
     @if (rel() === undefined) {
-      <td colspan="4">
-        <p>Loading...</p>
-      </td>
-    } @else {
       <td>
-        <button (click)="deleteRelation(rel()!.id)">🗑️</button>
+        <button disabled>🗑️</button>
+        <button disabled>✏️</button>
+      </td>
+      <td><img src="" alt=""></td>
+      <td>--</td>
+      <td>--</td>
+      <td>--</td>
+    } @else {
+      <td ignoreHl>
+        <button (click)="deleteRelation(rel()!.id)">
+          🗑️
+          <confirm-it>
+            <h3>Sure?</h3>
+            Are you sure you want to delete {{ rel()!.name }}
+          </confirm-it>
+        </button>
         <button (click)="edit.emit(rel()!.id)">✏️</button>
       </td>
+      <td><img [src]="rel()!.avatar"></td>
       <td>{{ rel()!.name }}</td>
       <td>{{ rel()!.username }}</td>
       <td>{{ rel()!.email }}</td>
@@ -26,12 +40,15 @@ export class UserRowComponent {
   userId = input.required<string>();
   edit = output<string>();
 
-  rel = this.rs.read(this.userId);
-
   deleteRelation(id: string) {
-    this.rs.delete(id).catch(e => {
+    this.rs.delete(this.rel()!).catch(e => {
       // do something better as just logging the error!
       console.error(e);
     });
+    // rel = this.rs.read(this.userId);
   }
+
+  relRef = this.rs.read(this.userId);
+  rel = computed(() => this.relRef().value());
+  // rel = computed(() => undefined as UserCard | undefined); // this.relRef().value() as UserCard | undefined);
 }

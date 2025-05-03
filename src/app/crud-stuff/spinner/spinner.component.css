@@ -1,0 +1,11 @@
+:host {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-inline-start: .3rem;
+}
+
+svg {
+  fill: white;
+}
+

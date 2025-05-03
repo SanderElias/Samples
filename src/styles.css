@@ -87,6 +87,16 @@ input::-moz-focus-inner {
   border: 0;
   padding: 0;
 } */
+dialog {
+  padding-block: 1rem;
+  padding-inline: 2rem;
+}
+
+dialog::backdrop {
+  background-color: hsla(0, 0%, 3%, 0.5);
+  backdrop-filter: blur(3px);
+}
+
 
 textarea {
   overflow: auto;

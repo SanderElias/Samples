@@ -9,15 +9,15 @@ import { set } from 'idb-keyval';
 })
 export class DigitInputComponent {
   elm = inject(ElementRef).nativeElement as DigitInput;
-  digits = input(4);
+  digits = input<string|number>(4);
 
-  _ = afterRenderEffect(() => {
-    const elm = this.elm;
-    const digits = this.digits();
-    if (elm.digits !== digits) {
-      elm.digits = digits;
-    }
-  });
+  // _ = afterRenderEffect(() => {
+  //   const elm = this.elm;
+  //   const digits = this.digits();
+  //   if (elm.digits !== digits) {
+  //     elm.digits = digits;
+  //   }
+  // });
   constructor() {
     if (typeof customElements !== 'undefined') {
       if (!customElements.get('digit-input')) {
@@ -40,8 +40,11 @@ class DigitInput extends HTMLElement {
   #form = document.createElement('form');
 
   #digits: number = 4;
-  set digits(value: number) {
-    this.#digits = value;
+  set digits(value: number | string) {
+    if (+value !== this.#digits) {
+      this.#digits = +value;
+      this.render();
+    }
   }
   get digits() {
     return this.#digits;
@@ -95,16 +98,30 @@ class DigitInput extends HTMLElement {
   }
 
   connectedCallback() {
-    const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true });
+    // const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true });
     const form = this.#form;
-    shadow.appendChild(form);
+    this.onfocus = e => {
+      const inputs = Array.from(form.querySelectorAll('input'));
+      for (const i of inputs) {
+        const val = i.value;
+        if (val < '0' || val > '9') {
+          i.focus();
+          break;
+        }
+      }
+    };
+    this.tabIndex = 0;
+    this.appendChild(form);
     // This is a terrible shortcut. for non-sample behavior this should match more what normal form elements do.
     form.addEventListener('change', e => {
       e.preventDefault();
       const values = Array.from(form.querySelectorAll('input')).map(i => i.value);
       this.#value = values.join('');
       this.#internals.setFormValue(this.#value);
-      this.checkValidity();
+      if (this.checkValidity()) {
+        // @ts-expect-error
+        this.#internals.states.add('user-valid');
+      }
       // this is a workaround for this issue: https://github.com/whatwg/html/issues/9639
       // @ts-expect-error
       this.#internals.states.add('interacted');
@@ -127,7 +144,10 @@ class DigitInput extends HTMLElement {
         }
       });
       this.checkValidity();
-      console.log('value updated');
+    }
+    if (name === 'digits') {
+      
+      this.digits = newValue;
     }
   }
 
@@ -139,7 +159,6 @@ class DigitInput extends HTMLElement {
       input.type = 'text';
       input.name = `${this.#name}-${i}`;
       input.maxLength = 1;
-      input.size = 1;
       input.autocomplete = 'off';
       input.inputMode = 'numeric';
       this.#form.appendChild(input);

@@ -1,3 +1,26 @@
 :host {
   display: block;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+
+    input {
+      width: 2.7rem;
+      aspect-ratio: 3/4;
+      text-align: center;
+      font-size: 1.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      transition: all .3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, .5);
+      }
+    }
+  }
 }
