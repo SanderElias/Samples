@@ -1,10 +1,11 @@
 import { httpResource, type HttpResourceRef } from '@angular/common/http';
 import { effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
-import type { UserCard } from '../generic-services/address.service';
+import { userCard, type UserCard } from '../generic-services/address.service';
 import { injectCachedHttpResource } from './inject-cached-httpresource';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
+import { generateRelation } from './generateRelation';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
@@ -88,6 +89,7 @@ export class RelationsService {
       console.error('Database not found, creating it');
       try {
         await untracked(async () => await this.#http.put(this.baseUrl, {}, httpOptions));
+        await goAddData();
         this.#listRes.reload(); // reload the list after creating the index.
       } catch (e) {
         console.error('Error creating database', e);
@@ -192,6 +194,19 @@ export class RelationsService {
   };
 }
 
+async function goAddData() {
+  const fakerModule = import('@faker-js/faker');
+  const module = await fakerModule;
+  const url = 'http://127.0.0.1:5984/relations/';
+  for (let i = 0; i <= 250000; i += 1) {
+    const relation = await userCard(module.faker);
+    const res = await fetch(`${url}/${relation.id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(relation),
+    });
+  }
+}
 async function createIndexes() {
   await createIndex('name');
   await createIndex('username');

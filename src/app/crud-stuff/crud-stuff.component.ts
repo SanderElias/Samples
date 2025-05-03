@@ -1,5 +1,4 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { userCard } from '../generic-services/address.service';
 import { HighLightBodyComponent } from './high-light-body/high-light-body.component';
 import { NotifyDialogComponent } from './notify-dialog/notify-dialog.component';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
@@ -7,6 +6,7 @@ import { RelationForm } from './relation-form/relation-form.component';
 import { RelationsService, type SortField } from './relations.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { UserRowComponent } from './user-row/user-row.component';
+import { generateRelation } from './generateRelation';
 
 @Component({
   selector: 'se-crud-stuff',
@@ -110,8 +110,3 @@ export class CrudStuffComponent {
   };
 }
 
-async function generateRelation() {
-  const fakerModule = import('@faker-js/faker');
-  const module = await fakerModule;
-  return userCard(module.faker);
-}
