@@ -11,7 +11,7 @@ import { firstValueFrom } from 'rxjs';
 import { injectAwaitSignal } from './await-signal';
 
 const availableMethods = [
-  //  "GET", not get, use httpResource instead.
+   "GET", // do not use get, use httpResource instead.
   // 'CONNECT', // no default supported from httpClient
   // 'TRACE', // no default supported from httpClient
   'DELETE',
@@ -40,6 +40,7 @@ export class HttpActionClient {
     PATCH: signal(0),
     POST: signal(0),
     PUT: signal(0),
+    GET: signal(0),
   };
   busyMethods: Record<AvailableMethods, Signal<boolean>> = {
     DELETE: computed(() => this.#methodBusy.DELETE() !== 0),
@@ -47,6 +48,7 @@ export class HttpActionClient {
     PATCH: computed(() => this.#methodBusy.PATCH() !== 0),
     POST: computed(() => this.#methodBusy.POST() !== 0),
     PUT: computed(() => this.#methodBusy.PUT() !== 0),
+    GET: computed(() => this.#methodBusy.GET() !== 0),
   };
   isBusy = computed(() => Object.values(this.#methodBusy).some(b => b() !== 0));
   #awaitSignal = injectAwaitSignal();
@@ -1137,4 +1139,20 @@ export class HttpActionClient {
   ): Promise<any> {
     return this.#busyWrap('PUT', firstValueFrom(this.#http.put(url, body, options as any)));
   }
+
+  get(
+    url: string,
+    options: {
+      body?: any | null,
+      headers?: HttpHeaders | Record<string, string | string[]>;
+      context?: HttpContext;
+      params?: HttpParams | Record<string, string | number | boolean | ReadonlyArray<string | number | boolean>>;
+      reportProgress?: boolean;
+      withCredentials?: boolean;
+    } = {}
+  ): Promise<any> {
+    return this.#busyWrap('GET', firstValueFrom(this.#http.get(url, options)));
+  }
+
+
 }

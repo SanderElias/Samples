@@ -12,7 +12,7 @@ import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
         <button disabled>🗑️</button>
         <button disabled>✏️</button>
       </td>
-      <td><img src="" alt=""></td>
+      <td><img src="https://avatars.githubusercontent.com/u/74820931" alt="avatar placeholder" width="42" height="42" /></td>
       <td>--</td>
       <td>--</td>
       <td>--</td>
@@ -27,7 +27,7 @@ import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
         </button>
         <button (click)="edit.emit(rel()!.id)">✏️</button>
       </td>
-      <td><img [src]="rel()!.avatar"></td>
+      <td><img [src]="rel()!.avatar" alt="User Avatar" width="42" height="42" /></td>
       <td>{{ rel()!.name }}</td>
       <td>{{ rel()!.username }}</td>
       <td>{{ rel()!.email }}</td>

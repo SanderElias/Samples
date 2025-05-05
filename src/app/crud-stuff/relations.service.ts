@@ -1,4 +1,4 @@
-import { httpResource, type HttpResourceRef } from '@angular/common/http';
+import { httpResource, type HttpRequest, type HttpResourceRef } from '@angular/common/http';
 import { effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
 import { userCard, type UserCard } from '../generic-services/address.service';
@@ -6,6 +6,7 @@ import { injectCachedHttpResource } from './inject-cached-httpresource';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
 import { generateRelation } from './generateRelation';
+import test from 'node:test';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
@@ -192,6 +193,33 @@ export class RelationsService {
     this.#list.update(oldList => oldList.filter(i => i !== id));
     return true;
   };
+
+  // this is just me testing some stuf that has nothing to do with the app.
+  constructor() {
+    // this.testLoadAll();
+  }
+
+  async testLoadAll() {
+    if (typeof window === 'undefined') return; // I don't want to this this server side.
+    try {
+      const url = `${this.baseUrl}/_all_docs`;
+      const body = {
+        // fields: ['id'],
+        sort: [{ [this.sort()]: this.order() }],
+        include_docs: false,
+        // limit: 25000000
+      };
+      const start = performance.now();
+      const res = await this.#http.post(url, body, httpOptions);
+      const end = performance.now();
+      console.log('load all', end - start);
+      // const ids = (res as any).rows.map((i: { id: string }) => i.id);
+      console.log('ids', res);
+    } catch (e: any) {
+      console.error('Error getting all docs');
+      console.log(e);
+    }
+  }
 }
 
 async function goAddData() {

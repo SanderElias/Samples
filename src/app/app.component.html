@@ -4,7 +4,7 @@
         A fake / hidden checkbox is used as click receiver,
         so you can use the :checked selector on it.
         -->
-    <input type="checkbox" #menuToggle />
+    <label for="menutoggle">menuButton</label><input id="menutoggle" type="checkbox" #menuToggle />
 
     <!--
         Some spans to act as a hamburger.
@@ -16,24 +16,24 @@
         but hey, it's pure CSS magic.
         -->
     <ul id="menu">
-      <a routerLinkActive="active-link" [routerLink]="['home']"><li>Home</li></a>
-      <a routerLinkActive="active-link" [routerLink]="['filterSamp']"><li>Filter Sample</li></a>
-      <a routerLinkActive="active-link" [routerLink]="['modalSamp']"><li>Modal Sample</li></a>
-      <a routerLinkActive="active-link" [routerLink]="['DirectiveSamp']"><li>Directive Sample</li></a>
-      <a routerLinkActive="active-link" [routerLink]="['mixinSamp']"><li>Mixin Sample</li></a>
-      <a routerLinkActive="active-link" [routerLink]="['htmlLoad']"><li>Html load</li></a>
-      <a [routerLink]="['requiredAttributes']"><li>Required attributes</li></a>
+      <li><a routerLinkActive="active-link" [routerLink]="['home']">Home</a></li>
+      <li><a routerLinkActive="active-link" [routerLink]="['filterSamp']">Filter Sample</a></li>
+      <li><a routerLinkActive="active-link" [routerLink]="['modalSamp']">Modal Sample</a></li>
+      <li><a routerLinkActive="active-link" [routerLink]="['DirectiveSamp']">Directive Sample</a></li>
+      <li><a routerLinkActive="active-link" [routerLink]="['mixinSamp']">Mixin Sample</a></li>
+      <li><a routerLinkActive="active-link" [routerLink]="['htmlLoad']">Html load</a></li>
+      <li><a [routerLink]="['requiredAttributes']">Required attributes</a></li>
       <li>
         Reactive viewmodel
         <ul>
-          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'user']"><li>User list</li></a>
-          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theGood']"><li>The Good</li></a>
-          <a routerLinkActive="active-link" [routerLink]="['viewModel', 'theBad']"><li>The bad</li></a>
+          <li><a routerLinkActive="active-link" [routerLink]="['viewModel', 'user']">User list</a></li>
+          <li><a routerLinkActive="active-link" [routerLink]="['viewModel', 'theGood']">The Good</a></li>
+          <li><a routerLinkActive="active-link" [routerLink]="['viewModel', 'theBad']">The bad</a></li>
         </ul>
       </li>
-      <a [routerLink]="['complexAPI']"><li>Complex API</li></a>
-      <a [routerLink]="['observableState']"><li>Observable State</li></a>
-      <a [routerLink]="['dynhtml']"><li>Dynamic HTML</li></a>
+      <li><a [routerLink]="['complexAPI']">Complex API</a></li>
+      <li><a [routerLink]="['observableState']">Observable State</a></li>
+      <li><a [routerLink]="['dynhtml']">Dynamic HTML</a></li>
     </ul>
   </div>
   <app-show-source />
@@ -46,6 +46,22 @@
     grid-template-rows: 40px 1fr;
     grid-row-gap: 4px;
     min-height: 99vh;
+  }
+
+  /*
+  * visually hide labels in the menu
+  * but still make them available for screen readers
+  */
+  nav label {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
+    white-space: nowrap; /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
   }
 
   #popup {
