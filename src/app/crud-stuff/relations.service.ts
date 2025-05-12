@@ -194,8 +194,37 @@ export class RelationsService {
     return true;
   };
 
-  // this is just me testing some stuf that has nothing to do with the app.
+  listenForDBChanges = () => {
+    if (typeof window === 'undefined') return; // I don't want to this this server side.
+    const url = new URL(this.baseUrl+'/_changes');
+    url.username = 'admin';
+    url.password = 'password';
+    url.searchParams.set('feed', 'eventsource');
+    url.searchParams.set('since', 'now');
+    // url.searchParams.set('heartbeat', '10000');
+
+    console.log('Listening for changes on', url.toString());
+
+    const source = new EventSource(url.toString(), { withCredentials: true });
+    source.addEventListener('error', (e: any) => {
+      console.error('Error in event source', e);
+      if (e.target.readyState === EventSource.CLOSED) {
+        console.log('Event source closed');
+        source.close();
+      }
+    });
+    source.addEventListener('heartbeat', function () {
+      // this is just a ping to keep the connection alive.
+      console.log('heartbeat');
+    }, false);
+    source.addEventListener('message', function (e: any) {
+      console.log('Message from event source', e.data);
+    }, false);
+  };
+
   constructor() {
+    this.listenForDBChanges();
+    // this is just me testing some stuf that has nothing to do with the app.
     // this.testLoadAll();
   }
 
@@ -204,17 +233,13 @@ export class RelationsService {
     try {
       const url = `${this.baseUrl}/_all_docs`;
       const body = {
-        // fields: ['id'],
         sort: [{ [this.sort()]: this.order() }],
         include_docs: false,
-        // limit: 25000000
       };
       const start = performance.now();
       const res = await this.#http.post(url, body, httpOptions);
       const end = performance.now();
       console.log('load all', end - start);
-      // const ids = (res as any).rows.map((i: { id: string }) => i.id);
-      console.log('ids', res);
     } catch (e: any) {
       console.error('Error getting all docs');
       console.log(e);

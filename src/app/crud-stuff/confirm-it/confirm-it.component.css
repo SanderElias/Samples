@@ -1,23 +1,32 @@
 :host {
   display: block;
   position: fixed;
+  /**
+    the background should be transparent, so you can see the original clickable element.
+    I'm using this way to set it, so I can easily modify it to _show_ it in demos.
+   */
   background-color: hsla(120, 67%, 65%, 0);
 }
 
+/**
+  The styling of a dialog should be done in the main `styles.css` file, as all dialogs in
+  an app should have the same look and feel. I'm styling it here because this is my samples repo
+  and I'm using different styles for different dialogs.
+*/
 dialog {
   padding-block: 1rem;
   padding-inline: 2rem;
+
+  footer {
+    display: flex;
+    justify-content: end;
+    margin-block-start: 1rem;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
 }
 
 dialog::backdrop {
   background-color: hsla(0, 0%, 3%, 0.5);
   backdrop-filter: blur(3px);
-}
-
-footer {
-  display: flex;
-  justify-content: end;
-  margin-block-start: 1rem;
-  gap: 1rem;
-  padding: 0.5rem;
 }

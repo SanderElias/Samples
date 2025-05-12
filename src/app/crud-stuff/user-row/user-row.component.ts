@@ -20,7 +20,7 @@ import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
       <td ignoreHl>
         <button (click)="deleteRelation(rel()!.id)">
           🗑️
-          <confirm-it>
+          <confirm-it lightDismiss>
             <h3>Sure?</h3>
             Are you sure you want to delete {{ rel()!.name }}
           </confirm-it>

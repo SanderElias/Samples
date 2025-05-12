@@ -1,6 +1,30 @@
-import { afterRender, Component, computed, ElementRef, inject, input, viewChild, signal, afterRenderEffect } from '@angular/core';
+import {
+  afterRender,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  viewChild,
+  signal,
+  afterRenderEffect,
+  booleanAttribute,
+} from '@angular/core';
 import { deepEqual } from '@se-ng/signal-utils';
 
+/**
+ * this component places an invisible overlay over the parent element, so it can
+ * intercept clicks. When a users clicks on the overlay, a modal dialog is shown with the content of the component.
+ * When the user clicks the confirm button, the original event is replayed on the parent element.
+ * There are two buttons, one for confirming and one for canceling.
+ * Also there is a lightDismiss option, which allows the dialog to be closed by clicking on its backdro[]
+ *   [lightDismiss] inputs sets the lightDismiss option.
+ *
+ * You can set the text of the buttons:
+ *  the [confirmText] inputs sets the text of the confirm button.
+ *  the [cancelText] inputs sets the text of the cancel button.
+ *
+ */
 @Component({
   selector: 'confirm-it',
   imports: [],
@@ -14,20 +38,35 @@ import { deepEqual } from '@se-ng/signal-utils';
   styleUrl: './confirm-it.component.css',
   host: {
     '(click)': 'onClick($event)',
+    '[style]': 'style()',
   },
 })
 export class ConfirmItComponent {
   confirmText = input('yes');
   cancelText = input('no');
+  lightDismiss = input(false, { transform: booleanAttribute });
   private dlg = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
   private elm: ElementRef<HTMLDivElement> = inject(ElementRef);
   private parent = this.elm.nativeElement.parentElement!;
   private originalEvent: MouseEvent | undefined;
-  private parentBox = signal({ top: 0, left: 0, width: 0, height: 0 }, { equal: deepEqual });
+  // note we use the deepEqual here to avoid excessive dom updates.
+  private parentBox = signal({ top: 0, left: 0, width: 0, height: 0, zIndex: 1 }, { equal: deepEqual });
+  // we need to update the overlay when the parent box changes.
+  // because of that, this only runs if there is indeed a new position
+  protected style = computed(
+    () =>
+      `top: ${this.parentBox().top}px;
+       left: ${this.parentBox().left}px;
+       width: ${this.parentBox().width}px;
+       height: ${this.parentBox().height}px;
+       z-index: ${this.parentBox().zIndex};`
+  );
 
   _0 = afterRender({
     read: () => {
       const parentRect = this.parent.getBoundingClientRect();
+      // @ts-expect-error // TS doen't know about computedStyleMap.value apparently.
+      const zIndex = this.parent.computedStyleMap().get('z-index')?.value;
       // on each render we need to update the parent box.
       // this is needed because the parent can be moved around.
       this.parentBox.set({
@@ -35,23 +74,9 @@ export class ConfirmItComponent {
         left: parentRect.left,
         width: parentRect.width,
         height: parentRect.height,
+        zIndex: zIndex === 'auto' ? 1 : Number(zIndex) + 1,
       });
     },
-  });
-
-  _1 = afterRenderEffect(() => {
-    const box = this.parentBox();
-    // we need to update the cover when the parent box changes.
-    // note we use the deepEqual there to avoid excessive updates.
-    // because of that, this only runs if there is indeed a new position
-    const elm = this.elm.nativeElement;
-    const parent = this.parent;
-    // make sure the cover is on top of the parent.
-    elm.style['z-index'] = parent.style['z-index'] + 1 || '999999';
-    elm.style.top = box.top + 'px';
-    elm.style.left = box.left + 'px';
-    elm.style.width = box.width + 'px';
-    elm.style.height = box.height + 'px';
   });
 
   close = (confirmed: boolean) => {
@@ -70,10 +95,22 @@ export class ConfirmItComponent {
     ev.stopPropagation();
     if (target !== this.elm.nativeElement) {
       // if the target is not the element itself, it means its a child element.
+      // this is needed to prevent the dialog from closing when clicking on a child element.
+      // (anything inside the dialog and the projected content)
       return;
     }
-    this.originalEvent = ev; // keep the "original" event
     const dialog = this.dlg().nativeElement;
+    this.originalEvent = ev; // keep the "original" event
+    if (this.lightDismiss()) {
+      // if the lightDismiss is set, we need to close the dialog when clicking on the backdrop.
+      dialog.addEventListener('click', e => {
+        ev.preventDefault();
+        if (e.target === dialog) {
+          // if the target is the dialog itself, we need to close it.
+          dialog.close();
+        }
+      });
+    }
     dialog.showModal();
   }
 }

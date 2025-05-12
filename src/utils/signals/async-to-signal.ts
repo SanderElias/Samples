@@ -16,7 +16,7 @@ export interface DataResultError {
   loading: false;
   error: any;
 }
-export type DataResult<T> = Prettify< DataResultInitial | DataResultSucces<T> | DataResultError>;
+export type DataResult<T> = Prettify<DataResultInitial | DataResultSucces<T> | DataResultError>;
 
 export type AsyncInput<I> = Signal<I> | WritableSignal<I> | Observable<I> | Promise<I> | I;
 /**
@@ -31,7 +31,7 @@ export type AsyncInput<I> = Signal<I> | WritableSignal<I> | Observable<I> | Prom
  */
 export function asyncToSignal<I, T>(
   input: AsyncInput<I>,
-  loader: (start: I) => Observable<DataResult<T>> | Promise<DataResult<T>>,
+  loader: (start: I) => Observable<DataResult<T> | T> | Promise<DataResult<T> | T>,
   options: AsyncToSignalOptions<T> = {}
 ): Signal<DataResult<T>> {
   try {
@@ -43,7 +43,7 @@ export function asyncToSignal<I, T>(
     const outputSignal = options.signalToUse ?? signal(startData);
     const start = convertToObservable(input);
     const unSub = start.pipe(switchMap(loader)).subscribe({
-      next: data => outputSignal.set(data),
+      next: data => outputSignal.set(isDataResult(data) ? data : { loading: false, data }),
       error: error => outputSignal.set({ loading: false, error }),
       complete: () => undefined, // todo: decide if we want to handle completion
     });
@@ -79,6 +79,9 @@ const convertToObservable = <I>(x: AsyncInput<I>): Observable<I> => {
  */
 const isPromise = <T>(x: T | Promise<T>): x is Promise<T> => typeof (x as Promise<T>).then === 'function';
 
+const isDataResult = <T>(x: T | DataResult<T>): x is DataResult<T> => {
+  return typeof x === 'object' && x !== null && 'loading' in x;
+};
 export type AsyncToSignalOptions<T> = {
   initialValue?: T;
   signalToUse?: WritableSignal<DataResult<T>>;
