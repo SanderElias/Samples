@@ -1,5 +1,10 @@
-<h1>Slido overview</h1>
-
+<h1
+  (drop)="handleDrop($event)"
+  ondragenter="document.getElementById('output').textContent = ''; event.stopPropagation(); event.preventDefault();"
+  ondragover="event.stopPropagation(); event.preventDefault();"
+>
+  Slido overview
+</h1>
 <section class="buttonGroup">
   <button (click)="selFile()">Select a different presentation</button>
   <button (click)="addSlide()">Add slide</button>
@@ -26,13 +31,13 @@
           <td>{{ $index }}</td>
           <td>
             <main>
-              <se-slide [index]="$index"/>
+              <se-slide [index]="$index" />
             </main>
           </td>
           <td class="actionGroup">
             <!-- <button>✏️</button> -->
             <button (click)="deck.removeSlide($index)">🗑️</button>
-            <button [routerLink]="['/present',$index]">🔗</button>
+            <button [routerLink]="['/present', $index]">🔗</button>
           </td>
         </tr>
       }

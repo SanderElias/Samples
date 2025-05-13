@@ -10,11 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # for future expansion, for now only node 16 is supported
         node: [22.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node, install dependencies, and cache node modules, build dist artifacts
         uses: ./.github/build-artifacts
         with:
@@ -29,7 +28,7 @@ jobs:
         node: [22.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Set up GitHub Actions caching for Wireit.
       - uses: google/wireit@setup-github-actions-caching/v2
@@ -40,7 +39,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.7.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist/samples/browser # The folder the action should deploy.

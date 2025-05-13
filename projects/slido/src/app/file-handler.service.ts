@@ -73,7 +73,7 @@ export class FileHandlerService {
     if (!fileHandle) {
       return;
     }
-    const handler = async (records:any[]) => {
+    const handler = async (records: any[]) => {
       for (const record of records) {
         if (record.type === 'modified' && this.$state().permission()) {
           try {
@@ -95,11 +95,25 @@ export class FileHandlerService {
     if (window?.showOpenFilePicker === undefined) {
       return;
     }
-    const [fileHandle] = await window.showOpenFilePicker(this.#pickerOpts);
-    this.#fileHandle.set(fileHandle);
-    set('lastPresentationUsed', fileHandle);
-
+    if (!window.isSecureContext) {
+      throw new Error('Insecure context, some features may not work');
+    }
+    try {
+      const [fileHandle] = await window.showOpenFilePicker(this.#pickerOpts);
+      this.#fileHandle.set(fileHandle);
+      set('lastPresentationUsed', fileHandle);
+    } catch (e) {
+      console.error('error', e);
+      await window.showDirectoryPicker().catch(e => {
+        console.error('error', e);
+      });
+    }
   };
+
+  setHandle = (handle: FileSystemFileHandle) => {
+    this.#fileHandle.set(handle);
+    set('lastPresentationUsed', handle);
+  }
 
   _ = afterNextRender(async () => {
     if (typeof window === 'undefined' || window?.indexedDB === undefined) {
