@@ -4,7 +4,7 @@ import { filter, map, shareReplay, take, tap } from 'rxjs/operators';
 import { getId, randomInt, RelationsService } from './relations.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class OrdersService {
   private rel = inject(RelationsService);
@@ -30,7 +30,7 @@ export class OrdersService {
         id,
         products: Array.from({ length: randomInt(3) + 2 }, () => ({ productId: getId(), handler: this.rel.getExistingRandomId() })),
         transporter: this.rel.getExistingRandomId(),
-        processor: this.rel.getExistingRandomId(),
+        processor: this.rel.getExistingRandomId()
       };
       this.orderList.next([...currentOrders, newOrder]);
     }

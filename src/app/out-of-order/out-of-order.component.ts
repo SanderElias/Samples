@@ -2,9 +2,9 @@ import { Component, computed, effect, resource, signal } from '@angular/core';
 import { asyncComputed, computedResource } from '@se-ng/signal-utils';
 
 @Component({
-    selector: 'se-out-of-order',
-    imports: [],
-    template: `
+  selector: 'se-out-of-order',
+  imports: [],
+  template: `
     <h1>Out of Order problem</h1>
     <p>My ID: {{ myId() }}</p>
     <p>Naive data: {{ naiveData() }}</p>
@@ -16,7 +16,7 @@ import { asyncComputed, computedResource } from '@se-ng/signal-utils';
     <p>async resource status {{ usingComputedResource().status }}</p>
     <p>async resource status {{ usingComputedResource().stream }}</p>
   `,
-    styleUrl: './out-of-order.component.css'
+  styleUrl: './out-of-order.component.css'
 })
 export class OutOfOrderComponent {
   myId = signal(1);
@@ -25,36 +25,36 @@ export class OutOfOrderComponent {
   naiveData = signal<number | string>(0);
   _naiveEffect = effect(async () => {
     const id = this.myId();
-      const data = await simulateFetch({ request: id }).catch((e:Error) => e.message);
-      if (this.myId() !== data) {
-        this.naiveData.set(`out-of-order: ${this.myId()} !== ${data}`);
-        console.log('out-of-order detected');
-        // this._naiveEffect.destroy(); // abort the effect
-        return;
-      }
-      this.naiveData.set(data);
+    const data = await simulateFetch({ params: id }).catch((e: Error) => e.message);
+    if (this.myId() !== data) {
+      this.naiveData.set(`out-of-order: ${this.myId()} !== ${data}`);
+      console.log('out-of-order detected');
+      // this._naiveEffect.destroy(); // abort the effect
+      return;
+    }
+    this.naiveData.set(data);
   });
 
   // the same as above but with abort controller, to prevent out-of-order
   ab = new AbortController(); // we need to keep the abort controller in the class
   naiveDataWithAbort = signal<number | string>(0); // related date using naive approach and an effect.
   _naiveEffectWithAbort = effect(async () => {
-      this.ab.abort(); // abort the previous fetch
-      this.ab = new AbortController(); // create a new abort controller
-      const abortSignal = this.ab.signal;
-      const id = this.myId();
-      try {
-        const data = await simulateFetch({ request: id, abortSignal }).catch((e:Error) => e.message);
-        this.naiveDataWithAbort.set(data);
-      } catch {
-        // console.log('prevented out-of-order for ID:', id);
-      }
+    this.ab.abort(); // abort the previous fetch
+    this.ab = new AbortController(); // create a new abort controller
+    const abortSignal = this.ab.signal;
+    const id = this.myId();
+    try {
+      const data = await simulateFetch({ params: id, abortSignal }).catch((e: Error) => e.message);
+      this.naiveDataWithAbort.set(data);
+    } catch {
+      // console.log('prevented out-of-order for ID:', id);
+    }
   });
 
   // related data using `resource` that will be experimental in V19
   datUsingResource = resource({
-    request: this.myId,
-    loader: simulateFetch,
+    params: this.myId,
+    loader: simulateFetch
   });
   status = computed(() => {
     // we need this to visualize the status of the resource, and why it "flickers"
@@ -63,9 +63,9 @@ export class OutOfOrderComponent {
   });
 
   // related data using `asyncComputed` that is stable and availabe on NPM as `@se-ng/signal-utils`
-  usingAsyncComputed = asyncComputed(() => simulateFetch({ request: this.myId() }));
+  usingAsyncComputed = asyncComputed(() => simulateFetch({ params: this.myId() }));
 
-  usingComputedResource = computedResource(() => simulateFetch({ request: this.myId() }));
+  usingComputedResource = computedResource(() => simulateFetch({ params: this.myId() }));
 
   constructor() {
     // make the ID change every second
@@ -73,9 +73,9 @@ export class OutOfOrderComponent {
   }
 }
 
-const simulateFetch = async ({ request, abortSignal }: { request: number; abortSignal?: AbortSignal }) => {
+const simulateFetch = async ({ params, abortSignal }: { params: number; abortSignal?: AbortSignal }) => {
   const delay = 500 + Math.random() * 600; // between 800 and 1400 ms
-  if (request % 25 === 0) {
+  if (params % 25 === 0) {
     // simulate unexpected error
     throw new Error('Failed to fetch');
   }
@@ -83,5 +83,5 @@ const simulateFetch = async ({ request, abortSignal }: { request: number; abortS
   if (abortSignal?.aborted) {
     return '';
   }
-  return request;
+  return params;
 };

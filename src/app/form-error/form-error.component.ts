@@ -5,10 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { ShowErrorComponent } from './show-error/show-error.component';
 
 @Component({
-    selector: 'se-form-error',
-    imports: [CommonModule, FormsModule, ShowErrorComponent, JsonPipe],
-    templateUrl: './form-error.component.html',
-    styleUrls: ['./form-error.component.css']
+  selector: 'se-form-error',
+  imports: [CommonModule, FormsModule, ShowErrorComponent, JsonPipe],
+  templateUrl: './form-error.component.html',
+  styleUrls: ['./form-error.component.css']
 })
 export default class FormErrorComponent {
   name = '';

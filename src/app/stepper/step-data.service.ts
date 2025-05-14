@@ -3,7 +3,7 @@ import { computed, Injectable, Signal, signal, type WritableSignal } from '@angu
 @Injectable()
 export class StepDataService {
   stepsMap = signal(new Map<number, Signal<StepData>>(), {
-    equal: () => false,
+    equal: () => false
   });
   /** the currently selected step  */
   readonly selected = signal(-1);

@@ -48,7 +48,7 @@ const totals = seededComputed(
     accumulatedQuantity: 0,
     average: 0,
     sum: 0,
-    vat: new Map<number, number>(), // [vat, total]
+    vat: new Map<number, number>() // [vat, total]
   },
   totals => {
     const { vat, total, price, quantity } = lastRow()();

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { PackageJsonService } from './package.json.service';
@@ -7,17 +6,17 @@ import { SelectPackageJsonComponent } from './select-package.json/select-package
 import { WireitsComponent } from './wireits/wireits.component';
 
 @Component({
-    imports: [SelectPackageJsonComponent, CommonModule, ScriptsComponent, WireitsComponent],
-    selector: 'app-root',
-    template: `<h1>
+  imports: [SelectPackageJsonComponent, ScriptsComponent, WireitsComponent],
+  selector: 'app-root',
+  template: `<h1>
       WireIt Editor
       <button (click)="copyToClipBoard()">📎</button>
     </h1>
     <app-select-package-json></app-select-package-json>
     <app-scripts></app-scripts>
     <se-wireits></se-wireits> `,
-    styles: [
-        `
+  styles: [
+    `
       :host {
         display: block;
       }
@@ -29,9 +28,8 @@ import { WireitsComponent } from './wireits/wireits.component';
       h1 button {
         font-size: 1rem;
       }
-    `,
-    ],
-
+    `
+  ]
 })
 export class AppComponent {
   pjs = inject(PackageJsonService);

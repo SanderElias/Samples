@@ -80,6 +80,6 @@ import { Component } from '@angular/core';
       <circle class="spinner_EUy1 spinner_ZETM" cx="12" cy="21" r="1" />
     </g>
   </svg>`,
-  styleUrl: './spinner.component.css',
+  styleUrl: './spinner.component.css'
 })
 export class SpinnerComponent {}

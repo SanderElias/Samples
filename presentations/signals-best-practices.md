@@ -1,4 +1,3 @@
-
 <!-- markdownlint-disable MD003 -->
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD022 -->
@@ -7,7 +6,9 @@
 <div>
 
 # Signals, best practices
+
 ## a presentation by Sander Elias
+
 </div>
 
 <style>
@@ -89,9 +90,11 @@
 </style>
 
 ---NextSlide
+
 <div>
 
 # Signals, best practices
 
 ## Explained with a simple CRUD app
+
 </div>

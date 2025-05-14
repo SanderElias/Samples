@@ -8,10 +8,10 @@ import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map,
 import { ShowRecComponent } from '../show-rec/show-rec.component';
 
 @Component({
-    selector: 'app-apisample',
-    templateUrl: './apisample.component.html',
-    styles: [],
-    imports: [ReactiveFormsModule, ShowRecComponent]
+  selector: 'app-apisample',
+  templateUrl: './apisample.component.html',
+  styles: [],
+  imports: [ReactiveFormsModule, ShowRecComponent]
 })
 export class APISampleComponent {
   /** injections */
@@ -33,7 +33,7 @@ export class APISampleComponent {
     combineLatest([
       // combine the available sets with the chosen set
       this.availableSets$,
-      this.chosenSet.valueChanges,
+      this.chosenSet.valueChanges
     ]).pipe(
       /** progress when the set exists */
       filter(([sets, chosen]) => sets.includes(chosen)),
@@ -50,7 +50,7 @@ export class APISampleComponent {
       /** act on changes in the set/table */
       this.chosenSet.valueChanges,
       /** handle the search input */
-      this.name.valueChanges.pipe(debounceTime(250), distinctUntilChanged(), filter(Boolean)),
+      this.name.valueChanges.pipe(debounceTime(250), distinctUntilChanged(), filter(Boolean))
     ]).pipe(
       /** load the raw data from the API */
       switchMap(([setname, name]: [any, string]) => this.#sw.findIn(setname, name)),
@@ -64,7 +64,7 @@ export class APISampleComponent {
       catchError(e => {
         console.error(e);
         return of({
-          'Not Found': `Your search string didn't return any results`,
+          'Not Found': `Your search string didn't return any results`
         });
       })
     )

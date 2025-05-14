@@ -24,17 +24,17 @@ export function deepSignal<S, D>(source: WritableSignal<S>, navFn: (value: S) =>
       return new Proxy(
         {
           value: childValue,
-          keys: [...keys, prop],
+          keys: [...keys, prop]
         },
         handler
       );
-    },
+    }
   };
 
   const root = new Proxy<NavRecord>(
     {
       value: source(),
-      keys: [],
+      keys: []
     },
     handler
   );

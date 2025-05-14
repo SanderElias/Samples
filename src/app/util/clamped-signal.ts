@@ -32,14 +32,14 @@ function clampedSignal<T>({
   min,
   max,
   createSignalOptions,
-  undefinedWhenOutOfBounds,
+  undefinedWhenOutOfBounds
 }: ClampedSignalOptionsWithUndefined<T>): WritableSignal<T | undefined>;
 function clampedSignal<T>({
   value,
   min,
   max,
   createSignalOptions,
-  undefinedWhenOutOfBounds,
+  undefinedWhenOutOfBounds
 }: AllClampedSignalOptions<T>): WritableSignal<T | undefined> {
   const state = signal(value, createSignalOptions) as WritableSignal<T | undefined>;
   const orgSet = state.set;
@@ -55,7 +55,7 @@ function clampedSignal<T>({
         orgSet(undefined);
       }
     },
-    update: (fn: (val: T | undefined) => T | undefined) => orgSet(fn(state())),
+    update: (fn: (val: T | undefined) => T | undefined) => orgSet(fn(state()))
   });
 }
 

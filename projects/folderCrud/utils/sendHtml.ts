@@ -19,7 +19,7 @@ function send(body: string, type = 'text/html', response: ServerResponse, req: I
       'Content-Length': Buffer.byteLength(compressed),
       'Content-Type': type,
       'content-encoding': 'br',
-      'Access-Control-Allow-Origin': req.headers.origin || '*',
+      'Access-Control-Allow-Origin': req.headers.origin || '*'
     })
     .end(compressed);
 }

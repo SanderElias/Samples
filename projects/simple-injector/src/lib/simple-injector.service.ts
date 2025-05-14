@@ -1,7 +1,7 @@
 import { getUniqueId } from './get-unique-id';
 
 class Root implements Provider {
-  identifier= this;
+  identifier = this;
   injectAbles = new Map();
   providers = new Map();
   parent = this;
@@ -63,7 +63,7 @@ export function provide<T>(provide: Constructor<unknown>[] | Constructor<unknown
     identifier: constructor,
     injectAbles: new Map(),
     providers: new Map(),
-    parent: lastUsedProvider,
+    parent: lastUsedProvider
   };
   lastUsedProvider.providers.set(constructor, provider);
   lastUsedProvider = provider;

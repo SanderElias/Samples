@@ -1,9 +1,9 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { InMemoryDataService } from './in-memory.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EventSourceService {
   db = inject(InMemoryDataService);
@@ -32,7 +32,7 @@ export class EventSourceService {
       zip: faker.address.zipCode,
       city: faker.address.city,
       // image: faker.image.avatar,
-      tag: faker.lorem.word,
+      tag: faker.lorem.word
     };
     const field = Object.keys(fieldOptions)[Math.floor(Math.random() * Object.keys(fieldOptions).length)];
     const value = fieldOptions[field]();
@@ -50,7 +50,7 @@ const actions = (
   [
     ['create', 5],
     ['update', 1000],
-    ['delete', 1],
+    ['delete', 1]
   ] as [string, number][]
 ).reduce((acc, [action, weight]) => {
   for (let i = 0; i < weight; i++) {

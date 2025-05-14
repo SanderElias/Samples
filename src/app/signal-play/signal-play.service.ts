@@ -2,15 +2,13 @@ import { computed, inject, Injectable } from '@angular/core';
 import { DemoUserService } from '../demo-users.service.js';
 import { asyncComputed } from '@se-ng/signal-utils';
 
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SignalPlayService {
   usersSrv = inject(DemoUserService);
 
-
-  $users = asyncComputed(() => this.usersSrv.allUsers$,[]);
+  $users = asyncComputed(() => this.usersSrv.allUsers$, []);
   // $users = signal<DemoUser[]>([])
 
   getUser = (n: string) => {
@@ -32,7 +30,7 @@ export class SignalPlayService {
 
   $lastId = computed(() => {
     const users = this.$users();
-    return (users && users.length > 0) ? users.at(-1)!.id : -2;
+    return users && users.length > 0 ? users.at(-1)!.id : -2;
   });
 
   constructor() {}

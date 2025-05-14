@@ -1,5 +1,5 @@
 // import { encode, decode } from 'messagepack';
-import { createCodec,decode, encode } from 'msgpack-lite';
+import { createCodec, decode, encode } from 'msgpack-lite';
 
 const options = { codec: createCodec({ usemap: true, preset: true }) };
 
@@ -11,9 +11,9 @@ const test = Array.from({ length: 10 }, (e, i) => ({
     ['blah', false],
     [{ a: 'b' }, { a: 'hi' }],
     [3, 4],
-    ['somestring', 'anotherString'],
+    ['somestring', 'anotherString']
   ]),
-  tags: new Set(['a', 'b', 'dd']),
+  tags: new Set(['a', 'b', 'dd'])
 }));
 
 const enc = encode(test, options);

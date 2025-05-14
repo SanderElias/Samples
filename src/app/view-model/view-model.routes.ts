@@ -9,12 +9,12 @@ export const routes: Routes = [
     loadComponent: () => import('./demo-user/demo-user.component').then(m => m.DemoUserComponent),
     data: {
       fetchListFrom: 'https://jsonplaceholder.typicode.com/users',
-      idProperty: 'id',
-    },
+      idProperty: 'id'
+    }
   },
   {
     path: 'user/:id/related/:friendCode',
-    loadComponent: () => import('./demo-user/demo-user.component').then(m => m.DemoUserComponent),
+    loadComponent: () => import('./demo-user/demo-user.component').then(m => m.DemoUserComponent)
   },
-  { path: '**', redirectTo: 'theGood' },
+  { path: '**', redirectTo: 'theGood' }
 ];

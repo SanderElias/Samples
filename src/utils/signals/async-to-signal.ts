@@ -45,7 +45,7 @@ export function asyncToSignal<I, T>(
     const unSub = start.pipe(switchMap(loader)).subscribe({
       next: data => outputSignal.set(isDataResult(data) ? data : { loading: false, data }),
       error: error => outputSignal.set({ loading: false, error }),
-      complete: () => undefined, // todo: decide if we want to handle completion
+      complete: () => undefined // todo: decide if we want to handle completion
     });
 
     return outputSignal.asReadonly();

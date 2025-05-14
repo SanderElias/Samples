@@ -49,7 +49,7 @@ import { DigitsComponent } from './digits/digits.component';
       }
     </style>
   `,
-  styleUrl: './custom-native-form.component.css',
+  styleUrl: './custom-native-form.component.css'
 })
 export class CustomNativeFormComponent {
   submit(event: Event) {

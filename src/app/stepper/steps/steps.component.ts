@@ -7,7 +7,7 @@ import {
   inject,
   model,
   untracked,
-  type WritableSignal,
+  type WritableSignal
 } from '@angular/core';
 import { StepDataService } from '../step-data.service';
 
@@ -16,7 +16,7 @@ import { StepDataService } from '../step-data.service';
   imports: [],
   template: ` <ng-content /> `,
   styleUrl: './steps.component.css',
-  providers: [StepDataService],
+  providers: [StepDataService]
 })
 export class StepsComponent {
   sd = inject(StepDataService);

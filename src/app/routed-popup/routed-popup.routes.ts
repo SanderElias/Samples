@@ -7,10 +7,10 @@ export const routes: Routes = [
   {
     path: 'up',
     component: BackDropComponent,
-    outlet: 'popup',
+    outlet: 'popup'
     // children: [
     //   { path: '', component: BackHomeComponent, outlet: 'popup' },
     //   { path: '**', redirectTo: '', outlet: 'popup' }
     // ]
-  },
+  }
 ];

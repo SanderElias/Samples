@@ -35,7 +35,7 @@ export const injectAwaitSignal = function (): typeof awaitSignal {
           deferred.reject(new Error('Signal was destroyed before the predicate was satisfied'));
         });
       },
-      { injector, forceRoot: true, debugName: 'injectedAwaitSignal' }
+      { injector, debugName: 'injectedAwaitSignal' }
     );
 
     return deferred.promise;
@@ -62,7 +62,7 @@ export const awaitSignal = <T>(signal: Signal<T>, predicate: Predicate<T>): Prom
         deferred.reject(new Error('Signal was destroyed before the predicate was satisfied'));
       });
     },
-    { forceRoot: true, debugName: 'awaitSignal' }
+    { debugName: 'awaitSignal' }
   );
 
   return deferred.promise;

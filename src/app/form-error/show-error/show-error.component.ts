@@ -1,12 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
-    selector: 'se-show-error',
-    imports: [CommonModule],
-    template: `<ng-content></ng-content>`,
-    styleUrls: ['./show-error.component.css']
+  selector: 'se-show-error',
+  imports: [],
+  template: `<ng-content></ng-content>`,
+  styleUrls: ['./show-error.component.css']
 })
 export class ShowErrorComponent {
   #form = inject(NgForm); // use the injector to find the nearest form group, usually the form itself
@@ -30,7 +29,7 @@ export class ShowErrorComponent {
       } else {
         this.#elm.style.display = 'none';
       }
-    },
+    }
   });
 
   ngOnDestroy() {

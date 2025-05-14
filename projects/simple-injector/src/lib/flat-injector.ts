@@ -10,7 +10,7 @@ const inject = <T>(target: new () => T): T => {
   if (!myMap.has(target)) {
     myMap.set(target, {
       identifier: target,
-      instance: new target(),
+      instance: new target()
     });
   }
   return myMap.get(target)!.instance! as T;

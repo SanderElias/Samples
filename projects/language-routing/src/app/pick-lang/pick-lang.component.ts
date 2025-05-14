@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LangService } from '../lang.service';
 
 @Component({
-    selector: 'se-pick-lang',
-    imports: [CommonModule],
-    template: `
+  selector: 'se-pick-lang',
+  imports: [],
+  template: `
     <h1>Pick a language</h1>
     <div>
       @for (lang of availableLanguages; track lang) {
@@ -13,7 +13,7 @@ import { LangService } from '../lang.service';
       }
     </div>
   `,
-    styleUrls: ['./pick-lang.component.css']
+  styleUrls: ['./pick-lang.component.css']
 })
 export class PickLangComponent {
   ls = inject(LangService);

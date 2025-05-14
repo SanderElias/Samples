@@ -17,7 +17,7 @@ export function ObservableInput() {
         return getSub(this);
       },
       configurable: false,
-      enumerable: true,
+      enumerable: true
     });
 
     function getSub(obj): ReplaySubject<any> {

@@ -12,7 +12,7 @@ import {
   take,
   lastValueFrom,
   BehaviorSubject,
-  NEVER,
+  NEVER
 } from 'rxjs';
 
 const defaultTimeout = 5000;
@@ -42,14 +42,14 @@ const shareOptions = <T>(): ShareConfig<T> => {
           inGrace.next(false);
         })
       );
-    },
+    }
   };
 };
 
 (async () => {
   const logSub = {
     next: r => console.log(r),
-    complete: () => console.log('competed'),
+    complete: () => console.log('competed')
   };
   const something$ = interval(250).pipe(
     tap(c => console.log('o', c)),

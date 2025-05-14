@@ -5,12 +5,11 @@ import { DemoComponent } from '../demo/demo.component';
 import { ShowCompComponent } from '../show-comp/show-comp.component';
 
 const availableComps = {
-  demo: DemoComponent,
+  demo: DemoComponent
 };
 @Component({
-    selector: 'app-slide',
-    template: `<scully-content></scully-content>`,
-
+  selector: 'app-slide',
+  template: `<scully-content></scully-content>`
 })
 export class SlideComponent {
   constructor() {

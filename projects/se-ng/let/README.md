@@ -36,12 +36,12 @@ import { SeLetModule } from '@se-ng/let';
 
 const routes: Routes = [
   { path: '', component: SomeComponent },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   declarations: [SomeComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), SeLetModule],
+  imports: [CommonModule, RouterModule.forChild(routes), SeLetModule]
 })
 export class SampleModule {}
 ```

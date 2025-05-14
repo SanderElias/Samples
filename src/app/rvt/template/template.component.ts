@@ -6,9 +6,9 @@ import { BehaviorSubject, switchMap } from 'rxjs';
 import { Model, SampledataService } from '../sampledata.service';
 
 @Component({
-    selector: 'se-template',
-    imports: [CommonModule, FormsModule],
-    template: `
+  selector: 'se-template',
+  imports: [CommonModule, FormsModule],
+  template: `
     @if (data$ | async; as data) {
       <main>
         <h1>Template</h1>
@@ -48,7 +48,7 @@ import { Model, SampledataService } from '../sampledata.service';
       </main>
     }
   `,
-    styleUrls: ['./template.component.css']
+  styleUrls: ['./template.component.css']
 })
 export default class TemplateComponent {
   reset$ = new BehaviorSubject(undefined);

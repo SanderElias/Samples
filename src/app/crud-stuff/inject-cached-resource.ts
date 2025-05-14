@@ -10,8 +10,8 @@ export function injectCachedResource<T>(baseUrl: string, cache = new Map<string,
   const injector = inject(Injector);
   return (id: Signal<string>) => {
     const res = resource({
-      request: () => id() || '-1', // change empty string, or undefined to non-existing id
-      loader: async ({ request: id, abortSignal }) => {
+      params: () => id() || '-1', // change empty string, or undefined to non-existing id
+      loader: async ({ params: id, abortSignal }) => {
         if (id === '-1') {
           return undefined;
         }
@@ -33,10 +33,9 @@ export function injectCachedResource<T>(baseUrl: string, cache = new Map<string,
         }
         return cache.get(url);
       },
-      injector,
+      injector
     });
 
     return res;
   };
 }
-

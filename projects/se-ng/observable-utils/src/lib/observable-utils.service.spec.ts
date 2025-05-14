@@ -6,7 +6,7 @@ describe('ObservableUtilsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ObservableUtilsService = TestBed.get(ObservableUtilsService);
+    const service: ObservableUtilsService = TestBed.inject(ObservableUtilsService);
     expect(service).toBeTruthy();
   });
 });

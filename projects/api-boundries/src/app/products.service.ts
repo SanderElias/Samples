@@ -5,14 +5,12 @@ import { RelationId } from './orders.service';
 import { RelationsService } from './relations.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProductsService {
   rel = inject(RelationsService);
   productList$ = new BehaviorSubject<Product[]>([]);
-  fakerModule = import('@faker-js/faker')
-
-
+  fakerModule = import('@faker-js/faker');
 
   getProduct(id: string) {
     return from(this.fakerModule).pipe(
@@ -25,7 +23,7 @@ export class ProductsService {
             department: faker.commerce.department(),
             description: faker.commerce.productDescription(),
             image: faker.image.imageUrl(),
-            creator: this.rel.getExistingRandomId(),
+            creator: this.rel.getExistingRandomId()
           };
           this.productList$.next([...this.productList$.value, newProduct]);
         }

@@ -4,7 +4,7 @@ import { injectRoutePart } from './inject-route-part.js';
 import { SlidesHandlerService } from './slides-handler.service.js';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class NavSLidesService {
   index = injectRoutePart(2);
@@ -22,20 +22,20 @@ export class NavSLidesService {
 
   setCount = (count: number) => {
     this.#$state().$liCount.set(count);
-    this.#$state().$lastLi.set(this.lastMove()<0?count:0);
-  }
+    this.#$state().$lastLi.set(this.lastMove() < 0 ? count : 0);
+  };
 
-  calcNext = (rel) => {
+  calcNext = rel => {
     let nextLi = this.#$state().$lastLi() + rel;
 
     return nextLi;
-  }
+  };
 
   navRel = (rel: number) => {
     const nextLi = this.calcNext(rel);
     const lastLi = this.#$state().$liCount();
 
-    if (nextLi < 0 || nextLi >= lastLi+1) {
+    if (nextLi < 0 || nextLi >= lastLi + 1) {
       return this.navSlide(rel);
     }
     this.#$state().$lastLi.set(nextLi);

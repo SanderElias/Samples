@@ -22,8 +22,8 @@ const obj = {
   set: new Set([1, 2]),
   map: new Map([
     ['key', 'value'],
-    ['key1', 'value'],
-  ]),
+    ['key1', 'value']
+  ])
 }; //?
 const str = JSON.stringify(obj, replacer); //?
 const newObj = JSON.parse(str, reviver); //?

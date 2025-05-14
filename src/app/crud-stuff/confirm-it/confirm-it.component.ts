@@ -1,14 +1,13 @@
 import {
-  afterRender,
+  afterEveryRender,
+  booleanAttribute,
   Component,
   computed,
   ElementRef,
   inject,
   input,
-  viewChild,
   signal,
-  afterRenderEffect,
-  booleanAttribute,
+  viewChild
 } from '@angular/core';
 import { deepEqual } from '@se-ng/signal-utils';
 
@@ -38,8 +37,8 @@ import { deepEqual } from '@se-ng/signal-utils';
   styleUrl: './confirm-it.component.css',
   host: {
     '(click)': 'onClick($event)',
-    '[style]': 'style()',
-  },
+    '[style]': 'style()'
+  }
 })
 export class ConfirmItComponent {
   confirmText = input('yes');
@@ -62,7 +61,7 @@ export class ConfirmItComponent {
        z-index: ${this.parentBox().zIndex};`
   );
 
-  _0 = afterRender({
+  _0 = afterEveryRender({
     read: () => {
       const parentRect = this.parent.getBoundingClientRect();
       // @ts-expect-error // TS doen't know about computedStyleMap.value apparently.
@@ -74,9 +73,9 @@ export class ConfirmItComponent {
         left: parentRect.left,
         width: parentRect.width,
         height: parentRect.height,
-        zIndex: zIndex === 'auto' ? 1 : Number(zIndex) + 1,
+        zIndex: zIndex === 'auto' ? 1 : Number(zIndex) + 1
       });
-    },
+    }
   });
 
   close = (confirmed: boolean) => {

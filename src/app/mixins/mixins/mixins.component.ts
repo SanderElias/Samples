@@ -5,10 +5,10 @@ import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-mixins',
-    templateUrl: './mixins.component.html',
-    styles: [],
-    imports: [AsyncPipe, JsonPipe]
+  selector: 'app-mixins',
+  templateUrl: './mixins.component.html',
+  styles: [],
+  imports: [AsyncPipe, JsonPipe]
 })
 export class MixinsComponent extends seOnDestroy(seAfterContentChecked(seOnInit(class {}))) {
   /**
@@ -31,7 +31,7 @@ export class MixinsComponent extends seOnDestroy(seAfterContentChecked(seOnInit(
        * and will be garbage collected
        */
       // console.log('seAfterContentChecked$ is completed,');
-    },
+    }
   });
 
   /** I don't need to unsubscribe, all lifecycle hooks are completed on destroy */

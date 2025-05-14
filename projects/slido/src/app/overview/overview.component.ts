@@ -8,7 +8,7 @@ import { SlidesHandlerService } from '../slides-handler.service.js';
   selector: 'se-overview',
   imports: [SlideComponent, RouterLink],
   templateUrl: './overview.component.html',
-  styleUrl: './overview.component.css',
+  styleUrl: './overview.component.css'
 })
 export class OverviewComponent {
   file = inject(FileHandlerService);

@@ -1,14 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject,NgZone, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, inject, NgZone, ViewEncapsulation } from '@angular/core';
 
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 
 @Component({
-    selector: 'se-cell-raw',
-    imports: [CommonModule],
-    template: ``,
-    styleUrls: ['./cell-raw.component.css'],
-    encapsulation: ViewEncapsulation.None
+  selector: 'se-cell-raw',
+  imports: [],
+  template: ``,
+  styleUrls: ['./cell-raw.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CellRawComponent {
   zone = inject(NgZone);

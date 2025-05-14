@@ -34,12 +34,12 @@ export const mergeDeep = <A extends {}, B extends {}>(
   target: A,
   source: B,
   options: MergeDeepOptions = {},
-  path: string[] = [],
+  path: string[] = []
 ): DeepMergeObjects<A, B> => {
   const resolveMergeStrategy = (propertyPath: string[]): IterableMergeStrategy =>
     typeof options.iterableMergeStrategy === 'function'
       ? options.iterableMergeStrategy(propertyPath)
-      : options.iterableMergeStrategy ?? 'concat';
+      : (options.iterableMergeStrategy ?? 'concat');
 
   const skipAssignUndefined = options.skipAssignUndefined ?? false;
   const result: Record<string, unknown> = cloneDeep(target);

@@ -1,4 +1,3 @@
-
 const randomChar = () => String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 const createId = () => Date.now().toString(36) + '-' + randomChar() + randomChar() + randomChar();
 
@@ -23,7 +22,7 @@ export const createNode = (value: number | string, parentId?: BinNodeId, left?: 
     parentId,
     value,
     left,
-    right,
+    right
   };
   nodes.set(newNode.id, newNode);
   return newNode;
@@ -181,7 +180,7 @@ export function balanceNode(node = getRoot()) {
   }
   if (nodeBalance > 1) {
     const left = getNode(node.left);
-    if (left && (left.balance??0) < 0) {
+    if (left && (left.balance ?? 0) < 0) {
       rotateLeft(left);
     }
     const r = rotateRight(node);

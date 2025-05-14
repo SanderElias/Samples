@@ -7,6 +7,6 @@ import { ArtistsComponent } from '../artists/artists.component';
 
 @NgModule({
   declarations: [ArtDetailComponent, ArtistsComponent],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class RijksModule {}

@@ -12,14 +12,14 @@ import { DemoUserService } from '../../../../src/app/demo-users.service';
   templateUrl: './demo-user.component.html',
   styles: [],
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe]
 })
 export class DemoUserComponent implements OnInit {
   private us = inject(DemoUserService);
   private route = inject(ActivatedRoute);
 
   state$ = new BehaviorSubject({
-    searchText: '',
+    searchText: ''
   });
   users$ = this.us.allUsers$;
   userCount$ = this.users$.pipe(map(userList => userList.length));
@@ -27,7 +27,7 @@ export class DemoUserComponent implements OnInit {
 
   foundUsers$ = modelFromLatest({
     users: this.users$,
-    search: this.state$.pipe(pluck('searchText'), distinctUntilChanged(), debounceTime(250)),
+    search: this.state$.pipe(pluck('searchText'), distinctUntilChanged(), debounceTime(250))
   }).pipe(
     map(({ users, search }) =>
       users
@@ -43,7 +43,7 @@ export class DemoUserComponent implements OnInit {
     state: this.state$,
     total: this.userCount$,
     found: this.searchCount$,
-    pages: this.searchCount$.pipe(map(n => Math.ceil(n / 25))),
+    pages: this.searchCount$.pipe(map(n => Math.ceil(n / 25)))
   });
 
   ngOnInit() {

@@ -12,7 +12,7 @@ export interface Row {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class InMemoryDataService {
   private inMemDb = new Map<Id, Row>();

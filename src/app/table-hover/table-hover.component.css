@@ -38,8 +38,7 @@ td {
   display: block;
   --highlighted: hsl(180, 100%, 25%);
   --highlighted1: hsl(180, 100%, 40%);
-  --coll: 3
-  color: rgb(208, 226, 226);
+  --coll: 3 color: rgb(208, 226, 226);
 }
 
 h1 {

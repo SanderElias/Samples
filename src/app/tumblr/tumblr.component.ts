@@ -10,9 +10,9 @@ const apiKey = `RSIq08oTL7lA1DyETOmqujDSph7rvP4akG8NRPz9os6ywJjBhE`;
 const clientId = 'e972ca06cc4b961';
 
 @Component({
-    selector: 'app-tumblr',
-    templateUrl: './tumblr-component.html',
-    imports: [AsyncPipe]
+  selector: 'app-tumblr',
+  templateUrl: './tumblr-component.html',
+  imports: [AsyncPipe]
 })
 export class TumblrComponent implements OnInit {
   /** injections */
@@ -29,7 +29,7 @@ export class TumblrComponent implements OnInit {
     switchMap(key =>
       this.#http
         .get<ImgurTags>(`https://api.imgur.com/3/gallery/t/${key}`, {
-          headers: { Authorization: `Client-ID ${clientId}` },
+          headers: { Authorization: `Client-ID ${clientId}` }
         })
         .pipe(catchError(e => EMPTY))
     ),
@@ -178,13 +178,13 @@ export enum SafeFlag {
   Album = 'album',
   Gallery = 'gallery',
   InGallery = 'in_gallery',
-  SixthModSafe = 'sixth_mod_safe',
+  SixthModSafe = 'sixth_mod_safe'
 }
 
 export enum UnsafeFlag {
   OnsfwModUnsafe = 'onsfw_mod_unsafe',
   SixthModUnsafe = 'sixth_mod_unsafe',
-  Under10 = 'under_10',
+  Under10 = 'under_10'
 }
 
 export interface Image {
@@ -233,32 +233,32 @@ export interface Processing {
 }
 
 export enum Status {
-  Completed = 'completed',
+  Completed = 'completed'
 }
 
 export enum Type {
   ImageGIF = 'image/gif',
   ImageJPEG = 'image/jpeg',
   ImagePNG = 'image/png',
-  VideoMp4 = 'video/mp4',
+  VideoMp4 = 'video/mp4'
 }
 
 export enum Layout {
-  Blog = 'blog',
+  Blog = 'blog'
 }
 
 export enum Privacy {
-  Hidden = 'hidden',
+  Hidden = 'hidden'
 }
 
 export enum Section {
   Empty = '',
   Oddlysatisfying = 'oddlysatisfying',
-  Test = 'test',
+  Test = 'test'
 }
 
 export enum Topic {
-  NoTopic = 'No Topic',
+  NoTopic = 'No Topic'
 }
 
 export enum Description {
@@ -275,7 +275,7 @@ export enum Description {
   MotorheadsUnite = 'Motorheads unite!',
   NeatAndAmazing = 'neat and amazing',
   ThatSNoMooOhWaitYepThatSAMoon = "That's no moo- oh, wait. Yep, that's a moon.",
-  VideosWithSound = 'videos with sound',
+  VideosWithSound = 'videos with sound'
 }
 
 export interface DescriptionAnnotations {}

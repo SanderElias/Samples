@@ -11,6 +11,6 @@
   "requirePragma": false,
   "semi": true,
   "singleAttributePerLine": false,
-  "trailingComma": "es5",
+  "trailingComma": "none",
   "useTabs": false
 }

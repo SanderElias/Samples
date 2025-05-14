@@ -2,19 +2,16 @@ import { bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
 import { config } from './app/app.config.server';
-import { provideServerRendering } from '@angular/platform-server';
-import { provideServerRoutesConfig } from '@angular/ssr';
 import { serverRoutes } from './app/server.routes';
+import { provideServerRendering, withRoutes } from '@angular/ssr';
 
 globalThis.serverSide = true;
 
-const bootstrap = () => bootstrapApplication(AppComponent, { ...config,
-  providers: [
-    ...config.providers,
-    provideServerRendering(),
-    provideServerRoutesConfig(serverRoutes)
-  ]
- });
+const bootstrap = () =>
+  bootstrapApplication(AppComponent, {
+    ...config,
+    providers: [...config.providers, provideServerRendering(withRoutes(serverRoutes))]
+  });
 
 // const oldLog = console.log;
 

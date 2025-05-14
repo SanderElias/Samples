@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-back-drop',
   templateUrl: './back-drop.component.html',
-  styles: [],
+  styles: []
 })
 export class BackDropComponent implements OnInit {
   constructor() {}

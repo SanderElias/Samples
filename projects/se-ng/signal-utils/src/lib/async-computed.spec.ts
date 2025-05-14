@@ -1,3 +1,4 @@
+import { provideServerRendering } from '@angular/ssr';
 import '@angular/compiler';
 import { Component, DestroyRef, provideExperimentalZonelessChangeDetection, runInInjectionContext } from '@angular/core';
 import { of, throwError } from 'rxjs';
@@ -6,25 +7,24 @@ import { describe, it } from 'node:test';
 import assert from 'assert';
 import { setTimeout } from 'timers/promises';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideServerRendering } from '@angular/platform-server';
 import jsdom from 'jsdom';
 
 const dom = new jsdom.JSDOM(`<!DOCTYPE html><test-component />`);
 globalThis.document = dom.window.document;
 
 @Component({
-    selector: 'test-component',
-    template: ''
+  selector: 'test-component',
+  template: ''
 })
 class TestComponent {}
 
 const appRef = await bootstrapApplication(TestComponent, {
-  providers: [provideServerRendering(), provideExperimentalZonelessChangeDetection()],
+  providers: [provideServerRendering(), provideExperimentalZonelessChangeDetection()]
 });
 
 describe('asyncComputed', () => {
   let destroyRef: DestroyRef = {
-    onDestroy: () => {},
+    onDestroy: () => {}
   } as any;
 
   it('should handle synchronous values', () => {

@@ -7,7 +7,10 @@ const objProxy = new Proxy(sample, {
       return Reflect.get(target, prop, receiver);
     }
 
-    const path = (prop as string).split(/\./g).flatMap((p) => p.split(/\[|\]/g)).filter((p) => p);
+    const path = (prop as string)
+      .split(/\./g)
+      .flatMap(p => p.split(/\[|\]/g))
+      .filter(p => p);
     let value = target;
     for (const key of path) {
       console.log('key', key);
@@ -19,7 +22,7 @@ const objProxy = new Proxy(sample, {
     }
 
     return value;
-  },
+  }
 });
 
-console.log(objProxy["a.b.c[0].name"]); // sander
+console.log(objProxy['a.b.c[0].name']); // sander

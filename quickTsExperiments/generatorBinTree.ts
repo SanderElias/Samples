@@ -34,7 +34,6 @@ root.right.left.left = createNode('leaf L1');
 root.right.left.right = createNode('leaf L2');
 root.right.right.left = createNode('leaf R1');
 
-
 function keepState<T>(initialState?: Partial<T>): Generator<T> {
   function* intKeepState(initialState?: Partial<T>) {
     let internalState = initialState ?? ({} as Partial<T>);
@@ -55,7 +54,7 @@ const state = keepState({
   a: 10,
   b: 'user',
   c: false,
-  d: 0,
+  d: 0
 });
 
 console.log(state.next({ d: 7 }).value);
@@ -78,7 +77,7 @@ const logDeco = (preString = 'logDeco') => {
         this[privateProp].next(value);
       },
       configurable: false,
-      enumerable: true,
+      enumerable: true
     };
     Object.defineProperty(target, name, desc);
   };

@@ -10,7 +10,7 @@ describe('deepEqual', () => {
     {
       first: { a: 'abc' },
       second: { a: 'abc' },
-      isEqual: true,
+      isEqual: true
     },
     //
     { first: { a: 1 }, second: { a: 2 }, isEqual: false },
@@ -22,11 +22,11 @@ describe('deepEqual', () => {
     {
       first: { a: 'abc' },
       second: { a: 'abcd' },
-      isEqual: false,
-    },
+      isEqual: false
+    }
   ];
 
-  assertionsMap.forEach((assertion) => {
+  assertionsMap.forEach(assertion => {
     it('determines Object equality correctly', () => {
       expect(deepEqual(assertion.first, assertion.second)).toBe(assertion.isEqual);
     });

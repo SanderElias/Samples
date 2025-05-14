@@ -18,7 +18,7 @@ export type SortField = (typeof sortFields)[number];
 const Authorization = `Basic ${btoa('admin:password')}`; // Not secure, but this is a demo, so we don't care.
 const headers = {
   Authorization,
-  'Content-Type': 'application/json',
+  'Content-Type': 'application/json'
 };
 const httpOptions = { headers };
 
@@ -48,19 +48,19 @@ export class RelationsService {
           $or: [
             { name: { $regex: this.#filter() } },
             { username: { $regex: this.#filter() } },
-            { email: { $regex: this.#filter() } },
-          ],
+            { email: { $regex: this.#filter() } }
+          ]
         },
         fields: ['id'],
         sort: [{ [this.sort()]: this.order() }],
-        limit: 10,
+        limit: 10
       },
-      headers,
+      headers
     }),
     {
       defaultValue: [],
       // unwrap the CouchDB response to get the list of ids.
-      parse: (response: any) => (response?.docs ?? []).map((i: { id: string }) => i.id),
+      parse: (response: any) => (response?.docs ?? []).map((i: { id: string }) => i.id)
     }
   );
   #list = this.#listRes.value;
@@ -115,7 +115,7 @@ export class RelationsService {
   // I'm using a a helper to create the read in a cached version.
   // it returns (id: Signal<string>) => Signal<HttpResourceRef<UserCard | undefined>
   read = injectCachedHttpResource(this.baseUrl, this.#cache, {
-    headers,
+    headers
   });
 
   update = async (data: UserCard) => {
@@ -143,7 +143,7 @@ export class RelationsService {
       return true;
     } catch (e: any) {
       const {
-        error: { error: err, reason },
+        error: { error: err, reason }
       } = e ?? {};
       console.log(e, err, reason);
       if (reason.startsWith('Document update conflict')) {
@@ -176,7 +176,7 @@ export class RelationsService {
       await this.#http.delete(url + `?rev=${rev}`, httpOptions);
     } catch (e: any) {
       const {
-        error: { error: err, reason },
+        error: { error: err, reason }
       } = e ?? {};
       console.log(e, err, reason);
       if (err === 'not_found' && reason === 'deleted') {
@@ -196,7 +196,7 @@ export class RelationsService {
 
   listenForDBChanges = () => {
     if (typeof window === 'undefined') return; // I don't want to this this server side.
-    const url = new URL(this.baseUrl+'/_changes');
+    const url = new URL(this.baseUrl + '/_changes');
     url.username = 'admin';
     url.password = 'password';
     url.searchParams.set('feed', 'eventsource');
@@ -213,13 +213,21 @@ export class RelationsService {
         source.close();
       }
     });
-    source.addEventListener('heartbeat', function () {
-      // this is just a ping to keep the connection alive.
-      console.log('heartbeat');
-    }, false);
-    source.addEventListener('message', function (e: any) {
-      console.log('Message from event source', e.data);
-    }, false);
+    source.addEventListener(
+      'heartbeat',
+      function () {
+        // this is just a ping to keep the connection alive.
+        console.log('heartbeat');
+      },
+      false
+    );
+    source.addEventListener(
+      'message',
+      function (e: any) {
+        console.log('Message from event source', e.data);
+      },
+      false
+    );
   };
 
   constructor() {
@@ -234,7 +242,7 @@ export class RelationsService {
       const url = `${this.baseUrl}/_all_docs`;
       const body = {
         sort: [{ [this.sort()]: this.order() }],
-        include_docs: false,
+        include_docs: false
       };
       const start = performance.now();
       const res = await this.#http.post(url, body, httpOptions);
@@ -256,7 +264,7 @@ async function goAddData() {
     const res = await fetch(`${url}/${relation.id}`, {
       method: 'PUT',
       headers,
-      body: JSON.stringify(relation),
+      body: JSON.stringify(relation)
     });
   }
 }
@@ -272,12 +280,12 @@ async function createIndex(fieldName: string = 'name') {
     index: { fields: [fieldName] },
     name: fieldName,
     type: 'json',
-    ddoc: 'fieldIndex-' + fieldName,
+    ddoc: 'fieldIndex-' + fieldName
   };
   const res = await fetch(url, {
     method: 'POST',
     headers,
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
   if (!res.ok) {
     throw new Error(`Error creating index: ${res.statusText}`);

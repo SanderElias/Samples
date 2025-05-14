@@ -17,7 +17,7 @@ export const createUniqueId = Date.now()
   .join();
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class RelationsService {
   fakerModule = import('@faker-js/faker');
@@ -54,7 +54,7 @@ export class RelationsService {
       ...userCard(faker),
       avatar: faker.image.avatar(),
       id,
-      orders: Array.from({ length: randomInt(4) + 1 }, () => getId()),
+      orders: Array.from({ length: randomInt(4) + 1 }, () => getId())
     };
     this.relationList$.next([...this.relationList$.value, relation]);
     return relation as Relation;
@@ -74,16 +74,16 @@ function userCard(faker: any) {
       zipcode: faker.address.zipCode(),
       geo: {
         lat: faker.address.latitude(),
-        lng: faker.address.longitude(),
-      },
+        lng: faker.address.longitude()
+      }
     },
     phone: faker.phone.number(),
     website: faker.internet.domainName(),
     company: {
       name: faker.company.name(),
       catchPhrase: faker.company.catchPhrase(),
-      bs: faker.company.bs(),
-    },
+      bs: faker.company.bs()
+    }
   };
 }
 

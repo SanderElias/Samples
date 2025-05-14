@@ -17,7 +17,7 @@ import { ObsFromEvent } from './ObsFromEvent';
   templateUrl: './vm-home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
+  imports: [PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe]
 })
 export class VmHomeComponent {
   private raki = inject(RakiService);

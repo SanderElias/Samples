@@ -106,7 +106,7 @@ class job {
           // tap(r => console.log(r)),
           take(1)
         )
-        .toPromise(),
+        .toPromise()
     ])
       .then(r => this.#done(r))
       .catch(e => this.#fail(e));

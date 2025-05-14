@@ -4,9 +4,9 @@ import { Component, computed, inject, model, signal } from '@angular/core';
 import { JsonPlaceHolderService } from './json-place-holder.service';
 
 @Component({
-    selector: 'se-signal-play',
-    imports: [JsonPipe],
-    template: `
+  selector: 'se-signal-play',
+  imports: [JsonPipe],
+  template: `
     <h3>Available:{{ $availableUserCount() }} current:{{ id() }}</h3>
     <hr />
     <pre><code>{{$user()|json}}</code></pre>
@@ -15,7 +15,7 @@ import { JsonPlaceHolderService } from './json-place-holder.service';
     <button (click)="next()">next</button>
     <button (click)="prev()">prev</button>
   `,
-    styleUrl: './signal-play.component.css'
+  styleUrl: './signal-play.component.css'
 })
 export default class SignalPlayComponent {
   // sps = inject(SignalPlayService);
@@ -28,7 +28,6 @@ export default class SignalPlayComponent {
   $state = computed(() => this.userResource.status());
 
   // $street = linkedSignal(this.$user, user => user.address.street);
-
 
   $availableUserCount = computed(() => this.jph.usersResource.value()?.length ?? 0);
 

@@ -28,21 +28,23 @@ import { StepsComponent } from './steps/steps.component';
     <br /><br />
     <h3>Radio buttons</h3>
     <fieldset>
-    @for (step of steps; track step.stepNumber) {
-      <label (click)="setStep(step.stepNumber)">
-        <span><span class="id">{{step.stepNumber}}</span> {{ step.stepName }}</span>
-        <input name="testGroep" type="radio" [checked]="radioStep() === step.stepNumber" [value]="step.stepNumber" />
-      </label>
-    }
+      @for (step of steps; track step.stepNumber) {
+        <label (click)="setStep(step.stepNumber)">
+          <span
+            ><span class="id">{{ step.stepNumber }}</span> {{ step.stepName }}</span
+          >
+          <input name="testGroep" type="radio" [checked]="radioStep() === step.stepNumber" [value]="step.stepNumber" />
+        </label>
+      }
     </fieldset>
   `,
-  styleUrl: './stepper.component.css',
+  styleUrl: './stepper.component.css'
 })
 export class StepperComponent {
   steps = [
     { stepNumber: 1, stepName: 'Step 1' },
     { stepNumber: 2, stepName: 'Step 2' },
-    { stepNumber: 3, stepName: 'Step 3' },
+    { stepNumber: 3, stepName: 'Step 3' }
   ];
   currentStep = signal(1);
   radioStep = signal(1);

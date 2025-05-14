@@ -17,7 +17,7 @@ import {
   producerAccessed,
   ProducerId,
   producerNotifyConsumers,
-  setActiveConsumer,
+  setActiveConsumer
 } from './internal.js';
 import { WeakRef } from './weak_ref.js';
 

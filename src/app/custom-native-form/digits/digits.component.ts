@@ -21,7 +21,7 @@ class SignalFormController extends HTMLElement {
   template: `@for (val of values(); track $index) {
     <input type="text" value="{{ val }}" maxlength="1" inputmode="numeric" (change)="update()" />
   }`,
-  styleUrl: './digits.component.css',
+  styleUrl: './digits.component.css'
 })
 export class DigitsComponent extends SignalFormController {
   #digits = signal(4);

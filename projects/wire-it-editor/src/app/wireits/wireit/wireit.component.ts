@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, Input, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PackageJsonService, WireItEntry } from '../../package.json.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ArrInputComponent } from './arr-input/arr-input.component';
@@ -9,9 +9,9 @@ import { ShowMessageComponent } from './show-message/show-message.component';
 import { DepedenciesComponent } from './depedencies/depedencies.component';
 
 @Component({
-    selector: 'se-wireit',
-    imports: [CommonModule, FormsModule, ArrInputComponent, ShowMessageComponent, DepedenciesComponent],
-    template: `
+  selector: 'se-wireit',
+  imports: [FormsModule, ArrInputComponent, ShowMessageComponent, DepedenciesComponent],
+  template: `
     <header>
       <h3 contenteditable (blur)="nameEdit($event)">{{ name }}</h3>
       <div class="buttongroup">
@@ -79,9 +79,8 @@ import { DepedenciesComponent } from './depedencies/depedencies.component';
     </main>
     <se-show-message [message]="message" (dismissed)="message = ''"></se-show-message>
   `,
-    styleUrls: ['./wireit.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-
+  styleUrls: ['./wireit.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WireitComponent {
   @Input() name: string;

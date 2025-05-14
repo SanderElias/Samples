@@ -1,7 +1,7 @@
 const someSample: SomeSample = {
   a: 1,
   hello: 'hello',
-  b: new Date(),
+  b: new Date()
 };
 
 interface SomeSample {

@@ -2,10 +2,11 @@
   display: block;
 }
 
-svg, img {
+svg,
+img {
   width: 2rem;
   aspect-ratio: 1/1;
-  color:white;
+  color: white;
   display: inline-block;
   fill: white;
 }

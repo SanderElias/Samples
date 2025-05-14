@@ -49,12 +49,12 @@ export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime 
           }
         },
         error: err => subscriber.error(err),
-        complete: () => {},
+        complete: () => {}
       };
       const res = {
         sub: source.subscribe(subObserver),
         last: undefined,
-        index,
+        index
       };
       clients.set(source, res);
       return;

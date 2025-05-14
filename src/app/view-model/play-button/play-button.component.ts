@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       <span [hidden]="!isPaused()"><i class="fas fa-fw fa-play"></i></span>
     </button>
   `,
-  standalone: true,
+  standalone: true
 })
 export class PlayButtonComponent {
   isPaused = input<boolean | null>();

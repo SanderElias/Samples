@@ -1,12 +1,11 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, afterRender, inject, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, afterEveryRender, inject, viewChild, DOCUMENT } from '@angular/core';
 import { HighLightBodyComponent } from '../high-light-body/high-light-body.component';
 
 @Component({
-    selector: 'td:not([ignoreHl])',
-    imports: [],
-    template: `<span #org><ng-content></ng-content></span>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'td:not([ignoreHl])',
+  imports: [],
+  template: `<span #org><ng-content></ng-content></span>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HighLightTDComponent {
   /** injections  */
@@ -33,7 +32,7 @@ export class HighLightTDComponent {
     if (!highLight) return false; // if there is nothing to highlight, we are done too
     const hl = new RegExp(highLight, 'gi');
     if (!hl.test(originalText)) return false; // the filter is not in this cell, done!
-    const newHtml = originalText.replace(hl, (match) => `<mark>${match}</mark>`); // create the new content using the HTML <mark> to do the highlighting
+    const newHtml = originalText.replace(hl, match => `<mark>${match}</mark>`); // create the new content using the HTML <mark> to do the highlighting
     if (newHtml !== fakeContent.innerHTML) {
       // only rewrite the dom when there is a change. DOM writes are way more expensive as a test
       fakeContent.innerHTML = newHtml; // inject the version with the markers in there.
@@ -48,6 +47,6 @@ export class HighLightTDComponent {
     }
 
     this.elm.appendChild(this.fakeElm); // add the empty span, so its ready to go.
-    afterRender({ read: this.highLight }); // run the highlight function after the render cycle.
+    afterEveryRender({ read: this.highLight }); // run the highlight function after the render cycle.
   }
 }

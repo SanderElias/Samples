@@ -5,15 +5,14 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { SlidesService } from '../../slides.service';
 
 @Component({
-    selector: 'select-file',
-    template: `<select>
+  selector: 'select-file',
+  template: `<select>
     @for (file of files$ | async; track file) {
       <option>{{ file }}</option>
     }
   </select>`,
-    styles: [`":host{display:block}`],
-    imports: [AsyncPipe],
-
+  styles: [`":host{display:block}`],
+  imports: [AsyncPipe]
 })
 export class SelectFileComponent implements OnDestroy, OnInit {
   private elmRef = inject(ElementRef);

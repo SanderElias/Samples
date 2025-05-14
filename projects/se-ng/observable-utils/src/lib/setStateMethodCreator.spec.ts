@@ -12,7 +12,7 @@ describe('createSetStateMethod', () => {
   const state$ = new ReplaySubject<State>(1);
   /** put in the initial state. */
   state$.next({
-    testRuns: 0,
+    testRuns: 0
   });
 
   it('it should return a function', () => {

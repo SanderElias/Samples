@@ -1,14 +1,14 @@
 import { Component, ElementRef, inject, model } from '@angular/core';
 
 @Component({
-    selector: 'ev-child',
-    imports: [],
-    template: ` <ng-content /> `,
-    styleUrl: './ev-child.component.css',
-    host: {
-        '[class.selected]': 'selected()',
-        '(click)': 'handleClick()',
-    }
+  selector: 'ev-child',
+  imports: [],
+  template: ` <ng-content /> `,
+  styleUrl: './ev-child.component.css',
+  host: {
+    '[class.selected]': 'selected()',
+    '(click)': 'handleClick()'
+  }
 })
 export class EvChildComponent<T = unknown> {
   selected = model(false);
@@ -33,6 +33,6 @@ const domEventOutput = <T = string>(name: string, options: { bubbles?: boolean; 
     emit: (payload: T) => {
       const ev = new CustomEvent(name, { ...options, detail: payload });
       elm.dispatchEvent(ev);
-    },
+    }
   };
 };

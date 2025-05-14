@@ -11,9 +11,9 @@ declare global {
 }
 
 @Component({
-    selector: 'app-select-package-json',
-    imports: [CommonModule],
-    template: `
+  selector: 'app-select-package-json',
+  imports: [CommonModule],
+  template: `
     @if (vm$ | async; as vm) {
       @if (vm.hasHandle === false) {
         <button (click)="readPackageJson()">Open a Package.json</button>
@@ -24,16 +24,15 @@ declare global {
       }
     }
   `,
-    styles: [
-        `
+  styles: [
+    `
       :host {
         display: flex;
         gap: 1rem;
       }
-    `,
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-
+    `
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectPackageJsonComponent {
   pjs = inject(PackageJsonService);
@@ -45,13 +44,13 @@ export class SelectPackageJsonComponent {
     hasHandle: this.hasHandle$,
     handle: this.pjs.fileHandle$,
     name: this.pjs.pjObject$.pipe(map(contents => contents.name)),
-    oldContent: this.storedPackageJson,
+    oldContent: this.storedPackageJson
   }).pipe(
     // tap(console.log),
     startWith({
       hasHandle: false,
       handle: null,
-      name: '',
+      name: ''
     })
   );
 
@@ -64,10 +63,10 @@ export class SelectPackageJsonComponent {
         types: [
           {
             description: 'select a package.JSON file',
-            accept: { 'application/json': ['.json'] },
-          },
+            accept: { 'application/json': ['.json'] }
+          }
         ],
-        multiple: false,
+        multiple: false
       });
       this.pjs.setHandle(fileHandle);
     } catch (e) {

@@ -13,17 +13,16 @@ interface State {
 }
 
 @Component({
-    selector: 'code-sample',
-    template: ``,
-    styles: [
-        `
+  selector: 'code-sample',
+  template: ``,
+  styles: [
+    `
       :host {
         display: block;
         height: 300px;
       }
-    `,
-    ],
-
+    `
+  ]
 })
 export class CodeSampleComponent implements OnInit, OnDestroy {
   private http = inject(HttpClient);
@@ -85,7 +84,7 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
               roundedSelection: false,
               scrollBeyondLastLine: false,
               renderValidationDecorations: 'off',
-              minimap: { enabled: false },
+              minimap: { enabled: false }
             });
             window['e'] = editor;
             window.addEventListener('keydown', ev => {

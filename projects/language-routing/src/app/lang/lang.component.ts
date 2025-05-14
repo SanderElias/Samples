@@ -1,17 +1,16 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, inject, input } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { map } from 'rxjs';
 import { LangService } from '../lang.service';
 
 @Component({
-    selector: 'se-lang',
-    imports: [CommonModule, RouterOutlet],
-    template: ` <a href="/">Pick a language</a>
+  selector: 'se-lang',
+  imports: [RouterOutlet],
+  template: ` <a href="/">Pick a language</a>
     <router-outlet></router-outlet>`,
-    styleUrls: ['./lang.component.css']
+  styleUrls: ['./lang.component.css']
 })
-export class LangComponent  {
+export class LangComponent {
   ls = inject(LangService);
   langId = input<string>();
   // langSub = inject(ActivatedRoute)
@@ -23,5 +22,5 @@ export class LangComponent  {
   dymmy = effect(() => {
     console.log({ langId: this.langId });
     this.ls.pick(this.langId);
-  })
+  });
 }

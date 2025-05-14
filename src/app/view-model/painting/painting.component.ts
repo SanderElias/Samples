@@ -6,15 +6,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'painting',
   templateUrl: './painting.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  standalone: true
 })
 export class PaintingComponent {
   #san = inject(DomSanitizer);
   /** Add an class to the host */
   @HostBinding('class.z2') shadow = true;
 
-  art = input<string|null>();
+  art = input<string | null>();
 
   url = computed(() => this.#san.bypassSecurityTrustStyle(this.art() ?? ''));
-
 }

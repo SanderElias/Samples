@@ -27,7 +27,7 @@ export const debouncedComputed = <T>(
   const returnValue: WritableSignal<T> = linkedSignal({
     source: () => ({
       value: fn(),
-      time: triggerSignal(),
+      time: triggerSignal()
     }),
     computation: ({ value, time }) => {
       if (time === 0) {
@@ -48,7 +48,7 @@ export const debouncedComputed = <T>(
       }
       return currentResult;
     },
-    equal: options.equal,
+    equal: options.equal
   });
 
   return returnValue.asReadonly();

@@ -109,7 +109,7 @@ export function signal<T>(initialValue: T, equal: ValueEqualityFn<T> = defaultEq
   const res = markSignal(sig.signal.bind(sig), {
     set: sig.set.bind(sig),
     update: sig.update.bind(sig),
-    mutate: sig.mutate.bind(sig),
+    mutate: sig.mutate.bind(sig)
   });
   return res;
 }

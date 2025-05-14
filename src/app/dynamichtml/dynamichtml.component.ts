@@ -7,7 +7,7 @@ import {
   Injector,
   Input,
   OnInit,
-  SecurityContext,
+  SecurityContext
 } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -29,8 +29,8 @@ import { DomSanitizer } from '@angular/platform-browser';
         border: 1px solid green;
         padding: 5px 2px;
       }
-    `,
-  ],
+    `
+  ]
 })
 class DynDataComponent {
   private parent = inject(DynamicHtmlComponent);
@@ -65,8 +65,8 @@ class DynDataComponent {
         width: 30rem;
         padding: 0;
       }
-    `,
-  ],
+    `
+  ]
 })
 export class DynamicHtmlComponent {
   private elmRef = inject(ElementRef);

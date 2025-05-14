@@ -32,14 +32,14 @@ export const deepClone: DeepClone = <T>(value: T, existingClones = new Map()): T
   if (value instanceof Set) {
     const clone = new Set();
     existingClones.set(value, clone);
-    [...value].forEach((val) => clone.add(cloneObj(val)));
+    [...value].forEach(val => clone.add(cloneObj(val)));
 
     return clone as unknown as T;
   }
   if (value instanceof Map) {
     const clone = new Map();
     existingClones.set(value, clone);
-    [...value.entries()].forEach((val) => clone.set(cloneObj(val[0]), cloneObj(val[1])));
+    [...value.entries()].forEach(val => clone.set(cloneObj(val[0]), cloneObj(val[1])));
 
     return clone as unknown as T;
   }

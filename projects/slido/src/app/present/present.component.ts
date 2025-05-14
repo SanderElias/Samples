@@ -14,9 +14,9 @@ import { NavSLidesService } from '../nav-slides.service.js';
   host: {
     '(document:keydown)': 'keyHandler($event)',
     '(document:contextmenu)': 'navRel(-1);$event.preventDefault();',
-    '(document:click)': 'navRel(1);$event.preventDefault();',
+    '(document:click)': 'navRel(1);$event.preventDefault();'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresentComponent {
   router = inject(Router);

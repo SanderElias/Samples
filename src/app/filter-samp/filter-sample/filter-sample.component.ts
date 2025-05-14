@@ -9,10 +9,10 @@ import { AddressService, UserCard } from '../../generic-services/address.service
 type Vm = [UserCard[], string];
 
 @Component({
-    selector: 'app-filter-sample',
-    templateUrl: './filter-sample.component.html',
-    styles: [],
-    imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, AsyncPipe]
+  selector: 'app-filter-sample',
+  templateUrl: './filter-sample.component.html',
+  styles: [],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, AsyncPipe]
 })
 export class FilterSampleComponent {
   private us = inject(AddressService);
@@ -32,7 +32,7 @@ export class FilterSampleComponent {
 
   vm$ = combineLatest([this.users$, this.filter$]).pipe(
     map(([users, filterStr]: Vm) => ({
-      users: users.filter(row => (filterStr ? row.name.toLocaleLowerCase().includes(filterStr) : true)),
+      users: users.filter(row => (filterStr ? row.name.toLocaleLowerCase().includes(filterStr) : true))
     }))
   );
 }

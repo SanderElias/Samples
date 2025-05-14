@@ -3,19 +3,19 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 export const serverRoutes: ServerRoute[] = [
   {
     path: 'localState/:id',
-    renderMode: RenderMode.Client,
+    renderMode: RenderMode.Client
   },
   {
     path: 'unsubSample/:id',
-    renderMode: RenderMode.Client,
+    renderMode: RenderMode.Client
   },
   {
     path: 'blog/:id',
     renderMode: RenderMode.Prerender,
-    getPrerenderParams: async () => [{ id: 'dry-kiss' }, { id: 'dry-kiss-2' }],
+    getPrerenderParams: async () => [{ id: 'dry-kiss' }, { id: 'dry-kiss-2' }]
   },
   {
     path: '**',
-    renderMode: RenderMode.Prerender,
-  },
+    renderMode: RenderMode.Prerender
+  }
 ];

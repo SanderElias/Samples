@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { firstValueFrom,map, mergeMap, shareReplay, startWith, Subject, take, tap, timer } from 'rxjs';
+import { firstValueFrom, map, mergeMap, shareReplay, startWith, Subject, take, tap, timer } from 'rxjs';
 
 import { createUniqueId } from './util/random-things';
 
@@ -13,7 +13,7 @@ const chanceProm = import('chance')
 enum UserState {
   isNew,
   isAccepted,
-  isActive,
+  isActive
 }
 
 export interface DemoUser {
@@ -30,7 +30,7 @@ export interface DemoUser {
  * A sample service that showcases how you can use observables in an effective way
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class DemoUserService {
   /** subject to init && be able to flush the cache */
@@ -64,7 +64,7 @@ export class DemoUserService {
     const newUsers = await Promise.all(
       Array.from({ length: newUserCount }).map(async (e, i) => ({
         ...(await fakeUser()),
-        id: createUniqueId(),
+        id: createUniqueId()
       }))
     );
 
@@ -121,7 +121,7 @@ async function fakeUser() {
     username: chance.name(),
     isAdmin: chance.bool(),
     isActive: chance.bool(),
-    email: chance.email(),
+    email: chance.email()
   };
 }
 

@@ -4,15 +4,15 @@ export const dTos = (date: Date) => {
     month: (date.getMonth() + 1).toString().padStart(2, '0'),
     day: date.getDate().toString().padStart(2, '0'),
     hours: date.getHours().toString().padStart(2, '0'),
-    minutes: date.getMinutes().toString().padStart(2, '0'),
+    minutes: date.getMinutes().toString().padStart(2, '0')
   };
   return `${split.year}-${split.month}-${split.day}T${split.hours}:${split.minutes}`;
 };
 
 import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
-    name: 'dTos',
-    pure: false
+  name: 'dTos',
+  pure: false
 })
 export class DTosPipe implements PipeTransform {
   transform<T>(value: any): T | string {

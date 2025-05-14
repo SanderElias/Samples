@@ -1,10 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, effect, inject, Injectable, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, Injectable, signal } from '@angular/core';
 
 @Component({
-    selector: 'se-symbols-form',
-    imports: [CommonModule],
-    template: `
+  selector: 'se-symbols-form',
+  imports: [],
+  template: `
     <h3>Symbol Form for "{{ fullName() }}"</h3>
     <label
       >First Name
@@ -15,8 +14,8 @@ import { ChangeDetectionStrategy,Component, computed, effect, inject, Injectable
       <input type="text" [value]="vm().lastName()" (input)="vm().lastName.set($any($event).target.value)" />
     </label>
   `,
-    styleUrls: ['./signals-form.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./signals-form.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignalsFormsComponent {
   fullName = inject(SignalsFormSampleService).fullName;
@@ -24,12 +23,12 @@ export class SignalsFormsComponent {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SignalsFormSampleService {
   readonly vm = signal({
     firstName: signal('Sander'),
-    lastName: signal('Elias'),
+    lastName: signal('Elias')
   });
 
   readonly fullName = computed(() => `${this.vm().firstName()} ${this.vm().lastName()}`.trim());

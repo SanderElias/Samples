@@ -5,13 +5,13 @@ import { afterNextRender, Component } from '@angular/core';
   selector: 'app-lazy-component',
   templateUrl: './lazy-component.component.html',
   styles: [],
-  imports: [NgComponentOutlet],
+  imports: [NgComponentOutlet]
 })
 export class LazyComponentComponent {
   steps = [
     { file: () => import('./sample-one/sample-one.component') },
     { file: () => import('./sample-two/sample-two.component') },
-    { file: () => import('./sample-three/sample-three.component') },
+    { file: () => import('./sample-three/sample-three.component') }
   ];
   currentStep = 2;
   component: any;

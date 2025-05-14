@@ -11,7 +11,7 @@ export interface Model {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SampledataService {
   #data$ = new BehaviorSubject<Model>({
@@ -20,7 +20,7 @@ export class SampledataService {
     dob: new Date('1990-01-01'),
     email: 'sander@noyb.eu',
     admin: true,
-    level: 4,
+    level: 4
   });
 
   /** get a fresh clone on each use */

@@ -11,8 +11,8 @@ interface LocalState {
 }
 
 @Component({
-    selector: 'app-ls-home',
-    template: `
+  selector: 'app-ls-home',
+  template: `
     <h2>test some state</h2>
     @if (vm$ | async; as vm) {
       <button #b (click)="updateCounterWith(-1)">-1</button>
@@ -21,14 +21,14 @@ interface LocalState {
       <!-- <button #b *ngIf="vm.count%2" (click)="updateCounterWith(2)">+2</button> -->
     }
   `,
-    styles: [],
-    imports: [AsyncPipe]
+  styles: [],
+  imports: [AsyncPipe]
 })
 export class LsHomeComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   localState$ = new BehaviorSubject<LocalState>({
-    count: 0,
+    count: 0
   });
 
   id$ = this.route.params.pipe(
@@ -54,7 +54,7 @@ export class LsHomeComponent implements OnInit {
   vm$ = combineLatest({ id: this.id$, state: this.localState$ }).pipe(
     map(preVm => ({
       id: preVm.id,
-      count: preVm.state.count || 0,
+      count: preVm.state.count || 0
     }))
     // tap(console.log)
   );
@@ -64,7 +64,7 @@ export class LsHomeComponent implements OnInit {
   updateCounterWith(value: number) {
     this.localState$.next({
       ...this.localState$.value,
-      count: this.localState$.value.count ?? 0 + value,
+      count: this.localState$.value.count ?? 0 + value
     });
   }
 }
@@ -87,7 +87,7 @@ export function ObservableInput(input: string): any {
         throw new Error(`Don't read the "${propertyName}" directly, instead take it from the "${input}" behaviourSubject`);
       },
       configurable: false,
-      enumerable: true,
+      enumerable: true
     });
   };
 }

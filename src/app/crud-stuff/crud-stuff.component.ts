@@ -64,11 +64,11 @@ import { generateRelation } from './generateRelation';
     -->
     <se-notify-dialog /> `,
   styleUrl: './crud-stuff.component.css',
-  providers: [RelationsService],
+  providers: [RelationsService]
 })
 export class CrudStuffComponent {
   relationsService = inject(RelationsService);
-  nds = inject(NotifyDialogService)
+  nds = inject(NotifyDialogService);
   relationIds = computed(() => {
     //make sure we allways have 10 rows
     const emptyRow = Array.from({ length: 10 }, () => '');
@@ -109,4 +109,3 @@ export class CrudStuffComponent {
     }
   };
 }
-

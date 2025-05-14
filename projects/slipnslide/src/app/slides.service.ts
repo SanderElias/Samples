@@ -22,7 +22,7 @@ export interface Slide {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SlidesService {
   private http = inject(ient);
@@ -57,7 +57,7 @@ export class SlidesService {
                   filename,
                   yaml: attributes as SlideHeader,
                   markdown: body,
-                  position: attributes['position'] || 999,
+                  position: attributes['position'] || 999
                 };
               })
             )

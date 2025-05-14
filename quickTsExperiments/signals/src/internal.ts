@@ -115,7 +115,7 @@ export function producerAccessed(producer: Producer): void {
       consumerRef: activeConsumer.ref,
       producerRef: producer.ref,
       seenValueVersion: producer.valueVersion,
-      atTrackingVersion: activeConsumer.trackingVersion,
+      atTrackingVersion: activeConsumer.trackingVersion
     };
     activeConsumer.producers.set(producer.id, edge);
     producer.consumers.set(activeConsumer.id, edge);

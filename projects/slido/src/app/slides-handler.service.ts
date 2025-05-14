@@ -6,7 +6,7 @@ import { FileHandlerService } from './file-handler.service';
 
 const separator = '\n---NextSlide\n';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SlidesHandlerService {
   file = inject(FileHandlerService);
@@ -20,7 +20,7 @@ export class SlidesHandlerService {
     const slides = signal(parseContentToSlides(content));
     return {
       name: this.file.$state().name,
-      slides,
+      slides
     };
   });
 
@@ -70,7 +70,7 @@ export class SlidesHandlerService {
       if (persists) {
         if (newContent !== this.file.$state().content()) {
           this.file.save(newContent);
-          console.log('saved')
+          console.log('saved');
         }
       }
     }
@@ -100,12 +100,12 @@ const parseIntoSlide = (content: string, index: number): Slide => {
     return {
       content: body,
       index,
-      ...(attrs ?? {}),
+      ...(attrs ?? {})
     };
   } catch (e) {
     return {
       content,
-      index,
+      index
     };
   }
 };

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -8,7 +7,7 @@ import {
   inject,
   NgZone,
   signal,
-  WritableSignal,
+  WritableSignal
 } from '@angular/core';
 
 import { CellComponent } from './cell/cell.component';
@@ -21,13 +20,13 @@ export interface Cell {
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 
 @Component({
-    selector: 'se-cells',
-    imports: [CommonModule, CellComponent],
-    template: `@for (cell of cells(); track $index) {
+  selector: 'se-cells',
+  imports: [CellComponent],
+  template: `@for (cell of cells(); track $index) {
     <se-cell [(cellData)]="cell" />
   } `,
-    styleUrls: ['./cells.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./cells.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellsComponent {
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
@@ -39,7 +38,7 @@ export class CellsComponent {
     Array.from({ length: 200 }, (_, i) =>
       signal<Cell>({
         id: i,
-        alive: Math.random() < 0.06, // populate ~5%
+        alive: Math.random() < 0.06 // populate ~5%
       })
     )
   );
@@ -56,7 +55,7 @@ export class CellsComponent {
         newCells.push(
           signal({
             id: len + i,
-            alive: Math.random() < 0.06, // populate ~5%
+            alive: Math.random() < 0.06 // populate ~5%
           })
         );
       }
@@ -116,7 +115,7 @@ export class CellsComponent {
   async ngOnInit() {
     this.calcGrid();
     await this.growList();
-    this.isAlive.set(true)
+    this.isAlive.set(true);
     this.cycle();
   }
 }

@@ -20,7 +20,7 @@ import { DummyContentComponent } from './dummy-content/dummy-content.component';
         <p>Some content</p>
       }
     </dialog> `,
-  styleUrl: './reusable-dialog.component.css',
+  styleUrl: './reusable-dialog.component.css'
 })
 export class ReusableDialogComponent {
   show = signal(false);

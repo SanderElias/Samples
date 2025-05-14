@@ -14,17 +14,17 @@ const mmGfm = import('micromark-extension-gfm');
     <!-- } -->
   `,
   styleUrl: './blogs.component.css',
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class BlogsComponent {
   san = inject(DomSanitizer);
   title = inject(Title);
 
   testblog = resource({
-    request: () => `/assets/articles/dry-kiss.md`, // hardcoded for now.
-    loader: async ({ request }) => {
-      console.log('request', request);
-      const response = await fetch(request);
+    params: () => `/assets/articles/dry-kiss.md`, // hardcoded for now.
+    loader: async ({ params }) => {
+      console.log('request', params);
+      const response = await fetch(params);
       const content = await response.text();
       if (content) {
         const { parser } = await import('./parser');
@@ -39,7 +39,6 @@ export class BlogsComponent {
       }
       // console.log('data', data)
       return 'blog not found';
-    },
+    }
   });
 }
-

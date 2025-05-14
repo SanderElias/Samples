@@ -8,7 +8,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import { Subject } from 'rxjs';
 

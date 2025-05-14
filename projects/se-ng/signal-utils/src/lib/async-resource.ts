@@ -16,7 +16,7 @@ export const enum ResourceState {
   /** a value is provided, and we are ready for the next value  */
   'awaiting' = 'awaiting',
   /** an error has happend  */
-  'error' = 'error',
+  'error' = 'error'
 }
 
 type StreamState = 'init' | 'ongoing' | 'done';
@@ -50,7 +50,7 @@ export const computedResource: AsyncResource = <T, Y>(
     value: initialValue,
     error: undefined,
     status: ResourceState.init,
-    stream: 'init',
+    stream: 'init'
   });
 
   const upState = (s: Partial<InternalState>) => state.update(prev => ({ ...prev, ...s }));
@@ -97,7 +97,7 @@ export const computedResource: AsyncResource = <T, Y>(
           subscription = outcome.subscribe({
             next: value => {
               assertContinue(abortSignal!);
-              state.update(s => ({ ...s, value, error: undefined, status: ResourceState.awaiting}));
+              state.update(s => ({ ...s, value, error: undefined, status: ResourceState.awaiting }));
             },
             error: error => {
               assertContinue(abortSignal!);
@@ -106,7 +106,7 @@ export const computedResource: AsyncResource = <T, Y>(
             complete: () => {
               assertContinue(abortSignal!);
               upState({ stream: 'done' });
-            },
+            }
           });
         } else if (isPromise(outcome)) {
           const value = await outcome;
@@ -131,9 +131,8 @@ export const computedResource: AsyncResource = <T, Y>(
     },
     /**
      * ManualCleanup to make sure that the cleanup is called when the effect is cleaned up, so we don't leak
-     * ForceRoot to make sure that the effect runs inside a microtask, so we can predictably use async/await
      */
-    { manualCleanup: true, forceRoot: true }
+    { manualCleanup: true }
   );
 
   /**
@@ -143,7 +142,7 @@ export const computedResource: AsyncResource = <T, Y>(
    */
   const valueSignal = linkedSignal({
     source: () => state().value,
-    computation: source => source,
+    computation: source => source
   });
   // return
   return computed(() => {
@@ -152,7 +151,7 @@ export const computedResource: AsyncResource = <T, Y>(
       value: valueSignal,
       error: currentState.error,
       status: currentState.status,
-      stream: currentState.stream,
+      stream: currentState.stream
     };
   });
 };

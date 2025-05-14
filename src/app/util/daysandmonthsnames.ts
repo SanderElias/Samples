@@ -13,9 +13,9 @@ function weekDays(countryCode?: string): Readonly<string[]> {
       const workDate = new Date(date.setDate(day + i));
       return [
         new Intl.DateTimeFormat(countryCode, {
-          weekday: 'long',
+          weekday: 'long'
         }).format(workDate),
-        workDate.getDay(),
+        workDate.getDay()
       ];
     })
     .sort((a, b) => (a[1] < b[1] ? -1 : 1))
@@ -29,7 +29,7 @@ function months(countryCode?: string): readonly string[] {
   countryCode ??= navigator.language;
   return Array.from({ length: 12 }).map((e, i) => {
     return new Intl.DateTimeFormat(countryCode, {
-      month: 'short',
+      month: 'short'
     })
       .format(new Date(2000, i, 2))
       .substr(0, 3);

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 
 import { CalenderDay } from '../calenderDay';
@@ -6,7 +5,7 @@ import { DayCellComponent } from '../day-cell/day-cell.component';
 
 @Component({
   selector: 'se-month',
-  imports: [CommonModule, DayCellComponent],
+  imports: [DayCellComponent],
   template: `
     <h2>{{ monthName() }}</h2>
     <span>S</span>
@@ -20,7 +19,7 @@ import { DayCellComponent } from '../day-cell/day-cell.component';
       <se-day-cell [day]="day" (click)="select(day)"></se-day-cell>
     }
   `,
-  styleUrls: ['./month.component.css'],
+  styleUrls: ['./month.component.css']
 })
 export class MonthComponent {
   date = input.required<Date>();
@@ -96,6 +95,6 @@ function createDay(date: Date, isCurrentMonth = true): CalenderDay {
     isCurrentMonth,
     isFirstSelected: false,
     isLastSelected: false,
-    isSpecial: false,
+    isSpecial: false
   };
 }

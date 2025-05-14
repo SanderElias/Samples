@@ -4,9 +4,9 @@ import { EvSourceDbService } from '../../ev-source-db.service';
 import type { FieldType } from '../edit-record.component';
 
 @Component({
-    selector: 'se-field-edit',
-    imports: [DTosPipe],
-    template: `
+  selector: 'se-field-edit',
+  imports: [DTosPipe],
+  template: `
     @switch (type()) {
       @case ('string') {
         <input type="text" [value]="data() ?? ''" (input)="update($event)" />
@@ -25,7 +25,7 @@ import type { FieldType } from '../edit-record.component';
       }
     }
   `,
-    styleUrl: './field-edit.component.css'
+  styleUrl: './field-edit.component.css'
 })
 export class FieldEditComponent {
   evdb = inject(EvSourceDbService);

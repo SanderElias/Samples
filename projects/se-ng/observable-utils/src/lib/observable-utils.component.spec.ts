@@ -8,7 +8,7 @@ describe('ObservableUtilsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ObservableUtilsComponent],
+      declarations: [ObservableUtilsComponent]
     }).compileComponents();
   }));
 

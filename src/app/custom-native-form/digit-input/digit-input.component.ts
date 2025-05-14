@@ -5,11 +5,11 @@ import { set } from 'idb-keyval';
   selector: 'digit-input[name][value]',
   imports: [],
   template: `<ng-content />`,
-  styleUrl: './digit-input.component.css',
+  styleUrl: './digit-input.component.css'
 })
 export class DigitInputComponent {
   elm = inject(ElementRef).nativeElement as DigitInput;
-  digits = input<string|number>(4);
+  digits = input<string | number>(4);
 
   // _ = afterRenderEffect(() => {
   //   const elm = this.elm;
@@ -146,7 +146,6 @@ class DigitInput extends HTMLElement {
       this.checkValidity();
     }
     if (name === 'digits') {
-      
       this.digits = newValue;
     }
   }

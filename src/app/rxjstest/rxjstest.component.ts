@@ -1,21 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  finalize,
-  map,
-  Observable,
-  tap,
-  timer,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, finalize, map, Observable, tap, timer } from 'rxjs';
 
 import { combinator } from './combinator';
 
 @Component({
-    selector: 'se-rxjstest',
-    imports: [CommonModule],
-    template: `<h1>Rxjs cleanup test</h1>
+  selector: 'se-rxjstest',
+  imports: [CommonModule],
+  template: `<h1>Rxjs cleanup test</h1>
     @if (vm$ | async; as vm) {
       <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp.length }}</span>
       <ul>
@@ -27,8 +19,8 @@ import { combinator } from './combinator';
         }
       </ul>
     } `,
-    styleUrls: ['./rxjstest.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./rxjstest.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RxjstestComponent {
   cdr = inject(ChangeDetectorRef);
@@ -57,7 +49,7 @@ export class RxjstestComponent {
 
   vm$ = combineLatest({
     data: this.data$,
-    comp: this.completed$,
+    comp: this.completed$
   }).pipe();
 
   add(count = Math.floor(Math.random() * 150) + 50) {

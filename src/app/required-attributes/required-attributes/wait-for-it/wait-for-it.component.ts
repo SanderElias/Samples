@@ -4,10 +4,10 @@ import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
-    selector: 'app-wait-for-it',
-    templateUrl: './wait-for-it.component.html',
-    styles: [],
-    imports: [AsyncPipe]
+  selector: 'app-wait-for-it',
+  templateUrl: './wait-for-it.component.html',
+  styles: [],
+  imports: [AsyncPipe]
 })
 export class WaitForItComponent {
   someVar: string[] | undefined;

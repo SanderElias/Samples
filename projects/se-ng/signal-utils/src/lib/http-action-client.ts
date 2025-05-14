@@ -4,14 +4,14 @@ import {
   type HttpEvent,
   type HttpHeaders,
   type HttpParams,
-  type HttpResponse,
+  type HttpResponse
 } from '@angular/common/http';
 import { computed, inject, Injectable, signal, Signal, type WritableSignal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { injectAwaitSignal } from './await-signal';
 
 const availableMethods = [
-   "GET", // do not use get, use httpResource instead.
+  'GET', // do not use get, use httpResource instead.
   // 'CONNECT', // no default supported from httpClient
   // 'TRACE', // no default supported from httpClient
   'DELETE',
@@ -19,7 +19,7 @@ const availableMethods = [
   // 'OPTIONS', // has no bearing on what we want to accomplish here.
   'PATCH',
   'POST',
-  'PUT',
+  'PUT'
   // 'JSONP', // not a standard method, but supported by httpClient, but its aimed for getting data, so use httpResource instead.
 ] as const;
 type AvailableMethods = (typeof availableMethods)[number];
@@ -40,7 +40,7 @@ export class HttpActionClient {
     PATCH: signal(0),
     POST: signal(0),
     PUT: signal(0),
-    GET: signal(0),
+    GET: signal(0)
   };
   busyMethods: Record<AvailableMethods, Signal<boolean>> = {
     DELETE: computed(() => this.#methodBusy.DELETE() !== 0),
@@ -48,7 +48,7 @@ export class HttpActionClient {
     PATCH: computed(() => this.#methodBusy.PATCH() !== 0),
     POST: computed(() => this.#methodBusy.POST() !== 0),
     PUT: computed(() => this.#methodBusy.PUT() !== 0),
-    GET: computed(() => this.#methodBusy.GET() !== 0),
+    GET: computed(() => this.#methodBusy.GET() !== 0)
   };
   isBusy = computed(() => Object.values(this.#methodBusy).some(b => b() !== 0));
   #awaitSignal = injectAwaitSignal();
@@ -1143,7 +1143,7 @@ export class HttpActionClient {
   get(
     url: string,
     options: {
-      body?: any | null,
+      body?: any | null;
       headers?: HttpHeaders | Record<string, string | string[]>;
       context?: HttpContext;
       params?: HttpParams | Record<string, string | number | boolean | ReadonlyArray<string | number | boolean>>;
@@ -1153,6 +1153,4 @@ export class HttpActionClient {
   ): Promise<any> {
     return this.#busyWrap('GET', firstValueFrom(this.#http.get(url, options)));
   }
-
-
 }

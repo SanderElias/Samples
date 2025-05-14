@@ -6,10 +6,10 @@ import { map } from 'rxjs/operators';
 import { PannelCloseDirective, PannelComponent, PannelFooterDirective } from './pannel/pannel.component';
 
 @Component({
-    selector: 'app-pannel-stuff',
-    templateUrl: './pannel-stuff.component.html',
-    styles: [],
-    imports: [PannelComponent, PannelCloseDirective, PannelFooterDirective, AsyncPipe, DatePipe]
+  selector: 'app-pannel-stuff',
+  templateUrl: './pannel-stuff.component.html',
+  styles: [],
+  imports: [PannelComponent, PannelCloseDirective, PannelFooterDirective, AsyncPipe, DatePipe]
 })
 export class PannelStuffComponent implements OnInit {
   time$ = interval(1000).pipe(map(() => new Date()));

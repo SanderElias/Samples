@@ -1,15 +1,15 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SeLetDirective } from '@se-ng/let';
 import { timer } from 'rxjs';
-import { map, shareReplay,tap } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 
 import { PokeApiService } from '../poke-api.service';
 
 @Component({
-    selector: 'app-pokemain',
-    templateUrl: './pokemain.component.html',
-    styles: [],
-    imports: [SeLetDirective]
+  selector: 'app-pokemain',
+  templateUrl: './pokemain.component.html',
+  styles: [],
+  imports: [SeLetDirective]
 })
 export class PokeMainComponent implements OnInit {
   private pa = inject(PokeApiService);

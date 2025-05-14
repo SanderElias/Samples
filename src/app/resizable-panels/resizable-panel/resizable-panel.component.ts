@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { afterNextRender,Component, DestroyRef, ElementRef, inject } from '@angular/core';
+import { afterNextRender, Component, DestroyRef, ElementRef, inject } from '@angular/core';
 
 @Component({
-    selector: 'se-resizable-panel',
-    imports: [CommonModule],
-    template: `<ng-content></ng-content>`,
-    styleUrls: ['./resizable-panel.component.css']
+  selector: 'se-resizable-panel',
+  imports: [],
+  template: `<ng-content></ng-content>`,
+  styleUrls: ['./resizable-panel.component.css']
 })
 export class ResizablePanelComponent {
   elm = inject(ElementRef).nativeElement as HTMLElement;
@@ -14,8 +13,8 @@ export class ResizablePanelComponent {
   resHandler = (e: ResizeObserverEntry[]) => {
     const [
       {
-        borderBoxSize: [{ inlineSize, blockSize }],
-      },
+        borderBoxSize: [{ inlineSize, blockSize }]
+      }
     ] = e;
     // console.dir(this.name);
     this.elm.style.setProperty('--_panel-width', `${inlineSize}px`);
@@ -49,7 +48,7 @@ function path(elm) {
       elm.hasAttribute('id') ? elm.getAttribute('id') : '',
       elm.hasAttribute('name') ? elm.getAttribute('name') : '',
       elm.hasAttribute('type') ? elm.getAttribute('type') : '',
-      0, // nth-child
+      0 // nth-child
     ];
 
     // Trim

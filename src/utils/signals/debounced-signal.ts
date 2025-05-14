@@ -5,21 +5,21 @@ export const debouncedSignal = <T>(triggerSignal: Signal<T>, delay: number): Sig
   let timeout: NodeJS.Timeout | null = null;
   const out = signal<T>(triggerSignal());
 
-  const w = createWatch(triggerSignal, () => {
-
-  effect(
+  const w = createWatch(
+    triggerSignal,
     () => {
-      timeout && clearTimeout(timeout);
-      const value = triggerSignal();
-      timeout = setTimeout(() => {
-        out.set(value);
-        timeout = null;
-      }, delay);
-      return () => timeout && clearTimeout(timeout);
+      effect(() => {
+        timeout && clearTimeout(timeout);
+        const value = triggerSignal();
+        timeout = setTimeout(() => {
+          out.set(value);
+          timeout = null;
+        }, delay);
+        return () => timeout && clearTimeout(timeout);
+      });
     },
-    { forceRoot: true }
+    true
   );
 
   return out;
 };
-

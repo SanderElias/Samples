@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-sample-three',
-    templateUrl: './sample-three.component.html',
-    styles: []
+  selector: 'app-sample-three',
+  templateUrl: './sample-three.component.html',
+  styles: []
 })
-export default class SampleThreeComponent {
-
-}
+export default class SampleThreeComponent {}

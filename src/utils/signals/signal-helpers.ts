@@ -1,13 +1,5 @@
-import {
-  afterNextRender,
-  effect,
-  EffectCleanupRegisterFn,
-  inject,
-  Injector,
-  signal,
-  type WritableSignal,
-} from '@angular/core';
-import { firstValueFrom,Observable } from 'rxjs';
+import { afterNextRender, effect, EffectCleanupRegisterFn, inject, Injector, signal, type WritableSignal } from '@angular/core';
+import { firstValueFrom, Observable } from 'rxjs';
 
 export type ToWritableSignalOptions<T> = {
   initialValue?: T | undefined;

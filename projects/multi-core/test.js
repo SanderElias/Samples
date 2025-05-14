@@ -34,7 +34,7 @@ if (process.send) {
     },
     kill: () => {
       process.exit(0);
-    },
+    }
   };
 
   process.on('message', async ([cmd, ...rest]) => {

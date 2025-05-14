@@ -23,7 +23,7 @@ export function injectRoutePart(pos: number): Signal<string> {
         const parts = url.split('/');
         state.set({ value: parts[pos] ?? '' });
       },
-      error: error => state.set({ error }),
+      error: error => state.set({ error })
     });
 
   return computed(() => {

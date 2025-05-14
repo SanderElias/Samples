@@ -1,4 +1,3 @@
-
 <!-- markdownlint-disable MD003 -->
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD022 -->
@@ -9,6 +8,7 @@
 # Signals, watch the effect
 
 ## a presentation by Sander Elias
+
 </div>
 
 <style>
@@ -167,6 +167,7 @@ Well, to be honest, he did.
 
 
 </style>
+
 ---NextSlide
 
 <div>
@@ -183,8 +184,6 @@ Well, to be honest, he did.
   - something read/wri.(_stopped reading_)
   - **me:** _stops reading manual_
 - **me:** _I know what I'm doing_, <span>**lets build**</span>
-
-
 
 </div>
 <style>
@@ -301,6 +300,7 @@ class MyComponent {
   });
 }
 ```
+
 </div>
 <style> 
 h2 { animation: myEntry 2s; } 
@@ -321,12 +321,12 @@ h2 {
 ## ahum, <span>but...</span>
 
 - don't we need a spinner?
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
 </div>
 <style> h2 { animation: myEntry 2s; }
@@ -371,6 +371,7 @@ class MyComponent {
   });
 }
 ```
+
 </div>
 <style> 
 h2 { animation: myEntry 1.5s; } 
@@ -393,7 +394,6 @@ h2 {
 - should we have a way to refresh?
 - ...
 - see where this is going?
-
 
 </div>
 <style> h2 { animation: myEntry 2s; }
@@ -450,7 +450,7 @@ h2 {
     font-size: 0;
     animation: myAppear 3s forwards;
   }
-} 
+}
 
 </style>
 
@@ -471,16 +471,16 @@ class MyComponent {
   loading = linkedSignal({
     resource: this.userId,
     compute: () => true
-  })
+  });
 
-  _ = effect(() => { // we will replace this later.
+  _ = effect(() => {
+    // we will replace this later.
     const id = this.userId();
     if (id) {
-      this.us.getUser({ request: id })
-        .then(user => {
-          this.user.set(user);
-          this.loading.set(false);
-        });
+      this.us.getUser({ request: id }).then(user => {
+        this.user.set(user);
+        this.loading.set(false);
+      });
     }
   });
 }
@@ -494,7 +494,7 @@ h2 {
     font-size: 0;
     animation: myAppear 3s forwards;
   }
-} 
+}
 
 </style>
 ---NextSlide
@@ -518,7 +518,6 @@ class MyComponent {
 
   user = this.userResource.value; // a writable signal
   loading = this.userResource.isLoading; // a signal
-
 }
 ```
 
@@ -530,7 +529,7 @@ h2 {
     font-size: 0;
     animation: myAppear 3s forwards;
   }
-} 
+}
 
 </style>
 
@@ -547,7 +546,7 @@ h2 {
 - deferredAsync
 - rxMethod
 - many
-- many more 
+- many more
 
 </div>
 ---NextSlide
@@ -563,20 +562,20 @@ h2 {
   - are hard to get right
   - should be avoided
   - unless there is really no other option
-</div>
-<style>
-  div#slide {
-    grid-template-columns: .15fr 1fr;
-    gap: 2rem;
-    align-items: top
-  }
-  li {
-    margin-bottom: .5rem;
-  }
-  svg {
-    grid-row: span 2;
-    height: calc(100cqh - 9rem);
-  }
+  </div>
+  <style>
+    div#slide {
+      grid-template-columns: .15fr 1fr;
+      gap: 2rem;
+      align-items: top
+    }
+    li {
+      margin-bottom: .5rem;
+    }
+    svg {
+      grid-row: span 2;
+      height: calc(100cqh - 9rem);
+    }
 
 </style>
 

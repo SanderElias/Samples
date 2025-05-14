@@ -26,5 +26,5 @@ export interface Specie {
 }
 
 export enum Designation {
-  Sentient = 'sentient',
+  Sentient = 'sentient'
 }

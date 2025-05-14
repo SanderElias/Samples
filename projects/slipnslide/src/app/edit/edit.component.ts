@@ -8,13 +8,12 @@ import { SelectFileComponent } from './select-file/select-file.component';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'markdown-edit',
-    template: `<a routerLink="/home"><h1>Edit</h1></a>
+  selector: 'markdown-edit',
+  template: `<a routerLink="/home"><h1>Edit</h1></a>
     <select-file (fileName)="filename.next($event)"></select-file>
     <md-edit [markdown]="(slide$ | async)?.markdown"></md-edit> `,
-    styles: [],
-    imports: [RouterLink, SelectFileComponent, MdEditComponent, AsyncPipe],
-
+  styles: [],
+  imports: [RouterLink, SelectFileComponent, MdEditComponent, AsyncPipe]
 })
 export class EditComponent implements OnInit, OnDestroy {
   private slides = inject(SlidesService);

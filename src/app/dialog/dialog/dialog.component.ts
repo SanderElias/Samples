@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { afterRenderEffect, Component, ElementRef, inject, model } from '@angular/core';
-
 
 @Component({
   selector: 'se-dialog',
-  imports: [CommonModule],
+  imports: [],
   template: ` <dialog><ng-content></ng-content></dialog> `,
-  styleUrls: ['./dialog.component.css'],
+  styleUrls: ['./dialog.component.css']
 })
 export class SeDialogComponent {
   readonly shown = model.required<boolean>();

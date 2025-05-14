@@ -140,7 +140,7 @@ An example:
 ```ts
 @Component({
   selector: 'sample',
-  template: ` <div [style.color]="color$ | async">{{ time$ | async }}</div> `,
+  template: ` <div [style.color]="color$ | async">{{ time$ | async }}</div> `
 })
 class SampleComponent {
   alarmList = inject(AlarmService).alarmList;
@@ -162,7 +162,7 @@ Now lets create the same example, but with Angular Signals:
 ```ts
 @Component({
   selector: 'sample',
-  template: ` <div [style.color]="color">{{ time }}</div> `,
+  template: ` <div [style.color]="color">{{ time }}</div> `
 })
 class SampleComponent {
   alarmList = inject(AlarmService).alarmList;
@@ -197,7 +197,7 @@ Imagine this:
       {{ customer.value?.name }}
       {{ customer.value?.email }}
     </div>
-  `,
+  `
 })
 class SomeComponent {
   customerService = inject(CustomerService);

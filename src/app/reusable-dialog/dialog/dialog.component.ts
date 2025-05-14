@@ -7,7 +7,7 @@ import { afterRenderEffect, Component, ElementRef, inject, input } from '@angula
   styleUrl: './dialog.component.css'
 })
 export class DialogComponent {
-  elm = inject(ElementRef).nativeElement as HTMLDialogElement
+  elm = inject(ElementRef).nativeElement as HTMLDialogElement;
   show = input(false);
 
   #dummy = afterRenderEffect(() => {
@@ -16,5 +16,5 @@ export class DialogComponent {
     } else {
       this.elm.close();
     }
-  })
+  });
 }

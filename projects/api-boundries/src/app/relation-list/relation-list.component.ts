@@ -4,14 +4,14 @@ import { RelationsService } from '../relations.service';
 import { RelationComponent } from './relation/relation.component';
 
 @Component({
-    selector: 'app-relation-list',
-    template: `
+  selector: 'app-relation-list',
+  template: `
     @for (rel of relations$ | async; track rel) {
       <app-relation [relation]="rel" />
     }
   `,
-    styles: [],
-    imports: [RelationComponent, AsyncPipe]
+  styles: [],
+  imports: [RelationComponent, AsyncPipe]
 })
 export class RelationListComponent {
   rel = inject(RelationsService);

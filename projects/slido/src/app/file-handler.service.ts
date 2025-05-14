@@ -15,13 +15,13 @@ const defaultFileOptions: OpenFilePickerOptions = {
     {
       description: 'Presentations',
       accept: {
-        'text/*': ['.md'],
-      },
-    },
+        'text/*': ['.md']
+      }
+    }
   ],
   startIn: 'documents',
   excludeAcceptAllOption: false,
-  multiple: false,
+  multiple: false
 };
 
 const defaultState: FileState = {
@@ -29,11 +29,11 @@ const defaultState: FileState = {
   handle: undefined,
   name: '',
   file: signal(undefined),
-  content: signal(''),
+  content: signal('')
 };
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class FileHandlerService {
   #pickerOpts = defaultFileOptions;
@@ -59,7 +59,7 @@ export class FileHandlerService {
       handle,
       name: handle.name,
       file,
-      content,
+      content
     };
   }, defaultState);
 
@@ -113,7 +113,7 @@ export class FileHandlerService {
   setHandle = (handle: FileSystemFileHandle) => {
     this.#fileHandle.set(handle);
     set('lastPresentationUsed', handle);
-  }
+  };
 
   _ = afterNextRender(async () => {
     if (typeof window === 'undefined' || window?.indexedDB === undefined) {
@@ -150,7 +150,7 @@ async function verifyPermission(
   mode: FileSystemHandlePermissionDescriptor['mode'] = 'readwrite'
 ): Promise<boolean> {
   const options: FileSystemHandlePermissionDescriptor = {
-    mode,
+    mode
   };
   // Check if permission was already granted. If so, return true.
   try {
@@ -170,7 +170,7 @@ async function requestPermission(
 ): Promise<boolean> {
   console.log('verifyPermission', fileHandle);
   const options: FileSystemHandlePermissionDescriptor = {
-    mode,
+    mode
   };
   // Check if permission was already granted. If so, return true.
   try {

@@ -4,7 +4,7 @@
   form {
     display: flex;
     flex-direction: row;
-    gap: .5rem;
+    gap: 0.5rem;
 
     input {
       width: 2.7rem;
@@ -14,12 +14,12 @@
       border-radius: 0.5rem;
       border: 1px solid #ccc;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      transition: all .3s ease;
+      transition: all 0.3s ease;
 
       &:focus {
         outline: none;
         border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, .5);
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
       }
     }
   }

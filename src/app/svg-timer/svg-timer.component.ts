@@ -7,9 +7,9 @@ const twoPi = Math.PI * 2;
 const circumference = (radius: number) => twoPi * radius;
 
 @Component({
-    selector: 'app-svg-timer',
-    templateUrl: './svg-timer.component.html',
-    imports: [AsyncPipe]
+  selector: 'app-svg-timer',
+  templateUrl: './svg-timer.component.html',
+  imports: [AsyncPipe]
 })
 export class SvgTimerComponent {
   // the colors for the circls we want to show

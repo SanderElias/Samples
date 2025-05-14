@@ -15,14 +15,7 @@
     "statusBarItem.remoteForeground": "#e7e7e7"
   },
   "peacock.color": "#34570e",
-  "cSpell.words": [
-    "Crudl",
-    "micromark",
-    "slipnslide",
-    "Swapi",
-    "transform",
-    "wireit"
-  ],
+  "cSpell.words": ["Crudl", "micromark", "slipnslide", "Swapi", "transform", "wireit"],
   "angular.enable-strict-mode-prompt": false,
   "typescript.tsdk": "node_modules/typescript/lib"
 }

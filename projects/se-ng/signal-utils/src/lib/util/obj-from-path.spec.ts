@@ -27,23 +27,17 @@ describe('Objects from path', () => {
     expect(objFromPath('[1].a.b', 'c')).toEqual([, { a: { b: 'c' } }]);
   });
   it('should throw on an invalid path', () => {
-    expect(() => objFromPath('', 1)).toThrowError(
-      `[objFromPath] Invalid path: a path can not be empty`,
-    );
-    expect(() => objFromPath('.', 1)).toThrowError(
-      `[objFromPath] Invalid path: a path can not be empty`,
-    );
+    expect(() => objFromPath('', 1)).toThrowError(`[objFromPath] Invalid path: a path can not be empty`);
+    expect(() => objFromPath('.', 1)).toThrowError(`[objFromPath] Invalid path: a path can not be empty`);
     expect(() => objFromPath('a. .b', 1)).toThrowError(
-      `[objFromPath] Invalid path: "a. .b", should not contain whitespace between the dots or brackets`,
+      `[objFromPath] Invalid path: "a. .b", should not contain whitespace between the dots or brackets`
     );
-    expect(() => objFromPath('a..b', 1)).toThrowError(
-      `[objFromPath] Invalid path: "a..b", it contains two dots in a row`,
-    );
+    expect(() => objFromPath('a..b', 1)).toThrowError(`[objFromPath] Invalid path: "a..b", it contains two dots in a row`);
     expect(() => objFromPath('[ ]', 1)).toThrowError(
-      `[objFromPath] Invalid path: "[ ]", should not contain whitespace between the dots or brackets`,
+      `[objFromPath] Invalid path: "[ ]", should not contain whitespace between the dots or brackets`
     );
     expect(() => objFromPath('a.[ \n].b', 1)).toThrowError(
-      `[objFromPath] Invalid path: "a.[ \n].b", should not contain whitespace between the dots or brackets`,
+      `[objFromPath] Invalid path: "a.[ \n].b", should not contain whitespace between the dots or brackets`
     );
   });
 });

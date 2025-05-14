@@ -1,16 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject,QueryList, ViewChildren } from '@angular/core';
+import { Component, inject, QueryList, ViewChildren } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import {
-  BehaviorSubject,
-  combineLatest,
-  filter,
-  firstValueFrom,
-  map,
-  startWith,
-  switchMap,
-  tap
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, firstValueFrom, map, startWith, switchMap, tap } from 'rxjs';
 
 import { AddressesService } from '../addresses.service';
 
@@ -22,7 +13,7 @@ const sampleRecord = {
   dateAdded: new Date(),
   phone: '+1 (555) 555-5555',
   email: 'luke@rd2.org',
-  tags: ['starwars', 'jedi'],
+  tags: ['starwars', 'jedi']
 };
 
 const extractInputType = value => {
@@ -39,10 +30,10 @@ const extractInputType = value => {
 };
 
 @Component({
-    imports: [CommonModule, FormsModule],
-    selector: 'app-dyn-form',
-    templateUrl: './dyn-form.component.html',
-    styles: []
+  imports: [CommonModule, FormsModule],
+  selector: 'app-dyn-form',
+  templateUrl: './dyn-form.component.html',
+  styles: []
 })
 export class DynFormComponent {
   adr = inject(AddressesService);
@@ -58,7 +49,6 @@ export class DynFormComponent {
   vm$ = combineLatest({ person: this.person$, fields: this.fieldData$, addresses: this.addresses$ }).pipe(
     map(({ person, fields, addresses }) => ({ person, fields, addresses, names: Object.keys(addresses[0]) }))
   );
-
 
   ngAfterViewInit(): void {
     /** this is here to show you can subscribe to changes from template driven */

@@ -1,7 +1,7 @@
 import { Injectable, signal, TemplateRef } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class NotifyDialogService {
   shown = signal(false);

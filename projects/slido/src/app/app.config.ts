@@ -10,12 +10,10 @@ export const appConfig: ApplicationConfig = {
       routes,
       withComponentInputBinding(),
       withRouterConfig({
-        paramsInheritanceStrategy: 'always',
+        paramsInheritanceStrategy: 'always'
       })
     ),
     provideExperimentalZonelessChangeDetection(),
-    provideClientHydration(withEventReplay()),
-  ],
+    provideClientHydration(withEventReplay())
+  ]
 };
-
-

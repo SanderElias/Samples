@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AddressesService {
   private http = inject(HttpClient);

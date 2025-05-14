@@ -1,7 +1,7 @@
 # Signals, watch the effect.
 
-**YOU SHOULD AVOID EFFECTS**. which is something you hear a lot. 
-Yeah, easy said, but *why*? And aside of the why, *how*?
+**YOU SHOULD AVOID EFFECTS**. which is something you hear a lot.
+Yeah, easy said, but _why_? And aside of the why, _how_?
 
 In your code you need to react to things coming from (input)signals, and you need to react to them.
 An effect seems to be 'the way', and is very alluring.

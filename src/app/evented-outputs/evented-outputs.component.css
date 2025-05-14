@@ -1,6 +1,6 @@
 :host {
   display: flex;
-  gap: .35rem;
+  gap: 0.35rem;
   flex-direction: column;
 }
 

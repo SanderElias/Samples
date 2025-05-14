@@ -5,12 +5,10 @@ import { Component, DestroyRef, inject, Injectable, signal, WritableSignal } fro
   standalone: true,
   imports: [],
   template: ` <p>the latest message is: {{ messageSignal() }}</p> `,
-  styleUrl: './connected-websocket.component.css',
+  styleUrl: './connected-websocket.component.css'
 })
 export class ConnectedWebsocketComponent {
   messageSignal = injectConnectedWebsocketSignal();
-
-
 }
 
 const injectConnectedWebsocketSignal = () => {
@@ -28,7 +26,7 @@ type Message = string | undefined;
  * this is the service that will manage the connection to the websocket
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 class ConnectedWebsocketService {
   subscribers = new Set<WritableSignal<Message>>();

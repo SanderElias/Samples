@@ -12,11 +12,11 @@ export const config: ScullyConfig = {
     '/:slide': {
       type: 'contentFolder',
       slide: {
-        folder: './slides',
+        folder: './slides'
       },
       preRenderer: (h: HandledRoute) => {
         h.renderPlugin = renderOnce;
-      },
+      }
     },
     // '/slide/:slug': {
     //   type: 'contentFolder',
@@ -28,15 +28,15 @@ export const config: ScullyConfig = {
     //   },
     // },
     '/edit': {
-      type: 'ignored',
+      type: 'ignored'
     },
     '/code-sample': {
-      type: 'ignored',
-    },
+      type: 'ignored'
+    }
     // '/edit': {
     //   type: 'ignored',
     // },
-  },
+  }
 };
 
 registerPlugin('render', extractMDStyles, async (html, route) => {

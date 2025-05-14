@@ -25,9 +25,9 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
         get() {
           /** return an debounce observable when read. */
           // return fetchSubject(this, propertyKey).pipe(debounceTime(4));
-          return  NEVER;
+          return NEVER;
         },
-        set() {},
+        set() {}
       };
     }
     return {
@@ -65,7 +65,7 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
             el[EventStream] = EventStream;
           }
         });
-      },
+      }
     };
   };
 }

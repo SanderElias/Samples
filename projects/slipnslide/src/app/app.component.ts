@@ -5,11 +5,10 @@ import { ShowCompComponent } from './show-comp/show-comp.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'app-root',
-    template: `<router-outlet></router-outlet>`,
-    styles: [],
-    imports: [RouterOutlet],
-
+  selector: 'app-root',
+  template: `<router-outlet></router-outlet>`,
+  styles: [],
+  imports: [RouterOutlet]
 })
 export class AppComponent {
   title = 'slipnslide';

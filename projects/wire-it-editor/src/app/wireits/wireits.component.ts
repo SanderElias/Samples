@@ -7,9 +7,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { string } from 'yargs';
 
 @Component({
-    selector: 'se-wireits',
-    imports: [CommonModule, WireitComponent, ReactiveFormsModule],
-    template: `
+  selector: 'se-wireits',
+  imports: [CommonModule, WireitComponent, ReactiveFormsModule],
+  template: `
     @if (vm$ | async; as vm) {
       <header>
         <h2>WireIt scripts</h2>
@@ -21,9 +21,8 @@ import { string } from 'yargs';
       }
     }
   `,
-    styleUrls: ['./wireits.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-
+  styleUrls: ['./wireits.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WireitsComponent {
   pjs = inject(PackageJsonService);
@@ -37,11 +36,11 @@ export class WireitsComponent {
 
   vm$ = combineLatest({
     wireits: this.wireits$,
-    search: this.search.valueChanges.pipe(startWith('')),
+    search: this.search.valueChanges.pipe(startWith(''))
   }).pipe(
     map(({ wireits, search }) => {
       return {
-        wireits: wireits.filter(([name]) => search === '' || name.includes(search)),
+        wireits: wireits.filter(([name]) => search === '' || name.includes(search))
       };
     }),
     tap(console.log)

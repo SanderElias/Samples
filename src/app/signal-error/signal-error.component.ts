@@ -1,4 +1,4 @@
-import { Component, computed, Signal,signal } from '@angular/core';
+import { Component, computed, Signal, signal } from '@angular/core';
 import { map, timer } from 'rxjs';
 import { asyncComputed } from 'projects/se-ng/signal-utils/src/lib/async-computed';
 
@@ -14,9 +14,9 @@ import { asyncComputed } from 'projects/se-ng/signal-utils/src/lib/async-compute
     </p>
     <p>Count: {{ $count() }}</p>
     <p>Result: {{ $result() }}</p>
-    <p>Counter {{$testIterator()}}</p>
+    <p>Counter {{ $testIterator() }}</p>
   `,
-  styleUrl: './signal-error.component.css',
+  styleUrl: './signal-error.component.css'
 })
 export default class SignalErrorComponent {
   $count = signal(11);
@@ -29,19 +29,14 @@ export default class SignalErrorComponent {
       return i;
     })
   );
-  $faultyTimer = asyncComputed(() => this.faultyTimer$,'');
-
-
+  $faultyTimer = asyncComputed(() => this.faultyTimer$, '');
 
   $testIterator = asyncComputed(async function* () {
     for (let i = 0; i < 10; i++) {
       yield i;
       await new Promise(r => setTimeout(r, 1000));
     }
-  })
-
-
-
+  });
 
   even = async n => {
     await new Promise(r => setTimeout(r, 250));
@@ -55,7 +50,7 @@ export default class SignalErrorComponent {
   stupidFn = asyncComputed(() => {
     const c = this.$count();
     if (c % 3 === 0) {
-      return this.faultyTimer$;  // return an observable that will throw an error in time
+      return this.faultyTimer$; // return an observable that will throw an error in time
     }
     return this.even(c); // return a promise that will throw an error if the number is not even
   });
@@ -72,9 +67,9 @@ export default class SignalErrorComponent {
   changeCount = (n = 1) => this.$count.update(v => v + n);
 }
 
-const test:Signal<number|undefined> = computed(() => {
-  if (performance.now() %5 === 0) {
-    return 5
+const test: Signal<number | undefined> = computed(() => {
+  if (performance.now() % 5 === 0) {
+    return 5;
   }
-  return undefined
-})
+  return undefined;
+});

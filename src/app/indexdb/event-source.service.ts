@@ -9,7 +9,7 @@ const storeName = 'events';
 const startTime = Date.now();
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EventSourceService {
   #events = new ReplaySubject<DbEvent>(1);
@@ -54,7 +54,7 @@ export class EventSourceService {
     try {
       let rowCount = 0;
       for await (const data of getAllFromStore<DbEvent>(DbName, storeName)) {
-        rowCount +=1;
+        rowCount += 1;
         this.#events.next(data.value);
       }
       this.#$ready.set(true);

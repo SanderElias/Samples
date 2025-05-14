@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of, Subject, timer } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
@@ -25,7 +25,7 @@ const detail = detailNumber => `https://www.rijksmuseum.nl/api/en/collection/${d
  */
 @Injectable({
   providedIn: 'root',
-  deps: [HttpClient],
+  deps: [HttpClient]
 })
 export class RakiService {
   private http = inject(HttpClient);
@@ -40,7 +40,7 @@ export class RakiService {
   private selection = {
     p: 0,
     ps: 1,
-    type: 'painting',
+    type: 'painting'
   };
 
   randomImage$ = this.http.get<CollectionObject>(collection(this.selection)).pipe(
@@ -54,7 +54,7 @@ export class RakiService {
   private getArtObject$: Observable<ArtObject> = Observable.create(obs => {
     obs.next({
       ...this.selection,
-      p: Math.floor(Math.random() * this.artCount),
+      p: Math.floor(Math.random() * this.artCount)
     });
     obs.complete();
   }).pipe(

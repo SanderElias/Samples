@@ -12,10 +12,10 @@ interface LocalState {
 }
 
 @Component({
-    imports: [AsyncPipe],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'app-big-data',
-    template: `
+  imports: [AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-big-data',
+  template: `
     <h1>Big data and performance demo</h1>
     <!--
       use the VM$ and assign it to the vm view-variable,
@@ -92,7 +92,7 @@ export class BigDataComponent {
     pageSize: 20,
     position: 0,
     search: '',
-    sort: '',
+    sort: ''
   });
   /**
    * The user list observable.
@@ -144,7 +144,7 @@ export class BigDataComponent {
     users: this.users$,
     state: this.state$,
     page: this.curPage$,
-    done: this.doneLoadingPer$,
+    done: this.doneLoadingPer$
   });
 
   /** utility method to extract the users I need to display. */
@@ -188,7 +188,7 @@ export class BigDataComponent {
        * [prop] = use a computed property name to update the state we want to update, I used the TS type system to only allow existing props.
        * if it is supposed to be a number, read it as number from the input element otherwise user the string representation.
        */
-      [prop]: isNum ? domElement.valueAsNumber : domElement.value,
+      [prop]: isNum ? domElement.valueAsNumber : domElement.value
     });
   }
 }

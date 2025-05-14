@@ -29,12 +29,11 @@ label {
     background-color: #69b6d5;
   }
   input {
-    display:block;
+    display: block;
     position: absolute;
     left: -150vw;
-    width:0;
-    height:0;
-
+    width: 0;
+    height: 0;
   }
 
   &:has(input:checked) {

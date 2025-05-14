@@ -47,7 +47,7 @@ export function effect(effectFn: () => void): Effect {
     destroy: () => {
       queuedWatches.delete(watch);
       globalWatches.delete(watch);
-    },
+    }
   };
 }
 
@@ -95,7 +95,7 @@ function queueWatch(watch: Watch): void {
 
     watchQueuePromise = {
       promise,
-      resolveFn,
+      resolveFn
     };
   }
 }

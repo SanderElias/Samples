@@ -17,19 +17,19 @@ describe('mergeDeep function', () => {
     toiletHistory: ['pee', 'poo', 'pee', 'pee'],
     toiletPaper: {
       numberOfSheetsLeft: 1_000,
-      numberOfBackupRolls: 5,
-    },
+      numberOfBackupRolls: 5
+    }
   };
 
   const sourceB: DeepPartial<ToiletFacts> = {
     toiletPaper: {
       orientation: 'correct',
-      numberOfBackupRolls: 3,
-    },
+      numberOfBackupRolls: 3
+    }
   };
 
   const sourceC: DeepPartial<ToiletFacts> = {
-    toiletHistory: ['poo'],
+    toiletHistory: ['poo']
   };
   it('correctly merges two empty objects', () => {
     expect(mergeDeep({}, {})).toEqual({});
@@ -50,7 +50,7 @@ describe('mergeDeep function', () => {
     const date = new Date();
     expect(mergeDeep({ a: date }, { a: 2 })).toEqual({ a: 2 } as any);
     expect(mergeDeep({ a: [1] }, { a: { b: [2] } })).toEqual({
-      a: { b: [2] } as any,
+      a: { b: [2] } as any
     });
     expect(mergeDeep({ a: { b: 'c' } }, { a: true })).toEqual({ a: true });
   });
@@ -61,8 +61,8 @@ describe('mergeDeep function', () => {
       toiletPaper: {
         orientation: 'correct',
         numberOfSheetsLeft: 1_000,
-        numberOfBackupRolls: 3,
-      },
+        numberOfBackupRolls: 3
+      }
     });
   });
 
@@ -72,8 +72,8 @@ describe('mergeDeep function', () => {
       toiletHistory: ['pee', 'poo', 'pee', 'pee', 'poo'],
       toiletPaper: {
         numberOfSheetsLeft: 1_000,
-        numberOfBackupRolls: 5,
-      },
+        numberOfBackupRolls: 5
+      }
     });
   });
 
@@ -83,14 +83,14 @@ describe('mergeDeep function', () => {
       toiletHistory: ['poo'],
       toiletPaper: {
         numberOfSheetsLeft: 1_000,
-        numberOfBackupRolls: 5,
-      },
+        numberOfBackupRolls: 5
+      }
     });
   });
 
   it('merges arrays that appear in both objects', () => {
     expect(mergeDeep({ a: [1, , 3, , 5] }, { a: [, 2, , 4] }, { iterableMergeStrategy: 'merge' })).toEqual({
-      a: [1, 2, 3, 4, 5],
+      a: [1, 2, 3, 4, 5]
     });
   });
   it('throws when trying to merge a set with a non-set', () => {
@@ -98,12 +98,12 @@ describe('mergeDeep function', () => {
   });
   it('merges sets that appear in both objects', () => {
     expect(mergeDeep({ a: new Set([1, 2, 3]) }, { a: new Set([4, 5]) }, { iterableMergeStrategy: 'merge' })).toEqual({
-      a: new Set([1, 2, 3, 4, 5]),
+      a: new Set([1, 2, 3, 4, 5])
     });
   });
   it('replaces sets that appear in both objects', () => {
     expect(mergeDeep({ a: new Set([1, 2, 3]) }, { a: new Set([4, 5]) }, { iterableMergeStrategy: 'replace' })).toEqual({
-      a: new Set([4, 5]),
+      a: new Set([4, 5])
     });
   });
   it('merges maps that appear in both objects', () => {
@@ -113,25 +113,25 @@ describe('mergeDeep function', () => {
           a: new Map([
             [1, 1],
             [2, 2],
-            [3, 3],
-          ]),
+            [3, 3]
+          ])
         },
         {
           a: new Map([
             [4, 4],
-            [5, 5],
-          ]),
+            [5, 5]
+          ])
         },
-        { iterableMergeStrategy: 'merge' },
-      ),
+        { iterableMergeStrategy: 'merge' }
+      )
     ).toEqual({
       a: new Map([
         [1, 1],
         [2, 2],
         [3, 3],
         [4, 4],
-        [5, 5],
-      ]),
+        [5, 5]
+      ])
     });
   });
   it('replaces maps that appear in both objects', () => {
@@ -141,72 +141,72 @@ describe('mergeDeep function', () => {
           a: new Map([
             [1, 1],
             [2, 2],
-            [3, 3],
-          ]),
+            [3, 3]
+          ])
         },
         {
           a: new Map([
             [4, 4],
-            [5, 5],
-          ]),
+            [5, 5]
+          ])
         },
-        { iterableMergeStrategy: 'replace' },
-      ),
+        { iterableMergeStrategy: 'replace' }
+      )
     ).toEqual({
       a: new Map([
         [4, 4],
-        [5, 5],
-      ]),
+        [5, 5]
+      ])
     });
   });
 
   it('should merge `source` into `object`', () => {
     const names = {
-      characters: [{ name: 'barney' }, { name: 'fred' }],
+      characters: [{ name: 'barney' }, { name: 'fred' }]
     };
 
     const ages = {
-      characters: [{ age: 36 }, { age: 40 }],
+      characters: [{ age: 36 }, { age: 40 }]
     };
 
     const heights = {
-      characters: [{ height: '5\'4"' }, { height: '5\'5"' }],
+      characters: [{ height: '5\'4"' }, { height: '5\'5"' }]
     };
 
     const expected = {
       characters: [
         { name: 'barney', age: 36, height: '5\'4"' },
-        { name: 'fred', age: 40, height: '5\'5"' },
-      ],
+        { name: 'fred', age: 40, height: '5\'5"' }
+      ]
     };
 
     const step1 = mergeDeep(names, ages, { iterableMergeStrategy: 'merge' });
 
     expect(
       mergeDeep(step1, heights, {
-        iterableMergeStrategy: 'merge',
-      }),
+        iterableMergeStrategy: 'merge'
+      })
     ).toEqual(expected);
   });
 
   it('supports conditional iterable merge strategies', () => {
     const firstObject = {
       a: [1, 2, 3],
-      b: [4, 5, 6],
+      b: [4, 5, 6]
     };
 
     const secondObject = {
       a: [0],
-      b: [7, 8, 9],
+      b: [7, 8, 9]
     };
 
     const mergedObject = mergeDeep(firstObject, secondObject, {
-      iterableMergeStrategy: (path) => (path.at(-1) === 'a' ? 'replace' : 'concat'),
+      iterableMergeStrategy: path => (path.at(-1) === 'a' ? 'replace' : 'concat')
     });
 
     expect(mergedObject).toEqual({
       a: [0],
-      b: [4, 5, 6, 7, 8, 9],
+      b: [4, 5, 6, 7, 8, 9]
     });
   });
 });

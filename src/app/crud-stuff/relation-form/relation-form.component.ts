@@ -36,7 +36,7 @@ import { unFlattenRecord } from '../utils/un-flattenRecord';
       <button>Submit</button>
     </form>
   `,
-  styleUrl: './relation-form.component.css',
+  styleUrl: './relation-form.component.css'
 })
 export class RelationForm {
   id = input.required<string>();
@@ -48,11 +48,11 @@ export class RelationForm {
   // dataResource = httpResource<UserCard | undefined>(() => 'http://localhost:3003/relations/' + this.id());
   flatData = linkedSignal({
     source: () => this.relation()?.value(),
-    computation: data => flattenRecord(data ?? {}),
+    computation: data => flattenRecord(data ?? {})
   });
   fields = linkedSignal({
     source: this.flatData,
-    computation: data => Object.keys(data),
+    computation: data => Object.keys(data)
   });
 
   async submit(ev: SubmitEvent) {
@@ -64,7 +64,7 @@ export class RelationForm {
       if (form[field]) {
         const type = typeof newData[field];
         if (type === 'string') {
-        newData[field] = form[field].value; // update with the edited values
+          newData[field] = form[field].value; // update with the edited values
         }
         if (type === 'number') {
           newData[field] = Number(form[field].value);
@@ -84,7 +84,7 @@ export class RelationForm {
         // logging to the console is probably not the best way to handle errors.
         // You might want to show a message to the user or handle it in a different way.
         console.error('Error updating the user');
-      };
+      }
     } else {
       this.done.emit(); // no changes, just close the dialog
     }

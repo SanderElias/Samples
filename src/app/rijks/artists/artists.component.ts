@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
 
@@ -7,7 +7,7 @@ import { RakiService } from '../raki.service';
 @Component({
   selector: 'app-artists',
   templateUrl: './artists.component.html',
-  styleUrls: ['./artists.component.css'],
+  styleUrls: ['./artists.component.css']
 })
 export class ArtistsComponent implements OnInit {
   raki = inject(RakiService);

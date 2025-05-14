@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, debounceTime, map, take } from 'rxjs';
 
 @Component({
-    selector: 'se-unsub-sample',
-    imports: [CommonModule],
-    template: `
+  selector: 'se-unsub-sample',
+  imports: [CommonModule],
+  template: `
     <h1>Unsubscribe sample</h1>
     <p>Click the buttons to navigate to the next or previous id.</p>
     @if (vm$ | async; as vm) {
@@ -49,12 +49,12 @@ export class UnsubSampleComponent implements OnDestroy {
     .subscribe({
       next: id => {
         !Number.isNaN(id) && this.id$.next(id);
-      },
+      }
     });
 
   vm$ = combineLatest({
     id: this.id$,
-    change: this.change$,
+    change: this.change$
   }).pipe(
     debounceTime(10), // debounce the change, so that we don't get multiple navigations.
     map(({ id, change }) => {

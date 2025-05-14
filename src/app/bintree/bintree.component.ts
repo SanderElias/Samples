@@ -14,15 +14,15 @@ import {
   reBalance,
   reset,
   rotateLeft,
-  rotateRight,
+  rotateRight
 } from './BinNode';
 
 @Component({
-    selector: 'app-bintree',
-    templateUrl: './bintree.component.html',
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [BNodeComponent, AsyncPipe]
+  selector: 'app-bintree',
+  templateUrl: './bintree.component.html',
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [BNodeComponent, AsyncPipe]
 })
 export class BintreeComponent implements OnInit {
   count = 31;

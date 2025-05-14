@@ -12,7 +12,7 @@ dialog {
     padding-block: 1rem;
 
     & > section {
-      margin-block: .75rem;
+      margin-block: 0.75rem;
     }
   }
 

@@ -6,8 +6,8 @@ import { RelationsService } from '../relations.service';
 import { RelationComponent } from './relation/relation.component';
 
 @Component({
-    selector: 'app-b-relation-list',
-    template: `
+  selector: 'app-b-relation-list',
+  template: `
     <section class="full-width">
       <input type="text" [formControl]="search" placeholder="🔎 Filter" />
     </section>
@@ -15,8 +15,8 @@ import { RelationComponent } from './relation/relation.component';
       <app-relation [relationId]="rel.id" />
     }
   `,
-    styleUrls: ['./b-relation-list.css'],
-    imports: [RelationComponent, AsyncPipe, ReactiveFormsModule]
+  styleUrls: ['./b-relation-list.css'],
+  imports: [RelationComponent, AsyncPipe, ReactiveFormsModule]
 })
 export class BRelationListComponent {
   rel = inject(RelationsService);

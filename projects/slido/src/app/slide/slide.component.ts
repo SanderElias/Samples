@@ -6,7 +6,7 @@ import {
   ElementRef,
   inject,
   input,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { asyncComputed } from '@se-ng/signal-utils';
@@ -29,8 +29,8 @@ const mm = import('micromark');
   encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[document:title]': 'title()',
-  },
+    '[document:title]': 'title()'
+  }
 })
 /**
  * @deprecated use something else?
@@ -76,7 +76,7 @@ export class SlideComponent {
         this.slideNav.setCount(lis.length);
         const code = Array.from(frag.querySelectorAll('code'));
 
-        code.forEach((el) => {
+        code.forEach(el => {
           hljs.highlightBlock(el);
           el.style.opacity = '1';
         });
@@ -93,8 +93,6 @@ export class SlideComponent {
           li.classList.remove('revealed');
         }
       });
-
-
-    },
+    }
   });
 }

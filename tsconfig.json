@@ -27,12 +27,8 @@
       "@se-ng/signal-utils": ["dist/se-ng/signal-utils"],
       "@se-ng/signal-utils/*": ["dist/se-ng/signal-utils/*"],
       "@se-ng/let": ["dist/se-ng/let"],
-      "@se-ng/let/*": [
-        "dist/se-ng/let/*"
-      ],
-      "simpleInjector": [
-        "./dist/simple-injector"
-      ]
+      "@se-ng/let/*": ["dist/se-ng/let/*"],
+      "simpleInjector": ["./dist/simple-injector"]
     },
     "useDefineForClassFields": false
   },

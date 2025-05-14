@@ -1,13 +1,12 @@
-import { Component, inject,NgZone, OnInit } from '@angular/core';
+import { Component, inject, NgZone, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-analog-clock',
-    template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
-    styles: []
+  selector: 'app-analog-clock',
+  template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
+  styles: []
 })
 export class AnalogClockComponent implements OnInit {
   private zone = inject(NgZone);
-
 
   ngOnInit(): void {
     if (typeof document === 'undefined') return;
@@ -77,7 +76,7 @@ function analogClock(ctx) {
     '#beefef',
     '#cef3f3',
     '#def7f7',
-    '#effbfb',
+    '#effbfb'
   ];
 
   function* nextColor() {

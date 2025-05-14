@@ -22,11 +22,11 @@ interface LocalState {
 }
 
 @Component({
-    selector: 'app-observable-state',
-    templateUrl: './observable-state.component.html',
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: []
+  selector: 'app-observable-state',
+  templateUrl: './observable-state.component.html',
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: []
 })
 export class ObservableStateComponent {
   /**
@@ -40,7 +40,7 @@ export class ObservableStateComponent {
     overMax: false,
     underMin: false,
     max: 10,
-    min: 2,
+    min: 2
   });
 
   /**

@@ -33,7 +33,7 @@ import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
       <td>{{ rel()!.email }}</td>
     }
   `,
-  styleUrl: './user-row.component.css',
+  styleUrl: './user-row.component.css'
 })
 export class UserRowComponent {
   rs = inject(RelationsService);

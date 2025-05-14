@@ -34,5 +34,3 @@ export const objFromPath = <T>(path: string, value?: unknown): T => {
     return newArr;
   }, value) as T;
 };
-
-

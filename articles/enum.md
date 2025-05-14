@@ -7,7 +7,7 @@ const enum Direction {
   Up = 1,
   Down,
   Left,
-  Right,
+  Right
 }
 ```
 
@@ -19,7 +19,7 @@ move(Direction.Up);
 
 Which is a lot more readable than:
 
-```typescript 
+```typescript
 move(1);
 ```
 
@@ -35,9 +35,7 @@ move(1);
 Also, there is no way to inspect a `ENUM` at runtime. So, you can't do something like:
 
 ```typescript
-console.log(Direction); 
-// logs nothing...  
+console.log(Direction);
+// logs nothing...
 // NOT: { Up: 1, Down: 2, Left: 3, Right: 4 }
 ```
-
-

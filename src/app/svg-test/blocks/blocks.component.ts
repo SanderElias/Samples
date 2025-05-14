@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: 'app-blocks',
-    templateUrl: './blocks.component.svg',
-    styles: [
-        `
+  selector: 'app-blocks',
+  templateUrl: './blocks.component.svg',
+  styles: [
+    `
       :host {
         display: block;
       }
-    `,
-    ],
-    encapsulation: ViewEncapsulation.ShadowDom
+    `
+  ],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class BlocksComponent {
   blockSize = 3;
@@ -20,7 +20,7 @@ export class BlocksComponent {
     fillColor: this.randomColor(),
     x: this.calcX(i),
     y: this.calcY(i),
-    id: i,
+    id: i
   }));
   /** input so e can do something */
   @Input() set recolor(x: any) {

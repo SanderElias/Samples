@@ -12,7 +12,7 @@ import {
   scan,
   startWith,
   switchMap,
-  tap,
+  tap
 } from 'rxjs/operators';
 
 import { RakiService } from '../../../app/rijks/raki.service';
@@ -35,7 +35,7 @@ interface Vm {
   templateUrl: './vm-home-vm.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe],
+  imports: [PaintingComponent, QuoteComponent, PlayButtonComponent, AsyncPipe]
 })
 export class VmHomeVmComponent {
   private raki = inject(RakiService);
@@ -121,7 +121,7 @@ export class VmHomeVmComponent {
     countDown: this.countDown$,
     baToggle: this.baClicks$.pipe(distinctUntilChanged()),
     bqToggle: this.bqClicks$,
-    speed: this.speed$,
+    speed: this.speed$
   }).pipe(
     debounceTime(4),
     // tap(viewModel => console.log({ viewModel })),

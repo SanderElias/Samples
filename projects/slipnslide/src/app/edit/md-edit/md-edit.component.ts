@@ -6,21 +6,20 @@ import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/opera
 
 const styles = [
   'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css',
-  'https://uicdn.toast.com/editor/latest/toastui-editor.min.css',
+  'https://uicdn.toast.com/editor/latest/toastui-editor.min.css'
 ];
 
 @Component({
-    selector: 'md-edit',
-    template: ``,
-    styles: [
-        `
+  selector: 'md-edit',
+  template: ``,
+  styles: [
+    `
       :host {
         display: block;
         background-color: white;
       }
-    `,
-    ],
-
+    `
+  ]
 })
 export class MdEditComponent implements OnInit, OnDestroy {
   private elmRef = inject(ElementRef);
@@ -65,11 +64,11 @@ export class MdEditComponent implements OnInit, OnDestroy {
           this.editor = new Editor({
             el,
             events: {
-              change: () => this.content.next(),
+              change: () => this.content.next()
             },
             // previewStyle: 'vertical',
             usageStatistics: false,
-            initialValue: this._markdown,
+            initialValue: this._markdown
           });
         });
       });

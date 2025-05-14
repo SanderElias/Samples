@@ -1,15 +1,14 @@
 <h1>Quick test with svg</h1>
-<small>this image contains over {{cellCount | number}} elements</small>
+<small>this image contains over {{ cellCount | number }} elements</small>
 
-<app-blocks [recolor]="count" (rectClicked)="bit($event)"
-  (cellCount)="cellCount=$event"></app-blocks>
+<app-blocks [recolor]="count" (rectClicked)="bit($event)" (cellCount)="cellCount = $event"></app-blocks>
 <hr />
 <button (click)="reColor()">ReColor</button>
 
 <style>
   h1 {
     margin: 0;
-    font-size: 1.2rem;;
+    font-size: 1.2rem;
   }
 
   hr {

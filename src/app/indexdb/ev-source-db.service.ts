@@ -6,7 +6,7 @@ import { createId, isId, type UniqueId } from './unique-id-helpers';
 
 type TypeOf = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EvSourceDbService {
   #$inMemDb = signal(new Map<UniqueId, WritableSignal<DbRecord>>(), { equal: () => false });

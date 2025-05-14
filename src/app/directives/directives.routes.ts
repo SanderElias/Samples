@@ -5,6 +5,6 @@ import { DirectivesSampleComponent } from './directives-sample/directives-sample
 export const routes: Routes = [
   {
     path: '',
-    component: DirectivesSampleComponent,
-  },
+    component: DirectivesSampleComponent
+  }
 ];

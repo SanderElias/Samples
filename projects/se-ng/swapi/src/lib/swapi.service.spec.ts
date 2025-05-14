@@ -6,7 +6,7 @@ describe('SwapiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SwapiService = TestBed.get(SwapiService);
+    const service: SwapiService = TestBed.inject(SwapiService);
     expect(service).toBeTruthy();
   });
 });

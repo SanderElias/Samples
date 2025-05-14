@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {computed, effect, signal, Signal, untracked} from '@angular/core';
+import { computed, effect, signal, Signal, untracked } from '@angular/core';
 
 export interface Resource<T> {
   readonly value: Signal<T | undefined>;
@@ -16,22 +16,17 @@ export interface Resource<T> {
 }
 
 export interface MutableResource<T, R> extends Resource<T> {
-  mutate(
-    fn: (req: R, oldValue: T | undefined, setValue: (value: T) => void) => Promise<T>,
-  ): Promise<void>;
+  mutate(fn: (req: R, oldValue: T | undefined, setValue: (value: T) => void) => Promise<T>): Promise<void>;
 }
 
 export enum ResourceState {
   Loading,
   Settled,
   Optimistic,
-  Error,
+  Error
 }
 
-export function resource<T, R>(
-  request: () => R,
-  project: (req: R, abort: AbortSignal) => Promise<T>,
-): MutableResource<T, R> {
+export function resource<T, R>(request: () => R, project: (req: R, abort: AbortSignal) => Promise<T>): MutableResource<T, R> {
   return new ResourceImpl(request, project);
 }
 
@@ -52,7 +47,7 @@ export class ResourceImpl<T, R, U> implements MutableResource<T, R> {
   constructor(request: () => R, project: (req: R, abort: AbortSignal) => Promise<T>) {
     const memoRequest = computed(request);
     effect(
-      async (onCleanup) => {
+      async onCleanup => {
         this._state.set(ResourceState.Loading);
         this._refresh();
         this.request = memoRequest();
@@ -87,13 +82,11 @@ export class ResourceImpl<T, R, U> implements MutableResource<T, R> {
 
         await this.pendingPromise;
       },
-      {allowSignalWrites: true},
+      { allowSignalWrites: true }
     );
   }
 
-  async mutate(
-    updateFn: (req: R, oldValue: T | undefined, setValue: (value: T) => void) => Promise<T>,
-  ): Promise<void> {
+  async mutate(updateFn: (req: R, oldValue: T | undefined, setValue: (value: T) => void) => Promise<T>): Promise<void> {
     if (this.request === undefined) {
       throw new Error('Mutate before fetch');
     }
@@ -115,7 +108,7 @@ export class ResourceImpl<T, R, U> implements MutableResource<T, R> {
     }
 
     try {
-      const updatePromise = updateFn(this.request, oldValue, (optimisticValue) => {
+      const updatePromise = updateFn(this.request, oldValue, optimisticValue => {
         this._state.set(ResourceState.Optimistic);
         this._value.set(optimisticValue);
       });
@@ -134,6 +127,6 @@ export class ResourceImpl<T, R, U> implements MutableResource<T, R> {
   }
 
   refresh(): void {
-    this._refresh.update((v) => v + 1);
+    this._refresh.update(v => v + 1);
   }
 }

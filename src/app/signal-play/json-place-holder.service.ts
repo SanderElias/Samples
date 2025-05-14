@@ -1,8 +1,7 @@
 import { Injectable, Signal, resource } from '@angular/core';
 
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class JsonPlaceHolderService {
   /**
@@ -13,26 +12,26 @@ export class JsonPlaceHolderService {
    * is a terrible idea.
    */
   usersResource = resource({
-    loader: loadUsers,
+    loader: loadUsers
   });
 
   getUser = (id: Signal<number>) =>
     resource({
-      request: id,
-      loader: loadUser,
+      params: id,
+      loader: loadUser
     });
 
   getUserById = (id: Signal<number>) =>
     resource({
-      request: id,
-      loader: loadUser,
+      params: id,
+      loader: loadUser
     });
 }
 
 const jphUrl = (path: string) => `https://jsonplaceholder.typicode.com/${path}`;
 
-const loadUser = async ({ request: id, abortSignal }) => {
-  const res = await fetch(jphUrl(`users/${id}`), { signal: abortSignal });
+const loadUser = async ({ params, abortSignal }: { params: number; abortSignal: AbortSignal }) => {
+  const res = await fetch(jphUrl(`users/${params}`), { signal: abortSignal });
   if (!res.ok) {
     throw new Error(`Failed to load user's data, ${res.status} ${res.statusText}`);
   }

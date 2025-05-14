@@ -1,4 +1,4 @@
-import { computed, effect, isSignal,Signal, signal } from '@angular/core';
+import { computed, effect, isSignal, Signal, signal } from '@angular/core';
 
 class demo {
   s1 = signal(1);
@@ -24,7 +24,7 @@ function combine<P extends Signal<unknown>[]>(...signals: P) {
 function combineObject<O extends {}, P extends Signal<unknown>[]>(O: O, ...signals: P) {
   return computed(() => {
     const values = signals.map(s => s()) as { [K in keyof P]: P[K] extends Signal<infer T> ? T : never };
-    const result = {} as { [K in keyof O]: typeof values[number] };
+    const result = {} as { [K in keyof O]: (typeof values)[number] };
     Object.entries(O).forEach(([key, value]) => {
       if (!isSignal(value)) return;
       const index = signals.indexOf(value);

@@ -75,22 +75,21 @@ But when you find yourself copy-pasting code for the third time, you should star
 
 ### KISS
 
-Look at your code. Are there many brackets? Is it deeply nested? Are there multiple exit points? Does it update things that are not in the same scope(aka side-effects)? Make the variable names sense? _Do they?_ Is my unit larger than fits my screen? Look at the amount of conditionals. See if it makes sense to split it out in smaller pieces. 
+Look at your code. Are there many brackets? Is it deeply nested? Are there multiple exit points? Does it update things that are not in the same scope(aka side-effects)? Make the variable names sense? _Do they?_ Is my unit larger than fits my screen? Look at the amount of conditionals. See if it makes sense to split it out in smaller pieces.
 
 ### YAGNI
 
 When you are writing code, and you think: "I might need this in the future", stop. Ask yourself: "Do I need this now?" If the answer is no, don't write it. If the answer is yes, write it. But keep in mind that you are writing it for the current requirements. If you need it in the future, you can always add it later. But you might not need it in the future. So, don't write it now. You Ain't Gonna Need It.
 
-> [!TIP] your 85% sure you are going to need it in the future? 
+> [!TIP] your 85% sure you are going to need it in the future?
 > Write it down in a TODO. But don't write the code. Just write down what you think you are going to need. This way, you can always look it up later. And you can always decide to write it later. But you might not need it at all. So, don't write it now.
 
 > [!TIP] PRO-TIP
 > your 98% sure you are going to need it in the very near future? **write it!**
 
-
 ### ASAP
 
-Look at your unit. Check for KISS, Check for DRY, Check for YAGNI. If you are OK with all of them, you are probably OK with ASAP. But keep in mind that ASAP is about keeping it simple, _as possible_. So, are you sure _all_ edge-cases are dealt with? Are _all_ requirements indeed met? 
+Look at your unit. Check for KISS, Check for DRY, Check for YAGNI. If you are OK with all of them, you are probably OK with ASAP. But keep in mind that ASAP is about keeping it simple, _as possible_. So, are you sure _all_ edge-cases are dealt with? Are _all_ requirements indeed met?
 
 ## Conclusion
 
@@ -109,6 +108,7 @@ Are the kind of comments one would like to see. The last one could be a bit more
 ## final thoughts.
 
 Let me quote Antoine de Saint-Exupéry
+
 > Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 
 This _is_ the essence of the four principles. He was talking about design. But it is even more true (yes, there are gradations in truth!) for code. It actually means you are doing the job with the most optimal amount of code. And in most cases that will also means the best possible performance. (There is a whole slew of other things that can influence performance, but that is a whole other article)

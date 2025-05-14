@@ -7,13 +7,13 @@ export const routes: Routes = [
     children: [
       {
         path: ':index',
-        loadComponent: () => import('./slide/slide.component').then(m => m.SlideComponent),
-      },
-    ],
+        loadComponent: () => import('./slide/slide.component').then(m => m.SlideComponent)
+      }
+    ]
   },
   { path: 'overview', loadComponent: () => import('./overview/overview.component').then(m => m.OverviewComponent) },
   {
     path: '**',
-    redirectTo: 'overview',
+    redirectTo: 'overview'
   }
 ];

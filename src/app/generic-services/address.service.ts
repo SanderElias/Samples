@@ -39,7 +39,7 @@ export interface Company {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AddressService {
   fakerModule = import('@faker-js/faker');
@@ -52,7 +52,7 @@ export class AddressService {
       map(fakerModule => {
         const { faker } = fakerModule;
         return Array.from({ length }, () => ({
-          ...userCard(faker),
+          ...userCard(faker)
           // avatar: faker.image.avatar(),
         }));
       }),
@@ -65,8 +65,8 @@ export class AddressService {
 
 export function userCard(faker: any): UserCard {
   const sex = faker.person.sex();
-  const firstName = faker.person.firstName({sex});
-  const lastName = faker.person.lastName({sex});
+  const firstName = faker.person.firstName({ sex });
+  const lastName = faker.person.lastName({ sex });
 
   const name = faker.person.fullName({ firstName, lastName, sex });
   return {
@@ -83,20 +83,20 @@ export function userCard(faker: any): UserCard {
       zipcode: faker.location.zipCode(),
       geo: {
         lat: faker.location.latitude(),
-        lng: faker.location.longitude(),
-      },
+        lng: faker.location.longitude()
+      }
     },
     tags: Array.from({ length: faker.number.int({ min: 2, max: 5 }) }, () => faker.word.noun()),
     contactBy: Array.from({ length: faker.number.int({ min: 2, max: 4 }) }, () => ({
       mean: faker.word.noun(),
-      value: faker.word.verb(),
+      value: faker.word.verb()
     })),
     phone: faker.phone.number,
     website: faker.internet.domainName(),
     company: {
       name: faker.company.name(),
       catchPhrase: faker.company.catchPhrase(),
-      bs: faker.company.buzzPhrase(),
-    },
+      bs: faker.company.buzzPhrase()
+    }
   };
 }

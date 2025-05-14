@@ -1,14 +1,13 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-back-home',
   templateUrl: './back-home.component.html',
-  styles: [],
+  styles: []
 })
 export class BackHomeComponent implements OnInit {
   private router = inject(Router);
-
 
   ngOnInit() {}
 

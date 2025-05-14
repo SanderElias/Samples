@@ -3,6 +3,6 @@
   "port": 8888,
   "server": {
     "baseDir": "./",
-    "cors": true,
+    "cors": true
   }
 }

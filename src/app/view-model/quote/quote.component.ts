@@ -7,7 +7,7 @@ import { Quote } from './quote.service';
   selector: 'quote',
   templateUrl: './quote.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  standalone: true
 })
 export class QuoteComponent {
   /** use a hostbinding to add a class tot he host element */

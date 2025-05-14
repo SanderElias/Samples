@@ -8,7 +8,7 @@ export const injectCachedHttpResource = <T>(
 ) => {
   const injector = inject(Injector);
   const undefResource = httpResource<undefined>(() => undefined, {
-    injector,
+    injector
   });
 
   const getFromCache = (idVal: string | undefined) => {
@@ -18,12 +18,9 @@ export const injectCachedHttpResource = <T>(
     const url = `${baseUrl}/${idVal}`;
     if (!cache.has(url)) {
       untracked(() => {
-        const res: HttpResourceRef<T | undefined> = httpResource(
-          { url: `${baseUrl}/${idVal}`, ...options },
-          {
-            injector,
-          }
-        );
+        const res: HttpResourceRef<T | undefined> = httpResource(() => ({ url: `${baseUrl}/${idVal}`, ...options }), {
+          injector
+        });
         cache.set(url, res);
       });
     }

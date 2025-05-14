@@ -4,7 +4,7 @@ import { firstValueFrom, map, merge, mergeMap, ReplaySubject, shareReplay, start
 import { PackageJson } from '@npm/types';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PackageJsonService {
   fileHandle$ = new ReplaySubject<FileSystemFileHandle>(1);
@@ -71,7 +71,7 @@ export class PackageJsonService {
       current.wireit ??= {};
       const entry = this.#undoBuffer.get(key) || {
         command,
-        dependencies: [],
+        dependencies: []
       };
       entry.command = command;
       current.wireit[key] ??= entry;
@@ -118,7 +118,7 @@ export class PackageJsonService {
     }
     current.wireit[name] = {
       command: '',
-      ...props,
+      ...props
     };
     current.scripts[name] = `wireit`;
     this.#contents$.next(current);

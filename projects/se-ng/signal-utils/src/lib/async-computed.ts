@@ -45,7 +45,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
 ): Signal<T | Y | undefined> => {
   const state = signal({
     value: initialValue,
-    error: undefined,
+    error: undefined
     // not adding the completed state. a Signals has no way to communicate this
     // to its consumers without custom wrapping. That is a different concern that
     // is outside the scope of this helper
@@ -94,7 +94,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
             error: error => {
               assertContinue(abortSignal!);
               state.set({ error });
-            },
+            }
           });
         } else if (isPromise(outcome)) {
           const value = await outcome;
@@ -117,9 +117,8 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     },
     /**
      * ManualCleanup to make sure that the cleanup is called when the effect is cleaned up, so we don't leak
-     * ForceRoot to make sure that the effect runs inside a microtask, so we can predictably use async/await
      */
-    { manualCleanup: true, forceRoot: true }
+    { manualCleanup: true, debugName: 'asyncComputed' }
   );
 
   return computed(() => {

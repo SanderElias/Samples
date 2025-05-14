@@ -18,12 +18,12 @@ describe('cloneDeep function', () => {
     const testCases = [
       {
         input: [],
-        expected: [],
+        expected: []
       },
       {
         input: [false, true, -1, 0, 1, 'test', [], ['foo', ['bar', [[], []]]]],
-        expected: [false, true, -1, 0, 1, 'test', [], ['foo', ['bar', [[], []]]]],
-      },
+        expected: [false, true, -1, 0, 1, 'test', [], ['foo', ['bar', [[], []]]]]
+      }
     ];
 
     for (const { input, expected } of testCases) {
@@ -52,16 +52,16 @@ describe('cloneDeep function', () => {
     const testCases = [
       {
         input: new Set(),
-        expected: new Set(),
+        expected: new Set()
       },
       {
         input: new Set([1, 2, 3]),
-        expected: new Set([1, 2, 3]),
+        expected: new Set([1, 2, 3])
       },
       {
         input: { set1: new Set([1, 2, 3]), set2: new Set([4, 5, 6]) },
-        expected: { set1: new Set([1, 2, 3]), set2: new Set([4, 5, 6]) },
-      },
+        expected: { set1: new Set([1, 2, 3]), set2: new Set([4, 5, 6]) }
+      }
     ];
 
     for (const { input, expected } of testCases) {
@@ -76,12 +76,12 @@ describe('cloneDeep function', () => {
     const testCases = [
       {
         input: {},
-        expected: {},
+        expected: {}
       },
       {
         input: { a: false, b: true, c: 0, d: 'test', e: {}, f: { g: 'foo', h: { i: 'bar', j: { k: {}, l: {} } } } },
-        expected: { a: false, b: true, c: 0, d: 'test', e: {}, f: { g: 'foo', h: { i: 'bar', j: { k: {}, l: {} } } } },
-      },
+        expected: { a: false, b: true, c: 0, d: 'test', e: {}, f: { g: 'foo', h: { i: 'bar', j: { k: {}, l: {} } } } }
+      }
     ];
 
     for (const { input, expected } of testCases) {
@@ -169,7 +169,7 @@ describe('cloneDeep function', () => {
       g: new Set([1, 2, 3]),
       h: new Map([
         ['a', 1],
-        ['b', 2],
+        ['b', 2]
       ]),
       i: new Date(),
       j: /test/,
@@ -178,7 +178,7 @@ describe('cloneDeep function', () => {
       m: NaN,
       n: Infinity,
       o: -Infinity,
-      p: undefined as any,
+      p: undefined as any
     };
     input.p = input;
 

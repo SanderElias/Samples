@@ -33,7 +33,7 @@ class LinkedList<T> {
           return { done: false, value };
         }
         return { done: true, value: undefined };
-      },
+      }
     };
   }
 }

@@ -1,8 +1,8 @@
 import { Directive, Input } from '@angular/core';
 
 @Directive({
-    // tslint:disable-next-line:directive-selector
-    selector: '[my-click]'
+  // tslint:disable-next-line:directive-selector
+  selector: '[my-click]'
 })
 export class ObsClickDirective {
   @Input('my-click') set click(x: any) {

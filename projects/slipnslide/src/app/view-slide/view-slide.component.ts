@@ -9,11 +9,10 @@ import { SlidesService } from '../slides.service';
 import { ScullyContentModule } from '@scullyio/ng-lib';
 
 @Component({
-    selector: 'view-slide',
-    template: ` <scully-content></scully-content> `,
-    styleUrls: ['./vied-slide.component.css'],
-    imports: [ScullyContentModule],
-
+  selector: 'view-slide',
+  template: ` <scully-content></scully-content> `,
+  styleUrls: ['./vied-slide.component.css'],
+  imports: [ScullyContentModule]
 })
 export class ViewSlideComponent implements OnInit, OnDestroy {
   private elmRef = inject(ElementRef);

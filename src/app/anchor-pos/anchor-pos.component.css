@@ -13,11 +13,10 @@
   font-size: 1rem;
   display: grid;
   place-items: center;
-  border-radius: .5ch;
-  padding: .5ch;
+  border-radius: 0.5ch;
+  padding: 0.5ch;
   width: fit-content;
-  margin: .5ch;
-
+  margin: 0.5ch;
 }
 
 .infobox {

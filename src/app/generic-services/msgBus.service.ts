@@ -12,7 +12,7 @@ export enum MsgBusType {
   Auth = 'auth',
 
   /** use for plugins */
-  Plugins = 'plugins',
+  Plugins = 'plugins'
 }
 
 /** describes a message */
@@ -33,7 +33,7 @@ export interface MsgBusMessage {
  */
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MsgBusSerrvice {
   /** internal subject to push out msg, holds on to the last one */

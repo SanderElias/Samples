@@ -59,8 +59,8 @@ import { combineLatest, filter, map, tap } from 'rxjs';
         width: 28px;
         height: 28px;
       }
-    `,
-  ],
+    `
+  ]
 })
 export class ShowSourceComponent {
   private router = inject(Router);

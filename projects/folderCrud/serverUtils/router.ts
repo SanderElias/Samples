@@ -77,7 +77,7 @@ export function OptionsResponse(req: Request, res: ServerResponse) {
     'Access-Control-Allow-Origin': req.headers.origin || '*',
     'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS',
     'Access-Control-Allow-Readers': 'X-PINGOTHER, Content-type',
-    Date: new Date().toISOString(),
+    Date: new Date().toISOString()
   });
   res.end();
 }
@@ -91,7 +91,7 @@ const h404 = new Handler((req: IncomingMessage, res: ServerResponse) => {
 
 export class Router {
   handlers: Handlers = {
-    '404': h404,
+    '404': h404
   };
   path = join(__dirname, '../../../slides');
 

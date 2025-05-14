@@ -18,7 +18,7 @@ import {
   switchMap,
   take,
   tap,
-  toArray,
+  toArray
 } from 'rxjs';
 import { addToCache, cacheHas, getFromCache, initCache } from './cache';
 import { Film, FilmsRoot } from './FilmsRoot.interface';
@@ -26,7 +26,7 @@ import { PeopleRoot, Person } from './PeopleRoot.interface';
 import { SwapiRoot } from './SwapiRoot.interface';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SwapiService {
   baseUrl = `https://swapi.dev/api/`;
@@ -205,7 +205,7 @@ export class SwapiService {
       /** flatten the array of observables into results */
       concatAll(),
       /** reduce all the results back into 1 object */
-      reduce((combine, res) => ({ ...combine, ...<any>res }), {} as T),
+      reduce((combine, res) => ({ ...combine, ...(<any>res) }), {} as T),
       /** complete and emit an empty result if there is an error */
       catchError((e: Error) => {
         console.warn(e);

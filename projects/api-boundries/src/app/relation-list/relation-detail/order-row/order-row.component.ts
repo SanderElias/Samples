@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RelationComponent } from '../../relation/relation.component';
 
 @Component({
-    selector: 'app-order-row',
-    template: `
+  selector: 'app-order-row',
+  template: `
     <ul>
       <li><h5>Products:</h5></li>
       @for (item of order.products; track item) {
@@ -13,8 +13,8 @@ import { RelationComponent } from '../../relation/relation.component';
     <app-relation [relation]="order.processor"></app-relation>
     <app-relation [relation]="order.transporter"></app-relation>
   `,
-    styles: [
-        `
+  styles: [
+    `
       :host {
         display: grid;
         border: 1px solid #ccc;
@@ -27,9 +27,9 @@ import { RelationComponent } from '../../relation/relation.component';
         margin: 0;
         margin-left: -20px;
       }
-    `,
-    ],
-    imports: [RelationComponent]
+    `
+  ],
+  imports: [RelationComponent]
 })
 export class OrderRowComponent implements OnInit {
   @Input() order: any;

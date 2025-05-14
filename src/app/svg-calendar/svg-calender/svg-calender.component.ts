@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { monthNames,weekDayNames } from 'src/app/util/daysandmonthsnames';
+import { monthNames, weekDayNames } from 'src/app/util/daysandmonthsnames';
 
 @Component({
-    selector: 'app-svg-calender',
-    templateUrl: './svg-calender.component.svg',
-    styles: [
-        `
+  selector: 'app-svg-calender',
+  templateUrl: './svg-calender.component.svg',
+  styles: [
+    `
       :host {
         display: block;
         height: auto;
@@ -16,8 +16,8 @@ import { monthNames,weekDayNames } from 'src/app/util/daysandmonthsnames';
         text-anchor: middle;
         fill: #667777;
       }
-    `,
-    ]
+    `
+  ]
 })
 export class SvgCalenderComponent {
   @Input() set date(x: Date) {
@@ -32,7 +32,7 @@ export class SvgCalenderComponent {
   }
 
   splitDate(d = new Date()) {
-    if (typeof document === "undefined") return;
+    if (typeof document === 'undefined') return;
     this.month = monthNames[d.getMonth()].toUpperCase();
     this.dim = d.getDate();
     this.day = weekDayNames[d.getDay()];

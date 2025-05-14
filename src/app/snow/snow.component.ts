@@ -6,7 +6,7 @@ import { afterNextRender, ChangeDetectionStrategy, Component, OnInit } from '@an
   selector: 'app-snow',
   templateUrl: './snow.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [],
+  styles: []
 })
 export class SnowComponent {
   constructor() {}
@@ -30,7 +30,7 @@ function makeItSnow() {
     -2 + getRandomInt(4), // speedX
     1 + getRandomInt(4), // speedY
     1 + getRandomInt(1), // size (1 or 2 pixels)
-    makeColor(), // color
+    makeColor() // color
   ];
   const makeFlakes = num => Array.from({ length: num }, makeFlake);
   const drawFlake = ([x, y, speedX, speedY, radius, color]: number[]) => {
