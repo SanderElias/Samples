@@ -1,13 +1,45 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, input, linkedSignal, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
 import { filter, map, pluck, switchMap } from 'rxjs/operators';
 
 interface LocalState {
-  count?: number;
+  count: number;
   message?: string;
   buttons?: QueryList<ElementRef<HTMLButtonElement>>;
+}
+
+@Component({
+  selector: 'app-ls-home',
+  template: `
+    <h2>test some state</h2>
+    <section>
+      <button (click)="updateCounterWith(-1)">-1</button>
+      <span>{{ localState().count }}</span>
+      <button (click)="updateCounterWith(1)">+1</button>
+    </section>
+  `,
+  styles: `
+    section {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+  `
+})
+export class LsHomeComponent {
+  id = input(0, {transform: (v: number) => +v});
+  localState = linkedSignal<LocalState>(() => ({
+    count: this.id() || 0,
+    message: 'Hello'
+  }));
+  updateCounterWith = (value: number) => {
+    this.localState.update(state => {
+      const count = state.count + value;
+      return { ...state, count };
+    });
+  };
 }
 
 @Component({
@@ -24,17 +56,14 @@ interface LocalState {
   styles: [],
   imports: [AsyncPipe]
 })
-export class LsHomeComponent implements OnInit {
+class oldLsHomeComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   localState$ = new BehaviorSubject<LocalState>({
     count: 0
   });
 
-  id$ = this.route.params.pipe(
-    pluck('id'),
-    map(id => +id)
-  );
+  id$ = this.route.params.pipe(map(({ id }) => +id));
 
   clicks$ = this.localState$
     .pipe(
