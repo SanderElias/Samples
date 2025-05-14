@@ -39,6 +39,10 @@ a {
 }
 */
 
+h1,h2,h3,h4,h5,h6 {
+  max-inline-size: 100%;
+}
+
 .backDrop {
   display: flex;
   background-color: rgba(40, 40, 40, 0.6);

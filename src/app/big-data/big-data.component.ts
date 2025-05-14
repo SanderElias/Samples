@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { DemoUser, DemoUserService } from 'src/app/demo-users.service';
@@ -13,6 +13,7 @@ interface LocalState {
 
 @Component({
     imports: [AsyncPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-big-data',
     template: `
     <h1>Big data and performance demo</h1>

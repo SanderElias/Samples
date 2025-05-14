@@ -1,13 +1,13 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { afterNextRender, Component } from '@angular/core';
 
 @Component({
-    selector: 'app-lazy-component',
-    templateUrl: './lazy-component.component.html',
-    styles: [],
-    imports: [NgComponentOutlet]
+  selector: 'app-lazy-component',
+  templateUrl: './lazy-component.component.html',
+  styles: [],
+  imports: [NgComponentOutlet],
 })
-export class LazyComponentComponent implements OnInit {
+export class LazyComponentComponent {
   steps = [
     { file: () => import('./sample-one/sample-one.component') },
     { file: () => import('./sample-two/sample-two.component') },
@@ -22,7 +22,5 @@ export class LazyComponentComponent implements OnInit {
     this.component = component;
   }
 
-  ngOnInit() {
-    this.update(this.currentStep);
-  }
+  _ = afterNextRender(() => this.update(this.currentStep));
 }

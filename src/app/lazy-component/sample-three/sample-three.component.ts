@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './sample-three.component.html',
     styles: []
 })
-export default class SampleThreeComponent implements OnInit {
-  constructor() {}
+export default class SampleThreeComponent {
 
-  ngOnInit(): void {}
 }

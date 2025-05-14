@@ -1,4 +1,14 @@
-import { Component, ElementRef, inject,Injector, Input, OnInit, SecurityContext } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  Injector,
+  Input,
+  OnInit,
+  SecurityContext,
+} from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -7,19 +17,20 @@ import { DomSanitizer } from '@angular/platform-browser';
  * are co-dependent, and you will get circular warnings otherwise
  */
 @Component({
-    // tslint:disable-next-line: component-selector
-    selector: 'dyn-data',
-    template: `{{ content }}`,
-    styles: [
-        `
+  // tslint:disable-next-line: component-selector
+  selector: 'dyn-data',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
+  template: `{{ content }}`,
+  styles: [
+    `
       :host {
         display: inline-block;
         border: 1px solid green;
         padding: 5px 2px;
       }
     `,
-    ],
-
+  ],
 })
 class DynDataComponent {
   private parent = inject(DynamicHtmlComponent);
@@ -34,8 +45,10 @@ class DynDataComponent {
 }
 
 @Component({
-    selector: 'app-dynamichtml',
-    template: `
+  selector: 'app-dynamichtml',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
+  template: `
     <h1>Dynamic HTML sample</h1>
 
     <input type="text" [value]="name" (input)="name = $any($event.target).value" />
@@ -44,8 +57,8 @@ class DynDataComponent {
 
     <div id="target"></div>
   `,
-    styles: [
-        `
+  styles: [
+    `
       textarea {
         display: block;
         height: 6rem;
@@ -53,9 +66,9 @@ class DynDataComponent {
         padding: 0;
       }
     `,
-    ]
+  ],
 })
-export class DynamicHtmlComponent implements OnInit {
+export class DynamicHtmlComponent {
   private elmRef = inject(ElementRef);
   private sanitizer = inject(DomSanitizer);
 
@@ -80,10 +93,10 @@ export class DynamicHtmlComponent implements OnInit {
     customElements.define('dyn-data', dyn);
   }
 
-  ngOnInit() {
+  _ = afterNextRender(() => {
     if (typeof document === 'undefined') return;
     this.update(this.html);
-  }
+  });
 
   update(newHtml) {
     const target = this.elm.querySelector('#target')!;

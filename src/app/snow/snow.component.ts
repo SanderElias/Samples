@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 // import html2canvas from 'html2canvas';
 
 // import html2canvas from 'html2canvas';
 @Component({
-    selector: 'app-snow',
-    templateUrl: './snow.component.html',
-    styles: []
+  selector: 'app-snow',
+  templateUrl: './snow.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [],
 })
-export class SnowComponent implements OnInit {
+export class SnowComponent {
   constructor() {}
 
-  ngOnInit(): void {
+  _ = afterNextRender(() => {
     if (typeof document === 'undefined') return;
     makeItSnow();
-  }
+  });
 }
 
 function makeItSnow() {
@@ -60,7 +61,7 @@ function makeItSnow() {
  * @param max the maximum returned
  */
 function getRandomInt(max: number): number {
-  if (typeof window === "undefined") throw new Error("window is not defined");
+  if (typeof window === 'undefined') throw new Error('window is not defined');
   const randomBuffer = new Uint32Array(1);
   window.crypto.getRandomValues(randomBuffer);
   let randomNumber = randomBuffer[0] / (0xffffffff + 1);
@@ -69,8 +70,8 @@ function getRandomInt(max: number): number {
 
 // var particleCanvas, particleCtx;
 function createSnowCanvas() {
-  if (typeof window === "undefined") throw new Error("window is not defined");
-  if (typeof document === "undefined") throw new Error("document is not defined");
+  if (typeof window === 'undefined') throw new Error('window is not defined');
+  if (typeof document === 'undefined') throw new Error('document is not defined');
   const snowFlakesCanvas = document.createElement('canvas');
   snowFlakesCanvas.width = window.innerWidth;
   snowFlakesCanvas.height = window.innerHeight;
