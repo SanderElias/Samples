@@ -92,7 +92,7 @@
       ]
     },
     "build.samples": {
-      "command": "ng build --configuration production",
+      "command": "NG_BUILD_MAX_WORKERS=9 ng build --configuration production",
       "files": [
         "src/**",
         "tsconfig.app.json"
