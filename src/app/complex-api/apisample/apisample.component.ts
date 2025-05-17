@@ -22,10 +22,10 @@ export class APISampleComponent {
   /** search for this name */
   name = new FormControl('');
   /** keep the raw data */
-  rawData: any;
+  rawData: any ={};
 
   /** extract the available tabels/sets from the root of the api */
-  availableSets$ = this.#sw.swapiRoot$.pipe(map(root => Object.keys(root)));
+  availableSets$ = this.#sw.swapiRoot$.pipe(map(root => Object.keys(root ?? {})));
   availableSets = toSignal(this.availableSets$); // instead of async pipe
 
   /** the options (name or title) available in the picked set */

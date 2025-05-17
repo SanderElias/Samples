@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withRouterConfig } from '@angular/router';
 
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
         paramsInheritanceStrategy: 'always'
       })
     ),
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideClientHydration(withEventReplay())
   ]
 };

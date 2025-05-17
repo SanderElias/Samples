@@ -22,6 +22,7 @@ html {
   box-sizing: inherit;
 }
 
+*/
 body {
   font:
     18px/1 'Roboto',
@@ -37,7 +38,6 @@ body {
 a {
   color: rgb(95, 197, 228);
 }
-*/
 
 h1,
 h2,
@@ -46,6 +46,10 @@ h4,
 h5,
 h6 {
   max-inline-size: 100%;
+}
+h1 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
 }
 
 .backDrop {

@@ -30,7 +30,7 @@ import { SwapiRoot } from './SwapiRoot.interface';
 })
 export class SwapiService {
   baseUrl = `https://swapi.dev/api/`;
-  swapiRoot!: SwapiRoot;
+  swapiRoot: SwapiRoot = {} as SwapiRoot;
   /**
    * Helper. uses fetch to load data from an URL
    * first checks the indexedDB cache if the data is already there,
@@ -149,7 +149,7 @@ export class SwapiService {
       /** use a side-effect to store it in this service */
       tap(swapiRoot => (this.swapiRoot = swapiRoot)),
       /** loop over all listed endpoints */
-      concatMap(r => Object.values(r).map(url => this.getAllPagedData(url))),
+      concatMap(r => Object.values(r || {}).map(url => this.getAllPagedData(url))),
       /** combine all observables form above into a results stream */
       concatAll(),
       /** change that into an array (Only needed when going to display) */
