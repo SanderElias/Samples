@@ -1,48 +1,26 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
 import { HighLightBodyComponent } from './high-light-body/high-light-body.component';
 import { NotifyDialogComponent } from './notify-dialog/notify-dialog.component';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { RelationForm } from './relation-form/relation-form.component';
-import { RelationsService, type SortField } from './relations.service';
-import { SpinnerComponent } from './spinner/spinner.component';
+import { RelationsService } from './relations.service';
+import { SortHeaderComponent } from './sort-header/sort-header.component';
 import { UserRowComponent } from './user-row/user-row.component';
-import { generateRelation } from './generateRelation';
 
 @Component({
   selector: 'se-crud-stuff',
-  imports: [RelationForm, UserRowComponent, HighLightBodyComponent, SpinnerComponent, NotifyDialogComponent],
+  imports: [RelationForm, UserRowComponent, HighLightBodyComponent, NotifyDialogComponent, HeaderComponent, SortHeaderComponent],
   template: `<h1>CRUD Stuff</h1>
-    <button (click)="addRelation()">Add relation</button>
-    <label for="search">
-      Search:
-      <input id="search" type="search" placeholder="Search..." (input)="filter.set($any($event.target).value)" [value]="filter()" />
-      @if (relationsService.listIsLoading()) {
-        <se-spinner />
-      }
-    </label>
+    <crud-header />
     <table>
       <thead>
         <tr>
           <th>Actions</th>
           <th></th>
-          <th (click)="sortOn('name')">
-            Name
-            @if (sort() === 'name') {
-              {{ order() === 'asc' ? '↓' : '↑' }}
-            }
-          </th>
-          <th (click)="sortOn('username')">
-            Username
-            @if (sort() === 'username') {
-              {{ order() === 'asc' ? '↓' : '↑' }}
-            }
-          </th>
-          <th (click)="sortOn('email')">
-            Email
-            @if (sort() === 'email') {
-              {{ order() === 'asc' ? '↓' : '↑' }}
-            }
-          </th>
+          <th sortOn="name">Name</th>
+          <th sortOn="username">Username</th>
+          <th sortOn="email">Email</th>
         </tr>
       </thead>
       <tbody [highLight]="filter()">
@@ -69,43 +47,28 @@ import { generateRelation } from './generateRelation';
 export class CrudStuffComponent {
   relationsService = inject(RelationsService);
   nds = inject(NotifyDialogService);
+  lastList: string[] = [];
   relationIds = computed(() => {
-    //make sure we allways have 10 rows
+    //make sure we always have 10 rows, and show the previous ones when stuff is loading
+    const list = this.relationsService.list();
+    const loading = this.relationsService.listIsLoading();
+    if (list.length === 0 && loading) {
+      // if the list is empty and we are loading, we show the last list
+      list.concat(this.lastList);
+    } else {
+      this.lastList = list;
+    }
     const emptyRow = Array.from({ length: 10 }, () => '');
-    return [...this.relationsService.list(), ...emptyRow].splice(0, 10); // make sure we have 10 rows
+    return [...list, ...emptyRow].splice(0, 10); // make sure we have 10 rows
   });
   editRec = signal<string | undefined>(undefined);
   dlgRef = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
   // convenience so I don't have to use the `relationsServive.*` everywhere.
   filter = this.relationsService.filter;
-  sort = this.relationsService.sort;
-  order = this.relationsService.order;
 
   async edit(rel: string) {
     const dlg = this.dlgRef().nativeElement;
     this.editRec.set(rel);
     dlg.showModal();
   }
-
-  async addRelation() {
-    try {
-      for (let i = 0; i < 10; i++) {
-        const relation = await generateRelation();
-        await this.relationsService.create(relation);
-      }
-    } catch (e) {
-      // do something better as just logging the error!
-      console.error(e);
-    }
-  }
-
-  sortOn = (key: SortField) => {
-    const currentSort = this.relationsService.sort();
-    if (currentSort === key) {
-      this.relationsService.order.update(currentOrder => (currentOrder === 'asc' ? 'desc' : 'asc'));
-    } else {
-      this.relationsService.sort.set(key);
-      this.relationsService.order.set('asc');
-    }
-  };
 }

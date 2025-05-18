@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, QueryList, ViewChildren } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { BehaviorSubject, combineLatest, filter, firstValueFrom, map, startWith, switchMap, tap } from 'rxjs';
@@ -30,7 +30,7 @@ const extractInputType = value => {
 };
 
 @Component({
-  imports: [CommonModule, FormsModule],
+  imports: [AsyncPipe, FormsModule],
   selector: 'app-dyn-form',
   templateUrl: './dyn-form.component.html',
   styles: []

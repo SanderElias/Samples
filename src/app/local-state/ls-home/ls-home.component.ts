@@ -29,7 +29,7 @@ interface LocalState {
   `
 })
 export class LsHomeComponent {
-  id = input(0, {transform: (v: number) => +v});
+  id = input(0, { transform: (v: number) => +v });
   localState = linkedSignal<LocalState>(() => ({
     count: this.id() || 0,
     message: 'Hello'

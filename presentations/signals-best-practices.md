@@ -63,15 +63,15 @@
 
 ## What I do/did
 
-- FedEx = Angular Performance Engineer
+- Looking for a new challenge.
+- FedEx - Angular Performance Engineer
 - HeroDevs - Principal Engineer
 - Pandora - Angular Architect
 - Dutch Angular Group
 - Validointi
-- consulting
+- Consulting
 - Scully
 
- <aside>note: those are sorted on visual length. I am not sure if that is the right order ;)</aside> 
 </div>
 
 <style>
@@ -82,11 +82,7 @@
     grid-template-rows: 1fr;
   }
 
-  aside {
-    margin-top: 2rem;
-    text-align: right;
-    font-size: calc(.65 * var(--base-font-size));
-  }
+
 </style>
 
 ---NextSlide
@@ -95,6 +91,6 @@
 
 # Signals, best practices
 
-## Explained with a simple CRUD app
+### Explained with a simple CRUD app
 
 </div>

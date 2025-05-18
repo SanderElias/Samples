@@ -9,8 +9,9 @@
 }
 
 td {
-  inline-size: 15rem;
-  max-inline-size: 15rem;
+  --_width: calc((100vw - 12rem) / 3);
+  inline-size: var(--_width);
+  max-inline-size: var(--_width);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -31,6 +32,7 @@ td:has(img) {
     object-position: center;
   }
 }
+
 td:has(button) {
   display: flex;
   inline-size: 7rem;
@@ -44,5 +46,10 @@ td:has(button) {
     aspect-ratio: 1;
     padding-inline: 9px;
     padding-block: 4px;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    margin-inline: var(--size-0);
   }
 }

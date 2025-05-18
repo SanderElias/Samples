@@ -136,10 +136,12 @@ section {
       anchor-name: --my-title;
       padding-bottom: var(--base-font-size);
     }
-    h1:has(+ h2) {
+    h1:has(+ h2),
+    h1:has(+ h3) {
       padding-bottom: calc(4 * var(--base-font-size));
     }
-    h1 + h2 {
+    h1 + h2,
+    h1 + h3 {
       width: anchor-size(width);
       position: absolute;
       position-anchor: --my-title;

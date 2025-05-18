@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, debounceTime, map, take } from 'rxjs';
 
 @Component({
   selector: 'se-unsub-sample',
-  imports: [CommonModule],
+  imports: [AsyncPipe],
   template: `
     <h1>Unsubscribe sample</h1>
     <p>Click the buttons to navigate to the next or previous id.</p>

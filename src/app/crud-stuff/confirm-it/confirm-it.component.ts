@@ -1,5 +1,6 @@
 import {
   afterEveryRender,
+  afterNextRender,
   booleanAttribute,
   Component,
   computed,
@@ -61,7 +62,7 @@ export class ConfirmItComponent {
        z-index: ${this.parentBox().zIndex};`
   );
 
-  _0 = afterEveryRender({
+  _ = afterEveryRender({
     read: () => {
       const parentRect = this.parent.getBoundingClientRect();
       // @ts-expect-error // TS doen't know about computedStyleMap.value apparently.
@@ -112,4 +113,10 @@ export class ConfirmItComponent {
     }
     dialog.showModal();
   }
+
+  _1 = afterNextRender(() => {
+    // make the element visible, once everything is rendered.
+    // this prevents display flicker during initialization.
+    this.elm.nativeElement.style.display = 'block'; // make sure the element is displayed
+  });
 }

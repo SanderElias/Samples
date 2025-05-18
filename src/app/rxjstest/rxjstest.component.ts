@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, finalize, map, Observable, tap, timer } from 'rxjs';
 
@@ -6,7 +6,7 @@ import { combinator } from './combinator';
 
 @Component({
   selector: 'se-rxjstest',
-  imports: [CommonModule],
+  imports: [AsyncPipe],
   template: `<h1>Rxjs cleanup test</h1>
     @if (vm$ | async; as vm) {
       <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp.length }}</span>

@@ -1,12 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PackageJsonService } from '../package.json.service';
 import { map } from 'rxjs';
+import { PackageJsonService } from '../package.json.service';
 import { ScriptComponent } from './script/script.component';
 
 @Component({
   selector: 'app-scripts',
-  imports: [CommonModule, ScriptComponent],
+  imports: [AsyncPipe, ScriptComponent],
   template: `<header>
       <h2>NPM scripts</h2>
       <small>(click one to upgrade it to WireIt!<br />Only non-upgraded ones are shown)</small>

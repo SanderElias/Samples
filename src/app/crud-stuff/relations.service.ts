@@ -53,7 +53,7 @@ export class RelationsService {
         },
         fields: ['id'],
         sort: [{ [this.sort()]: this.order() }],
-        limit: 10
+        limit: 5
       },
       headers
     }),

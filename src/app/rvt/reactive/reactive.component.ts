@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, shareReplay, startWith } from 'rxjs';
@@ -7,7 +7,7 @@ import { Model, SampledataService } from '../sampledata.service';
 
 @Component({
   selector: 'se-reactive',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [AsyncPipe, ReactiveFormsModule],
   template: `
     @if (data$ | async; as data) {
       <main>

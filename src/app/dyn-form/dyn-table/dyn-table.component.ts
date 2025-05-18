@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dyn-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [AsyncPipe],
   template: `
     <div class="tableHolder">
       <!--

@@ -33,7 +33,6 @@ const mm = import('micromark');
   }
 })
 /**
- * @deprecated use something else?
  * @description SlideComponent is a standalone component that renders a slide
  * @export
  * @class SlideComponent

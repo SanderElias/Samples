@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { BehaviorSubject, switchMap } from 'rxjs';
@@ -7,7 +7,7 @@ import { Model, SampledataService } from '../sampledata.service';
 
 @Component({
   selector: 'se-template',
-  imports: [CommonModule, FormsModule],
+  imports: [AsyncPipe, DatePipe, FormsModule],
   template: `
     @if (data$ | async; as data) {
       <main>

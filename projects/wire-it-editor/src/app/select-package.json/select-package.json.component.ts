@@ -1,8 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PackageJsonService } from '../package.json.service';
-import { combineLatest, from, map, of, startWith, tap } from 'rxjs';
 import { get } from 'idb-keyval';
+import { combineLatest, from, map, startWith } from 'rxjs';
+import { PackageJsonService } from '../package.json.service';
 declare global {
   interface Window {
     tenant: string;
@@ -12,7 +12,7 @@ declare global {
 
 @Component({
   selector: 'app-select-package-json',
-  imports: [CommonModule],
+  imports: [AsyncPipe],
   template: `
     @if (vm$ | async; as vm) {
       @if (vm.hasHandle === false) {

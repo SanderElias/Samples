@@ -2,9 +2,3 @@
   display: block;
   padding: 16px;
 }
-
-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-}

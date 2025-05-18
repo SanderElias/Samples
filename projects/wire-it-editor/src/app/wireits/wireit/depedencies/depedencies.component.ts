@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PackageJsonService } from '../../../package.json.service';
-import { map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Input } from '@angular/core';
 import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
+import { map } from 'rxjs';
+import { PackageJsonService } from '../../../package.json.service';
 
 @Component({
   selector: 'se-dependencies',
-  imports: [CommonModule, FormsModule],
+  imports: [AsyncPipe, FormsModule],
   template: `
     @if (vm$ | async; as vm) {
       <input type="hidden" name="dependencies" [ngModel]="deps" />

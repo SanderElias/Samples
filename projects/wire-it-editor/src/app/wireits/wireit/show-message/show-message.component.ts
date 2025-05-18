@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, Output } from '@angular/core';
 import { map, ReplaySubject, tap } from 'rxjs';
 
 @Component({
   selector: 'se-show-message',
-  imports: [CommonModule],
+  imports: [AsyncPipe],
   template: `
     <dialog>
       <header>

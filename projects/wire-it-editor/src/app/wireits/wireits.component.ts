@@ -1,14 +1,13 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, CreateSignalOptions, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, catchError, combineLatest, filter, firstValueFrom, map, of, startWith, tap } from 'rxjs';
 import { PackageJsonService } from '../package.json.service';
 import { WireitComponent } from './wireit/wireit.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { string } from 'yargs';
 
 @Component({
   selector: 'se-wireits',
-  imports: [CommonModule, WireitComponent, ReactiveFormsModule],
+  imports: [AsyncPipe, WireitComponent, ReactiveFormsModule],
   template: `
     @if (vm$ | async; as vm) {
       <header>

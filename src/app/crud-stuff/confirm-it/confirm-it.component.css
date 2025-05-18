@@ -1,5 +1,5 @@
 :host {
-  display: block;
+  display: none; /* prevents eventual flickering of the dialog before it is needed */
   position: fixed;
   /**
     the background should be transparent, so you can see the original clickable element.
