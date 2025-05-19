@@ -1,12 +1,10 @@
-import { httpResource, type HttpRequest, type HttpResourceRef } from '@angular/common/http';
+import { httpResource, type HttpResourceRef } from '@angular/common/http';
 import { effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
 import { userCard, type UserCard } from '../generic-services/address.service';
 import { injectCachedHttpResource } from './inject-cached-httpresource';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
-import { generateRelation } from './generateRelation';
-import test from 'node:test';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
@@ -53,7 +51,7 @@ export class RelationsService {
         },
         fields: ['id'],
         sort: [{ [this.sort()]: this.order() }],
-        limit: 5
+        limit: 15
       },
       headers
     }),
@@ -127,7 +125,7 @@ export class RelationsService {
     }
     try {
       // await firstValueFrom(this.#http.put(url, data));
-      await this.#http.put(url, data, httpOptions);
+      const { rev } = await this.#http.put<CouchUpdate>(url, data, httpOptions);
       if (this.#cache.has(url)) {
         const oldData = this.#cache.get(url)?.value()!;
         if (oldData[this.sort()] !== data[this.sort()]!) {
@@ -135,7 +133,8 @@ export class RelationsService {
           // if the sort field has changed, we need to update the list.
           this.refresh.update(old => old + 1);
         }
-        this.#cache.get(url)?.update(oldData => ({ ...data }));
+        // update the cache with the new data, and the new revision.
+        this.#cache.get(url)?.update(oldData => ({ ...data, _rev: rev }));
       } else {
         console.log('no cache for', url, this.#cache);
         // this should not happen, but just in case.
@@ -194,44 +193,44 @@ export class RelationsService {
     return true;
   };
 
-  listenForDBChanges = () => {
-    if (typeof window === 'undefined') return; // I don't want to this this server side.
-    const url = new URL(this.baseUrl + '/_changes');
-    url.username = 'admin';
-    url.password = 'password';
-    url.searchParams.set('feed', 'eventsource');
-    url.searchParams.set('since', 'now');
-    // url.searchParams.set('heartbeat', '10000');
+  // listenForDBChanges = () => {
+  //   if (typeof window === 'undefined') return; // I don't want to this this server side.
+  //   const url = new URL(this.baseUrl + '/_changes');
+  //   url.username = 'admin';
+  //   url.password = 'password';
+  //   url.searchParams.set('feed', 'eventsource');
+  //   url.searchParams.set('since', 'now');
+  //   // url.searchParams.set('heartbeat', '10000');
 
-    console.log('Listening for changes on', url.toString());
+  //   console.log('Listening for changes on', url.toString());
 
-    const source = new EventSource(url.toString(), { withCredentials: true });
-    source.addEventListener('error', (e: any) => {
-      console.error('Error in event source', e);
-      if (e.target.readyState === EventSource.CLOSED) {
-        console.log('Event source closed');
-        source.close();
-      }
-    });
-    source.addEventListener(
-      'heartbeat',
-      function () {
-        // this is just a ping to keep the connection alive.
-        console.log('heartbeat');
-      },
-      false
-    );
-    source.addEventListener(
-      'message',
-      function (e: any) {
-        console.log('Message from event source', e.data);
-      },
-      false
-    );
-  };
+  //   const source = new EventSource(url.toString(), { withCredentials: true });
+  //   source.addEventListener('error', (e: any) => {
+  //     console.error('Error in event source', e);
+  //     if (e.target.readyState === EventSource.CLOSED) {
+  //       console.log('Event source closed');
+  //       source.close();
+  //     }
+  //   });
+  //   source.addEventListener(
+  //     'heartbeat',
+  //     function () {
+  //       // this is just a ping to keep the connection alive.
+  //       console.log('heartbeat');
+  //     },
+  //     false
+  //   );
+  //   source.addEventListener(
+  //     'message',
+  //     function (e: any) {
+  //       console.log('Message from event source', e.data);
+  //     },
+  //     false
+  //   );
+  // };
 
   constructor() {
-    this.listenForDBChanges();
+    // this.listenForDBChanges();
     // this is just me testing some stuf that has nothing to do with the app.
     // this.testLoadAll();
   }
@@ -268,13 +267,15 @@ async function goAddData() {
     });
   }
 }
+
 async function createIndexes() {
   await createIndex('name');
   await createIndex('username');
   await createIndex('email');
   console.log('Indexes created');
 }
-async function createIndex(fieldName: string = 'name') {
+
+async function createIndex(fieldName: SortField) {
   const url = 'http://127.0.0.1:5984/relations/_index';
   const body = {
     index: { fields: [fieldName] },
@@ -293,4 +294,10 @@ async function createIndex(fieldName: string = 'name') {
   const data = await res.json();
   console.log('Index created', data);
   return data;
+}
+
+export interface CouchUpdate {
+  ok: boolean;
+  id: string;
+  rev: string;
 }

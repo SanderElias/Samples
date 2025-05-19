@@ -6,6 +6,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
+    path: 'crudStuff',
+    renderMode: RenderMode.Client
+  },
+  {
     path: 'unsubSample/:id',
     renderMode: RenderMode.Client
   },

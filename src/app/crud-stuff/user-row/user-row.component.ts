@@ -19,7 +19,7 @@ import { RelationsService } from '../relations.service';
       <button (click)="edit.emit(rel().id!)" [disabled]="unStable()">✏️</button>
     </td>
     <td ignoreHl>
-      <img [src]="rel().avatar ?? 'https://avatars.githubusercontent.com/u/96109922'" alt="User Avatar" width="42" height="42" />
+      <img loading="eager" [src]="rel().avatar ?? 'https://avatars.githubusercontent.com/u/96109922'" alt="User Avatar" width="42" height="42" />
     </td>
     <td>{{ rel().name ?? '--' }}</td>
     <td>{{ rel().username ?? '--' }}</td>
