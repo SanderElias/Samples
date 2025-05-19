@@ -24,6 +24,14 @@
     "description": ""
   },
   {
+    "path": "/blog",
+    "modulePath": "/src/app/blogs",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/blogs",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/blog.png",
+    "description": ""
+  },
+  {
     "path": "/card",
     "modulePath": "/src/app/card",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/card",
@@ -61,6 +69,22 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/complex-api/apisample",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/complexAPI.png",
+    "description": ""
+  },
+  {
+    "path": "/crudStuff",
+    "modulePath": "/src/app/crud-stuff",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/crud-stuff",
+    "title": "CRUD Stuff",
+    "largeImage": "/assets/snapshots/crudStuff.png",
+    "description": ""
+  },
+  {
+    "path": "/customNativeForm",
+    "modulePath": "/src/app/custom-native-form",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/custom-native-form",
+    "title": "custom-native-form sample!",
+    "largeImage": "/assets/snapshots/customNativeForm.png",
     "description": ""
   },
   {
@@ -149,6 +173,14 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/html-load/htmlload",
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/htmlLoad.png",
+    "description": ""
+  },
+  {
+    "path": "/iconSprite",
+    "modulePath": "/src/app/icon-sprite",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/icon-sprite",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/iconSprite.png",
     "description": ""
   },
   {
@@ -264,6 +296,14 @@
     "description": ""
   },
   {
+    "path": "/reusableDialog",
+    "modulePath": "/src/app/reusable-dialog",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/reusable-dialog",
+    "title": "Reusable Dialog",
+    "largeImage": "/assets/snapshots/reusableDialog.png",
+    "description": ""
+  },
+  {
     "path": "/routeList",
     "modulePath": "/src/app/route-list",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/route-list",
@@ -309,6 +349,14 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/rxjstest",
     "title": "Rxjs cleanup test",
     "largeImage": "/assets/snapshots/rxjsTest.png",
+    "description": ""
+  },
+  {
+    "path": "/signalDebounce",
+    "modulePath": "/src/app/signal-debounce",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signal-debounce",
+    "title": "signal-debounce",
+    "largeImage": "/assets/snapshots/signalDebounce.png",
     "description": ""
   },
   {
@@ -389,6 +437,14 @@
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-timer",
     "title": "SVG timer sample",
     "largeImage": "/assets/snapshots/svgTimer.png",
+    "description": ""
+  },
+  {
+    "path": "/tableHover",
+    "modulePath": "/src/app/table-hover",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/table-hover",
+    "title": "Table Hover",
+    "largeImage": "/assets/snapshots/tableHover.png",
     "description": ""
   },
   {

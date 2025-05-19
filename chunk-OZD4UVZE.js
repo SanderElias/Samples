@@ -1,0 +1,1 @@
+var n="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",o=(t=2e3)=>Math.floor(Math.random()*t),r=()=>n[o(n.length)];var e=()=>Date.now().toString(36).split("").reverse().map(t=>t+r()).join("");export{e as a};

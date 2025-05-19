@@ -1,1 +1,0 @@
-import"./chunk-I4MTPUBM.js";var e=[{path:"template",loadComponent:()=>import("./template.component-LMMEB4XX.js")},{path:"reactive",loadComponent:()=>import("./reactive.component-FIOLKGDK.js")},{path:"",loadComponent:()=>import("./both.component-P6A2FULW.js")},{path:"**",redirectTo:"both"}],t=e;export{t as default};
