@@ -75,6 +75,11 @@ export class RelationsService {
       return;
     }
     const reason: string = err.error?.reason;
+    if (!reason) {
+      console.error('Unknown error', err);
+      this.#nds.show(`This is a demo app, and it expects CouchDB to be running locally. Please check the console for more information.`, 'CouchDB not found?');
+      return;
+    }
     if (reason.startsWith('No index exists')) {
       console.error('Index not found, creating it');
       try {
@@ -94,7 +99,11 @@ export class RelationsService {
         console.error('Error creating database', e);
       }
     }
-    console.error('Error getting list', err);
+    console.error(err);
+    this.#nds.show(
+      `There is an unknown error with the database. Please check the console for more information.`,
+      'CouchDB error?'
+    );
   });
 
   create = async (data: UserCard) => {

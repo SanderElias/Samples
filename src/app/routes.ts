@@ -242,6 +242,6 @@ export const routes: Routes = [
     path: 'customNativeForm',
     loadComponent: () => import('./custom-native-form/custom-native-form.component').then(m => m.CustomNativeFormComponent)
   },
-  // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'crudStuff' }
+  { path: '**', redirectTo: 'routeList' },
+  // { path: '**', redirectTo: 'crudStuff' }
 ];
