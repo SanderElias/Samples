@@ -1,9 +1,7 @@
-import { project, action } from './util/parse-cmd-line.mjs';
-import { buildAndPublish } from './util/build-and-publish.mjs';
 import { readBases } from './util/bases.mjs';
-import { hashFolder } from './util/hash-folder.mjs';
+import { buildAndPublish } from './util/build-and-publish.mjs';
+import { action, project } from './util/parse-cmd-line.mjs';
 
-import  pkgJson  from '@npmcli/package-json';
 
 
 // buildAndPublish(project, action)

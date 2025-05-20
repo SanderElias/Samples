@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, linkedSignal, signal, viewChild } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { HighLightBodyComponent } from './high-light-body/high-light-body.component';
 import { NotifyDialogComponent } from './notify-dialog/notify-dialog.component';
@@ -25,7 +25,7 @@ import { UserRowComponent } from './user-row/user-row.component';
       </thead>
       <tbody [highLight]="filter()">
         @for (rel of relationIds(); track $index) {
-          <tr [userId]="rel" (edit)="edit(rel!)"></tr>
+          <tr [userId]="rel" (edit)="edit(rel)"></tr>
         }
       </tbody>
     </table>
@@ -46,29 +46,28 @@ import { UserRowComponent } from './user-row/user-row.component';
 })
 export class CrudStuffComponent {
   relationsService = inject(RelationsService);
-  nds = inject(NotifyDialogService);
-  lastList: string[] = [];
-  relationIds = computed(() => {
-    //make sure we always have 10 rows, and show the previous ones when stuff is loading
-    const list = this.relationsService.list();
-    const loading = this.relationsService.listIsLoading();
-    if (list.length === 0 && loading) {
-      // if the list is empty and we are loading, we show the last list
-      list.concat(this.lastList);
-    } else {
-      this.lastList = list;
+
+  relationIds = linkedSignal({
+    source: () => this.relationsService.list(),
+    computation: (list, previous?: { source: string[]; value?: string[] }) => {
+      const emptyRow = Array.from({ length: 10 }, () => '');
+      const loading = this.relationsService.listIsLoading();
+      if (list.length === 0 && loading) {
+        console.log('using previous values');
+        list.concat(previous?.value || []); // use the previous list when loading to prevent flicker.
+      }
+      return [...list, ...emptyRow].splice(0, 10); // make sure we have 10 rows
     }
-    const emptyRow = Array.from({ length: 10 }, () => '');
-    return [...list, ...emptyRow].splice(0, 10); // make sure we have 10 rows
   });
+
   editRec = signal<string | undefined>(undefined);
   dlgRef = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
   // convenience so I don't have to use the `relationsServive.*` everywhere.
-  filter = this.relationsService.filter;
+  filter = this.relationsService.filter.asReadonly();
 
   async edit(rel: string) {
-    const dlg = this.dlgRef().nativeElement;
+    const dialog = this.dlgRef().nativeElement;
     this.editRec.set(rel);
-    dlg.showModal();
+    dialog.showModal();
   }
 }

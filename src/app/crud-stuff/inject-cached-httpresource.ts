@@ -3,12 +3,13 @@ import { computed, inject, Injector, type Signal, untracked } from '@angular/cor
 
 export const injectCachedHttpResource = <T>(
   baseUrl: string,
-  cache = new Map<string, HttpResourceRef<T | undefined>>(),
+  cache = new Map<string, HttpResourceRef<T | Partial<T>>>(),
   options: Record<string, unknown> = {}
 ) => {
   const injector = inject(Injector);
-  const undefResource = httpResource<undefined>(() => undefined, {
-    injector
+  const undefResource = httpResource<Partial<T>>(() => undefined, {
+    injector,
+    defaultValue: {} as Partial<T>
   });
 
   const getFromCache = (idVal: string | undefined) => {
@@ -18,8 +19,9 @@ export const injectCachedHttpResource = <T>(
     const url = `${baseUrl}/${idVal}`;
     if (!cache.has(url)) {
       untracked(() => {
-        const res: HttpResourceRef<T | undefined> = httpResource(() => ({ url: `${baseUrl}/${idVal}`, ...options }), {
-          injector
+        const res: HttpResourceRef<T | Partial<T>> = httpResource(() => ({ url: `${baseUrl}/${idVal}`, ...options }), {
+          injector,
+          defaultValue: { id: idVal } as unknown as Partial<T>
         });
         cache.set(url, res);
       });

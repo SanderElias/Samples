@@ -14,7 +14,7 @@ import { unFlattenRecord } from '../utils/un-flattenRecord';
       <label for="username">Username</label>
       <input id="username" name="username" required />
       <label for="email">Email</label>
-      <input id="email" name="email" required />
+      <input id="email" name="email" required type="email" />
       <fieldset>
         <legend>Address</legend>
         <label for="street">Street</label>
@@ -28,9 +28,9 @@ import { unFlattenRecord } from '../utils/un-flattenRecord';
         <fieldset>
           <legend>Geo</legend>
           <label for="lat">Latitude</label>
-          <input id="lat" name="address.geo.lat" required />
+          <input id="lat" name="address.geo.lat" required min="-90" max="90" type="number" step="0.0001" />
           <label for="lng">Longitude</label>
-          <input id="lng" name="address.geo.lng" required />
+          <input id="lng" name="address.geo.lng" required min="-180" max="180" type="number" step="0.0001" />
         </fieldset>
       </fieldset>
       <button>Submit</button>

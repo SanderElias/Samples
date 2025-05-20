@@ -19,7 +19,13 @@ import { RelationsService } from '../relations.service';
       <button (click)="edit.emit(rel().id!)" [disabled]="unStable()">✏️</button>
     </td>
     <td ignoreHl>
-      <img loading="eager" [src]="rel().avatar ?? 'https://avatars.githubusercontent.com/u/96109922'" alt="User Avatar" width="42" height="42" />
+      <img
+        loading="eager"
+        [src]="rel().avatar ?? 'https://avatars.githubusercontent.com/u/96109922'"
+        alt="User Avatar"
+        width="42"
+        height="42"
+      />
     </td>
     <td>{{ rel().name ?? '--' }}</td>
     <td>{{ rel().username ?? '--' }}</td>
@@ -49,18 +55,13 @@ export class UserRowComponent {
     // this is used to disable the buttons.
     const rowLoading = this.relRef().isLoading();
     const listLoading = this.rs.listIsLoading();
-    return rowLoading || listLoading || !this.relRef().value();
+    return rowLoading || listLoading || isEmptyRelation(this.relRef().value());
   });
-  rel = computed(() => {
-    const newUser = this.relRef().value();
-    if (this.rs.listIsLoading() && this.lastUser) {
-      // if the list is loading, we return the last user
-      // to prevent unneeded "flickering" of the user row
-      return this.lastUser;
-    }
-    this.lastUser = newUser as UserCard;
-    // if the user is not found, we return an empty object
-    // to prevent errors in the template
-    return newUser ?? ({} as Partial<UserCard>);
-  });
+  rel = computed(() => this.relRef().value());
+}
+
+
+const isEmptyRelation = (obj: Partial<UserCard>) => {
+  const {id , ...rest} = obj; // a relation is empty if it has no other properties than id
+  return Object.keys(rest).length === 0;
 }

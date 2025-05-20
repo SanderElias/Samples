@@ -27,19 +27,19 @@ export class RelationsService {
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
   #http = inject(HttpActionClient);
-  #nds = inject(NotifyDialogService);
+  #notifyDialog = inject(NotifyDialogService);
   // this cache has the same lifetime as the service, so it will be cleared when the service is destroyed.
-  #cache = new Map<string, HttpResourceRef<UserCard | undefined>>();
+  #cache = new Map<string, HttpResourceRef<UserCard | Partial<UserCard>>>();
 
   filter = signal('');
   #filter = debouncedComputed(() => `(?i)${this.filter()}`, { delay: 250 }); //debounce and wrap it inside an couchDB regex.
+  #refresh = signal(0);
   sort = signal<SortField>('name');
   order = signal<'asc' | 'desc'>('asc');
-  refresh = signal(0);
 
   #listRes = httpResource<string[]>(
     () => ({
-      url: `${this.baseUrl}/_find?v=${this.refresh()}`,
+      url: `${this.baseUrl}/_find?v=${this.#refresh()}`,
       method: 'POST',
       body: {
         selector: {
@@ -62,9 +62,10 @@ export class RelationsService {
     }
   );
   #list = this.#listRes.value;
-  list = this.#list.asReadonly();
+  list = this.#list.asReadonly(); // expose the list as a readonly signal.
   listIsLoading = this.#listRes.isLoading;
 
+  /** This handles CouchDB Database Errors that are not related to the data itself  */
   _DbError = effect(async () => {
     // As I'm using couchDB, there might be some errors that are not related to the data itself, but to the database.
     // for example, if the database does not exist, or the index is not created.
@@ -77,7 +78,10 @@ export class RelationsService {
     const reason: string = err.error?.reason;
     if (!reason) {
       console.error('Unknown error', err);
-      this.#nds.show(`This is a demo app, and it expects CouchDB to be running locally. Please check the console for more information.`, 'CouchDB not found?');
+      this.#notifyDialog.show({
+        title: 'CouchDB not found?',
+        message: `This is a demo app, and it expects CouchDB to be running locally. Please check the console for more information.`
+      });
       return;
     }
     if (reason.startsWith('No index exists')) {
@@ -100,10 +104,10 @@ export class RelationsService {
       }
     }
     console.error(err);
-    this.#nds.show(
-      `There is an unknown error with the database. Please check the console for more information.`,
-      'CouchDB error?'
-    );
+    this.#notifyDialog.show({
+      title: 'CouchDB error?',
+      message: `There is an unknown error with the database. Please check the console for more information.`
+    });
   });
 
   create = async (data: UserCard) => {
@@ -133,14 +137,13 @@ export class RelationsService {
       return true;
     }
     try {
-      // await firstValueFrom(this.#http.put(url, data));
       const { rev } = await this.#http.put<CouchUpdate>(url, data, httpOptions);
       if (this.#cache.has(url)) {
         const oldData = this.#cache.get(url)?.value()!;
         if (oldData[this.sort()] !== data[this.sort()]!) {
           console.log(`sort field changed from ${oldData[this.sort()]} to ${data[this.sort()]}`);
           // if the sort field has changed, we need to update the list.
-          this.refresh.update(old => old + 1);
+          this.#refresh.update(old => old + 1);
         }
         // update the cache with the new data, and the new revision.
         this.#cache.get(url)?.update(oldData => ({ ...data, _rev: rev }));
@@ -157,18 +160,23 @@ export class RelationsService {
       if (reason.startsWith('Document update conflict')) {
         // updated from elsewhere.
         try {
+          // create a object that has only the properties that are different from the original.
           const myDiff = deepDiff(this.#cache.get(url)?.value()! as any, data as any);
           const request = await fetch(url, { headers });
           const remoteData = await request.json();
+          // mergeDeep will overwrite the properties of the updated remote with the changes I extracted above.
           this.#cache.get(url)?.set(mergeDeep(remoteData, myDiff)); // update the cached value with the merged data
           // inform the user
-          this.#nds.show(
-            'we have merged in the upstream change, please verify your edit, and submit your changes again',
-            'Sorry, we detected a remote data change'
-          );
+          this.#notifyDialog.show({
+            title: 'Sorry, we detected a conflict',
+            message: 'we have merged in the upstream change, please verify your edit, and submit your changes again'
+          });
         } catch {
           // cheap bail out, in real world apps, it should be discussed what needs to happen here...
-          this.#nds.show('please reload your app', 'Sorry, but an unrecoverable error happend');
+          this.#notifyDialog.show({
+            title: 'Sorry, but an unrecoverable error happened',
+            message: 'please reload your app'
+          });
         }
       }
       return false;
@@ -190,10 +198,11 @@ export class RelationsService {
       if (err === 'not_found' && reason === 'deleted') {
         console.log('already deleted, ignore this log');
       } else {
-        this.#nds.show(
-          'There was an update on the data you tried to delete. I have loaded the update into the view. review, and try to delete again if still needed.',
-          'The data was updated'
-        );
+        this.#notifyDialog.show({
+          title: 'The data was updated',
+          message:
+            'There was an update on the data you tried to delete. I have loaded the update into the view. Review, and try to delete again if still needed.'
+        });
         this.#cache.get(url)?.reload();
         return false;
       }
@@ -201,67 +210,9 @@ export class RelationsService {
     this.#list.update(oldList => oldList.filter(i => i !== id));
     return true;
   };
-
-  // listenForDBChanges = () => {
-  //   if (typeof window === 'undefined') return; // I don't want to this this server side.
-  //   const url = new URL(this.baseUrl + '/_changes');
-  //   url.username = 'admin';
-  //   url.password = 'password';
-  //   url.searchParams.set('feed', 'eventsource');
-  //   url.searchParams.set('since', 'now');
-  //   // url.searchParams.set('heartbeat', '10000');
-
-  //   console.log('Listening for changes on', url.toString());
-
-  //   const source = new EventSource(url.toString(), { withCredentials: true });
-  //   source.addEventListener('error', (e: any) => {
-  //     console.error('Error in event source', e);
-  //     if (e.target.readyState === EventSource.CLOSED) {
-  //       console.log('Event source closed');
-  //       source.close();
-  //     }
-  //   });
-  //   source.addEventListener(
-  //     'heartbeat',
-  //     function () {
-  //       // this is just a ping to keep the connection alive.
-  //       console.log('heartbeat');
-  //     },
-  //     false
-  //   );
-  //   source.addEventListener(
-  //     'message',
-  //     function (e: any) {
-  //       console.log('Message from event source', e.data);
-  //     },
-  //     false
-  //   );
-  // };
-
-  constructor() {
-    // this.listenForDBChanges();
-    // this is just me testing some stuf that has nothing to do with the app.
-    // this.testLoadAll();
-  }
-
-  async testLoadAll() {
-    if (typeof window === 'undefined') return; // I don't want to this this server side.
-    try {
-      const url = `${this.baseUrl}/_all_docs`;
-      const body = {
-        sort: [{ [this.sort()]: this.order() }],
-        include_docs: false
-      };
-      const start = performance.now();
-      const res = await this.#http.post(url, body, httpOptions);
-      const end = performance.now();
-      console.log('load all', end - start);
-    } catch (e: any) {
-      console.error('Error getting all docs');
-      console.log(e);
-    }
-  }
 }
+
+// a couple of helper functions to create the database,indexes and add some data to it.
 
 async function goAddData() {
   const fakerModule = import('@faker-js/faker');
