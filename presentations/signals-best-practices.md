@@ -91,6 +91,168 @@
 
 # Signals, best practices
 
-### Explained with a simple CRUD app
+## but first!
 
 </div>
+
+
+- Questions? feel free to interrupt me!
+- I will be around after the presentation
+- Also on BlueSky and Mastodon
+- github.com/SanderElias/Samples
+- I am not a designer!
+
+<style>
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+
+  li {
+    font-size: calc(2 * var(--base-font-size));
+  }
+</style>
+---NextSlide
+
+<div>
+
+# Signals, best practices
+
+## contents
+
+</div>
+
+- demo of crud app
+- a little bit of theory
+- dive into the code
+- another bit of theory
+- what have we learned
+
+<style>
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+</style>
+
+---NextSlide
+
+<div>
+
+# Signals, best practices
+
+## Choises, choises choises
+
+</div>
+
+- CouchDB as backend
+- Always display the first 10 rows only.
+- Empty/busy rows have disabled buttons
+- Keep current rows until new results arrive
+- Only use signals and promises
+- Search highlight
+- _Use the platform_
+
+<style>
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+</style>
+
+---NextSlide
+
+<div>
+
+# Signals, best practices
+
+## lets show!
+
+</div>
+
+### Demo
+
+<style>
+  h2 {
+    animation: myEntry 2s;
+  }
+
+  h3 {
+    animation: myEntry 1s;
+  }
+
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(6 * var(--base-font-size)) 1fr;
+    align-items: center;
+  }
+
+  h3 {
+    font-size: calc(12* var(--base-font-size));
+    margin-top: 0;
+  }
+</style>
+
+---NextSlide
+
+<div>
+
+# Signals, best practices
+
+## theory, I warned you!
+
+</div>
+
+- When do we reach optimal performance?
+- How do we know?
+- Fine, but what has this to do with signals?
+
+<style>
+    h2 {
+    animation: myEntry 2s;
+  }
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+</style>
+
+---NextSlide
+
+<div>
+
+# Signals, best practices
+
+## I'm glad I asked!
+
+</div>
+
+### lets review the code
+
+<style>
+  h2 {
+    animation: myEntry .5s;
+  }
+
+  h3 {
+    animation: myEntry 2s;
+  }
+
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(7 * var(--base-font-size)) 1fr;
+    align-items: center;
+  }
+
+  h3 {
+    font-size: calc(7* var(--base-font-size));
+    text-align: center;
+    margin-top: 0;
+  }
+</style>

@@ -1,8 +1,8 @@
 import { httpResource, type HttpResourceRef } from '@angular/common/http';
-import { effect, inject, Injectable, signal, untracked } from '@angular/core';
+import { effect, inject, Injectable, signal, untracked, Signal } from '@angular/core';
 import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
 import { userCard, type UserCard } from '../generic-services/address.service';
-import { injectCachedHttpResource } from './inject-cached-httpresource';
+import { injectCachedHttpResource } from './utils/inject-cached-httpresource';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
 
@@ -128,6 +128,11 @@ export class RelationsService {
   read = injectCachedHttpResource(this.baseUrl, this.#cache, {
     headers
   });
+  // This is the exact same thing, but without the cache.
+  uncachedRead = (id: Signal<string>, options: Record<string, unknown> = { headers }) =>
+    httpResource<UserCard | Partial<UserCard>>(() => ({ url: `${this.baseUrl}/${id()}`, ...options }), {
+      defaultValue: { id: id() } as unknown as Partial<UserCard>
+    });
 
   update = async (data: UserCard) => {
     const id = data.id;
@@ -161,7 +166,7 @@ export class RelationsService {
         // updated from elsewhere.
         try {
           // create a object that has only the properties that are different from the original.
-          const myDiff = deepDiff(this.#cache.get(url)?.value()! as any, data as any);
+          const myDiff = deepDiff(this.#cache.get(url)?.value()!, data);
           const request = await fetch(url, { headers });
           const remoteData = await request.json();
           // mergeDeep will overwrite the properties of the updated remote with the changes I extracted above.

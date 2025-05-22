@@ -11,7 +11,7 @@ import { UserRowComponent } from './user-row/user-row.component';
 @Component({
   selector: 'se-crud-stuff',
   imports: [RelationForm, UserRowComponent, HighLightBodyComponent, NotifyDialogComponent, HeaderComponent, SortHeaderComponent],
-  template: `<h1>CRUD Stuff</h1>
+  template: `<h1>CRUD - Signals Best practices</h1>
     <crud-header />
     <table>
       <thead>
@@ -53,7 +53,6 @@ export class CrudStuffComponent {
       const emptyRow = Array.from({ length: 10 }, () => '');
       const loading = this.relationsService.listIsLoading();
       if (list.length === 0 && loading) {
-        console.log('using previous values');
         list.concat(previous?.value || []); // use the previous list when loading to prevent flicker.
       }
       return [...list, ...emptyRow].splice(0, 10); // make sure we have 10 rows

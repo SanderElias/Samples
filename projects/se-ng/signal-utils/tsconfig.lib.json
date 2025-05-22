@@ -10,5 +10,8 @@
     "types": [],
     "paths": {}
   },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  },
   "exclude": ["**/*.spec.ts"]
 }

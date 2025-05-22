@@ -66,7 +66,7 @@ export class SlidesHandlerService {
       slides.length !== orgSlides.length || !slides.every((slide, index) => slide.content === orgSlides[index].content);
     if (changed) {
       const newContent = slides.map(parseIntoText).join(separator + '\n');
-      console.log(newContent);
+      // console.log(newContent);
       if (persists) {
         if (newContent !== this.file.$state().content()) {
           this.file.save(newContent);

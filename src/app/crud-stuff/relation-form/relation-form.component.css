@@ -8,6 +8,14 @@ input {
   margin-bottom: 1rem;
 }
 
+label:has(+input[required]) {
+  &:after {
+    display: inline;
+    content: '*';
+    color: orange
+  }
+}
+
 input:last-child {
   margin-bottom: 0;
 }

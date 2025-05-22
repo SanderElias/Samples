@@ -29,16 +29,18 @@ import { deepEqual } from '@se-ng/signal-utils';
   selector: 'confirm-it',
   imports: [],
   template: `<dialog #dialog>
-    <ng-content></ng-content>
-    <footer>
-      <button type="button" (click)="close(false)">{{ cancelText() }}</button>
-      <button type="button" (click)="close(true)">{{ confirmText() }}</button>
-    </footer>
+    @if (!hidden()) {
+      <ng-content></ng-content>
+      <footer>
+        <button type="button" (click)="close(false)">{{ cancelText() }}</button>
+        <button type="button" (click)="close(true)">{{ confirmText() }}</button>
+      </footer>
+    }
   </dialog> `,
   styleUrl: './confirm-it.component.css',
   host: {
-    '(click)': 'onClick($event)',
-    '[style]': 'style()'
+    '(click)': 'captureClick($event)',
+    '[style]': 'styleOverlay()'
   }
 })
 export class ConfirmItComponent {
@@ -53,7 +55,7 @@ export class ConfirmItComponent {
   private parentBox = signal({ top: 0, left: 0, width: 0, height: 0, zIndex: 1 }, { equal: deepEqual });
   // we need to update the overlay when the parent box changes.
   // because of that, this only runs if there is indeed a new position
-  protected style = computed(
+  protected styleOverlay = computed(
     () =>
       `top: ${this.parentBox().top}px;
        left: ${this.parentBox().left}px;
@@ -61,11 +63,13 @@ export class ConfirmItComponent {
        height: ${this.parentBox().height}px;
        z-index: ${this.parentBox().zIndex};`
   );
+  // make sure nothing of the content can "leak" into view before it is needed.
+  protected hidden = signal(true);
 
   _ = afterEveryRender({
     read: () => {
       const parentRect = this.parent.getBoundingClientRect();
-      // @ts-expect-error // TS doen't know about computedStyleMap.value apparently.
+      // @ts-expect-error // TS doen't know about computedStyleMap.get(x).value apparently.
       const zIndex = this.parent.computedStyleMap().get('z-index')?.value;
       // on each render we need to update the parent box.
       // this is needed because the parent can be moved around.
@@ -85,10 +89,11 @@ export class ConfirmItComponent {
       // replay the original event.
       this.parent.dispatchEvent(this.originalEvent!);
     }
+    this.hidden.set(true); // hide the dialog content
     dialog.close();
   };
 
-  onClick(ev: MouseEvent) {
+  captureClick(ev: MouseEvent) {
     const target = ev.target as HTMLElement;
     // prevent all events from bubbling up.
     ev.preventDefault();
@@ -108,15 +113,12 @@ export class ConfirmItComponent {
         if (e.target === dialog) {
           // if the target is the dialog itself, we need to close it.
           dialog.close();
+          this.hidden.set(true);
         }
       });
     }
+    this.hidden.set(false);
     dialog.showModal();
   }
 
-  _1 = afterNextRender(() => {
-    // make the element visible, once everything is rendered.
-    // this prevents display flicker during initialization.
-    this.elm.nativeElement.style.display = 'block'; // make sure the element is displayed
-  });
 }

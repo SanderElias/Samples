@@ -44,7 +44,6 @@ export class NotifyDialogComponent {
   onClick(ev: MouseEvent) {
     if (!this.lightDismiss()) return;
     const target = ev.target as HTMLElement;
-    console.log(target.tagName);
     if (target.tagName.toLowerCase() === 'dialog') {
       // its an click on the backdrop, as the
       // content is inside a div-wrapper

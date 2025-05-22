@@ -26,7 +26,7 @@
     "start.lazy": "wireit",
     "test": "ng test",
     "ntest": "wireit",
-    "serve:ssr:slido": "node dist/slido/server/server.mjs",
+    "serve:ssr:slido": "wireit",
     "publish.libs": "npm set \"//registry.npmjs.org/:_authToken=$NPM_TOKEN\" && node scripts/bump-and-publish.mjs"
   },
   "wireit": {
@@ -99,6 +99,19 @@
       ],
       "output": [
         "dist/samples"
+      ],
+      "dependencies": [
+        "build.lib"
+      ]
+    },
+    "build.slido": {
+      "command": "ng build slido --configuration production",
+      "files": [
+        "projects/slido/src/**",
+        "tsconfig.app.json"
+      ],
+      "output": [
+        "dist/slido"
       ],
       "dependencies": [
         "build.lib"
@@ -177,6 +190,12 @@
       ],
       "output": [
         "dist/se-ng/signal-utils"
+      ]
+    },
+    "serve:ssr:slido": {
+      "command": "node dist/slido/server/server.mjs",
+      "dependencies": [
+        "build.slido"
       ]
     }
   },
@@ -260,24 +279,24 @@
   },
   "published": {
     "@se-ng/observable-hooks": {
-      "hash": "0b6ddb3d8aa143004aa0b087ce2a7218512e29407b1d27e6ee5b7ea183c70b7a",
-      "version": "19.0.0"
+      "hash": "d45b0f5070a6a10bf973799d251d17ad2027b294c1a7c453c1de27e302517d7e",
+      "version": "20.0.0"
     },
     "@se-ng/swapi": {
-      "hash": "f301ca1d0f99c7974cc270dcabc4bb1698dd09496a319bec7a8579f347fc63f9",
-      "version": "19.0.1"
+      "hash": "f95f1902efaa2202cae1b285b39f32650297d35d866d58dbc26a5f7f6eca03b1",
+      "version": "20.0.0"
     },
     "@se-ng/observable-utils": {
-      "hash": "de6c2e9d71469c29c2a14ce2b0c9faca71c28924089c7dc968fe59abf573c592",
-      "version": "19.0.0"
+      "hash": "361f194adff547a7cc6925cc98453919f35e5ceb9276afb0523d71d7c0a5ce6a",
+      "version": "20.0.0"
     },
     "@se-ng/let": {
-      "hash": "34d4d57b52e503cec463548bec99314560846d896b57e1cbdbee46e6b255a5a0",
-      "version": "19.0.0"
+      "hash": "0aee9973c296ed3bc55997c5f393d2019f33d86cc54d880bb72b57ceb082e70b",
+      "version": "20.0.0"
     },
     "@se-ng/signalUtils": {
-      "hash": "1cae4b9949246011c6d6b855c5565839eb28991755ff8d9beb746c9717c4569f",
-      "version": "19.0.2"
+      "hash": "9c78412d7bf49edad392949f46bb600897a837e2d5763f0226e05025f32294d1",
+      "version": "20.0.0"
     }
   }
 }

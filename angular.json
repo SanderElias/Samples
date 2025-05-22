@@ -717,6 +717,7 @@
             "outputPath": "dist/slido",
             "index": "projects/slido/src/index.html",
             "browser": "projects/slido/src/main.ts",
+            "server": "projects/slido/server.ts",
             "polyfills": [],
             "tsConfig": "projects/slido/tsconfig.app.json",
             "namedChunks": true,

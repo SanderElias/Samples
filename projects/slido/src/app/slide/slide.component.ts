@@ -6,6 +6,7 @@ import {
   ElementRef,
   inject,
   input,
+  signal,
   ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
@@ -14,6 +15,7 @@ import hljs from 'highlight.js/lib/core';
 import typescript from 'highlight.js/lib/languages/typescript.js';
 import { NavSLidesService } from '../nav-slides.service.js';
 import { SlidesHandlerService } from '../slides-handler.service.js';
+import { Router } from '@angular/router';
 hljs.registerLanguage('typescript', typescript);
 const mm = import('micromark');
 
@@ -43,8 +45,9 @@ export class SlideComponent {
   slideNav = inject(NavSLidesService);
   elm = inject(ElementRef).nativeElement;
   titleService = inject(Title);
-  /** the number of trhe slide to show */
+  /** the number of the slide to show */
   index = input.required<number>();
+  showItems = signal(true);
 
   slide = computed(() => this.deck.$slides()[this.index()] ?? {});
   title = computed(() => {
@@ -86,10 +89,14 @@ export class SlideComponent {
       const frag: DocumentFragment = this.elm.shadowRoot;
       const lis = Array.from(frag.querySelectorAll('li'));
       lis.forEach((li, i) => {
-        if (i < lastActive) {
+        if (this.showItems()) {
           li.classList.add('revealed');
         } else {
-          li.classList.remove('revealed');
+          if (i < lastActive) {
+            li.classList.add('revealed');
+          } else {
+            li.classList.remove('revealed');
+          }
         }
       });
     }

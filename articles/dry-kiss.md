@@ -68,7 +68,7 @@ Don't worry. You are not alone. We are all lost. But let's try to get at least a
 When you find yourself copy-pasting code, stop. Is this the first time? A second copy for something similar, with only a little difference isn't a real problem. You are OK.
 No difference, but only a different "input"? Abstract it away.
 No difference, but a very different context? probably not a good idea to abstract it away. But keep it in mind, maybe you will find a way to abstract it away later.
-But when you find yourself copy-pasting code for the third time, you should start thinking about pitting this in a reusable unit?
+But when you find yourself copy-pasting code for the third time, you should start thinking about putting this in a reusable unit!
 
 > [!NOTE] Reusable Unit:
 > This means a function, a Class, a Macro, a Decorator, a Template, a Partial, a Component, a Module, a Package, a Library, a Framework, a Service, a Microservice, a Plugin, a Middleware, a Hook, a Mixin, a Trait, a Aspect, a ... you get the idea. There are many ways to abstract code away. Choose the one that fits your language and your problem best.

@@ -18,7 +18,7 @@ export class OverviewComponent {
   async handleDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    console.log('drop', event);
+    // console.log('drop', event);
     const items = event.dataTransfer?.items;
     if (items && items.length > 0) {
       const item = items[0];

@@ -3,6 +3,7 @@ import type { UserCard } from '../../generic-services/address.service';
 import { ConfirmItComponent } from '../confirm-it/confirm-it.component';
 import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
 import { RelationsService } from '../relations.service';
+import { isEmptyRelation } from '../utils/is-empty-relation';
 
 @Component({
   selector: 'tr [userId]',
@@ -34,19 +35,18 @@ import { RelationsService } from '../relations.service';
   styleUrl: './user-row.component.css'
 })
 export class UserRowComponent {
-  rs = inject(RelationsService);
+  relationService = inject(RelationsService);
   userId = input.required<string>();
   edit = output<string>();
-  lastUser: UserCard | undefined;
 
   deleteRelation(rel: Partial<UserCard>) {
-    this.rs.delete(rel as UserCard).catch(e => {
+    this.relationService.delete(rel as UserCard).catch(e => {
       // do something better as just logging the error!
       console.error(e);
     });
   }
 
-  relRef = this.rs.read(this.userId);
+  relRef = this.relationService.read(this.userId);
   unStable = computed(() => {
     // we consider the row unstable if:
     //  - the relation is loading
@@ -54,14 +54,8 @@ export class UserRowComponent {
     //  - there is no relation.
     // this is used to disable the buttons.
     const rowLoading = this.relRef().isLoading();
-    const listLoading = this.rs.listIsLoading();
+    const listLoading = this.relationService.listIsLoading();
     return rowLoading || listLoading || isEmptyRelation(this.relRef().value());
   });
   rel = computed(() => this.relRef().value());
-}
-
-
-const isEmptyRelation = (obj: Partial<UserCard>) => {
-  const {id , ...rest} = obj; // a relation is empty if it has no other properties than id
-  return Object.keys(rest).length === 0;
 }
