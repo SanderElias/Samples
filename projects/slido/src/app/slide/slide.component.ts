@@ -47,7 +47,7 @@ export class SlideComponent {
   titleService = inject(Title);
   /** the number of the slide to show */
   index = input.required<number>();
-  showItems = signal(true);
+  showItems = signal(false);
 
   slide = computed(() => this.deck.$slides()[this.index()] ?? {});
   title = computed(() => {
