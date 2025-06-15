@@ -55,4 +55,4 @@ scully/plugins/*.js.map
 .wireit
 scully.samples.config.mjs
 scully/plugins/render-once.js.map
-.couchdb/data/*
+.couchdb/data/** 

@@ -254,4 +254,10 @@ export const routes: Routes = [
   { path: '**', redirectTo: 'inputHostExperiment' },
   // { path: '**', redirectTo: 'routeList' },
   // { path: '**', redirectTo: 'crudStuff' }
+  {
+    path: 'mqtt',
+    loadComponent: () => import('./mqtt/mqtt.component').then(m => m.MqttComponent)
+  },
+  // { path: '**', redirectTo: 'routeList' },
+  { path: '**', redirectTo: 'mqtt' }
 ];

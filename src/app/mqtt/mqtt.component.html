@@ -1,0 +1,15 @@
+<h3>MTTQ stuff</h3>
+
+<table>
+
+  @for (device of $state(); track device.ieee_address) {
+    <tr>
+      <td><img [src]="device.definition?.icon" alt="icon"></td>
+      <td>{{device.friendly_name}}</td>
+      <td>{{device.friendly_name}}</td>
+      <td>{{device.definition?.exposes| json}}</td>
+    </tr>
+  }
+</table>
+
+<pre><code>{{$state() | json}}</code></pre>
