@@ -40,40 +40,38 @@ import { deepEqual } from '@se-ng/signal-utils';
   </dialog> `,
   styleUrl: './confirm-it.component.css',
   host: {
-    '(click)': 'captureClick($event)',
-    // '[style]': 'styleOverlay()'
+    '(click)': 'captureClick($event)'
   }
 })
 export class ConfirmItComponent {
-  confirmText = input('yes');
-  cancelText = input('no');
-  lightDismiss = input(false, { transform: booleanAttribute });
+  readonly confirmText = input('yes');
+  readonly cancelText = input('no');
+  readonly lightDismiss = input(false, { transform: booleanAttribute });
   private dlg = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
   private elm: ElementRef<HTMLDivElement> = inject(ElementRef);
   private parent = this.elm.nativeElement.parentElement!;
   private originalEvent: MouseEvent | undefined;
   // note we use the deepEqual here to avoid excessive dom updates.
   private parentBox = signal({ top: 0, left: 0, width: 0, height: 0, zIndex: 1 }, { equal: deepEqual });
-  // we need to update the overlay when the parent box changes.
-  // because of that, this only runs if there is indeed a new position
-  protected styleOverlay = computed(
-    () =>
-      `top: ${this.parentBox().top}px;
-       left: ${this.parentBox().left}px;
-       width: ${this.parentBox().width}px;
-       height: ${this.parentBox().height}px;
-       z-index: ${this.parentBox().zIndex};`
-  );
+
   // make sure nothing of the content can "leak" into view before it is needed.
   protected hidden = signal(true);
 
-  _1 = afterRenderEffect(() => {
+  // Because using the host binding would cause the parent CD to run
+  // and we don't want that, we use an effect to set the style of the element.
+  // this is needed to make sure the overlay is positioned correctly.
+  // We use afterRenderEffect to make sure the style is set after the view is rendered.
+  _ = afterRenderEffect(() => {
     const elm = this.elm.nativeElement;
-    const box = this.styleOverlay();
-    elm.style = box;
-  })
+    const box = this.parentBox();
+    elm.style.top = `${box.top}px`;
+    elm.style.left = `${box.left}px`;
+    elm.style.width = `${box.width}px`;
+    elm.style.height = `${box.height}px`;
+    elm.style.zIndex = `${box.zIndex}`;
+  });
 
-  _ = afterEveryRender({
+  _1 = afterEveryRender({
     read: () => {
       const parentRect = this.parent.getBoundingClientRect();
       // @ts-expect-error // TS doen't know about computedStyleMap.get(x).value apparently.
@@ -90,7 +88,7 @@ export class ConfirmItComponent {
     }
   });
 
-  close = (confirmed: boolean) => {
+  protected close = (confirmed: boolean) => {
     const dialog = this.dlg().nativeElement;
     if (confirmed) {
       // replay the original event.
@@ -100,7 +98,7 @@ export class ConfirmItComponent {
     dialog.close();
   };
 
-  captureClick(ev: MouseEvent) {
+  protected captureClick(ev: MouseEvent) {
     const target = ev.target as HTMLElement;
     // prevent all events from bubbling up.
     ev.preventDefault();
@@ -127,5 +125,4 @@ export class ConfirmItComponent {
     this.hidden.set(false);
     dialog.showModal();
   }
-
 }
