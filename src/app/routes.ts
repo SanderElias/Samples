@@ -242,6 +242,16 @@ export const routes: Routes = [
     path: 'customNativeForm',
     loadComponent: () => import('./custom-native-form/custom-native-form.component').then(m => m.CustomNativeFormComponent)
   },
-  { path: '**', redirectTo: 'routeList' },
+  {
+    path: 'inputHostExperiment',
+    loadComponent: () => import('./input-host-experiment/input-host-experiment.component').then(m => m.InputHostExperimentComponent)
+  },
+  {
+    path: 'meteredView',
+    loadComponent: () => import('./metered-view/metered-view.component').then(m => m.MeteredViewComponent)
+  },
+
+  { path: '**', redirectTo: 'inputHostExperiment' },
+  // { path: '**', redirectTo: 'routeList' },
   // { path: '**', redirectTo: 'crudStuff' }
 ];

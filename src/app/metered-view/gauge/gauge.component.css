@@ -1,0 +1,46 @@
+@property --_f {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --_v {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --v {
+  syntax: '<degrees>';
+  inherits: false;
+  initial-value: 0;
+}
+
+:host {
+  width: 200px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(60deg in hsl,#542437,#158207);
+  --v: 280deg; /* length of scale */
+  --b: 15px; /* width of scale */
+
+  aspect-ratio: 1;
+
+  /* clip-path: shape(from top,
+  arc to calc(50% + 50% * sin(var(--v)))
+         calc(50% - 50% * cos(var(--v))) of 50% cw var(--_c, large),
+  arc to calc(50% + (50% - var(--b)) * sin(var(--v)))
+         calc(50% - (50% - var(--b)) * cos(var(--v))) of 1% cw,
+  arc to 50% var(--b) of calc(50% - var(--b)) var(--_c, large),
+  arc to top of 1% cw
+  ); */
+  border-radius: 50%;
+  transform-origin: 50% 50%;
+  transform: rotate(220deg); /* the thing works from the top, so to have a proper gauge we need to rotate it a bit */
+  & > * {
+    transform-origin: 50% 50%;
+    transform: rotate(-220deg);
+  }
+}

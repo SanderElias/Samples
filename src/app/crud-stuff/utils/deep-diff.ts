@@ -2,7 +2,7 @@ import { flattenRecord } from './flatten-record';
 import { unFlattenRecord } from './un-flattenRecord';
 
 export const deepDiff = <T extends {}>(a: T, b: T) => {
-  const aFlat = flattenRecord(a);
+const aFlat = flattenRecord(a);
   const bFlat = flattenRecord(b);
   const diff: Record<string, unknown> = {};
   for (const key in aFlat) {

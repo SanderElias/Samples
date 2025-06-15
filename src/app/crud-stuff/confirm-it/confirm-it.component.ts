@@ -1,6 +1,7 @@
 import {
   afterEveryRender,
   afterNextRender,
+  afterRenderEffect,
   booleanAttribute,
   Component,
   computed,
@@ -40,7 +41,7 @@ import { deepEqual } from '@se-ng/signal-utils';
   styleUrl: './confirm-it.component.css',
   host: {
     '(click)': 'captureClick($event)',
-    '[style]': 'styleOverlay()'
+    // '[style]': 'styleOverlay()'
   }
 })
 export class ConfirmItComponent {
@@ -65,6 +66,12 @@ export class ConfirmItComponent {
   );
   // make sure nothing of the content can "leak" into view before it is needed.
   protected hidden = signal(true);
+
+  _1 = afterRenderEffect(() => {
+    const elm = this.elm.nativeElement;
+    const box = this.styleOverlay();
+    elm.style = box;
+  })
 
   _ = afterEveryRender({
     read: () => {

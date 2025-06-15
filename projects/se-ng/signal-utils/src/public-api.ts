@@ -4,7 +4,7 @@
 
 export { asyncComputed } from './lib/async-computed';
 export { computedResource } from './lib/async-resource';
-export { debouncedComputed } from './lib/debounced-computed';
+export { debouncedComputed, debouncedSignal } from './lib/debounced-computed';
 export { HttpActionClient } from './lib/http-action-client';
 export { injectAwaitSignal } from './lib/await-signal';
 export { isAsyncIterable } from './lib/is-async-iterable';

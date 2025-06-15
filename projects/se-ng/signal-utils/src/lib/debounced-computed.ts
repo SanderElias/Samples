@@ -7,7 +7,7 @@ import { type ValueEqualityFn, type Signal, signal, type WritableSignal, linkedS
  * @param {() => T} function returning the value to be debounced, evaluated in a reactive context
  * @returns {*}  {Signal<T>}
  */
-export const debouncedComputed = <T>(
+export const debouncedSignal = <T>(
   fn: () => T,
   options: {
     /**
@@ -19,7 +19,7 @@ export const debouncedComputed = <T>(
      */
     equal?: ValueEqualityFn<NoInfer<T>> | undefined;
   }
-): Signal<T> => {
+): WritableSignal<T> => {
   let decayTime: number | undefined;
   let currentResult: T;
   const delay = options.delay || 500;
@@ -51,5 +51,19 @@ export const debouncedComputed = <T>(
     equal: options.equal
   });
 
-  return returnValue.asReadonly();
+  return returnValue;
 };
+
+export const debouncedComputed = <T>(
+  fn: () => T,
+  options: {
+    /**
+     * The delay in milliseconds, defaults to 500
+     */
+    delay?: number;
+    /**
+     * equality function, passed to the linkedSignal
+     */
+    equal?: ValueEqualityFn<NoInfer<T>> | undefined;
+  }
+): Signal<T> => debouncedSignal(fn, options).asReadonly();
