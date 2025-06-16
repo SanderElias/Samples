@@ -1,0 +1,62 @@
+:host {
+  display: block;
+}
+
+/* not needed for the checkbox-button itself */
+label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: .25rem;;
+}
+
+input {
+  display: none;
+}
+
+.slider-btn {
+  position: relative;
+
+  &:before,
+  &:after {
+    bottom: 0;
+    content: '';
+    display: inline-block;
+    margin: auto;
+  }
+
+  /* ellipse */
+  &:before {
+   background-color: lightgreen;
+   border-radius: .75rem;
+   top: 0;
+   height: 1.5rem;
+   width: 2.75em;
+  }
+
+  /* circle */
+  &:after {
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(calc(1.5rem - 1.25rem) / 2 * -1);
+    left: calc(calc(1.5rem - 1.25rem) / 2);
+    transition: .4s;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;;
+  }
+}
+
+label:has(input:not(:checked)) {
+
+  /* ellipse appearance after checkbox-click */
+  .slider-btn:before {
+    background-color: lightsalmon;
+  }
+
+  /* circle appearance after checkbox-click */
+  .slider-btn:after {
+    background-color: maroon;
+    transform: translateX(1.25rem);
+  }
+

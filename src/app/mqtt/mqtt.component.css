@@ -1,5 +1,33 @@
 :host {
   display: block;
-  max-height: 99vh;
-  overflow-x: auto;
+  padding: 1rem;
+}
+
+div.grid {
+  display: grid;
+  grid-template-columns: 30rem 1fr;
+  gap: 10px;
+
+  & * {
+    background: var(--surface-3);
+    border-radius: 1rem;
+    min-inline-size: 30rem;
+    min-block-size: 30lh;
+    padding: 1rem;
+    overflow: auto;
+  }
+}
+
+div.devGrid {
+  margin-block-start: 1rem;;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: .5rem;
+
+  & * {
+    background: var(--surface-3);
+    border-radius: 1rem;
+    padding: 1rem;
+    overflow: auto;
+  }
 }
