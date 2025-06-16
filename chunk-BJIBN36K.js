@@ -1,1 +1,0 @@
-function l(e,n){n=encodeURIComponent(n);for(let o of e.split(";")){let r=o.indexOf("="),[s,c]=r==-1?[o,""]:[o.slice(0,r),o.slice(r+1)];if(s.trim()===n)return decodeURIComponent(c)}return null}var u="browser",i="server";function f(e){return e===i}var t=class{};export{l as a,u as b,f as c,t as d};
