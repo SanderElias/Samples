@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, linkedSignal, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, linkedSignal, signal } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { EMPTY } from 'rxjs';
 import { MqttService, type Z2MDevice } from './mqtt.service';
@@ -7,32 +7,40 @@ import { PowerMeterComponent } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { ZigbeeService } from './zigbee.service';
 import { deepEqual } from '../../utils/objects/deep-equal';
+import { ToggleComponent } from './toggle/toggle.component';
 
 @Component({
   selector: 'se-mqtt',
-  imports: [PrettyJson, PowerMeterComponent],
+  imports: [PrettyJson, PowerMeterComponent, ToggleComponent],
   template: `
-    <select (change)="selected.set($any($event.target).value)">
-      @for (device of deviceList(); track device.name) {
-        <option [value]="device.name">{{ device.name }}</option>
-      }
-    </select>
-    <select (change)="filter.set($any($event.target).value)">
-      @for (type of deviceTypes(); track type[0]) {
-        <option [value]="type[0]">{{ type[1] }}</option>
-      }
-    </select>
-    {{ selected() }}
-    <div class="grid">
-      <!-- selectedDevice.value()| json }}</code></pre> -->
-      <pretty-json [json]="selectedDevice.value()" />
-      <pretty-json [json]="selectedDetails()" />
-    </div>
     <div class="devGrid">
-      @for (device of powerMeters(); track device) {
+      <div>
+        <h4>Aanmelden</h4>
+        <se-toggle [value]="allowJoin()" />
+      </div>
+      <!-- @for (device of powerMeters(); track device) {
         <power-meter [ieeeAddress]="device.ieee_address" />
-      }
+      } -->
     </div>
+    <details>
+      <summary>Select Device</summary>
+      <select (change)="selected.set($any($event.target).value)">
+        @for (device of deviceList(); track device.name) {
+          <option [value]="device.name">{{ device.name }}</option>
+        }
+      </select>
+      <select (change)="filter.set($any($event.target).value)">
+        @for (type of deviceTypes(); track type[0]) {
+          <option [value]="type[0]">{{ type[1] }}</option>
+        }
+      </select>
+      {{ selected() }}
+      <div class="grid">
+        <!-- selectedDevice.value()| json }}</code></pre> -->
+        <pretty-json [json]="selectedDevice.value()" />
+        <pretty-json [json]="selectedDetails()" />
+      </div>
+    </details>
   `,
   styleUrl: './mqtt.component.css',
   providers: [MqttService, ZigbeeService]
@@ -68,6 +76,18 @@ export class MqttComponent {
     },
     { equal: deepEqual }
   );
+
+  allowJoinRS = this.z2m.getStatus('zigbee2mqtt/bridge/response/permit_join');
+  allowJoin = computed(() => {
+    const val = this.allowJoinRS.value() as any;
+    console.log('allowJoin', val);
+    return val?.data?.time || 0 > 0;
+
+  });
+
+  _ = afterNextRender(() => {
+    this.z2m.publish('zigbee2mqtt/bridge/request/permit_join',  { value: true, time: 15 });
+  });
 
   deviceTypes = computed(
     () => {

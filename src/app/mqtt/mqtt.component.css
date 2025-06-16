@@ -19,10 +19,10 @@ div.grid {
 }
 
 div.devGrid {
-  margin-block-start: 1rem;;
+  margin-block-end: 1rem;;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: .5rem;
+  gap: 1rem;
 
   & * {
     background: var(--surface-3);

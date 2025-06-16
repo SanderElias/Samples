@@ -18,7 +18,7 @@ export class ZigbeeService {
 
   getDeviceStatus = (ieeeAddress: Signal<string>) =>
     rxResource({
-      params: () => this.#getDevice(ieeeAddress()),
+      params: () => this.#getDevice( ieeeAddress()),
       stream: ({ params }) => {
         if (params && params.friendly_name) {
           return this.mqtt.listenFor(`zigbee2mqtt/${params.friendly_name}`) as Observable<Record<string, unknown>>;
@@ -26,6 +26,14 @@ export class ZigbeeService {
         return NEVER as Observable<Record<string, unknown>>;
       }
     });
+
+  getStatus = (topic: string|Signal<string>) =>
+    rxResource({
+      params: () => typeof topic === 'string' ? topic : topic(),
+      stream: ({ params }) => {
+        return this.mqtt.listenFor(params) as Observable<Record<string, unknown>>;
+      }
+    })
 
   publish = (topic: string, payload: Record<string, unknown> | string) => {
     return new Promise<void>((resolve, reject) => {
