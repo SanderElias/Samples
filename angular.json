@@ -51,6 +51,7 @@
               "outputHashing": "all",
               "sourceMap": false,
               "aot": true,
+              "ssr": false,
               "extractLicenses": true,
               "namedChunks": true,
               "budgets": [

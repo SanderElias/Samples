@@ -19,6 +19,10 @@ export const serverRoutes: ServerRoute[] = [
     getPrerenderParams: async () => [{ id: 'dry-kiss' }, { id: 'dry-kiss-2' }]
   },
   {
+    path: 'mqtt',
+    renderMode: RenderMode.Client
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }

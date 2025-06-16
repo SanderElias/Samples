@@ -251,7 +251,7 @@ export const routes: Routes = [
     loadComponent: () => import('./metered-view/metered-view.component').then(m => m.MeteredViewComponent)
   },
 
-  { path: '**', redirectTo: 'inputHostExperiment' },
+  // { path: '**', redirectTo: 'inputHostExperiment' },
   // { path: '**', redirectTo: 'routeList' },
   // { path: '**', redirectTo: 'crudStuff' }
   {
