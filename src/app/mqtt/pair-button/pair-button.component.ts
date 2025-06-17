@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, computed, Signal, viewChild, ElementRef } from '@angular/core';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { ZigbeeService } from '../zigbee.service';
 
@@ -6,28 +6,77 @@ import { ZigbeeService } from '../zigbee.service';
   selector: 'se-pair-button',
   imports: [ToggleComponent],
   template: `
-    <h4>Aanmelden</h4>
+    @if (allowJoin()) {
+      <h5>Er kan nog</h5>
+      <h4>{{ countdown() }}</h4>
+      <h5>seconden verbonden worden</h5>
+    } @else {
+      <h5>klik hier om te pairen</h5>
+    }
 
-    <!-- @if (allowJoin()) { -->
-    <p>nog: {{ countdown() }}</p>
-    <!-- } -->
+    <dialog #dlg>
+      <div>
+        <h3>Kies device om mee te pairen</h3>
+        <select (change)="selectedRouter.set($any($event.target).value)">
+          @for (opt of routerList(); track opt.ieee_address) {
+            <option [value]="opt.friendly_name">{{ opt.friendly_name }}</option>
+          }
+        </select>
+        <button (click)="startPairing()">Start pairen</button>
+        <button (click)="dlg.close()">Afbreken</button>
+      </div>
+    </dialog>
   `,
   styleUrl: './pair-button.component.css',
   host: {
     '[style.backgroundColor]': 'allowJoin() ? "var(--color-success)" : "var(--color-error)"',
-    '(click)': 'switchJoin(!allowJoin())',
+    '(click)': 'showDialog()'
   }
 })
 export class PairButtonComponent {
   z2m = inject(ZigbeeService);
   signOnTimeout = signal(60);
+  selectedRouter = signal<string | undefined>(undefined);
   countdown = signal('');
+  routerList = computed(() =>
+    this.z2m
+      .devices()
+      .filter(d => d.type === 'Router')
+      .map(d => ({
+        friendly_name: d.friendly_name,
+        ieee_address: d.ieee_address
+      }))
+  );
+  dlg: Signal<ElementRef<HTMLDialogElement>> = viewChild.required('dlg');
+
+  showDialog = () => {
+    if (!this.allowJoin()) {
+      this.dlg().nativeElement.showModal();
+      return;
+    }
+    this.switchJoin(false);
+  };
 
   allowJoin = this.z2m.joinAllowed;
 
+  startPairing = () => {
+    const router = this.selectedRouter();
+    if (!router) {
+      console.error('No router selected for pairing');
+      return;
+    }
+    console.log('Starting pairing with router:', router);
+    this.switchJoin(true);
+    this.dlg().nativeElement.close();
+  };
+
   switchJoin = async (allow: boolean, n = 15) => {
     try {
-      const result = await this.z2m.publish('zigbee2mqtt/bridge/request/permit_join', { value: allow, time: allow ? n : 0 });
+      const result = await this.z2m.publish('zigbee2mqtt/bridge/request/permit_join', {
+        value: allow,
+        time: allow ? n : 0,
+        device: this.selectedRouter()
+      });
       console.log('switchJoin result', result);
       if (allow) {
         this.startCountDown();
