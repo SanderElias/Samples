@@ -1,8 +1,9 @@
 import { computed, inject, Injectable, Signal, untracked } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import { NEVER, type Observable } from 'rxjs';
+import { filter, map, NEVER, tap, type Observable } from 'rxjs';
 import { deepEqual } from '../../utils/objects/deep-equal';
 import { MqttService, type Z2MDevice } from './mqtt.service';
+import type { Packet } from 'mqtt';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ZigbeeService {
 
   getDeviceStatus = (ieeeAddress: Signal<string>) =>
     rxResource({
-      params: () => this.#getDevice( ieeeAddress()),
+      params: () => this.#getDevice(ieeeAddress()),
       stream: ({ params }) => {
         if (params && params.friendly_name) {
           return this.mqtt.listenFor(`zigbee2mqtt/${params.friendly_name}`) as Observable<Record<string, unknown>>;
@@ -27,26 +28,43 @@ export class ZigbeeService {
       }
     });
 
-  getStatus = (topic: string|Signal<string>) =>
+  getStatus = (topic: string | Signal<string>) =>
     rxResource({
-      params: () => typeof topic === 'string' ? topic : topic(),
+      params: () => (typeof topic === 'string' ? topic : topic()),
       stream: ({ params }) => {
         return this.mqtt.listenFor(params) as Observable<Record<string, unknown>>;
       }
-    })
+    });
+
+  joinAllowed: Signal<boolean> = toSignal(
+    this.mqtt.listenFor('bridge/logging').pipe(
+      filter(
+        (log: any) =>
+          log &&
+          log.level === 'info' &&
+          typeof log.message === 'string' &&
+          ['zh:ember: [stack status] network', 'z2m: zigbee: disabling joining new devices'].some(s =>
+            log.message.toLowerCase().includes(s)
+          )
+      ),
+      tap(log => console.log('Join allowed:', log.message)),
+      map(log => (log.message.includes('open') ? true : false))
+    ),
+    { initialValue: false }
+  );
 
   publish = (topic: string, payload: Record<string, unknown> | string) => {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<Packet | undefined>((resolve, reject) => {
       if (typeof payload !== 'string') {
         payload = JSON.stringify(payload);
       }
       this.mqtt.client.then(client => {
-        client.publish(topic, <string>payload, undefined, args => {
-          if (args) {
-            console.error('Error publishing to MQTT:', args);
-            reject(args);
+        client.publish(topic, <string>payload, undefined, (error,packet) => {
+          if (error) {
+            console.error('Error publishing to MQTT:', error);
+            reject(error);
           } else {
-            resolve();
+            resolve(packet);
           }
         });
       });
@@ -58,8 +76,7 @@ export class ZigbeeService {
 }
 
 //Calling Request API: bridge/request/device/rename
-const renameDevice = (from: string, to: string) => ({
-  topic: 'bridge/request/device/rename',
+export const renameDevice = (from: string, to: string) => ({
   payload: { from, to, homeassistant_rename: true }
 });
 

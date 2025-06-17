@@ -77,11 +77,6 @@ export class MqttService {
       debounceTime(100),
       // deepEqual is costly, but less costly as unneeded display updates/ layout-trashing
       distinctUntilChanged<string | Record<string, unknown>>(deepEqual),
-      share({
-        connector: () => new ReplaySubject(1),
-        resetOnComplete: true,
-        resetOnRefCountZero: () => timer(500)
-      }),
       tap({
         error() {
           cl.then(client => client.unsubscribe(listenTopic));
@@ -93,6 +88,11 @@ export class MqttService {
           activeTopics.delete(listenTopic);
           console.log('stopped listening for', listenTopic);
         }
+      }),
+      share({
+        connector: () => new ReplaySubject(1),
+        resetOnComplete: true,
+        resetOnRefCountZero: () => timer(500)
       })
     );
     this.activeTopics.set(listenTopic, topic$ as Observable<Record<string, unknown>>);

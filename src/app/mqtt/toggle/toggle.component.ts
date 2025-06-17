@@ -1,11 +1,11 @@
-import { Component, input, model } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 
 @Component({
   selector: 'se-toggle',
   imports: [],
   template: `
   <label>
-    <input type="checkbox" [checked]="value()" (change)="value.set(!value())" />
+    <input type="checkbox" [checked]="value()" (change)="valueChange.emit(!value())" />
     <span class='slider-btn'></span>
     <span>{{ value() ? toggleOnText() : toggleOffText() }}</span>
   </label>
@@ -16,7 +16,6 @@ import { Component, input, model } from '@angular/core';
 export class ToggleComponent {
   toggleOnText = input('Aan')
   toggleOffText = input('Uit');
-  value = model.required<boolean>();
-
-
+  value = input.required<boolean>();
+  valueChange = output<boolean>();
 }

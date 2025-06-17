@@ -1,29 +1,30 @@
-import { JsonPipe } from '@angular/common';
-import { afterNextRender, Component, computed, inject, linkedSignal, signal } from '@angular/core';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, linkedSignal, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { EMPTY } from 'rxjs';
+import { deepEqual } from '../../utils/objects/deep-equal';
 import { MqttService, type Z2MDevice } from './mqtt.service';
+import { PairButtonComponent } from "./pair-button/pair-button.component";
 import { PowerMeterComponent } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { ZigbeeService } from './zigbee.service';
-import { deepEqual } from '../../utils/objects/deep-equal';
-import { ToggleComponent } from './toggle/toggle.component';
+
+export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp'] as const;
+export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 
 @Component({
   selector: 'se-mqtt',
-  imports: [PrettyJson, PowerMeterComponent, ToggleComponent],
+  imports: [PrettyJson, PowerMeterComponent,  PairButtonComponent],
   template: `
     <div class="devGrid">
-      <div>
-        <h4>Aanmelden</h4>
-        <se-toggle [value]="allowJoin()" />
-      </div>
-      <!-- @for (device of powerMeters(); track device) {
+      <se-pair-button />
+
+      @for (device of powerMeters(); track device.ieee_address) {
         <power-meter [ieeeAddress]="device.ieee_address" />
-      } -->
+      }
     </div>
     <details>
       <summary>Select Device</summary>
+
       <select (change)="selected.set($any($event.target).value)">
         @for (device of deviceList(); track device.name) {
           <option [value]="device.name">{{ device.name }}</option>
@@ -48,6 +49,7 @@ import { ToggleComponent } from './toggle/toggle.component';
 export class MqttComponent {
   mqtt = inject(MqttService);
   z2m = inject(ZigbeeService);
+
   state = signal<Record<string, any>>({});
   cleanState = computed(() => cleanUp(this.state()));
   selected = linkedSignal<string | undefined>((...args) => {
@@ -77,17 +79,6 @@ export class MqttComponent {
     { equal: deepEqual }
   );
 
-  allowJoinRS = this.z2m.getStatus('zigbee2mqtt/bridge/response/permit_join');
-  allowJoin = computed(() => {
-    const val = this.allowJoinRS.value() as any;
-    console.log('allowJoin', val);
-    return val?.data?.time || 0 > 0;
-
-  });
-
-  _ = afterNextRender(() => {
-    this.z2m.publish('zigbee2mqtt/bridge/request/permit_join',  { value: true, time: 15 });
-  });
 
   deviceTypes = computed(
     () => {
@@ -111,7 +102,9 @@ export class MqttComponent {
 
   powerMeters = computed(() => {
     const devices = this.devices() as unknown as Z2MDevice[];
-    return devices?.filter(d => d.definition?.exposes?.some(e => e.property === 'power' && e.type === 'numeric'));
+    return devices
+      ?.filter(d => d.definition?.exposes?.some(e => e.property === 'power' && e.type === 'numeric'))
+      .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name));
   });
 
   selectedDetails = computed(() => {

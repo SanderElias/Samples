@@ -1,3 +1,24 @@
 :host {
   display: block;
 }
+
+button {
+  background-color: var(--surface-4);
+  margin: .5rem;
+}
+
+h4 button {
+  margin:0;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  padding: 0.5rem;
+  transform: scale(0.75);
+}
+
+label {
+  margin-block-start: .5rem;;
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  align-items: center;
+  gap: .5rem;
+}
