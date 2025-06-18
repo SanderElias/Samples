@@ -11,7 +11,9 @@ import type { Packet } from 'mqtt';
 export class ZigbeeService {
   mqtt = inject(MqttService);
 
-  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices'), <any>{ initialValue: [] }) as Signal<
+  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices').pipe(
+    // tap(devices => console.log('Zigbee devices updated:', devices)),
+  ), <any>{ initialValue: [] }) as Signal<
     Z2MDevice[]
   >;
 
@@ -78,7 +80,7 @@ export class ZigbeeService {
   };
 
   #getDevice = (ieeeAddress: string) =>
-    untracked(this.devices).find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
+    this.devices().find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
 }
 
 //Calling Request API: bridge/request/device/rename
