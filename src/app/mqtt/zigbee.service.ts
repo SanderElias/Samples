@@ -11,7 +11,9 @@ import type { Packet } from 'mqtt';
 export class ZigbeeService {
   mqtt = inject(MqttService);
 
-  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices'), <any>{ initialValue: [] }) as Signal<
+  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices').pipe(
+    // tap(devices => console.log('Zigbee devices updated:', devices)),
+  ), <any>{ initialValue: [] }) as Signal<
     Z2MDevice[]
   >;
 
@@ -53,13 +55,19 @@ export class ZigbeeService {
     { initialValue: false }
   );
 
+  jointime: Signal<number> = toSignal(this.mqtt.listenFor('bridge/response/permit_join').pipe(
+    filter((r: any) => r && r.data && r.data.time !== undefined),
+    tap(r => console.log('Jointime response:', r)),
+    map((r: any) => r.data.time || 0),
+  ));
+
   publish = (topic: string, payload: Record<string, unknown> | string) => {
     return new Promise<Packet | undefined>((resolve, reject) => {
       if (typeof payload !== 'string') {
         payload = JSON.stringify(payload);
       }
       this.mqtt.client.then(client => {
-        client.publish(topic, <string>payload, undefined, (error,packet) => {
+        client.publish(topic, <string>payload, undefined, (error, packet) => {
           if (error) {
             console.error('Error publishing to MQTT:', error);
             reject(error);
@@ -72,7 +80,7 @@ export class ZigbeeService {
   };
 
   #getDevice = (ieeeAddress: string) =>
-    untracked(this.devices).find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
+    this.devices().find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
 }
 
 //Calling Request API: bridge/request/device/rename

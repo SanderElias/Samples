@@ -3,17 +3,17 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { EMPTY } from 'rxjs';
 import { deepEqual } from '../../utils/objects/deep-equal';
 import { MqttService, type Z2MDevice } from './mqtt.service';
-import { PairButtonComponent } from "./pair-button/pair-button.component";
+import { PairButtonComponent } from './pair-button/pair-button.component';
 import { PowerMeterComponent } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { ZigbeeService } from './zigbee.service';
 
-export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp'] as const;
+export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'test'] as const;
 export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 
 @Component({
   selector: 'se-mqtt',
-  imports: [PrettyJson, PowerMeterComponent,  PairButtonComponent],
+  imports: [PrettyJson, PowerMeterComponent, PairButtonComponent],
   template: `
     <div class="devGrid">
       <se-pair-button />
@@ -47,43 +47,42 @@ export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
   providers: [MqttService, ZigbeeService]
 })
 export class MqttComponent {
-  mqtt = inject(MqttService);
-  z2m = inject(ZigbeeService);
+  readonly #mqtt = inject(MqttService);
+  readonly #z2m = inject(ZigbeeService);
 
-  state = signal<Record<string, any>>({});
-  cleanState = computed(() => cleanUp(this.state()));
-  selected = linkedSignal<string | undefined>((...args) => {
-    const devices = this.devices() as unknown as Z2MDevice[];
+  readonly state = signal<Record<string, any>>({});
+  readonly cleanState = computed(() => cleanUp(this.state()));
+  readonly filter = signal<string | undefined>(undefined);
+  readonly devices = this.#z2m.devices;
+
+  readonly selected = linkedSignal<string | undefined>(() => {
+    const devices = this.devices();
     const filter = this.filter();
-    if (!devices || devices.length === 0) return undefined;
+    if (!devices?.length) return undefined;
     if (filter) {
       const device = devices.find(d => d.definition?.model === filter);
-      if (device) {
-        return device.friendly_name || device.ieee_address;
-      }
+      if (device) return device.friendly_name || device.ieee_address;
     }
     return undefined;
-  }); // selected device
-  filter = signal<string | undefined>(undefined);
-  deviceList = computed(
+  });
+
+  readonly deviceList = computed(
     () => {
-      const devices = this.devices() as unknown as Z2MDevice[];
+      const devices = this.devices();
       const filter = this.filter();
-      return devices
-        ?.filter(d => (filter ? d.definition?.model === filter : true))
-        .map(device => {
-          return { name: device.friendly_name || device.ieee_address };
-        })
-        .sort();
+      return (
+        devices
+          ?.filter(d => (filter ? d.definition?.model === filter : true))
+          .map(device => ({ name: device.friendly_name || device.ieee_address }))
+          .sort() ?? []
+      );
     },
     { equal: deepEqual }
   );
 
-
-  deviceTypes = computed(
-    () => {
-      const devices = this.devices() as unknown as Z2MDevice[];
-      const list = devices
+  readonly deviceTypes = computed(
+    () =>
+      this.devices()
         ?.reduce(
           (acc, device) => {
             const model = device.definition?.model || '';
@@ -94,36 +93,30 @@ export class MqttComponent {
           },
           [] as [string, string][]
         )
-        .sort();
-      return list;
-    },
+        .sort() ?? [],
     { equal: deepEqual }
   );
 
-  powerMeters = computed(() => {
-    const devices = this.devices() as unknown as Z2MDevice[];
-    return devices
-      ?.filter(d => d.definition?.exposes?.some(e => e.property === 'power' && e.type === 'numeric'))
-      .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name));
-  });
+  readonly powerMeters = computed(
+    () =>
+      this.devices()
+        ?.filter(d => d.definition?.exposes?.some(e => e.property === 'power' && e.type === 'numeric'))
+        .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name)) ?? []
+  );
 
-  selectedDetails = computed(() => {
-    const devices = this.devices() as unknown as Z2MDevice[];
+  readonly selectedDetails = computed(() => {
+    const devices = this.devices();
     const selected = this.selected();
     if (!selected) return undefined;
-    const device = devices?.find(d => d.friendly_name === selected || d.ieee_address === selected);
-    if (!device) return undefined;
-    return device;
+    return devices?.find(d => d.friendly_name === selected || d.ieee_address === selected);
   });
 
-  devices = this.z2m.devices;
-  selectedDevice = rxResource({
+  readonly selectedDevice = rxResource({
     params: this.selected,
     stream: args => {
       const device = args.params;
       if (!device) return EMPTY;
-      console.log('selectedDevice', device);
-      return this.mqtt.listenFor(device);
+      return this.#mqtt.listenFor(device);
     }
   });
 }
