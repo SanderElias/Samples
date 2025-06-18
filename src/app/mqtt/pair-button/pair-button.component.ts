@@ -23,18 +23,19 @@ import { ZigbeeService } from '../zigbee.service';
           }
         </select>
         <button (click)="startPairing()">Start pairen</button>
-        <button (click)="dlg.close()">Afbreken</button>
+        <button (click)="closeDialog()">Afbreken</button>
       </div>
     </dialog>
   `,
   styleUrl: './pair-button.component.css',
   host: {
     '[style.backgroundColor]': 'allowJoin() ? "var(--color-success)" : "var(--color-error)"',
-    '(click)': 'showDialog()'
+    '(click)': 'showDialog($event)'
   }
 })
 export class PairButtonComponent {
   z2m = inject(ZigbeeService);
+  elm = inject(ElementRef).nativeElement as HTMLDivElement;
   signOnTimeout = signal(60);
   selectedRouter = signal<string | undefined>(undefined);
   countdown = signal('');
@@ -49,7 +50,10 @@ export class PairButtonComponent {
   );
   dlg: Signal<ElementRef<HTMLDialogElement>> = viewChild.required('dlg');
 
-  showDialog = () => {
+  showDialog = (ev: MouseEvent) => {
+    if (this.elm !== ev.target) {
+      return;
+    }
     if (!this.allowJoin()) {
       this.dlg().nativeElement.showModal();
       return;
@@ -58,6 +62,10 @@ export class PairButtonComponent {
   };
 
   allowJoin = this.z2m.joinAllowed;
+
+  closeDialog = () => {
+    this.dlg().nativeElement.close();
+  };
 
   startPairing = () => {
     const router = this.selectedRouter();
@@ -70,11 +78,11 @@ export class PairButtonComponent {
     this.dlg().nativeElement.close();
   };
 
-  switchJoin = async (allow: boolean, n = 15) => {
+  switchJoin = async (allow: boolean,) => {
     try {
       const result = await this.z2m.publish('zigbee2mqtt/bridge/request/permit_join', {
         value: allow,
-        time: allow ? n : 0,
+        time: allow ? this.signOnTimeout() : 0,
         device: this.selectedRouter()
       });
       console.log('switchJoin result', result);

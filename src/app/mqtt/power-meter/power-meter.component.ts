@@ -1,7 +1,7 @@
 import { afterNextRender, Component, computed, inject, input, linkedSignal } from '@angular/core';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { ZigbeeService } from '../zigbee.service';
-import type { ZigbeePrefixes } from '../mqtt.component';
+import { zigbeePrefixes, type ZigbeePrefixes } from '../mqtt.component';
 
 @Component({
   selector: 'power-meter',
@@ -27,10 +27,9 @@ import type { ZigbeePrefixes } from '../mqtt.component';
         <label>
           <span>indelen bij:</span>
           <select name="prefix" id="prefix" [value]="prefix()">
-            <option value="e&m" [selected]="prefix() === 'e&m'">E&M</option>
-            <option value="s&m" [selected]="prefix() === 's&m'">S&M</option>
-            <option value="zaak" [selected]="prefix() === 'zaak'">Zaak</option>
-            <option value="kamp" [selected]="prefix() === 'kamp'">Kamp</option>
+            @for (pf of prefixes; track $index) {
+              <option value="{{ pf }}" [selected]="prefix() === pf">{{ pf }}</option>
+            }
             <option value="" [selected]="!prefix()">Geen</option>
           </select>
         </label>
@@ -48,6 +47,7 @@ import type { ZigbeePrefixes } from '../mqtt.component';
 export class PowerMeterComponent {
   z2m = inject(ZigbeeService);
   ieeeAddress = input.required<string>();
+  protected prefixes = zigbeePrefixes
 
   #deviceResource = this.z2m.getDeviceStatus(this.ieeeAddress);
   deviceLoading = this.#deviceResource.isLoading;
@@ -58,8 +58,8 @@ export class PowerMeterComponent {
   name = computed(() => this.#base_name().split('/').pop() || '');
   prefix = linkedSignal(() => {
     const name = this.#base_name();
-    const match = name.match(/^(e&m|s&m|zaak|kamp)/);
-    return match ? match[0] : ('' as ZigbeePrefixes);
+    const match = name.match(new RegExp(`^(${this.prefixes.join('|')})`));
+    return match && match[0] ? match[0] : ('' as ZigbeePrefixes);
   });
   isPoweredOn = computed(() => this.deviceStatus()?.state === 'ON');
 

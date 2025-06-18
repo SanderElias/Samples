@@ -53,13 +53,19 @@ export class ZigbeeService {
     { initialValue: false }
   );
 
+  jointime: Signal<number> = toSignal(this.mqtt.listenFor('bridge/response/permit_join').pipe(
+    filter((r: any) => r && r.data && r.data.time !== undefined),
+    tap(r => console.log('Jointime response:', r)),
+    map((r: any) => r.data.time || 0),
+  ));
+
   publish = (topic: string, payload: Record<string, unknown> | string) => {
     return new Promise<Packet | undefined>((resolve, reject) => {
       if (typeof payload !== 'string') {
         payload = JSON.stringify(payload);
       }
       this.mqtt.client.then(client => {
-        client.publish(topic, <string>payload, undefined, (error,packet) => {
+        client.publish(topic, <string>payload, undefined, (error, packet) => {
           if (error) {
             console.error('Error publishing to MQTT:', error);
             reject(error);

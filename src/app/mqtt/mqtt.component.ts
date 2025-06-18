@@ -8,7 +8,7 @@ import { PowerMeterComponent } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { ZigbeeService } from './zigbee.service';
 
-export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp'] as const;
+export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'test'] as const;
 export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 
 @Component({
