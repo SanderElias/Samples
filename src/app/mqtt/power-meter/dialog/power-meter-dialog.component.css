@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+label {
+  margin-block-start: .5rem;;
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* Add space between any buttons */
+button + button {
+  margin-left: 0.5rem;
+}
