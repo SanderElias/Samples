@@ -1,9 +1,9 @@
-import { computed, inject, Injectable, Signal, untracked } from '@angular/core';
+import { computed, inject, Injectable, Signal } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, NEVER, tap, type Observable } from 'rxjs';
+import type { Packet } from 'mqtt';
+import { filter, map, NEVER, of, shareReplay, switchMap, tap, type Observable } from 'rxjs';
 import { deepEqual } from '../../utils/objects/deep-equal';
 import { MqttService, type Z2MDevice } from './mqtt.service';
-import type { Packet } from 'mqtt';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,14 @@ import type { Packet } from 'mqtt';
 export class ZigbeeService {
   mqtt = inject(MqttService);
 
-  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices').pipe(
-    // tap(devices => console.log('Zigbee devices updated:', devices)),
-  ), <any>{ initialValue: [] }) as Signal<
-    Z2MDevice[]
-  >;
+  devices: Signal<Z2MDevice[]> = toSignal(
+    <any>this.mqtt
+      .listenFor('bridge/devices')
+      .pipe
+      // tap(devices => console.log('Zigbee devices updated:', devices)),
+      (),
+    <any>{ initialValue: [] }
+  ) as Signal<Z2MDevice[]>;
 
   getDeviceInfo = (ieeeAddress: Signal<string>) => computed(() => this.#getDevice(ieeeAddress()), { equal: deepEqual });
 
@@ -38,28 +41,21 @@ export class ZigbeeService {
       }
     });
 
-  joinAllowed: Signal<boolean> = toSignal(
-    this.mqtt.listenFor('bridge/logging').pipe(
-      filter(
-        (log: any) =>
-          log &&
-          log.level === 'info' &&
-          typeof log.message === 'string' &&
-          ['zh:ember: [stack status] network', 'z2m: zigbee: disabling joining new devices'].some(s =>
-            log.message.toLowerCase().includes(s)
-          )
-      ),
-      tap(log => console.log('Join allowed:', log.message)),
-      map(log => (log.message.includes('open') ? true : false))
+  joinAllowed$ = this.mqtt.listenFor('bridge/logging').pipe(
+    filter(
+      (log: any) =>
+        log &&
+        typeof log.message === 'string' &&
+        ['permit_join', 'zh:ember: [stack status] network', 'disabling joining new devices'].some(s =>
+          log.message.toLowerCase().includes(s)
+        )
     ),
-    { initialValue: false }
-  );
+    map(checkJoinAllowed),
+    tap(log => console.log('Join allowed:', log)),
 
-  jointime: Signal<number> = toSignal(this.mqtt.listenFor('bridge/response/permit_join').pipe(
-    filter((r: any) => r && r.data && r.data.time !== undefined),
-    tap(r => console.log('Jointime response:', r)),
-    map((r: any) => r.data.time || 0),
-  ));
+    shareReplay(1) // Cache the latest value
+  );
+  joinAllowed: Signal<boolean> = toSignal(this.joinAllowed$, { initialValue: false });
 
   publish = (topic: string, payload: Record<string, unknown> | string) => {
     return new Promise<Packet | undefined>((resolve, reject) => {
@@ -79,8 +75,7 @@ export class ZigbeeService {
     });
   };
 
-  #getDevice = (ieeeAddress: string) =>
-    this.devices().find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
+  #getDevice = (ieeeAddress: string) => this.devices().find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
 }
 
 //Calling Request API: bridge/request/device/rename
@@ -93,3 +88,25 @@ const r = {
   topic: 'bridge/request/device/rename',
   payload: { from: 'WerkPaneel', to: 'werkplaats/WerkPaneel', homeassistant_rename: true, last: null, transaction: 'r8q70-3' }
 };
+
+function checkJoinAllowed(log: Record<string, string>): boolean {
+  const lowerLog = log.message?.toLowerCase();
+  console.log({ lowerLog });
+  const parts = lowerLog?.split(`payload '`);
+  if (parts && parts.length > 1) {
+    try {
+      const json = JSON.parse(parts[1].split(`'`)[0]);
+      const time = json?.data?.time ?? 0;
+      if (typeof time === 'number' && time > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+  if (lowerLog.includes('open')) return true;
+  // return false for all remaining cases
+  return false;
+}

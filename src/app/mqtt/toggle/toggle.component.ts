@@ -6,7 +6,7 @@ import { Component, input, model, output } from '@angular/core';
   template: `
   <label>
     <input type="checkbox" [checked]="value()" (change)="valueChange.emit(!value())" />
-    <span class='slider-btn'></span>
+    <span class="switch"><span></span></span>
     <span>{{ value() ? toggleOnText() : toggleOffText() }}</span>
   </label>
 
