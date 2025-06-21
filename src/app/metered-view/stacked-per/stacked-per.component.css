@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  margin-block-start: 1rem;;
+
+  --metered-color-0: #5f7331;
+  --metered-color-1: #5F4690;
+  --metered-color-2: #1D6996;
+  --metered-color-3: #38A6A5;
+  --metered-color-4: #0F8554;
+  --metered-color-5: #73AF48;
+  --metered-color-6: #EDAD08;
+  --metered-color-7: #E17C05;
+  --metered-color-8: #CC503E;
+  --metered-color-9: #94346E;
+  --metered-color-10: #6F2C91;
+
+
+  div {
+    padding: var(--size-2);
+    writing-mode: vertical-lr;
+    overflow: hidden;
+  }
+
+}
