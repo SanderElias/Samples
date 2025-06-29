@@ -8,13 +8,13 @@
 
 div.grid {
   display: grid;
-  grid-template-columns: 30rem 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: 10px;
 
   & * {
     background: var(--surface-3);
     border-radius: 1rem;
-    min-inline-size: 30rem;
+    min-inline-size: 10rem;
     min-block-size: 30lh;
     padding: 1rem;
     overflow: auto;
@@ -27,11 +27,39 @@ label {
   gap: .0.5rem
 }
 
+div.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-block-end: 1rem;
+
+  & > * {
+    background: var(--surface-3);
+    border-radius: 1rem;
+    padding: .5rem;
+    overflow: auto;
+  }
+}
+
 div.devGrid {
-  margin-block-end: 1rem;;
+  margin-block-start: 1rem;;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 1rem;
+  gap: .5rem;
+
+  & * {
+    background: var(--surface-3);
+    border-radius: 1rem;
+    padding: 1rem;
+    overflow: auto;
+  }
+}
+
+div.zigbee-prefixes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  gap: .5rem;
+  padding-block: .5rem;
 
   & * {
     background: var(--surface-3);

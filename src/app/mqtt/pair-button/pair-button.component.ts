@@ -1,17 +1,6 @@
-import {
-  Component,
-  signal,
-  inject,
-  computed,
-  Signal,
-  viewChild,
-  ElementRef,
-  linkedSignal,
-  afterRenderEffect,
-  untracked
-} from '@angular/core';
-import { ToggleComponent } from '../toggle/toggle.component';
+import { afterRenderEffect, Component, computed, ElementRef, inject, input, signal, Signal, viewChild } from '@angular/core';
 import { ZigbeeService } from '../zigbee.service';
+import type { ZigbeePrefixes } from '../mqtt.component';
 
 @Component({
   selector: 'se-pair-button',
@@ -48,16 +37,21 @@ import { ZigbeeService } from '../zigbee.service';
 export class PairButtonComponent {
   z2m = inject(ZigbeeService);
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
+
+  selectedPrefixes = input<ZigbeePrefixes[]>([]);
+
   selectedRouter = signal<string>('');
   countdown = signal('');
   routerList = computed(() =>
     this.z2m
       .devices()
       .filter(d => d.type === 'Router')
+      .filter(d => this.selectedPrefixes().some(prefix => d.friendly_name?.startsWith(prefix)))
+
       .map(d => ({
         friendly_name: d.friendly_name,
         ieee_address: d.ieee_address
-      }))
+      })).sort((a, b) => a.friendly_name.localeCompare(b.friendly_name))
   );
   dlg: Signal<ElementRef<HTMLDialogElement>> = viewChild.required('dlg');
 

@@ -41,9 +41,9 @@ export class PowerMeterDialogComponent {
   readonly baseName = computed(() => this.#deviceInfo()?.friendly_name || this.ieeeAddress());
   readonly name = computed(() => this.baseName().split('/').pop() || '');
   readonly prefix = computed(() => extractPrefix(this.baseName()));
-  readonly open = model<boolean>();
+  readonly show = model<boolean>();
 
-  readonly _ = afterRenderEffect(() => (this.open() ? this.openDialog() : this.closeDialog()));
+  readonly _ = afterRenderEffect(() => (this.show() ? this.openDialog() : this.closeDialog()));
 
   updateName = (evt: SubmitEvent) => {
     evt.preventDefault();
@@ -62,12 +62,12 @@ export class PowerMeterDialogComponent {
   };
 
   openDialog() {
-    this.dialogRef().nativeElement?.setAttribute('open', '');
-    this.open.set(true);
+    this.dialogRef().nativeElement?.showModal();
+    this.show.set(true);
   }
 
   closeDialog() {
-    this.dialogRef().nativeElement?.removeAttribute('open');
-    this.open.set(false);
+    this.dialogRef().nativeElement?.close();
+    this.show.set(false);
   }
 }

@@ -7,7 +7,7 @@ import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component
 @Component({
   selector: 'power-meter',
   template: `
-    <h4>{{ prefix() }}{{ prefix() ? '/' : '' }}{{ name() }} <button (click)="dialogOpen.set(true)">🖉</button></h4>
+    <h5 (click)="dialogOpen.set(true)">{{ prefix() }}{{ prefix() ? '/' : '' }}{{ name() }} 🖉</h5>
     @if (!deviceLoading()) {
       power: {{ deviceStatus()?.power }} W<br />
       voltage: {{ deviceStatus()?.voltage }} V<br />
@@ -21,7 +21,7 @@ import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component
     @if (!name().includes('Computer')) {
       <se-toggle [value]="isPoweredOn()" (valueChange)="toggle()" />
     }
-    <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(open)]="dialogOpen" />
+    <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(show)]="dialogOpen" />
   `,
   styleUrl: './power-meter.component.css',
   imports: [ToggleComponent, PowerMeterDialogComponent]

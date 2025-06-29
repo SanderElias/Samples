@@ -12,5 +12,12 @@ dialog>div {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+
+    & > select {
+    background: var(--surface-3);
+    border-radius: 1rem;
+    padding: .5rem;
+    overflow: auto;
+  }
 }
 
