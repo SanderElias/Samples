@@ -72,7 +72,7 @@ export class ConfirmItComponent {
   });
 
   _1 = afterEveryRender({
-    read: () => {
+    earlyRead: () => {
       const parentRect = this.parent.getBoundingClientRect();
       // @ts-expect-error // TS doen't know about computedStyleMap.get(x).value apparently.
       const zIndex = this.parent.computedStyleMap().get('z-index')?.value;

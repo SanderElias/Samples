@@ -1,15 +1,19 @@
-import { afterNextRender, Component, computed, inject, input, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, input, signal, type WritableSignal } from '@angular/core';
+import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
 import { zigbeePrefixes, type ZigbeePrefixes } from '../mqtt.component';
 import { ToggleComponent } from '../toggle/toggle.component';
+import { persistentLinkedSignal } from '../util/idbstorage';
 import { ZigbeeService } from '../zigbee.service';
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
 
 @Component({
   selector: 'power-meter',
   template: `
-    <h5 (click)="dialogOpen.set(true)">{{ prefix() }}{{ prefix() ? '/' : '' }}{{ name() }} 🖉</h5>
+    <h5 (click)="dialogOpen.set(true)">{{ name() }} 🖉</h5>
     @if (!deviceLoading()) {
-      power: {{ deviceStatus()?.power }} W<br />
+      <se-gauge [value]="currentPower()" [maxVal]="maxUsedPower()" />
+      group: {{ prefix() }}<br />
+      power: {{ currentPower() }} W<br />
       voltage: {{ deviceStatus()?.voltage }} V<br />
       current: {{ deviceStatus()?.current }} A<br />
       energy: {{ deviceStatus()?.energy }} kWh<br />
@@ -24,7 +28,7 @@ import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component
     <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(show)]="dialogOpen" />
   `,
   styleUrl: './power-meter.component.css',
-  imports: [ToggleComponent, PowerMeterDialogComponent]
+  imports: [ToggleComponent, PowerMeterDialogComponent, GaugeComponent]
 })
 export class PowerMeterComponent {
   readonly dialogOpen = signal(false);
@@ -34,6 +38,8 @@ export class PowerMeterComponent {
   readonly deviceLoading = this.#deviceResource.isLoading;
   readonly deviceStatus = this.#deviceResource.value;
   readonly #deviceInfo = this.z2m.getDeviceInfo(this.ieeeAddress);
+  readonly currentPower = computed(() => <number | undefined>this.deviceStatus()?.power || 0);
+  maxUsedPower: WritableSignal<number> = signal(0);
 
   readonly name = computed(() => (this.#deviceInfo()?.friendly_name || this.ieeeAddress()).split('/').pop() || '');
   readonly prefix = computed(() => extractPrefix(this.#deviceInfo()?.friendly_name || this.ieeeAddress()));
@@ -51,6 +57,11 @@ export class PowerMeterComponent {
   readonly _ = afterNextRender(() => {
     // trigger initial state fetch
     this.refresh();
+    this.maxUsedPower = persistentLinkedSignal<number, number>(
+      `zigbee2mqtt/${this.prefix()}-${this.name()}/maxUsedPower`,
+      this.currentPower,
+      (power, previous) => Math.max(power ?? 0, previous?.value ?? 0)
+    );
   });
 }
 

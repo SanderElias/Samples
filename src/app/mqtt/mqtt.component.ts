@@ -1,4 +1,14 @@
-import { afterRenderEffect, Component, computed, inject, linkedSignal, signal } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  inject,
+  Injector,
+  linkedSignal,
+  signal,
+  untracked,
+  type Signal
+} from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { EMPTY } from 'rxjs';
 import { deepEqual } from '../../utils/objects/deep-equal';
@@ -7,13 +17,15 @@ import { PairButtonComponent } from './pair-button/pair-button.component';
 import { extractPrefix, PowerMeterComponent } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { ZigbeeService } from './zigbee.service';
+import { persistentSignal } from './util/idbstorage';
+import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
 
 export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'test'] as const;
 export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 
 @Component({
   selector: 'se-mqtt',
-  imports: [PrettyJson, PowerMeterComponent, PairButtonComponent],
+  imports: [PrettyJson, PowerMeterComponent, PairButtonComponent, StackedPerComponent],
   template: `
     <details>
       <summary>Settings</summary>
@@ -38,6 +50,7 @@ export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
         </select>
         <label><input #sd type="checkbox" />show details</label>
       </div>
+      <se-stacked-per [data]="powerUsage()" />
       @if (sd.checked) {
         <div class="grid">
           <!-- selectedDevice.value()| json }}</code></pre> -->
@@ -65,7 +78,9 @@ export class MqttComponent {
   readonly cleanState = computed(() => cleanUp(this.state()));
   readonly filter = signal<string | undefined>(undefined);
   readonly devices = this.#z2m.devices;
-  readonly selectedPrefixes = signal<ZigbeePrefixes[]>(['e&m', 'kamp']);
+
+  readonly selectedPrefixes = persistentSignal<ZigbeePrefixes[]>('defaultSelectedPrefixes', ['e&m', 'kamp']);
+
   readonly zigbeePrefixes = zigbeePrefixes;
 
   readonly selected = linkedSignal<string | undefined>(() => {
@@ -113,51 +128,9 @@ export class MqttComponent {
     }
   };
 
-
   _ = afterRenderEffect(() => {
     this.powerUse(); //
   });
-
-  //   const devices = this.devices();
-  //   const types: Map<string, number> = new Map();
-  //   const table: any[] = [];
-
-  //   for (const device of devices || []) {
-  //     const fn = device.friendly_name || device.ieee_address;
-  //     for (const e of device.definition?.exposes || []) {
-  //       const type = e.type || 'unknown';
-  //       if (types.has(type)) {
-  //         types.set(type, types.get(type)! + 1);
-  //       } else {
-  //         types.set(type, 1);
-  //       }
-  //       if (type === 'switch') {
-  //         for (const f of e.features || []) {
-  //           if (f.property === 'state') {
-  //             table.push({
-  //               friendly_name: fn,
-  //               property: e.property,
-  //               type: e.type,
-  //               feature: f.property
-  //             });
-  //           } else {
-  //             table.push({
-  //               friendly_name: fn,
-  //               property: e.property,
-  //               type: e.type,
-  //               feature: f.property
-  //             });
-  //           }
-  //         }
-  //       }
-  //       if (e.property === 'power') {
-  //         console.log(`Power Meter: ${fn}, Exposed Property: ${e.property}, Type: ${e.type}`);
-  //       }
-  //     }
-  //   }
-  //   console.table(Array.from(types).sort());
-  //   console.table(table);
-  // });
 
   readonly powerMeters = computed(
     () =>
@@ -167,18 +140,32 @@ export class MqttComponent {
         .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name)) ?? []
   );
 
+  devNames = computed(() => {
+    const result = this.powerMeters().map(d => d.friendly_name || d.ieee_address);
+    return result;
+  });
+
+  allStates = this.#z2m.getMultipleStatuses(this.devNames);
+
   readonly powerUse = computed(() => {
-    const devices = this.powerMeters().map(d => this.#z2m.getStatus(d.ieee_address).value() as Record<string,any>);
-    if (!devices?.length) return undefined;
-    const results: Record<string,number> = {};
-    for (const device of devices) {
-      const pf = extractPrefix(device.friendly_name as string);
-      if (device?.power && typeof device.power === 'number') {
-        results[pf] = (results[pf]??0)+ device.power;
-      }
+    const allStates = this.allStates.value() ?? [];
+    const result: Record<string, { power: number; energy: number; current: number }> = {};
+    for (const state of allStates) {
+      const prefix = extractPrefix(state.friendly_name);
+      result[prefix] ??= { power: 0, energy: 0, current: 0 }; // Initialize with 0
+      result[prefix].power += state.power || 0;
+      result[prefix].energy += state.energy || 0;
+      result[prefix].current += state.current || 0;
     }
-    console.log('Power Use:', results);
-    return results
+    return result;
+  });
+
+  readonly powerUsage = computed(() => {
+    const powerUse = this.powerUse();
+    return Object.entries(powerUse).map(([prefix, usage]) => ({
+      name: prefix,
+      value: usage.power
+    }));
   });
 
   readonly selectedDetails = computed(() => {

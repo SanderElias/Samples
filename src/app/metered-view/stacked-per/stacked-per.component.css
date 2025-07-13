@@ -1,19 +1,18 @@
 :host {
   display: flex;
-  margin-block-start: 1rem;;
+  margin-block-start: 1rem;
 
   --metered-color-0: #5f7331;
-  --metered-color-1: #5F4690;
-  --metered-color-2: #1D6996;
-  --metered-color-3: #38A6A5;
-  --metered-color-4: #0F8554;
-  --metered-color-5: #73AF48;
-  --metered-color-6: #EDAD08;
-  --metered-color-7: #E17C05;
-  --metered-color-8: #CC503E;
-  --metered-color-9: #94346E;
-  --metered-color-10: #6F2C91;
-
+  --metered-color-1: #5f4690;
+  --metered-color-2: #1d6996;
+  --metered-color-3: #38a6a5;
+  --metered-color-4: #0f8554;
+  --metered-color-5: #73af48;
+  --metered-color-6: #edad08;
+  --metered-color-7: #e17c05;
+  --metered-color-8: #cc503e;
+  --metered-color-9: #94346e;
+  --metered-color-10: #6f2c91;
 
   div {
     padding: var(--size-2);
@@ -21,4 +20,5 @@
     overflow: hidden;
   }
 
+  border: #79c1c9 solid 1px;
 }

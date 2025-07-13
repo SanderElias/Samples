@@ -14,6 +14,11 @@ dom.watch();
 
 if (environment.production) {
   enableProdMode();
+} else {
+  // @ts-expect-error
+  setTimeout(() => ng.enableProfiling(), 0);
 }
+
+
 
 bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));

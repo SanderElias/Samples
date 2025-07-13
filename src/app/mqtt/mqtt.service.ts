@@ -25,7 +25,7 @@ export class MqttService {
   mqtt = import('mqtt');
   client = this.mqtt.then(m => m.default.connectAsync(`ws://10.0.0.100:1884`));
   /** base topic */
-  readonly bt = 'zigbee2mqtt';
+  readonly baseTopic = 'zigbee2mqtt';
   messages$ = new Observable<MqttMessage>(subscriber => {
     const cb: OnMessageCallback = (topic, message): void => {
       try {
@@ -60,16 +60,12 @@ export class MqttService {
       console.warn('listenFor expects a string topic, got', listenTopic);
       return EMPTY;
     }
-    listenTopic = listenTopic.startsWith(this.bt) ? listenTopic : `${this.bt}/${listenTopic}`;
+    listenTopic = listenTopic.startsWith(this.baseTopic) ? listenTopic : `${this.baseTopic}/${listenTopic}`;
     const activeTopics = this.activeTopics;
     if (activeTopics.has(listenTopic)) {
-      console.log('already listening for', listenTopic);
+      // console.log('already listening for', listenTopic);
       return activeTopics.get(listenTopic) as Observable<Record<string, unknown>>;
     }
-    // console.log('listenFor', listenTopic);
-    cl.then(client => {
-      client.subscribe([listenTopic]);
-    });
 
     const topic$ = this.messages$.pipe(
       filter(({ topic }) => (Array.isArray(topic) ? topic.includes(listenTopic) : topic === listenTopic)),
@@ -92,10 +88,15 @@ export class MqttService {
       share({
         connector: () => new ReplaySubject(1),
         resetOnComplete: true,
-        resetOnRefCountZero: () => timer(500)
+        resetOnRefCountZero: () => timer(5 + 1000) // keep the topic active for a while after the last subscriber unsubscribes, changes are we are going to need it again soon.
       })
     );
     this.activeTopics.set(listenTopic, topic$ as Observable<Record<string, unknown>>);
+    // console.log('listenFor', listenTopic);
+    // finally, tell the client the topic to start listening to
+    cl.then(client => {
+      client.subscribe([listenTopic]);
+    });
     return topic$;
   }
 }
