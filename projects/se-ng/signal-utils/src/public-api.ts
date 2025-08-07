@@ -7,8 +7,8 @@ export { computedResource } from './lib/async-resource';
 export { debouncedComputed, debouncedSignal } from './lib/debounced-computed';
 export { HttpActionClient } from './lib/http-action-client';
 export { injectAwaitSignal } from './lib/await-signal';
-export { isAsyncIterable } from './lib/is-async-iterable';
-export { isPromise } from './lib/is-promise';
+export { isAsyncIterable } from './lib/util/is-async-iterable';
+export { isPromise } from './lib/util/is-promise';
 
 export { cloneDeep } from './lib/util/clone-deep';
 export { deepEqual } from './lib/util/deep-equal';

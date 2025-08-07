@@ -278,6 +278,7 @@
     "@types/node": "^24.2.0",
     "@types/wicg-file-system-access": "^2023.10.6",
     "@typescript-eslint/parser": "^8.39.0",
+    "@vitest/coverage-v8": "^3.2.4",
     "@web/test-runner": "^0.20.2",
     "angular-eslint": "^20.1.1",
     "eslint": "^9.32.0",

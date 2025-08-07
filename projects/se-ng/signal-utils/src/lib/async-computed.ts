@@ -1,8 +1,8 @@
 import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } from '@angular/core';
 import { isObservable, type Observable, type Subscription } from 'rxjs';
 
-import { isAsyncIterable } from './is-async-iterable';
-import { isPromise } from './is-promise';
+import { isAsyncIterable } from './util/is-async-iterable';
+import { isPromise } from './util/is-promise';
 
 /**
  * @param {AbortSignal} [abortSignal] signal that allows to cancel the ongoing operation. (can be passed to fetch!)
@@ -50,6 +50,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     // to its consumers without custom wrapping. That is a different concern that
     // is outside the scope of this helper
   } as { value?: T | Y | undefined; error?: any });
+  /* v8 ignore next 10 */
   try {
     destroyRef = destroyRef ?? inject(DestroyRef);
   } catch (e) {

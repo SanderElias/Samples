@@ -643,13 +643,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/se-ng/signal-utils/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "runner": "vitest",
+            "buildTarget": "@se-ng/signalUtils:build",
+            "tsConfig": "projects/se-ng/signal-utils/tsconfig.spec.json"
           }
         }
       }
@@ -722,23 +720,11 @@
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projects/extreme-lazy-test/tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/extreme-lazy-test/public"
-              }
-            ],
-            "styles": [
-              "projects/extreme-lazy-test/src/styles.css"
-            ],
-            "scripts": []
+            "runner": "vitest",
+            "buildTarget": "@se-ng/extremeLazyTest:build",
+            "tsConfig": "projects/extreme-lazy-test/tsconfig.spec.json"
           }
         }
       }
@@ -826,23 +812,11 @@
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projects/slido/tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/slido/public"
-              }
-            ],
-            "styles": [
-              "projects/slido/src/styles.css"
-            ],
-            "scripts": []
+            "runner": "vitest",
+            "buildTarget": "@se-ng/slido:build",
+            "tsConfig": "projects/slido/tsconfig.spec.json"
           }
         }
       }
@@ -869,13 +843,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/simple-injector/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "runner": "vitest",
+            "buildTarget": "@se-ng/simpleInjector:build",
+            "tsConfig": "projects/simple-injector/tsconfig.spec.json"
           }
         },
         "lint": {

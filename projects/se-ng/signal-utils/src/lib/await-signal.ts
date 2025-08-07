@@ -1,5 +1,5 @@
 import { effect, Injector, linkedSignal, type Signal, inject, runInInjectionContext } from '@angular/core';
-import { Deferred } from './deferred';
+import { Deferred } from './util/deferred';
 
 export type Predicate<T> = (source: Partial<T> | T) => boolean;
 

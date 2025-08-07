@@ -1,8 +1,8 @@
 import { computed, DestroyRef, effect, inject, linkedSignal, type Signal, signal, type WritableSignal } from '@angular/core';
 import { isObservable, type Subscription } from 'rxjs';
 import type { ObservableComputedFn } from './async-computed';
-import { isAsyncIterable } from './is-async-iterable';
-import { isPromise } from './is-promise';
+import { isAsyncIterable } from './util/is-async-iterable';
+import { isPromise } from './util/is-promise';
 
 export const enum ResourceState {
   /** the resource is initialized */

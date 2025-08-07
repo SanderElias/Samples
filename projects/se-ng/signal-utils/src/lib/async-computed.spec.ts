@@ -1,70 +1,121 @@
-import { provideServerRendering } from '@angular/ssr';
-import '@angular/compiler';
-import { Component, DestroyRef, provideExperimentalZonelessChangeDetection, runInInjectionContext } from '@angular/core';
-import { of, throwError } from 'rxjs';
-import { asyncComputed } from './async-computed.js';
-import { describe, it } from 'node:test';
-import assert from 'assert';
-import { setTimeout } from 'timers/promises';
-import { bootstrapApplication } from '@angular/platform-browser';
-import jsdom from 'jsdom';
+import { Injector, isSignal, signal, provideZonelessChangeDetection, runInInjectionContext, Component } from '@angular/core';
+import { TestBed, ComponentFixture, tick } from '@angular/core/testing';
+import { delay, of, throwError } from 'rxjs';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { asyncComputed } from './async-computed';
+import { th } from '@faker-js/faker';
+// Helper to run in Angular injection context
 
-const dom = new jsdom.JSDOM(`<!DOCTYPE html><test-component />`);
-globalThis.document = dom.window.document;
+// Minimal dummy component for fixture
+@Component({ selector: 'dummy-fixture', template: '' })
+class DummyComponent {}
 
-@Component({
-  selector: 'test-component',
-  template: ''
-})
-class TestComponent {}
-
-const appRef = await bootstrapApplication(TestComponent, {
-  providers: [provideServerRendering(), provideExperimentalZonelessChangeDetection()]
-});
-
-describe('asyncComputed', () => {
-  let destroyRef: DestroyRef = {
-    onDestroy: () => {}
-  } as any;
-
-  it('should handle synchronous values', () => {
-    runInInjectionContext(appRef.injector, async () => {
-      const result = asyncComputed(() => 42, undefined);
-
-      assert.strictEqual(result(), 42);
+describe('asyncComputed (integration)', () => {
+  let injector: Injector;
+  let fixture: ComponentFixture<DummyComponent>;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [DummyComponent],
+      providers: [provideZonelessChangeDetection()]
     });
+    injector = TestBed.inject(Injector);
+    fixture = TestBed.createComponent(DummyComponent);
   });
 
-  /*
-  it('should handle promises', async () => {
-    const result = asyncComputed(() => Promise.resolve(42), undefined, destroyRef);
-    await setTimeout(0); // wait for promise to resolve
-    assert.strictEqual(result(), 42);
+  it('should resolve a promise and update the signal', async () => {
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => Promise.resolve(123)));
+    await fixture.whenStable();
+    expect(isSignal(sig)).toBe(true);
+    expect(sig()).toBe(123);
   });
 
-  it('should handle observables', () => {
-    const result = asyncComputed(() => of(42), undefined, destroyRef);
-    assert.strictEqual(result(), 42);
+  it('should resolve an observable and update the signal', async () => {
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => of(456)));
+    await fixture.whenStable();
+    expect(sig()).toBe(456);
   });
 
-  it('should handle async iterables', async () => {
+  it('should handle errors from promise', async () => {
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => Promise.reject(new Error('fail'))));
+    await fixture.whenStable();
+    expect(() => sig()).toThrowError('fail');
+  });
+
+  it('should handle errors from observable', async () => {
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => throwError(() => new Error('obs fail'))));
+    await fixture.whenStable();
+    expect(() => sig()).toThrowError('obs fail');
+  });
+
+  it('should use the initial value if provided', async () => {
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => new Promise(() => {}), 999));
+    expect(sig()).toBe(999);
+  });
+
+  it('should return a signal', () => {
+    const result = runInInjectionContext(injector, () => asyncComputed(() => 1));
+    expect(isSignal(result)).toBe(true);
+  });
+
+  it('should handle async iterable', async () => {
+    const asyncIterable = {
+      async *[Symbol.asyncIterator]() {
+        yield 1;
+        await new Promise(resolve => setTimeout(resolve, 0));
+        yield 2;
+      }
+    };
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => asyncIterable));
+    await fixture.whenStable();
+    expect(sig()).toEqual(1); // First value from async iterable
+    await new Promise(resolve => setTimeout(resolve, 0));
+    await fixture.whenStable();
+    expect(sig()).toEqual(2); // Second value from async iterable
+  });
+
+  it('should handle async generator', async () => {
     async function* asyncGenerator() {
-      yield 42;
+      yield 1;
+      await new Promise(resolve => setTimeout(resolve, 0));
+      yield 2;
     }
-    const result = asyncComputed(() => asyncGenerator(), undefined, destroyRef);
-    await setTimeout(0); // wait for async iterable to resolve
-    assert.strictEqual(result(), 42);
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => asyncGenerator()));
+    await fixture.whenStable();
+    expect(sig()).toEqual(1); // First value from async generator
+    await new Promise(resolve => setTimeout(resolve, 0));
+    await fixture.whenStable();
+    expect(sig()).toEqual(2); // Second value from async generator
   });
 
-  it('should handle errors in promises', async () => {
-    const result = asyncComputed(() => Promise.reject(new Error('test error')), undefined, destroyRef);
-    await setTimeout(0); // wait for promise to reject
-    assert.throws(() => result(), /test error/);
+  it('should handle synchronous values', async () => {
+    const sig = runInInjectionContext(injector, () => asyncComputed(() => 42));
+    await fixture.whenStable();
+    expect(sig()).toBe(42);
   });
 
-  it('should handle errors in observables', () => {
-    const result = asyncComputed(() => throwError(() => new Error('test error')), undefined, destroyRef);
-    assert.throws(() => result(), /test error/);
+  it('should cancel the previous async operation when the dependency signal changes', async () => {
+    let aborts = 0;
+    const dep = TestBed.runInInjectionContext(() => signal(1));
+
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(async abortSignal => {
+        const d = dep(); // Capture the current value of the dependency signal
+        abortSignal?.addEventListener('abort', () => {
+          aborts++;
+        });
+        await new Promise(resolve => setTimeout(resolve, 2)); // Simulate async operation
+        return d;
+      })
+    );
+
+    await fixture.whenStable();
+    dep.set(2); // retrigger before the first promise resolves
+    await new Promise(resolve => setTimeout(resolve, 1));
+    expect(sig()).toBe(undefined); // Expect the signal to be undefined since the first operation should be aborted
+    await new Promise(resolve => setTimeout(resolve, 2));
+
+    // The first promise should have been aborted, and only the second value should be set
+    expect(aborts).toBeGreaterThan(0);
+    expect(sig()).toBe(2);
   });
-  */
 });
