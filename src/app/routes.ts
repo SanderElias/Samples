@@ -256,7 +256,7 @@ export const routes: Routes = [
   // { path: '**', redirectTo: 'crudStuff' }
   {
     path: 'mqtt',
-    loadComponent: () => import('./mqtt/mqtt.component').then(m => m.MqttComponent)
+    loadChildren: () => import('./mqtt/routes')
   },
   // { path: '**', redirectTo: 'routeList' },
   { path: '**', redirectTo: 'mqtt' }

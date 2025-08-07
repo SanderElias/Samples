@@ -26,7 +26,7 @@ export const objFromPath = <T>(path: string, value?: unknown): T => {
   return parts.reduce((acc, part) => {
     const index = parseInt(part, 10);
     // if the part is numeric (parseint returns 1 for `1maString`) its an array, otherwise a number
-    if (isIntegerString(part)) {
+    if (!isIntegerString(part)) {
       return { [part]: acc };
     }
     const newArr: unknown[] = [];

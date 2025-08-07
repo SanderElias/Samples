@@ -18,6 +18,8 @@
     "lib": ["es2023", "dom"],
     "types": ["node", "@types/wicg-file-system-access"],
     "paths": {
+      "@se-ng/headless-ui": ["dist/se-ng/headless-ui"],
+      "@se-ng/headless-ui/*": ["dist/se-ng/headless-ui/*"],
       "@se-ng/observable-hooks": ["dist/se-ng/observable-hooks"],
       "@se-ng/observable-hooks/*": ["dist/se-ng/observable-hooks/*"],
       "@se-ng/swapi": ["dist/se-ng/swapi"],
@@ -34,5 +36,13 @@
   },
   "angularCompilerOptions": {
     "strictTemplates": true
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/se-ng/headless-ui/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/se-ng/headless-ui/tsconfig.spec.json"
+    }
+  ]
 }

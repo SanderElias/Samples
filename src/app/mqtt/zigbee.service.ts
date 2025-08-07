@@ -4,6 +4,7 @@ import type { Packet } from 'mqtt';
 import { combineLatest, filter, map, NEVER, of, shareReplay, startWith, tap, type Observable } from 'rxjs';
 import { deepEqual } from '../../utils/objects/deep-equal';
 import { MqttService, type Z2MDevice } from './mqtt.service';
+import { debug } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ZigbeeService {
   mqtt = inject(MqttService);
   injector = inject(Injector);
 
-  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices'), <any>{ initialValue: [] }) as Signal<
+  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices'), <any>{ initialValue: [], debugName: 'ZigbeeServiceDevices' }) as Signal<
     Z2MDevice[]
   >;
 
@@ -79,7 +80,7 @@ export class ZigbeeService {
     // tap(log => console.log('Join allowed:', log)),
     shareReplay(1) // Cache the latest value
   );
-  
+
   joinAllowed: Signal<boolean> = toSignal(this.#joinAllowed$, { initialValue: false });
 
   publish = (topic: string, payload: Record<string, unknown> | string) => {
@@ -108,11 +109,6 @@ export const renameDevice = (from: string, to: string) => ({
   payload: { from, to, homeassistant_rename: true }
 });
 
-const upReq = { from: 'WerkPaneel', to: 'werkplaats/WerkPaneel', homeassistant_rename: true, last: undefined };
-const r = {
-  topic: 'bridge/request/device/rename',
-  payload: { from: 'WerkPaneel', to: 'werkplaats/WerkPaneel', homeassistant_rename: true, last: null, transaction: 'r8q70-3' }
-};
 
 function checkJoinAllowed(log: Record<string, string>): boolean {
   const lowerLog = log.message?.toLowerCase();

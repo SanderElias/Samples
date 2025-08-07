@@ -30,7 +30,9 @@
                 "output": "/assets/articles"
               }
             ],
-            "styles": ["src/styles.css"],
+            "styles": [
+              "src/styles.css"
+            ],
             "scripts": [],
             "aot": true,
             "extractLicenses": false,
@@ -73,7 +75,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "buildTarget": "samples:build",
-            "hmr": false
+            "hmr": false,
+            "port": 4204,
+            "allowedHosts": [
+              "localhost",
+              "0.0.0.0",
+              "samples.eliasweb.nl"
+            ]
           },
           "configurations": {
             "production": {
@@ -88,13 +96,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "src/test.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "styles": ["src/styles.css"],
-            "scripts": [],
-            "assets": ["src/favicon.ico", "src/assets"]
+            "runner": "vitest",
+            "buildTarget": "samples:build",
+            "tsConfig": "projects/wire-it-editor/tsconfig.spec.json"
           }
         }
       }
@@ -118,9 +124,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/se-ng/observable-hooks/src/test.ts",
+            "runner": "vitest",
+            "buildTarget": "@se-ng/observable-hooks:build",
             "tsConfig": "projects/se-ng/observable-hooks/tsconfig.spec.json"
           }
         }
@@ -145,9 +152,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/se-ng/swapi/src/test.ts",
+            "runner": "vitest",
+            "buildTarget": "@se-ng/swapi:build",
             "tsConfig": "projects/se-ng/swapi/tsconfig.spec.json"
           }
         }
@@ -172,9 +180,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/se-ng/observable-utils/src/test.ts",
+            "runner": "vitest",
+            "buildTarget": "@se-ng/observable-utils:build",
             "tsConfig": "projects/se-ng/observable-utils/tsconfig.spec.json"
           }
         }
@@ -199,9 +208,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/se-ng/let/src/test.ts",
+            "runner": "vitest",
+            "buildTarget": "@se-ng/let:build",
             "tsConfig": "projects/se-ng/let/tsconfig.spec.json"
           }
         }
@@ -229,10 +239,17 @@
               "base": "dist/slipnslide"
             },
             "index": "projects/slipnslide/src/index.html",
-            "polyfills": ["projects/slipnslide/src/polyfills.ts"],
+            "polyfills": [
+              "projects/slipnslide/src/polyfills.ts"
+            ],
             "tsConfig": "projects/slipnslide/tsconfig.app.json",
-            "assets": ["projects/slipnslide/src/favicon.ico", "projects/slipnslide/src/assets"],
-            "styles": ["projects/slipnslide/src/styles.css"],
+            "assets": [
+              "projects/slipnslide/src/favicon.ico",
+              "projects/slipnslide/src/assets"
+            ],
+            "styles": [
+              "projects/slipnslide/src/styles.css"
+            ],
             "scripts": [],
             "extractLicenses": false,
             "sourceMap": true,
@@ -287,14 +304,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/slipnslide/src/test.ts",
-            "polyfills": "projects/slipnslide/src/polyfills.ts",
+            "runner": "vitest",
             "tsConfig": "projects/slipnslide/tsconfig.spec.json",
-            "assets": ["projects/slipnslide/src/favicon.ico", "projects/slipnslide/src/assets"],
-            "styles": ["projects/slipnslide/src/styles.css"],
-            "scripts": []
+            "buildTarget": "slipnslide:build"
           }
         },
         "e2e": {
@@ -352,10 +366,17 @@
               "base": "dist/ApiBoundries"
             },
             "index": "projects/api-boundries/src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/api-boundries/tsconfig.app.json",
-            "assets": ["projects/api-boundries/src/favicon.ico", "projects/api-boundries/src/assets"],
-            "styles": ["projects/api-boundries/src/styles.css"],
+            "assets": [
+              "projects/api-boundries/src/favicon.ico",
+              "projects/api-boundries/src/assets"
+            ],
+            "styles": [
+              "projects/api-boundries/src/styles.css"
+            ],
             "scripts": [],
             "browser": "projects/api-boundries/src/main.ts"
           },
@@ -409,14 +430,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/api-boundries/src/test.ts",
-            "polyfills": "projects/api-boundries/src/polyfills.ts",
-            "tsConfig": "projects/api-boundries/tsconfig.spec.json",
-            "assets": ["projects/api-boundries/src/favicon.ico", "projects/api-boundries/src/assets"],
-            "styles": ["projects/api-boundries/src/styles.css"],
-            "scripts": []
+            "runner": "vitest",
+            "buildTarget": "ApiBoundries:build",
+            "tsConfig": "projects/api-boundries/tsconfig.spec.json"
           }
         }
       }
@@ -445,10 +463,17 @@
               "base": "dist/wire-it-editor"
             },
             "index": "projects/wire-it-editor/src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/wire-it-editor/tsconfig.app.json",
-            "assets": ["projects/wire-it-editor/src/favicon.ico", "projects/wire-it-editor/src/assets"],
-            "styles": ["projects/wire-it-editor/src/styles.css"],
+            "assets": [
+              "projects/wire-it-editor/src/favicon.ico",
+              "projects/wire-it-editor/src/assets"
+            ],
+            "styles": [
+              "projects/wire-it-editor/src/styles.css"
+            ],
             "scripts": [],
             "browser": "projects/wire-it-editor/src/main.ts"
           },
@@ -496,13 +521,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "projects/wire-it-editor/tsconfig.spec.json",
-            "assets": ["projects/wire-it-editor/src/favicon.ico", "projects/wire-it-editor/src/assets"],
-            "styles": ["projects/wire-it-editor/src/styles.css"],
-            "scripts": []
+            "runner": "vitest",
+            "buildTarget": "wireItEditor:build",
+            "tsConfig": "projects/wire-it-editor/tsconfig.spec.json"
           }
         }
       }
@@ -531,10 +554,17 @@
               "base": "dist/language-routing"
             },
             "index": "projects/language-routing/src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/language-routing/tsconfig.app.json",
-            "assets": ["projects/language-routing/src/favicon.ico", "projects/language-routing/src/assets"],
-            "styles": ["projects/language-routing/src/styles.css"],
+            "assets": [
+              "projects/language-routing/src/favicon.ico",
+              "projects/language-routing/src/assets"
+            ],
+            "styles": [
+              "projects/language-routing/src/styles.css"
+            ],
             "scripts": [],
             "browser": "projects/language-routing/src/main.ts"
           },
@@ -582,13 +612,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "projects/language-routing/tsconfig.spec.json",
-            "assets": ["projects/language-routing/src/favicon.ico", "projects/language-routing/src/assets"],
-            "styles": ["projects/language-routing/src/styles.css"],
-            "scripts": []
+            "runner": "vitest",
+            "buildTarget": "LanguageRouting:build",
+            "tsConfig": "projects/language-routing/tsconfig.spec.json"
           }
         }
       }
@@ -618,7 +646,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/se-ng/signal-utils/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }
@@ -644,7 +675,9 @@
                 "input": "projects/extreme-lazy-test/public"
               }
             ],
-            "styles": ["projects/extreme-lazy-test/src/styles.css"],
+            "styles": [
+              "projects/extreme-lazy-test/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -691,7 +724,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/extreme-lazy-test/tsconfig.spec.json",
             "assets": [
               {
@@ -699,7 +735,9 @@
                 "input": "projects/extreme-lazy-test/public"
               }
             ],
-            "styles": ["projects/extreme-lazy-test/src/styles.css"],
+            "styles": [
+              "projects/extreme-lazy-test/src/styles.css"
+            ],
             "scripts": []
           }
         }
@@ -741,7 +779,9 @@
                 "output": "/assets"
               }
             ],
-            "styles": ["projects/slido/src/styles.css"],
+            "styles": [
+              "projects/slido/src/styles.css"
+            ],
             "scripts": [],
             "prerender": false,
             "ssr": false
@@ -788,7 +828,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/slido/tsconfig.spec.json",
             "assets": [
               {
@@ -796,7 +839,9 @@
                 "input": "projects/slido/public"
               }
             ],
-            "styles": ["projects/slido/src/styles.css"],
+            "styles": [
+              "projects/slido/src/styles.css"
+            ],
             "scripts": []
           }
         }
@@ -827,14 +872,56 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/simple-injector/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/simple-injector/**/*.ts", "projects/simple-injector/**/*.html"],
+            "lintFilePatterns": [
+              "projects/simple-injector/**/*.ts",
+              "projects/simple-injector/**/*.html"
+            ],
             "eslintConfig": "projects/simple-injector/eslint.config.mjs"
+          }
+        }
+      }
+    },
+    "@se-ng/headless-ui": {
+      "projectType": "library",
+      "root": "projects/se-ng/headless-ui",
+      "sourceRoot": "projects/se-ng/headless-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/se-ng/headless-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/se-ng/headless-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/se-ng/headless-ui/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/se-ng/headless-ui/**/*.ts",
+              "projects/se-ng/headless-ui/**/*.html"
+            ],
+            "eslintConfig": "projects/se-ng/headless-ui/eslint.config.mjs"
           }
         }
       }
@@ -842,7 +929,9 @@
   },
   "cli": {
     "analytics": "9ad71ebc-05bd-4cd8-a18b-0d8e6b5be982",
-    "schematicCollections": ["angular-eslint"]
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   },
   "schematics": {
     "@schematics/angular:component": {

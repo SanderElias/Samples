@@ -31,15 +31,17 @@ import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component
   imports: [ToggleComponent, PowerMeterDialogComponent, GaugeComponent]
 })
 export class PowerMeterComponent {
-  readonly dialogOpen = signal(false);
+  readonly dialogOpen = signal(false, { debugName: 'PowerMeterDialogOpen' });
   protected readonly z2m = inject(ZigbeeService);
   readonly ieeeAddress = input.required<string>();
   readonly #deviceResource = this.z2m.getDeviceStatus(this.ieeeAddress);
   readonly deviceLoading = this.#deviceResource.isLoading;
   readonly deviceStatus = this.#deviceResource.value;
   readonly #deviceInfo = this.z2m.getDeviceInfo(this.ieeeAddress);
-  readonly currentPower = computed(() => <number | undefined>this.deviceStatus()?.power || 0);
-  maxUsedPower: WritableSignal<number> = signal(0);
+  readonly currentPower = computed(() => <number | undefined>this.deviceStatus()?.power || 0, {
+    debugName: 'CurrentPower'
+  });
+  maxUsedPower: WritableSignal<number> = signal(0, { debugName: 'MaxUsedPower' });
 
   readonly name = computed(() => (this.#deviceInfo()?.friendly_name || this.ieeeAddress()).split('/').pop() || '');
   readonly prefix = computed(() => extractPrefix(this.#deviceInfo()?.friendly_name || this.ieeeAddress()));

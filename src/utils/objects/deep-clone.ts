@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable complexity */
 
-import { isDate } from '../dates/is-date';
+import { isDate } from '@se-ng/signal-utils';
 
 /**
  * @description

@@ -9,7 +9,9 @@ import { get, set, del } from './custom-idb-keyval';
  * @returns The signal instance.
  */
 export function persistentSignal<T>(key: string, initialValue: T, injector = inject(Injector)) {
-  const result = signal(initialValue);
+  const result = signal(initialValue, {
+    debugName: `Persisted ${key}`
+  });
   // Load initial value from IndexedDB
   get(key)
     .then(value => {
@@ -29,7 +31,7 @@ export function persistentSignal<T>(key: string, initialValue: T, injector = inj
         del(key).catch(() => undefined); // ignore errors
       }
     },
-    { injector }
+    { injector, debugName: `PersistEffect` }
   );
   return result;
 }
@@ -39,8 +41,6 @@ export function persistentLinkedSignal<S, D>(
   source: () => S,
   computation: (source: NoInfer<S>, previous?: { source: NoInfer<S>; value: NoInfer<D> } | undefined) => D
 ) {
-  const value = source();
-
   const result = linkedSignal<S, D>({
     source,
     computation: (source, previous) => {
@@ -52,6 +52,7 @@ export function persistentLinkedSignal<S, D>(
       }
       return newValue;
     }
+    // debugName: `Persisted ${storageKey}`
   });
   // Load initial value from IndexedDB
   get(storageKey).then(value => {
