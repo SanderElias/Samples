@@ -40,8 +40,12 @@ export const mergeDeep = <A extends {}, B extends {}>(
     typeof options.iterableMergeStrategy === 'function'
       ? options.iterableMergeStrategy(propertyPath)
       : (options.iterableMergeStrategy ?? 'concat');
-
   const skipAssignUndefined = options.skipAssignUndefined ?? false;
+
+  if (! (Array.isArray(target) || isObject(target)) || ! (Array.isArray(source) || isObject(source))) {
+    throw new Error('[deepMergeObjects] target and source must be objects or arrays');
+  }
+
   const result: Record<string, unknown> = cloneDeep(target);
   for (const [key, value] of Object.entries(source)) {
     // cast to any, as we are going to check for the type later on. TS will not allow us to do this otherwise.

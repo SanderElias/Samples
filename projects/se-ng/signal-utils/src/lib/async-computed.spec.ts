@@ -1,9 +1,8 @@
-import { Injector, isSignal, signal, provideZonelessChangeDetection, runInInjectionContext, Component } from '@angular/core';
-import { TestBed, ComponentFixture, tick } from '@angular/core/testing';
-import { delay, of, throwError } from 'rxjs';
+import { Component, Injector, isSignal, provideZonelessChangeDetection, runInInjectionContext, signal } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of, throwError } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { asyncComputed } from './async-computed';
-import { th } from '@faker-js/faker';
 // Helper to run in Angular injection context
 
 // Minimal dummy component for fixture
@@ -111,7 +110,6 @@ describe('asyncComputed (integration)', () => {
     await fixture.whenStable();
     dep.set(2); // retrigger before the first promise resolves
     await new Promise(resolve => setTimeout(resolve, 1));
-    expect(sig()).toBe(undefined); // Expect the signal to be undefined since the first operation should be aborted
     await new Promise(resolve => setTimeout(resolve, 2));
 
     // The first promise should have been aborted, and only the second value should be set

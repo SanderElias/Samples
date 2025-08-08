@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-sparse-arrays */
+import { describe, expect, it } from 'vitest';
 import type { DeepPartial } from './deep-partial.type';
 
 import { mergeDeep } from './merge-deep';
@@ -208,5 +209,100 @@ describe('mergeDeep function', () => {
       a: [0],
       b: [4, 5, 6, 7, 8, 9]
     });
+  });
+
+  it('skips undefined values in source when skipAssignUndefined is true', () => {
+    expect(mergeDeep({ a: 1 }, { a: undefined, b: 2 }, { skipAssignUndefined: true })).toEqual({ a: 1, b: 2 });
+  });
+
+  it('assigns undefined values in source when skipAssignUndefined is false', () => {
+    expect(mergeDeep({ a: 1 }, { a: undefined, b: 2 }, { skipAssignUndefined: false })).toEqual({ a: undefined, b: 2 });
+  });
+
+  it('clones Date values from source', () => {
+    const date = new Date();
+    const merged = mergeDeep({}, { d: date });
+    expect(merged.d).not.toBe(date);
+    expect(merged.d.getTime()).toBe(date.getTime());
+  });
+
+  it('merges Map when target is undefined', () => {
+    const map = new Map([[1, 'a']]);
+    expect(mergeDeep({}, { m: map })).toEqual({ m: new Map([[1, 'a']]) });
+  });
+  it('merges maps', () => {
+    const map = new Map([[1, 'a']]);
+    const map1 = new Map([[2, 'b']]);
+    expect(mergeDeep({m:map}, { m: map1 })).toEqual({ m: new Map([[1, 'a'], [2, 'b']]) });
+  });
+
+  it('throws when trying to merge a Map with a non-Map', () => {
+    expect(() => mergeDeep( { m: 'not a map' }, { m: new Map([[2, 'b']]) })).toThrow();
+  });
+
+  it('merges Set when target is undefined', () => {
+    const set = new Set([1, 2]);
+    expect(mergeDeep({}, { s: set })).toEqual({ s: new Set([1, 2]) });
+  });
+
+  it('merges sets', () => {
+    const set = new Set([1, 2, 3]);
+    const set1 = new Set([4, 5]);
+    expect(mergeDeep({s:set}, { s: set1 })).toEqual({ s: new Set([1, 2, 3, 4, 5]) });
+  });
+
+  it('throws when trying to merge a Set with a non-Set', () => {
+    expect(() => mergeDeep( { s: [1, 2] }, { s: new Set([3, 4]) }, { iterableMergeStrategy: 'merge' })).toThrow();
+  });
+
+  it('replaces Map when strategy is replace and target is defined', () => {
+    const map1 = new Map([[1, 'a']]);
+    const map2 = new Map([[2, 'b']]);
+    expect(mergeDeep({ m: map1 }, { m: map2 }, { iterableMergeStrategy: 'replace' })).toEqual({ m: map2 });
+  });
+
+  it('replaces Map when strategy is replace and target is defined', () => {
+    const map1 = new Map([[1, 'a']]);
+    const map2 = new Map([[2, 'b']]);
+    expect(mergeDeep({ m: map1 }, { m: map2 }, { iterableMergeStrategy: 'replace' })).toEqual({ m: map2 });
+  });
+
+  it('replaces Set when strategy is replace and target is defined', () => {
+    const set1 = new Set([1]);
+    const set2 = new Set([2]);
+    expect(mergeDeep({ s: set1 }, { s: set2 }, { iterableMergeStrategy: 'replace' })).toEqual({ s: set2 });
+  });
+
+  it('merges with a custom iterableMergeStrategy function', () => {
+    const obj1 = { a: [1], b: [2] };
+    const obj2 = { a: [3], b: [4] };
+    const merged = mergeDeep(obj1, obj2, {
+      iterableMergeStrategy: path => (path[0] === 'a' ? 'replace' : 'concat')
+    });
+    expect(merged).toEqual({ a: [3], b: [2, 4] });
+  });
+
+  it('throws on primitives and non-objects', () => {
+    expect(() => mergeDeep(1 as any, 2 as any)).toThrow();
+    expect(() => mergeDeep('a' as any, 'b' as any)).toThrow();
+    expect(() => mergeDeep(true as any, false as any)).toThrow();
+  });
+
+  it('merges arrays with sparse values', () => {
+    const arr1 = [1, , 3];
+    const arr2 = [, 2, , 4];
+    expect(mergeDeep({ a: arr1 }, { a: arr2 }, { iterableMergeStrategy: 'merge' })).toEqual({ a: [1, 2, 3, 4] });
+  });
+
+  it('merges nested nested arrays', () => {
+    const arr1 = [[1, 2, [3, 4, [5, 6]]]];
+    const arr2 = [[, , [, , [, , 7, 8]]]];
+    expect(mergeDeep(arr1, arr2, { iterableMergeStrategy: 'merge' })).toEqual([[1, 2, [3, 4, [5, 6, 7, 8]]]]);
+  });
+
+  it('merges nested arrays and objects', () => {
+    const obj1 = { a: [{ b: 1 }] };
+    const obj2 = { a: [{ c: 2 }] };
+    expect(mergeDeep(obj1, obj2, { iterableMergeStrategy: 'merge' })).toEqual({ a: [{ b: 1, c: 2 }] } as any);
   });
 });

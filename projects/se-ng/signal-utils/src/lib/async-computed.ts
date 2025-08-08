@@ -49,8 +49,8 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     // not adding the completed state. a Signals has no way to communicate this
     // to its consumers without custom wrapping. That is a different concern that
     // is outside the scope of this helper
+    /* v8 ignore next 11 */
   } as { value?: T | Y | undefined; error?: any });
-  /* v8 ignore next 10 */
   try {
     destroyRef = destroyRef ?? inject(DestroyRef);
   } catch (e) {
