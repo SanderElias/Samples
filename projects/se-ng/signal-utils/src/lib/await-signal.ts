@@ -7,9 +7,7 @@ export type Predicate<T> = (source: Partial<T> | T) => boolean;
  * Returns an awaitSignal function that runs in the current injection context
  * useful when you need to use the awaitSignal inside methods of a component/service
  */
-export const injectAwaitSignal = () => {
-  const injector = inject(Injector);
-
+export const injectAwaitSignal = (injector = inject(Injector)) => {
   /**
    * Waits for a signal to satisfy a given predicate and returns a promise that resolves with the signal's value.
    *

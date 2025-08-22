@@ -45,18 +45,19 @@ export class PowerMeterDialogComponent {
 
   readonly _ = afterRenderEffect(() => (this.show() ? this.openDialog() : this.closeDialog()));
 
-  updateName = (evt: SubmitEvent) => {
+  updateName = async (evt: SubmitEvent) => {
     evt.preventDefault();
     const form = evt.target as HTMLFormElement;
     const newName = (form.elements.namedItem('name') as HTMLInputElement)?.value?.trim() ?? '';
     const newPrefix = (form.elements.namedItem('prefix') as HTMLInputElement)?.value?.trim() ?? '';
     const newBaseName = `${newPrefix}/${newName}`.trim();
     if (newPrefix && newName && newBaseName !== this.baseName()) {
-      this.z2m.publish('zigbee2mqtt/bridge/request/device/rename', {
+      const result = await this.z2m.publish('zigbee2mqtt/bridge/request/device/rename', {
         from: this.baseName(),
         to: newBaseName,
         homeassistant_rename: true
       });
+      console.log(result)
     }
     this.closeDialog();
   };

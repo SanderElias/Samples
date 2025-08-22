@@ -13,9 +13,10 @@ export class ZigbeeService {
   mqtt = inject(MqttService);
   injector = inject(Injector);
 
-  devices: Signal<Z2MDevice[]> = toSignal(<any>this.mqtt.listenFor('bridge/devices'), <any>{ initialValue: [], debugName: 'ZigbeeServiceDevices' }) as Signal<
-    Z2MDevice[]
-  >;
+  devices: Signal<Z2MDevice[]> = toSignal(
+    <any>this.mqtt.listenFor('bridge/devices'),
+    <any>{ initialValue: [], debugName: 'ZigbeeServiceDevices' }
+  ) as Signal<Z2MDevice[]>;
 
   getDeviceInfo = (ieeeAddress: Signal<string>) => computed(() => this.#getDevice(ieeeAddress()), { equal: deepEqual });
 
@@ -83,22 +84,12 @@ export class ZigbeeService {
 
   joinAllowed: Signal<boolean> = toSignal(this.#joinAllowed$, { initialValue: false });
 
-  publish = (topic: string, payload: Record<string, unknown> | string) => {
-    return new Promise<Packet | undefined>((resolve, reject) => {
-      if (typeof payload !== 'string') {
-        payload = JSON.stringify(payload);
-      }
-      this.mqtt.client.then(client => {
-        client.publish(topic, <string>payload, undefined, (error, packet) => {
-          if (error) {
-            console.error('Error publishing to MQTT:', error);
-            reject(error);
-          } else {
-            resolve(packet);
-          }
-        });
-      });
-    });
+  publish = async (topic: string, payload: Record<string, unknown> | string) => {
+    if (typeof payload !== 'string') {
+      payload = JSON.stringify(payload);
+    }
+    const client = await this.mqtt.client;
+    return client.publishAsync(topic, <string>payload);
   };
 
   #getDevice = (ieeeAddress: string) => this.devices().find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
@@ -108,7 +99,6 @@ export class ZigbeeService {
 export const renameDevice = (from: string, to: string) => ({
   payload: { from, to, homeassistant_rename: true }
 });
-
 
 function checkJoinAllowed(log: Record<string, string>): boolean {
   const lowerLog = log.message?.toLowerCase();

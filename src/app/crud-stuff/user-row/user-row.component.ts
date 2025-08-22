@@ -1,9 +1,11 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
 import type { UserCard } from '../../generic-services/address.service';
 import { ConfirmItComponent } from '@se-ng/headless-ui';
 import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
 import { RelationsService } from '../relations.service';
 import { isEmptyRelation } from '../utils/is-empty-relation';
+import { httpResource } from '@angular/common/http';
+import { sign } from 'crypto';
 
 @Component({
   selector: 'tr [userId]',
@@ -45,6 +47,9 @@ export class UserRowComponent {
       console.error(e);
     });
   }
+
+  // this is wrong, because it will trigger listing reactivity on every change
+  strangeId = signal<string | undefined>(undefined, { equal: () => false });
 
   relRef = this.relationService.read(this.userId);
   unStable = computed(() => {

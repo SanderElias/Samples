@@ -232,8 +232,6 @@
     "@fortawesome/free-regular-svg-icons": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@ngneat/falso": "^8.0.2",
-    "@std/front-matter": "npm:@jsr/std__front-matter@^1.0.9",
-    "@std/toml": "npm:@jsr/std__toml@^1.0.8",
     "animate-css-grid": "^1.5.1",
     "bson": "^6.10.4",
     "chance": "^1.1.13",
