@@ -3,7 +3,7 @@
 This is my mono-repo where I do quick experiments and samples. Also, this is where I keep my public libraries. Usually this is kept on the latest versions off all packages, and the source in here is experimental. Also it's only targeting evergreen browsers.
 Code is provided as-is, and there are no guaranties.
 
-I'm using `yarn` in this repo.
+I'm using `npm` in this repo.
 
 ## first step
 
