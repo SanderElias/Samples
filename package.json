@@ -223,7 +223,7 @@
     "@angular/forms": "20.2.3",
     "@angular/platform-browser": "20.2.3",
     "@angular/platform-browser-dynamic": "20.2.3",
-    "@angular/platform-server": "20.2.3",
+    "@angular/platform-server": "20.3.0",
     "@angular/router": "20.2.3",
     "@angular/ssr": "^20.2.1",
     "@faker-js/faker": "^10.0.0",
