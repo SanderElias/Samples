@@ -258,6 +258,10 @@ export const routes: Routes = [
     path: 'mqtt',
     loadChildren: () => import('./mqtt/routes')
   },
+  {
+    path: 'signalForms',
+    loadComponent: () => import('./signal-forms-experiment/signal-forms-experiment.component').then(m => m.SignalFormsExperimentComponent)
+  },
   // { path: '**', redirectTo: 'routeList' },
   { path: '**', redirectTo: 'mqtt' }
 ];

@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  margin-block-start: var(--size-2 );
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-1);
+  align-items: baseline;
+}
+
+label > button.action {
+  position: inherit;
+  margin-inline-start: 0;
+}
