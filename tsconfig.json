@@ -37,12 +37,5 @@
   "angularCompilerOptions": {
     "strictTemplates": true
   },
-  "references": [
-    {
-      "path": "./projects/se-ng/headless-ui/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/se-ng/headless-ui/tsconfig.spec.json"
-    }
-  ]
+
 }
