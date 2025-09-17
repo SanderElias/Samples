@@ -3,14 +3,16 @@
   margin-block-start: var(--size-2 );
 }
 
-label {
-  display: flex;
-  flex-direction: row;
-  gap: var(--size-1);
+div.tags {
+  display: grid;
+  grid-template-columns: 48px auto;
+  gap: var(--size-3);
+  grid-row-gap: 0;;
   align-items: baseline;
+
 }
 
-label > button.action {
+div.tags > button.action {
   position: inherit;
   margin-inline-start: 0;
 }

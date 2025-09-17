@@ -13,7 +13,7 @@ import {
 import type { SampleData } from './sample-data.service';
 
 // Standalone validation schema for SampleData using signalForms
-export function sampleDataValidationSchema(rel: FieldPath<SampleData>) {
+export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) => {
   // Name: required, min length 3, only letters and spaces
   required(rel.name);
   validate(rel.name, ({ value }) => {
@@ -72,26 +72,17 @@ export function sampleDataValidationSchema(rel: FieldPath<SampleData>) {
   required(rel.address.street);
   required(rel.address.city);
   required(rel.address.state);
-  required(rel.address.zip);
-  validate(rel.address.zip, ({ value }) => {
-    const v = value() as string;
-    if (v && !/^\d{5}(-\d{4})?$/.test(v)) {
-      return patternError(/^\d{5}(-\d{4})?$/, { message: 'ZIP code must be 5 digits or 5+4 digits' });
-    }
-    return null;
-  });
+
 
   // Tags: max 5 tags
 
   maxLength(rel.tags, 5);
   const tagSchema = schema<string>((tag) => {
-    required(tag);
-    minLength(tag, 2);
-    maxLength(tag, 20);
+    required(tag, { message: 'Tag can not be empty' });
+    minLength(tag, 2, { message: 'Tag must be at least 2 characters' });
   });
   applyEach(rel.tags, tagSchema);
 
-  
   // Contacts: no duplicate values
   validate(rel.contacts, ({ value }) => {
     const v = value() as { value: string }[];
@@ -108,4 +99,4 @@ export function sampleDataValidationSchema(rel: FieldPath<SampleData>) {
     }
     return null;
   });
-}
+});

@@ -1,16 +1,18 @@
+import { JsonPipe } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { Control, Field } from '@angular/forms/signals';
+import { UpdateNativeErrorsDirective } from '../update-native-errors.directive';
 
 @Component({
   selector: 'fieldset [tags]',
-  imports: [Control],
+  imports: [Control, JsonPipe, UpdateNativeErrorsDirective],
   template: `
     <legend>Tags <button type="button" class="action" (click)="addTag()">+</button></legend>
     @for (tag of tags(); track $index) {
-      <label>
+      <div class="tags">
         <button type="button" class="action" (click)="delTag($index)" [disabled]="isLastOne()">🗑️</button>
-        <input type="text" [control]="tag" />
-      </label>
+        <input type="text" [control]="tag" [attr.name]="'tag-' + $index" showError />
+      </div>
     }
   `,
   styleUrl: './tags.component.css'
