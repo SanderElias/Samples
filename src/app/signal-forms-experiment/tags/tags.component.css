@@ -1,13 +1,14 @@
 :host {
   display: block;
   margin-block-start: var(--size-2 );
+
 }
 
 div.tags {
   display: grid;
   grid-template-columns: 48px auto;
   gap: var(--size-3);
-  grid-row-gap: 0;;
+  grid-row-gap: var(--size-1);;
   align-items: baseline;
 
 }
@@ -16,3 +17,5 @@ div.tags > button.action {
   position: inherit;
   margin-inline-start: 0;
 }
+
+

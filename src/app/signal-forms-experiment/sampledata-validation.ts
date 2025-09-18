@@ -1,14 +1,16 @@
 import {
+  applyEach,
   FieldPath,
+  maxError,
   maxLength,
   minLength,
+  minLengthError,
   patternError,
   required,
+  schema,
   validate,
-  applyEach,
-  maxError,
-  minLengthError,
-  schema
+  type Field,
+  type ValidationError
 } from '@angular/forms/signals';
 import type { SampleData } from './sample-data.service';
 
@@ -38,23 +40,24 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
   });
 
   // Password: required, min length 6, must have upper, lower, number, special
-  required(rel.password);
-  minLength(rel.password, 6);
+  required(rel.password, {message: 'can not be empty'});
+  minLength(rel.password, 6, {message: 'must be at least 6 characters'});
   validate(rel.password, ({ value }) => {
     const v = value() as string;
+    const errors: any[] = [];
     if (!/[A-Z]/.test(v)) {
-      return patternError(/[A-Z]/, { message: 'Password must contain an uppercase letter' });
+      errors.push(new ComplexityError('must contain an uppercase letter'));
     }
     if (!/[a-z]/.test(v)) {
-      return patternError(/[a-z]/, { message: 'Password must contain a lowercase letter' });
+      errors.push(new ComplexityError('must contain a lowercase letter'));
     }
     if (!/[0-9]/.test(v)) {
-      return patternError(/[0-9]/, { message: 'Password must contain a number' });
+      errors.push(new ComplexityError('must contain a number'));
     }
     if (!/[^A-Za-z0-9]/.test(v)) {
-      return patternError(/[^A-Za-z0-9]/, { message: 'Password must contain a special character' });
+      errors.push(new ComplexityError('must contain a special character'));
     }
-    return null;
+    return errors.length > 0 ? errors : null;
   });
 
   // Confirm Password: required, must match password
@@ -73,11 +76,10 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
   required(rel.address.city);
   required(rel.address.state);
 
-
   // Tags: max 5 tags
 
   maxLength(rel.tags, 5);
-  const tagSchema = schema<string>((tag) => {
+  const tagSchema = schema<string>(tag => {
     required(tag, { message: 'Tag can not be empty' });
     minLength(tag, 2, { message: 'Tag must be at least 2 characters' });
   });
@@ -100,3 +102,13 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
     return null;
   });
 });
+
+export class ComplexityError implements ValidationError {
+  readonly kind = 'complexity';
+  readonly field!: Field<unknown>;
+  message: string;
+
+  constructor(message: string) {
+    this.message = message;
+  }
+}

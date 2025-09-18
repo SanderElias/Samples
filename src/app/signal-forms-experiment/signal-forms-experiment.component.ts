@@ -14,19 +14,19 @@ import { UpdateNativeErrorsDirective } from './update-native-errors.directive';
     <form (submit)="onSubmit($event)">
       <label for="name">
         <span>Name</span>
-        <input type="text" name="name" placeholder="Your name" [control]="fd.name"  />
+        <input type="text" name="name" placeholder="Your name" [control]="fd.name" showError />
       </label>
       <label for="dob">
         <span>Date of Birth</span>
-        <input type="date" name="dob" [control]="fd.dob" required />
+        <input type="date" name="dob" [control]="fd.dob"  showError />
       </label>
       <label for="password">
         <span>Password</span>
-        <input type="password" name="password" placeholder="Password" [control]="fd.password" />
+        <input type="password" name="password" placeholder="Password" [control]="fd.password" showError />
       </label>
       <label for="confirm">
         <span>Confirm Password</span>
-        <input type="password" name="confirm" placeholder="Confirm Password" [control]="fd.confirm" />
+        <input type="password" name="confirm" placeholder="Confirm Password" [control]="fd.confirm" showError />
       </label>
       <!-- use the contacts component to iter over the contacts -->
       <fieldset [contacts]="fd.contacts"></fieldset>
@@ -35,15 +35,15 @@ import { UpdateNativeErrorsDirective } from './update-native-errors.directive';
         <legend>Address</legend>
         <label for="street">
           <span>Street</span>
-          <input type="text" name="street" placeholder="Street" [control]="fd.address.street" />
+          <input type="text" name="street" placeholder="Street" [control]="fd.address.street" showError />
         </label>
         <label for="city">
           <span>City</span>
-          <input type="text" name="city" placeholder="City" [control]="fd.address.city" />
+          <input type="text" name="city" placeholder="City" [control]="fd.address.city" showError />
         </label>
         <label for="state">
           <span>State</span>
-          <input type="text" name="state" placeholder="State" [control]="fd.address.state" />
+          <input type="text" name="state" placeholder="State" [control]="fd.address.state" showError />
         </label>
       </fieldset>
       <!-- use the tags component to iter over the tags -->
@@ -67,6 +67,5 @@ export class SignalFormsExperimentComponent {
   _ = afterRenderEffect(() => {
     // console.log('form data', JSON.stringify(this.relation(), null, 2));
     console.log(this.fd().errors());
-
   });
 }
