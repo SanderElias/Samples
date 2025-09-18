@@ -1,5 +1,8 @@
 import {
+  apply,
   applyEach,
+  applyWhenValue,
+  customError,
   FieldPath,
   maxError,
   maxLength,
@@ -10,11 +13,13 @@ import {
   required,
   schema,
   validate,
-  type FieldValidationResult,
+  type PathKind,
   type ValidationError
 } from '@angular/forms/signals';
 import type { SampleData } from './sample-data.service';
-import { va } from '../../../dist/samples/browser/chunk-YDUWCTK6';
+import { max, min } from 'rxjs';
+import { app } from '../../../server';
+import { EmailValidator } from '@angular/forms';
 
 // Standalone validation schema for SampleData using signalForms
 export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) => {
@@ -31,8 +36,9 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
     return null;
   });
 
-  // Date of Birth: required, not in the future
+  // Date of Birth:
   required(rel.dob);
+  // Date of Birth: not in the future
   validate(rel.dob, ({ value }) => {
     const v = value() as Date;
     if (v && new Date(v).getTime() > Date.now()) {
@@ -40,6 +46,7 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
     }
     return null;
   });
+  // Date of Birth: year must be 1900 or later
   validate(rel.dob, ({ value }) => {
     const v = value() as Date;
     if (v && new Date(v).getFullYear() < 1900) {
@@ -51,12 +58,14 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
   // Password: required, min length 6, must have upper, lower, number, special
   required(rel.password, { message: 'can not be empty' });
   minLength(rel.password, 6, { message: 'must be at least 6 characters' });
+  // Password complexity
   validate(rel.password, ({ value }) => {
     const v = value() as string;
     // this uses any now, because: https://github.com/angular/angular/issues/63860
     const errors: any[] = [];
     if (!/[A-Z]/.test(v)) {
-      errors.push(complexityError('must contain an uppercase letter'));
+      errors.push(customError({ message: 'must contain an uppercase letter' }));
+      // errors.push(complexityError('must contain an uppercase letter'));
     }
     if (!/[a-z]/.test(v)) {
       errors.push(complexityError('must contain a lowercase letter'));
@@ -72,6 +81,7 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
 
   // Confirm Password: required, must match password
   required(rel.confirm);
+  // Confirm Password: must match password
   validate(rel.confirm, ({ value, valueOf }) => {
     const v = value() as string;
     const pw = valueOf(rel.password);
@@ -86,31 +96,45 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
   required(rel.address.city);
   required(rel.address.state);
 
-  // Tags: max 5 tags
+  apply(rel.tags, tagsSchema);
+  apply(rel.contacts, contactsSchema);
+});
 
-  maxLength(rel.tags, 5);
+const contactsSchema = schema((contactsArray: FieldPath<SampleData['contacts']>) => {
+  // At least one contact required
+  minLength(contactsArray, 1, { message: 'At least one contact is required' });
+  applyEach(contactsArray, contectSchema);
+
+
+});
+
+export const contectSchema = schema((contact: FieldPath<SampleData['contacts'][0]>) => {
+  required(contact.type);
+  required(contact.value);
+
+
+})
+
+export const tagsSchema = schema((tagsArray: FieldPath<string[]>) => {
+  maxLength(tagsArray, 5, { message: 'Maximum 5 tags allowed' });
+  // Each tag: required, min length 2, no duplicates
   const tagSchema = schema<string>(tag => {
     required(tag, { message: 'Tag can not be empty' });
     minLength(tag, 2, { message: 'Tag must be at least 2 characters' });
-  });
-  applyEach(rel.tags, tagSchema);
+    // No duplicate tags
+    validate(tag, ({ value, state, valueOf }) => {
+      const tagToTest = value() as string;
+      const index = parseInt('' + state.keyInParent(), 10);
+      const tags = valueOf(tagsArray).map((tag, idx) => [tag, idx]);
 
-  // Contacts: no duplicate values
-  validate(rel.contacts, ({ value }) => {
-    const v = value() as { value: string }[];
-    if (Array.isArray(v)) {
-      const seen = new Set();
-      for (const c of v) {
-        if (c && c.value) {
-          if (seen.has(c.value)) {
-            return patternError(/.*/, { message: 'Duplicate contact values are not allowed' });
-          }
-          seen.add(c.value);
+      for (const [tag, idx] of tags) {
+        if (idx !== index && tag === tagToTest) {
+          return patternError(/.*/, { message: 'Duplicate tags are not allowed' });
         }
       }
-    }
-    return null;
+    });
   });
+  applyEach(tagsArray, tagSchema);
 });
 
 export const complexityError = (message: string): ValidationError => ({

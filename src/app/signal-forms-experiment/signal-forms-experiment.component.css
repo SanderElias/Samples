@@ -28,7 +28,7 @@ label:has(input[required]) > span:first-child:after {
 }
 
 :invalid {
-  outline: 2px solid var(--red-5);
+  border: 2px solid var(--red-5);
   /* background-color: var(--red-2); */
 }
 

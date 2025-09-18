@@ -33,15 +33,14 @@ const inMemoryDb = new Map<string, Partial<SampleData>>();
 inMemoryDb.set('1', {
   id: '1',
   name: 'Sander',
-  dob: new Date(1880, 1, 1),
-  // password: '007 Is not secure',
-  password: '',
+  dob: new Date(1980, 1, 1),
+  password: '007 Is not secure',
   confirm: '007 Is not secure',
   contacts: [
     { type: SampleDataContactDetailType.Email, value: 'a@b.c', priority: 0 },
     { type: SampleDataContactDetailType.Mobile, value: '+31 6123 456 789', priority: 0 }
   ],
-  tags: ['developer', 'angular'],
+  tags: ['developer', 'angular', 'aa','aaa','aaaa'],
   address: {
     street: '123 Main St',
     city: 'Anytown',

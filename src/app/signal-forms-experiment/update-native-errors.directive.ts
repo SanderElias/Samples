@@ -26,10 +26,11 @@ export class UpdateNativeErrorsDirective {
         return acc;
       }, [] as string[]);
       console.log({ message });
+      // clear previous
+      this.errElm.innerHTML = '';
       if (this.showError()) {
+        // adds the static message if there is one!
         this.errElm.innerHTML = `<span class="error">${this.showError()}</span>`;
-      } else {
-        this.errElm.innerHTML = '';
       }
       const ul = this.doc.createElement('ul');
       message.forEach(m => {
@@ -42,12 +43,9 @@ export class UpdateNativeErrorsDirective {
       if (this.errElm.parentElement !== this.parent) {
         this.parent?.appendChild(this.errElm);
       }
-
       this.elm.setCustomValidity(message.join(', '));
-      this.elm.title = message.join(', ');
     } else {
       this.elm.setCustomValidity('');
-      this.elm.title = '';
       this.errElm.remove();
     }
   });
