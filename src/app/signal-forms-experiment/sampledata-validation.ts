@@ -3,16 +3,18 @@ import {
   FieldPath,
   maxError,
   maxLength,
+  minError,
   minLength,
   minLengthError,
   patternError,
   required,
   schema,
   validate,
-  type Field,
+  type FieldValidationResult,
   type ValidationError
 } from '@angular/forms/signals';
 import type { SampleData } from './sample-data.service';
+import { va } from '../../../dist/samples/browser/chunk-YDUWCTK6';
 
 // Standalone validation schema for SampleData using signalForms
 export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) => {
@@ -38,24 +40,32 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
     }
     return null;
   });
+  validate(rel.dob, ({ value }) => {
+    const v = value() as Date;
+    if (v && new Date(v).getFullYear() < 1900) {
+      return minError(1900, { message: 'Year must be 1900 or later' });
+    }
+    return null;
+  });
 
   // Password: required, min length 6, must have upper, lower, number, special
-  required(rel.password, {message: 'can not be empty'});
-  minLength(rel.password, 6, {message: 'must be at least 6 characters'});
+  required(rel.password, { message: 'can not be empty' });
+  minLength(rel.password, 6, { message: 'must be at least 6 characters' });
   validate(rel.password, ({ value }) => {
     const v = value() as string;
+    // this uses any now, because: https://github.com/angular/angular/issues/63860
     const errors: any[] = [];
     if (!/[A-Z]/.test(v)) {
-      errors.push(new ComplexityError('must contain an uppercase letter'));
+      errors.push(complexityError('must contain an uppercase letter'));
     }
     if (!/[a-z]/.test(v)) {
-      errors.push(new ComplexityError('must contain a lowercase letter'));
+      errors.push(complexityError('must contain a lowercase letter'));
     }
     if (!/[0-9]/.test(v)) {
-      errors.push(new ComplexityError('must contain a number'));
+      errors.push(complexityError('must contain a number'));
     }
     if (!/[^A-Za-z0-9]/.test(v)) {
-      errors.push(new ComplexityError('must contain a special character'));
+      errors.push(complexityError('must contain a special character'));
     }
     return errors.length > 0 ? errors : null;
   });
@@ -103,12 +113,8 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
   });
 });
 
-export class ComplexityError implements ValidationError {
-  readonly kind = 'complexity';
-  readonly field!: Field<unknown>;
-  message: string;
-
-  constructor(message: string) {
-    this.message = message;
-  }
-}
+export const complexityError = (message: string): ValidationError => ({
+  kind: 'complexity',
+  field: undefined as never,
+  message
+});

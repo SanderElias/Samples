@@ -1,16 +1,4 @@
 import { Injectable, linkedSignal, type Signal } from '@angular/core';
-import {
-  FieldPath,
-  maxError,
-  maxLength,
-  minLength,
-  minLengthError,
-  applyEach,
-  patternError,
-  required,
-  validate
-} from '@angular/forms/signals';
-
 
 export interface SampleData {
   id: string;
@@ -45,9 +33,10 @@ const inMemoryDb = new Map<string, Partial<SampleData>>();
 inMemoryDb.set('1', {
   id: '1',
   name: 'Sander',
-  dob: new Date(1980, 1, 1),
-  password: 'not secure',
-  confirm: 'not secure',
+  dob: new Date(1880, 1, 1),
+  // password: '007 Is not secure',
+  password: '',
+  confirm: '007 Is not secure',
   contacts: [
     { type: SampleDataContactDetailType.Email, value: 'a@b.c', priority: 0 },
     { type: SampleDataContactDetailType.Mobile, value: '+31 6123 456 789', priority: 0 }

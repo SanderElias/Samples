@@ -53,6 +53,12 @@ div.error-messages {
   ul {
     font-size: .95rem;
   }
+  ul:not(:has(:nth-child(2))) {
+    list-style: none;
+    padding-inline-start: var(--size-4);
+  }
+
+
 }
 
 button.action {
