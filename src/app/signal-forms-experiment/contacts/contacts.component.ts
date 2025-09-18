@@ -1,10 +1,11 @@
 import { Component, computed, input } from '@angular/core';
 import { Control, Field } from '@angular/forms/signals';
-import { SampleDataContactDetailType, type SampleDataContactDetail } from '../sample-data.service';
+import { SampleDataContactDetailType, type SampleDataContactDetail } from '../util/sample-data.model';
+import { UpdateNativeErrorsDirective } from "../util/update-native-errors.directive";
 
 @Component({
   selector: 'fieldset [contacts]',
-  imports: [Control],
+  imports: [Control, UpdateNativeErrorsDirective],
   template: `<legend>Contacts <button type="button" class="action" (click)="addContact()">+</button></legend>
     @for (contact of contacts(); track $index) {
       <label>
@@ -15,7 +16,9 @@ import { SampleDataContactDetailType, type SampleDataContactDetail } from '../sa
             <option [value]="type">{{ type }}</option>
           }
         </select>
-        <input type="text" [control]="contact.value" placeholder="value" />
+        <div>
+          <input type="text" [control]="contact.value" placeholder="value" showError=""/>
+        </div>
         <input type="number" [control]="contact.priority" placeholder="priority" />
       </label>
     } `,

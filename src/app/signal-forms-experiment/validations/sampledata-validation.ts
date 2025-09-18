@@ -1,11 +1,8 @@
 import {
   apply,
-  applyEach,
-  applyWhenValue,
   customError,
   FieldPath,
   maxError,
-  maxLength,
   minError,
   minLength,
   minLengthError,
@@ -13,18 +10,16 @@ import {
   required,
   schema,
   validate,
-  type PathKind,
   type ValidationError
 } from '@angular/forms/signals';
-import type { SampleData } from './sample-data.service';
-import { max, min } from 'rxjs';
-import { app } from '../../../server';
-import { EmailValidator } from '@angular/forms';
+import { contactsSchema } from './contacts.validation';
+import { type SampleData } from '../util/sample-data.model';
+import { tagsSchema } from './tags.validation';
 
 // Standalone validation schema for SampleData using signalForms
 export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) => {
   // Name: required, min length 3, only letters and spaces
-  required(rel.name);
+  required(rel.name, { message: 'a name is required' });
   validate(rel.name, ({ value }) => {
     const v = value() as string;
     if (v && v.length < 3) {
@@ -100,45 +95,9 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
   apply(rel.contacts, contactsSchema);
 });
 
-const contactsSchema = schema((contactsArray: FieldPath<SampleData['contacts']>) => {
-  // At least one contact required
-  minLength(contactsArray, 1, { message: 'At least one contact is required' });
-  applyEach(contactsArray, contectSchema);
-
-
-});
-
-export const contectSchema = schema((contact: FieldPath<SampleData['contacts'][0]>) => {
-  required(contact.type);
-  required(contact.value);
-
-
-})
-
-export const tagsSchema = schema((tagsArray: FieldPath<string[]>) => {
-  maxLength(tagsArray, 5, { message: 'Maximum 5 tags allowed' });
-  // Each tag: required, min length 2, no duplicates
-  const tagSchema = schema<string>(tag => {
-    required(tag, { message: 'Tag can not be empty' });
-    minLength(tag, 2, { message: 'Tag must be at least 2 characters' });
-    // No duplicate tags
-    validate(tag, ({ value, state, valueOf }) => {
-      const tagToTest = value() as string;
-      const index = parseInt('' + state.keyInParent(), 10);
-      const tags = valueOf(tagsArray).map((tag, idx) => [tag, idx]);
-
-      for (const [tag, idx] of tags) {
-        if (idx !== index && tag === tagToTest) {
-          return patternError(/.*/, { message: 'Duplicate tags are not allowed' });
-        }
-      }
-    });
-  });
-  applyEach(tagsArray, tagSchema);
-});
-
 export const complexityError = (message: string): ValidationError => ({
   kind: 'complexity',
   field: undefined as never,
   message
 });
+

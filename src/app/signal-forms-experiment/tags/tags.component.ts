@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { afterRenderEffect, Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { Control, Field, MaxLengthValidationError } from '@angular/forms/signals';
-import { UpdateNativeErrorsDirective } from '../update-native-errors.directive';
+import { UpdateNativeErrorsDirective } from '../util/update-native-errors.directive';
 import { after } from 'node:test';
 
 @Component({

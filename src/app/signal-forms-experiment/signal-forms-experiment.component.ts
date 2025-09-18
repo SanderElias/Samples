@@ -1,10 +1,10 @@
 import { afterRenderEffect, Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { Control, form, required, min, max, validate } from '@angular/forms/signals';
-import { SampleDataService } from './sample-data.service';
+import { SampleDataService } from './util/sample-data.service';
 import { TagsComponent } from './tags/tags.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { sampleDataValidationSchema } from './sampledata-validation';
-import { UpdateNativeErrorsDirective } from './update-native-errors.directive';
+import { sampleDataValidationSchema } from './validations/sampledata-validation';
+import { UpdateNativeErrorsDirective } from './util/update-native-errors.directive';
 
 @Component({
   imports: [Control, TagsComponent, ContactsComponent, UpdateNativeErrorsDirective],
