@@ -4,8 +4,9 @@
   gap: var(--size-2);
 }
 
-label {
-  display: flex;
+div.row {
+  display: grid;
+  grid-template-columns: 3.5rem 6rem 16.5rem 2rem;
   flex-direction: row;
   gap: var(--size-2);
   align-items: baseline;
@@ -15,7 +16,7 @@ input[type='number'] {
   width: 3rem;
 }
 
-label > button.action {
+div > button.action {
   position: inherit;
   margin-inline-start: 0;
 }

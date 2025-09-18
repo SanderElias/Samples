@@ -4,13 +4,13 @@ import { SampleDataService } from './util/sample-data.service';
 import { TagsComponent } from './tags/tags.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
-import { UpdateNativeErrorsDirective } from './util/update-native-errors.directive';
+import { showErrorsInDom } from './util/shiw-errors-in-dom.directive';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
-  imports: [Control, TagsComponent, ContactsComponent, UpdateNativeErrorsDirective],
+  imports: [Control, TagsComponent, ContactsComponent, showErrorsInDom],
   template: `
     <h1>Signal Forms Experiment</h1>
-    all valid: {{ fd().valid() }} <br />
     <form (submit)="onSubmit($event)">
       <label for="name">
         <span>Name</span>
@@ -18,7 +18,7 @@ import { UpdateNativeErrorsDirective } from './util/update-native-errors.directi
       </label>
       <label for="dob">
         <span>Date of Birth</span>
-        <input type="date" name="dob" [control]="fd.dob"  showError />
+        <input type="date" name="dob" [control]="fd.dob" showError />
       </label>
       <label for="password">
         <span>Password</span>
@@ -48,6 +48,7 @@ import { UpdateNativeErrorsDirective } from './util/update-native-errors.directi
       </fieldset>
       <!-- use the tags component to iter over the tags -->
       <fieldset [tags]="fd.tags"></fieldset>
+      <button type="submit" [disabled]="!fd().valid()">Submit</button>
     </form>
   `,
   styleUrl: './signal-forms-experiment.component.css',
@@ -60,12 +61,10 @@ export class SignalFormsExperimentComponent {
   fd = form(this.relation, sampleDataValidationSchema);
 
   onSubmit(ev: Event) {
-    console.log('submit', this.fd);
+    if (this.fd().valid()) {
+      // probably want to save the data here.
+      console.log('submit', JSON.stringify(this.relation(), undefined, 2));
+    }
     ev.preventDefault();
   }
-
-  _ = afterRenderEffect(() => {
-    // console.log('form data', JSON.stringify(this.relation(), null, 2));
-    console.log(this.fd().errors());
-  });
 }

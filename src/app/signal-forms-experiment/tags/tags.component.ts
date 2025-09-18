@@ -1,12 +1,12 @@
 import { JsonPipe } from '@angular/common';
 import { afterRenderEffect, Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { Control, Field, MaxLengthValidationError } from '@angular/forms/signals';
-import { UpdateNativeErrorsDirective } from '../util/update-native-errors.directive';
+import { showErrorsInDom } from '../util/shiw-errors-in-dom.directive';
 import { after } from 'node:test';
 
 @Component({
   selector: 'fieldset [tags]',
-  imports: [Control, JsonPipe, UpdateNativeErrorsDirective],
+  imports: [Control, JsonPipe, showErrorsInDom],
   template: `
     <legend>
       Tags
@@ -43,9 +43,9 @@ export class TagsComponent {
      * ok, this is kind of stupid
      * a fieldset is only marked invalid if one of its children is invalid
      * but the tags are dynamic, so if there is a validation error on the tags array itself
-     * (like max length exceeded) there is no way to show that in the UI
-     * so we have to set the custom validity on an input element ourself
-     * which is hidden from the ui
+     * (like max length exceeded) there is no way to surface that in the UI
+     * so we have to set the custom validity on an hidden input element
+     * which then in turn will mark the fieldset as invalid
      **/
     const errors = this.tags()().errors() || [];
     const elm = this.tagsInput()!.nativeElement as HTMLInputElement;
