@@ -1,6 +1,5 @@
 import {
   apply,
-  customError,
   FieldPath,
   maxError,
   minError,
@@ -9,9 +8,9 @@ import {
   patternError,
   required,
   schema,
-  validate,
-  type ValidationError
+  validate
 } from '@angular/forms/signals';
+import { passwordComplexitySchema, complexityError } from './password-complexity.validation';
 import { contactsSchema } from './contacts.validation';
 import { type SampleData } from '../util/sample-data.model';
 import { tagsSchema } from './tags.validation';
@@ -51,28 +50,7 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
   });
 
   // Password: required, min length 6, must have upper, lower, number, special
-  required(rel.password, { message: 'can not be empty' });
-  minLength(rel.password, 6, { message: 'must be at least 6 characters' });
-  // Password complexity
-  validate(rel.password, ({ value }) => {
-    const v = value() as string;
-    // this uses any now, because: https://github.com/angular/angular/issues/63860
-    const errors: any[] = [];
-    if (!/[A-Z]/.test(v)) {
-      errors.push(customError({ message: 'must contain an uppercase letter' }));
-      // errors.push(complexityError('must contain an uppercase letter'));
-    }
-    if (!/[a-z]/.test(v)) {
-      errors.push(complexityError('must contain a lowercase letter'));
-    }
-    if (!/[0-9]/.test(v)) {
-      errors.push(complexityError('must contain a number'));
-    }
-    if (!/[^A-Za-z0-9]/.test(v)) {
-      errors.push(complexityError('must contain a special character'));
-    }
-    return errors.length > 0 ? errors : null;
-  });
+  apply(rel.password, passwordComplexitySchema);
 
   // Confirm Password: required, must match password
   required(rel.confirm);
@@ -93,11 +71,5 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
 
   apply(rel.tags, tagsSchema);
   apply(rel.contacts, contactsSchema);
-});
-
-export const complexityError = (message: string): ValidationError => ({
-  kind: 'complexity',
-  field: undefined as never,
-  message
 });
 

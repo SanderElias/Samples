@@ -12,12 +12,12 @@ export class SampleDataService {
       source: id,
       computation: id => {
         const data = inMemoryDb.get(id);
-        console.log('getById', id, data);
         if (!data) {
           // throw new Error(`No data found for id ${id}`);
           // we should throw an error here, but for now we just return an empty object
           return emptyData(id);
         }
+        // return a clone of the data!
         return structuredClone(data) as SampleData;
       }
     });

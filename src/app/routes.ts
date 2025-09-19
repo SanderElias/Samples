@@ -263,5 +263,5 @@ export const routes: Routes = [
     loadComponent: () => import('./signal-forms-experiment/signal-forms-experiment.component').then(m => m.SignalFormsExperimentComponent)
   },
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'mqtt' }
+  { path: '**', redirectTo: 'signalForms' }
 ];

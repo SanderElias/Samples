@@ -1,12 +1,10 @@
-import { JsonPipe } from '@angular/common';
-import { afterRenderEffect, Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
+import { afterRenderEffect, Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { Control, Field, MaxLengthValidationError } from '@angular/forms/signals';
 import { showErrorsInDom } from '../util/shiw-errors-in-dom.directive';
-import { after } from 'node:test';
 
 @Component({
   selector: 'fieldset [tags]',
-  imports: [Control, JsonPipe, showErrorsInDom],
+  imports: [Control,  showErrorsInDom],
   template: `
     <legend>
       Tags
@@ -27,7 +25,6 @@ import { after } from 'node:test';
 })
 export class TagsComponent {
   tags = input.required<Field<string[], string>>();
-
   tagsInput = viewChild('tagsInput', { read: ElementRef });
 
   isLastOne = computed(() => this.tags()().value().length === 1);
@@ -58,7 +55,7 @@ export class TagsComponent {
 
   addTag() {
     // this.relation().tags.push('new tag');
-    this.tags()().value.update(tags => [...tags, 'New Tag']);
+    this.tags()().value.update(tags => [...tags, '']);
   }
 
   delTag(index: number) {

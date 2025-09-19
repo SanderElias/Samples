@@ -34,7 +34,7 @@ const blueSkyHandle = await sharp(new Buffer.from(`<svg width="170" height="34">
 export async function createSnapshotFor(route) {
   await page.goto(`${baseUrl}${route.path}`);
   /** give the page a moment to settle */
-  await new Promise(r => setTimeout(r, 750));
+  await new Promise(r => setTimeout(r, 1000));
   const title = (await page.locator('h1').allTextContents())[0] || 'Sanders demo page';
   route.title = route.title || title;
   /** drop the starting '/' and replace the rest with '-' */

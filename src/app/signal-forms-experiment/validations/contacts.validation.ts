@@ -22,7 +22,6 @@ export const contactsSchema = schema((contactsArray: FieldPath<SampleData['conta
 export const contactSchema = schema((contact: FieldPath<SampleDataContactDetail>) => {
   const types = Object.values(SampleDataContactDetailType);
 
-  required(contact);
   required(contact.value, { message: 'a value is required' });
   // check that type is valid
   validate(contact.type, ({ value }) => {
