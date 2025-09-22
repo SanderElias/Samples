@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { Control, Field } from '@angular/forms/signals';
 import { SampleDataContactDetailType, type SampleDataContactDetail } from '../util/sample-data.model';
-import { showErrorsInDom } from '../util/shiw-errors-in-dom.directive';
+import { showErrorsInDom } from '../util/show-errors-in-dom.directive';
 
 @Component({
   selector: 'fieldset [contacts]',

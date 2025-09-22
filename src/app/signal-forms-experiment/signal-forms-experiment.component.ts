@@ -1,11 +1,10 @@
-import { afterRenderEffect, Component, inject, signal, ViewEncapsulation } from '@angular/core';
-import { Control, form, required, min, max, validate } from '@angular/forms/signals';
-import { SampleDataService } from './util/sample-data.service';
-import { TagsComponent } from './tags/tags.component';
+import { Component, inject, signal } from '@angular/core';
+import { Control, form } from '@angular/forms/signals';
 import { ContactsComponent } from './contacts/contacts.component';
+import { TagsComponent } from './tags/tags.component';
+import { SampleDataService } from './util/sample-data.service';
+import { showErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
-import { showErrorsInDom } from './util/shiw-errors-in-dom.directive';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   imports: [Control, TagsComponent, ContactsComponent, showErrorsInDom],
@@ -52,7 +51,6 @@ import { ThisReceiver } from '@angular/compiler';
     </form>
   `,
   styleUrl: './signal-forms-experiment.component.css',
-  encapsulation: ViewEncapsulation.None
 })
 export class SignalFormsExperimentComponent {
   dataService = inject(SampleDataService);

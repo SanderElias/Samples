@@ -33,6 +33,11 @@ export class showErrorsInDom {
     // start listening for changes in the errors, and keep the DOM in sync
     afterRenderEffect(() => {
       const messages = this.#ErrorMessages();
+      const a = this.findNgContentAttributes();
+      if (a) {
+        // re-apply the attribute to the error container, so the styles are applied correctly
+        this.#errorContainer.setAttribute(a, '');
+      }
 
       if (messages.length > 0) {
         this.renderErrors(messages);
@@ -43,6 +48,13 @@ export class showErrorsInDom {
         this.#errorContainer.remove();
       }
     });
+  }
+
+  findNgContentAttributes() {
+    const attrs = this.#inputElement.attributes;
+    const ngA = Array.from(attrs).filter(attr => attr.name.startsWith('_ngcontent-'));
+    console.log('ngcontent attributes:', ngA);
+    return ngA?.[0]?.name || '';
   }
 
   /**
