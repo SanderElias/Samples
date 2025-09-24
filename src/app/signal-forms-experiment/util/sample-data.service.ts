@@ -43,7 +43,7 @@ inMemoryDb.set('1', {
     { type: SampleDataContactDetailType.Email, value: 'a@b.c', priority: 0 },
     { type: SampleDataContactDetailType.Mobile, value: '+31 6123 456 789', priority: 0 }
   ],
-  tags: ['developer', 'angular', 'aa','aaa','aaaa'],
+  tags: ['developer', 'angular', 'aa', 'aaa', 'aaaa'],
   address: {
     street: '123 Main St',
     city: 'Anytown',
