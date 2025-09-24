@@ -26,6 +26,7 @@ export const sampleDataValidationSchema = schema((rel: FieldPath<SampleData>) =>
     }
     if (v && !/^[A-Za-z\s]+$/.test(v)) {
       return patternError(/^[A-Za-z\s]+$/, { message: 'Name must contain only letters and spaces' });
+      // return {"kind": "complexity", "message": "Name must contain only letters and spaces", "requiredComplexity": "only letters and spaces"};
     }
     return null;
   });

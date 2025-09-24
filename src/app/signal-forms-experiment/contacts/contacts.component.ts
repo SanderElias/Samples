@@ -1,5 +1,5 @@
-import { Component, computed, input } from '@angular/core';
-import { Control, Field } from '@angular/forms/signals';
+import { Component, computed, input, model } from '@angular/core';
+import { Control, Field, ValidationError } from '@angular/forms/signals';
 import { SampleDataContactDetailType, type SampleDataContactDetail } from '../util/sample-data.model';
 import { showErrorsInDom } from '../util/show-errors-in-dom.directive';
 
@@ -26,7 +26,7 @@ import { showErrorsInDom } from '../util/show-errors-in-dom.directive';
         <input type="number" [control]="contact.priority" placeholder="priority" />
       </div>
     } `,
-  styleUrl: './contacts.component.css'
+  styleUrl: './contacts.component.css',
 })
 export class ContactsComponent {
   contacts = input.required<Field<SampleDataContactDetail[], string>>();
@@ -43,3 +43,5 @@ export class ContactsComponent {
     }
   }
 }
+
+

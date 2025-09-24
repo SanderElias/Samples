@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { Control, form } from '@angular/forms/signals';
 import { ContactsComponent } from './contacts/contacts.component';
 import { TagsComponent } from './tags/tags.component';
@@ -51,6 +51,7 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
     </form>
   `,
   styleUrl: './signal-forms-experiment.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class SignalFormsExperimentComponent {
   dataService = inject(SampleDataService);

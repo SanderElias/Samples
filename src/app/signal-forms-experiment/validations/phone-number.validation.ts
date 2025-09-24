@@ -10,7 +10,7 @@ export const phoneNumber = schema((valueField: FieldPath<string>) => {
   validate(valueField, ({ value }) => {
     // this uses any now, because: https://github.com/angular/angular/issues/63860
     const errors: any[] = [];
-    
+
     const v = value() as string;
     const numberOfDigits = v.split('').filter(c => '0123456789'.includes(c)).length;
     if (!/^\+?[0-9\s\-()]{7,}$/.test(v)) {
@@ -24,4 +24,5 @@ export const phoneNumber = schema((valueField: FieldPath<string>) => {
     }
     return errors.length > 0 ? errors : null;
   });
+  
 });

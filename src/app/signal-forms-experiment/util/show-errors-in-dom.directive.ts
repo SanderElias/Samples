@@ -51,8 +51,10 @@ export class showErrorsInDom {
   }
 
   findNgContentAttributes() {
+    let maxIterations = 5;
+    let parent = this.#parentElement;
     const attrs = this.#inputElement.attributes;
-    const ngA = Array.from(attrs).filter(attr => attr.name.startsWith('_ngcontent-'));
+    const ngA = Array.from(attrs).find(attr => attr.name.startsWith('_ngcontent-'));
     console.log('ngcontent attributes:', ngA);
     return ngA?.[0]?.name || '';
   }
