@@ -23,7 +23,7 @@ interface MqttMessage {
 @Injectable({ providedIn: 'root' })
 export class MqttService {
   mqtt = import('mqtt');
-  client = this.mqtt.then(m => m.default.connectAsync(`ws://10.0.0.100:1884`));
+  client = this.mqtt.then(m => m.default.connectAsync(`ws://kapow:1884`));
   /** base topic */
   readonly baseTopic = 'zigbee2mqtt';
   messages$ = new Observable<MqttMessage>(subscriber => {
