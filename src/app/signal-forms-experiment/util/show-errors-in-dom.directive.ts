@@ -55,7 +55,7 @@ export class showErrorsInDom {
     let parent = this.#parentElement;
     const attrs = this.#inputElement.attributes;
     const ngA = Array.from(attrs).find(attr => attr.name.startsWith('_ngcontent-'));
-    return ngA?.[0]?.name || '';
+    return ngA?.name || '';
   }
 
   /**
