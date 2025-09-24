@@ -1,7 +1,7 @@
 import { schema, validate, minLengthError, maxError, patternError, type FieldPath } from '@angular/forms/signals';
 
 /**
- * CHeck for phone number:
+ * Check for phone number:
  * - only numbers, spaces, ()+- allowed
  * - at least 7 digits
  * - max 15 digits
