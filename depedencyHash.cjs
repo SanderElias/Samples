@@ -12,7 +12,7 @@ hash.update(JSON.stringify({ dependencies, devDependencies }));
 // console.log(`::set-output name=dependencyHash::${hash.digest('hex')}`);
 const digest = hash.digest('hex');
 console.log(`dependencyHash: ${digest}`);
-process.env['GITHUB_OUTPUT'] = `dependencyHash=${digest}`;
+process.env['$GITHUB_OUTPUT'] = `dependencyHash=${digest}`;
 
 // echo "{environment_variable_name}={value}" >> "$GITHUB_ENV"
 
