@@ -9,4 +9,8 @@ const hash = createHash('sha256');
 hash.update(JSON.stringify({ dependencies, devDependencies }));
 
 /** display it in the special format so GA can pick up the var */
-console.log(`::set-output name=dependencyHash::${hash.digest('hex')}`);
+// console.log(`::set-output name=dependencyHash::${hash.digest('hex')}`);
+console.log(`dependencyHash=${hash.digest('hex')}  >> "$GITHUB_OUTPUT"`);
+
+// echo "{environment_variable_name}={value}" >> "$GITHUB_ENV"
+
