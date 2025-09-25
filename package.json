@@ -5,7 +5,7 @@
   "engines": {
     "npm": ">=10",
     "yarn": "This project is switched to NPM",
-    "node": ">=18.14.2"
+    "node": ">24.7.0"
   },
   "type": "module",
   "scripts": {

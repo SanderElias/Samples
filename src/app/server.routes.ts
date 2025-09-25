@@ -23,6 +23,14 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
+    path: 'mqtt/list',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'svgTest',
+    renderMode: RenderMode.Client
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }
