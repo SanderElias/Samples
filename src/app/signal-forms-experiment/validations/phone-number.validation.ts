@@ -24,5 +24,4 @@ export const phoneNumber = schema((valueField: FieldPath<string>) => {
     }
     return errors.length > 0 ? errors : null;
   });
-  
 });

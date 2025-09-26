@@ -27,7 +27,7 @@ label:has(input[required]) > span:first-child:after {
   color: var(--red-3);
 }
 
-:invalid {
+:is(input, textarea, select):user-invalid {
   border: 2px solid var(--red-5);
   /* background-color: var(--red-2); */
 }
@@ -38,27 +38,32 @@ fieldset > legend {
 }
 
 fieldset {
-  margin-block-end: 0;;
+  margin-block-end: 0;
 }
 
 div.error-messages {
-  color: var(--red-5);
-  grid-column: 2;;
-  font-style: italic;
-  min-height: 1.5em;
-  font-variant: small-caps;
-  margin-inline-start: var(--size-2);
-  margin-block-start: calc(-1 * var(--size-2));
+  display: none;
+}
 
-  ul {
-    font-size: .95rem;
+*:has(.se-touched) {
+  div.error-messages {
+    display: block;
+    color: var(--red-5);
+    grid-column: 2;
+    font-style: italic;
+    min-height: 1.5em;
+    font-variant: small-caps;
+    margin-inline-start: var(--size-2);
+    margin-block-start: calc(-1 * var(--size-2));
+
+    ul {
+      font-size: 0.95rem;
+    }
+    ul:not(:has(:nth-child(2))) {
+      list-style: none;
+      padding-inline-start: var(--size-4);
+    }
   }
-  ul:not(:has(:nth-child(2))) {
-    list-style: none;
-    padding-inline-start: var(--size-4);
-  }
-
-
 }
 
 button.action {

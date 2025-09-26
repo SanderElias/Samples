@@ -1,4 +1,4 @@
-import { Component, computed, effect, ElementRef, inject, model, NgZone } from '@angular/core';
+import { afterRenderEffect, Component, computed, effect, ElementRef, inject, model, NgZone } from '@angular/core';
 
 import { Cell } from '../cells.component';
 
@@ -25,7 +25,8 @@ export class CellComponent {
     this.zone.runOutsideAngular(() => this.elm.style.setProperty('--cellBg', this.alive() ? this.aliveColor : this.deadColor));
 
   // update the DOM when the cell dies or resurrects.
-  dummy = effect(() => this.setBg());
+  // dummy = effect(() => this.setBg());
+  _ = afterRenderEffect(() => this.setBg());
 
   ngOnInit() {
     this.setBg();

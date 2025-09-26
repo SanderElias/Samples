@@ -26,6 +26,8 @@ export class showErrorsInDom {
     return errors.map(err => err?.message ?? JSON.stringify(err));
   });
 
+  #touched = computed(() => this.#control.state().touched());
+
   constructor() {
     // we only need to do this once, so do it in the constructor
     this.#errorContainer.classList.add('error-messages');
@@ -48,6 +50,14 @@ export class showErrorsInDom {
         this.#errorContainer.remove();
       }
     });
+
+    afterRenderEffect(() => {
+      if (this.#touched()) {
+        this.#inputElement.classList.add('se-touched');
+      } else {
+        this.#inputElement.classList.remove('se-touched');
+      }
+    })
   }
 
   findNgContentAttributes() {

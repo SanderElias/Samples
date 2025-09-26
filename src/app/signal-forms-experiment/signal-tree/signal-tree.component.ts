@@ -8,7 +8,7 @@ import { SignalTreeNode } from './signal-tree-node.model';
   selector: 'se-signal-tree',
   imports: [TreeNodeEditComponent],
   template: `
-    <h2>Signal Tree Component</h2>
+    <h2>Signal Tree Component <small><a href="/signalForms">complex? form</a></small></h2>
     <se-tree-node-edit [treeNode]="fd"></se-tree-node-edit>
   `,
   styleUrl: './signal-tree.component.css',
@@ -32,10 +32,6 @@ export class SignalTreeComponent {
 
   fd = form(this.tree, validateSignalTreeNode);
 
-  _ = afterRenderEffect(() => {
-    const name: Field<string> = this.fd.name;
-    console.log(name());
-  })
 }
 
 const validateSignalTreeNode = schema((tn: FieldPath<SignalTreeNode>) => {

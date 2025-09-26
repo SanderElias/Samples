@@ -7,6 +7,7 @@ import {
   required,
   schema,
   validate,
+  validateAsync,
   type FieldPath
 } from '@angular/forms/signals';
 import { SampleData, SampleDataContactDetail, SampleDataContactDetailType } from '../util/sample-data.model';
@@ -54,4 +55,5 @@ export const contactSchema = schema((contact: FieldPath<SampleDataContactDetail>
     c => c.type === SampleDataContactDetailType.Phone,
     c => apply(c.value, phoneNumber)
   );
+
 });

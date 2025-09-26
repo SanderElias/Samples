@@ -25,5 +25,6 @@ export const tagsSchema = schema((tagsArray: FieldPath<string[]>) => {
       }
     });
   });
+
   applyEach(tagsArray, tagSchema);
 });

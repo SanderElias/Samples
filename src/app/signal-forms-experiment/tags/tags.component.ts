@@ -55,7 +55,7 @@ export class TagsComponent {
 
   addTag() {
     // this.relation().tags.push('new tag');
-    this.tags()().value.update(tags => [...tags, '']);
+    this.tags()().value.update(tags => ['', ...tags]);
   }
 
   delTag(index: number) {
