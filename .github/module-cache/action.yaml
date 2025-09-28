@@ -24,7 +24,7 @@ runs:
         # Cache as long as the dependencies in main package.json are the same
         key: node-modules-${{ inputs.node-version }}-${{ steps.get-deps-hash.outputs.dependencyHash }}
     # Set up GitHub Actions caching for Wireit.
-    - uses: google/wireit@setup-github-actions-caching/v2
+    # - uses: google/wireit@setup-github-actions-caching/v2
 
     - name: Install Dependencies , when not cached
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
