@@ -1,5 +1,21 @@
 import { afterNextRender, Component, ElementRef, inject, signal, computed, afterRenderEffect } from '@angular/core';
 import { persistentLinkedSignal, persistentSignal } from '../mqtt/util/idbstorage';
+import { th } from '@faker-js/faker';
+
+// --- Utility Functions ---
+export function getFirstDraggable(elm: Element): HTMLDivElement | undefined {
+  return Array.from(elm.children).find(child => child.classList.contains('puck')) as HTMLDivElement | undefined;
+}
+
+export function canDrop(targetStack: Element, currentDragged: HTMLDivElement | undefined): boolean {
+  const first = targetStack.children[0] as HTMLElement;
+  const draggedWeight = +(currentDragged?.dataset?.weight || 0);
+  const firstWeight = +(first?.dataset?.weight || 0);
+  if (!currentDragged) return false;
+  if (firstWeight === 0) return true;
+  return firstWeight > draggedWeight;
+}
+let currentDragged: HTMLDivElement | undefined;
 
 @Component({
   selector: 'se-toh',
@@ -36,92 +52,34 @@ export class TohComponent {
   colNums = computed(() => Array.from({ length: this.cols() }, (_, i) => i + 1));
 
   _ = afterRenderEffect(() => {
-    const e = this.#elm;
+    // --- DOM Queries ---
+    const rootElm = this.#elm;
+    const stacks = Array.from(rootElm.querySelectorAll('.stack'));
+    const draggables = Array.from(rootElm.querySelectorAll('[draggable]')) as HTMLDivElement[];
 
-    const stacks = Array.from(e.querySelectorAll('.stack'));
-    const draggables = Array.from(e.querySelectorAll('[draggable]')) as HTMLDivElement[];
+    if (stacks.length !== this.cols()) {
+      throw new Error('Mismatch in number of stacks');
+    }
     if (draggables.length !== this.pucks()) {
-      throw new Error('Mismatch in draggables');
+      throw new Error('Mismatch in number of draggables');
     }
-    let current: HTMLDivElement | undefined;
-    const firstDraggable = (elm: Element): HTMLDivElement | undefined => {
-      const children = Array.from(elm.children) as HTMLDivElement[];
-      for (const child of children) {
-        if (child.classList.contains('puck')) {
-          return child;
-        }
-      }
-      return undefined;
-    };
+    // --- Drag State ---
 
-    for (const d of draggables) {
-      d.addEventListener('dragstart', ev => {
-        const first = firstDraggable(d.parentElement!);
-        console.log('dragstart', d, first, d === first);
-        if (d !== first) {
-          ev.preventDefault();
-          return;
-        }
-
-        d.classList.add('dragging');
-        current = d;
-      });
-      d.addEventListener('dragend', () => {
-        d.classList.remove('dragging');
-      });
+    // --- Attach/Detach Event Listeners ---
+    for (const draggable of draggables) {
+      draggable.removeEventListener('dragstart', handleDragStart);
+      draggable.removeEventListener('dragend', handleDragEnd);
+      draggable.addEventListener('dragstart', handleDragStart);
+      draggable.addEventListener('dragend', handleDragEnd);
     }
 
-    const canDrop = (s: Element) => {
-      const first = s.children[0] as HTMLElement;
-      const puckWeight = +(current?.dataset?.weight || 0);
-      const firstWeight = +(first?.dataset?.weight || 0);
-
-      // console.log({ puckWeight, firstWeight, current });
-
-      if (!current) {
-        return false;
-      }
-      if (firstWeight === 0) {
-        return true;
-      }
-
-      if (firstWeight > puckWeight) {
-        return true;
-      }
-      return false;
-    };
-
-    for (const s of stacks) {
-      s.addEventListener('dragover', ev => {
-        if (current?.parentElement === s) {
-          return;
-        }
-        if (canDrop(s)) {
-          s.classList.add('dragover');
-        } else {
-          s.classList.add('cantdrop');
-        }
-        ev.preventDefault();
-      });
-      s.addEventListener('dragleave', ev => {
-        s.classList.remove('dragover');
-        s.classList.remove('cantdrop');
-        ev.preventDefault();
-      });
-      s.addEventListener('drop', ev => {
-        ev.preventDefault();
-        s.classList.remove('dragover');
-        s.classList.remove('cantdrop');
-        if (canDrop(s) && current) {
-          if (s.children.length > 0) {
-            const first = s.children[0];
-            s.insertBefore(current, first);
-          } else {
-            s.appendChild(current);
-          }
-          current = undefined;
-        }
-      });
+    for (const stack of stacks) {
+      stack.removeEventListener('dragover', handleDragOver);
+      stack.removeEventListener('dragleave', handleDragLeave);
+      stack.removeEventListener('drop', handleDrop);
+      stack.addEventListener('dragover', handleDragOver);
+      stack.addEventListener('dragleave', handleDragLeave);
+      stack.addEventListener('drop', handleDrop);
     }
   });
 
@@ -129,4 +87,55 @@ export class TohComponent {
     this.#elm.style.setProperty('--cols', this.cols().toString());
     this.#elm.style.setProperty('--pucks', this.pucks().toString());
   });
+}
+
+function handleDragLeave(ev: Event) {
+  const el = ev.currentTarget as Element;
+  el.classList.remove('dragover');
+  el.classList.remove('cantdrop');
+  ev.preventDefault();
+}
+
+const handleDrop = (ev: Event) => {
+  const el = ev.currentTarget as Element;
+  ev.preventDefault();
+  el.classList.remove('dragover');
+  el.classList.remove('cantdrop');
+  if (canDrop(el, currentDragged) && currentDragged) {
+    if (el.children.length > 0) {
+      el.insertBefore(currentDragged, el.children[0]);
+    } else {
+      el.appendChild(currentDragged);
+    }
+    currentDragged = undefined;
+  }
+};
+
+// --- Drag Event Handlers ---
+function handleDragStart(ev: Event) {
+  const el = ev.currentTarget as HTMLDivElement;
+  const first = getFirstDraggable(el.parentElement!);
+  // Only allow dragging the top puck
+  if (el !== first) {
+    ev.preventDefault();
+    return;
+  }
+  el.classList.add('dragging');
+  currentDragged = el;
+}
+
+function handleDragEnd(ev: Event) {
+  const el = ev.currentTarget as HTMLDivElement;
+  el.classList.remove('dragging');
+}
+
+function handleDragOver(ev: Event) {
+  const el = ev.currentTarget as Element;
+  if (currentDragged?.parentElement === el) return;
+  if (canDrop(el, currentDragged)) {
+    el.classList.add('dragover');
+  } else {
+    el.classList.add('cantdrop');
+  }
+  ev.preventDefault();
 }
