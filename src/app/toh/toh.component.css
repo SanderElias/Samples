@@ -1,0 +1,90 @@
+@property --cols {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 3;
+}
+@property --pucks {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 2;
+}
+
+:host {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: 1fr 2rem 1.5rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  block-size: 100%;
+}
+
+.row {
+  grid-column: 1 / -1;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: var(--size-2);
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--surface-2);
+  align-items: center;
+  gap: var(--size-1);
+}
+
+div.stack {
+  justify-content: flex-end;
+}
+
+.puck {
+  --size: attr(data-weight type(<integer>));
+  --_base: calc((100 / var(--pucks)));
+  inline-size: calc(var(--_base) * var(--size) * 1%);
+  color: var(--on-surface);
+  font-size: var(--font-size-4);
+  font-weight: bold;
+  padding-block: var(--size-1);
+  block-size: var(--size-8);
+  border-radius: var(--radius-2);
+  cursor: move;
+  background-color: var(--pink-0);
+}
+.puck[data-weight='1'] {
+  background-color: var(--yellow-4);
+}
+.puck[data-weight='2'] {
+  background-color: var(--pink-4);
+}
+.puck[data-weight='3'] {
+  background-color: var(--purple-4);
+}
+.puck[data-weight='4'] {
+  background-color: var(--blue-4);
+}
+.puck[data-weight='5'] {
+  background-color: var(--cyan-4);
+}
+.puck[data-weight='6'] {
+  background-color: var(--teal-4);
+}
+.puck[data-weight='7'] {
+  background-color: var(--green-4);
+}
+.puck[data-weight='8'] {
+  background-color: var(--lime-4);
+}
+
+.dragging {
+  border: 4px dashed var(--gray-6);
+}
+
+.dragover {
+  background-color: var(--green-8);
+}
+.cantdrop {
+  background-color: var(--red-12);
+}

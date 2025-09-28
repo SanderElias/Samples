@@ -266,6 +266,11 @@ export const routes: Routes = [
     path: 'signalForms/tree',
     loadComponent: () => import('./signal-forms-experiment/signal-tree/signal-tree.component').then(m => m.SignalTreeComponent)
   },
+  {
+    path: 'toh',
+    loadComponent: () => import('./toh/toh.component').then(m => m.TohComponent)
+  },
+
   // { path: '**', redirectTo: 'routeList' },
   { path: '**', redirectTo: 'signalForms' }
 ];
