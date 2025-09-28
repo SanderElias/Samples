@@ -9,7 +9,7 @@ import { persistentLinkedSignal, persistentSignal } from '../mqtt/util/idbstorag
       <div attr.dropzone="{{ col }}" class="stack">
         @if (col === 1) {
           @for (puck of puckList(); track $index) {
-            <div draggable="true" attr.data-weight="{{ puck }}" class="puck"></div>
+            <div draggable="true" [attr.data-weight]="puck" class="puck"></div>
           }
         }
       </div>
@@ -35,16 +35,30 @@ export class TohComponent {
   puckList = computed(() => Array.from({ length: this.pucks() }, (_, i) => i + 1));
   colNums = computed(() => Array.from({ length: this.cols() }, (_, i) => i + 1));
 
-  _ = afterNextRender(() => {
+  _ = afterRenderEffect(() => {
     const e = this.#elm;
 
     const stacks = Array.from(e.querySelectorAll('.stack'));
     const draggables = Array.from(e.querySelectorAll('[draggable]')) as HTMLDivElement[];
+    if (draggables.length !== this.pucks()) {
+      throw new Error('Mismatch in draggables');
+    }
     let current: HTMLDivElement | undefined;
+    const firstDraggable = (elm: Element): HTMLDivElement | undefined => {
+      const children = Array.from(elm.children) as HTMLDivElement[];
+      for (const child of children) {
+        if (child.classList.contains('puck')) {
+          return child;
+        }
+      }
+      return undefined;
+    };
 
     for (const d of draggables) {
       d.addEventListener('dragstart', ev => {
-        if (d !== d.parentElement?.childNodes[0]) {
+        const first = firstDraggable(d.parentElement!);
+        console.log('dragstart', d, first, d === first);
+        if (d !== first) {
           ev.preventDefault();
           return;
         }
@@ -58,9 +72,11 @@ export class TohComponent {
     }
 
     const canDrop = (s: Element) => {
-      const first = s.childNodes[0] as HTMLElement;
+      const first = s.children[0] as HTMLElement;
       const puckWeight = +(current?.dataset?.weight || 0);
       const firstWeight = +(first?.dataset?.weight || 0);
+
+      // console.log({ puckWeight, firstWeight, current });
 
       if (!current) {
         return false;
@@ -97,8 +113,8 @@ export class TohComponent {
         s.classList.remove('dragover');
         s.classList.remove('cantdrop');
         if (canDrop(s) && current) {
-          if (s.childNodes.length > 0) {
-            const first = s.childNodes[0];
+          if (s.children.length > 0) {
+            const first = s.children[0];
             s.insertBefore(current, first);
           } else {
             s.appendChild(current);
