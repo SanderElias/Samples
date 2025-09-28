@@ -13,7 +13,6 @@ export function persistentSignal<T>(key: string, initialValue: T, injector = inj
     debugName: `Persisted ${key}`
   });
   // Load initial value from IndexedDB
-  if (indexedDB === undefined) return result; // avoid errors during SSR
   get(key)
     .then(value => {
       if (value !== undefined) {

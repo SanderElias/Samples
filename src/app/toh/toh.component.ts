@@ -8,7 +8,7 @@ import { persistentLinkedSignal, persistentSignal } from '../mqtt/util/idbstorag
     @for (col of colNums(); track $index) {
       <div attr.dropzone="{{ col }}" class="stack">
         @if (col === 1) {
-          @for (puck of pucList(); track $index) {
+          @for (puck of puckList(); track $index) {
             <div draggable="true" attr.data-weight="{{ puck }}" class="puck"></div>
           }
         }
@@ -32,7 +32,7 @@ export class TohComponent {
   #elm: HTMLDivElement = inject(ElementRef).nativeElement;
   pucks = persistentSignal('toh-pucks', 4);
   cols = persistentSignal('toh-cols', 3);
-  pucList = computed(() => Array.from({ length: this.pucks() }, (_, i) => i + 1));
+  puckList = computed(() => Array.from({ length: this.pucks() }, (_, i) => i + 1));
   colNums = computed(() => Array.from({ length: this.cols() }, (_, i) => i + 1));
 
   _ = afterNextRender(() => {
