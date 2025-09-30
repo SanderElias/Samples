@@ -16,8 +16,6 @@ export function canDrop(targetStack: Element, currentDragged: HTMLDivElement | u
 let currentDragged: HTMLDivElement | undefined;
 
 @Component({
-  selector: 'se-toh',
-  imports: [],
   template: `
     @for (col of colNums(); track $index) {
       <div attr.dropzone="{{ col }}" class="stack">

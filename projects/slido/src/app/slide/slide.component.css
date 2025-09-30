@@ -44,8 +44,8 @@
 :host,
 html,
 body {
-  --_forFitInWith: calc(98cqi / var(--chars-wide-aim, 63));
-  --_forFitInHeight: calc(98cqh / var(--char-height-aim, 40));
+  --_forFitInWith: calc(98cqi / var(--chars-wide-aim, 73));
+  --_forFitInHeight: calc(98cqh / var(--char-height-aim, 42));
   --base-font-size: min(var(--_forFitInWith), var(--_forFitInHeight));
   /* --base-font-size: var(--_forFitInWith); */
   --font-size-00: calc(0.5 * var(--base-font-size));
@@ -59,10 +59,10 @@ body {
 }
 
 h1 {
-  font-size: calc(4 * var(--base-font-size));
+  font-size: calc(3.5 * var(--base-font-size));
 }
 h2 {
-  font-size: calc(3 * var(--base-font-size));
+  font-size: calc(2.75 * var(--base-font-size));
 }
 h3 {
   font-size: calc(2 * var(--base-font-size));
@@ -196,7 +196,7 @@ section {
       max-inline-size: none;
       list-style-image: url('/assets/angular.svg');
       list-style-position: inside;
-      font-size: calc(1.75 * var(--base-font-size));
+      font-size: calc(1.85 * var(--base-font-size));
     }
   }
 }

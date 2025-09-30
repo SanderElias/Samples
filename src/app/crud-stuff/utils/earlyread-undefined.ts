@@ -14,7 +14,7 @@ export const earlyReadToUndefined = <T>(data: Signal<T>): T | undefined => {
     if (e?.message?.startsWith('NG0950')) {
       // NG0950: Cannot read from a signal before it is set
       // this is a known error, so we can just return undefined
-      // https://angular.io/api/core/NG0950
+      // https://angular.dev/errors/NG0950
       return undefined;
     }
     throw e; // rethrow, because we don't know what else to do

@@ -78,6 +78,12 @@ div.stack {
   background-color: var(--lime-4);
 }
 
+.puck.placeholder {
+  border: 4px dashed var(--gray-6);
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
 .dragging {
   border: 4px dashed var(--gray-6);
 }

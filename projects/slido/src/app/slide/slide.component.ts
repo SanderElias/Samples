@@ -30,9 +30,6 @@ const mm = import('micromark');
   styleUrl: './slide.component.css',
   encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[document:title]': 'title()'
-  }
 })
 /**
  * @description SlideComponent is a standalone component that renders a slide
@@ -66,12 +63,17 @@ export class SlideComponent {
     return this.san.bypassSecurityTrustHtml(html);
   }, '');
 
+
+
   _ = afterRenderEffect({
     read: () => {
       const index = this.index();
+      // first set the title
+      this.titleService.setTitle(this.title());
       // this timeout is needed to wait for the shadow dom to be created
       // or some other race condition that I'm going to spend time on
       // to figure out
+
       setTimeout(() => {
         const frag: DocumentFragment = this.elm.shadowRoot;
         const lis = Array.from(frag.querySelectorAll('li'));

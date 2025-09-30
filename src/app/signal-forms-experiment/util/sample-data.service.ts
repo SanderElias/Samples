@@ -39,6 +39,7 @@ inMemoryDb.set('1', {
   dob: new Date(1980, 1, 1),
   password: '007 Is not secure',
   confirm: '007 Is not secure',
+  favoriteRandomInt: 42,
   contacts: [
     { type: SampleDataContactDetailType.Email, value: 'a@b.c', priority: 0 },
     { type: SampleDataContactDetailType.Mobile, value: '+31 6123 456 789', priority: 0 }
@@ -59,6 +60,7 @@ const emptyData = (id: string): SampleData => ({
   password: '',
   confirm: '',
   tags: [],
+  favoriteRandomInt: 0,
   address: { street: '', city: '', state: '', zip: '' },
   contacts: []
 });

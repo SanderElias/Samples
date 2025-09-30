@@ -260,7 +260,8 @@ export const routes: Routes = [
   },
   {
     path: 'signalForms',
-    loadComponent: () => import('./signal-forms-experiment/signal-forms-experiment.component').then(m => m.SignalFormsExperimentComponent)
+    loadComponent: () =>
+      import('./signal-forms-experiment/signal-forms-experiment.component').then(m => m.SignalFormsExperimentComponent)
   },
   {
     path: 'signalForms/tree',
@@ -269,6 +270,10 @@ export const routes: Routes = [
   {
     path: 'toh',
     loadComponent: () => import('./toh/toh.component').then(m => m.TohComponent)
+  },
+  {
+    path: 'toh/cdk',
+    loadComponent: () => import('./toh/toh-cdk/toh-cdk.component').then(m => m.TohCdkComponent)
   },
 
   // { path: '**', redirectTo: 'routeList' },

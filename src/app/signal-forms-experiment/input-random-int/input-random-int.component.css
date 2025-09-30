@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--size-2);
+}
+
+:host.min-max {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--size-1);
+
+  :not(:first-child) {
+    margin-inline-start: var(--size-4);
+  }
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--size-2);
+}

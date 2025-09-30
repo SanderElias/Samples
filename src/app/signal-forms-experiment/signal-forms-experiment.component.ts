@@ -17,9 +17,10 @@ import { TagsComponent } from './tags/tags.component';
 import { SampleDataService } from './util/sample-data.service';
 import { showErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
+import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
 
 @Component({
-  imports: [Control, TagsComponent, ContactsComponent, showErrorsInDom],
+  imports: [Control, TagsComponent, ContactsComponent,  InputRandomIntComponent],
   template: `
     <h1>Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small></h1>
     <form (submit)="onSubmit($event)">
@@ -38,6 +39,10 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
       <label for="confirm">
         <span>Confirm Password</span>
         <input type="password" name="confirm" placeholder="Confirm Password" [control]="fd.confirm" showError />
+      </label>
+      <label for="favoriteRandomInt">
+        <span>Favorite Random Int</span>
+        <se-input-random-int name="favoriteRandomInt" [control]="fd.favoriteRandomInt"  />
       </label>
       <!-- use the contacts component to iter over the contacts -->
       <fieldset [contacts]="fd.contacts"></fieldset>

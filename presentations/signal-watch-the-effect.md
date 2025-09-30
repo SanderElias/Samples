@@ -40,7 +40,7 @@
 
 - Sander Elias
 - husband
-- father of 4
+- father of 4.5
 - GDE in web and Angular
 - Consultant
 - building software since 1979
@@ -415,66 +415,19 @@ h2 {
 
 ## Now<span>, let me show you</span>
 
-### linked signals:
-
-```typescript
-class MyComponent {
-  userId = input<number>();
-
-  state = computed(() = {
-    const id = this.userId();
-    return {
-      id,
-      loading: signal(true)
-    };
-  });
-
-  _ = effect(() => { // we will replace this later.
-    const { id, loading } = this.state();
-    if (id) {
-      this.us.getUser({ request: id })
-        .then(user => {
-          this.user.set(user);
-          loading.set(false);
-        });
-    }
-  });
-}
-```
-
-</div>
-<style> h2 { animation: myEntry 2s; }
-h2 {
-  span {
-    display: inline;
-    font-size: 0;
-    animation: myAppear 3s forwards;
-  }
-}
-
-</style>
-
----NextSlide
-
-<div>
-
-# Ok, no `effect()` but what then?
-
-## Now<span>, let me show you</span>
-
-### linkedSignal (experimental in Ng19):
+### linkedSignal (stable in Ng20):
 
 ```typescript
 class MyComponent {
   userId = input<number>();
 
   loading = linkedSignal({
-    resource: this.userId,
-    compute: () => true
+    source: this.userId, // when this changes...
+    computation: () => true // ... set loading to true
   });
 
+  // TODO: replace this without effect!.
   _ = effect(() => {
-    // we will replace this later.
     const id = this.userId();
     if (id) {
       this.us.getUser({ request: id }).then(user => {
@@ -512,13 +465,57 @@ class MyComponent {
   userId = input<number>();
 
   userResource = resource({
-    resource: this.userId,
+    params: this.userId,
     loader: this.us.getUser
   });
 
   user = this.userResource.value; // a writable signal
   loading = this.userResource.isLoading; // a signal
 }
+```
+
+</div>
+<style> h2 { animation: myEntry 2s; }
+h2 {
+  span {
+    display: inline;
+    font-size: 0;
+    animation: myAppear 3s forwards;
+  }
+}
+
+</style>
+---NextSlide
+
+<div>
+
+# Ok, no `effect()` but what then?
+
+## Now<span>, let me show you</span>
+
+### httpResource (experimental in Ng19):
+
+```typescript
+class MyComponent {
+  us = inject(CrudService);
+  userId = input<number>();
+  
+  userResource = this.us.readUserResource(this.userId);
+
+  user = this.userResource.value; // a writable signal
+  loading = this.userResource.isLoading; // a signal
+}
+
+class CrudService {
+  http = inject(HttpClient);
+  createUser = async (user: User) => firstValueFrom(this.http.post<User>(`https://api.example.com/users`, user));
+
+  readUserResource = (id: Signal<number>) => httpResource<User>(`https://api.example.com/users/${id()}`);
+  
+  updateUser = async (user: User) => firstValueFrom(this.http.put<User>(`https://api.example.com/users/${user.id}`, user));
+  deleteUser = async (id: number) => firstValueFrom(this.http.delete<void>(`https://api.example.com/users/${id}`));
+}
+
 ```
 
 </div>
@@ -541,15 +538,59 @@ h2 {
 
 ## Now<span>, let me show you</span>
 
-- `linkedSignal` and `resource` are experimental
-- asyncComputed is also an option (`npm install @se-ng/signal-utils`)
-- deferredAsync
-- rxMethod
-- many
-- many more
+- `linkedSignal` is stable from Angular 20.
+- `resource` and `httpResource` are experimental since 19
+- I have an `asyncComputed` available in `@se-ng/signal-utils`
+- there are other 3rth party libraries
+- you can build your own
 
 </div>
 ---NextSlide
+<div>
+
+#  Euhm? <span>you didn't mention `rxResource`</span>
+
+- Your sharp there!
+- I didn't
+- In 90% of all situations your don't need Observables.
+- So, one should look for an alternative first.
+- Don't mix in Observables just because you can.
+
+</div>
+<style> h1 { animation: myEntry .5s; }
+h1 {
+  span {
+    display: inline;
+    font-size: 0;
+    animation: myAppear 3s forwards;
+  }
+}
+
+</style>
+
+---NextSlide
+
+<div class="centered">
+
+# Interlude...
+## demo time?
+
+</div>
+<style>
+  div.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 98vw;
+    scale: 1.5;
+    padding: 0 2rem;
+  }
+  h2 { animation: myEntry 2s; }
+
+---NextSlide
+
 
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" viewBox="0 0 33.694 122.88" enable-background="new 0 0 33.694 122.88" xml:space="preserve"><g><path d="M6.402,104.495h20.799v18.385H6.402V104.495L6.402,104.495z M27.19,94.451H6.406C4.341,69.195,0,42.066,0,16.845 C0,7.543,7.545,0,16.847,0s16.847,7.543,16.847,16.845C33.694,42.053,29.299,69.214,27.19,94.451L27.19,94.451z"/></g></svg>
 

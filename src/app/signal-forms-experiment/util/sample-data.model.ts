@@ -5,6 +5,7 @@ export interface SampleData {
   password: string;
   confirm: string;
   tags: string[];
+  favoriteRandomInt: number;
   address: {
     street: string;
     city: string;
