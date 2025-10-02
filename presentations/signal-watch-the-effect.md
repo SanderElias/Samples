@@ -499,7 +499,7 @@ h2 {
 class MyComponent {
   us = inject(CrudService);
   userId = input<number>();
-  
+
   userResource = this.us.readUserResource(this.userId);
 
   user = this.userResource.value; // a writable signal
@@ -511,11 +511,10 @@ class CrudService {
   createUser = async (user: User) => firstValueFrom(this.http.post<User>(`https://api.example.com/users`, user));
 
   readUserResource = (id: Signal<number>) => httpResource<User>(`https://api.example.com/users/${id()}`);
-  
+
   updateUser = async (user: User) => firstValueFrom(this.http.put<User>(`https://api.example.com/users/${user.id}`, user));
   deleteUser = async (id: number) => firstValueFrom(this.http.delete<void>(`https://api.example.com/users/${id}`));
 }
-
 ```
 
 </div>
@@ -548,7 +547,7 @@ h2 {
 ---NextSlide
 <div>
 
-#  Euhm? <span>you didn't mention `rxResource`</span>
+# Euhm? <span>you didn't mention `rxResource`</span>
 
 - Your sharp there!
 - I didn't
@@ -569,28 +568,6 @@ h1 {
 </style>
 
 ---NextSlide
-
-<div class="centered">
-
-# Interlude...
-## demo time?
-
-</div>
-<style>
-  div.centered {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 98vw;
-    scale: 1.5;
-    padding: 0 2rem;
-  }
-  h2 { animation: myEntry 2s; }
-
----NextSlide
-
 
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" viewBox="0 0 33.694 122.88" enable-background="new 0 0 33.694 122.88" xml:space="preserve"><g><path d="M6.402,104.495h20.799v18.385H6.402V104.495L6.402,104.495z M27.19,94.451H6.406C4.341,69.195,0,42.066,0,16.845 C0,7.543,7.545,0,16.847,0s16.847,7.543,16.847,16.845C33.694,42.053,29.299,69.214,27.19,94.451L27.19,94.451z"/></g></svg>
 
@@ -628,7 +605,7 @@ h1 {
 
 ## for real this time
 
-### The end!
+### The end?
 
 </div>
 <style>
@@ -642,6 +619,87 @@ h1 {
     margin: calc(7 * var(--base-font-size))0;
     text-align: center;
   }
+
+</style>
+
+---NextSlide
+
+<div>
+
+# 🎉🎉🎉 Bonus content 🎉🎉🎉
+
+# SignalForms (Experimental)
+
+## a quick intro<span>, and demo!</span>
+
+Question: what is currently hard to do in Angular forms?
+
+- cross field validation
+- put part in a child component
+- custom form controls (CVA...)
+- arrays
+- keep validation logic separate
+
+</div>
+
+<style>
+  h1:first-child {
+    margin-block-end: 0;
+    border-block:0;
+  }
+  h1+h1 {
+    animation: myEntry 2s;
+  }
+  h2 {
+    animation: myEntry 3.5s;
+  }
+  p {
+    font-size: calc(2 * var(--base-font-size));
+    text-align: center;
+    font-weight: bold;
+    animation: myEntry 4.5s;}
+    
+ </style>
+
+---NextSlide
+
+<div>
+
+# Demo time!
+
+</div>
+<style>
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;  
+  }
+  h1 {
+    font-size: calc(7 * var(--base-font-size));
+    text-align: center;
+    font-weight: bold;
+    animation: myEntry 2s;
+
+---NextSlide
+
+<div>
+
+# SignalForms (Experimental)
+
+- it is time to rethink forms
+- start experimenting!
+- give feedback to the Angular team!
+- You might even get your own feature <br> ![chat](/assets/SignalFomrsSander.png)
+- yes, thats a real message I got from Alex!
+- No, it is _not_ a serious thing 😉
+</div>
+
+<style> 
+  li img {
+    padding-inline-start: 4rem;
+  }
+
 
 </style>
 
@@ -669,14 +727,16 @@ h1 {
     object-fit: contain;
   }
   div#slide {
-    grid-template-columns: 0.8fr 1fr;
-    gap: 2rem;
+    width: 85vw;
+    grid-template-columns: .8fr 1fr;
+    gap: 0rem;
     align-items: center
   } 
   h1 {
-    width: 23rem;
+    width: fit-content;
     padding: 0 2rem ;
     anchor-name: --my-title;
+    animation: myEntry 2s;
   }
   ul {
     list-style: none;
@@ -690,5 +750,6 @@ h1 {
     position-anchor: --my-title;
     position-area: center center;
     color: --var(--text-1);
+    animation: myEntry 1s;
   }
 </style>

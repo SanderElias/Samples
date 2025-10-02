@@ -13,11 +13,15 @@
   :not(:first-child) {
     margin-inline-start: var(--size-4);
   }
+
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--size-2);
+  }
 }
 
 label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--size-2);
+  display: none;
 }

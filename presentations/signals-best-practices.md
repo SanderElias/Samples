@@ -342,6 +342,8 @@
 
 ---NextSlide
 
+<div>
+
 ![me](/assets/sander.png)
 
 # Thank you!
@@ -358,7 +360,8 @@
 </g>
 </svg>
 
-#### PS, this presentation is and Angular app too.
+</div>
+## PS, this presentation is and Angular app too.
 
 <style>
   img {
