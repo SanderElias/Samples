@@ -1,11 +1,11 @@
 import { Component, input, ViewEncapsulation } from '@angular/core';
 import { Control, Field } from '@angular/forms/signals';
-import { showErrorsInDom } from '../../util/show-errors-in-dom.directive';
+import { ShowErrorsInDom } from '../../util/show-errors-in-dom.directive';
 import type { SignalTreeNode } from '../signal-tree-node.model';
 
 @Component({
   selector: 'se-tree-node-edit',
-  imports: [Control, showErrorsInDom],
+  imports: [Control, ShowErrorsInDom],
   template: `<label>
       <span>Node ID</span>
       <input type="text" [control]="treeNode().id" disabled readonly />

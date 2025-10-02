@@ -10,7 +10,7 @@ import { Control } from '@angular/forms/signals';
 @Directive({
   selector: '[showError]'
 })
-export class showErrorsInDom {
+export class ShowErrorsInDom {
   showError = input('');
   #control = inject(Control);
   #doc = inject(DOCUMENT);

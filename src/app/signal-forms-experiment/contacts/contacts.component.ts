@@ -1,11 +1,11 @@
 import { Component, computed, input, model } from '@angular/core';
 import { Control, Field, ValidationError, type FieldState } from '@angular/forms/signals';
 import { SampleDataContactDetailType, type SampleDataContactDetail } from '../util/sample-data.model';
-import { showErrorsInDom } from '../util/show-errors-in-dom.directive';
+import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
 @Component({
   selector: 'fieldset [contacts]',
-  imports: [Control, showErrorsInDom],
+  imports: [Control, ShowErrorsInDom],
   template: `<legend>Contacts <button type="button" class="action" (click)="addContact()">+</button></legend>
     <div>
       Try adding the contact "i@exists.gov" to see aSync validation in action.

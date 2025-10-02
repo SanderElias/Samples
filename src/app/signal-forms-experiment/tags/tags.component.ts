@@ -1,10 +1,10 @@
 import { afterRenderEffect, Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { Control, Field, MaxLengthValidationError } from '@angular/forms/signals';
-import { showErrorsInDom } from '../util/show-errors-in-dom.directive';
+import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
 @Component({
   selector: 'fieldset [tags]',
-  imports: [Control,  showErrorsInDom],
+  imports: [Control,  ShowErrorsInDom],
   template: `
     <legend>
       Tags

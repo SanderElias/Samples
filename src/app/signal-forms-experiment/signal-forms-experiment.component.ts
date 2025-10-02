@@ -15,12 +15,12 @@ import { flattenRecord } from '../crud-stuff/utils/flatten-record';
 import { ContactsComponent } from './contacts/contacts.component';
 import { TagsComponent } from './tags/tags.component';
 import { SampleDataService } from './util/sample-data.service';
-import { showErrorsInDom } from './util/show-errors-in-dom.directive';
+import { ShowErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
 import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
 
 @Component({
-  imports: [Control, TagsComponent, ContactsComponent,  InputRandomIntComponent],
+  imports: [Control, TagsComponent, ContactsComponent,  InputRandomIntComponent, ShowErrorsInDom],
   template: `
     <h1>Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small></h1>
     <form (submit)="onSubmit($event)">
