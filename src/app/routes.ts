@@ -268,6 +268,10 @@ export const routes: Routes = [
     loadComponent: () => import('./signal-forms-experiment/signal-tree/signal-tree.component').then(m => m.SignalTreeComponent)
   },
   {
+    path: 'signalForms/dynamic',
+    loadComponent: () => import('./signal-forms-experiment/dynamic/dynamic.component').then(m => m.DynamicComponent)
+  },
+  {
     path: 'toh',
     loadComponent: () => import('./toh/toh.component').then(m => m.TohComponent)
   },

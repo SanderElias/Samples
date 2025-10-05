@@ -80,11 +80,10 @@ button.action {
   justify-content: center;
 }
 
-.ng-invalid.ng-dirty:focus {
-  outline-color: var(--red-5);
-  background-color: inherit;
-}
-.ng-invalid.ng-dirty:not(form) {
-  background-color: var(--red-2);
-  color: black;
+dialog {
+  padding: var(--size-6);
+  font-size: var(--size-5);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-4);
+  width: var(--size-content-3);
 }

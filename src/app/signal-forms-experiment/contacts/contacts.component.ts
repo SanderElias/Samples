@@ -1,4 +1,4 @@
-import { Component, computed, input, model } from '@angular/core';
+import { afterRenderEffect, Component, computed, input } from '@angular/core';
 import { Control, Field, ValidationError, type FieldState } from '@angular/forms/signals';
 import { SampleDataContactDetailType, type SampleDataContactDetail } from '../util/sample-data.model';
 import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
@@ -24,7 +24,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
         </div>
         <!-- the div is needed to align the error with the control -->
         <div>
-          <input type="text" [control]="contact.value" placeholder="value" showError="" [style.backgroundColor]="backgroundColor(contact.value)"/>
+          <input type="text" [control]="contact['value']" placeholder="value" showError="" [style.backgroundColor]="backgroundColor(contact.value)()"/>
         </div>
         <input type="number" [control]="contact.priority" placeholder="priority" />
       </div>
@@ -36,14 +36,16 @@ export class ContactsComponent {
   isLastOne = computed(() => this.contacts()().value().length === 1);
   types = Object.values(SampleDataContactDetailType);
 
-  backgroundColor = (contact: () => FieldState<string, string>) => computed(() =>{
-    const { pending, touched} = contact();
-    return pending() && touched() ? 'var(--orange-6)' : '';
-  });
+  backgroundColor = (contact: () => FieldState<string, string>) =>
+    computed(() => {
+      const { pending, touched } = contact();
+      return pending() && touched() ? 'var(--orange-6)' : '';
+    });
 
   addContact() {
     this.contacts()().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, value: '', priority: 0 }]);
   }
+
   delContact(contact: SampleDataContactDetail) {
     const contacts = this.contacts()().value;
     if (contacts().length > 1) {

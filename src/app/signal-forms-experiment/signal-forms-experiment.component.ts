@@ -1,28 +1,28 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
+  ViewEncapsulation,
+  afterRenderEffect,
   inject,
   signal,
-  viewChild,
-  ViewEncapsulation,
-  effect,
-  ChangeDetectionStrategy,
-  afterRenderEffect
+  viewChild
 } from '@angular/core';
-import { Control, customError, form, submit, type Field } from '@angular/forms/signals';
-import { isObject } from '@se-ng/signal-utils';
-import { flattenRecord } from '../crud-stuff/utils/flatten-record';
+import { Control, form, submit } from '@angular/forms/signals';
 import { ContactsComponent } from './contacts/contacts.component';
+import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
 import { TagsComponent } from './tags/tags.component';
+import { randomError } from './util/random-error';
 import { SampleDataService } from './util/sample-data.service';
 import { ShowErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
-import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
 
 @Component({
-  imports: [Control, TagsComponent, ContactsComponent,  InputRandomIntComponent, ShowErrorsInDom],
+  imports: [Control, TagsComponent, ContactsComponent, InputRandomIntComponent, ShowErrorsInDom],
   template: `
-    <h1>Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small></h1>
+    <h1>
+      Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small>
+    </h1>
     <form (submit)="onSubmit($event)">
       <label for="name">
         <span>Name</span>
@@ -42,7 +42,7 @@ import { InputRandomIntComponent } from './input-random-int/input-random-int.com
       </label>
       <label for="favoriteRandomInt">
         <span>Favorite Random Int</span>
-        <se-input-random-int name="favoriteRandomInt" [control]="fd.favoriteRandomInt"  />
+        <se-input-random-int name="favoriteRandomInt" [control]="fd.favoriteRandomInt" />
       </label>
       <!-- use the contacts component to iter over the contacts -->
       <fieldset [contacts]="fd.contacts"></fieldset>
@@ -65,7 +65,6 @@ import { InputRandomIntComponent } from './input-random-int/input-random-int.com
           <span>State</span>
           <input type="text" name="state" placeholder="State" [control]="fd.address.state" showError />
         </label>
-
       </fieldset>
       <!-- use the tags component to iter over the tags -->
       <fieldset [tags]="fd.tags"></fieldset>
@@ -87,16 +86,14 @@ export class SignalFormsExperimentComponent {
 
   dlg = viewChild('dlg', { read: ElementRef });
 
-  constructor() {
-    afterRenderEffect(() => {
-      const d = this.dlg()?.nativeElement as HTMLDialogElement;
-      if (this.fd().submitting()) {
-        d.showModal();
-      } else {
-        d.close();
-      }
-    });
-  }
+  _ = afterRenderEffect(() => {
+    const d = this.dlg()?.nativeElement as HTMLDialogElement;
+    if (this.fd().submitting()) {
+      d.showModal();
+    } else {
+      d.close();
+    }
+  });
 
   async onSubmit(ev: Event) {
     ev.preventDefault();
@@ -111,32 +108,3 @@ export class SignalFormsExperimentComponent {
     }
   }
 }
-
-const randomError = async (form: Field<unknown>) => {
-  // mimicking a slow server response
-  console.log('submit with error');
-  // instead of just waiting a few seconds, it is probably a good idea to send the data
-  // to the server and wait for the response
-  await new Promise(resolve => setTimeout(resolve, 3000));
-  const data = form().value(); // get the current value of the form
-  if (isObject(data)) {
-    const fieldNames = Object.keys(flattenRecord(data)); // flatten the object to get all field names
-    // pick a random field name
-    const randomField = fieldNames[Math.ceil(Math.random() * fieldNames.length)].split('.');
-    try {
-      // sometimes the random field is not a valid field, so we need to catch the error
-      const field = randomField.reduce((f, key) => {
-        return f[key] ?? f;
-      }, form);
-      console.log('random field with error', randomField.join('.'));
-
-      return customError({
-        kind: 'randomError',
-        message: 'This is a random error for testing purposes',
-        field
-      });
-    } catch {
-      return null;
-    }
-  }
-};
