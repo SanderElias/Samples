@@ -1,10 +1,8 @@
 import { computed, inject, Injectable, Injector, Signal } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import type { Packet } from 'mqtt';
-import { combineLatest, filter, map, NEVER, of, shareReplay, startWith, tap, type Observable } from 'rxjs';
-import { deepEqual } from '../../utils/objects/deep-equal';
+import { deepEqual } from '@se-ng/signal-utils';
+import { combineLatest, filter, map, NEVER, of, shareReplay, startWith, type Observable } from 'rxjs';
 import { MqttService, type Z2MDevice } from './mqtt.service';
-import { debug } from 'console';
 
 @Injectable({
   providedIn: 'root'

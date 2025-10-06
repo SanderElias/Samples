@@ -71,6 +71,7 @@ export class DynamicComponent {
         this.model.update(s => [...s, randomShape]);
       }
     }, 2000);
+    
   });
 }
 

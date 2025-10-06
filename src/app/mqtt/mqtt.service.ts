@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { deepEqual } from '@se-ng/signal-utils';
 import type { OnMessageCallback } from 'mqtt';
 import {
   debounceTime,
@@ -13,7 +14,6 @@ import {
   tap,
   timer
 } from 'rxjs';
-import { deepEqual } from '../../utils/objects/deep-equal';
 
 interface MqttMessage {
   topic: string;
