@@ -33,6 +33,7 @@ import { Control, form, type FieldState } from '@angular/forms/signals';
   template: `
     <h1>Dynamic Form Trail</h1>
     <p>This form is generated based on a random shape object.</p>
+    <button (click)="inspect()">inspect</button>
     <form>
       @for (row of fd ; let i = $index ;track $index) {
         <h3>Item {{ $index + 1 }} ({{ row.type }})</h3>
@@ -71,8 +72,14 @@ export class DynamicComponent {
         this.model.update(s => [...s, randomShape]);
       }
     }, 2000);
-    
+
   });
+
+  inspect () {
+    const f = this.fd();
+    console.log('fd', f);
+
+  }
 }
 
 const shapes: Shape[] = [
