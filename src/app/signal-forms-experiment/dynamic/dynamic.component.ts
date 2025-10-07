@@ -24,9 +24,10 @@ export interface CarShape {
 }
 
 export type Shape = PersonShape | CompanyShape | AnimalShape | CarShape;
-import { Component, type WritableSignal, afterNextRender, afterRenderEffect, computed, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { Control, form, type FieldState } from '@angular/forms/signals';
+import { Component, signal, type WritableSignal } from '@angular/core';
+import { Control, Field, form } from '@angular/forms/signals';
+import { isObject } from '@se-ng/signal-utils';
 @Component({
   selector: 'se-dynamic',
   imports: [JsonPipe, Control],
@@ -35,16 +36,15 @@ import { Control, form, type FieldState } from '@angular/forms/signals';
     <p>This form is generated based on a random shape object.</p>
     <button (click)="inspect()">inspect</button>
     <form>
-      @for (row of fd ; let i = $index ;track $index) {
-        <h3>Item {{ $index + 1 }} ({{ row.type }})</h3>
-        @for (_field of fields(row().value())(); track _field) {
-          <label for="{{ _field}}">
-            <span>{{ _field }}</span>
-            <!-- <input type="text"  placeholder="{{ _field }}" [value]="row[_field]" /> -->
+      <label>Type</label>
+      <input type="text" [control]="fd.type" />
 
-            <!-- <input type="text"  placeholder="{{ _field }}" [control]="" /> -->
-          </label>
-        }
+      @for (_field of fields(); track _field) {
+        <label for="{{ _field }}">
+          <span>{{ _field }}</span>
+          <!-- <input type="text"  placeholder="{{ _field }}" [value]="fd().value()[_field]" /> -->
+          <input type="text" placeholder="{{ _field }}" [control]="fd[_field]" />
+        </label>
       }
     </form>
     <pre><code>{{ fd().value() | json }}</code></pre>
@@ -53,33 +53,27 @@ import { Control, form, type FieldState } from '@angular/forms/signals';
 })
 export class DynamicComponent {
   randomtype = Math.floor(Math.random() * shapes.length);
-  model: WritableSignal<Shape[]> = signal([]);
+  model: WritableSignal<Shape> = signal(shapes[this.randomtype]);
   fd = form(this.model);
-  fields = (fs: Shape) => computed(() => Object.keys(fs));
+  fields = getPropNames.bind(this.fd);
 
-
-  _ = afterRenderEffect(() => {
-    console.log('model', this.model());
-    console.log('form', this.fd().value());
-    console.log(this.fd());
-  });
-
-  _1 = afterNextRender(() => {
-    setTimeout(() => {
-      let maxLength = Math.floor(Math.random() * 4 + 1);
-      while (--maxLength) {
-        const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-        this.model.update(s => [...s, randomShape]);
-      }
-    }, 2000);
-
-  });
-
-  inspect () {
-    const f = this.fd();
-    console.log('fd', f);
-
+  getFieldValue(field: keyof Shape) {
+    // return this.fd().properties[field];
   }
+
+  inspect() {
+    const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+    this.model.set(randomShape);
+  }
+}
+
+function getPropNames<T>(this: Field<T, string | number>): (keyof T)[] {
+  // console.log('this', this);
+  const v: any = this().value();
+  // @ts-expect-error
+  console.log(this().properties);
+
+  return (isObject(v) ? (Object.keys(v) as (keyof T)[]) : []) as (keyof T)[];
 }
 
 const shapes: Shape[] = [
