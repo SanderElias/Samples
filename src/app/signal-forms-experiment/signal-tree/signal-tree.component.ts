@@ -1,5 +1,5 @@
-import { afterRenderEffect, Component, signal, ViewEncapsulation } from '@angular/core';
-import { applyEach, disabled, form, minLength, readonly, required, schema, type FieldPath, type Field } from '@angular/forms/signals';
+import { Component, signal } from '@angular/core';
+import { applyEach, disabled, form, minLength, readonly, required, schema } from '@angular/forms/signals';
 import { TreeNodeEditComponent } from './tree-node-edit/tree-node-edit.component';
 
 import { SignalTreeNode } from './signal-tree-node.model';
@@ -34,7 +34,7 @@ export class SignalTreeComponent {
 
 }
 
-const validateSignalTreeNode = schema((tn: FieldPath<SignalTreeNode>) => {
+const validateSignalTreeNode = schema<SignalTreeNode>((tn) => {
   disabled(tn.id);
   readonly(tn.id);
 

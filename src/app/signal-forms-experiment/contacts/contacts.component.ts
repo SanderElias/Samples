@@ -1,5 +1,5 @@
 import { afterRenderEffect, Component, computed, input } from '@angular/core';
-import { Control, Field, ValidationError, type FieldState } from '@angular/forms/signals';
+import { Control, FieldContext, FieldTree, ValidationError, type FieldState } from '@angular/forms/signals';
 import { SampleDataContactDetailType, type SampleDataContactDetail } from '../util/sample-data.model';
 import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
@@ -32,8 +32,9 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
   styleUrl: './contacts.component.css'
 })
 export class ContactsComponent {
-  contacts = input.required<Field<SampleDataContactDetail[], string>>();
-  isLastOne = computed(() => this.contacts()().value().length === 1);
+  contacts = input.required<FieldTree<SampleDataContactDetail[], string>>();
+  contactList = computed(() => this.contacts()());
+  isLastOne = computed(() => this.contactList().value().length === 1);
   types = Object.values(SampleDataContactDetailType);
 
   backgroundColor = (contact: () => FieldState<string, string>) =>
@@ -43,11 +44,11 @@ export class ContactsComponent {
     });
 
   addContact() {
-    this.contacts()().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, value: '', priority: 0 }]);
+    this.contactList().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, value: '', priority: 0 }]);
   }
 
   delContact(contact: SampleDataContactDetail) {
-    const contacts = this.contacts()().value;
+    const contacts = this.contactList().value;
     if (contacts().length > 1) {
       contacts.update(contacts => contacts.filter(t => t !== contact));
     }

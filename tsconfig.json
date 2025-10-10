@@ -15,6 +15,7 @@
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": true,
+    "skipLibCheck": true,
     "lib": ["es2023", "dom"],
     "types": ["node", "@types/wicg-file-system-access"],
     "paths": {

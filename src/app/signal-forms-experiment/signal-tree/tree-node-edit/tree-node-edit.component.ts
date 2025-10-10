@@ -1,5 +1,5 @@
-import { Component, input, ViewEncapsulation } from '@angular/core';
-import { Control, Field } from '@angular/forms/signals';
+import { Component, input } from '@angular/core';
+import { Control, type FieldTree } from '@angular/forms/signals';
 import { ShowErrorsInDom } from '../../util/show-errors-in-dom.directive';
 import type { SignalTreeNode } from '../signal-tree-node.model';
 
@@ -27,7 +27,7 @@ import type { SignalTreeNode } from '../signal-tree-node.model';
   styleUrl: './tree-node-edit.component.css',
 })
 export class TreeNodeEditComponent {
-  treeNode = input.required<Field<SignalTreeNode>>();
+  treeNode = input.required<FieldTree<SignalTreeNode>>();
 
   addChild() {
     const children = this.treeNode().children;

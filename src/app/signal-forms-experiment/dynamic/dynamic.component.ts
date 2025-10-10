@@ -26,7 +26,7 @@ export interface CarShape {
 export type Shape = PersonShape | CompanyShape | AnimalShape | CarShape;
 import { JsonPipe } from '@angular/common';
 import { Component, signal, type WritableSignal } from '@angular/core';
-import { Control, Field, form } from '@angular/forms/signals';
+import { Control,  form, type FieldContext, type FieldState, type FieldTree } from '@angular/forms/signals';
 import { isObject } from '@se-ng/signal-utils';
 @Component({
   selector: 'se-dynamic',
@@ -67,7 +67,7 @@ export class DynamicComponent {
   }
 }
 
-function getPropNames<T>(this: Field<T, string | number>): (keyof T)[] {
+function getPropNames<T>(this: FieldTree<T>): (keyof T)[] {
   // console.log('this', this);
   const v: any = this().value();
   // @ts-expect-error

@@ -1,11 +1,11 @@
-import { customError, type Field } from '@angular/forms/signals';
+import { customError, type FieldTree } from '@angular/forms/signals';
 import { isObject } from '@se-ng/signal-utils';
 import { flattenRecord } from '../../crud-stuff/utils/flatten-record';
 
 /**
  * Mimics a slow server response and randomly returns a custom error for a random field in the form.
  */
-export const randomError = async (form: Field<unknown>) => {
+export const randomError = async (form: FieldTree<unknown>) => {
   // mimicking a slow server response
   console.log('submit with error');
   await new Promise(resolve => setTimeout(resolve, 3000));

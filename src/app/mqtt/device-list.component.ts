@@ -1,12 +1,12 @@
 import { Component, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ZigbeeService } from './zigbee.service';
 import type { Z2MDevice } from './mqtt.types';
 
 @Component({
   selector: 'app-device-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <h2>Zigbee Devices</h2>
     <table>
@@ -18,14 +18,16 @@ import type { Z2MDevice } from './mqtt.types';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let device of devices()">
-          <td>{{ device.friendly_name }}</td>
-          <td>{{ device.definition?.description }}</td>
-          <td>{{ exposes(device) }}</td>
-        </tr>
+        @for (device of devices(); track device) {
+          <tr>
+            <td>{{ device.friendly_name }}</td>
+            <td>{{ device.definition?.description }}</td>
+            <td>{{ exposes(device) }}</td>
+          </tr>
+        }
       </tbody>
     </table>
-  `
+    `
 })
 export class DeviceListComponent {
   private zigbee = inject(ZigbeeService);

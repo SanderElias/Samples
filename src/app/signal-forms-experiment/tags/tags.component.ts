@@ -1,10 +1,10 @@
 import { afterRenderEffect, Component, computed, ElementRef, input, viewChild } from '@angular/core';
-import { Control, Field, MaxLengthValidationError } from '@angular/forms/signals';
+import { Control, MaxLengthValidationError, type FieldContext, type FieldTree } from '@angular/forms/signals';
 import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
 @Component({
   selector: 'fieldset [tags]',
-  imports: [Control,  ShowErrorsInDom],
+  imports: [Control, ShowErrorsInDom],
   template: `
     <legend>
       Tags
@@ -24,13 +24,14 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
   styleUrl: './tags.component.css'
 })
 export class TagsComponent {
-  tags = input.required<Field<string[], string>>();
+  tags = input.required<FieldTree<string[], string>>();
   tagsInput = viewChild('tagsInput', { read: ElementRef });
+  tagsList = computed(() => this.tags()());
 
-  isLastOne = computed(() => this.tags()().value().length === 1);
+  isLastOne = computed(() => this.tagsList().value().length === 1);
 
   maxLength = computed(() => {
-    const error = (this.tags()().errors() || []).find(e => e instanceof MaxLengthValidationError);
+    const error = (this.tagsList().errors() || []).find(e => e instanceof MaxLengthValidationError);
 
     return error === undefined ? null : error.maxLength;
   });
@@ -44,7 +45,7 @@ export class TagsComponent {
      * so we have to set the custom validity on an hidden input element
      * which then in turn will mark the fieldset as invalid
      **/
-    const errors = this.tags()().errors() || [];
+    const errors = this.tagsList().errors() || [];
     const elm = this.tagsInput()!.nativeElement as HTMLInputElement;
     if (errors.length > 0) {
       elm.setCustomValidity('error in tags');
@@ -55,11 +56,11 @@ export class TagsComponent {
 
   addTag() {
     // this.relation().tags.push('new tag');
-    this.tags()().value.update(tags => ['', ...tags]);
+    this.tagsList().value.update(tags => ['', ...tags]);
   }
 
   delTag(index: number) {
-    const tags = this.tags()().value;
+    const tags = this.tagsList().value;
     if (tags().length > 1) {
       tags.update(tags => tags.filter((t, i) => i !== index));
     }
