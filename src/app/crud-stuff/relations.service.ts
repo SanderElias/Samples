@@ -9,6 +9,8 @@ import { deepDiff } from './utils/deep-diff';
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
+const base = "http://kapow:5984"
+
 /**
  * this is how you do professional security!
  * copy this pattern, and you will get raise for sure ;-p
@@ -23,7 +25,7 @@ const httpOptions = { headers };
 // note: not injected in root, it is supposed to be provided in the route/component that holds the component-tree that uses it.
 @Injectable()
 export class RelationsService {
-  baseUrl = 'http://127.0.0.1:5984/relations' as const;
+  baseUrl = `${base}/relations` as const;
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
   #http = inject(HttpActionClient);
@@ -123,7 +125,7 @@ export class RelationsService {
     }
   };
 
-  
+
 
   // I'm using a a helper to create the read in a cached version.
   // it returns (id: Signal<string>) => Signal<HttpResourceRef<UserCard | undefined>
@@ -224,7 +226,7 @@ export class RelationsService {
 async function goAddData() {
   const fakerModule = import('@faker-js/faker');
   const module = await fakerModule;
-  const url = 'http://127.0.0.1:5984/relations/';
+  const url = `${base}/relations/`;
   for (let i = 0; i <= 250000; i += 1) {
     const relation = await userCard(module.faker);
     const res = await fetch(`${url}/${relation.id}`, {
@@ -243,7 +245,7 @@ async function createIndexes() {
 }
 
 async function createIndex(fieldName: SortField) {
-  const url = 'http://127.0.0.1:5984/relations/_index';
+  const url = `${base}/relations/_index`;
   const body = {
     index: { fields: [fieldName] },
     name: fieldName,

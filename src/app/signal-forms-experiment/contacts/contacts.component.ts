@@ -45,6 +45,10 @@ export class ContactsComponent {
 
   addContact() {
     this.contactList().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, value: '', priority: 0 }]);
+    const c = this.contacts();
+    c()
+      .controls()
+      .forEach((v, i) => console.log(i, v));
   }
 
   delContact(contact: SampleDataContactDetail) {
@@ -52,5 +56,14 @@ export class ContactsComponent {
     if (contacts().length > 1) {
       contacts.update(contacts => contacts.filter(t => t !== contact));
     }
+  }
+
+  dummy() {
+    const c = this.contacts();
+    console.log(
+      c()
+        .controls()
+        .forEach((v, i) => console.log(i, v))
+    );
   }
 }
