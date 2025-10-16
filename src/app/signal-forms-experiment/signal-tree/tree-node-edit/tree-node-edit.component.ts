@@ -1,18 +1,18 @@
 import { Component, input } from '@angular/core';
-import { Control, type FieldTree } from '@angular/forms/signals';
+import { Field, type FieldTree } from '@angular/forms/signals';
 import { ShowErrorsInDom } from '../../util/show-errors-in-dom.directive';
 import type { SignalTreeNode } from '../signal-tree-node.model';
 
 @Component({
   selector: 'se-tree-node-edit',
-  imports: [Control, ShowErrorsInDom],
+  imports: [Field, ShowErrorsInDom],
   template: `<label>
       <span>Node ID</span>
-      <input type="text" [control]="treeNode().id" disabled readonly />
+      <input type="text" [field]="treeNode().id" disabled readonly />
     </label>
     <label>
       <span>Name</span>
-      <input type="text" [control]="treeNode().name" showError="" />
+      <input type="text" [field]="treeNode().name" showError="" />
     </label>
     <button type="button" (click)="addChild()">Add Child</button>
     @if (treeNode().children().value().length !== 0) {

@@ -8,7 +8,7 @@ import {
   signal,
   viewChild
 } from '@angular/core';
-import { Control, form, submit } from '@angular/forms/signals';
+import { Field, form, submit } from '@angular/forms/signals';
 import { ContactsComponent } from './contacts/contacts.component';
 import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
 import { TagsComponent } from './tags/tags.component';
@@ -18,7 +18,7 @@ import { ShowErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
 
 @Component({
-  imports: [Control, TagsComponent, ContactsComponent, InputRandomIntComponent, ShowErrorsInDom],
+  imports: [Field, TagsComponent, ContactsComponent, InputRandomIntComponent, ShowErrorsInDom],
   template: `
     <h1>
       Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small>
@@ -26,23 +26,23 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
     <form (submit)="onSubmit($event)">
       <label for="name">
         <span>Name</span>
-        <input type="text" name="name" placeholder="Your name" [control]="fd.name" showError />
+        <input type="text" name="name" placeholder="Your name" [field]="fd.name" showError />
       </label>
       <label for="dob">
         <span>Date of Birth</span>
-        <input type="date" name="dob" [control]="fd.dob" showError />
+        <input type="date" name="dob" [field]="fd.dob" showError />
       </label>
       <label for="password">
         <span>Password</span>
-        <input type="password" name="password" placeholder="Password" [control]="fd.password" showError />
+        <input type="password" name="password" placeholder="Password" [field]="fd.password" showError />
       </label>
       <label for="confirm">
         <span>Confirm Password</span>
-        <input type="password" name="confirm" placeholder="Confirm Password" [control]="fd.confirm" showError />
+        <input type="password" name="confirm" placeholder="Confirm Password" [field]="fd.confirm" showError />
       </label>
       <label for="favoriteRandomInt">
         <span>Favorite Random Int</span>
-        <se-input-random-int name="favoriteRandomInt" [control]="fd.favoriteRandomInt" />
+        <se-input-random-int name="favoriteRandomInt" [field]="fd.favoriteRandomInt" />
       </label>
       <!-- use the contacts component to iter over the contacts -->
       <fieldset [contacts]="fd.contacts"></fieldset>
@@ -51,19 +51,19 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
         <legend>Address</legend>
         <label for="street">
           <span>Street</span>
-          <input type="text" name="street" placeholder="Street" [control]="fd.address.street" showError />
+          <input type="text" name="street" placeholder="Street" [field]="fd.address.street" showError />
         </label>
         <label for="city">
           <span>City</span>
-          <input type="text" name="city" placeholder="City" [control]="fd.address.city" showError />
+          <input type="text" name="city" placeholder="City" [field]="fd.address.city" showError />
         </label>
         <label for="zip">
           <span>Zip</span>
-          <input type="text" name="zip" placeholder="Zip" [control]="fd.address.zip" showError />
+          <input type="text" name="zip" placeholder="Zip" [field]="fd.address.zip" showError />
         </label>
         <label for="state">
           <span>State</span>
-          <input type="text" name="state" placeholder="State" [control]="fd.address.state" showError />
+          <input type="text" name="state" placeholder="State" [field]="fd.address.state" showError />
         </label>
       </fieldset>
       <!-- use the tags component to iter over the tags -->

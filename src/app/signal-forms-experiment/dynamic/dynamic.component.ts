@@ -26,24 +26,24 @@ export interface CarShape {
 export type Shape = PersonShape | CompanyShape | AnimalShape | CarShape;
 import { JsonPipe } from '@angular/common';
 import { Component, signal, type WritableSignal } from '@angular/core';
-import { Control,  form, type FieldContext, type FieldState, type FieldTree } from '@angular/forms/signals';
+import { Field, form, type FieldTree } from '@angular/forms/signals';
 import { isObject } from '@se-ng/signal-utils';
 @Component({
   selector: 'se-dynamic',
-  imports: [JsonPipe, Control],
+  imports: [JsonPipe, Field],
   template: `
     <h1>Dynamic Form Trail</h1>
     <p>This form is generated based on a random shape object.</p>
     <button (click)="inspect()">inspect</button>
     <form>
       <label>Type</label>
-      <input type="text" [control]="fd.type" />
+      <input type="text" [field]="fd.type" />
 
       @for (_field of fields(); track _field) {
         <label for="{{ _field }}">
           <span>{{ _field }}</span>
           <!-- <input type="text"  placeholder="{{ _field }}" [value]="fd().value()[_field]" /> -->
-          <input type="text" placeholder="{{ _field }}" [control]="fd[_field]" />
+          <input type="text" placeholder="{{ _field }}" [field]="fd[_field]" />
         </label>
       }
     </form>

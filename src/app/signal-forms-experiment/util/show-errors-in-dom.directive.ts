@@ -1,5 +1,5 @@
 import { afterRenderEffect, computed, Directive, DOCUMENT, ElementRef, inject, input } from '@angular/core';
-import { Control } from '@angular/forms/signals';
+import { Field } from '@angular/forms/signals';
 
 /**
  * Directive to show validation errors in the DOM.
@@ -12,7 +12,7 @@ import { Control } from '@angular/forms/signals';
 })
 export class ShowErrorsInDom {
   showError = input('');
-  #control = inject(Control);
+  #control = inject(Field);
   #doc = inject(DOCUMENT);
 
   #inputElement: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement = inject(ElementRef).nativeElement;
