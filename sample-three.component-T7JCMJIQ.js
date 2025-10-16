@@ -1,0 +1,1 @@
+import{Sb as o,Tb as p,kb as n,pc as a}from"./chunk-JMJSAENN.js";import"./chunk-DAQOROHW.js";var s=(()=>{class e{static{this.\u0275fac=function(t){return new(t||e)}}static{this.\u0275cmp=n({type:e,selectors:[["app-sample-three"]],decls:2,vars:0,template:function(t,i){t&1&&(o(0,"p"),a(1,"sample-three works!"),p())},encapsulation:2})}}return e})();export{s as default};
