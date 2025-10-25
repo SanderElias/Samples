@@ -1,3 +1,5 @@
+import { replacer } from './jsonSerialize';
+
 const maxBitsInNumber = Number.MAX_SAFE_INTEGER.toString(2).length; //?
 const maxBits = 53; // (a single number!)
 
@@ -49,3 +51,5 @@ hasBit(user1Rights, Rights.access); //?
 hasBit(user1Rights, Rights.unBlockRoutes); //?
 
 hasBit(user2Rights, Rights.unBlockRoutes); //?
+
+const n = JSON.stringify({n:9080978775786780780n}, replacer) //?

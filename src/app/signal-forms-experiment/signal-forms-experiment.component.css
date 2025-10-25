@@ -45,7 +45,11 @@ div.error-messages {
   display: none;
 }
 
-*:has(.se-touched) {
+/*
+I have taken this out, as I think hiding error message until touched is bad UX.
+You want users to know what is wrong as soon as possible, not wait until they
+interact with the form.
+*:has(.se-touched) { */
   div.error-messages {
     display: block;
     color: var(--red-5);
@@ -64,7 +68,7 @@ div.error-messages {
       padding-inline-start: var(--size-4);
     }
   }
-}
+/* } */
 
 button.action {
   position: absolute;

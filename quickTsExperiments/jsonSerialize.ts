@@ -1,19 +1,25 @@
-function replacer(key, value) {
+export function replacer(key, value) {
   if (value instanceof Map) {
     return { __type: 'Map', value: Object.fromEntries(value) };
   }
   if (value instanceof Set) {
     return { __type: 'Set', value: Array.from(value) };
   }
+  if (typeof value === 'bigint') {
+    return { __type: 'BigInt', value: value.toString() + 'n' };
+  }
   return value;
 }
 
-function reviver(key, value) {
+export function reviver(key, value) {
   if (value?.__type === 'Set') {
     return new Set(value.value);
   }
   if (value?.__type === 'Map') {
     return new Map(Object.entries(value.value));
+  }
+  if (value?.__type === 'BigInt') {
+    return BigInt(value.value);
   }
   return value;
 }

@@ -1,7 +1,6 @@
-import { ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS } from '@angular/platform-browser';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
-export {};
+export { };
 
 interface BinNode {
   value: any;
