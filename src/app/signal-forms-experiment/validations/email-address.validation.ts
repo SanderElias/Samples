@@ -16,7 +16,7 @@ export const emailAddress = schema((emailAddress: FieldPath<string>) => {
   });
 
   validateAsync(emailAddress, {
-    params: ({ value }) => value(),
+    params: ({ value, state }) => state.dirty() ? value() : undefined,
     factory: params =>
       resource({
         params,

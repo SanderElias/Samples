@@ -1,9 +1,11 @@
 :host {
   display: block;
   margin-top: var(--size-3);
+  columns: 2;
 }
 
 form {
+  --size-content-3: 70ch;
   width: var(--size-content-3);
   display: flex;
   flex-direction: column;

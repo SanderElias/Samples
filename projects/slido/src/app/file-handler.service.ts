@@ -1,5 +1,6 @@
 import { afterNextRender, effect, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { asyncComputed } from '@se-ng/signal-utils';
+import { ob } from 'dist/samples/browser/chunk-T5E62NYD';
 import { get, set } from 'idb-keyval';
 
 interface FileState {
@@ -48,9 +49,11 @@ export class FileHandlerService {
     let content = signal('');
     const permission = signal(await verifyPermission(handle));
     if (permission()) {
+      // I can only read a file with read/wrote permission when the users grants permission
       file.set(await handle.getFile());
     }
     if (file()) {
+      // when we have a file, use the inbuild textParser to get the context.
       content.set(await file()!.text());
     }
 
@@ -63,7 +66,7 @@ export class FileHandlerService {
     };
   }, defaultState);
 
-  #monitor = effect(() => {
+  #monitor = effect(onCleanup => {
     if (!('FileSystemObserver' in self)) {
       console.warn('FileSystemObserver not available, perhaps enable it in "about:flags"');
       this.#monitor.destroy();
@@ -89,6 +92,9 @@ export class FileHandlerService {
     // @ts-expect-error
     const observer = new FileSystemObserver(handler);
     observer.observe(fileHandle);
+    onCleanup(() => {
+      observer.disconnect();
+    });
   });
 
   select = async () => {

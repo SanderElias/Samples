@@ -40,7 +40,7 @@ export class ContactsComponent {
   backgroundColor = (contact: () => FieldState<string, string>) =>
     computed(() => {
       const { pending, dirty } = contact();
-      return pending() && dirty() ? 'var(--orange-6)' : '';
+      return pending() ? 'var(--orange-6)' : '';
     });
 
   addContact() {
