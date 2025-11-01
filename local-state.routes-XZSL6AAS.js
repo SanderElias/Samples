@@ -1,1 +1,0 @@
-import"./chunk-DAQOROHW.js";var t=[{path:"",loadComponent:()=>import("./local-state.component-UB3SMVLR.js").then(e=>e.LocalStateComponent),children:[{path:":id",loadComponent:()=>import("./ls-home.component-CHER66CP.js").then(e=>e.LsHomeComponent)},{path:"",redirectTo:"./1",pathMatch:"full"}]}];export{t as routes};
