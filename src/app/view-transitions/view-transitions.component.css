@@ -1,0 +1,37 @@
+/* Make view transition animation slower (e.g., 2s) */
+@layer view-transition {
+  ::view-transition-old(box-*) ,
+  ::view-transition-new(box-*) {
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(0.5, 1.8, 0.5, 1);
+  }
+}
+
+:host {
+  display: block;
+}
+
+div.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+div.button-bar {
+  display: flex;
+  gap: 20px;
+  padding-inline: 20px;
+}
+
+
+div.box {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
