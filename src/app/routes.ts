@@ -279,7 +279,12 @@ export const routes: Routes = [
     path: 'toh/cdk',
     loadComponent: () => import('./toh/toh-cdk/toh-cdk.component').then(m => m.TohCdkComponent)
   },
+  {
+    path: 'vt',
+    loadComponent: () => import('./view-transitions/view-transitions.component').then(m => m.ViewTransitionsComponent)
+  },
 
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalForms' }
+  // { path: '**', redirectTo: 'signalForms' }
+  { path: '**', redirectTo: 'vt' }
 ];
