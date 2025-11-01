@@ -39,16 +39,12 @@ export class ContactsComponent {
 
   backgroundColor = (contact: () => FieldState<string, string>) =>
     computed(() => {
-      const { pending, touched } = contact();
-      return pending() && touched() ? 'var(--orange-6)' : '';
+      const { pending, dirty } = contact();
+      return pending() ? 'var(--orange-6)' : '';
     });
 
   addContact() {
     this.contactList().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, value: '', priority: 0 }]);
-    const c = this.contacts();
-    c()
-      .fieldBindings()
-      .forEach((v, i) => console.log(i, v));
   }
 
   delContact(contact: SampleDataContactDetail) {
@@ -58,12 +54,4 @@ export class ContactsComponent {
     }
   }
 
-  dummy() {
-    const c = this.contacts();
-    console.log(
-      c()
-        .fieldBindings()
-        .forEach((v, i) => console.log(i, v))
-    );
-  }
 }

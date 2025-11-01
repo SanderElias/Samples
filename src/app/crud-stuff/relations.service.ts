@@ -9,7 +9,7 @@ import { deepDiff } from './utils/deep-diff';
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
-const base = "http://kapow:5984"
+const base = "https://couchdb.localhost"
 
 /**
  * this is how you do professional security!
@@ -124,6 +124,11 @@ export class RelationsService {
       return false;
     }
   };
+
+  info = async () => {
+    const url = `${this.baseUrl} `;
+    return this.#http.get(url, httpOptions);
+  }
 
 
 

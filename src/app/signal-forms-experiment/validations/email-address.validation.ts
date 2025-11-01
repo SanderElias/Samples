@@ -16,23 +16,21 @@ export const emailAddress = schema((emailAddress: FieldPath<string>) => {
   });
 
   validateAsync(emailAddress, {
-    params: ({ value }) => value(),
+    params: ({ value, state }) => (state.dirty() ? value() : undefined) as string | undefined,
     factory: params =>
       resource({
         params,
         loader: async ({ params }) => {
-          const emailToCheck = params;
+          const emailToCheck = params as string;
           await new Promise(resolve => setTimeout(resolve, 2500)); // simulate server delay
           const existingEmails = ['i@exists.gov', 'j@exists.gov'];
           return existingEmails.includes(emailToCheck);
         }
       }),
-    errors: (err) =>
-      err
-        ? {
-            kind: 'serverError',
-            message: 'Email address already exists'
-          }
-        : null
+    onError: err => ({
+      kind: 'serverError',
+      message: 'Email address already exists'
+    }),
+    onSuccess: () => null
   });
 });

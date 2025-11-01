@@ -1,6 +1,3 @@
-import { setTestabilityGetter } from '@angular/core';
-import { Arr } from 'messagepack';
-
 const gridSize = 4;
 const numberOfBits = 5;
 const numberOfBytes = Math.ceil((gridSize * gridSize * numberOfBits) / 8);
@@ -27,7 +24,7 @@ const showByte = (n: number) =>
     .split('')
     .reduce((s, b, i) => (s += b + (i % 2 ? '' : '')), '');
 
-const results = [];
+const results: any[] = [];
 for (let n = 0; n < 100; n += 1) {
   setBit(n, true);
   results.push(store.map(n => n));

@@ -24,7 +24,7 @@ class Signal {
   get value() {
     // add (once) whatever effect is currently running
     // no effects means add (once) the root no-op
-    this.#effects.add(effects.at(-1));
+    this.#effects.add(effects.at(-1)!);
     // return the wrapped value
     return this.#value;
   }

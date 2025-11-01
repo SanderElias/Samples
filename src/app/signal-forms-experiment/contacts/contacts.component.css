@@ -6,7 +6,7 @@
 
 div.row {
   display: grid;
-  grid-template-columns: 3.5rem 6rem 16.5rem 2rem;
+  grid-template-columns: repeat(4, max-content);
   flex-direction: row;
   gap: var(--size-2);
   align-items: baseline;
@@ -14,6 +14,10 @@ div.row {
 
 input[type='number'] {
   width: 3rem;
+}
+
+select {
+  width: 16ch
 }
 
 div > button.action {
