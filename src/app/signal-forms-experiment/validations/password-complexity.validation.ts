@@ -24,6 +24,5 @@ export const passwordComplexitySchema = schema((password: FieldPath<string>) => 
 
 export const complexityError = (message: string): ValidationError => ({
   kind: 'complexity',
-  field: undefined as never,
   message
 });

@@ -24,26 +24,28 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
       Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small>
     </h1>
     <form (submit)="onSubmit($event)">
-      <label for="name">
-        <span>Name</span>
-        <input type="text" name="name" placeholder="Your name" [field]="fd.name" showError />
-      </label>
-      <label for="dob">
-        <span>Date of Birth</span>
-        <input type="date" name="dob" [field]="fd.dob" showError />
-      </label>
-      <label for="password">
-        <span>Password</span>
-        <input type="password" name="password" placeholder="Password" [field]="fd.password" showError />
-      </label>
-      <label for="confirm">
-        <span>Confirm Password</span>
-        <input type="password" name="confirm" placeholder="Confirm Password" [field]="fd.confirm" showError />
-      </label>
-      <label for="favoriteRandomInt">
-        <span>Favorite Random Int</span>
-        <se-input-random-int name="favoriteRandomInt" [field]="fd.favoriteRandomInt" />
-      </label>
+      <div class="wrapper">
+        <label for="name">
+          <span>Name</span>
+          <input type="text" name="name" placeholder="Your name" [field]="fd.name" showError />
+        </label>
+        <label for="dob">
+          <span>Date of Birth</span>
+          <input type="date" name="dob" [field]="fd.dob" showError />
+        </label>
+        <label for="password">
+          <span>Password</span>
+          <input type="password" name="password" placeholder="Password" [field]="fd.password" showError />
+        </label>
+        <label for="confirm">
+          <span>Confirm Password</span>
+          <input type="password" name="confirm" placeholder="Confirm Password" [field]="fd.confirm" showError />
+        </label>
+        <label for="favoriteRandomInt">
+          <span>Favorite Random Int</span>
+          <se-input-random-int name="favoriteRandomInt" [field]="fd.favoriteRandomInt" />
+        </label>
+      </div>
       <!-- use the contacts component to iter over the contacts -->
       <fieldset [contacts]="fd.contacts"></fieldset>
 

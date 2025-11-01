@@ -45,10 +45,6 @@ export class ContactsComponent {
 
   addContact() {
     this.contactList().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, value: '', priority: 0 }]);
-    const c = this.contacts();
-    c()
-      .fieldBindings()
-      .forEach((v, i) => console.log(i, v));
   }
 
   delContact(contact: SampleDataContactDetail) {
@@ -58,12 +54,4 @@ export class ContactsComponent {
     }
   }
 
-  dummy() {
-    const c = this.contacts();
-    console.log(
-      c()
-        .fieldBindings()
-        .forEach((v, i) => console.log(i, v))
-    );
-  }
 }

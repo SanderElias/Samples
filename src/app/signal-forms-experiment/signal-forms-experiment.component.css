@@ -5,15 +5,19 @@
 }
 
 form {
-  --size-content-3: 70ch;
+  --size-content-3: 140ch;
   width: var(--size-content-3);
-  display: flex;
+  /* display: grid; */
+  grid-template-columns: 1fr 1fr;
   flex-direction: column;
   gap: var(--size-3);
   margin: auto;
   background-color: var(--surface-2);
   padding: var(--size-3);
   border-radius: var(--radius-3);
+}
+&>div.wrapper {
+  display:flex;
 }
 label {
   display: flex;
@@ -27,6 +31,11 @@ label > *:nth-child(2) {
 label:has(input[required]) > span:first-child:after {
   content: '*';
   color: var(--red-3);
+}
+
+button[type="submit"] {
+  grid-column: span 2;
+
 }
 
 :is(input, textarea, select):user-invalid {
