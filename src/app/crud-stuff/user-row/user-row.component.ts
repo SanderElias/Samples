@@ -63,12 +63,5 @@ export class UserRowComponent {
     return rowLoading || listLoading || isEmptyRelation(this.relRef().value());
   });
   rel = computed(() => this.relRef().value());
-  rel1 = linkedSignal({
-    source: this.relRef().value(),
-    computation: (value, prev) => {
-      if (value === undefined && prev.value) return prev.value;
-      return value;
-    }
 
-  })
 }
