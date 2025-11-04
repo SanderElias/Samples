@@ -4,15 +4,33 @@ import { join } from 'path';
 // const require = createRequire(import.meta.url);
 // const sharp = require('sharp');
 import sharp from 'sharp';
-const browser =
+let browser = openBrowser();
 
+async function openBrowser() {
+  return chromium.launch({ headless: false });
+}
 
-function openBrowser() {await chromium.launch({ headless: false });
-const page = await browser.newPage({
-  viewport: { width: 800, height: 600 }
-});
+let errCount = 0;
+async function getPage() {
+  try {
+    const br = await browser;
+    const page = await br.newPage({
+      viewport: { width: 800, height: 600 }
+    });
 
-await page.setDefaultTimeout(15000);
+    await page.setDefaultTimeout(15000);
+
+    return page;
+  } catch (e) {
+    errCount++;
+    if (errCount > 3) {
+      throw new Error('Could not open browser after multiple attempts');
+    }
+    console.error('Could not open browser', e);
+    browser = openBrowser();
+    return getPage();
+  }
+}
 
 const folder = process.cwd();
 const routesFile = join(folder, 'src/assets/routes.json');
@@ -42,7 +60,8 @@ const blueSkyHandle = await sharp(
 
 export async function createSnapshotFor(route) {
   try {
-  await page.goto(`${baseUrl}${route.path}`);
+    const page = await getPage();
+    await page.goto(`${baseUrl}${route.path}`);
   } catch (e) {
     console.log(`Could not load ${route.path}`, e);
     return route;
