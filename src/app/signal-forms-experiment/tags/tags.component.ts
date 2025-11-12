@@ -17,7 +17,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
     @for (tag of tags(); track $index) {
       <div class="tags">
         <button type="button" class="action" (click)="delTag($index)" [disabled]="isLastOne()">🗑️</button>
-        <input type="text" [field]="tag" [attr.name]="'tag-' + $index" showError />
+        <input type="text" [field]="tag" showError />
       </div>
     }
   `,

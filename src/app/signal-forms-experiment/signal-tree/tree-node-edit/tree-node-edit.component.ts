@@ -8,7 +8,7 @@ import type { SignalTreeNode } from '../signal-tree-node.model';
   imports: [Field, ShowErrorsInDom],
   template: `<label>
       <span>Node ID</span>
-      <input type="text" [field]="treeNode().id" disabled readonly />
+      <input type="text" [field]="treeNode().id"  />
     </label>
     <label>
       <span>Name</span>
