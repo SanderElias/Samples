@@ -24,6 +24,6 @@ export enum SampleDataContactDetailType {
 
 export interface SampleDataContactDetail {
   type: SampleDataContactDetailType;
-  value: string;
+  info: string;
   priority: number;
 }

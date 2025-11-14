@@ -1,6 +1,6 @@
-import { customError, minLength, required, schema, validate, type FieldPath, type ValidationError } from '@angular/forms/signals';
+import { customError, minLength, required, schema, validate, type ValidationError } from '@angular/forms/signals';
 
-export const passwordComplexitySchema = schema((password: FieldPath<string>) => {
+export const passwordComplexitySchema = schema<string>((password) => {
   required(password, { message: 'can not be empty' });
   minLength(password, 6, { message: 'must be at least 6 characters' });
   validate(password, ({ value }) => {

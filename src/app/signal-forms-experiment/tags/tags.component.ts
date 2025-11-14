@@ -15,10 +15,10 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
     </legend>
     <input type="text" name="tags" #tagsInput style="display: none;" />
     @for (tag of tags(); track $index) {
-      <div class="tags">
+      <label class="tags">
         <button type="button" class="action" (click)="delTag($index)" [disabled]="isLastOne()">🗑️</button>
         <input type="text" [field]="tag" showError />
-      </div>
+      </label>
     }
   `,
   styleUrl: './tags.component.css'

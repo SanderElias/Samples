@@ -1,12 +1,12 @@
 import { resource } from '@angular/core';
-import { schema, validate, patternError, type FieldPath, validateAsync, type ValidationError } from '@angular/forms/signals';
+import { patternError, schema, validate, validateAsync } from '@angular/forms/signals';
 
 /**
  * check email address format
  * - must contain "@" and "."
  * - simple regex for now
  */
-export const emailAddress = schema((emailAddress: FieldPath<string>) => {
+export const emailAddress = schema<string>((emailAddress) => {
   validate(emailAddress, ({ value }) => {
     const v = value() as string;
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) {

@@ -25,7 +25,7 @@ try {
     r.gitFolder = `${gitBase}${r.modulePath}`;
   });
 } finally {
-  // console.dir(manualTraverse.sort((a, b) => a.path.localeCompare(b.path)).map(r => r.path));
+  console.dir(manualTraverse.sort((a, b) => a.path.localeCompare(b.path)).map(r => r.path));
 }
 
 // process.exit(0);

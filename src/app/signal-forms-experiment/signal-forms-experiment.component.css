@@ -7,17 +7,22 @@
 form {
   --size-content-3: 140ch;
   width: var(--size-content-3);
-  /* display: grid; */
-  grid-template-columns: 1fr 1fr;
-  flex-direction: column;
-  gap: var(--size-3);
+  display: grid;
+  grid-template-areas:
+    "a   b"
+    "c   d"
+    "e   e";
+  grid-auto-flow: column;
+  gap: var(--size-4);
   margin: auto;
   background-color: var(--surface-2);
   padding: var(--size-3);
   border-radius: var(--radius-3);
 }
-&>div.wrapper {
-  display:flex;
+
+div.wrapper {
+  display: flex;
+  flex-direction: column;
 }
 label {
   display: flex;
@@ -33,9 +38,8 @@ label:has(input[required]) > span:first-child:after {
   color: var(--red-3);
 }
 
-button[type="submit"] {
+button[type='submit'] {
   grid-column: span 2;
-
 }
 
 :is(input, textarea, select):user-invalid {
@@ -49,6 +53,7 @@ fieldset > legend {
 }
 
 fieldset {
+  container-type: inline-size;
   margin-block-end: 0;
 }
 
@@ -61,29 +66,27 @@ I have taken this out, as I think hiding error message until touched is bad UX.
 You want users to know what is wrong as soon as possible, not wait until they
 interact with the form.
 *:has(.se-touched) { */
-  div.error-messages {
-    display: block;
-    color: var(--red-5);
-    grid-column: 2;
-    font-style: italic;
-    min-height: 1.5em;
-    font-variant: small-caps;
-    margin-inline-start: var(--size-2);
-    margin-block-start: calc(-1 * var(--size-2));
+div.error-messages {
+  display: block;
+  color: var(--red-5);
+  grid-column: 2;
+  font-style: italic;
+  min-height: 1.5em;
+  font-variant: small-caps;
+  margin-inline-start: var(--size-2);
+  margin-block-start: calc(-1 * var(--size-2));
 
-    ul {
-      font-size: 0.95rem;
-    }
-    ul:not(:has(:nth-child(2))) {
-      list-style: none;
-      padding-inline-start: var(--size-4);
-    }
+  ul {
+    font-size: 0.95rem;
   }
+  ul:not(:has(:nth-child(2))) {
+    list-style: none;
+    padding-inline-start: var(--size-4);
+  }
+}
 /* } */
 
 button.action {
-  position: absolute;
-  margin-inline-start: calc(var(--size-content-3) - 2.5rem);
   border-radius: 50%;
   width: var(--size-8);
   height: var(--size-8);
@@ -93,6 +96,11 @@ button.action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+legend button.action {
+  position: absolute;
+  translate: calc(98cqi - 100%);
 }
 
 dialog {

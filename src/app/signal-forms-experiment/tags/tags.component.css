@@ -1,10 +1,10 @@
 :host {
   display: block;
-  margin-block-start: var(--size-2 );
+  /* margin-block-start: var(--size-2 ); */
 
 }
 
-div.tags {
+label.tags {
   display: grid;
   grid-template-columns: 48px auto;
   gap: var(--size-3);
@@ -20,7 +20,7 @@ div.tags {
   margin-inline-start: var(--size-2);
 }
 
-div.tags > button.action {
+label.tags > button.action {
   position: inherit;
   margin-inline-start: 0;
 }

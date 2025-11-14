@@ -1,4 +1,4 @@
-import { schema, validate, minLengthError, maxError, patternError, type FieldPath } from '@angular/forms/signals';
+import { maxError, minLengthError, patternError, schema, validate } from '@angular/forms/signals';
 
 /**
  * Check for phone number:
@@ -6,7 +6,7 @@ import { schema, validate, minLengthError, maxError, patternError, type FieldPat
  * - at least 7 digits
  * - max 15 digits
  */
-export const phoneNumber = schema((valueField: FieldPath<string>) => {
+export const phoneNumber = schema<string>((valueField) => {
   validate(valueField, ({ value }) => {
     // this uses any now, because: https://github.com/angular/angular/issues/63860
     const errors: any[] = [];

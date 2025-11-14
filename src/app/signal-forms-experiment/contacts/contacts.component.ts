@@ -14,19 +14,24 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
       <div class="row">
         <button class="action" type="button" (click)="delContact(contact().value())" [disabled]="isLastOne()">🗑️</button>
         <!-- the div is needed to align the error with the control -->
-        <div>
+        <label>
+          <span>type</span>
           <select [field]="contact.type" showError="">
             <option value="">-- Select type --</option>
             @for (type of types; track type) {
               <option [value]="type">{{ type }}</option>
             }
           </select>
-        </div>
+        </label>
         <!-- the div is needed to align the error with the control -->
-        <div>
-          <input type="text" [field]="contact['value']" placeholder="value" showError="" [style.backgroundColor]="backgroundColor(contact.value)()"/>
-        </div>
-        <input type="number" [field]="contact.priority" placeholder="priority" />
+        <label>
+          <span>info</span>
+          <input type="text" [field]="contact.info" placeholder="value" showError="" [style.backgroundColor]="backgroundColor(contact.info)()"/>
+        </label>
+        <label>
+          <span>priority</span>
+          <input type="number" [field]="contact.priority" placeholder="priority" />
+        </label>
       </div>
     } `,
   styleUrl: './contacts.component.css'
@@ -44,7 +49,7 @@ export class ContactsComponent {
     });
 
   addContact() {
-    this.contactList().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, value: '', priority: 0 }]);
+    this.contactList().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, info: '', priority: 0 }]);
   }
 
   delContact(contact: SampleDataContactDetail) {

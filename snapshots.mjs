@@ -1,3 +1,4 @@
+import { th } from '@faker-js/faker';
 import { chromium } from '@playwright/test';
 import { createRequire } from 'module';
 import { join } from 'path';
@@ -11,8 +12,10 @@ async function openBrowser() {
 }
 
 let errCount = 0;
+let _pg = undefined;
 async function getPage() {
   try {
+    if (_pg) { return _pg; }
     const br = await browser;
     const page = await br.newPage({
       viewport: { width: 800, height: 600 }
@@ -20,7 +23,8 @@ async function getPage() {
 
     await page.setDefaultTimeout(15000);
 
-    return page;
+    _pg = page;
+    return _pg;
   } catch (e) {
     errCount++;
     if (errCount > 3) {
@@ -59,12 +63,16 @@ const blueSkyHandle = await sharp(
   .toBuffer();
 
 export async function createSnapshotFor(route) {
+  let page = null;
   try {
-    const page = await getPage();
+    page = await getPage();
     await page.goto(`${baseUrl}${route.path}`);
   } catch (e) {
     console.log(`Could not load ${route.path}`, e);
     return route;
+  }
+  if (!page) {
+    throw new Error('No page available');
   }
   /** give the page a moment to settle */
   await new Promise(r => setTimeout(r, 1000));
@@ -94,6 +102,8 @@ export async function createSnapshotFor(route) {
     route.description = '';
   } catch (e) {
     console.log(`Could not create snapshot for ${route.path}`, e);
+    _pg = undefined;
+    return createSnapshotFor(route);
   }
   return route;
 }

@@ -41,8 +41,8 @@ inMemoryDb.set('1', {
   confirm: '007 Is not secure',
   favoriteRandomInt: 42,
   contacts: [
-    { type: SampleDataContactDetailType.Email, value: 'a@b.c', priority: 0 },
-    { type: SampleDataContactDetailType.Mobile, value: '+31 6123 456 789', priority: 0 }
+    { type: SampleDataContactDetailType.Email, info: 'a@b.c', priority: 0 },
+    { type: SampleDataContactDetailType.Mobile, info: '+31 6123 456 789', priority: 0 }
   ],
   tags: ['developer', 'angular', 'aa', 'aaa', 'aaaa'],
   address: {

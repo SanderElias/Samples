@@ -1,6 +1,6 @@
-import { applyEach, type FieldPath, maxLength, minLength, patternError, required, schema, validate } from '@angular/forms/signals';
+import { applyEach, maxLength, minLength, patternError, required, schema, validate } from '@angular/forms/signals';
 
-export const tagsSchema = schema((tagsArray: FieldPath<string[]>) => {
+export const tagsSchema = schema<string[]>((tagsArray) => {
   maxLength(tagsArray, 7, { message: 'Maximum 7 tags allowed' });
   // Each tag: required, min length 2, no duplicates
   const tagSchema = schema<string>(tag => {

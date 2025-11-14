@@ -1,21 +1,11 @@
-import {
-  apply,
-  FieldPath,
-  maxError,
-  minError,
-  minLengthError,
-  patternError,
-  required,
-  schema,
-  validate
-} from '@angular/forms/signals';
+import { apply, maxError, minError, minLengthError, patternError, required, schema, validate } from '@angular/forms/signals';
 import { type SampleData } from '../util/sample-data.model';
 import { contactsSchema } from './contacts.validation';
 import { passwordComplexitySchema } from './password-complexity.validation';
 import { tagsSchema } from './tags.validation';
 
 // Standalone validation schema for SampleData using signalForms
-export const sampleDataValidationSchema = schema((relation: FieldPath<SampleData>) => {
+export const sampleDataValidationSchema = schema<SampleData>(relation => {
   // Name: required, min length 3, only letters and spaces
   required(relation.name, { message: 'a name is required' });
   validate(relation.name, ({ value }) => {

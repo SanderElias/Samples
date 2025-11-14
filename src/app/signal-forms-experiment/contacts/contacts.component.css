@@ -16,8 +16,19 @@ input[type='number'] {
   width: 3rem;
 }
 
+/** Visually hidden */
+label > span {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 select {
-  width: 16ch
+  width: 16ch;
 }
 
 div > button.action {

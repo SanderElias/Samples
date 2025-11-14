@@ -34,9 +34,9 @@ const MAX = 1000;
     '[class.min-max]': 'showMinMax()'
   }
 })
-export class InputRandomIntComponent implements FormValueControl<any> {
+export class InputRandomIntComponent implements FormValueControl<number> {
   readonly MAX = MAX;
-  readonly value = model<any>(0);
+  readonly value = model<number>(0);
   readonly min = input<number | undefined>(0);
   readonly max = input<number | undefined>(MAX);
   readonly showMinMax = signal(false);
