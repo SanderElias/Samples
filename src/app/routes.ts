@@ -285,6 +285,6 @@ export const routes: Routes = [
   },
 
   // { path: '**', redirectTo: 'routeList' },
-  // { path: '**', redirectTo: 'signalForms' }
-  { path: '**', redirectTo: 'vt' }
+  { path: '**', redirectTo: 'signalForms' }
+  // { path: '**', redirectTo: 'vt' }
 ];
