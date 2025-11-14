@@ -216,8 +216,8 @@
   },
   "dependencies": {
     "@angular/animations": "21.0.0-rc.2",
-    "@angular/aria": "21.0.0-rc.1",
-    "@angular/cdk": "21.0.0-rc.1",
+    "@angular/aria": "21.0.0-rc.2",
+    "@angular/cdk": "21.0.0-rc.2",
     "@angular/common": "21.0.0-rc.2",
     "@angular/compiler": "21.0.0-rc.2",
     "@angular/core": "21.0.0-rc.2",
@@ -227,7 +227,7 @@
     "@angular/platform-browser-dynamic": "21.0.0-rc.2",
     "@angular/platform-server": "21.0.0-rc.2",
     "@angular/router": "21.0.0-rc.2",
-    "@angular/ssr": "21.0.0-rc.2",
+    "@angular/ssr": "21.0.0-rc.3",
     "@faker-js/faker": "10.1.0",
     "@fortawesome/fontawesome-free": "7.1.0",
     "@fortawesome/fontawesome-svg-core": "7.1.0",
@@ -263,9 +263,9 @@
     "asciidoctor.js": {}
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "21.0.0-rc.2",
-    "@angular/build": "21.0.0-rc.2",
-    "@angular/cli": "21.0.0-rc.2",
+    "@angular-devkit/build-angular": "21.0.0-rc.3",
+    "@angular/build": "21.0.0-rc.3",
+    "@angular/cli": "21.0.0-rc.3",
     "@angular/compiler-cli": "21.0.0-rc.2",
     "@angular/language-service": "21.0.0-rc.2",
     "@playwright/test": "1.56.1",

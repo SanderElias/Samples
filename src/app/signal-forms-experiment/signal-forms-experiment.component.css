@@ -8,11 +8,11 @@ form {
   --size-content-3: 140ch;
   width: var(--size-content-3);
   display: grid;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    "a   b"
-    "c   d"
-    "e   e";
-  grid-auto-flow: column;
+    "firstDiv     AddressComponent"
+    "contacts     tagsComponent"
+    "submitButton submitButton";
   gap: var(--size-4);
   margin: auto;
   background-color: var(--surface-2);
@@ -20,7 +20,24 @@ form {
   border-radius: var(--radius-3);
 }
 
+button[type='submit'] {
+  grid-area: e;
+}
+
+form fieldset:first-child {
+  grid-area: contacts;
+}
+form fieldset:nth-child(2) {
+  grid-area: contacts;
+}
+form fieldset:nth-child(3) {
+  grid-area: AddressComponent;
+}
+form fieldset:nth-child(4) {
+  grid-area: tagsComponent;
+}
 div.wrapper {
+  grid-area: firstDiv;
   display: flex;
   flex-direction: column;
 }
@@ -39,7 +56,7 @@ label:has(input[required]) > span:first-child:after {
 }
 
 button[type='submit'] {
-  grid-column: span 2;
+  grid-area: submitButton;
 }
 
 :is(input, textarea, select):user-invalid {

@@ -6,7 +6,7 @@ import { patternError, schema, validate, validateAsync } from '@angular/forms/si
  * - must contain "@" and "."
  * - simple regex for now
  */
-export const emailAddress = schema<string>((emailAddress) => {
+export const emailAddress = schema<string>(emailAddress => {
   validate(emailAddress, ({ value }) => {
     const v = value() as string;
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) {
@@ -22,15 +22,24 @@ export const emailAddress = schema<string>((emailAddress) => {
         params,
         loader: async ({ params }) => {
           const emailToCheck = params as string;
+          if (Math.random() < 0.5) {
+            throw new Error('Simulated server connection error');
+          }
           await new Promise(resolve => setTimeout(resolve, 2500)); // simulate server delay
           const existingEmails = ['i@exists.gov', 'j@exists.gov'];
           return existingEmails.includes(emailToCheck);
         }
       }),
     onError: err => ({
-      kind: 'serverError',
-      message: 'Email address already exists'
+      kind: 'serverConnectionError',
+      message: 'Could not validate email address at this time\nPlease try again later.'
     }),
-    onSuccess: () => null
+    onSuccess: result =>
+      result
+        ? {
+            kind: 'serverError',
+            message: 'Email address already exists'
+          }
+        : null
   });
 });

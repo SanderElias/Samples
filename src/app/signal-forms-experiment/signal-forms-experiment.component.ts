@@ -27,19 +27,19 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
       <div class="wrapper">
         <label for="name">
           <span>Name</span>
-          <input id="name" type="text" placeholder="Your name" [field]="fd.name" showError />
+          <input id="name" type="text" placeholder="Your name" [field]="fd.name" showError autocomplete="name" />
         </label>
         <label for="dob">
           <span>Date of Birth</span>
-          <input id="dob" type="date" [field]="fd.dob" showError />
+          <input id="dob" type="date" [field]="fd.dob" showError autocomplete="bday"/>
         </label>
         <label for="password">
           <span>Password</span>
-          <input id="password" type="password" placeholder="Password" [field]="fd.password" showError />
+          <input id="password" type="password" placeholder="Password" [field]="fd.password" showError autocomplete="new-password" />
         </label>
         <label for="confirm">
           <span>Confirm Password</span>
-          <input id="confirm" type="password" placeholder="Confirm Password" [field]="fd.confirm" showError />
+          <input id="confirm" type="password" placeholder="Confirm Password" [field]="fd.confirm" showError autocomplete="new-password" />
         </label>
         <label>
           <span>Favorite Random Int</span>
@@ -53,19 +53,19 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
         <legend>Address</legend>
         <label for="street">
           <span>Street</span>
-          <input id="street" type="text" placeholder="Street" [field]="fd.address.street" showError />
+          <input id="street" type="text" placeholder="Street" [field]="fd.address.street" showError autocomplete="street-address" />
         </label>
         <label for="city">
           <span>City</span>
-          <input id="city" type="text" placeholder="City" [field]="fd.address.city" showError />
+          <input id="city" type="text" placeholder="City" [field]="fd.address.city" showError autocomplete="address-level2" />
         </label>
         <label for="zip">
           <span>Zip</span>
-          <input id="zip" type="text" placeholder="Zip" [field]="fd.address.zip" showError />
+          <input id="zip" type="text" placeholder="Zip" [field]="fd.address.zip" showError autocomplete="postal-code" />
         </label>
         <label for="state">
           <span>State</span>
-          <input id="state" type="text" placeholder="State" [field]="fd.address.state" showError />
+          <input id="state" type="text" placeholder="State" [field]="fd.address.state" showError autocomplete="address-level1" />
         </label>
       </fieldset>
       <!-- use the tags component to iter over the tags -->
