@@ -478,5 +478,12 @@
     "title": "Unsubscribe sample",
     "largeImage": "/assets/snapshots/unsubSample.png",
     "description": ""
+  },
+  {
+    "path": "/signalForms",
+    "modulePath": "/src/app/signal-forms-experiment",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signal-forms-experiment",
+    "title": "Signal Forms Experiment",
+    "description": "a form using the experimental signal based forms"
   }
 ]
