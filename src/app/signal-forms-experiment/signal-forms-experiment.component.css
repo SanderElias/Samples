@@ -1,6 +1,7 @@
 :host {
   display: block;
   margin-top: var(--size-3);
+  max-width: 99vw;;
   columns: 2;
 }
 
@@ -10,16 +11,27 @@ form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    "firstDiv     AddressComponent"
-    "contacts     tagsComponent"
-    "submitButton submitButton";
+    'firstDiv     AddressComponent'
+    'contacts     tagsComponent'
+    'submitButton submitButton';
   gap: var(--size-4);
   margin: auto;
   background-color: var(--surface-2);
   padding: var(--size-3);
   border-radius: var(--radius-3);
 }
-
+@media (width < 1500px) {
+  form {
+    --size-content-3: min(98vw, 70ch);
+    grid-template-areas:
+      'firstDiv'
+      'AddressComponent'
+      'contacts'
+      'tagsComponent'
+      'submitButton';
+    grid-template-columns: 1fr;
+  }
+}
 button[type='submit'] {
   grid-area: e;
 }
