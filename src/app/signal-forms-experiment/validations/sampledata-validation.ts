@@ -9,7 +9,7 @@ export const sampleDataValidationSchema = schema<SampleData>(relation => {
   // Name: required, min length 3, only letters and spaces
   required(relation.name, { message: 'a name is required' });
   validate(relation.name, ({ value }) => {
-    const v = value() as string;
+    const v = value() ;
     if (v && v.length < 3) {
       return minLengthError(3, { message: 'Name must be at least 3 characters' });
     }
@@ -45,12 +45,11 @@ export const sampleDataValidationSchema = schema<SampleData>(relation => {
   // Confirm Password: required, must match password
   required(relation.confirm);
   // Confirm Password: must match password
-  validate(relation.confirm, ({ value, valueOf, state }) => {
-    const v = value() as string;
+  validate(relation.confirm, ({ value, valueOf }) => {
+    const v = value() ;
     const pw = valueOf(relation.password);
-    state;
     if (v !== pw) {
-      return patternError(/.*/, { message: 'Passwords do not match' });
+      return { kind: 'mismatch', message: 'Passwords do not match' };
     }
     return null;
   });

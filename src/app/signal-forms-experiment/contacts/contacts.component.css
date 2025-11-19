@@ -7,9 +7,19 @@
 div.row {
   display: grid;
   grid-template-columns: repeat(4, max-content);
-  flex-direction: row;
   gap: var(--size-2);
   align-items: baseline;
+}
+@media (width < 680px) {
+  div.row {
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0;
+
+    button.action {
+      grid-row: span 3;
+    }
+  }
 }
 
 input[type='number'] {

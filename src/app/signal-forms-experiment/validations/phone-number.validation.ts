@@ -1,4 +1,4 @@
-import { maxError, minLengthError, patternError, schema, validate } from '@angular/forms/signals';
+import { maxError, minLengthError, patternError, schema, validate, type ValidationError } from '@angular/forms/signals';
 
 /**
  * Check for phone number:
@@ -9,7 +9,7 @@ import { maxError, minLengthError, patternError, schema, validate } from '@angul
 export const phoneNumber = schema<string>((valueField) => {
   validate(valueField, ({ value }) => {
     // this uses any now, because: https://github.com/angular/angular/issues/63860
-    const errors: any[] = [];
+    const errors: ValidationError[] = [];
 
     const v = value() as string;
     const numberOfDigits = v.split('').filter(c => '0123456789'.includes(c)).length;

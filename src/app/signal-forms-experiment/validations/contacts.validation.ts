@@ -17,7 +17,7 @@ export const contactSchema = schema<SampleDataContactDetail>(contact => {
   validate(contact.type, ({ value }) => {
     const v = value() as SampleDataContactDetailType;
     if (types.includes(v) === false) {
-      return patternError(/.*/, { message: 'Invalid contact type' });
+      return { kind: 'invalidType', message: 'Invalid contact type' };
     }
     return null;
   });

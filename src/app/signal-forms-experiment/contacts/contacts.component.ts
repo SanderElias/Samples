@@ -26,7 +26,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
         <!-- the div is needed to align the error with the control -->
         <label>
           <span>info</span>
-          <input type="text" [field]="contact.info" placeholder="value" showError="" [style.backgroundColor]="backgroundColor(contact.info)()"/>
+          <input type="text" [field]="contact.info" placeholder="value" showError [style.backgroundColor]="backgroundColor(contact.info)()"/>
         </label>
         <label>
           <span>priority</span>
