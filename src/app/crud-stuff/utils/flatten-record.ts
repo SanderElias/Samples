@@ -1,4 +1,4 @@
-import { isObject } from '../../../../dist/se-ng/signal-utils';
+import { isObject } from '@se-ng/signal-utils';
 
 export function flattenRecord(r: Record<string, any>, prefix = ''): Record<string, any> {
   return Object.entries(r).reduce((acc, [k, v]) => {

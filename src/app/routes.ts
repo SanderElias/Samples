@@ -283,8 +283,12 @@ export const routes: Routes = [
     path: 'vt',
     loadComponent: () => import('./view-transitions/view-transitions.component').then(m => m.ViewTransitionsComponent)
   },
+  {
+    path: 'inMem',
+    loadComponent: () => import('./in-mem-sample/in-mem-sample.component').then(m => m.InMemSampleComponent)
+  },
 
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'signalForms' }
+  { path: '**', redirectTo: 'inMem' }
   // { path: '**', redirectTo: 'vt' }
 ];
