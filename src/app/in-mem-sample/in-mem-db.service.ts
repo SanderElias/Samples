@@ -1,19 +1,33 @@
-import { computed, Injectable, linkedSignal, signal, Signal, type Resource, type WritableSignal } from '@angular/core';
-import { Id, DbRecord, type NewDbRecord } from './in-mem.model';
+import { computed, Injectable, signal, Signal, type WritableSignal } from '@angular/core';
 import { assertRecord, createId } from './in-mem-utils';
-import { resource } from '../../../projects/se-ng/signal-utils/src/lib/resource';
-import { httpResource } from '@angular/common/http';
+import { DbRecord, Id, type NewDbRecord } from './in-mem.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InMemDb {
   #db = signal<Map<Id, WritableSignal<DbRecord>>>(new Map(), { equal: () => false });
+  #indexes = new Map<
+    string,
+    WritableSignal<{
+      sortFn: (dbRecord) => string;
+      table: string;
+      index: Map<Id, string>;
+    }>
+  >();
 
   create<T extends NewDbRecord>(record: T): void {
     const id = record.id ?? createId();
     const newRecord = assertRecord({ ...record, id });
     this.#db.update(db => db.set(id, signal(newRecord)));
+    this.#indexes.forEach(indexSignal => {
+      const { table, sortFn, index } = indexSignal();
+      if (newRecord.table.includes(table)) {
+        const key = sortFn(newRecord);
+        index.set(id, key);
+      }
+      indexSignal.set({ table, sortFn, index });
+    });
   }
 
   read<T extends DbRecord>(id: Id): Signal<T> {
@@ -32,6 +46,16 @@ export class InMemDb {
     }
     const newContent = { ...recordSignal(), ...updatedRecord };
     recordSignal.set(newContent);
+    this.#indexes.forEach(indexSignal => {
+      const { table, sortFn, index } = indexSignal();
+      if (newContent.table.includes(table)) {
+        const key = sortFn(newContent);
+        index.set(updatedRecord.id, key);
+      } else {
+        index.delete(updatedRecord.id);
+      }
+      indexSignal.set({ table, sortFn, index });
+    });
   }
 
   delete(id: Id): void {
@@ -39,6 +63,14 @@ export class InMemDb {
     if (!db.has(id)) {
       throw new Error(`Record with id ${id} not found`);
     }
+    const rec = db.get(id)!();
+    this.#indexes.forEach(indexSignal => {
+      const { table, index } = indexSignal();
+      if (rec.table.includes(table)) {
+        index.delete(id);
+      }
+      indexSignal.set({ table, sortFn: indexSignal().sortFn, index });
+    });
     db.delete(id);
   }
 
@@ -61,24 +93,29 @@ export class InMemDb {
     return signal(undefined);
   }
 
-  freeTextSearch<T extends DbRecord>(predicate: (rec: T) => boolean) {
+  freeTextSearch<T extends DbRecord>(predicate: (rec: T) => boolean) {}
 
+  createIndex(tableName: string, sortFn: (dbRecord) => string): Signal<Id[]> {
+    const mapId = `${tableName}-${sortFn.toString()}`;
+    if (!this.#indexes.has(mapId)) {
+      const indexMap = new Map<Id, string>();
+      this.#db().forEach(record => {
+        if (record().table.includes(tableName)) {
+          const key = sortFn(record());
+          indexMap.set(record().id, key);
+        }
+      });
+      this.#indexes.set(mapId, signal({ table: tableName, sortFn, index: indexMap }));
+    }
+    const indexSignal = this.#indexes.get(mapId)!;
+    return computed(() =>
+      Array.from(indexSignal().index.entries())
+        .sort((a, b) => (a[1] > b[1] ? 1 : -1))
+        .map(entry => entry[0])
+    );
   }
 
-  createIndex(tableName: string, sort: (dbRecord) => string): Signal<Id[]> {
-    sort ??= record => record.id;
-    return computed(() => {
-      const db = this.#db();
-      const tableRecords = Array.from(db.values()).filter(record => record().table.includes(tableName));
-      const sorted = tableRecords.sort((a, b) => (sort(a()) > sort(b()) ? 1 : -1));
-      return sorted.map(record => record().id);
-    });
+  removeIndex(tableName: string, sort: (dbRecord) => string): void {
+    this.#indexes.delete(`${tableName}-${sort.toString()}`);
   }
-
-
-
-
-
-
 }
-
