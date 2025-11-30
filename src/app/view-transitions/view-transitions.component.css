@@ -1,11 +1,3 @@
-/* Make view transition animation slower (e.g., 2s) */
-@layer view-transition {
-  ::view-transition-old(box-*) ,
-  ::view-transition-new(box-*) {
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(0.5, 1.8, 0.5, 1);
-  }
-}
 
 :host {
   display: block;
