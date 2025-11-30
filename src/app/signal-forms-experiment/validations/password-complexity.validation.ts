@@ -1,4 +1,4 @@
-import { customError, minLength, required, schema, validate, type ValidationError } from '@angular/forms/signals';
+import { minLength, required, schema, validate, type ValidationError } from '@angular/forms/signals';
 
 export const passwordComplexitySchema = schema<string>((password) => {
   required(password, { message: 'can not be empty' });

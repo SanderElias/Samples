@@ -1,12 +1,13 @@
-import { Component, ElementRef, inject, linkedSignal, signal, viewChild } from '@angular/core';
+import type { ElementRef} from '@angular/core';
+import { Component, inject, linkedSignal, signal, viewChild } from '@angular/core';
+
 import { HeaderComponent } from './header/header.component';
 import { HighLightBodyComponent } from './high-light-body/high-light-body.component';
 import { NotifyDialogComponent } from './notify-dialog/notify-dialog.component';
-import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { RelationForm } from './relation-form/relation-form.component';
-import { RelationsService } from './relations.service';
 import { SortHeaderComponent } from './sort-header/sort-header.component';
 import { UserRowComponent } from './user-row/user-row.component';
+import { RelationsService } from './relations.service';
 
 @Component({
   selector: 'se-crud-stuff',

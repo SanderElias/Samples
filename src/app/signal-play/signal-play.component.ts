@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, model, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 
 import { JsonPlaceHolderService } from './json-place-holder.service';
 

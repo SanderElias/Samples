@@ -1,5 +1,4 @@
 import { Component, computed, signal } from '@angular/core';
-import { set } from 'idb-keyval';
 
 @Component({
   selector: 'se-anchor-pos',

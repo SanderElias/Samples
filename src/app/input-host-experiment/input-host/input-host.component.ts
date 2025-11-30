@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, inject, input, model } from '@angular/core';
+import { Component, effect, ElementRef, inject, model } from '@angular/core';
 
 @Component({
   selector: 'input [experiment] [type=text]',

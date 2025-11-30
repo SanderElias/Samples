@@ -1,7 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import { getAllFromStore, initializeDb, saveToIndexedDb } from './indexed-db-helpers';
-import type { DbEvent } from './event-source.types';
 import { ReplaySubject } from 'rxjs';
+
+import type { DbEvent } from './event-source.types';
+import { getAllFromStore, initializeDb, saveToIndexedDb } from './indexed-db-helpers';
 
 const DbName = 'EventSourceDb';
 const storeName = 'events';

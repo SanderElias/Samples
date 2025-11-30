@@ -1,7 +1,8 @@
 import { provideZonelessChangeDetection } from '@angular/core';
-import { bootstrapApplication, BootstrapContext } from '@angular/platform-browser';
-
+import type { BootstrapContext } from '@angular/platform-browser';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { provideServerRendering, withRoutes } from '@angular/ssr';
+
 import { AppComponent } from './app/app.component';
 import { config } from './app/app.config.server';
 import { serverRoutes } from './app/server.routes';

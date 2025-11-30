@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+
 import { GaugeComponent } from './gauge/gauge.component';
 import { StackedPerComponent } from "./stacked-per/stacked-per.component";
 

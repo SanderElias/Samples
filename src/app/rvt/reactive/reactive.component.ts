@@ -1,9 +1,12 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnDestroy } from '@angular/core';
+import type { OnDestroy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Observable, shareReplay, startWith } from 'rxjs';
+import type { Observable} from 'rxjs';
+import { shareReplay, startWith } from 'rxjs';
 
-import { Model, SampledataService } from '../sampledata.service';
+import type { Model} from '../sampledata.service';
+import { SampledataService } from '../sampledata.service';
 
 @Component({
   selector: 'se-reactive',

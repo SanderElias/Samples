@@ -1,5 +1,6 @@
-import { effect, signal, Injector, inject, linkedSignal, Signal } from '@angular/core';
-import { get, set, del } from './custom-idb-keyval';
+import { effect, inject, Injector, linkedSignal,signal } from '@angular/core';
+
+import { del,get, set } from './custom-idb-keyval';
 
 /**
  * Creates a persistent signal backed by IndexedDB. When not using in injection context, you must provide the injector manually.

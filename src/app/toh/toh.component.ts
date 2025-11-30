@@ -1,5 +1,6 @@
-import { afterNextRender, Component, ElementRef, inject, signal, computed, afterRenderEffect } from '@angular/core';
-import { persistentLinkedSignal, persistentSignal } from '../mqtt/util/idbstorage';
+import { afterRenderEffect,Component, computed, ElementRef, inject } from '@angular/core';
+
+import { persistentSignal } from '../mqtt/util/idbstorage';
 // --- Utility Functions ---
 export function getFirstDraggable(elm: Element): HTMLDivElement | undefined {
   return Array.from(elm.children).find(child => child.classList.contains('puck')) as HTMLDivElement | undefined;

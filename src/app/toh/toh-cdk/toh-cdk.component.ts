@@ -1,14 +1,12 @@
-import { afterRenderEffect, Component, ElementRef, linkedSignal, signal, inject } from '@angular/core';
 import {
   CdkDrag,
-  CdkDragPlaceholder,
-  CdkDragPreview,
-  CdkDropList,
-  CdkDropListGroup,
   type CdkDragDrop,
   type CdkDragEnter,
-  type CdkDragExit
-} from '@angular/cdk/drag-drop';
+  type CdkDragExit,
+  CdkDragPlaceholder,
+  CdkDropList,
+  CdkDropListGroup} from '@angular/cdk/drag-drop';
+import { afterRenderEffect, Component, ElementRef, inject,linkedSignal, signal } from '@angular/core';
 
 @Component({
   selector: 'se-toh-cdk',

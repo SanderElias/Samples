@@ -15,7 +15,7 @@ import {
   timer
 } from 'rxjs';
 
-import {
+import type {
   MqttMessage
 } from './mqtt.types';
 

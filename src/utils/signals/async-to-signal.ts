@@ -1,6 +1,9 @@
-import { CreateComputedOptions, DestroyRef, inject, isSignal, Signal, signal, WritableSignal } from '@angular/core';
-import { toObservable, ToObservableOptions } from '@angular/core/rxjs-interop';
-import { from, isObservable, Observable, of, switchMap } from 'rxjs';
+import type { CreateComputedOptions, Signal, WritableSignal } from '@angular/core';
+import { DestroyRef, inject, isSignal, signal } from '@angular/core';
+import type { ToObservableOptions } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
+import type { Observable} from 'rxjs';
+import { from, isObservable, of, switchMap } from 'rxjs';
 
 type Prettify<T> = {
   [K in keyof T]: T[K];

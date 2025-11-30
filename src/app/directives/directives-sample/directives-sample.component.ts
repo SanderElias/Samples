@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, QueryList, ViewChildren } from '@angular/core';
+import type { QueryList} from '@angular/core';
+import { Component, ViewChildren } from '@angular/core';
 import { seAfterContentInit } from '@se-ng/observable-hooks';
 import { map } from 'rxjs/operators';
 

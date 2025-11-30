@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
 
-import { Quote } from './quote.service';
+import type { Quote } from './quote.service';
 
 @Component({
   // tslint:disable-next-line:component-selector

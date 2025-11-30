@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, inject, input, linkedSignal, OnInit, QueryList, ViewChildren } from '@angular/core';
+import type { OnInit} from '@angular/core';
+import { Component, ElementRef, inject, input, linkedSignal, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
 import { filter, map, pluck, switchMap } from 'rxjs/operators';

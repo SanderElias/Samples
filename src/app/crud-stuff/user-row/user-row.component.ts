@@ -1,11 +1,10 @@
-import { Component, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
-import type { UserCard } from '../../generic-services/address.service';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { ConfirmItComponent } from '@se-ng/headless-ui';
+
+import type { UserCard } from '../../generic-services/address.service';
 import { HighLightTDComponent } from '../high-light-td/high-light-td.component';
 import { RelationsService } from '../relations.service';
 import { isEmptyRelation } from '../utils/is-empty-relation';
-import { httpResource } from '@angular/common/http';
-import { sign } from 'crypto';
 
 @Component({
   selector: 'tr [userId]',

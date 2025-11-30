@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChildren } from '@angular/core';
-import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
+import type { Observable} from 'rxjs';
+import { combineLatest, NEVER, of, timer } from 'rxjs';
 import { catchError, filter, map, scan, startWith, switchMap } from 'rxjs/operators';
 
 import { RakiService } from '../../../app/rijks/raki.service';

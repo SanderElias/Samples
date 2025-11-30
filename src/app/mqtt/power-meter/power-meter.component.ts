@@ -1,9 +1,11 @@
 import { afterNextRender, Component, computed, inject, input, signal, type WritableSignal } from '@angular/core';
+
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
-import { zigbeePrefixes, type ZigbeePrefixes } from '../mqtt.component';
+import { type ZigbeePrefixes,zigbeePrefixes } from '../mqtt.component';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { persistentLinkedSignal } from '../util/idbstorage';
 import { ZigbeeService } from '../zigbee.service';
+
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
 
 @Component({

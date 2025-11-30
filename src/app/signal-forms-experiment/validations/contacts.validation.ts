@@ -1,5 +1,8 @@
-import { apply, applyEach, applyWhenValue, minLength, patternError, required, schema, validate } from '@angular/forms/signals';
-import { SampleData, SampleDataContactDetail, SampleDataContactDetailType } from '../util/sample-data.model';
+import { apply, applyEach, applyWhenValue, minLength, required, schema, validate } from '@angular/forms/signals';
+
+import type { SampleData, SampleDataContactDetail} from '../util/sample-data.model';
+import { SampleDataContactDetailType } from '../util/sample-data.model';
+
 import { emailAddress } from './email-address.validation';
 import { phoneNumber } from './phone-number.validation';
 

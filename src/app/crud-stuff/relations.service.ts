@@ -1,10 +1,13 @@
 import { httpResource, type HttpResourceRef } from '@angular/common/http';
-import { effect, inject, Injectable, signal, untracked, Signal } from '@angular/core';
+import type { Signal} from '@angular/core';
+import { effect, inject, Injectable,signal, untracked } from '@angular/core';
 import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
-import { userCard, type UserCard } from '../generic-services/address.service';
-import { injectCachedHttpResource } from './utils/inject-cached-httpresource';
+
+import { type UserCard,userCard } from '../generic-services/address.service';
+
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
+import { injectCachedHttpResource } from './utils/inject-cached-httpresource';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];

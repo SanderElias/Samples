@@ -1,6 +1,8 @@
 import { Component, computed, input } from '@angular/core';
-import { Field, FieldTree, type FieldState } from '@angular/forms/signals';
-import { SampleDataContactDetailType, type SampleDataContactDetail } from '../util/sample-data.model';
+import type {FieldTree } from '@angular/forms/signals';
+import { Field, type FieldState } from '@angular/forms/signals';
+
+import { type SampleDataContactDetail,SampleDataContactDetailType } from '../util/sample-data.model';
 import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
 @Component({

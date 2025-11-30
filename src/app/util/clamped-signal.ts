@@ -1,4 +1,4 @@
-import { signal, type CreateSignalOptions, type WritableSignal } from '@angular/core';
+import { type CreateSignalOptions, signal, type WritableSignal } from '@angular/core';
 
 interface BaseOptions<T> {
   value: T;

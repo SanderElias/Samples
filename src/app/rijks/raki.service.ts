@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, of, Subject, timer } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
-import { ArtObject, CollectionObject, RakiObject } from './rakiCollection';
+import type { ArtObject, CollectionObject, RakiObject } from './rakiCollection';
 
 /**
  * If you want to use this get your own key at:

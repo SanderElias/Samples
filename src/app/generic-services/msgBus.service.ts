@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import type { Observable} from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { filter, pluck, share } from 'rxjs/operators';
 
 /** available types. */

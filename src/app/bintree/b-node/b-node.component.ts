@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
-import { balance, BinNode, getNode, height } from '../BinNode';
+import type { BinNode} from '../BinNode';
+import { balance, getNode, height } from '../BinNode';
 
 @Component({
   selector: 'b-node',

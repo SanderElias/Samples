@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+
 import { DialogComponent } from './dialog/dialog.component';
 import { DummyContentComponent } from './dummy-content/dummy-content.component';
 

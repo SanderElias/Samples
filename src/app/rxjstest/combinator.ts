@@ -1,4 +1,5 @@
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import type { Subscriber, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 type CombinatorFn<R, T> = (source: R) => Observable<T>[];
 

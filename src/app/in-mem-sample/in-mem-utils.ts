@@ -1,5 +1,6 @@
 import { createUniqueId } from '../util/random-things';
-import type { Id, DbRecord } from './in-mem.model';
+
+import type { DbRecord,Id } from './in-mem.model';
 
 
 export const createId = () => createUniqueId() as Id

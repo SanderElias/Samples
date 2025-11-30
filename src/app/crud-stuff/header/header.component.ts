@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { generateRelation } from '../utils/generateRelation';
+
 import { RelationsService } from '../relations.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { generateRelation } from '../utils/generateRelation';
 
 @Component({
   selector: 'crud-header',

@@ -1,6 +1,8 @@
 
 import { Injectable, linkedSignal, type Signal } from '@angular/core';
-import { SampleData, SampleDataContactDetailType } from './sample-data.model';
+
+import type { SampleData} from './sample-data.model';
+import { SampleDataContactDetailType } from './sample-data.model';
 
 @Injectable({
   providedIn: 'root'

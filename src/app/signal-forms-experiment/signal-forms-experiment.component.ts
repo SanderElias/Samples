@@ -1,14 +1,14 @@
 import {
+  afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  ViewEncapsulation,
-  afterRenderEffect,
   inject,
   signal,
-  viewChild
-} from '@angular/core';
+  viewChild,
+  ViewEncapsulation} from '@angular/core';
 import { Field, form, submit } from '@angular/forms/signals';
+
 import { ContactsComponent } from './contacts/contacts.component';
 import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
 import { TagsComponent } from './tags/tags.component';

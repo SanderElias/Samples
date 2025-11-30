@@ -1,7 +1,9 @@
-import { computed, inject, Injectable, Injector, Signal } from '@angular/core';
+import type { Signal } from '@angular/core';
+import { computed, inject, Injectable, Injector } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { deepEqual } from '@se-ng/signal-utils';
-import { combineLatest, filter, map, NEVER, of, shareReplay, startWith, type Observable } from 'rxjs';
+import { combineLatest, filter, map, NEVER, type Observable,of, shareReplay, startWith } from 'rxjs';
+
 import { MqttService } from './mqtt.service';
 import type { Z2MDevice } from './mqtt.types';
 

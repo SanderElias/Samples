@@ -1,9 +1,11 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import type { NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BehaviorSubject, switchMap } from 'rxjs';
 
-import { Model, SampledataService } from '../sampledata.service';
+import type { Model} from '../sampledata.service';
+import { SampledataService } from '../sampledata.service';
 
 @Component({
   selector: 'se-template',

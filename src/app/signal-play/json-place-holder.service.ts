@@ -1,4 +1,5 @@
-import { Injectable, Signal, resource } from '@angular/core';
+import type { Signal} from '@angular/core';
+import { Injectable, resource } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 
-import { CalenderDay } from '../calenderDay';
+import type { CalenderDay } from '../calenderDay';
 import { DayCellComponent } from '../day-cell/day-cell.component';
 
 @Component({

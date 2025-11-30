@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { createSetStateMethod, modelFromLatest } from '@se-ng/observable-utils';
 import { BehaviorSubject } from 'rxjs';

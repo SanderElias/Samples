@@ -1,4 +1,4 @@
-import { httpResource, type HttpParamsOptions, type HttpResourceRef } from '@angular/common/http';
+import { httpResource, type HttpResourceRef } from '@angular/common/http';
 import { computed, inject, Injector, type Signal, untracked } from '@angular/core';
 
 export const injectCachedHttpResource = <T>(

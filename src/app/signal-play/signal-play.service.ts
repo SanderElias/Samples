@@ -1,6 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { DemoUserService } from '../demo-users.service.js';
 import { asyncComputed } from '@se-ng/signal-utils';
+
+import { DemoUserService } from '../demo-users.service.js';
 
 @Injectable({
   providedIn: 'root'

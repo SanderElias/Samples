@@ -1,11 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { BNodeComponent } from './b-node/b-node.component';
+import type {
+  BinNode} from './BinNode';
 import {
   addNode,
-  BinNode,
   createNode,
   dump,
   getRoot,

@@ -1,4 +1,4 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component } from '@angular/core';
 // import html2canvas from 'html2canvas';
 
 // import html2canvas from 'html2canvas';

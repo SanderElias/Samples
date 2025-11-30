@@ -1,7 +1,7 @@
-import { Str } from 'messagepack';
 import { micromark } from 'micromark';
 import { gfm, gfmHtml } from 'micromark-extension-gfm';
-import { Extension, type Effects, type State, type TokenizeContext } from 'micromark-util-types';
+import type { Extension} from 'micromark-util-types';
+import { type Effects, type State, type TokenizeContext } from 'micromark-util-types';
 
 export async function parser(content: string) {
   const html = micromark(content, {

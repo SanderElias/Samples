@@ -1,6 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, QueryList, ViewChildren } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import type { QueryList} from '@angular/core';
+import { Component, inject, ViewChildren } from '@angular/core';
+import type { NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BehaviorSubject, combineLatest, filter, firstValueFrom, map, startWith, switchMap, tap } from 'rxjs';
 
 import { AddressesService } from '../addresses.service';

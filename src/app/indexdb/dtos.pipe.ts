@@ -9,7 +9,8 @@ export const dTos = (date: Date) => {
   return `${split.year}-${split.month}-${split.day}T${split.hours}:${split.minutes}`;
 };
 
-import { Pipe, PipeTransform } from '@angular/core';
+import type { PipeTransform } from '@angular/core';
+import { Pipe } from '@angular/core';
 @Pipe({
   name: 'dTos',
   pure: false

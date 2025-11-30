@@ -102,6 +102,16 @@
             "buildTarget": "samples:build",
             "tsConfig": "projects/wire-it-editor/tsconfig.spec.json"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ],
+            "eslintConfig": "./eslint.config.mjs"
+          }
         }
       }
     },

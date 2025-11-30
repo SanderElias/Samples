@@ -1,6 +1,9 @@
-import { computed, Injectable, signal, Signal, type WritableSignal } from '@angular/core';
+import type { Signal} from '@angular/core';
+import { computed, Injectable, signal, type WritableSignal } from '@angular/core';
+
+import type { DbRecord, Id} from './in-mem.model';
+import { type NewDbRecord } from './in-mem.model';
 import { assertRecord, createId } from './in-mem-utils';
-import { DbRecord, Id, type NewDbRecord } from './in-mem.model';
 
 @Injectable({
   providedIn: 'root'

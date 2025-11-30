@@ -1,4 +1,5 @@
-import { Directive, ElementRef, inject, Input, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { Directive, ElementRef, inject, Input } from '@angular/core';
 
 @Directive({
   selector: '[id]'

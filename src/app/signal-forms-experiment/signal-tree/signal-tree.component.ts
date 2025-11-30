@@ -1,8 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { applyEach, disabled, form, minLength, readonly, required, schema } from '@angular/forms/signals';
-import { TreeNodeEditComponent } from './tree-node-edit/tree-node-edit.component';
 
-import { SignalTreeNode } from './signal-tree-node.model';
+import { TreeNodeEditComponent } from './tree-node-edit/tree-node-edit.component';
+import type { SignalTreeNode } from './signal-tree-node.model';
 
 @Component({
   selector: 'se-signal-tree',

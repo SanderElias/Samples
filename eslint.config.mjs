@@ -32,20 +32,20 @@ export default [
       'unused-imports/no-unused-imports': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
 
-      '@angular-eslint/component-selector': [
-        'warn',
-        {
-          type: 'element',
-          style: 'kebab-case',
-        },
-      ],
+      // '@angular-eslint/component-selector': [
+      //   '',
+      //   {
+      //     type: 'element',
+      //     style: 'kebab-case',
+      //   },
+      // ],
 
-      '@angular-eslint/component-class-suffix': [
-        'error',
-        {
-          suffixes: ['Component', 'Page', 'Modal', 'Form'],
-        },
-      ],
+      // '@angular-eslint/component-class-suffix': [
+      //   'error',
+      //   {
+      //     suffixes: ['Component', 'Page', 'Modal', 'Form'],
+      //   },
+      // ],
 
       '@typescript-eslint/member-ordering': 'off',
       '@typescript-eslint/naming-convention': 'off',

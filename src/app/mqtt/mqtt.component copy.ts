@@ -1,9 +1,7 @@
-import { Component, Injectable, inject, signal, OnDestroy } from '@angular/core';
-import { type OnMessageCallback } from 'mqtt';
+import { JsonPipe } from '@angular/common';
+import type { OnDestroy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
-  Observable,
-  ReplaySubject,
-  Subject,
   filter,
   map,
   repeat,
@@ -13,8 +11,8 @@ import {
   tap,
   timer,
 } from 'rxjs';
+
 import { observableComputed } from '../signal-utils';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-mqtt',

@@ -1,6 +1,6 @@
-import { afterRenderEffect, Component, computed, effect, ElementRef, inject, model, NgZone } from '@angular/core';
+import { afterRenderEffect, Component, computed, ElementRef, inject, model, NgZone } from '@angular/core';
 
-import { Cell } from '../cells.component';
+import type { Cell } from '../cells.component';
 
 const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
 

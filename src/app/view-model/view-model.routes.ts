@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
 export const routes: Routes = [
   { path: 'theBad', loadComponent: () => import('./vm-home/vm-home.component').then(m => m.VmHomeComponent) },

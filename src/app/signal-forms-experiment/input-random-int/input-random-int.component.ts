@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, linkedSignal, model, signal, type Signal, type WritableSignal } from '@angular/core';
+import { Component, computed, input, linkedSignal, model, signal, type WritableSignal } from '@angular/core';
 import type { FormValueControl } from '@angular/forms/signals';
 
 const MAX = 1000;

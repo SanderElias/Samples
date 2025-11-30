@@ -1,7 +1,7 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, computed,inject } from '@angular/core';
 
-import { ZigbeeService } from './zigbee.service';
 import type { Z2MDevice } from './mqtt.types';
+import { ZigbeeService } from './zigbee.service';
 
 @Component({
   selector: 'app-device-list',

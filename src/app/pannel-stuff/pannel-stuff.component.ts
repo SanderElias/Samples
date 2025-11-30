@@ -1,5 +1,6 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 

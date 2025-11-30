@@ -9,12 +9,14 @@ import {
 import { rxResource } from '@angular/core/rxjs-interop';
 import { deepEqual } from '@se-ng/signal-utils';
 import { EMPTY } from 'rxjs';
+
 import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
-import { MqttService } from './mqtt.service';
+
 import { PairButtonComponent } from './pair-button/pair-button.component';
 import { extractPrefix, PowerMeterComponent } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { persistentSignal } from './util/idbstorage';
+import { MqttService } from './mqtt.service';
 import { ZigbeeService } from './zigbee.service';
 
 export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'test'] as const;

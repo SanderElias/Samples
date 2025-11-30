@@ -1,3 +1,6 @@
+import type {
+  WritableSignal
+} from '@angular/core';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -6,8 +9,7 @@ import {
   HostListener,
   inject,
   NgZone,
-  signal,
-  WritableSignal
+  signal
 } from '@angular/core';
 
 import { CellComponent } from './cell/cell.component';

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
+
 import { InMemDb } from './in-mem-db.service';
-import { set } from 'idb-keyval';
 
 @Component({
   selector: 'se-in-mem-sample',

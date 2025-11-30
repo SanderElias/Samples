@@ -1,7 +1,9 @@
-import { Component, effect, ElementRef, inject, input, linkedSignal, output, viewChild } from '@angular/core';
-import { RelationsService } from '../relations.service';
+import type { ElementRef} from '@angular/core';
+import { Component, effect, inject, input, linkedSignal, output, viewChild } from '@angular/core';
 import { deepEqual } from '@se-ng/signal-utils';
+
 import type { UserCard } from '../../generic-services/address.service';
+import { RelationsService } from '../relations.service';
 import { flattenRecord } from '../utils/flatten-record';
 import { unFlattenRecord } from '../utils/un-flattenRecord';
 

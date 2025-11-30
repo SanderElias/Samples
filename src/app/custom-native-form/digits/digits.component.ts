@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, input, model, inject, signal, afterRenderEffect, Optional } from '@angular/core';
+import { afterRenderEffect, Component, computed, ElementRef, inject,signal } from '@angular/core';
 
 class SignalFormController extends HTMLElement {
   static observedAttributes = ['value'] as const; // we probably need a couple more here.

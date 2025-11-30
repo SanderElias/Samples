@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { CellComponent } from '../cell/cell.component';
 

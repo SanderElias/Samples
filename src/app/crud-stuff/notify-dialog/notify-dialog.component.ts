@@ -1,6 +1,7 @@
-import { afterRenderEffect, Component, ElementRef, inject, input, viewChild } from '@angular/core';
+import type { ElementRef} from '@angular/core';
+import { afterRenderEffect, Component, inject, input, viewChild } from '@angular/core';
+
 import { NotifyDialogService } from './notify-dialog.service';
-import { trace } from 'console';
 
 @Component({
   selector: 'se-notify-dialog',

@@ -6,7 +6,6 @@ import {
   inject,
   Injector,
   Input,
-  OnInit,
   SecurityContext
 } from '@angular/core';
 import { createCustomElement } from '@angular/elements';

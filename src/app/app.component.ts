@@ -1,4 +1,5 @@
-import { AfterContentInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import type { AfterContentInit} from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { ShowSourceComponent } from './show-source/show-source.component';

@@ -1,4 +1,6 @@
-import { Component, ElementRef, Signal, afterRenderEffect, computed, inject, input, model, viewChild } from '@angular/core';
+import type { ElementRef, Signal} from '@angular/core';
+import { afterRenderEffect, Component, computed, inject, input, model, viewChild } from '@angular/core';
+
 import { zigbeePrefixes } from '../../mqtt.component';
 import { ZigbeeService } from '../../zigbee.service';
 import { extractPrefix } from '../power-meter.component';

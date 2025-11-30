@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, finalize, map, Observable, tap, timer } from 'rxjs';
+import type { Observable} from 'rxjs';
+import { BehaviorSubject, combineLatest, finalize, map, tap, timer } from 'rxjs';
 
 import { combinator } from './combinator';
 

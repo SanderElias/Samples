@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SeLetDirective } from '@se-ng/let';
 import { timer } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';

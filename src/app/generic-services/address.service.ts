@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
+import type { Observable} from 'rxjs';
+import { from, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
+
 import { createUniqueId } from '../util/random-things';
-import { fi } from '@faker-js/faker';
 
 export interface UserCard {
   id: string;

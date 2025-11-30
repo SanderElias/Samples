@@ -1,7 +1,9 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
+
 import { EvSourceDbService } from '../ev-source-db.service';
 import type { DbRecord } from '../event-source.types';
 import { type UniqueId } from '../unique-id-helpers';
+
 import { FieldEditComponent } from './field-edit/field-edit.component';
 
 export type FieldType = 'string' | 'number' | 'boolean' | 'symbol' | 'date' | 'nonEditable';

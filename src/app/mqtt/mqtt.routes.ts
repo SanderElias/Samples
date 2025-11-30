@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
@@ -6,7 +6,7 @@ export const routes: Routes = [
     loadComponent: () => import('./device-list.component').then(m => m.DeviceListComponent),
   },
 ];
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {

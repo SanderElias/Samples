@@ -1,7 +1,8 @@
 import { Component, inject, type Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SwapiRoot, SwapiService } from '@se-ng/swapi';
+import type { SwapiRoot} from '@se-ng/swapi';
+import { SwapiService } from '@se-ng/swapi';
 import { combineLatest, firstValueFrom, of } from 'rxjs';
 import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 

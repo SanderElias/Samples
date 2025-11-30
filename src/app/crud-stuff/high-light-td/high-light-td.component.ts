@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, afterEveryRender, inject, viewChild, DOCUMENT } from '@angular/core';
+import { afterEveryRender, ChangeDetectionStrategy, Component, DOCUMENT,ElementRef, inject, viewChild } from '@angular/core';
+
 import { HighLightBodyComponent } from '../high-light-body/high-light-body.component';
 
 @Component({

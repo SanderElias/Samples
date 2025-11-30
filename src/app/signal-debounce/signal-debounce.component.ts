@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, resource, signal } from '@angular/core';
 import { debouncedComputed } from '@se-ng/signal-utils';
 

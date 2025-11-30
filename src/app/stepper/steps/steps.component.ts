@@ -1,5 +1,4 @@
 import {
-  afterNextRender,
   afterRenderEffect,
   Component,
   DestroyRef,
@@ -9,6 +8,7 @@ import {
   untracked,
   type WritableSignal
 } from '@angular/core';
+
 import { StepDataService } from '../step-data.service';
 
 @Component({

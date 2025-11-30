@@ -1,4 +1,5 @@
-import { Component, DestroyRef, inject, Injectable, signal, WritableSignal } from '@angular/core';
+import type { WritableSignal } from '@angular/core';
+import { Component, DestroyRef, inject, Injectable, signal } from '@angular/core';
 
 @Component({
   selector: 'se-connected-websocket',

@@ -1,5 +1,4 @@
-import { afterRenderEffect, Component, ElementRef, inject, input } from '@angular/core';
-import { set } from 'idb-keyval';
+import { Component, ElementRef, inject, input } from '@angular/core';
 
 @Component({
   selector: 'digit-input[name][value]',

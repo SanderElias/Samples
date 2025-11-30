@@ -1,10 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormControl, ɵInternalFormsSharedModule } from '@angular/forms';
-import { combineLatest, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { ɵInternalFormsSharedModule,ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import { combineLatest } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
 
-import { AddressService, UserCard } from '../../generic-services/address.service';
+import type { UserCard } from '../../generic-services/address.service';
+import { AddressService } from '../../generic-services/address.service';
 
 type Vm = [UserCard[], string];
 

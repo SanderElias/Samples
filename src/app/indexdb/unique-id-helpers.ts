@@ -1,4 +1,3 @@
-import { da } from '@faker-js/faker';
 
 export type UniqueId = string & { __brand: 'Unique identifier' };
 

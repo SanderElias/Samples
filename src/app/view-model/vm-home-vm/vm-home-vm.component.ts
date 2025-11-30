@@ -1,7 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChildren } from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
-import { combineLatest, NEVER, Observable, of, timer } from 'rxjs';
+import type { Observable} from 'rxjs';
+import { combineLatest, NEVER, of, timer } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -19,7 +20,8 @@ import { RakiService } from '../../../app/rijks/raki.service';
 import { PaintingComponent } from '../painting/painting.component';
 import { PlayButtonComponent } from '../play-button/play-button.component';
 import { QuoteComponent } from '../quote/quote.component';
-import { Quote, QuoteService } from '../quote/quote.service';
+import type { Quote} from '../quote/quote.service';
+import { QuoteService } from '../quote/quote.service';
 import { ObsFromEvent } from '../vm-home/ObsFromEvent';
 
 interface Vm {

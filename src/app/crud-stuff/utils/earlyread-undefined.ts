@@ -1,4 +1,4 @@
-import { Signal } from '@angular/core';
+import type { Signal } from '@angular/core';
 
 /**
  * utility function to read a signal and return undefined if the signal is not set yet.

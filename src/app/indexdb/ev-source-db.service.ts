@@ -1,5 +1,6 @@
-import { computed, DestroyRef, inject, Injectable, signal, type Signal, type WritableSignal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, type Signal, signal, type WritableSignal } from '@angular/core';
 import { deepEqual } from '@se-ng/signal-utils';
+
 import { EventSourceService } from './event-source.service';
 import type { DbRecord } from './event-source.types';
 import { createId, isId, type UniqueId } from './unique-id-helpers';

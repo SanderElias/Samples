@@ -16,7 +16,6 @@ const ids = [
   {id: 'r57G8Z6Dah8ta8mm'},
 ];
 
-import { signal } from '@angular/core';
 
 
 class batchGetter {

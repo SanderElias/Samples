@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, computed,signal } from '@angular/core';
 
 @Component({
   selector: 'se-view-transitions',

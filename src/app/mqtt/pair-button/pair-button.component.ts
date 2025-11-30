@@ -1,6 +1,8 @@
-import { afterRenderEffect, Component, computed, ElementRef, inject, input, signal, Signal, viewChild } from '@angular/core';
-import { ZigbeeService } from '../zigbee.service';
+import type { Signal} from '@angular/core';
+import { afterRenderEffect, Component, computed, ElementRef, inject, input, signal, viewChild } from '@angular/core';
+
 import type { ZigbeePrefixes } from '../mqtt.component';
+import { ZigbeeService } from '../zigbee.service';
 
 @Component({
   selector: 'se-pair-button',

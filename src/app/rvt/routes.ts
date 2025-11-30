@@ -1,4 +1,4 @@
-import { Route } from '@angular/router';
+import type { Route } from '@angular/router';
 
 const routes: Route[] = [
   { path: 'template', loadComponent: () => import('./template/template.component') },

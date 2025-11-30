@@ -1,5 +1,5 @@
-import { Component, computed, input } from '@angular/core';
-import { DemoUserService } from '../../demo-users.service';
+import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'se-dummy-content',

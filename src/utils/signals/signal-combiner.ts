@@ -1,4 +1,5 @@
-import { computed, effect, isSignal, Signal, signal } from '@angular/core';
+import type { Signal} from '@angular/core';
+import { computed, effect, isSignal, signal } from '@angular/core';
 
 class demo {
   s1 = signal(1);

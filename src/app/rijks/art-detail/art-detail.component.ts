@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { RakiObject } from '../rakiCollection';
+import type { RakiObject } from '../rakiCollection';
 @Component({
   selector: 'app-art-detail',
   templateUrl: './art-detail.component.html',

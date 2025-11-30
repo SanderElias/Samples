@@ -1,6 +1,7 @@
-import { Component, signal, effect } from '@angular/core';
-import { InputHostComponent } from './input-host/input-host.component';
 import { JsonPipe } from '@angular/common';
+import { Component, effect,signal } from '@angular/core';
+
+import { InputHostComponent } from './input-host/input-host.component';
 
 @Component({
   selector: 'se-input-host-experiment',

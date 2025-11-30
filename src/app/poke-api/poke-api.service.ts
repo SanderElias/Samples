@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { addToCache, cacheHas, getFromCache, initCache } from '@se-ng/swapi';
-import { EMPTY, from, Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { EMPTY, from } from 'rxjs';
 import { concatMap, expand, map, reduce, tap, toArray } from 'rxjs/operators';
 
 @Injectable({
