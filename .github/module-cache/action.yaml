@@ -17,6 +17,8 @@ runs:
         node-version: ${{ matrix.node }}
         cache: 'pnpm'
     - name: Install dependencies
-      run: pnpm install
+      run: |
+        pnpm config set auto-install-peers false
+        pnpm install
       shell: bash
 
