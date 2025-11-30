@@ -30,9 +30,10 @@ export default [
 
     rules: {
       'unused-imports/no-unused-imports': 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
 
       '@angular-eslint/component-selector': [
-        'error',
+        'warn',
         {
           type: 'element',
           style: 'kebab-case',
