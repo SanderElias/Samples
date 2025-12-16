@@ -1,9 +1,11 @@
-import { Component, computed, input, linkedSignal, model, signal, type WritableSignal } from '@angular/core';
-import type { FormValueControl } from '@angular/forms/signals';
+import { } from '@angular/compiler';
+import { Component, computed, inject, input, linkedSignal, model, signal, type WritableSignal } from '@angular/core';
+import { Field, type FormValueControl } from '@angular/forms/signals';
 
 const MAX = 1000;
+
 @Component({
-  selector: 'se-input-random-int',
+  selector: 'se-input-random-int [field]',
   imports: [],
   template: `
     <span (click)="showMinMax.set(!showMinMax())" title="click to set boundaries">current value: {{ value() }} </span>
@@ -25,6 +27,7 @@ const MAX = 1000;
         [max]="max() ?? MAX"
         [value]="upperBoundary()"
         (input)="upperBoundary.set(+$event.target.value)"
+        (blur)="field.state().markAsTouched()"
         step="1"
     /></label>
     <button type="button" (click)="getRandomInt()">Get random int between {{ lowerBoundary() }} and {{ upperBoundary() }}</button>
@@ -32,9 +35,10 @@ const MAX = 1000;
   styleUrl: './input-random-int.component.css',
   host: {
     '[class.min-max]': 'showMinMax()'
-  }
+  },
 })
 export class InputRandomIntComponent implements FormValueControl<number> {
+  readonly field = inject(Field<number>);
   readonly MAX = MAX;
   readonly value = model<number>(0);
   readonly min = input<number | undefined>(0);

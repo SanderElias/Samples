@@ -43,7 +43,7 @@ import { isObject } from '@se-ng/signal-utils';
         <label for="{{ _field }}">
           <span>{{ _field }}</span>
           <!-- <input type="text"  placeholder="{{ _field }}" [value]="fd().value()[_field]" /> -->
-          <input type="text" placeholder="{{ _field }}" [field]="fd[_field]" />
+          <!-- <input type="text" placeholder="{{ _field }}" [field]="fd[_field]" /> -->
         </label>
       }
     </form>
@@ -67,7 +67,7 @@ export class DynamicComponent {
   }
 }
 
-function getPropNames<T>(this: FieldTree<T>): (keyof T)[] {
+export function getPropNames<T>(this: FieldTree<T>): (keyof T)[] {
   // console.log('this', this);
   const v: any = this().value();
   // @ts-expect-error

@@ -36,9 +36,6 @@ button[type='submit'] {
   grid-area: e;
 }
 
-form fieldset:first-child {
-  grid-area: contacts;
-}
 form fieldset:nth-child(2) {
   grid-area: contacts;
 }

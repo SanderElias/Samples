@@ -4,11 +4,15 @@ import {
   Component,
   ElementRef,
   inject,
+  input,
   signal,
   viewChild,
-  ViewEncapsulation} from '@angular/core';
+  ViewEncapsulation,
+  type WritableSignal
+} from '@angular/core';
 import { Field, form, submit } from '@angular/forms/signals';
 
+import { FormsModule } from '@angular/forms';
 import { ContactsComponent } from './contacts/contacts.component';
 import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
 import { TagsComponent } from './tags/tags.component';
@@ -18,7 +22,7 @@ import { ShowErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
 
 @Component({
-  imports: [Field, TagsComponent, ContactsComponent, InputRandomIntComponent, ShowErrorsInDom],
+  imports: [Field, TagsComponent, ContactsComponent, InputRandomIntComponent, ShowErrorsInDom, FormsModule],
   template: `
     <h1>
       Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small>
@@ -31,7 +35,7 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
         </label>
         <label for="dob">
           <span>Date of Birth</span>
-          <input id="dob" type="date" [field]="fd.dob" showError autocomplete="bday"/>
+          <input id="dob" type="date" [field]="fd.dob" showError autocomplete="bday" />
         </label>
         <label for="password">
           <span>Password</span>
@@ -39,7 +43,14 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
         </label>
         <label for="confirm">
           <span>Confirm Password</span>
-          <input id="confirm" type="password" placeholder="Confirm Password" [field]="fd.confirm" showError autocomplete="new-password" />
+          <input
+            id="confirm"
+            type="password"
+            placeholder="Confirm Password"
+            [field]="fd.confirm"
+            showError
+            autocomplete="new-password"
+          />
         </label>
         <label>
           <span>Favorite Random Int</span>
@@ -99,6 +110,7 @@ export class SignalFormsExperimentComponent {
 
   async onSubmit(ev: Event) {
     ev.preventDefault();
+    // this.fd().markAsDirty()
 
     if (this.fd().valid()) {
       if (Math.random() < 0.6) {
@@ -109,6 +121,4 @@ export class SignalFormsExperimentComponent {
       }
     }
   }
-
-
 }

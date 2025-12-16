@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  padding: var(--size-2);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2)
+}

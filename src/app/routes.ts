@@ -287,8 +287,12 @@ export const routes: Routes = [
     path: 'inMem',
     loadComponent: () => import('./in-mem-sample/in-mem-sample.component').then(m => m.InMemSampleComponent)
   },
+  {
+    path: 'dynSignalForm',
+    loadComponent: () => import('./dynsignal-form/dynsignal-form.component').then(m => m.DynsignalFormComponent)
+  },
 
   // { path: '**', redirectTo: 'routeList' },
-  { path: '**', redirectTo: 'inMem' }
+  { path: '**', redirectTo: 'dynSignalForm' }
   // { path: '**', redirectTo: 'vt' }
 ];

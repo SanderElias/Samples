@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, resource, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
+import { HttpActionClient } from '@se-ng/signal-utils';
+import { firstValueFrom } from 'rxjs';
 
 const mm = import('micromark');
 const mmGfm = import('micromark-extension-gfm');
@@ -9,23 +12,26 @@ const mmGfm = import('micromark-extension-gfm');
   selector: 'se-blogs',
   imports: [],
   template: `
-    <!-- @defer (hydrate never) { -->
-    <article class="rich-text" [innerHTML]="testblog.value()"></article>
-    <!-- } -->
+    @defer (hydrate never) {
+      <article class="rich-text" [innerHTML]="testblog.value()"></article>
+    }
   `,
   styleUrl: './blogs.component.css',
   encapsulation: ViewEncapsulation.None
 })
 export class BlogsComponent {
   san = inject(DomSanitizer);
+  http = inject(HttpClient);
   title = inject(Title);
 
   testblog = resource({
     params: () => `/assets/articles/dry-kiss.md`, // hardcoded for now.
     loader: async ({ params }) => {
       console.log('request', params);
-      const response = await fetch(params);
-      const content = await response.text();
+      // const response = await fetch(params);
+      // const content = await response.text();
+      const content = await firstValueFrom(this.http.get(params, { responseType: 'text' }));
+      console.log('content', content);
       if (content) {
         const { parser } = await import('./parser');
         const html = await parser(content);

@@ -36,6 +36,29 @@ blockquote {
   }
 }
 
+blockquote>p:has(span.icon) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+
+  span.icon {
+    position: relative;
+    grid-column: 1 / 2;
+    grid-row: 1 / 10;;
+    font-size: var(--font-size-5);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline-end: var(--size-3);
+  }
+}
+
+/* blockquote:has(span.icon)::before {
+  content: '!';
+  position: relative;  background-color: var(--red-10);
+} */
+
 @scope (.rich-text) to (.not-rich-text) {
   a {
     color: var(--primary);
