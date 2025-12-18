@@ -19,6 +19,4 @@ if (environment.production) {
   // setTimeout(() => ng.enableProfiling(), 0);
 }
 
-
-
 bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));

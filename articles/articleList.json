@@ -1,0 +1,47 @@
+[
+  {
+    "id": "cjs99q9neybAj8mZ",
+    "description": "",
+    "tags": [],
+    "name": "404",
+    "title": "Blog not found.",
+    "published": true,
+    "dateAdded": "2025-12-18T12:05:49.644Z"
+  },
+  {
+    "id": "cwsi9h9neybEjwmG",
+    "description": "",
+    "tags": [],
+    "name": "dry-kiss",
+    "title": "Dry kiss Yagni ASAP.",
+    "published": true,
+    "dateAdded": "2025-12-18T12:05:49.644Z"
+  },
+  {
+    "id": "cQsh9G9we3bljkmw",
+    "description": "",
+    "tags": [],
+    "name": "enum",
+    "title": "what about ENUM's in typescript?",
+    "published": false,
+    "dateAdded": "2025-12-18T12:05:49.644Z"
+  },
+  {
+    "id": "c4sl949je2bkjwm8",
+    "description": "",
+    "tags": [],
+    "name": "the-year-2038",
+    "title": "The year 2038 problem",
+    "published": true,
+    "dateAdded": "2025-12-18T12:05:49.644Z"
+  },
+  {
+    "id": "dUsT9b9AeDb2j5mj",
+    "description": "",
+    "tags": [],
+    "name": "what-is-data",
+    "title": "What is data",
+    "published": true,
+    "dateAdded": "2025-12-18T12:05:49.645Z"
+  }
+]

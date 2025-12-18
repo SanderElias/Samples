@@ -1,4 +1,3 @@
-import { provideZonelessChangeDetection } from '@angular/core';
 import type { BootstrapContext } from '@angular/platform-browser';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideServerRendering, withRoutes } from '@angular/ssr';
@@ -14,7 +13,7 @@ const bootstrap = (context: BootstrapContext) =>
     AppComponent,
     {
       ...config,
-      providers: [provideZonelessChangeDetection(), ...config.providers, provideServerRendering(withRoutes(serverRoutes))]
+      providers: [...config.providers, provideServerRendering(withRoutes(serverRoutes))]
     },
     context
   );

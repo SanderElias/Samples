@@ -5,11 +5,11 @@
 .error {
   color: red;
 }
-:host-context(.dark-theme) {
+/* :host-context(.dark-theme) {
   background-color: #333;
   color: white;
 }
 :host-context(.light-theme) {
   background-color: #f9f9f9;
   color: black;
-}
+} */

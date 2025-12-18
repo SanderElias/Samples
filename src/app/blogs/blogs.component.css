@@ -1,6 +1,7 @@
 :host {
   display: block;
   block-size: calc(100vh - 45px);
+  max-inline-size: 98vw;
   overflow-y: auto;
   padding-inline-end: 1rem;
 
@@ -52,12 +53,13 @@ blockquote>p:has(span.icon) {
     justify-content: center;
     padding-inline-end: var(--size-3);
   }
+
+  &:has(span[data-icon="NOTE"]) {
+    color: var(--blue-6);
+  }
 }
 
-/* blockquote:has(span.icon)::before {
-  content: '!';
-  position: relative;  background-color: var(--red-10);
-} */
+
 
 @scope (.rich-text) to (.not-rich-text) {
   a {

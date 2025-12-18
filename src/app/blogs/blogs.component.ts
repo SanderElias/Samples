@@ -1,20 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, resource, ViewEncapsulation } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { Component, inject, input, linkedSignal, resource, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
-import { HttpActionClient } from '@se-ng/signal-utils';
 import { firstValueFrom } from 'rxjs';
+import type { Id } from '../in-mem-sample/in-mem.model';
 
-const mm = import('micromark');
-const mmGfm = import('micromark-extension-gfm');
-// import {gfm, gfmHtml} from 'micromark-extension-gfm'
+interface Article {
+  id: Id;
+  name: string;
+  title: string;
+  description: string;
+  tags: string[];
+  published?: boolean;
+  dateAdded: string;
+}
 
 @Component({
   selector: 'se-blogs',
   imports: [],
   template: `
-    @defer (hydrate never) {
-      <article class="rich-text" [innerHTML]="testblog.value()"></article>
-    }
+    <!-- @defer (hydrate never) { -->
+    <article class="rich-text" [innerHTML]="testblog.value()"></article>
+    <!-- } -->
   `,
   styleUrl: './blogs.component.css',
   encapsulation: ViewEncapsulation.None
@@ -23,15 +29,27 @@ export class BlogsComponent {
   san = inject(DomSanitizer);
   http = inject(HttpClient);
   title = inject(Title);
+  id = input<string>();
+  blogListResource = httpResource<Article[]>(() => '/assets/articles/articleList.json');
+
+  url = linkedSignal(() => {
+    const list = this.blogListResource.value();
+    const id = this.id();
+    if (list && id) {
+      const blog = list.find(b => b.id === id || b.name === id);
+      if (blog) {
+        return `/assets/articles/${blog.name}.md`;
+      } else {
+        console.warn('Blog not found for id:', id);
+        return `/assets/articles/404.md`;
+      }
+    }
+  });
 
   testblog = resource({
-    params: () => `/assets/articles/dry-kiss.md`, // hardcoded for now.
+    params: this.url, // hardcoded for now.
     loader: async ({ params }) => {
-      console.log('request', params);
-      // const response = await fetch(params);
-      // const content = await response.text();
       const content = await firstValueFrom(this.http.get(params, { responseType: 'text' }));
-      console.log('content', content);
       if (content) {
         const { parser } = await import('./parser');
         const html = await parser(content);

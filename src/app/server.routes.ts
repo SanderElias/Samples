@@ -17,7 +17,7 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: 'blog/:id',
     renderMode: RenderMode.Prerender,
-    getPrerenderParams: async () => [{ id: 'dry-kiss' }, { id: 'dry-kiss-2' }]
+    getPrerenderParams: getArticles
   },
   {
     path: 'mqtt',
@@ -36,3 +36,19 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   }
 ];
+
+async function getArticles(): Promise<{ id: string }[]> {
+  // throw new Error('Not implemented yet');
+  try {
+    const {  readFile } = await import('node:fs/promises');
+    const { join } = await import('node:path');
+
+    const curPath = import.meta.dirname;
+    const articlesPath = join(curPath, '../../articles');
+    const files = JSON.parse(await readFile(articlesPath, 'utf-8'));
+    return files.map((f: { id: string }) => ({ id: f.id }));
+  } catch (err) {
+    console.error('Error reading articles:', err);
+    return [{ id: 'error-during-reading-articles' }];
+  }
+}

@@ -1,4 +1,4 @@
-import { isIntegerString } from '../../../../dist/se-ng/signal-utils';
+import { isIntegerString } from '@se-ng/signal-utils';
 
 export function unFlattenRecord(r: Record<string, any>): Record<string, any> {
   return Object.entries(r).reduce((acc, [k, v]) => {

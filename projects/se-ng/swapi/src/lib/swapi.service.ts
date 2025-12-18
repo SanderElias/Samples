@@ -29,7 +29,7 @@ import { SwapiRoot } from './SwapiRoot.interface';
   providedIn: 'root'
 })
 export class SwapiService {
-  baseUrl = `https://swapi.dev/api/`;
+  baseUrl = `https://swapi.info/api/`;
   swapiRoot: SwapiRoot = {} as SwapiRoot;
   /**
    * Helper. uses fetch to load data from an URL
@@ -58,16 +58,16 @@ export class SwapiService {
 
   // load all people form the paged API
   // start off with loading the first page.
-  swPeople$ = from(this.load<PeopleRoot>(`${this.baseUrl}people/`)).pipe(
+  swPeople$ = from(this.load<Person[]>(`${this.baseUrl}people/`)).pipe(
     // expand to get additional pages
     // hint: r.next means there's another page
-    expand(r => (r.next ? this.load<PeopleRoot>(r.next) : EMPTY)),
+    // expand(r => (r.next ? this.load<PeopleRoot>(r.next) : EMPTY)),
 
     // for each page, extract the people (in results)
-    map((r: PeopleRoot) => r.results),
+    // map((r: PeopleRoot) => r.results),
 
     // scan to accumulate the pages (emitted by expand)
-    reduce<Person[], Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), [] as Person[]),
+    // reduce<Person[], Person[]>((allPeople, pageOfPeople) => allPeople.concat(pageOfPeople), [] as Person[]),
 
     map(persons =>
       persons.map(
@@ -95,7 +95,7 @@ export class SwapiService {
   getAllPagedData(url: string): Observable<any> {
     return from(this.load<any>(`${url}`)).pipe(
       /** use the expand operator to feed in the remaining pages */
-      expand(r => (r['next'] ? this.load(r['next']) : EMPTY))
+      // expand(r => (r['next'] ? this.load(r['next']) : EMPTY))
     );
   }
 
@@ -133,12 +133,12 @@ export class SwapiService {
    */
   get<T>(url: string): Observable<T> {
     const base = Object.values(this.swapiRoot).find(topUrl => url.toLowerCase().includes(topUrl.toLowerCase())) as string;
-    if (base) {
-      return this.getAllPagedData(base).pipe(
-        reduce((allData, page: any) => allData.concat(page.results), []),
-        map((allData: any[]) => allData.find(row => row.url === url))
-      );
-    }
+    // if (base) {
+    //   return this.getAllPagedData(base).pipe(
+    //     reduce((allData, page: any) => allData.concat(page.results), []),
+    //     map((allData: any[]) => allData.find(row => row.url === url))
+    //   );
+    // }
     return from(this.load(url) as Promise<T>);
   }
 
@@ -237,12 +237,11 @@ export class SwapiService {
    */
   findIn = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
     this.getAllRows(selectedSet).pipe(
-      map(list => list.find((row: any) => (row.name || row.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())))
+      map(list => list.find((row: any) => (row?.name || row?.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())))
     );
 
   getSetNames = (selectedSet: keyof SwapiRoot): Observable<string[]> =>
-    this.getAllRows(selectedSet).pipe(map(list => list.map((row: any) => row.name || row.title || '')));
-
+    this.getAllRows(selectedSet).pipe(map(list => list.map((row: any) => row?.name || row?.title || '')));
   /**
    * Helper to detect the table of an url. return the name of the set, or undefined/false
    * @param url String to test
