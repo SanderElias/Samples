@@ -2,17 +2,8 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { Component, inject, input, linkedSignal, resource, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { firstValueFrom } from 'rxjs';
-import type { Id } from '../in-mem-sample/in-mem.model';
-
-interface Article {
-  id: Id;
-  name: string;
-  title: string;
-  description: string;
-  tags: string[];
-  published?: boolean;
-  dateAdded: string;
-}
+import type { Article } from './article.interface';
+import { Bloglist } from './bloglist';
 
 @Component({
   selector: 'se-blogs',
@@ -28,21 +19,16 @@ interface Article {
 export class BlogsComponent {
   san = inject(DomSanitizer);
   http = inject(HttpClient);
+  blogList = inject(Bloglist);
   title = inject(Title);
   id = input<string>();
-  blogListResource = httpResource<Article[]>(() => '/assets/articles/articleList.json');
 
   url = linkedSignal(() => {
-    const list = this.blogListResource.value();
-    const id = this.id();
-    if (list && id) {
-      const blog = list.find(b => b.id === id || b.name === id);
-      if (blog) {
-        return `/assets/articles/${blog.name}.md`;
-      } else {
-        console.warn('Blog not found for id:', id);
-        return `/assets/articles/404.md`;
-      }
+    const blog = this.blogList.getBlogById(this.id());
+    if (blog) {
+      return `/assets/articles/${blog.name}.md`;
+    } else {
+      return `/assets/articles/404.md`;
     }
   });
 
@@ -65,4 +51,8 @@ export class BlogsComponent {
       return 'blog not found';
     }
   });
+
+  constructor() {
+    this.blogList.idList().then(l => console.log('blogsComponent idlist', l));
+  }
 }

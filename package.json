@@ -158,7 +158,7 @@
         "package.json"
       ],
       "output": [
-        "dist/se-ng/headless"
+        "dist/se-ng/headless-ui"
       ],
       "dependencies": [
         "build.lib.signalUtils"

@@ -19,6 +19,7 @@
             "prerender": {
               "discoverRoutes": true
             },
+            "outputMode": "static",
             "index": "src/index.html",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [

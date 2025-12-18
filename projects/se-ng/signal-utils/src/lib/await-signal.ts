@@ -1,4 +1,4 @@
-import { effect, Injector, linkedSignal, type Signal, inject, runInInjectionContext } from '@angular/core';
+import { effect, inject, Injector, runInInjectionContext, type Signal } from '@angular/core';
 import { Deferred } from './util/deferred';
 
 export type Predicate<T> = (source: Partial<T> | T) => boolean;
@@ -18,7 +18,7 @@ export const injectAwaitSignal = (injector = inject(Injector)) => {
    *
    * @throws {Error} If the signal is destroyed before the predicate is satisfied.
    */
-  return <T>(signal: Signal<T>, predicate: Predicate<T>): Promise<T> =>
+  return <T>(signal: () => T, predicate: Predicate<T>): Promise<T> =>
     runInInjectionContext(injector, () => awaitSignal(signal, predicate));
 };
 
@@ -32,7 +32,7 @@ export const injectAwaitSignal = (injector = inject(Injector)) => {
  *
  * @throws {Error} If the signal is destroyed before the predicate is satisfied.
  */
-export const awaitSignal = <T>(signal: Signal<T>, predicate: Predicate<T>): Promise<T> => {
+export const awaitSignal = <T>(signal: () => T, predicate: Predicate<T>): Promise<T> => {
   const deferred = new Deferred<T>();
   const effectRef = effect(
     onCleanUp => {

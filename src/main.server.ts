@@ -5,6 +5,7 @@ import { provideServerRendering, withRoutes } from '@angular/ssr';
 import { AppComponent } from './app/app.component';
 import { config } from './app/app.config.server';
 import { serverRoutes } from './app/server.routes';
+import { withComponentInputBinding } from '@angular/router';
 
 globalThis.serverSide = true;
 
@@ -13,7 +14,7 @@ const bootstrap = (context: BootstrapContext) =>
     AppComponent,
     {
       ...config,
-      providers: [...config.providers, provideServerRendering(withRoutes(serverRoutes))]
+      providers: [...config.providers, provideServerRendering(withRoutes(serverRoutes), )]
     },
     context
   );
