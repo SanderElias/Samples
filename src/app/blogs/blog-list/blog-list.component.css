@@ -11,4 +11,8 @@
   li {
     margin:0;
   }
+
+  li + li {
+    margin-block-start: var(--size-3);
+  }
 }
