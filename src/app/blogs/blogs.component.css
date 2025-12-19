@@ -20,9 +20,7 @@ se-blogs {
       ' . menu . '
       ' footer footer footer ';
     justify-items: center;
-
   }
-
 
   h1 {
     grid-area: header;
@@ -82,7 +80,8 @@ se-blogs {
     display: grid;
     grid-template-columns: auto 1fr;
 
-    p, table {
+    p,
+    table {
       grid-column: 2 / 3;
     }
   }
@@ -148,7 +147,7 @@ se-blogs {
     margin-block: 1.25rem;
   }
 
-  p:has(code) {
+  :is(p, li):has(>code) {
     line-height: 1.7;
   }
 
