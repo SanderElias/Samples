@@ -1,1 +1,0 @@
-import{a,b}from"./chunk-ZN2C6EPV.js";import"./chunk-24PFRLXC.js";import"./chunk-EXWTEKIS.js";import"./chunk-JATLGNPD.js";import"./chunk-CZFNHVRJ.js";import"./chunk-2UPSODIL.js";import"./chunk-CSX5VI5F.js";import"./chunk-3AYJJ7MG.js";import"./chunk-C6Q5SG76.js";export{a as DynamicComponent,b as getPropNames};

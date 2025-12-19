@@ -51,22 +51,20 @@ This guide is an forever in progress document that I update from time to time.
      - the more there are, the harder it is to understand and use it.
      - there is a high probability that each of them will cause conditionals inside of your code-unit.
      - this increases complexity and reduces readability.
-   - aim for a maximum of 3-5 inputs/outputs/parameters (combined!) per [^code-unit].
+   - aim for a maximum of 3-5 inputs/outputs/parameters (combined!) per code-unit.
    - grouping things into objects can be a valid option, when (all of the following apply):
      - the grouped things are related.
      - the grouped things are optional.
      - the group itself is optional.
 
+> [!NOTE] code-unit: chis means a variable, a function, a Class, a Macro, a Decorator, a Template, a Partial, a Component, a Module, a Package, a Library, a Framework, a Service, a Microservice, a Plugin, a Middleware, a Hook, a Mixin, a Trait, a Aspect, a ... you get the idea. There are many ways to abstract code away. Choose the one that fits your language and your problem best.
 
 ## Conclusion
 
 Following these guidelines will help you write clean, maintainable, and readable code. Remember that these are guidelines, not strict rules. Use your judgment and adapt them to fit the specific needs of your project.
 I will add more guidelines over time, so check back every now and then. Also I will add some explanations and examples (or links to relevant articles) later.
 
-## footnotes
 
-
-[^code-unit]: code-unit: chis means a variable, a function, a Class, a Macro, a Decorator, a Template, a Partial, a Component, a Module, a Package, a Library, a Framework, a Service, a Microservice, a Plugin, a Middleware, a Hook, a Mixin, a Trait, a Aspect, a ... you get the idea. There are many ways to abstract code away. Choose the one that fits your language and your problem best.
 
 <span style="display:none;">
 ## (old version, kept for now, so I don't forget adding things to the above one. also this one was made for a public repo with user committed demos) Those are my recommendations on top of the Angular Style guide:

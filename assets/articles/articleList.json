@@ -41,7 +41,7 @@
     "tags": [],
     "name": "enum",
     "title": "what about ENUM's in typescript?",
-    "published": true,
+    "published": false,
     "dateAdded": "2025-12-19T05:57:13.532Z"
   },
   {
@@ -70,5 +70,14 @@
     "title": "What is data",
     "published": true,
     "dateAdded": "2025-12-19T05:57:13.533Z"
+  },
+  {
+    "id": "xCgWt94YrscijEmA",
+    "description": "",
+    "tags": [],
+    "name": "angular-signals-www",
+    "title": "Angular Signals WWW",
+    "published": true,
+    "dateAdded": "2025-12-19T10:54:03.057Z"
   }
 ]
