@@ -7,19 +7,19 @@ import type { Article } from '../article.interface';
   selector: 'ul [id="blog-list"]',
   imports: [RouterLink],
   template: `
-  @for (article of articles(); track article.id) {
-    <li>
-      <a [routerLink]="['/blog', article.id]">{{ article.title }}</a>
-    </li>
-  }
+    @for (article of articles(); track article.id) {
+      <li>
+        <a [routerLink]="['/blog', article.published ? article.name : article.id]">{{ article.title }}</a>
+      </li>
+    }
   `,
-  styleUrl: './blog-list.component.css',
+  styleUrl: './blog-list.component.css'
 })
 export class BlogListComponent {
   blogList = inject(Bloglist);
 
   articles = computed(() => {
-    const l =  this.blogList.getBlogs();
+    const l = this.blogList.getBlogs();
     const result: Article[] = [];
     for (const article of l) {
       if (article.published) {
@@ -27,6 +27,5 @@ export class BlogListComponent {
       }
     }
     return result;
-
-  })
+  });
 }

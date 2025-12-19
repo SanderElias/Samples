@@ -23,10 +23,11 @@ export class BlogsComponent {
   http = inject(HttpClient);
   blogList = inject(Bloglist);
   title = inject(Title);
-  id = input<string>('welcome');
+  id = input<string>();
 
   url = linkedSignal(() => {
-    const blog = this.blogList.getBlogById(this.id());
+    const id = this.id() ?? 'xYj937jtgycHjWm1';
+    const blog = this.blogList.getBlogById(id);
     if (blog) {
       return `/assets/articles/${blog.name}.md`;
     } else {

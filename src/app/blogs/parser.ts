@@ -25,7 +25,7 @@ export async function parser(content: string) {
     .use({
       gfm: true
     })
-    .use(markedFootnote())
+    // .use(markedFootnote())
     .parse(content);
 
   return context.toString();

@@ -136,7 +136,18 @@
         "build.lib.let",
         "build.lib.signalUtils",
         "build.lib.headless",
-        "build.simpleInjector"
+        "build.simpleInjector",
+        "build.lib.blogList"
+      ]
+    },
+    "build.lib.blogList" : {
+      "command": "node blogScan.ts",
+      "files": [
+        "articles/*.md"
+      ],
+      "clean": false,
+      "output": [
+        "articles/articleList.json"
       ]
     },
     "build.lib.let": {

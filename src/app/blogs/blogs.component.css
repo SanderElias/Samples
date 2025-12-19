@@ -13,13 +13,17 @@ se-blogs {
     ' footer footer footer footer ';
 
   @media (width < 1050px) {
-    grid-template-columns: 1fr minmax(0, 66ch) 1fr;
+    grid-template-columns: 1rem 1fr 1rem;
     grid-template-areas:
       ' . header . '
       ' . article . '
       ' . menu . '
       ' footer footer footer ';
     justify-items: center;
+  }
+
+  :where(h1, h2, h3, h4,  p, blockquote, ul, table) {
+    max-inline-size: unset;
   }
 
   h1 {
@@ -171,7 +175,7 @@ se-blogs {
     font-size: var(--font-size-h2, var(--font-size-5, 2rem));
     letter-spacing: -0.02em;
     line-height: 1.3333333;
-    margin-block: 2em 1em;
+    margin-block: 1em 1em;
   }
 
   h3,

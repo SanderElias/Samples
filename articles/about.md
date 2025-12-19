@@ -13,6 +13,21 @@ If you want to reach out to me:
 - join me on [AngularNerds](https://angularnerds.com)
 - join me on [Dutch Angular Group](https://www.meetup.com/dutch-angular-group/)
 
+## Some of the tech I use here
+
+- [Angular](https://angular.io)
+- [makred](https://marked.js.org/)
+- HTML
+- CSS
+- [OpenProps](https://open-props.style/)
+- [GitHib pages](https://pages.github.com/)
+
+### how??
+
+I write my articles in markdown. I use [makred](https://marked.js.org/) to convert the markdown to HTML. then I use Angular with SSG to generate static HTML pages for all of
+my articles. Finally I host it all on GitHub pages. 
+
+
 
 ## Conclusion
 

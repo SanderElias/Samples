@@ -110,11 +110,6 @@ export class DynsignalFormComponent {
 
   fields = getPropNames.bind(this.dataForm);
 
-  _ = effect(() => {
-    console.log('Current form data model:', this.model());
-    console.dir(this.dataForm());
-  });
-
   addField(fieldName: string, fieldType: (typeof types)[number], defaultValue: boolean | number | string) {
     this.formData.update(fd => {
       return {
