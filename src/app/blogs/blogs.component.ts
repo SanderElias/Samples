@@ -1,17 +1,19 @@
-import { HttpClient, httpResource } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, input, linkedSignal, resource, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { firstValueFrom } from 'rxjs';
-import type { Article } from './article.interface';
+import { BlogListComponent } from './blog-list/blog-list.component';
 import { Bloglist } from './bloglist';
 
 @Component({
   selector: 'se-blogs',
-  imports: [],
+  imports: [BlogListComponent],
   template: `
-    <!-- @defer (hydrate never) { -->
-    <article class="rich-text" [innerHTML]="testblog.value()"></article>
-    <!-- } -->
+    @defer (hydrate never) {
+      <h1>{{ blogList.getBlogById(id())?.title || 'Welcome to the blog' }}</h1>
+      <article class="rich-text" [innerHTML]="testblog.value()"></article>
+      <ul id="blog-list"></ul>
+    }
   `,
   styleUrl: './blogs.component.css',
   encapsulation: ViewEncapsulation.None
@@ -21,7 +23,7 @@ export class BlogsComponent {
   http = inject(HttpClient);
   blogList = inject(Bloglist);
   title = inject(Title);
-  id = input<string>();
+  id = input<string>('welcome');
 
   url = linkedSignal(() => {
     const blog = this.blogList.getBlogById(this.id());
@@ -33,7 +35,7 @@ export class BlogsComponent {
   });
 
   testblog = resource({
-    params: this.url, // hardcoded for now.
+    params: () => this.url(),
     loader: async ({ params }) => {
       const content = await firstValueFrom(this.http.get(params, { responseType: 'text' }));
       if (content) {
@@ -44,15 +46,10 @@ export class BlogsComponent {
         if (title) {
           this.title.setTitle(title[1]);
         }
-        // console.log('html', html);
         return this.san.bypassSecurityTrustHtml(html);
       }
-      // console.log('data', data)
       return 'blog not found';
     }
   });
 
-  constructor() {
-    this.blogList.idList().then(l => console.log('blogsComponent idlist', l));
-  }
 }

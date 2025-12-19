@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { Injectable, effect } from '@angular/core';
+import { Injectable, computed, effect } from '@angular/core';
 import { Deferred } from '@se-ng/signal-utils';
 import type { Article } from './article.interface';
 
@@ -16,11 +16,9 @@ export class Bloglist {
     }
   });
 
-  getBlogs(): Article[] {
-    const list = this.#blogListResource.value() || [];
-
-    return list.filter(blog => blog.published);
-  }
+  getBlogs = computed(() => {
+    return this.#blogListResource.value() || [];
+  })
 
   getBlogById(id: string | undefined): Article | undefined {
     if (!id) {
@@ -39,7 +37,6 @@ export class Bloglist {
         list.push({ id: blog.name });
       }
     }
-    console.log('idList', list);
     return list;
   };
 }

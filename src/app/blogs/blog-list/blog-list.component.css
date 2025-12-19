@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  background-color: var(--surface-2);
+  padding: var(--size-4);
+  margin: 0;
+  list-style-type: none;
+  inline-size: fit-content;
+  block-size: fit-content;
+  border-radius: var(--border-size-5);
+
+  li {
+    margin:0;
+  }
+}
