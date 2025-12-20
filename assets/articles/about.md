@@ -20,7 +20,7 @@ If you want to reach out to me:
 - HTML
 - CSS
 - [OpenProps](https://open-props.style/)
-- [GitHib pages](https://pages.github.com/)
+- [GitHub pages](https://pages.github.com/)
 
 ### how??
 
