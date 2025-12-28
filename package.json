@@ -257,7 +257,7 @@
     "idb-keyval": "6.2.2",
     "jsdom": "27.3.0",
     "marked": "17.0.1",
-    "marked-footnote": "1.4.0",
+    "marked-highlight": "2.2.3",
     "messagepack": "1.1.12",
     "micromark": "4.0.2",
     "micromark-extension-gfm": "3.0.0",
