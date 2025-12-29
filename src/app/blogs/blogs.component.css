@@ -131,19 +131,30 @@ se-blogs {
   }
 
   a {
-    color: var(--primary);
+    color: var(--blue-4);
     cursor: pointer;
     font-size: inherit;
     font-weight: 700;
     line-height: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--primary);
+    text-decoration-color: var(--blue-4);
     text-underline-offset: 2px;
 
     &[href] {
       &:hover,
       &:focus-visible {
-        color: var(--primary-light);
+        color: var(--blue-6);
+      }
+    }
+
+    &:visited {
+      color: var(--blue-7);
+
+      &[href] {
+        &:hover,
+        &:focus-visible {
+          color: var(--blue-9);
+        }
       }
     }
   }
