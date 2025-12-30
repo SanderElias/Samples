@@ -84,7 +84,7 @@ export class ShowSourceComponent {
   );
 }
 
-const updateRouteInfo = (meta: Meta, title: Title) => (routeInfo: RouteInfo) => {
+export const updateRouteInfo = (meta: Meta, title: Title) => (routeInfo: RouteInfo) => {
   if (routeInfo?.path) {
     const origin = `https://samples.selias.dev`;
     const desc =
@@ -128,6 +128,6 @@ export interface RouteInfo {
 }
 
 // typeguard function. It returns true if the event is a GuardsCheckEnd, and makes sure the type is correct
-function isGuardsCheckEnd(event: unknown): event is GuardsCheckEnd {
+export function isGuardsCheckEnd(event: unknown): event is GuardsCheckEnd {
   return event instanceof GuardsCheckEnd;
 }
