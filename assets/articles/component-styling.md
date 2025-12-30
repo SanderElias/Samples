@@ -342,7 +342,7 @@ classNames, unless you really have to. Let the cascade do its work. Use CSS cust
 properties to your advantage. They are powerful tools that can help you create
 flexible and maintainable designs.
 
-## Refrerences
+## References
 
 A lot of inspiration was taken from [OpenProps - CSS Design System](https://open-props.style/)
 by [Adam Argyle](https://argyleink.com/). I'm using it for this blog as well. Have
