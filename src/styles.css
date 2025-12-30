@@ -116,6 +116,9 @@ body {
 :root {
 }
 html:has(div#outlet) {
+  inline-size: 100dvw;
+  block-size: 100dvh;
+  overflow: hidden;
   /* styles applied only for the demo components identified by the div#outlet */
   body {
     margin: 0;

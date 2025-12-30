@@ -15,6 +15,15 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
     }
     for (const r of routes) {
       const imp = r.loadChildren?.toString() ?? r.loadComponent?.toString();
+      if (r.path === '' && r.children?.length > 0) {
+        console.log('has children', r.path);
+        r.children.forEach(child => {
+          if (!child.path.includes(':') && child.path !== '**') {
+            routes.push(child);
+          }
+        });
+        continue;
+      }
       // console.log(await (r.loadChildren()));
 
       if (r.path !== '**' && !r.path.includes(':')) {
@@ -26,7 +35,7 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
         const barePart = cleanFolder.substring(0, cleanFolder.lastIndexOf('/'));
         result.push({
           path: `${path}/${r.path}`,
-          modulePath: barePart,
+          modulePath: barePart
         });
         if (r.loadChildren !== undefined) {
           const modulePath = join(cwd, 'src/app/', folder + '.ts');
@@ -50,7 +59,7 @@ async function extractRoutes(path) {
   }
   const content = readFileSync(path, 'utf8'); // load ts fike into memory
   const code = transpile(content, {
-    module: pkg.ModuleKind.ES2022,
+    module: pkg.ModuleKind.ES2022
   }); // transpile to es2022 using typescript compiler
   try {
     const mod = await import(`data:application/javascript;base64,${btoa(code)}`); // import the transpiled code from a string

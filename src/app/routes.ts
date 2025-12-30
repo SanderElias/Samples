@@ -156,7 +156,7 @@ export const routes: Routes = [
         loadComponent: () => import('./resizable-panels/resizable-panels.component').then(m => m.ResizablePanelsComponent)
       },
       {
-        path: 'signalsForms',
+        path: 'signalsInForm',
         loadComponent: () => import('./signals-form/signals-form.component').then(m => m.SignalsFormsComponent)
       },
 

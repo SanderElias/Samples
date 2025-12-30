@@ -1,6 +1,4 @@
-import { th } from '@faker-js/faker';
 import { chromium } from '@playwright/test';
-import { createRequire } from 'module';
 import { join } from 'path';
 // const require = createRequire(import.meta.url);
 // const sharp = require('sharp');
@@ -18,7 +16,8 @@ async function getPage() {
     if (_pg) { return _pg; }
     const br = await browser;
     const page = await br.newPage({
-      viewport: { width: 800, height: 600 }
+      viewport: { width: 800, height: 600 },
+      colorScheme: 'dark'
     });
 
     await page.setDefaultTimeout(15000);
@@ -109,5 +108,5 @@ export async function createSnapshotFor(route) {
 }
 
 export const closeBrowser = async () => {
-  browser.close();
+  (await browser)?.close();
 };
