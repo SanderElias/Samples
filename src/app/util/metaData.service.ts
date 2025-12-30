@@ -8,7 +8,6 @@ import type { Article } from '../blogs/article.interface';
 import { isGuardsCheckEnd } from '../show-source/show-source.component';
 import { RouteInfo } from './RouteInfo';
 import { updateRouteInfo } from './update-meta-data';
-import { pa } from '../../../dist/samples/browser/chunk-KIBRB3UE';
 
 export abstract class MetaData {
   abstract currentRouteInfo(): RouteInfo | undefined;
