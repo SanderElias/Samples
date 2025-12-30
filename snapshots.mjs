@@ -16,7 +16,7 @@ async function getPage() {
     if (_pg) { return _pg; }
     const br = await browser;
     const page = await br.newPage({
-      viewport: { width: 800, height: 600 },
+      viewport: { width: 1200, height: 628 },
       colorScheme: 'dark'
     });
 
@@ -47,7 +47,7 @@ const scaled = {
   y: Math.round(34 * 0.75)
 };
 
-const blueSkyHandle = await sharp(
+const bySkyHandle = await sharp(
   new Buffer.from(`<svg width="170" height="34">
   <path fill="#ffffff"
     d="M 4,0 170,0 166,34 0,34 Z"
@@ -80,19 +80,18 @@ export async function createSnapshotFor(route) {
     route.title = route.title || title;
     /** drop the starting '/' and replace the rest with '-' */
     const name = route.path.substr(1).replace(/\//g, '-');
-    /** playwright provides a 1280x720 buffer */
     const background = await page.screenshot();
     sharp(background)
       .composite([
         {
           input: foreground.data,
-          top: 600 - foreground.info.height,
-          left: 800 - foreground.info.width
+          top: 628 - foreground.info.height,
+          left: 1200 - foreground.info.width
         },
         {
-          input: blueSkyHandle,
-          top: 600 - 29,
-          left: 660
+          input: bySkyHandle,
+          top: 628 - 29,
+          left: 1200 - scaled.x - 10
         }
       ])
       .toFile(`${outputFile}${name}.png`);
