@@ -32,6 +32,9 @@ export async function parser(content: MarkDown): Promise<string> {
     const { default: css } = await import('highlight.js/lib/languages/css');
     const { default: html } = await import('highlight.js/lib/languages/xml');
     const { default: javascript } = await import('highlight.js/lib/languages/javascript');
+    const { default: plaintext } = await import('highlight.js/lib/languages/plaintext');
+
+    hljs.registerLanguage('plaintext', plaintext);
     hljs.registerLanguage('typescript', typescript);
     hljs.registerLanguage('css', css);
     hljs.registerLanguage('html', html);

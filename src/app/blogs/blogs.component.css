@@ -13,6 +13,7 @@ se-blogs {
     ' . header header . '
     ' . article menu . '
     ' footer footer footer footer ';
+  column-gap: var(--size-3);
 
   @media (width < 1050px) {
     grid-template-columns: 1fr;
@@ -60,7 +61,8 @@ se-blogs {
     grid-area: article;
     margin-inline: auto;
     max-inline-size: var(--article-inline-size);
-    text-wrap: balance;
+    text-wrap: wrap;
+    text-wrap: pretty;
 
     h1:first-child {
       display: none;
@@ -86,10 +88,10 @@ se-blogs {
   blockquote {
     padding: var(--size-2);
     padding-inline-start: var(--size-3);
-    max-inline-size: 50ch;
     border-start-end-radius: var(--size-2);
     border-end-end-radius: var(--size-2);
-    margin-inline-start: var(--size-4);
+    margin-inline: var(--size-4);
+
     background-color: var(--surface-2);
 
     p {
@@ -175,8 +177,8 @@ se-blogs {
   /* Text */
   p {
     /* font-size: inherit; */
-    line-height: 1.35;
-    margin-block: 1.25rem;
+    line-height: 1.5;
+    margin-block: var(--size-2);
   }
 
   :is(p, li):has(> code) {
