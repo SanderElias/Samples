@@ -63,6 +63,9 @@ html {
 }
 
 :root {
+  /** allow animation auto and friends */
+  interpolate-size: allow-keywords;
+
   color-scheme: light;
 
   /* set defaults */
@@ -97,6 +100,8 @@ html {
   color: var(--text-1);
 }
 
+
+
 form {
   accent-color: var(--brand);
 }
@@ -111,12 +116,15 @@ body {
 :root {
 }
 html:has(div#outlet) {
+  inline-size: 100dvw;
+  block-size: 100dvh;
+  overflow: hidden;
   /* styles applied only for the demo components identified by the div#outlet */
   body {
     margin: 0;
     padding: 0;
     min-height: 99vh;
-    color: var(--text-1)
+    color: var(--text-1);
   }
 
   a {

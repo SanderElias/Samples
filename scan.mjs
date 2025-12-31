@@ -1,4 +1,6 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { constants, readFileSync, writeFileSync } from 'fs';
+import { access } from 'fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { join } from 'path';
 import { cwd } from 'process';
 import { traverseRoutes } from './routeTraverse.mjs';
@@ -9,6 +11,9 @@ const folder = process.cwd();
 const routesFile = join(folder, 'src/assets/routes.json');
 const tsconfig = join(folder, './src/tsconfig.app.json');
 const gitBase = 'https://github.com/SanderElias/Samples/tree/main';
+const articleListPath = join(folder, 'articles/articleList.json');
+const srcFolder = join(folder, 'src');
+
 /** load and parse the old routes file */
 let oldRoutes;
 try {
@@ -19,13 +24,41 @@ try {
 }
 
 const manualTraverse = [];
+// traverse the routes in the app
 try {
   await traverseRoutes(join(cwd(), './src/app/routes.ts'), '', manualTraverse);
   manualTraverse.forEach(r => {
     r.gitFolder = `${gitBase}${r.modulePath}`;
   });
 } finally {
-  console.dir(manualTraverse.sort((a, b) => a.path.localeCompare(b.path)).map(r => r.path));
+  // console.dir(manualTraverse.sort((a, b) => a.path.localeCompare(b.path)))
+  //.map(r => r.path));
+}
+
+// add the blog articles manually
+const articles = [];
+
+if (await stat(articleListPath).catch(() => false)) {
+  try {
+    const existingData = JSON.parse(await readFile(articleListPath, 'utf-8'));
+    existingData.forEach(art => {
+      if (art.published) {
+        manualTraverse.push({
+          path: `/blog/${art.name}`,
+          modulePath: `/articles/${art.name}.md`,
+          gitFolder: `${gitBase}/articles/`,
+          title: art.title
+        });
+        console.log(`Added article route for /blog/${art.name}`);
+      }
+    });
+  } catch {
+    console.log('Error reading existing articleList.json. exiting.');
+    process.exit(1);
+  }
+} else {
+  console.log('No existing articleList.json found!');
+  process.exit(1);
 }
 
 // process.exit(0);
@@ -40,7 +73,7 @@ const startRoutes = [...oldRoutes, ...manualTraverse]
   }, [])
   .sort((a, b) => a.path.localeCompare(b.path));
 
-console.dir(startRoutes);
+// console.dir(startRoutes);
 // process.exit(0);
 
 const newRoutes = [];
@@ -48,7 +81,7 @@ const newRoutes = [];
 /** update the existing routes if needed */
 for (const route of startRoutes) {
   try {
-    console.log(`processing ${route.path}`);
+    // console.log(`processing ${route.path}`);
     const pos = route.path.indexOf(':');
     const path = pos === -1 ? route.path : route.path.substring(0, pos - 1);
     const found = oldRoutes.find(r => r.path === path);
@@ -57,6 +90,12 @@ for (const route of startRoutes) {
         console.log(`${route.path} has changed`);
         found.modulePath = route.modulePath;
         found.gitFolder = `${gitBase}${route.modulePath}`;
+      } else {
+        newRoutes.push(found);
+        if (found.largeImage && (await fileExists(join(srcFolder, found.largeImage)))) {
+          console.log(`${path} already has a large image, skipping snapshot creation`);
+          continue; // no need to create a new snapshot
+        }
       }
     } else {
       console.log(`${path} has been added`);
@@ -72,5 +111,14 @@ for (const route of startRoutes) {
 }
 
 /** write the result back into the assets folder */
-// writeFileSync(routesFile, JSON.stringify(newRoutes, null, 2));
+writeFileSync(routesFile, JSON.stringify(newRoutes, null, 2));
 closeBrowser();
+
+async function fileExists(filePath) {
+  try {
+    await access(filePath, constants.F_OK);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

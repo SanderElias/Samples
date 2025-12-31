@@ -1,6 +1,8 @@
 # Angular Signals WWW
 
-> [!WARNING] This is a republication of an article I wrote _before_ signals where introduced in Angular. Since then the API has changed, and signals are now a part of Angular stable.
+> [!WARNING] This is a republication of an article I wrote _before_ signals where
+> introduced in Angular. Since then the API has changed, and signals are now
+> part of Angular stable.
 
 
 In this Article, I will go into the **_Why_**, **_What_**, and **_Wherefor_** of Angular Signals. And why this is such a big deal that everyone seems to have an opinion on. How it is going to be a complementary technology to Angular, and not a replacement to anything already there. (spoiler alert: it is not a replacement for RxJS)
@@ -246,7 +248,7 @@ This is a very contrived example. Let me be clear, I'm unaware of the team havin
 
 Completely out of context, but I just saw this tweet:
 
-![image](./assets/quote.png)
+![image](/assets/articles/assets/quote.png)
 
 So it turns out my `futureMagicalSignalFromLifeCycleHook('destroy')` is going to be a thing. And I'm really happy about that.
 

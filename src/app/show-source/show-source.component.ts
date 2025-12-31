@@ -4,6 +4,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
+import type { RouteInfo } from '../util/RouteInfo';
+import { updateRouteInfo } from '../util/update-meta-data';
 
 @Component({
   selector: 'app-show-source',
@@ -84,50 +86,9 @@ export class ShowSourceComponent {
   );
 }
 
-const updateRouteInfo = (meta: Meta, title: Title) => (routeInfo: RouteInfo) => {
-  if (routeInfo?.path) {
-    const origin = `https://samples.selias.dev`;
-    const desc =
-      routeInfo.description ||
-      `Angular Sample page for ${routeInfo.path}
-    sourcecode: ${routeInfo.gitFolder}
-    demo: ${`${origin}${routeInfo.path}`}`;
 
-    const updateMeta = (prop: string, content: string) => {
-      if (meta.getTag(`property="${prop}"`)) {
-        meta.updateTag({ property: prop, content });
-      } else {
-        meta.addTag({ property: prop, content });
-      }
-    };
-    const location = new URL(origin + routeInfo.path);
-
-    updateMeta('og:type', 'website');
-    updateMeta('og:title', routeInfo.title);
-    updateMeta('og:description', desc);
-    updateMeta('description', desc);
-    updateMeta('og:image', `${origin}${routeInfo.largeImage}`);
-    updateMeta('og:url', location.href);
-    updateMeta('twitter:title', routeInfo.title);
-    updateMeta('twitter:description', desc);
-    updateMeta('twitter:card', 'summary_large_image');
-    updateMeta('twitter:domain', origin);
-    updateMeta('twitter:image', `${origin}${routeInfo.largeImage}`);
-    updateMeta('twitter:url', location.href);
-    title.setTitle(routeInfo.title);
-  }
-};
-
-export interface RouteInfo {
-  path: string;
-  modulePath: string;
-  gitFolder: string;
-  title: string;
-  largeImage: string;
-  description: string;
-}
 
 // typeguard function. It returns true if the event is a GuardsCheckEnd, and makes sure the type is correct
-function isGuardsCheckEnd(event: unknown): event is GuardsCheckEnd {
+export function isGuardsCheckEnd(event: unknown): event is GuardsCheckEnd {
   return event instanceof GuardsCheckEnd;
 }

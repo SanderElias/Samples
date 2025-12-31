@@ -1,6 +1,5 @@
 import { afterNextRender, effect, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { asyncComputed } from '@se-ng/signal-utils';
-import { ob } from 'dist/samples/browser/chunk-T5E62NYD';
 import { get, set } from 'idb-keyval';
 
 interface FileState {
