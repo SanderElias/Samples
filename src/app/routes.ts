@@ -299,6 +299,8 @@ export const routes: Routes = [
         loadComponent: () => import('./dynsignal-form/dynsignal-form.component').then(m => m.DynsignalFormComponent)
       },
 
+      { path: 'dyn-route', loadChildren: () => import('./dyn-route/dyn-routes.routes').then(m => m.dynRoutes) },
+
       // { path: '**', redirectTo: 'routeList' },
       { path: '**', redirectTo: 'dynSignalForm' }
       // { path: '**', redirectTo: 'vt' }
