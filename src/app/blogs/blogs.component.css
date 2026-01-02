@@ -63,6 +63,7 @@ se-blogs {
     max-inline-size: var(--article-inline-size);
     text-wrap: wrap;
     text-wrap: pretty;
+    word-break: break-word;
 
     h1:first-child {
       display: none;
