@@ -246,6 +246,7 @@
     "@fortawesome/free-regular-svg-icons": "7.1.0",
     "@fortawesome/free-solid-svg-icons": "7.1.0",
     "@ngneat/falso": "8.0.2",
+    "@plausible-analytics/tracker": "0.4.4",
     "animate-css-grid": "1.5.1",
     "bson": "7.0.0",
     "chance": "1.1.13",
