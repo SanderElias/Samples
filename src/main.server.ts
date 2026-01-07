@@ -5,7 +5,6 @@ import { provideServerRendering, withRoutes } from '@angular/ssr';
 import { AppComponent } from './app/app.component';
 import { config } from './app/app.config.server';
 import { serverRoutes } from './app/server.routes';
-import { withComponentInputBinding } from '@angular/router';
 
 globalThis.serverSide = true;
 
