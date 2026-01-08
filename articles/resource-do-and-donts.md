@@ -203,80 +203,64 @@ cheaper. (remember, resources have a cost, on _TOP_ of that).
 Good! Always question things.
 Let me sample you a simple CRUD endpoint service:
 
-```typescript
-@injectable({ providedIn: 'root' })
+````typescript
+@Injectable()
 export class UserService {
   #http = inject(HttpClient);
-  #base = signal(signal<number | undefined>(undefined));
+  #base = signal(signal<number | undefined>(undefined).asReadonly());
   #userId = linkedSignal(() => this.#base()());
   #userUrl = computed(() => {
     const id = this.#userId();
     return id ? `https://api.example.com/users/${id}` : undefined;
   });
   userResource = httpResource<User>(this.#userUrl);
+  actionRunning = signal(false);
+  lastError = signal<Error | undefined>(undefined);
 
-  async create(user: User): Promise<boolean> {
-    try {
-      const result = await firstValueFrom(this.#http.post('https://api.example.com/users/user', user));
-      // not real code, and assuming we directly want to load the new user:
-      if (result.ok) {
-        this.loadUser(result.id);
-      } else {
-        throw new Error('Failed to create user');
-      }
-    } catch (error) {
-      // we are here if there is _any_ error, network, server, etc.
-      console.error('Error creating user:', error);
-      return false; // our internal API uses boolean for success/failure
-    }
-    return true;
-  }
+  #handleEndpoint = (p: Observable<unknown>): Promise<boolean> => {
+    this.actionRunning.set(true);
+    this.lastError.set(undefined);
+    return firstValueFrom(p)
+      .then(() => true)
+      .catch(e => {
+        this.lastError.set(e as Error);
+        return false;
+      }) // retrowing, so the caller can also handle it
+      .finally(() => this.actionRunning.set(false));
+  };
 
-  link(idSignal: Signal<number | undefined>): void {
+  link(idSignal: Signal<number | undefined>) {
     this.#base.set(idSignal);
     return this; // convenience for chaining
   }
 
-  async read(id: number): void {
+  create(user: User): Promise<boolean> {
+    return this.#handleEndpoint(this.#http.post('https://api.example.com/users/user', user));
+  }
+
+  read(id: number) {
     this.#userId.set(id);
   }
 
-  async update(user: User): Promise<boolean> {
-    try {
-      const result = await firstValueFrom(this.#http.put(`https://api.example.com/users/${user.id}`, user));
-      if (result.ok) {
-        // our backend returns the updated user, no need for refetching
-        this.userResource.value.set(result.user);
-      } else {
-        throw new Error('Failed to update user');
+  update(user: User): Promise<boolean> {
+    return this.#handleEndpoint(this.#http.put(`https://api.example.com/users/${user.id}`, user)).then(success => {
+      if (success) {
+        this.userResource.value.set(user);
       }
-    } catch (error) {
-      console.error('Error updating user:', error);
-      return false;
-    }
-    return true;
+      return success;
+    });
   }
 
-  async delete(id: number): Promise<boolean> {
-    try {
-      const result = await firstValueFrom(this.#http.delete(`https://api.example.com/users/${id}`));
-      if (result.ok) {
-        // clear the resource if we deleted the current user
-        if (this.#userId() === id) {
-          this.#userId.set(undefined);
-          this.userResource.value.set(undefined);
-        }
-      } else {
-        throw new Error('Failed to delete user');
+  delete(id: number): Promise<boolean> {
+    return this.#handleEndpoint(this.#http.delete(`https://api.example.com/users/${id}`)).then(success => {
+      if (success) {
+        this.#userId.set(undefined);
+        this.userResource.value.set(undefined);
       }
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      return false;
-    }
-    return true;
+      return success;
+    });
   }
-}
-```
+}```
 
 Wow, that is a lot of code. I agree there, but abstracting that away
 is going to be in a follow-up article. The important part here is that
@@ -299,21 +283,16 @@ export class UserDetailComponent {
   userId = input<number | undefined>();
   #userService = inject(UserService).link(this.userId);
   userResource = this.#userService.userResource;
-  showSaving = signal(false);
+  showSaving = this.#userService.actionRunning;
 
   async saveUser(user: User) {
-    this.showSaving.set(true);
-    try {
-      const success = await this.#userService.update(user);
-      if (!success) {
-        // show error to user
-      }
-    } finally {
-      this.showSaving.set(false);
-    }
+    const success = await this.#userService.update(user);
+    if (!success) { // handle error, maybe show a toast?
+      console.error('Failed to save user:', this.#userService.lastError());
+    }  
   }
-} 
-```
+}
+````
 
 There is still a bit of boilerplate for handling the showSaving state,
 but that is manageable, and also going to be addressed in the follow-up article.

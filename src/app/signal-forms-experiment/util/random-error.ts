@@ -1,4 +1,4 @@
-import { customError, type FieldTree } from '@angular/forms/signals';
+import { type FieldTree } from '@angular/forms/signals';
 import { isObject } from '@se-ng/signal-utils';
 
 import { flattenRecord } from '../../crud-stuff/utils/flatten-record';
@@ -21,11 +21,11 @@ export const randomError = async (form: FieldTree<unknown>) => {
         return f[key] ?? f;
       }, form);
       console.log('random field with error', randomField.join('.'));
-      return customError({
+      return {
         kind: 'randomError',
         message: 'This is a random server-side error for testing purposes',
         field
-      });
+      };
     } catch {
       return null;
     }
