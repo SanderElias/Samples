@@ -19,11 +19,12 @@ let oldRoutes;
 try {
   oldRoutes = JSON.parse(readFileSync(routesFile, 'utf8').toString('utf8') || '') || [];
 } catch {
-  // resort to an empty array if the file is not found or cant be parsed
-  oldRoutes = [];
+  console.log('No existing routes.json found, or error during JSON parsing. exiting');
+  process.exit(1);
 }
 
 const manualTraverse = [];
+
 // traverse the routes in the app
 try {
   await traverseRoutes(join(cwd(), './src/app/routes.ts'), '', manualTraverse);
@@ -33,15 +34,20 @@ try {
 } finally {
   // console.dir(manualTraverse.sort((a, b) => a.path.localeCompare(b.path)))
   //.map(r => r.path));
+  console.log(`Finished traversing routes.ts, found ${manualTraverse.length} routes.`);
 }
 
-// add the blog articles manually
-const articles = [];
-
+// merge in the articles from the articleList.json
 if (await stat(articleListPath).catch(() => false)) {
   try {
     const existingData = JSON.parse(await readFile(articleListPath, 'utf-8'));
     existingData.forEach(art => {
+      manualTraverse.push({
+        path: `/blog/${art.id}`,
+        modulePath: `/articles/${art.id}.md`,
+        gitFolder: `${gitBase}/articles/`,
+        title: art.title
+      });
       if (art.published) {
         manualTraverse.push({
           path: `/blog/${art.name}`,
@@ -49,7 +55,7 @@ if (await stat(articleListPath).catch(() => false)) {
           gitFolder: `${gitBase}/articles/`,
           title: art.title
         });
-        console.log(`Added article route for /blog/${art.name}`);
+        // console.log(`Added article route for /blog/${art.name}`);
       }
     });
   } catch {
@@ -63,52 +69,58 @@ if (await stat(articleListPath).catch(() => false)) {
 
 // process.exit(0);
 
-const startRoutes = [...oldRoutes, ...manualTraverse]
-  .reduce((acc, route) => {
-    const found = acc.find(r => r.path === route.path);
-    if (!found) {
-      acc.push(route);
-    }
-    return acc;
-  }, [])
-  .sort((a, b) => a.path.localeCompare(b.path));
-
-// console.dir(startRoutes);
-// process.exit(0);
-
 const newRoutes = [];
-
-/** update the existing routes if needed */
-for (const route of startRoutes) {
-  try {
-    // console.log(`processing ${route.path}`);
-    const pos = route.path.indexOf(':');
-    const path = pos === -1 ? route.path : route.path.substring(0, pos - 1);
-    const found = oldRoutes.find(r => r.path === path);
-    if (found) {
-      if (found.modulePath !== route.modulePath) {
-        console.log(`${route.path} has changed`);
-        found.modulePath = route.modulePath;
-        found.gitFolder = `${gitBase}${route.modulePath}`;
-      } else {
-        newRoutes.push(found);
-        if (found.largeImage && (await fileExists(join(srcFolder, found.largeImage)))) {
-          console.log(`${path} already has a large image, skipping snapshot creation`);
-          continue; // no need to create a new snapshot
-        }
-      }
-    } else {
-      console.log(`${path} has been added`);
-      oldRoutes.push({ ...route, path });
+// loop over the manually traversed routes and add them to the new routes list
+for (const route of manualTraverse) {
+  const old = oldRoutes.find(r => r.path === route.path);
+  if (old) {
+    // merge the old route with the new route
+    const newRoute ={
+      ...old,
+      modulePath: route.modulePath,
+      gitFolder: `${gitBase}${route.modulePath}`
     }
-    const newRouteInfo = await createSnapshotFor(route);
-    newRoutes.push(newRouteInfo);
-    /** give the CLI a bit of time */
-    await new Promise(r => setTimeout(r, 200));
-  } catch (e) {
-    console.error(e);
+    if (route.path.startsWith('/blog/') ) {
+      // if its an article route, update the title
+      if (route.title !== old.title) {
+        newRoute.title = route.title;
+        newRoute.largeImage = undefined; // force new snapshot
+      }
+      newRoute.gitFolder = `${gitBase}/articles/`;
+    }
+    newRoutes.push(newRoute);
+  } else {
+    // shiny new thing
+    newRoutes.push(route);
   }
 }
+
+// loop over the old routes to find any that are missing in the new routes
+for (const oldRoute of oldRoutes) {
+  const found = newRoutes.find(r => r.path === oldRoute.path);
+  if (!found) {
+    newRoutes.push(oldRoute);
+  }
+}
+
+// console.table(newRoutes.map(row => ({ path: row.path, title: row.title, largeImage: row.largeImage ? 'yes' : 'no' })));
+// process.exit(0);
+
+
+// We now have all routes, new and old, merged into newRoutes
+const sortedResult = newRoutes.sort((a, b) => a.path.localeCompare(b.path));
+for (const route of sortedResult) {
+  route.description ??= '';
+  if (!route.largeImage || !(await fileExists(join(srcFolder, route.largeImage)))) {
+    console.log(`No large image for ${route.path}, creating snapshot...`);
+    const newRouteInfo = await createSnapshotFor(route);
+    route.largeImage = newRouteInfo.largeImage;
+    /** give the CLI a bit of time */
+    await new Promise(r => setTimeout(r, 200));
+  }
+}
+
+// console.table(sortedRoutes.map(row => ({ path: row.path, title: row.title, largeImage: row.largeImage ? 'yes' : 'no' })));
 
 /** write the result back into the assets folder */
 writeFileSync(routesFile, JSON.stringify(newRoutes, null, 2));

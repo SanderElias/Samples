@@ -16,7 +16,7 @@ export async function traverseRoutes(startModulePart, path = '', result = []) {
     for (const r of routes) {
       const imp = r.loadChildren?.toString() ?? r.loadComponent?.toString();
       if (r.path === '' && r.children?.length > 0) {
-        console.log('has children', r.path);
+        // console.log('has children', r.path);
         r.children.forEach(child => {
           if (!child.path.includes(':') && child.path !== '**') {
             routes.push(child);
@@ -64,7 +64,7 @@ async function extractRoutes(path) {
   try {
     const mod = await import(`data:application/javascript;base64,${btoa(code)}`); // import the transpiled code from a string
     const routes = mod.routes || mod.default || []; // get the routes from the module (use default if routes is not found)
-    console.log(`found ${routes.length} routes in ${path}`);
+    // console.log(`found ${routes.length} routes in ${path}`);
     return routes;
   } catch (e) {
     // console.error(e);

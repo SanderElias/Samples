@@ -97,10 +97,13 @@ export async function createSnapshotFor(route) {
       .toFile(`${outputFile}${name}.png`);
 
     route.largeImage = `/assets/snapshots/${name}.png`;
-    route.description = '';
+    route.description ??= '';
   } catch (e) {
     console.log(`Could not create snapshot for ${route.path}`, e);
     _pg = undefined;
+    // waits 2 seconds and tries again. This will reopen the browser
+    // also it will try endlessly until it works, I might want to add a counter here at some point
+    await new Promise(r => setTimeout(r, 2000));
     return createSnapshotFor(route);
   }
   return route;
