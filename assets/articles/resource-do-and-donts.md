@@ -1,4 +1,4 @@
-# Resources, what not to do
+# Let us resource all the things!
 
 ## what are resources?
 
@@ -203,76 +203,141 @@ cheaper. (remember, resources have a cost, on _TOP_ of that).
 Good! Always question things.
 Let me sample you a simple CRUD endpoint service:
 
-````typescript
+```typescript
+import { endpointHandler, successHandler, type Action, type Result } from './endpoint-action-handler';
 @Injectable()
 export class UserService {
   #http = inject(HttpClient);
+  #url = (id: number) => `/api/users/${id}`;
   #base = signal(signal<number | undefined>(undefined).asReadonly());
   #userId = linkedSignal(() => this.#base()());
   #userUrl = computed(() => {
     const id = this.#userId();
-    return id ? `https://api.example.com/users/${id}` : undefined;
+    return id ? this.#url(id) : undefined;
   });
   userResource = httpResource<User>(this.#userUrl);
-  actionRunning = signal(false);
-  lastError = signal<Error | undefined>(undefined);
-
-  #handleEndpoint = (p: Observable<unknown>): Promise<boolean> => {
-    this.actionRunning.set(true);
-    this.lastError.set(undefined);
-    return firstValueFrom(p)
-      .then(() => true)
-      .catch(e => {
-        this.lastError.set(e as Error);
-        return false;
-      }) // retrowing, so the caller can also handle it
-      .finally(() => this.actionRunning.set(false));
-  };
+  action = signal<Action>({ running: false });
 
   link(idSignal: Signal<number | undefined>) {
     this.#base.set(idSignal);
     return this; // convenience for chaining
   }
 
-  create(user: User): Promise<boolean> {
-    return this.#handleEndpoint(this.#http.post('https://api.example.com/users/user', user));
+  create(user: User): Promise<Result> {
+    return endpointHandler({
+      actionSignal: this.action,
+      serverCall: this.#http.post(this.#url(user.id), user),
+      actionType: 'create'
+    }).then(
+      successHandler(data => {
+        // assuming the server sends back the created user:
+        this.#userId.set((data as User).id);
+        this.userResource.value.set(data as User);
+      })
+    );
   }
 
   read(id: number) {
     this.#userId.set(id);
   }
 
-  update(user: User): Promise<boolean> {
-    return this.#handleEndpoint(this.#http.put(`https://api.example.com/users/${user.id}`, user)).then(success => {
-      if (success) {
+  update(user: User): Promise<Result> {
+    return endpointHandler({
+      serverCall: this.#http.put(this.#url(user.id), user),
+      actionType: 'update',
+      actionSignal: this.action
+    }).then(
+      successHandler(() => {
         this.userResource.value.set(user);
-      }
-      return success;
-    });
+      })
+    );
   }
 
-  delete(id: number): Promise<boolean> {
-    return this.#handleEndpoint(this.#http.delete(`https://api.example.com/users/${id}`)).then(success => {
-      if (success) {
+  delete(id: number): Promise<Result> {
+    return endpointHandler({
+      serverCall: this.#http.delete(this.#url(id)),
+      actionType: 'delete',
+      actionSignal: this.action
+    }).then(
+      successHandler(() => {
         this.#userId.set(undefined);
         this.userResource.value.set(undefined);
-      }
-      return success;
-    });
+      })
+    );
   }
-}```
+}
+```
 
-Wow, that is a lot of code. I agree there, but abstracting that away
-is going to be in a follow-up article. The important part here is that
-we only use the `httpResource` for the `read` operation. The other operations
-are one-off calls, and don't need the full state machine of the resource.
-This makes using this service easy to reason about, and efficient.
-Also, it implicitly handles the `error` and the `isGoing` states.
-In my follow-up article I will show how to abstract this, and as a added bonus
-I will expose an `isGoing` signal from the service itself, so the
-consuming component can easily show a 'busy' indicator when needed.
+<details>
+<summary>`endpoint-action-handler` code</summary>
 
-In a component, using this service would look like this:
+I have extracted the common logic for handling the endpoint
+actions into a separate file, to keep the service clean.
+
+```typescript
+import type { WritableSignal } from '@angular/core';
+import { type Observable, firstValueFrom } from 'rxjs';
+
+type ActionType = 'create' | 'update' | 'delete';
+
+type InitialAction = { running: false };
+type RunningAction = { running: true; actionType: ActionType };
+export type SuccessResult = { success: true; data: unknown };
+export type FailureResult = { success: false; error: Error };
+export type SuccessFulAction = { running: false; actionType: ActionType; lastResult: SuccessResult };
+export type FailedAction = { running: false; actionType: ActionType; lastResult: FailureResult };
+export type Action = InitialAction | RunningAction | SuccessFulAction | FailedAction;
+
+export type Result = SuccessResult | FailureResult;
+
+interface EndpointHandlerParams {
+  serverCall: Observable<unknown>;
+  actionType: ActionType;
+  actionSignal: WritableSignal<Action>;
+}
+
+export const endpointHandler = ({ serverCall, actionType, actionSignal }: EndpointHandlerParams): Promise<Result> => {
+  if (actionSignal().running) {
+    // prevent concurrent actions
+    throw new Error('Another action is already running');
+  }
+  // set action to running, and clear previous results
+  actionSignal.set({ running: true, actionType });
+  return firstValueFrom(serverCall)
+    .then(data => {
+      const lastResult: SuccessResult = { success: true, data };
+      actionSignal.set({ running: false, actionType, lastResult });
+      return lastResult;
+    })
+    .catch(e => {
+      const lastResult: FailureResult = { success: false, error: e };
+      actionSignal.set({ running: false, actionType, lastResult });
+      return lastResult;
+    });
+};
+
+export const successHandler =
+  (action: (data: unknown) => void) =>
+  (result: Result): Result => {
+    if (result.success) {
+      action(result.data);
+    }
+    return result;
+  };
+
+export const errorHandler =
+  (action: (error: Error) => void) =>
+  (result: Result): Result => {
+    if (!result.success) {
+      action(result.error);
+    }
+    return result;
+  };
+```
+
+</details>
+
+When using this in a component, using this service would look like this:
 
 ```typescript
 @Component({
@@ -281,18 +346,116 @@ In a component, using this service would look like this:
 })
 export class UserDetailComponent {
   userId = input<number | undefined>();
+  // linkt the userId signal to the service,
+  // so the service knows which user to load
   #userService = inject(UserService).link(this.userId);
   userResource = this.#userService.userResource;
-  showSaving = this.#userService.actionRunning;
+  // show a spinner when an action is running
+  actionSpinner = computed(() => {
+    return this.#userService.action().running;
+  });
 
   async saveUser(user: User) {
-    const success = await this.#userService.update(user);
-    if (!success) { // handle error, maybe show a toast?
-      console.error('Failed to save user:', this.#userService.lastError());
-    }  
+    const result = await this.#userService.update(user);
+    if (!result.success) {
+      // handle error, maybe show a toast?
+      console.error('Failed to save user:', result.error);
+    }
   }
-}
-````
 
-There is still a bit of boilerplate for handling the showSaving state,
-but that is manageable, and also going to be addressed in the follow-up article.
+  // as this is a detail component, we
+  // don't handle create and delete here
+  // ad that is not a responsibility of this component
+}
+```
+
+Lets do a small analysis of this code:
+
+- The service uses an `httpResource` to fetch the user data.
+- The service has methods for `create`, `read`, `update`, and `delete`
+  that use the `endpointHandler` to handle the async calls.
+- The component links its `userId` input signal to the service,
+  so the service knows which user to load.
+- The component uses the `userResource` from the service to display
+  the user data.
+- The component shows a spinner when an action is running,
+  by computing the `running` state from the service's action signal.
+
+There is some boilerplate code in the service, but that is for an follow-up
+article. Overall, the code is clean, and easy to reason about.
+All endpoint handlers return a `Promise<Result>`, so the component
+can handle success and failure in a uniform way. Also the service has
+an exposed `action` signal, so the component can react to the state
+of the service, like showing a spinner when an action is running.
+
+Did you notice how little code the component needs? And how easy
+it is to reason about what is going on in there?
+Still, the component is fully reactive, and has all the state it
+needs to inform the user about loading and error states.
+
+So, you still believe resources are better for one-off calls?
+If se, please explain to me why you think so. I'm curious. 
+I really want to understand. 
+
+## So, lets get on with it
+
+Back to the program. Use resources where they are created for:
+
+> [!IMPORTANT] resources are for fetching data!
+
+But not for one-off calls, like updating/creating/deleting data.
+Why is that different? Because fetching data is something your
+app does _before_ the user can do anything. The user needs to
+wait until it is there. Also, when something fails, the user
+probably needs something else as a blank screen. 
+Also, we might need to update data that is already on the screen.
+because an other user changed it, or, well, whatever reason.
+So, for getting data we need:
+
+- a way to tell it is loading
+- a way to tell if there was an error
+- a way to refetch the data
+- a way to update the current value
+- a way to have an initial value
+- a way to depend on parameters/triggers
+
+A resource provides all that. witch a very nice API.
+
+For one-off calls, like saving a form, or deleting an item,
+the expectations are different.
+They understand that when they take an action, like saving a form,
+the machinery is dealing with their request. They expect that.
+Popping up a spinner with "Saving..." is what they expect.
+Also they expect to be informed when something goes wrong.
+and in some occasions even when something goes right.
+They took an action, and they expect feedback.
+
+So we have this one-off action, that starts, and after a while ends with
+either success or failure. It translates to:
+
+action -> running -> success | failure
+
+Do we have a tool in our box that models this? Well, yes.
+this is exactly what a  promise models. You start it, and after a while
+it either resolves or rejects. Perfect fit!
+
+In the above example I added a convenience layer, that makes it easier
+in the context of Angular. But at its core it is _a promise._
+
+## conclusion
+
+Resources are a powerful tool to fetch data in a reactive way, based on
+signals. They provide a clean API to handle loading states and errors, 
+and all that is needed around _fetching_ data.
+
+However, quite often I hear a question like:
+> But can I use resources for saving data too?
+
+The answer is: No, you should not. For one-off actions like saving,
+deleting, or updating data, you should use promises. 
+While it is technically possible to use resources, they are a suboptimal
+fit for that use case. They add unnecessary complexity and cost,
+while promises provide a simpler and more direct way to handle
+one-off actions.
+
+So, fetch your resources, and I'll promise you smooth actions!
