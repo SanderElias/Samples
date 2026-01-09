@@ -32,20 +32,20 @@
     "description": ""
   },
   {
-    "path": "/blog",
-    "modulePath": "/src/app/blogs",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/blogs",
-    "title": "Sanders demo page",
-    "largeImage": "/assets/snapshots/blog.png",
-    "description": ""
+    "path": "/blog/8G8isa16rm3AkTmN",
+    "modulePath": "/articles/8G8isa16rm3AkTmN.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Let us resource all the things!",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-8G8isa16rm3AkTmN.png"
   },
   {
-    "path": "/blog/about",
-    "modulePath": "/articles/about.md",
+    "path": "/blog/9Mgg7tw79EsOjvm8",
+    "modulePath": "/articles/9Mgg7tw79EsOjvm8.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "Whats this all'bout?",
-    "largeImage": "/assets/snapshots/blog-about.png",
-    "description": ""
+    "title": "CSS specificity",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-9Mgg7tw79EsOjvm8.png"
   },
   {
     "path": "/blog/about",
@@ -64,35 +64,19 @@
     "description": ""
   },
   {
-    "path": "/blog/angular-signals-www",
-    "modulePath": "/articles/angular-signals-www.md",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "Angular Signals WWW",
-    "largeImage": "/assets/snapshots/blog-angular-signals-www.png",
-    "description": ""
-  },
-  {
-    "path": "/blog/code-guidish",
-    "modulePath": "/articles/code-guidish.md",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "Code/Style guidelines",
-    "largeImage": "/assets/snapshots/blog-code-guidish.png",
-    "description": ""
-  },
-  {
-    "path": "/blog/code-guidish",
-    "modulePath": "/articles/code-guidish.md",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "Code/Style guidelines",
-    "largeImage": "/assets/snapshots/blog-code-guidish.png",
-    "description": ""
-  },
-  {
-    "path": "/blog/component-styling",
-    "modulePath": "/articles/component-styling.md",
+    "path": "/blog/bofLwbpvxlqejmml",
+    "modulePath": "/articles/bofLwbpvxlqejmml.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
     "title": "Component Styling",
-    "largeImage": "/assets/snapshots/blog-component-styling.png",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-bofLwbpvxlqejmml.png"
+  },
+  {
+    "path": "/blog/code-guidish",
+    "modulePath": "/articles/code-guidish.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Code/Style guidelines",
+    "largeImage": "/assets/snapshots/blog-code-guidish.png",
     "description": ""
   },
   {
@@ -112,14 +96,6 @@
     "description": ""
   },
   {
-    "path": "/blog/css-specificity",
-    "modulePath": "/articles/css-specificity.md",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "CSS specificity",
-    "largeImage": "/assets/snapshots/blog-css-specificity.png",
-    "description": ""
-  },
-  {
     "path": "/blog/dry-kiss",
     "modulePath": "/articles/dry-kiss.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
@@ -128,20 +104,20 @@
     "description": ""
   },
   {
-    "path": "/blog/dry-kiss",
-    "modulePath": "/articles/dry-kiss.md",
+    "path": "/blog/eplS4feKm5whjZmY",
+    "modulePath": "/articles/eplS4feKm5whjZmY.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "Dry kiss Yagni ASAP.",
-    "largeImage": "/assets/snapshots/blog-dry-kiss.png",
-    "description": ""
+    "title": "List for things stil to do",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-eplS4feKm5whjZmY.png"
   },
   {
-    "path": "/blog/the-year-2038",
-    "modulePath": "/articles/the-year-2038.md",
+    "path": "/blog/rtvui0r9ycgGjLmz",
+    "modulePath": "/articles/rtvui0r9ycgGjLmz.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "The year 2038 problem",
-    "largeImage": "/assets/snapshots/blog-the-year-2038.png",
-    "description": ""
+    "title": "use the platform",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-rtvui0r9ycgGjLmz.png"
   },
   {
     "path": "/blog/the-year-2038",
@@ -160,12 +136,36 @@
     "description": ""
   },
   {
-    "path": "/blog/use-the-platform",
-    "modulePath": "/articles/use-the-platform.md",
+    "path": "/blog/vTjn3EjDgIcljkmM",
+    "modulePath": "/articles/vTjn3EjDgIcljkmM.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "use the platform",
-    "largeImage": "/assets/snapshots/blog-use-the-platform.png",
-    "description": ""
+    "title": "Article not found.",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-vTjn3EjDgIcljkmM.png"
+  },
+  {
+    "path": "/blog/w2jw3vjIgFcpjrmo",
+    "modulePath": "/articles/w2jw3vjIgFcpjrmo.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Whats this all'bout?",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-w2jw3vjIgFcpjrmo.png"
+  },
+  {
+    "path": "/blog/wDje3njxg2cnjZmT",
+    "modulePath": "/articles/wDje3njxg2cnjZmT.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Code/Style guidelines",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-wDje3njxg2cnjZmT.png"
+  },
+  {
+    "path": "/blog/wEjI3tjog1cdjjmE",
+    "modulePath": "/articles/wEjI3tjog1cdjjmE.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "what about ENUM's in typescript?",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-wEjI3tjog1cdjjmE.png"
   },
   {
     "path": "/blog/what-is-data",
@@ -176,12 +176,44 @@
     "description": ""
   },
   {
-    "path": "/blog/what-is-data",
-    "modulePath": "/articles/what-is-data.md",
+    "path": "/blog/wVjz34jxggcejlmR",
+    "modulePath": "/articles/wVjz34jxggcejlmR.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Dry kiss Yagni ASAP.",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-wVjz34jxggcejlmR.png"
+  },
+  {
+    "path": "/blog/x2jb3xjzg6cgjEmn",
+    "modulePath": "/articles/x2jb3xjzg6cgjEmn.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
     "title": "What is data",
-    "largeImage": "/assets/snapshots/blog-what-is-data.png",
-    "description": ""
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-x2jb3xjzg6cgjEmn.png"
+  },
+  {
+    "path": "/blog/xCgWt94YrscijEmA",
+    "modulePath": "/articles/xCgWt94YrscijEmA.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Angular Signals WWW",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-xCgWt94YrscijEmA.png"
+  },
+  {
+    "path": "/blog/xOjX3IjHg5ckjImW",
+    "modulePath": "/articles/xOjX3IjHg5ckjImW.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "The year 2038 problem",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-xOjX3IjHg5ckjImW.png"
+  },
+  {
+    "path": "/blog/xYj937jtgycHjWm1",
+    "modulePath": "/articles/xYj937jtgycHjWm1.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "welcome",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-xYj937jtgycHjWm1.png"
   },
   {
     "path": "/card",
@@ -254,6 +286,14 @@
     "title": "directives-sample!",
     "largeImage": "/assets/snapshots/DirectiveSamp.png",
     "description": ""
+  },
+  {
+    "path": "/dyn-route",
+    "modulePath": "/src/app/dyn-route",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/dyn-route",
+    "description": "",
+    "title": "Sanders demo page",
+    "largeImage": "/assets/snapshots/dyn-route.png"
   },
   {
     "path": "/dynForm",
@@ -702,6 +742,14 @@
     "title": "Sanders demo page",
     "largeImage": "/assets/snapshots/testOb-testob.png",
     "description": ""
+  },
+  {
+    "path": "/timer",
+    "modulePath": "/src/app/timer",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/timer",
+    "description": "",
+    "title": "Timer Component",
+    "largeImage": "/assets/snapshots/timer.png"
   },
   {
     "path": "/toh",
