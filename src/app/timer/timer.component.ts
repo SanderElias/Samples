@@ -1,6 +1,5 @@
 import { HttpClient, httpResource } from '@angular/common/http';
-import { Component, computed, DestroyRef, inject, Injectable, input, linkedSignal, signal, Signal } from '@angular/core';
-import { firstValueFrom, type Observable } from 'rxjs';
+import { Component, computed, DestroyRef, inject, Injectable, linkedSignal, signal, Signal } from '@angular/core';
 
 const second = 1000;
 const minute = 60 * second;
@@ -57,60 +56,61 @@ interface User {
   email: string;
 }
 
+import { endpointHandler, successHandler, type Action, type Result } from './endpoint-action-handler';
 @Injectable()
 export class UserService {
   #http = inject(HttpClient);
+  #url = (id: number) => `https://api.example.com/users/${id}`;
   #base = signal(signal<number | undefined>(undefined).asReadonly());
   #userId = linkedSignal(() => this.#base()());
   #userUrl = computed(() => {
     const id = this.#userId();
-    return id ? `https://api.example.com/users/${id}` : undefined;
+    return id ? this.#url(id) : undefined;
   });
   userResource = httpResource<User>(this.#userUrl);
-  actionRunning = signal(false);
-  lastError = signal<Error | undefined>(undefined);
-
-  #handleEndpoint = (p: Observable<unknown>): Promise<boolean> => {
-    this.actionRunning.set(true);
-    this.lastError.set(undefined);
-    return firstValueFrom(p)
-      .then(() => true)
-      .catch(e => {
-        this.lastError.set(e as Error);
-        return false;
-      }) // retrowing, so the caller can also handle it
-      .finally(() => this.actionRunning.set(false));
-  };
+  action = signal<Action>({ running: false });
 
   link(idSignal: Signal<number | undefined>) {
     this.#base.set(idSignal);
     return this; // convenience for chaining
   }
 
-  create(user: User): Promise<boolean> {
-    return this.#handleEndpoint(this.#http.post('https://api.example.com/users/user', user));
+  create(user: User): Promise<Result> {
+    return endpointHandler({
+      actionSignal: this.action,
+      serverCall: this.#http.post(this.#url(user.id), user),
+      actionType: 'create'
+    }).then(
+      successHandler(data => {
+        // assuming the server sends back the created user:
+        this.#userId.set((data as User).id);
+        this.userResource.value.set(data as User);
+      })
+    );
   }
 
   read(id: number) {
     this.#userId.set(id);
   }
 
-  update(user: User): Promise<boolean> {
-    return this.#handleEndpoint(this.#http.put(`https://api.example.com/users/${user.id}`, user)).then(success => {
-      if (success) {
-        this.userResource.value.set(user);
-      }
-      return success;
-    });
+  update(user: User): Promise<Result> {
+    return endpointHandler({
+      serverCall: this.#http.put(this.#url(user.id), user),
+      actionType: 'update',
+      actionSignal: this.action
+    }).then(successHandler(() => this.userResource.value.set(user)));
   }
 
-  delete(id: number): Promise<boolean> {
-    return this.#handleEndpoint(this.#http.delete(`https://api.example.com/users/${id}`)).then(success => {
-      if (success) {
+  delete(id: number): Promise<Result> {
+    return endpointHandler({
+      serverCall: this.#http.delete(this.#url(id)),
+      actionType: 'delete',
+      actionSignal: this.action
+    }).then(
+      successHandler(() => {
         this.#userId.set(undefined);
         this.userResource.value.set(undefined);
-      }
-      return success;
-    });
+      })
+    );
   }
 }
