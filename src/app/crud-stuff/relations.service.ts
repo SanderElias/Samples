@@ -12,7 +12,8 @@ import { injectCachedHttpResource } from './utils/inject-cached-httpresource';
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
-const base = "https://couchdb.localhost"
+// const base = "https://couchdb.localhost"
+const base = 'http://kapow:5984'; // CouchDB running on local network
 
 /**
  * this is how you do professional security!
@@ -34,7 +35,9 @@ export class RelationsService {
   #http = inject(HttpActionClient);
   #notifyDialog = inject(NotifyDialogService);
   // this cache has the same lifetime as the service, so it will be cleared when the service is destroyed.
-  #cache = new Map<string, HttpResourceRef<UserCard | Partial<UserCard>>>();
+
+     // comment this out to try the cache interceptor instead.
+  // #cache = new Map<string, HttpResourceRef<UserCard | Partial<UserCard>>>();
 
   filter = signal('');
   #filter = debouncedComputed(() => `(?i)${this.filter()}`, { delay: 250 }); //debounce and wrap it inside an couchDB regex.

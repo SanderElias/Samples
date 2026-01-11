@@ -94,11 +94,14 @@ export class UserService {
   }
 
   update(user: User): Promise<Result> {
+    if (this.userResource.value()!.id !== user.id) {
+      throw new Error('Do you really want to get fired? Updating user id does not match the linked user id.');
+    }
     return endpointHandler({
       serverCall: this.#http.put(this.#url(user.id), user),
       actionType: 'update',
       actionSignal: this.action
-    }).then(successHandler(() => this.userResource.value.set(user)));
+    }).then(successHandler(serverUser => this.userResource.value.set(serverUser as User)));
   }
 
   delete(id: number): Promise<Result> {
@@ -112,5 +115,36 @@ export class UserService {
         this.userResource.value.set(undefined);
       })
     );
+  }
+}
+
+@Injectable()
+export class usersList {
+  #http = inject(HttpClient);
+  #url = (id: number) => `https://api.example.com/users/${id}`;
+
+  usersResource = httpResource<string[]>(() => 'https://api.example.com/users?orderBy=name');
+  action = signal<Action>({ running: false });
+
+  create(user: User): Promise<Result> {
+    return endpointHandler({
+      actionSignal: this.action,
+      serverCall: this.#http.post(this.#url(user.id), user),
+      actionType: 'create'
+    }).then(
+      successHandler((data: unknown) => {
+        const id = data as string
+        // assuming the server sends back the id of the new user
+        this.usersResource.value.update(users => [...(users || []), id]);
+      })
+    );
+  }
+
+    update(user: User): Promise<Result> {
+    return endpointHandler({
+      serverCall: this.#http.put(this.#url(user.id), user),
+      actionType: 'update',
+      actionSignal: this.action
+    })
   }
 }
