@@ -1,6 +1,5 @@
-import type { ElementRef} from '@angular/core';
-import { Component, effect, inject, input, linkedSignal, output, viewChild } from '@angular/core';
-import { deepEqual } from '@se-ng/signal-utils';
+import type { ElementRef } from '@angular/core';
+import { Component, effect, inject, input, linkedSignal, output, signal, viewChild } from '@angular/core';
 
 import type { UserCard } from '../../generic-services/address.service';
 import { RelationsService } from '../relations.service';
@@ -42,14 +41,15 @@ import { unFlattenRecord } from '../utils/un-flattenRecord';
 })
 export class RelationForm {
   id = input.required<string>();
+  rev = input.required<string>();
   done = output<void>();
   form = viewChild<ElementRef<HTMLFormElement>>('form');
   rs = inject(RelationsService);
 
-  relation = this.rs.read(this.id);
+  relation = this.rs.read(this.id, this.rev);
   // dataResource = httpResource<UserCard | undefined>(() => 'http://localhost:3003/relations/' + this.id());
   flatData = linkedSignal({
-    source: () => this.relation()?.value(),
+    source: () => this.relation.value(),
     computation: data => flattenRecord(data ?? {})
   });
   fields = linkedSignal({
@@ -76,19 +76,20 @@ export class RelationForm {
         }
       }
     }
-    if (!deepEqual(this.flatData(), newData)) {
-      // if the data is the same, we don't need to update the server.
-      const newUser: UserCard = unFlattenRecord(newData) as UserCard;
-      console.log('newData', newUser);
-      if (await this.rs.update(newUser)) {
-        this.done.emit();
-      } else {
-        // logging to the console is probably not the best way to handle errors.
-        // You might want to show a message to the user or handle it in a different way.
-        console.error('Error updating the user');
-      }
-    } else {
-      this.done.emit(); // no changes, just close the dialog
+    const newUser = unFlattenRecord(newData) as UserCard;
+    const { result, rev, user } = await this.rs.update(newUser);
+    if (result === 'conflict') {
+      console.log('Conflict detected, please reload the user data');
+      this.relation.value.set(user!); //
+    }
+    if (result === 'error') {
+      console.log('Error updating the user');
+      console.error('Error updating the user');
+    }
+    if (result === 'ok' || result === 'noChange') {
+      console.log('User updated successfully');
+      this.relation.reload();
+      this.done.emit();
     }
   }
 

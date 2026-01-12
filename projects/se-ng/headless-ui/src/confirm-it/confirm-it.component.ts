@@ -72,8 +72,12 @@ export class ConfirmItComponent {
   _1 = afterEveryRender({
     earlyRead: () => {
       const parentRect = this.parent.getBoundingClientRect();
-      // @ts-expect-error // TS doen't know about computedStyleMap.get(x).value apparently.
-      const zIndex = this.parent.computedStyleMap().get('z-index')?.value;
+      let zIndex: string | number = 'auto';
+      if (typeof this.parent.computedStyleMap === 'function') {
+        // Firefox does not support computedStyleMap 
+        // @ts-expect-error // TS doen't know about computedStyleMap.get(x).value apparently.
+        zIndex = this.parent.computedStyleMap().get('z-index').value;
+      }
       // on each render we need to update the parent box.
       // this is needed because the parent can be moved around.
       this.parentBox.set({

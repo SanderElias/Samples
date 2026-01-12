@@ -1,0 +1,7 @@
+User-agent: AI-Agent
+Disallow: /
+
+User-agent: *
+Disallow:
+User-agent: *
+Allow: /

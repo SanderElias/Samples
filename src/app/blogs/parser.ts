@@ -2,8 +2,11 @@ const icons = {
   TIP: '💡',
   WARNING: '⚠️',
   IMPORTANT: '❗',
-  NOTE: '🛈'
+  NOTE: '🛈',
+  UHM: '⁉️'
 };
+
+type IconName = keyof typeof icons;
 
 export type MarkDown = string;
 
@@ -14,7 +17,8 @@ export async function parser(content: MarkDown): Promise<string> {
     const blockIcons = /\[\!(.+?)\]/g;
     for (const match of content.matchAll(blockIcons)) {
       const fullMatch = match[0];
-      const iconName = match[1] as keyof typeof icons;
+      // if no matching icon found, use UHM as default
+      const iconName = (Object.keys(icons).includes(match[1]) ? match[1] : 'UHM') as IconName;
       const iconHtml = `<span class="icon" data-icon="${iconName}">${icons[iconName]}</span>`;
       content = content.replace(fullMatch, iconHtml);
     }

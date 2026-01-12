@@ -7,6 +7,7 @@ import { createUniqueId } from '../util/random-things';
 
 export interface UserCard {
   id: string;
+  _rev?: string; // CouchDB revision id
   name: string;
   username: string;
   email: string;

@@ -1,19 +1,22 @@
 import { httpResource, type HttpResourceRef } from '@angular/common/http';
-import type { Signal} from '@angular/core';
-import { effect, inject, Injectable,signal, untracked } from '@angular/core';
+import type { Signal } from '@angular/core';
+import { computed, DestroyRef, effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
 
-import { type UserCard,userCard } from '../generic-services/address.service';
+import { userCard, type UserCard } from '../generic-services/address.service';
 
+import { Observable } from 'rxjs';
+import { SSE } from 'sse.js';
+import { addCachingContext, HttpCache } from '../util/caching.interceptor';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
-import { injectCachedHttpResource } from './utils/inject-cached-httpresource';
+import { earlyReadToUndefined } from './utils/earlyread-undefined';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
-// const base = "https://couchdb.localhost"
-const base = 'http://kapow:5984'; // CouchDB running on local network
+const base = 'https://couchdb.localhost';
+// const base = 'http://kapow:5984'; // CouchDB running on local network
 
 /**
  * this is how you do professional security!
@@ -24,20 +27,20 @@ const headers = {
   Authorization,
   'Content-Type': 'application/json'
 };
-const httpOptions = { headers };
+// enable caching for all requests from this service
+const httpCachedOptions = addCachingContext({ headers });
+// const httpOptions = ({ headers });
 
 // note: not injected in root, it is supposed to be provided in the route/component that holds the component-tree that uses it.
 @Injectable()
 export class RelationsService {
   baseUrl = `${base}/relations` as const;
+  idUrl = (id: string) => `${this.baseUrl}/${id}`;
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
   #http = inject(HttpActionClient);
   #notifyDialog = inject(NotifyDialogService);
-  // this cache has the same lifetime as the service, so it will be cleared when the service is destroyed.
-
-     // comment this out to try the cache interceptor instead.
-  // #cache = new Map<string, HttpResourceRef<UserCard | Partial<UserCard>>>();
+  #cache = inject(HttpCache);
 
   filter = signal('');
   #filter = debouncedComputed(() => `(?i)${this.filter()}`, { delay: 250 }); //debounce and wrap it inside an couchDB regex.
@@ -45,7 +48,7 @@ export class RelationsService {
   sort = signal<SortField>('name');
   order = signal<'asc' | 'desc'>('asc');
 
-  #listRes = httpResource<string[]>(
+  #listRes = httpResource<[string, string][]>(
     () => ({
       url: `${this.baseUrl}/_find?v=${this.#refresh()}`,
       method: 'POST',
@@ -57,7 +60,7 @@ export class RelationsService {
             { email: { $regex: this.#filter() } }
           ]
         },
-        fields: ['id'],
+        fields: ['id', '_rev'],
         sort: [{ [this.sort()]: this.order() }],
         limit: 15
       },
@@ -66,7 +69,7 @@ export class RelationsService {
     {
       defaultValue: [],
       // unwrap the CouchDB response to get the list of ids.
-      parse: (response: any) => (response?.docs ?? []).map((i: { id: string }) => i.id)
+      parse: (response: any) => (response?.docs ?? []).map((i: { id: string; _rev: string }) => [i.id, i._rev] as [string, string])
     }
   );
   #list = this.#listRes.value;
@@ -104,7 +107,7 @@ export class RelationsService {
     if (reason.startsWith('Database does not exist')) {
       console.error('Database not found, creating it');
       try {
-        await untracked(async () => await this.#http.put(this.baseUrl, {}, httpOptions));
+        await untracked(async () => await this.#http.put(this.baseUrl, {}, httpCachedOptions));
         await goAddData();
         this.#listRes.reload(); // reload the list after creating the index.
       } catch (e) {
@@ -118,12 +121,30 @@ export class RelationsService {
     });
   });
 
+  _subscription = couchEventLister('relations', Authorization).subscribe(event => {
+    console.log('CouchDB event', event);
+    this.#cache.purge(this.idUrl(event.id)); // remove from cache as well.
+    if (event.deleted) {
+      // remove from list
+      this.#list.update(oldList => oldList.filter(i => i[0] !== event.id));
+    } else {
+      // update or add to list
+      const rev = event.changes[0]?.rev ?? '';
+      this.#list.update(oldList => oldList.map(i => (i[0] === event.id ? ([i[0], rev] as [string, string]) : i)));
+    }
+  });
+
+  _ = inject(DestroyRef).onDestroy(() => {
+    this._subscription.unsubscribe();
+  });
+
   create = async (data: UserCard) => {
-    const url = `${this.baseUrl}/${data.id}`;
+    const url = this.idUrl(data.id);
     try {
       // await firstValueFrom(this.#http.post(url, data));
-      await this.#http.put(url, data, httpOptions);
-      this.#list.update(oldList => [data.id, ...oldList].splice(0, 50));
+      const response = await this.#http.put(url, data, httpCachedOptions);
+      console.dir(response);
+      this.#list.update(oldList => [[data.id, ''] as [string, string], ...oldList].splice(0, 50));
       return true;
     } catch (e) {
       console.error('Error creating user', e);
@@ -131,47 +152,58 @@ export class RelationsService {
     }
   };
 
-  info = async () => {
-    const url = `${this.baseUrl} `;
-    return this.#http.get(url, httpOptions);
-  }
-
-
-
-  // I'm using a a helper to create the read in a cached version.
-  // it returns (id: Signal<string>) => Signal<HttpResourceRef<UserCard | undefined>
-  read = injectCachedHttpResource(this.baseUrl, this.#cache, {
-    headers
-  });
-  // This is the exact same thing, but without the cache.
-  uncachedRead = (id: Signal<string>, options: Record<string, unknown> = { headers }) =>
-    httpResource<UserCard | Partial<UserCard>>(() => ({ url: `${this.baseUrl}/${id()}`, ...options }), {
+  read = (
+    ids: Signal<string>,
+    rev: Signal<string>,
+    options: Record<string, unknown> = httpCachedOptions
+  ): HttpResourceRef<UserCard | Partial<UserCard>> => {
+    // cater for empty, or early read undefined ids.
+    const id = computed(() => earlyReadToUndefined(ids) ?? '');
+    // prevent creating a resource for undefined ids.
+    const httpOptions = computed(() => {
+      if (!id()) return undefined;
+      return {
+        url: `${this.baseUrl}/${id()}`,
+        ...options
+      };
+    });
+    return httpResource<UserCard | Partial<UserCard>>(httpOptions, {
       defaultValue: { id: id() } as unknown as Partial<UserCard>
     });
+  };
 
-  update = async (data: UserCard) => {
+  update = async (
+    data: UserCard
+  ): Promise<
+    | { result: string; rev?: undefined; user?: undefined; error?: undefined }
+    | { result: string; rev: string; user?: undefined; error?: undefined }
+    | { result: string; user: UserCard; rev?: undefined; error?: undefined }
+    | { result: string; error: any; rev?: undefined; user?: undefined }
+  > => {
     const id = data.id;
-    const url = `${this.baseUrl}/${id}`;
-    if (this.#cache.has(url) && deepEqual(this.#cache.get(url)?.value(), data)) {
+    const url = this.idUrl(id);
+    // get the current revision(uses the cacheInterceptor!)
+    const oldData = (await this.#http.get(url, httpCachedOptions)) as UserCard;
+    if (deepEqual(oldData, data)) {
       // no changes to the data, so we don't need to update the server.
-      return true;
+      return { result: 'noChange' };
     }
     try {
-      const { rev } = await this.#http.put<CouchUpdate>(url, data, httpOptions);
-      if (this.#cache.has(url)) {
-        const oldData = this.#cache.get(url)?.value()!;
-        if (oldData[this.sort()] !== data[this.sort()]!) {
-          console.log(`sort field changed from ${oldData[this.sort()]} to ${data[this.sort()]}`);
-          // if the sort field has changed, we need to update the list.
-          this.#refresh.update(old => old + 1);
-        }
-        // update the cache with the new data, and the new revision.
-        this.#cache.get(url)?.update(oldData => ({ ...data, _rev: rev }));
+      const { rev } = await this.#http.put<CouchUpdate>(url, data, httpCachedOptions);
+      if (oldData[this.sort()] !== data[this.sort()]!) {
+        console.log(`sort field changed from ${oldData[this.sort()]} to ${data[this.sort()]}`);
+        // if the sort field has changed, we need to update the list.
+        this.#refresh.update(old => old + 1);
       } else {
-        console.log('no cache for', url, this.#cache);
-        // this should not happen, but just in case.
+        // update the revision in the list
+        this.#list.update(oldList =>
+          oldList.reduce(
+            (acc, item) => [...acc, [item[0], item[0] === id ? rev : item[1]] as [string, string]],
+            [] as [string, string][]
+          )
+        );
       }
-      return true;
+      return { result: 'ok', rev };
     } catch (e: any) {
       const {
         error: { error: err, reason }
@@ -180,55 +212,66 @@ export class RelationsService {
       if (reason.startsWith('Document update conflict')) {
         // updated from elsewhere.
         try {
+          // the cached version is stale, so remove it.
+          this.#cache.purge(url);
           // create a object that has only the properties that are different from the original.
-          const myDiff = deepDiff(this.#cache.get(url)?.value()!, data);
-          const request = await fetch(url, { headers });
-          const remoteData = await request.json();
+          const myDiff = deepDiff(oldData, data);
+          // now fetch the updated remote data.
+          const remoteData = (await this.#http.get(url, httpCachedOptions)) as UserCard;
           // mergeDeep will overwrite the properties of the updated remote with the changes I extracted above.
-          this.#cache.get(url)?.set(mergeDeep(remoteData, myDiff)); // update the cached value with the merged data
+          const merged = mergeDeep(remoteData, myDiff);
+          // this.#cache.get(url)?.set(mergeDeep(remoteData, myDiff)); // update the cached value with the merged data
           // inform the user
           this.#notifyDialog.show({
             title: 'Sorry, we detected a conflict',
             message: 'we have merged in the upstream change, please verify your edit, and submit your changes again'
           });
+          return { result: 'conflict', user: merged as UserCard };
         } catch {
           // cheap bail out, in real world apps, it should be discussed what needs to happen here...
+          // will only happen when the re-fetch fails, but still...
           this.#notifyDialog.show({
             title: 'Sorry, but an unrecoverable error happened',
             message: 'please reload your app'
           });
         }
       }
-      return false;
+      return { result: 'error', error: e };
     }
   };
 
-  delete = async (user: UserCard) => {
+  delete = async (user: UserCard): Promise<boolean> => {
     const id = user.id;
-    const rev = (user as any)._rev;
-    const url = `${this.baseUrl}/${id}`;
+    // the rev is mandatory to delete a document in CouchDB
+    const url = this.idUrl(id) + `?rev=${user._rev}`;
     try {
-      // await firstValueFrom(this.#http.delete(url));
-      await this.#http.delete(url + `?rev=${rev}`, httpOptions);
+      await this.#http.delete(url, httpCachedOptions);
     } catch (e: any) {
       const {
         error: { error: err, reason }
       } = e ?? {};
-      console.log(e, err, reason);
       if (err === 'not_found' && reason === 'deleted') {
         console.log('already deleted, ignore this log');
       } else {
+        this.#cache.purge(url); // remove the cached version, it is stale.
         this.#notifyDialog.show({
           title: 'The data was updated',
           message:
             'There was an update on the data you tried to delete. I have loaded the update into the view. Review, and try to delete again if still needed.'
         });
-        this.#cache.get(url)?.reload();
+        const { _rev } = await this.#http.get(url, httpCachedOptions);
+        // update the rev in the list so related components can decide to reload.
+        this.#list.update(oldList => oldList.map(i => (i[0] === id ? ([i[0], _rev] as [string, string]) : i)));
         return false;
       }
     }
-    this.#list.update(oldList => oldList.filter(i => i !== id));
+    this.#list.update(oldList => oldList.filter(i => i[0] !== id));
     return true;
+  };
+
+  info = async () => {
+    const url = `${this.baseUrl}`;
+    return this.#http.get(url, httpCachedOptions);
   };
 }
 
@@ -238,7 +281,7 @@ async function goAddData() {
   const fakerModule = import('@faker-js/faker');
   const module = await fakerModule;
   const url = `${base}/relations/`;
-  for (let i = 0; i <= 250000; i += 1) {
+  for (let i = 0; i <= 2500; i += 1) {
     const relation = await userCard(module.faker);
     const res = await fetch(`${url}/${relation.id}`, {
       method: 'PUT',
@@ -279,5 +322,57 @@ async function createIndex(fieldName: SortField) {
 export interface CouchUpdate {
   ok: boolean;
   id: string;
+  rev: string;
+}
+
+function couchEventLister(db: string, authorization: string) {
+  // hardcoding the baseUrl for now. the username password should not be hardcoded in real world apps.
+  const dbUrl = `https://couchdb.localhost/${db}`;
+  console.log('Starting CouchDB event listener for', dbUrl);
+
+  return new Observable<CouchDbEvent>(subscriber => {
+    const eventSource = new SSE(`${dbUrl}/_changes?feed=eventsource&include_docs=false&since=now`, {
+      headers: {
+        Authorization: authorization
+      },
+      autoReconnect: true, // Enable auto-reconnect
+      reconnectDelay: 3000, // Wait 3 seconds before reconnecting
+      maxRetries: null, // Retry indefinitely (set a number to limit retries)
+      useLastEventId: true // Send Last-Event-ID header on reconnect (recommended)
+    });
+
+    eventSource.onmessage = event => {
+      try {
+        const data = JSON.parse(event.data) as CouchDbEvent;
+        subscriber.next(data);
+      } catch (err) {
+        subscriber.error(err);
+      }
+    };
+
+    eventSource.onerror = error => {
+      console.error('CouchDB EventSource error:', error);
+      subscriber.error(error);
+      eventSource.close();
+    };
+
+    eventSource.stream();
+
+    // Teardown logic: close SSE when unsubscribed
+    return () => {
+      eventSource.close();
+      console.log('CouchDB event listener closed');
+    };
+  });
+}
+
+export interface CouchDbEvent {
+  seq: string;
+  id: string;
+  deleted?: boolean;
+  changes: Change[];
+}
+
+export interface Change {
   rev: string;
 }

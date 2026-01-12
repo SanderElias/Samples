@@ -1,14 +1,21 @@
 version: '3.9'
 services:
-    couchdb:
-        image: 'couchdb:3.4.3'
-        network_mode: host
-        ports:
-            - '5984:5984'
-        volumes:
-            - './.couchdb/data:/opt/couchdb/data'
-            - './.couchdb/config:/opt/couchdb/etc/local.d'
-        environment:
-            - COUCHDB_PASSWORD=password
-            - COUCHDB_USER=admin
-        container_name: my-couchdb
+  couchdb:
+    user: "1000:1000"
+    image: 'couchdb:3.5.1'
+    ports:
+      - '5984:5984'
+    volumes:
+      - './.couchdb/data:/opt/couchdb/data'
+      - './.couchdb/config:/opt/couchdb/etc/local.d'
+    environment:
+      - COUCHDB_PASSWORD=password
+      - COUCHDB_USER=admin
+    container_name: my-couchdb
+    restart: unless-stopped
+    networks:
+      - caddy_proxy-net
+
+networks:
+  caddy_proxy-net:
+    external: true

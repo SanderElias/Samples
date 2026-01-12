@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { afterRenderEffect, Component, computed, inject, input, output, signal } from '@angular/core';
 import { ConfirmItComponent } from '@se-ng/headless-ui';
 
 import type { UserCard } from '../../generic-services/address.service';
@@ -38,6 +38,7 @@ import { isEmptyRelation } from '../utils/is-empty-relation';
 export class UserRowComponent {
   relationService = inject(RelationsService);
   userId = input.required<string>();
+  rev = input.required<string>();
   edit = output<string>();
 
   deleteRelation(rel: Partial<UserCard>) {
@@ -47,20 +48,26 @@ export class UserRowComponent {
     });
   }
 
+  _ = afterRenderEffect(() => {
+    if (this.rev() && this.rev() !== this.relRef.value()?._rev) {
+      // the row is updated, refetch the data
+      this.relRef.reload();
+    }
+  });
+
   // this is wrong, because it will trigger listing reactivity on every change
   strangeId = signal<string | undefined>(undefined, { equal: () => false });
 
-  relRef = this.relationService.read(this.userId);
+  relRef = this.relationService.read(this.userId, this.rev);
   unStable = computed(() => {
     // we consider the row unstable if:
     //  - the relation is loading
     //  - the list is loading
     //  - there is no relation.
     // this is used to disable the buttons.
-    const rowLoading = this.relRef().isLoading();
+    const rowLoading = this.relRef.isLoading();
     const listLoading = this.relationService.listIsLoading();
-    return rowLoading || listLoading || isEmptyRelation(this.relRef().value());
+    return rowLoading || listLoading || isEmptyRelation(this.relRef.value());
   });
-  rel = computed(() => this.relRef().value());
-
+  rel = computed(() => this.relRef.value());
 }

@@ -26,13 +26,13 @@ import { RelationsService } from './relations.service';
       </thead>
       <tbody [highLight]="filter()">
         @for (rel of relationIds(); track $index) {
-          <tr [userId]="rel" (edit)="edit(rel)"></tr>
+          <tr [userId]="rel[0]" [rev]="rel[1]" (edit)="edit(rel)"></tr>
         }
       </tbody>
     </table>
     <dialog #dlg>
       @defer (on viewport) {
-        <relation-form [id]="editRec()!" (done)="dlg.close()" />
+        <relation-form [id]="editRec()![0]" [rev]="editRec()![1]" (done)="dlg.close()" />
       } @placeholder {
         <p>Loading...</p>
       }
@@ -50,8 +50,8 @@ export class CrudStuffComponent {
 
   relationIds = linkedSignal({
     source: () => this.relationsService.list(),
-    computation: (list, previous?: { source: string[]; value?: string[] }) => {
-      const emptyRow = Array.from({ length: 10 }, () => '');
+    computation: (list, previous?: { source: [string,string][]; value?: [string,string][] }) => {
+      const emptyRow = Array.from({ length: 10 }, () => ['', ''] as [string,string]);
       const loading = this.relationsService.listIsLoading();
       if (list.length === 0 && loading) {
         list.concat(previous?.value || []); // use the previous list when loading to prevent flicker.
@@ -60,12 +60,12 @@ export class CrudStuffComponent {
     }
   });
 
-  editRec = signal<string | undefined>(undefined);
+  editRec = signal<[string, string] | undefined>(undefined);
   dlgRef = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
   // convenience so I don't have to use the `relationsServive.*` everywhere.
   filter = this.relationsService.filter.asReadonly();
 
-  async edit(rel: string) {
+  async edit(rel: [ string, string ]) {
     const dialog = this.dlgRef().nativeElement;
     this.editRec.set(rel);
     dialog.showModal();
