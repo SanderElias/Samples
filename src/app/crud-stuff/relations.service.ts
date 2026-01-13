@@ -7,7 +7,7 @@ import { userCard, type UserCard } from '../generic-services/address.service';
 
 import { Observable } from 'rxjs';
 import { SSE } from 'sse.js';
-import { addCachingContext, HttpCache } from '../util/caching.interceptor';
+import { addCachingContext, HttpCache } from '../util/http-cache-system';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';

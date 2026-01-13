@@ -4,8 +4,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { provideClientHydration, withIncrementalHydration } from '@angular/platform-browser';
 import { routes } from './routes';
+import { HttpGetCachingInterceptor } from './util/http-cache-system';
 import { ClientMetaData, MetaData } from './util/metaData.service';
-import { HttpGetCachingInterceptor } from './util/caching.interceptor';
 
 export const appConfig = {
   providers: [
