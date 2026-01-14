@@ -1,8 +1,20 @@
 import type { ElementRef } from '@angular/core';
-import { Component, effect, inject, input, linkedSignal, output, signal, viewChild } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  linkedSignal,
+  output,
+  viewChild
+} from '@angular/core';
+import { cloneDeep } from '@se-ng/signal-utils';
 
 import type { UserCard } from '../../generic-services/address.service';
 import { RelationsService } from '../relations.service';
+import { deepDiff } from '../utils/deep-diff';
 import { flattenRecord } from '../utils/flatten-record';
 import { unFlattenRecord } from '../utils/un-flattenRecord';
 
@@ -29,9 +41,25 @@ import { unFlattenRecord } from '../utils/un-flattenRecord';
         <fieldset>
           <legend>Geo</legend>
           <label for="lat">Latitude</label>
-          <input id="lat" name="address.geo.lat" required min="-90" max="90" type="number" step="0.0001" />
+          <input
+            id="lat"
+            name="address.geo.lat"
+            required
+            min="-90"
+            max="90"
+            type="number"
+            step="0.0001"
+          />
           <label for="lng">Longitude</label>
-          <input id="lng" name="address.geo.lng" required min="-180" max="180" type="number" step="0.0001" />
+          <input
+            id="lng"
+            name="address.geo.lng"
+            required
+            min="-180"
+            max="180"
+            type="number"
+            step="0.0001"
+          />
         </fieldset>
       </fieldset>
       <button>Submit</button>
@@ -46,7 +74,7 @@ export class RelationForm {
   form = viewChild<ElementRef<HTMLFormElement>>('form');
   rs = inject(RelationsService);
 
-  relation = this.rs.read(this.id, this.rev);
+  relation = this.rs.read(this.id);
   // dataResource = httpResource<UserCard | undefined>(() => 'http://localhost:3003/relations/' + this.id());
   flatData = linkedSignal({
     source: () => this.relation.value(),
@@ -56,11 +84,12 @@ export class RelationForm {
     source: this.flatData,
     computation: data => Object.keys(data)
   });
-
-  async submit(ev: SubmitEvent) {
-    ev.preventDefault();
-    const form: HTMLFormElement = ev.target as HTMLFormElement;
-    if (!form) return;
+  originalData = computed(() => cloneDeep(this.relation.value() ?? {}));
+  currentFormData = computed(() => {
+    const form = this.form()?.nativeElement;
+    if (!form) {
+      return {} as UserCard;
+    }
     const newData = { ...this.flatData() }; // copy of originals
     for (const field of this.fields()) {
       if (form[field]) {
@@ -76,8 +105,13 @@ export class RelationForm {
         }
       }
     }
-    const newUser = unFlattenRecord(newData) as UserCard;
-    const { result, rev, user } = await this.rs.update(newUser);
+    return unFlattenRecord(newData) as UserCard;
+  });
+
+  async submit(ev: SubmitEvent) {
+    ev.preventDefault();
+    const newUser = this.currentFormData();
+    const { result, user } = await this.rs.update(newUser);
     if (result === 'conflict') {
       console.log('Conflict detected, please reload the user data');
       this.relation.value.set(user!); //
@@ -93,6 +127,24 @@ export class RelationForm {
     }
   }
 
+  _r = afterRenderEffect(() => {
+    // monitor the revisions and inform the user when there is an update.
+    const rev = this.rev();
+    const currentRev = this.relation.value()?._rev;
+    console.log({ rev, currentRev });
+    if (rev && currentRev && rev !== currentRev) {
+      console.log(
+        'The relation has been updated elsewhere. Please reload the form to get the latest data.'
+      );
+      const myChanges = deepDiff(
+        this.originalData(),
+        this.currentFormData()
+      );
+      console.log('Your unsaved changes:');
+      console.dir(myChanges);
+    }
+  });
+
   _ = effect(() => {
     const data = this.flatData();
     const form = this.form()?.nativeElement;
@@ -107,4 +159,6 @@ export class RelationForm {
 }
 
 const noUndefinedProps = <T extends Record<string, unknown>>(obj: T) =>
-  Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as T;
+  Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => v !== undefined)
+  ) as T;

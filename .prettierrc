@@ -4,7 +4,7 @@
   "bracketSpacing": true,
   "embeddedLanguageFormatting": "auto",
   "htmlWhitespaceSensitivity": "css",
-  "printWidth": 132,
+  "printWidth": 80,
   "tabWidth": 2,
   "proseWrap": "preserve",
   "quoteProps": "as-needed",

@@ -5,7 +5,7 @@ import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-n
 
 import { userCard, type UserCard } from '../generic-services/address.service';
 
-import { Observable } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import { SSE } from 'sse.js';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
@@ -122,7 +122,6 @@ export class RelationsService {
   });
 
   _subscription = couchEventLister('relations', Authorization).subscribe(event => {
-    console.log('CouchDB event', event);
     this.#cache.purge(this.idUrl(event.id)); // remove from cache as well.
     if (event.deleted) {
       // remove from list
@@ -154,7 +153,6 @@ export class RelationsService {
 
   read = (
     ids: Signal<string>,
-    rev: Signal<string>,
     options: Record<string, unknown> = httpCachedOptions
   ): HttpResourceRef<UserCard | Partial<UserCard>> => {
     // cater for empty, or early read undefined ids.
@@ -163,7 +161,7 @@ export class RelationsService {
     const httpOptions = computed(() => {
       if (!id()) return undefined;
       return {
-        url: `${this.baseUrl}/${id()}`,
+        url: this.idUrl(id()),
         ...options
       };
     });
@@ -219,6 +217,8 @@ export class RelationsService {
           // now fetch the updated remote data.
           const remoteData = (await this.#http.get(url, httpCachedOptions)) as UserCard;
           // mergeDeep will overwrite the properties of the updated remote with the changes I extracted above.
+          const remoteDiff = deepDiff(oldData, remoteData);
+          console.dir({ myDiff, remoteDiff });
           const merged = mergeDeep(remoteData, myDiff);
           // this.#cache.get(url)?.set(mergeDeep(remoteData, myDiff)); // update the cached value with the merged data
           // inform the user
@@ -268,6 +268,11 @@ export class RelationsService {
     this.#list.update(oldList => oldList.filter(i => i[0] !== id));
     return true;
   };
+
+  reFetch = async (ids: string) => {
+    const url = this.idUrl(ids);
+    return this.#http.get(url, httpCachedOptions);
+  }
 
   info = async () => {
     const url = `${this.baseUrl}`;
@@ -363,7 +368,9 @@ function couchEventLister(db: string, authorization: string) {
       eventSource.close();
       console.log('CouchDB event listener closed');
     };
-  });
+  }).pipe(
+    retry(5) // Retry up to 5 times on error
+  );
 }
 
 export interface CouchDbEvent {

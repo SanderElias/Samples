@@ -35,7 +35,7 @@ import { isEmptyRelation } from '../utils/is-empty-relation';
   `,
   styleUrl: './user-row.component.css'
 })
-export class UserRowComponent {
+  export class UserRowComponent {
   relationService = inject(RelationsService);
   userId = input.required<string>();
   rev = input.required<string>();
@@ -56,9 +56,9 @@ export class UserRowComponent {
   });
 
   // this is wrong, because it will trigger listing reactivity on every change
-  strangeId = signal<string | undefined>(undefined, { equal: () => false });
+  // strangeId = signal<string | undefined>(undefined, { equal: () => false });
 
-  relRef = this.relationService.read(this.userId, this.rev);
+  relRef = this.relationService.read(this.userId);
   unStable = computed(() => {
     // we consider the row unstable if:
     //  - the relation is loading
