@@ -127,19 +127,23 @@ export class RelationForm {
     }
   }
 
-  _r = afterRenderEffect(() => {
+  _r = afterRenderEffect(async () => {
     // monitor the revisions and inform the user when there is an update.
     const rev = this.rev();
     const currentRev = this.relation.value()?._rev;
     console.log({ rev, currentRev });
     if (rev && currentRev && rev !== currentRev) {
+      const newData = await this.rs.reFetch(this.id());
       console.log(
         'The relation has been updated elsewhere. Please reload the form to get the latest data.'
       );
-      const myChanges = deepDiff(
+      const myChanges = deepDiff(this.originalData(), this.currentFormData());
+      const remoteChanges = deepDiff(
         this.originalData(),
-        this.currentFormData()
+        newData!
       );
+      console.log('Remote changes:');
+      console.dir(remoteChanges);
       console.log('Your unsaved changes:');
       console.dir(myChanges);
     }

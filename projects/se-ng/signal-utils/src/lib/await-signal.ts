@@ -1,4 +1,10 @@
-import { effect, inject, Injector, runInInjectionContext, type Signal } from '@angular/core';
+import {
+  effect,
+  inject,
+  Injector,
+  runInInjectionContext,
+  type Signal
+} from '@angular/core';
 import { Deferred } from './util/deferred';
 
 export type Predicate<T> = (source: Partial<T> | T) => boolean;
@@ -32,7 +38,10 @@ export const injectAwaitSignal = (injector = inject(Injector)) => {
  *
  * @throws {Error} If the signal is destroyed before the predicate is satisfied.
  */
-export const awaitSignal = <T>(signal: () => T, predicate: Predicate<T>): Promise<T> => {
+export const awaitSignal = <T>(
+  signal: () => T,
+  predicate: Predicate<T>
+): Promise<T> => {
   const deferred = new Deferred<T>();
   const effectRef = effect(
     onCleanUp => {
@@ -47,7 +56,11 @@ export const awaitSignal = <T>(signal: () => T, predicate: Predicate<T>): Promis
         effectRef.destroy();
       }
       onCleanUp(() => {
-        deferred.reject(new Error('[awaitSignal] the provided signal was destroyed before the predicate was satisfied'));
+        deferred.reject(
+          new Error(
+            '[awaitSignal] the provided signal was destroyed before the predicate was satisfied'
+          )
+        );
       });
     },
     { debugName: 'awaitSignal' }

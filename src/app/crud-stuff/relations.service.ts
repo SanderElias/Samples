@@ -1,11 +1,11 @@
-import { httpResource, type HttpResourceRef } from '@angular/common/http';
+import { HttpClient, httpResource, type HttpResourceRef } from '@angular/common/http';
 import type { Signal } from '@angular/core';
 import { computed, DestroyRef, effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
 
 import { userCard, type UserCard } from '../generic-services/address.service';
 
-import { Observable, retry } from 'rxjs';
+import { firstValueFrom, Observable, retry } from 'rxjs';
 import { SSE } from 'sse.js';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
@@ -15,8 +15,8 @@ import { earlyReadToUndefined } from './utils/earlyread-undefined';
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
-const base = 'https://couchdb.localhost';
-// const base = 'http://kapow:5984'; // CouchDB running on local network
+// const base = 'https://couchdb.localhost';
+const base = 'http://kapow:5984'; // CouchDB running on local network
 
 /**
  * this is how you do professional security!
@@ -39,6 +39,7 @@ export class RelationsService {
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
   #http = inject(HttpActionClient);
+  #httpo = inject(HttpClient)
   #notifyDialog = inject(NotifyDialogService);
   #cache = inject(HttpCache);
 
@@ -218,7 +219,6 @@ export class RelationsService {
           const remoteData = (await this.#http.get(url, httpCachedOptions)) as UserCard;
           // mergeDeep will overwrite the properties of the updated remote with the changes I extracted above.
           const remoteDiff = deepDiff(oldData, remoteData);
-          console.dir({ myDiff, remoteDiff });
           const merged = mergeDeep(remoteData, myDiff);
           // this.#cache.get(url)?.set(mergeDeep(remoteData, myDiff)); // update the cached value with the merged data
           // inform the user
@@ -271,7 +271,7 @@ export class RelationsService {
 
   reFetch = async (ids: string) => {
     const url = this.idUrl(ids);
-    return this.#http.get(url, httpCachedOptions);
+    return firstValueFrom(this.#httpo.get(url, httpCachedOptions));
   }
 
   info = async () => {
@@ -332,7 +332,7 @@ export interface CouchUpdate {
 
 function couchEventLister(db: string, authorization: string) {
   // hardcoding the baseUrl for now. the username password should not be hardcoded in real world apps.
-  const dbUrl = `https://couchdb.localhost/${db}`;
+  const dbUrl = `${base}/${db}`;
   console.log('Starting CouchDB event listener for', dbUrl);
 
   return new Observable<CouchDbEvent>(subscriber => {
@@ -340,6 +340,7 @@ function couchEventLister(db: string, authorization: string) {
       headers: {
         Authorization: authorization
       },
+      withCredentials: true,
       autoReconnect: true, // Enable auto-reconnect
       reconnectDelay: 3000, // Wait 3 seconds before reconnecting
       maxRetries: null, // Retry indefinitely (set a number to limit retries)
