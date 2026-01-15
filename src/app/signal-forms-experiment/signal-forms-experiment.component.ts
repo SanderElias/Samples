@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
   type WritableSignal
 } from '@angular/core';
-import { Field, form, submit } from '@angular/forms/signals';
+import { FormField, form, submit } from '@angular/forms/signals';
 
 import { FormsModule } from '@angular/forms';
 import { ContactsComponent } from './contacts/contacts.component';
@@ -22,7 +22,7 @@ import { ShowErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
 
 @Component({
-  imports: [Field, TagsComponent, ContactsComponent, InputRandomIntComponent, ShowErrorsInDom, FormsModule],
+  imports: [FormField, TagsComponent, ContactsComponent, InputRandomIntComponent, ShowErrorsInDom, FormsModule],
   template: `
     <h1>
       Signal Forms Experiment <small><a href="/signalForms/tree">recusive form</a></small>
@@ -31,15 +31,15 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
       <div class="wrapper">
         <label for="name">
           <span>Name</span>
-          <input id="name" type="text" placeholder="Your name" [field]="fd.name" showError autocomplete="name" />
+          <input id="name" type="text" placeholder="Your name" [formField]="fd.name" showError autocomplete="name" />
         </label>
         <label for="dob">
           <span>Date of Birth</span>
-          <input id="dob" type="date" [field]="fd.dob" showError autocomplete="bday" />
+          <input id="dob" type="date" [formField]="fd.dob" showError autocomplete="bday" />
         </label>
         <label for="password">
           <span>Password</span>
-          <input id="password" type="password" placeholder="Password" [field]="fd.password" showError autocomplete="new-password" />
+          <input id="password" type="password" placeholder="Password" [formField]="fd.password" showError autocomplete="new-password" />
         </label>
         <label for="confirm">
           <span>Confirm Password</span>
@@ -47,14 +47,14 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
             id="confirm"
             type="password"
             placeholder="Confirm Password"
-            [field]="fd.confirm"
+            [formField]="fd.confirm"
             showError
             autocomplete="new-password"
           />
         </label>
         <label>
           <span>Favorite Random Int</span>
-          <se-input-random-int [field]="fd.favoriteRandomInt" />
+          <se-input-random-int [formField]="fd.favoriteRandomInt" />
         </label>
       </div>
       <!-- use the contacts component to iter over the contacts -->
@@ -64,19 +64,19 @@ import { sampleDataValidationSchema } from './validations/sampledata-validation'
         <legend>Address</legend>
         <label for="street">
           <span>Street</span>
-          <input id="street" type="text" placeholder="Street" [field]="fd.address.street" showError autocomplete="street-address" />
+          <input id="street" type="text" placeholder="Street" [formField]="fd.address.street" showError autocomplete="street-address" />
         </label>
         <label for="city">
           <span>City</span>
-          <input id="city" type="text" placeholder="City" [field]="fd.address.city" showError autocomplete="address-level2" />
+          <input id="city" type="text" placeholder="City" [formField]="fd.address.city" showError autocomplete="address-level2" />
         </label>
         <label for="zip">
           <span>Zip</span>
-          <input id="zip" type="text" placeholder="Zip" [field]="fd.address.zip" showError autocomplete="postal-code" />
+          <input id="zip" type="text" placeholder="Zip" [formField]="fd.address.zip" showError autocomplete="postal-code" />
         </label>
         <label for="state">
           <span>State</span>
-          <input id="state" type="text" placeholder="State" [field]="fd.address.state" showError autocomplete="address-level1" />
+          <input id="state" type="text" placeholder="State" [formField]="fd.address.state" showError autocomplete="address-level1" />
         </label>
       </fieldset>
       <!-- use the tags component to iter over the tags -->

@@ -290,7 +290,6 @@
     "@types/chance": "1.1.7",
     "@types/eslint": "9.6.1",
     "@types/express": "5.0.6",
-    "@types/jasmine": "5.1.13",
     "@types/js-yaml": "4.0.9",
     "@types/jsdom": "27.0.0",
     "@types/msgpack-lite": "0.1.12",

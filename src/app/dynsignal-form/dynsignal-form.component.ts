@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, effect, linkedSignal, signal } from '@angular/core';
-import { Field, form, metadata, type Validator } from '@angular/forms/signals';
+import { FormField, form, metadata, type Validator } from '@angular/forms/signals';
 import { getPropNames } from '../signal-forms-experiment/dynamic/dynamic.component';
 import path from 'path';
 
@@ -14,7 +14,7 @@ export interface DynForm {
   };
 }
 
-interface FieldDef<T> {
+interface FormFieldDef<T> {
   propertyName: string;
   type: Types;
   defaultValue: boolean | number | string | {} | [];
@@ -33,17 +33,17 @@ interface FieldDef<T> {
 
 @Component({
   selector: 'se-dynsignal-form',
-  imports: [JsonPipe, Field],
+  imports: [JsonPipe, FormField],
   template: `
     <h2>Dynamic Signal Form</h2>
     <form>
       <label>
         <span>Field Name</span>
-        <input type="text" [field]="nfFd.name" />
+        <input type="text" [formField]="nfFd.name" />
       </label>
       <label>
         <span>Field Type</span>
-        <select [field]="nfFd.type">
+        <select [formField]="nfFd.type">
           @for (type of types; track type) {
             <option value="{{ type }}">{{ type }}</option>
           }
@@ -53,13 +53,13 @@ interface FieldDef<T> {
         <span>Default Field Value</span>
         @switch (nfFd.type().value()) {
           @case ('boolean') {
-            <input type="checkbox" [field]="$any(nfFd.defaultValue)" />
+            <input type="checkbox" [formField]="$any(nfFd.defaultValue)" />
           }
           @case ('number') {
-            <input type="number" [field]="$any(nfFd.defaultValue)" />
+            <input type="number" [formField]="$any(nfFd.defaultValue)" />
           }
           @case ('string') {
-            <input type="text" [field]="$any(nfFd.defaultValue)" />
+            <input type="text" [formField]="$any(nfFd.defaultValue)" />
           }
         }
       </label>
@@ -73,7 +73,7 @@ interface FieldDef<T> {
       @for (_field of fields(); track _field) {
         <label for="{{ _field }}">
           <span>{{ _field }}</span>
-          <input type="text" placeholder="{{ _field }}" [field]="$any(dataForm[_field])" />
+          <input type="text" placeholder="{{ _field }}" [formField]="$any(dataForm[_field])" />
         </label>
       }
     </form>
@@ -156,17 +156,17 @@ function formModelFromDynForm(dynForm: DynForm) {
 //     <form>
 //       <label>
 //         <span>Optional Field</span>
-//         <input type="text" [field]="optForm.optionalField" />
+//         <input type="text" [formField]="optForm.optionalField" />
 //       </label>
 //       <fieldset>
 //         <legend>Optional Car</legend>
 //         <label>
 //           <span>Car Brand</span>
-//           <input type="text" [field]="optForm.optionalCar?.carBrand" />
+//           <input type="text" [formField]="optForm.optionalCar?.carBrand" />
 //         </label>
 //         <label>
 //           <span>Model</span>
-//           <input type="text" [field]="optForm.optionalCar?.model" />
+//           <input type="text" [formField]="optForm.optionalCar?.model" />
 //         </label>
 //       </fieldset>
 //     </form>

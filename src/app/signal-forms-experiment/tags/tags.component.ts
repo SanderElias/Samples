@@ -1,11 +1,11 @@
 import { afterRenderEffect, Component, computed, ElementRef, input, viewChild } from '@angular/core';
-import { Field, type FieldTree,MaxLengthValidationError } from '@angular/forms/signals';
+import { FormField, type FieldTree,MaxLengthValidationError } from '@angular/forms/signals';
 
 import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
 @Component({
   selector: 'fieldset [tags]',
-  imports: [Field, ShowErrorsInDom],
+  imports: [FormField, ShowErrorsInDom],
   template: `
     <legend>
       Tags
@@ -18,7 +18,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
     @for (tag of tags(); track $index) {
       <label class="tags">
         <button type="button" class="action" (click)="delTag($index)" [disabled]="isLastOne()">🗑️</button>
-        <input type="text" [field]="tag" showError />
+        <input type="text" [formField]="tag" showError />
       </label>
     }
   `,
