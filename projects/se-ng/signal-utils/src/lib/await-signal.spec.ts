@@ -37,10 +37,10 @@ describe('awaitSignal', () => {
      * We are using the setTimeout to trigger the thing _after_ this completes.
      * however the the teardown logic will still run, and it will clean up the signal.
      * This means that the signal will be destroyed before the predicate has a chance to be satisfied.
-     * and the rejects will happen. (note we don't await the expect!)
+     * and the rejects will happen. (assertion is awaited to avoid Vitest warning)
      */
 
-    expect(result).rejects.toThrow('[awaitSignal] the provided signal was destroyed before the predicate was satisfied');
+    await expect(result).rejects.toThrow('[awaitSignal] the provided signal was destroyed before the predicate was satisfied');
   });
 
   it('rejects if predicate throws', async () => {

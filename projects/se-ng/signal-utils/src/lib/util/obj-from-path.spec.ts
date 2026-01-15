@@ -1,5 +1,6 @@
 /* eslint-disable no-sparse-arrays */
 import { objFromPath } from './obj-from-path';
+import { describe, it, expect } from 'vitest';
 
 describe('Objects from path', () => {
   it('should create an object from a path', () => {

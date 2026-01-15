@@ -1,4 +1,5 @@
 import { isDate } from './is-date';
+import { describe, it, expect } from 'vitest';
 
 describe('isDate', () => {
   it('should return true for Date objects', () => {

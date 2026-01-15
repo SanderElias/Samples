@@ -17,5 +17,8 @@
   "peacock.color": "#34570e",
   "cSpell.words": ["Crudl", "micromark", "slipnslide", "Swapi", "transform", "wireit"],
   "angular.enable-strict-mode-prompt": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "chat.tools.terminal.autoApprove": {
+    "ng": true
+  }
 }

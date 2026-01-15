@@ -4,6 +4,8 @@ import { HttpCachingDefaultExpiry, minute } from './caching.util';
 
 /**
  * HttpCache is a service for caching HTTP responses in-memory, with support for cache expiry and revisioning.
+ * it is created as a accompany service for the httpCacheInterceptor, but can be used standalone as well.
+ * In the rare cases you want to do manual intervention of the cache. (e.g. purge on user logout)
  *
  * - Caches HTTP responses by URL (normalized to hostname + pathname).
  * - Supports cache expiry per entry, with automatic cleanup.
@@ -64,6 +66,7 @@ export class HttpCache {
         this.scheduleCacheCleanup(entry.expiryTime + 50); // make sure there is a cleanup scheduled
         return entry.response;
       }
+      // its expired or revision doesn't match, so purge it
       this.#cache.delete(url);
     }
   }

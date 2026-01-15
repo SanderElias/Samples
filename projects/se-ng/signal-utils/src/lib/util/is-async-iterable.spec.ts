@@ -1,4 +1,5 @@
 import { isAsyncIterable } from './is-async-iterable';
+import { describe, it, expect } from 'vitest';
 
 describe('isAsyncIterable', () => {
   it('should return true for an async iterable object', () => {

@@ -10,7 +10,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
             "outputPath": {
               "base": "dist/samples"
@@ -102,7 +102,7 @@
           "options": {
             "runner": "vitest",
             "buildTarget": "samples:build",
-            "tsConfig": "projects/wire-it-editor/tsconfig.spec.json"
+            "tsConfig": "src/tsconfig.spec.json"
           }
         },
         "lint": {
@@ -893,8 +893,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
+            "runner": "vitest",
+            "buildTarget": "@se-ng/headless-ui:build",
             "tsConfig": "projects/se-ng/headless-ui/tsconfig.spec.json"
           }
         },
