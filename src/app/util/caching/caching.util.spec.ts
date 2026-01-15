@@ -1,16 +1,16 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { TestBed } from '@angular/core/testing';
 import { HttpContext } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { describe, expect, it } from 'vitest';
 import {
-  minute,
   HttpCachingDefaultExpiry,
   HttpCachingRevisionName,
-  enableCache,
-  addCachingExpiryContext,
   addCachingContext,
-  purgeCache,
+  addCachingExpiryContext,
+  enableCache,
   enableHttpCache,
   httpCacheExpiryTime,
+  minute,
+  purgeCache,
   purgeHttpCache
 } from './caching.util';
 

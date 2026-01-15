@@ -6,10 +6,15 @@ import {
 } from '@angular/common/http';
 import { Injector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { firstValueFrom, of } from 'rxjs';
+import { firstValueFrom, of, Subject } from 'rxjs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { HttpGetCachingInterceptor } from './caching.interceptor';
-import { enableHttpCache, purgeHttpCache, HttpCachingRevisionName } from './caching.util';
+import {
+  enableHttpCache,
+  httpCacheExpiryTime,
+  HttpCachingRevisionName,
+  purgeHttpCache
+} from './caching.util';
 import { HttpCache } from './http-cache.service';
 
 describe('HttpGetCachingInterceptor', () => {
@@ -49,7 +54,7 @@ describe('HttpGetCachingInterceptor', () => {
       '/api/data',
       response,
       undefined,
-      0
+      undefined
     );
     expect(res).toEqual(response);
   });
@@ -95,10 +100,13 @@ describe('HttpGetCachingInterceptor', () => {
 
   it('should purge cache when purgeHttpCache context is set', async () => {
     const req = new HttpRequest('GET', '/api/data', {
-      context: new HttpContext().set(enableHttpCache, true).set(purgeHttpCache, true)
+      context: new HttpContext()
+        .set(enableHttpCache, true)
+        .set(purgeHttpCache, true)
     });
     vi.spyOn(httpCache, 'purge');
-    const next = () => of(new HttpResponse({ status: 200, body: { foo: 'bar' } }));
+    const next = () =>
+      of(new HttpResponse({ status: 200, body: { foo: 'bar' } }));
     await firstValueFrom(
       runInInjectionContext(injector, () => interceptor(req, next))
     );
@@ -119,7 +127,12 @@ describe('HttpGetCachingInterceptor', () => {
     );
     // first param is the full url, second param should be the extracted revision
     expect(httpCache.get).toHaveBeenCalledWith(reqUrl, 'abc');
-    expect(httpCache.set).toHaveBeenCalledWith(reqUrl, response, 'abc', 0);
+    expect(httpCache.set).toHaveBeenCalledWith(
+      reqUrl,
+      response,
+      'abc',
+      undefined
+    );
     expect(res).toEqual(response);
   });
 
@@ -166,13 +179,57 @@ describe('HttpGetCachingInterceptor', () => {
     expect(res).toEqual(response);
   });
 
+  it('should forward explicit expiry from context', async () => {
+    const req = new HttpRequest('GET', '/api/data', {
+      context: new HttpContext()
+        .set(enableHttpCache, true)
+        .set(httpCacheExpiryTime, 500)
+    });
+    const response = new HttpResponse({ status: 200, body: { foo: 'bar' } });
+    vi.spyOn(httpCache, 'get').mockReturnValue(undefined as any);
+    vi.spyOn(httpCache, 'set');
+    const next = () => of(response);
+    const res = await firstValueFrom(
+      runInInjectionContext(injector, () => interceptor(req, next))
+    );
+    expect(httpCache.set).toHaveBeenCalledWith(
+      '/api/data',
+      response,
+      undefined,
+      500
+    );
+    expect(res).toEqual(response);
+  });
+
+  it('should extract revision from relative url', async () => {
+    const req = new HttpRequest('GET', '/api/data?rev=xyz', {
+      context: new HttpContext().set(enableHttpCache, true)
+    });
+    const response = new HttpResponse({ status: 200, body: { foo: 'bar' } });
+    vi.spyOn(httpCache, 'get').mockReturnValue(undefined as any);
+    vi.spyOn(httpCache, 'set');
+    const next = () => of(response);
+    const res = await firstValueFrom(
+      runInInjectionContext(injector, () => interceptor(req, next))
+    );
+    expect(httpCache.get).toHaveBeenCalledWith('/api/data?rev=xyz', 'xyz');
+    expect(httpCache.set).toHaveBeenCalledWith(
+      '/api/data?rev=xyz',
+      response,
+      'xyz',
+      undefined
+    );
+    expect(res).toEqual(response);
+  });
+
   it('should consider empty revision param as undefined', async () => {
     const reqUrl = 'http://localhost/api/data?rev=';
     const req = new HttpRequest('GET', reqUrl, {
       context: new HttpContext().set(enableHttpCache, true)
     });
     vi.spyOn(httpCache, 'get').mockReturnValue(undefined as any);
-    const next = () => of(new HttpResponse({ status: 200, body: { foo: 'bar' } }));
+    const next = () =>
+      of(new HttpResponse({ status: 200, body: { foo: 'bar' } }));
     await firstValueFrom(
       runInInjectionContext(injector, () => interceptor(req, next))
     );
@@ -189,5 +246,96 @@ describe('HttpGetCachingInterceptor', () => {
       runInInjectionContext(injector, () => interceptor(req, next))
     );
     expect(httpCache.purge).not.toHaveBeenCalled();
+  });
+
+  it('should coalesce concurrent GET requests into a single network request', async () => {
+    const req = new HttpRequest('GET', '/api/data', {
+      context: new HttpContext().set(enableHttpCache, true)
+    });
+
+    const subj = new Subject<HttpResponse<unknown>>();
+    let nextCalls = 0;
+    const next = () => {
+      nextCalls++;
+      return subj.asObservable();
+    };
+
+    vi.spyOn(httpCache, 'get').mockReturnValue(undefined as any);
+    vi.spyOn(httpCache, 'set');
+
+    const p1 = firstValueFrom(
+      runInInjectionContext(injector, () => interceptor(req, next))
+    );
+    const p2 = firstValueFrom(
+      runInInjectionContext(injector, () => interceptor(req, next))
+    );
+
+    // next should only have been called once because requests are coalesced
+    expect(nextCalls).toBe(1);
+
+    const response = new HttpResponse({ status: 200, body: { foo: 'bar' } });
+    subj.next(response);
+    subj.complete();
+
+    const r1 = await p1;
+    const r2 = await p2;
+
+    expect(r1).toEqual(response);
+    expect(r2).toEqual(response);
+    expect(httpCache.set).toHaveBeenCalledTimes(1);
+  });
+
+  it('should remove in-flight entry on error so subsequent request triggers new network call', async () => {
+    const req = new HttpRequest('GET', '/api/data', {
+      context: new HttpContext().set(enableHttpCache, true)
+    });
+
+    let nextCalls = 0;
+    const subj1 = new Subject<HttpResponse<unknown>>();
+    let subj2: Subject<HttpResponse<unknown>> | undefined;
+    const next = () => {
+      nextCalls++;
+      if (nextCalls === 1) {
+        return subj1.asObservable();
+      }
+      subj2 = new Subject<HttpResponse<unknown>>();
+      return subj2.asObservable();
+    };
+
+    vi.spyOn(httpCache, 'get').mockReturnValue(undefined as any);
+
+    // subscribe using callbacks so we can capture error without Promise rejection
+    const p1 = new Promise(resolve => {
+      runInInjectionContext(injector, () => interceptor(req, next)).subscribe({
+        next: () => resolve({ ok: true }),
+        error: e => resolve({ error: true })
+      });
+    });
+
+    // ensure subscription happened before emitting the error
+    await Promise.resolve();
+    // cause the first request to error
+    subj1.error(new Error('network'));
+
+    const result1 = await p1;
+    expect(result1).toEqual({ error: true });
+    expect(nextCalls).toBe(1);
+
+    // Start a new request after the error — this should call next again
+    const p2 = new Promise(resolve => {
+      runInInjectionContext(injector, () => interceptor(req, next)).subscribe({
+        next: v => resolve(v),
+        error: e => resolve({ error: true })
+      });
+    });
+
+    expect(nextCalls).toBe(2);
+
+    const response = new HttpResponse({ status: 200, body: { foo: 'ok' } });
+    subj2!.next(response);
+    subj2!.complete();
+
+    const r2 = await p2;
+    expect(r2).toEqual(response);
   });
 });

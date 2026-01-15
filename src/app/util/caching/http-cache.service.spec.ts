@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { TestBed } from '@angular/core/testing';
-import { HttpCache } from './http-cache.service';
-import { HttpCachingDefaultExpiry } from './caching.util';
 import type { HttpEvent } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { HttpCachingDefaultExpiry } from './caching.util';
+import { HttpCache } from './http-cache.service';
 
 function mockEvent(data: any): HttpEvent<unknown> {
   return { type: 0, ...data } as HttpEvent<unknown>;
@@ -13,7 +13,10 @@ describe('HttpCache (Angular DI)', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HttpCache, { provide: HttpCachingDefaultExpiry, useValue: 100 }]
+      providers: [
+        HttpCache,
+        { provide: HttpCachingDefaultExpiry, useValue: 100 }
+      ]
     });
     cache = TestBed.inject(HttpCache);
   });
@@ -39,7 +42,9 @@ describe('HttpCache (Angular DI)', () => {
 
   it('should respect expiry time', () => {
     cache.set('https://expire.com', mockEvent({ value: 'exp' }), undefined, 10);
-    expect(cache.get('https://expire.com')).toEqual(mockEvent({ value: 'exp' }));
+    expect(cache.get('https://expire.com')).toEqual(
+      mockEvent({ value: 'exp' })
+    );
     // Simulate expiry
     const spy = vi.spyOn(Date, 'now').mockReturnValue(Date.now() + 20);
     expect(cache.get('https://expire.com')).toBeUndefined();
@@ -48,7 +53,9 @@ describe('HttpCache (Angular DI)', () => {
 
   it('should match revision if provided', () => {
     cache.set('https://rev.com', mockEvent({ value: 'r1' }), 'rev1');
-    expect(cache.get('https://rev.com', 'rev1')).toEqual(mockEvent({ value: 'r1' }));
+    expect(cache.get('https://rev.com', 'rev1')).toEqual(
+      mockEvent({ value: 'r1' })
+    );
     expect(cache.get('https://rev.com', 'rev2')).toBeUndefined();
   });
 
@@ -63,7 +70,9 @@ describe('HttpCache (Angular DI)', () => {
 
   it('should clean url for cache key', () => {
     cache.set('https://test.com/api/', mockEvent({ value: 'clean' }));
-    expect(cache.get('https://test.com/api')).toEqual(mockEvent({ value: 'clean' }));
+    expect(cache.get('https://test.com/api')).toEqual(
+      mockEvent({ value: 'clean' })
+    );
   });
 
   it('should support relative urls in cleanUrl', () => {
@@ -81,7 +90,12 @@ describe('HttpCache (Angular DI)', () => {
     let now = 0;
     const nowSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
 
-    cache.set('https://cleanup.test/one', mockEvent({ value: 1 }), undefined, 10);
+    cache.set(
+      'https://cleanup.test/one',
+      mockEvent({ value: 1 }),
+      undefined,
+      10
+    );
 
     // advance time enough so the entry will be considered expired
     now = 1000000;
@@ -101,7 +115,9 @@ describe('HttpCache (Angular DI)', () => {
   });
 
   it('should schedule cleanup when immediate path not taken', () => {
-    const setTimeoutSpy = vi.spyOn(global as any, 'setTimeout').mockImplementation(() => undefined as any);
+    const setTimeoutSpy = vi
+      .spyOn(global as any, 'setTimeout')
+      .mockImplementation(() => undefined as any);
     // ensure Date.now is small so the immediate cleanup condition is false
     const nowSpy = vi.spyOn(Date, 'now').mockImplementation(() => 0);
 
@@ -117,18 +133,32 @@ describe('HttpCache (Angular DI)', () => {
     let now = 0;
     const nowSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
 
-    cache.set('https://cleanup.test/a', mockEvent({ value: 'a' }), undefined, 10);
-    cache.set('https://cleanup.test/b', mockEvent({ value: 'b' }), undefined, 10000);
+    cache.set(
+      'https://cleanup.test/a',
+      mockEvent({ value: 'a' }),
+      undefined,
+      10
+    );
+    cache.set(
+      'https://cleanup.test/b',
+      mockEvent({ value: 'b' }),
+      undefined,
+      10000
+    );
 
     // advance time enough so 'a' is expired but 'b' is not
     now = 1000;
 
-    const setTimeoutSpy = vi.spyOn(global as any, 'setTimeout').mockImplementation(() => undefined as any);
+    const setTimeoutSpy = vi
+      .spyOn(global as any, 'setTimeout')
+      .mockImplementation(() => undefined as any);
 
     cache.scheduleCacheCleanup(1);
 
     expect(cache.get('https://cleanup.test/a')).toBeUndefined();
-    expect(cache.get('https://cleanup.test/b')).toEqual(mockEvent({ value: 'b' }));
+    expect(cache.get('https://cleanup.test/b')).toEqual(
+      mockEvent({ value: 'b' })
+    );
     // because cache still has entries, scheduleCacheCleanup should schedule a timeout
     expect(setTimeoutSpy).toHaveBeenCalled();
 

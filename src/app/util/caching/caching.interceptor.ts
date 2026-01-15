@@ -1,8 +1,21 @@
-import { HttpResponse, type HttpEvent, type HttpHandlerFn, type HttpRequest } from '@angular/common/http';
+import {
+  HttpResponse,
+  type HttpEvent,
+  type HttpHandlerFn,
+  type HttpRequest
+} from '@angular/common/http';
 import { inject } from '@angular/core';
-import { of, tap, type Observable } from 'rxjs';
-import { enableHttpCache, httpCacheExpiryTime, HttpCachingRevisionName, purgeHttpCache } from './caching.util';
+import { finalize, of, shareReplay, tap, type Observable } from 'rxjs';
+import {
+  enableHttpCache,
+  httpCacheExpiryTime,
+  HttpCachingRevisionName,
+  purgeHttpCache
+} from './caching.util';
 import { HttpCache } from './http-cache.service';
+
+// Track in-flight GET requests to coalesce duplicate requests
+const inFlightRequests = new Map<string, Observable<HttpEvent<unknown>>>();
 
 /**
  * HTTP interceptor that caches GET requests.
@@ -18,13 +31,21 @@ import { HttpCache } from './http-cache.service';
  *
  * Note: This interceptor only caches successful GET requests (status code 2xx).
  */
-export function HttpGetCachingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+export function HttpGetCachingInterceptor(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> {
   if (!req.context.get(enableHttpCache)) {
     return next(req);
   }
   const httpCache = inject(HttpCache);
   if (req.method !== 'GET') {
-    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE' || req.method === 'PATCH') {
+    if (
+      req.method === 'POST' ||
+      req.method === 'PUT' ||
+      req.method === 'DELETE' ||
+      req.method === 'PATCH'
+    ) {
       // invalidate cache on mutating requests
       httpCache.purge(req.url);
     }
@@ -40,8 +61,8 @@ export function HttpGetCachingInterceptor(req: HttpRequest<unknown>, next: HttpH
   const revisionName = inject(HttpCachingRevisionName);
   let currentRevision: string | undefined = undefined;
   if (revisionName && req.url.includes(revisionName)) {
-    // only when the string is present in the url it makes sense to look for it
-    const urlObj = new URL(req.url);
+    // support relative urls by providing a base URL
+    const urlObj = new URL(req.url, 'http://localhost');
     // the presence of the string doesn't mean its in the search params.
     // also we don't care about falsy values, so we default to undefined when not present
     currentRevision = urlObj.searchParams.get(revisionName) || undefined;
@@ -52,12 +73,33 @@ export function HttpGetCachingInterceptor(req: HttpRequest<unknown>, next: HttpH
   if (entry) {
     return of(entry);
   }
-  return next(req).pipe(
+
+  // Build a stable key for deduplication: normalized url + revision
+  const key = `${httpCache.cleanUrl(req.url)}|${currentRevision ?? ''}`;
+  const existing = inFlightRequests.get(key);
+  if (existing) {
+    return existing;
+  }
+
+  const request$ = next(req).pipe(
     tap(response => {
-      if (!(response instanceof HttpResponse) || response.status < 200 || response.status >= 300) {
+      if (
+        !(response instanceof HttpResponse) ||
+        response.status < 200 ||
+        response.status >= 300
+      ) {
         return; // only cache successful HttpResponses
       }
-      httpCache.set(req.url, response, currentRevision, req.context.get(httpCacheExpiryTime));
-    })
+      const expiry = req.context.get(httpCacheExpiryTime) || undefined;
+      httpCache.set(req.url, response, currentRevision, expiry);
+    }),
+    finalize(() => {
+      inFlightRequests.delete(key);
+    }),
+    // share the single network request among concurrent subscribers
+    shareReplay({ bufferSize: 1, refCount: true })
   );
+
+  inFlightRequests.set(key, request$);
+  return request$;
 }

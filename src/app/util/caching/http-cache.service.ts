@@ -28,7 +28,15 @@ export class HttpCache {
   /**
    * Internal cache map. Keys are normalized URLs, values include expiry, revision, and response.
    */
-  #cache = new Map<string, { expiresOn: number; revision?: string; expiryTime: number; response: HttpEvent<unknown> }>();
+  #cache = new Map<
+    string,
+    {
+      expiresOn: number;
+      revision?: string;
+      expiryTime: number;
+      response: HttpEvent<unknown>;
+    }
+  >();
   #lastCleanup = 0;
   #cleanup: undefined | NodeJS.Timeout = undefined;
   /**
@@ -45,13 +53,16 @@ export class HttpCache {
     try {
       const u = new URL(url);
       const clean = `${u.hostname}${u.pathname}`;
-      const cleanUrl = clean.endsWith('/') && clean.length > 1 ? clean.slice(0, -1) : clean;
+      const cleanUrl =
+        clean.endsWith('/') && clean.length > 1 ? clean.slice(0, -1) : clean;
       return cleanUrl;
     } catch {
       // Support relative URLs by using a dummy base host (used in tests and client-side requests)
       const u = new URL(url, 'http://localhost');
       const clean = `${u.hostname}${u.pathname}`;
-      return clean.endsWith('/') && clean.length > 1 ? clean.slice(0, -1) : clean;
+      return clean.endsWith('/') && clean.length > 1
+        ? clean.slice(0, -1)
+        : clean;
     }
   };
 
@@ -85,11 +96,21 @@ export class HttpCache {
    * @param revision Optional revision string for cache invalidation.
    * @param expiryTime Optional expiry time in ms (default: injected expiry delay).
    */
-  set(rawUrl: string, response: HttpEvent<unknown>, revision?: string, expiryTime?: number): void {
+  set(
+    rawUrl: string,
+    response: HttpEvent<unknown>,
+    revision?: string,
+    expiryTime?: number
+  ): void {
     const url = this.cleanUrl(rawUrl);
     expiryTime ??= this.#expiryDelay;
     this.scheduleCacheCleanup(expiryTime + 50); // schedule cleanup after expiry
-    this.#cache.set(url, { expiresOn: Date.now() + expiryTime, expiryTime, revision, response });
+    this.#cache.set(url, {
+      expiresOn: Date.now() + expiryTime,
+      expiryTime,
+      revision,
+      response
+    });
   }
 
   /**

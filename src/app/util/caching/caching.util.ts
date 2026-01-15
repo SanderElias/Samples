@@ -7,19 +7,25 @@ export const minute = 60 * 1000;
  * InjectionToken to set the default expiry time for cached GET requests in milliseconds.
  * when not set, the default is 5 minutes.
  */
-export const HttpCachingDefaultExpiry = new InjectionToken<number>('HttpGetCachingDefaultExpiry', {
-  providedIn: 'root',
-  factory: () => 5 * minute
-});
+export const HttpCachingDefaultExpiry = new InjectionToken<number>(
+  'HttpGetCachingDefaultExpiry',
+  {
+    providedIn: 'root',
+    factory: () => 5 * minute
+  }
+);
 
 /**
  * InjectionToken, when set, it will monitor the request parameters for this string, and use it to
  * check validity of the cache. If the revision changes, the cache will be invalidated.
  */
-export const HttpCachingRevisionName = new InjectionToken<string | undefined>('HttpCachingRevisionName', {
-  providedIn: 'root',
-  factory: () => undefined
-});
+export const HttpCachingRevisionName = new InjectionToken<string | undefined>(
+  'HttpCachingRevisionName',
+  {
+    providedIn: 'root',
+    factory: () => undefined
+  }
+);
 
 /**
  * HttpContextToken to enable caching for a request.
@@ -63,13 +69,18 @@ export const enableCache = (milliSeconds?: number) => {
  * @param milliSeconds
  * @returns
  */
-export const addCachingExpiryContext = <T extends Record<string, unknown> & { context?: HttpContext }>(
+export const addCachingExpiryContext = <
+  T extends Record<string, unknown> & { context?: HttpContext }
+>(
   httpOptions: T,
   milliSeconds?: number
 ) => {
   if (milliSeconds) {
     httpOptions.context ??= new HttpContext();
-    httpOptions.context = httpOptions.context.set(httpCacheExpiryTime, milliSeconds);
+    httpOptions.context = httpOptions.context.set(
+      httpCacheExpiryTime,
+      milliSeconds
+    );
   }
   return httpOptions;
 };
@@ -81,7 +92,9 @@ export const addCachingExpiryContext = <T extends Record<string, unknown> & { co
  * @param milliSeconds
  * @returns
  */
-export const addCachingContext = <T extends Record<string, unknown> & { context?: HttpContext }>(
+export const addCachingContext = <
+  T extends Record<string, unknown> & { context?: HttpContext }
+>(
   httpOptions: T,
   milliSeconds?: number
 ) => {
@@ -91,10 +104,14 @@ export const addCachingContext = <T extends Record<string, unknown> & { context?
 };
 
 /**
-  * Utility that adds the purge cache context to the provided httpOptions object.
-  * @param httpOptions
+ * Utility that adds the purge cache context to the provided httpOptions object.
+ * @param httpOptions
  */
-export const purgeCache = <T extends Record<string, unknown> & { context?: HttpContext }>(httpOptions: T) => {
+export const purgeCache = <
+  T extends Record<string, unknown> & { context?: HttpContext }
+>(
+  httpOptions: T
+) => {
   httpOptions.context ??= new HttpContext();
   httpOptions.context = httpOptions.context.set(purgeHttpCache, true);
   return httpOptions;
