@@ -12,14 +12,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/samples"
-            },
-            "server": "src/main.server.ts",
-            "prerender": {
-              "discoverRoutes": true
-            },
-            "outputMode": "static",
+            "outputPath": "dist/samples",
             "index": "src/index.html",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
@@ -245,11 +238,9 @@
       "prefix": "ss",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/slipnslide"
-            },
+            "outputPath": "dist/slipnslide",
             "index": "projects/slipnslide/src/index.html",
             "polyfills": [
               "projects/slipnslide/src/polyfills.ts"
@@ -372,11 +363,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/ApiBoundries"
-            },
+            "outputPath": "dist/ApiBoundries",
             "index": "projects/api-boundries/src/index.html",
             "polyfills": [
               "zone.js"
@@ -469,11 +458,9 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/wire-it-editor"
-            },
+            "outputPath": "dist/wire-it-editor",
             "index": "projects/wire-it-editor/src/index.html",
             "polyfills": [
               "zone.js"
@@ -560,11 +547,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/language-routing"
-            },
+            "outputPath": "dist/language-routing",
             "index": "projects/language-routing/src/index.html",
             "polyfills": [
               "zone.js"
@@ -749,12 +734,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist/slido",
             "index": "projects/slido/src/index.html",
             "browser": "projects/slido/src/main.ts",
-            "server": "projects/slido/server.ts",
             "polyfills": [],
             "tsConfig": "projects/slido/tsconfig.app.json",
             "namedChunks": true,
@@ -780,9 +764,7 @@
             "styles": [
               "projects/slido/src/styles.css"
             ],
-            "scripts": [],
-            "prerender": false,
-            "ssr": false
+            "scripts": []
           },
           "configurations": {
             "production": {
