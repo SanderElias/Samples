@@ -65,4 +65,74 @@ describe('HttpCache (Angular DI)', () => {
     cache.set('https://test.com/api/', mockEvent({ value: 'clean' }));
     expect(cache.get('https://test.com/api')).toEqual(mockEvent({ value: 'clean' }));
   });
+
+  it('should support relative urls in cleanUrl', () => {
+    cache.set('/relative/path', mockEvent({ value: 'rel' }));
+    expect(cache.get('/relative/path')).toEqual(mockEvent({ value: 'rel' }));
+  });
+
+  it('should strip trailing slash for relative urls', () => {
+    cache.set('/relative/withslash/', mockEvent({ value: 's' }));
+    expect(cache.get('/relative/withslash')).toEqual(mockEvent({ value: 's' }));
+  });
+
+  it('should immediately cleanup expired entries and not reschedule when cache empty', () => {
+    // control time so the entry is expired when we trigger cleanup
+    let now = 0;
+    const nowSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
+
+    cache.set('https://cleanup.test/one', mockEvent({ value: 1 }), undefined, 10);
+
+    // advance time enough so the entry will be considered expired
+    now = 1000000;
+
+    const setTimeoutSpy = vi.spyOn(global as any, 'setTimeout');
+    // clear previous setTimeout calls from initial set
+    setTimeoutSpy.mockClear();
+
+    cache.scheduleCacheCleanup(1);
+
+    expect(cache.get('https://cleanup.test/one')).toBeUndefined();
+    // since cache became empty during immediate cleanup, no new timeout should be scheduled
+    expect(setTimeoutSpy).not.toHaveBeenCalled();
+
+    nowSpy.mockRestore();
+    setTimeoutSpy.mockRestore();
+  });
+
+  it('should schedule cleanup when immediate path not taken', () => {
+    const setTimeoutSpy = vi.spyOn(global as any, 'setTimeout').mockImplementation(() => undefined as any);
+    // ensure Date.now is small so the immediate cleanup condition is false
+    const nowSpy = vi.spyOn(Date, 'now').mockImplementation(() => 0);
+
+    cache.scheduleCacheCleanup(50);
+    expect(setTimeoutSpy).toHaveBeenCalled();
+
+    setTimeoutSpy.mockRestore();
+    nowSpy.mockRestore();
+  });
+
+  it('should cleanup only expired entries and reschedule when some remain', () => {
+    // control time to create one expired and one valid entry
+    let now = 0;
+    const nowSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
+
+    cache.set('https://cleanup.test/a', mockEvent({ value: 'a' }), undefined, 10);
+    cache.set('https://cleanup.test/b', mockEvent({ value: 'b' }), undefined, 10000);
+
+    // advance time enough so 'a' is expired but 'b' is not
+    now = 1000;
+
+    const setTimeoutSpy = vi.spyOn(global as any, 'setTimeout').mockImplementation(() => undefined as any);
+
+    cache.scheduleCacheCleanup(1);
+
+    expect(cache.get('https://cleanup.test/a')).toBeUndefined();
+    expect(cache.get('https://cleanup.test/b')).toEqual(mockEvent({ value: 'b' }));
+    // because cache still has entries, scheduleCacheCleanup should schedule a timeout
+    expect(setTimeoutSpy).toHaveBeenCalled();
+
+    nowSpy.mockRestore();
+    setTimeoutSpy.mockRestore();
+  });
 });

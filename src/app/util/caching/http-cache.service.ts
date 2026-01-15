@@ -42,10 +42,17 @@ export class HttpCache {
    * @returns The normalized cache key.
    */
   cleanUrl = (url: string): string => {
-    const u = new URL(url);
-    const clean = `${u.hostname}${u.pathname}`;
-    const cleanUrl = clean.endsWith('/') && clean.length > 1 ? clean.slice(0, -1) : clean;
-    return cleanUrl;
+    try {
+      const u = new URL(url);
+      const clean = `${u.hostname}${u.pathname}`;
+      const cleanUrl = clean.endsWith('/') && clean.length > 1 ? clean.slice(0, -1) : clean;
+      return cleanUrl;
+    } catch {
+      // Support relative URLs by using a dummy base host (used in tests and client-side requests)
+      const u = new URL(url, 'http://localhost');
+      const clean = `${u.hostname}${u.pathname}`;
+      return clean.endsWith('/') && clean.length > 1 ? clean.slice(0, -1) : clean;
+    }
   };
 
   /**
