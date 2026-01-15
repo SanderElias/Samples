@@ -78,22 +78,23 @@ You can configure cache tokens using Angular's dependency injection. The
 examples below show two common places to provide values: AppModule and
 TestBed.
 
-### AppModule (application-wide)
+### Standalone apps / bootstrap (recommended)
 
 ```ts
-import { NgModule } from '@angular/core';
+// main.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
 import {
   HttpCachingDefaultExpiry,
   HttpCachingRevisionName
 } from './caching.util';
 
-@NgModule({
+bootstrapApplication(AppComponent, {
   providers: [
     { provide: HttpCachingDefaultExpiry, useValue: 5 * 60 * 1000 },
     { provide: HttpCachingRevisionName, useValue: 'rev' }
   ]
-})
-export class AppModule {}
+});
 ```
 
 ### TestBed (unit tests)
