@@ -86,13 +86,18 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import {
   HttpCachingDefaultExpiry,
-  HttpCachingRevisionName
+  HttpCachingRevisionName,
+  HttpGetCachingInterceptor
 } from './caching.util';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: HttpCachingDefaultExpiry, useValue: 5 * 60 * 1000 },
-    { provide: HttpCachingRevisionName, useValue: 'rev' }
+    { provide: HttpCachingRevisionName, useValue: 'rev' },
+    provideHttpClient(
+      withFetch(), 
+      withInterceptors([HttpGetCachingInterceptor])
+    ),
   ]
 });
 ```
