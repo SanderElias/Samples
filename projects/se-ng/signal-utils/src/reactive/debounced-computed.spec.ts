@@ -1,10 +1,9 @@
-import { Injector, provideZonelessChangeDetection, signal } from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { debouncedComputed, debouncedSignal } from './debounced-computed';
 
 describe('debouncedSignal / debouncedComputed', () => {
-  let injector: Injector;
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] });
     // use fake timers and control Date.now so the implementation's Date.now() checks behave deterministically
