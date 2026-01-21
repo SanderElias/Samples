@@ -33,7 +33,7 @@ export function couchEventLister(
     // };
     eventSource.onmessage = event => {
       try {
-        const { data, ...meta } = event;
+        const { data } = event;
         if (data !== '\n') {
           // ignore keep-alive new lines
           const json = JSON.parse(data) as CouchDbEvent;
