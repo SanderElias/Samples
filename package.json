@@ -335,7 +335,7 @@
     },
     "@se-ng/signalUtils": {
       "hash": "0fc85c52a518538cb0c61f3e0244d70e8dfccec815d63b48d6c5c69aa22629d4",
-      "version": "20.0.1"
+      "version": "21.0.0"
     },
     "@se-ng/headless-ui": {
       "hash": "94375456299f91fa7b94cf60c4d2e2e87d12662fe68f752487758283f92ab8a3",
