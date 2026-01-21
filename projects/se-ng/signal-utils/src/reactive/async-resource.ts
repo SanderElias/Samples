@@ -4,6 +4,20 @@ import type { ObservableComputedFn } from './async-computed';
 import { isAsyncIterable } from '../guards/is-async-iterable';
 import { isPromise } from '../guards/is-promise';
 
+
+/**
+ * This file predates the Resource concept in Angular.
+ * It provides a way to manage async data sources (Promises, Observables, AsyncIterables)
+ * and exposes their state in a structured way. In some ways its similar to resouces
+ * from angular, but with a different API and feature set.
+ *
+ * it accepts an async function that can return a Promise, Observable or AsyncIterable
+ * and returns a Signal that contains the current value, error (if any), status and stream state.
+ *
+ * Consider using Angular's built-in Resource handling for new projects. Or use this
+ * when you have an async iterator, as Angular Resources do not support that yet.
+ */
+
 export const enum ResourceState {
   /** the resource is initialized */
   'init' = 'init',

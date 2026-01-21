@@ -49,6 +49,20 @@ describe('API.json / public-api consistency', () => {
     expect(missingSources).toEqual([]);
   });
 
+  it('all source files referenced by API.json are linked in README.md', () => {
+    const apiJson = JSON.parse(readFileSync(apiJsonPath, 'utf8')) as any;
+    const readme = readFileSync(resolve(pkgRoot, 'README.md'), 'utf8');
+    const missingLinks: string[] = [];
+
+    for (const e of apiJson.exports ?? []) {
+      // Expect a markdown link pointing to the relative source file, e.g. `](./src/path/file.ts)`
+      const linkPattern = `](./${e.source})`;
+      if (!readme.includes(linkPattern)) missingLinks.push(e.source);
+    }
+
+    expect(missingLinks).toEqual([]);
+  });
+
   it('all exports are mentioned in README.md using backticks', () => {
     const apiJson = JSON.parse(readFileSync(apiJsonPath, 'utf8')) as any;
     const readme = readFileSync(resolve(pkgRoot, 'README.md'), 'utf8');

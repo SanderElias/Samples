@@ -23,7 +23,7 @@ indications, examples, and source links.
   - Signature:
     `asyncComputed<T>(cb, initial?, destroyRef?)` ->
     `Signal<T | initial | undefined>`
-  - Source: [`src/lib/async-computed.ts`](./src/lib/async-computed.ts)
+  - Source: [`src/reactive/async-computed.ts`](./src/reactive/async-computed.ts)
 
   Example:
 
@@ -40,7 +40,7 @@ indications, examples, and source links.
   - Signature:
     `computedResource<T>(cb, initial?, destroyRef?)` ->
     `Signal<Resource<T | initial | undefined>>`
-  - Source: [`src/lib/async-resource.ts`](./src/lib/async-resource.ts)
+  - Source: [`src/reactive/async-resource.ts`](./src/reactive/async-resource.ts)
 
   Example:
 
@@ -54,7 +54,7 @@ indications, examples, and source links.
 - **`debouncedSignal` / `debouncedComputed`** — debounce helpers for signals.
   - `debouncedSignal<T>(fn, {delay?, equal?}) => WritableSignal<T>`
   - `debouncedComputed<T>(...) => Signal<T>`
-  - Source: [`src/lib/debounced-computed.ts`](./src/lib/debounced-computed.ts)
+  - Source: [`src/reactive/debounced-computed.ts`](./src/reactive/debounced-computed.ts)
 
   Example:
 
@@ -67,7 +67,7 @@ indications, examples, and source links.
   satisfy a predicate.
   - `awaitSignal<T>(signalFn, predicate) => Promise<T>`
   - `injectAwaitSignal(injector?) => <T>(signalFn, predicate) => Promise<T>`
-  - Source: [`src/lib/await-signal.ts`](./src/lib/await-signal.ts)
+  - Source: [`src/reactive/await-signal.ts`](./src/reactive/await-signal.ts)
 
   Example:
 
@@ -90,7 +90,7 @@ indications, examples, and source links.
       resolve: (v: T) => void;
       reject: (e: any) => void;
     }`
-  - Source: [`src/lib/util/deferred.ts`](./src/lib/util/deferred.ts)
+  - Source: [`src/async/deferred.ts`](./src/async/deferred.ts)
 
   Example:
 
@@ -110,7 +110,7 @@ indications, examples, and source links.
       methods return `Promise<any>`;
       `busyMethods: Record<Method, Signal<boolean>>`
     )
-  - Source: [`src/lib/http-action-client.ts`](./src/lib/http-action-client.ts)
+  - Source: [`src/http/http-action-client.ts`](./src/http/http-action-client.ts)
 
   Example:
 
@@ -127,7 +127,7 @@ indications, examples, and source links.
 
 - **`isAsyncIterable`** — `isAsyncIterable(x): x is AsyncIterable<any>`
   - Source:
-    [`src/lib/util/is-async-iterable.ts`](./src/lib/util/is-async-iterable.ts)
+    [`src/guards/is-async-iterable.ts`](./src/guards/is-async-iterable.ts)
 
   Example:
 
@@ -140,7 +140,7 @@ indications, examples, and source links.
   ```
 
 - **`isPromise`** — `isPromise<T>(x): x is Promise<T>`
-  - Source: [`src/lib/util/is-promise.ts`](./src/lib/util/is-promise.ts)
+  - Source: [`src/guards/is-promise.ts`](./src/guards/is-promise.ts)
 
   Example:
 
@@ -154,7 +154,7 @@ indications, examples, and source links.
   ```
 
 - **`isDate`** — `isDate(x): x is Date`
-  - Source: [`src/lib/util/is-date.ts`](./src/lib/util/is-date.ts)
+  - Source: [`src/guards/is-date.ts`](./src/guards/is-date.ts)
 
   Example:
 
@@ -165,7 +165,7 @@ indications, examples, and source links.
   ```
 
 - **`isObject`** — `isObject<T>(x: T): boolean` (object, not null/array/date)
-  - Source: [`src/lib/util/is-object.ts`](./src/lib/util/is-object.ts)
+  - Source: [`src/guards/is-object.ts`](./src/guards/is-object.ts)
 
   Example:
 
@@ -179,7 +179,7 @@ indications, examples, and source links.
 
 - **`isIntegerString`** — `isIntegerString(str): boolean` (digits-only integer check)
   - Source:
-    [`src/lib/util/is-integer-string.ts`](./src/lib/util/is-integer-string.ts)
+    [`src/guards/is-integer-string.ts`](./src/guards/is-integer-string.ts)
 
   Example:
 
@@ -196,20 +196,20 @@ indications, examples, and source links.
 
 - **`cloneDeep`** — deep clone handling circular refs, Maps, Sets, Dates, RegExp.
   - `cloneDeep<T>(value: T): T`
-  - Source: [`src/lib/util/clone-deep.ts`](./src/lib/util/clone-deep.ts)
+  - Source: [`src/deep/clone-deep.ts`](./src/deep/clone-deep.ts)
 
   Example: `const copy = cloneDeep(original); // no shared references`
 
 - **`deepEqual`** — deep structural equality check for:
   objects, arrays, maps, sets, dates and typed arrays.
   - `deepEqual(a, b): boolean`
-  - Source: [`src/lib/util/deep-equal.ts`](./src/lib/util/deep-equal.ts)
+  - Source: [`src/deep/deep-equal.ts`](./src/deep/deep-equal.ts)
 
   Example: `deepEqual({ a: 1 }, { a: 1 }) // true`
 
 - **`mergeDeep`** — deep merge with configurable iterable strategies (`concat|replace|merge`).
   - `mergeDeep<A,B>(target:A, source:B, options?) => DeepMergeObjects<A,B>`
-  - Source: [`src/lib/util/merge-deep.ts`](./src/lib/util/merge-deep.ts)
+  - Source: [`src/deep/merge-deep.ts`](./src/deep/merge-deep.ts)
 
   Example:
 
@@ -221,7 +221,7 @@ indications, examples, and source links.
 - **`deepDiff`** — compute a minimal patch object with changed keys
   between two objects.
   - `deepDiff<T>(a: T, b: T): Partial<T>` (reconstructed patch)
-  - Source: [`src/lib/util/deep-diff.ts`](./src/lib/util/deep-diff.ts)
+  - Source: [`src/deep/deep-diff.ts`](./src/deep/deep-diff.ts)
 
   Example: `deepDiff({a:1,b:2}, {a:1,b:3}) // -> { b: 3 }`
 
@@ -232,7 +232,7 @@ indications, examples, and source links.
 - **`objFromPath`** — builds an object or array from a dot/bracket
   path and a value.
   - `objFromPath<T>(path: string, value?): T`
-  - Source: [`src/lib/util/obj-from-path.ts`](./src/lib/util/obj-from-path.ts)
+  - Source: [`src/path/obj-from-path.ts`](./src/path/obj-from-path.ts)
 
   Example: `objFromPath('a[0].b', 5) // -> { a: [ { b: 5 } ] }`
 
@@ -241,8 +241,8 @@ indications, examples, and source links.
   - `flattenRecord(obj, {onCircular?, marker?}) => Record<string, any>`
   - `unFlattenRecord(record) => Record<string, any>`
   - Source:
-    [`src/lib/util/flatten-record.ts`](./src/lib/util/flatten-record.ts),
-    [`src/lib/util/un-flattenRecord.ts`](./src/lib/util/un-flattenRecord.ts)
+    [`src/path/flatten-record.ts`](./src/path/flatten-record.ts),
+    [`src/path/un-flattenRecord.ts`](./src/path/un-flattenRecord.ts)
 
   Example:
 
