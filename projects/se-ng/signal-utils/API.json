@@ -1,0 +1,146 @@
+{
+  "package": "@se-ng/signal-utils",
+  "generated": "2026-01-21",
+  "exports": [
+    {
+      "name": "asyncComputed",
+      "category": "Reactive",
+      "signature": "asyncComputed<T>(cb, initial?, destroyRef?) => Signal<T|initial|undefined>",
+      "description": "Populate a Signal from Promise/Observable/AsyncIterable or value",
+      "source": "src/lib/async-computed.ts"
+    },
+    {
+      "name": "computedResource",
+      "category": "Reactive",
+      "signature": "computedResource<T>(cb, initial?, destroyRef?) => Signal<Resource<T|initial|undefined>>",
+      "description": "Resource wrapper exposing value signal, status, stream and error",
+      "source": "src/lib/async-resource.ts"
+    },
+    {
+      "name": "debouncedSignal",
+      "category": "Reactive",
+      "signature": "debouncedSignal<T>(fn, {delay?, equal?}) => WritableSignal<T>",
+      "description": "Debounce a computed signal",
+      "source": "src/lib/debounced-computed.ts"
+    },
+    {
+      "name": "debouncedComputed",
+      "category": "Reactive",
+      "signature": "debouncedComputed<T>(fn, {delay?, equal?}) => Signal<T>",
+      "description": "Readonly debounced signal",
+      "source": "src/lib/debounced-computed.ts"
+    },
+    {
+      "name": "HttpActionClient",
+      "category": "HTTP",
+      "signature": "class HttpActionClient",
+      "description": "HttpClient wrapper with async methods and per-method busy signals",
+      "source": "src/lib/http-action-client.ts"
+    },
+    {
+      "name": "injectAwaitSignal",
+      "category": "Reactive",
+      "signature": "injectAwaitSignal(injector?) => <T>(signalFn, predicate) => Promise<T>",
+      "description": "Factory that returns an awaitSignal bound to an injector",
+      "source": "src/lib/await-signal.ts"
+    },
+    {
+      "name": "awaitSignal",
+      "category": "Reactive",
+      "signature": "awaitSignal<T>(signalFn, predicate) => Promise<T>",
+      "description": "Wait for a signal to satisfy a predicate",
+      "source": "src/lib/await-signal.ts"
+    },
+    {
+      "name": "isAsyncIterable",
+      "category": "Type Guard",
+      "signature": "isAsyncIterable(x): x is AsyncIterable<any>",
+      "description": "Detects async iterables",
+      "source": "src/lib/util/is-async-iterable.ts"
+    },
+    {
+      "name": "isPromise",
+      "category": "Type Guard",
+      "signature": "isPromise<T>(x): x is Promise<T>",
+      "description": "Detects thenables via .then method",
+      "source": "src/lib/util/is-promise.ts"
+    },
+    {
+      "name": "cloneDeep",
+      "category": "Deep utils",
+      "signature": "cloneDeep<T>(value: T): T",
+      "description": "Deep clone supporting circular refs, Maps, Sets, Dates, RegExp",
+      "source": "src/lib/util/clone-deep.ts"
+    },
+    {
+      "name": "deepEqual",
+      "category": "Deep utils",
+      "signature": "deepEqual(a, b): boolean",
+      "description": "Deep structural equality for objects, arrays, maps, sets, dates",
+      "source": "src/lib/util/deep-equal.ts"
+    },
+    {
+      "name": "isDate",
+      "category": "Type Guard",
+      "signature": "isDate(x): x is Date",
+      "description": "Detects Date objects",
+      "source": "src/lib/util/is-date.ts"
+    },
+    {
+      "name": "Deferred",
+      "category": "Async",
+      "signature": "class Deferred<T> { promise: Promise<T>; resolve: (v:T)=>void; reject: (e)=>void }",
+      "description": "Deferred promise container",
+      "source": "src/lib/util/deferred.ts"
+    },
+    {
+      "name": "isIntegerString",
+      "category": "Type Guard",
+      "signature": "isIntegerString(str): boolean",
+      "description": "Return true when string is digits-only (non-negative integer)",
+      "source": "src/lib/util/is-integer-string.ts"
+    },
+    {
+      "name": "isObject",
+      "category": "Type Guard",
+      "signature": "isObject<T>(x: T): boolean",
+      "description": "True for plain objects (not arrays, dates, null)",
+      "source": "src/lib/util/is-object.ts"
+    },
+    {
+      "name": "mergeDeep",
+      "category": "Deep utils",
+      "signature": "mergeDeep<A,B>(target:A, source:B, options?) => DeepMergeObjects<A,B>",
+      "description": "Deep merge with configurable iterable strategy",
+      "source": "src/lib/util/merge-deep.ts"
+    },
+    {
+      "name": "objFromPath",
+      "category": "Path utils",
+      "signature": "objFromPath<T>(path: string, value?): T",
+      "description": "Create nested object/array from path string",
+      "source": "src/lib/util/obj-from-path.ts"
+    },
+    {
+      "name": "deepDiff",
+      "category": "Deep utils",
+      "signature": "deepDiff<T>(a: T, b: T): Partial<T>",
+      "description": "Compute reconstructed patch of changed keys",
+      "source": "src/lib/util/deep-diff.ts"
+    },
+    {
+      "name": "flattenRecord",
+      "category": "Path utils",
+      "signature": "flattenRecord(obj, {onCircular?, marker?}) => Record<string, any>",
+      "description": "Flatten nested objects/arrays to dot-path record",
+      "source": "src/lib/util/flatten-record.ts"
+    },
+    {
+      "name": "unFlattenRecord",
+      "category": "Path utils",
+      "signature": "unFlattenRecord(record) => Record<string, any>",
+      "description": "Reconstruct object from dot-path record",
+      "source": "src/lib/util/un-flattenRecord.ts"
+    }
+  ]
+}

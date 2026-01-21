@@ -33,7 +33,7 @@ import {
 } from './couch-helpers';
 import type { CouchUpdate } from './couch.types';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
-import { deepDiff } from './utils/deep-diff';
+import { deepDiff } from '@se-ng/signal-utils';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';
 
 const sortFields = ['name', 'username', 'email'] as const;

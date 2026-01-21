@@ -14,7 +14,7 @@ import { cloneDeep } from '@se-ng/signal-utils';
 
 import type { UserCard } from '../../generic-services/address.service';
 import { RelationsService } from '../relations.service';
-import { deepDiff } from '../utils/deep-diff';
+import { deepDiff } from '@se-ng/signal-utils';
 import { flattenRecord, unFlattenRecord } from '@se-ng/signal-utils';
 
 @Component({
