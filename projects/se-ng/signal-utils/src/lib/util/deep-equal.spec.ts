@@ -72,6 +72,15 @@ describe('deepEqual', () => {
     expect(deepEqual(a, b)).toBe(false);
   });
 
+  it('should return false for maps with different sizes', () => {
+    const a = new Map([
+      [1, 'a'],
+      [2, 'b']
+    ]);
+    const b = new Map([[1, 'a']]);
+    expect(deepEqual(a, b)).toBe(false);
+  });
+
   it('should return true for equal sets', () => {
     const a = new Set([1, 2, 3]);
     const b = new Set([1, 2, 3]);

@@ -148,7 +148,7 @@ function _flattenArray(
   return acc;
 }
 
-/* v8 ignore start */
+/* c8 ignore start */
 // Test-only exports: expose internal helpers under `flattenRecord.__test` when
 // running under the test environment so tests can exercise edge cases without
 // leaking implementation details in production.
@@ -161,4 +161,4 @@ const _isTestEnv =
 if (_isTestEnv) {
   (flattenRecord as any).__test = { _flattenRecord, _flattenArray };
 }
-/* v8 ignore end */
+/* c8 ignore stop */

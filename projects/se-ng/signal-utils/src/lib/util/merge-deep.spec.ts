@@ -305,4 +305,32 @@ describe('mergeDeep function', () => {
     const obj2 = { a: [{ c: 2 }] };
     expect(mergeDeep(obj1, obj2, { iterableMergeStrategy: 'merge' })).toEqual({ a: [{ b: 1, c: 2 }] } as any);
   });
+
+  it('overwrites primitive array elements when using merge strategy', () => {
+    expect(
+      mergeDeep({ a: [1] }, { a: [2] }, { iterableMergeStrategy: 'merge' })
+    ).toEqual({ a: [2] });
+  });
+
+  it('merges object elements into arrays when target element missing', () => {
+    expect(
+      mergeDeep({ a: [] }, { a: [{ b: 2 }] }, { iterableMergeStrategy: 'merge' })
+    ).toEqual({ a: [{ b: 2 }] });
+  });
+
+  it('deep merges nested arrays when using merge strategy', () => {
+    expect(
+      mergeDeep({ a: [[1]] }, { a: [[,2]] }, { iterableMergeStrategy: 'merge' })
+    ).toEqual({ a: [[1,2]] });
+  });
+
+  it('merges top-level arrays when using merge strategy', () => {
+    expect(mergeDeep([1, , 3], [, 2, , 4], { iterableMergeStrategy: 'merge' } as any)).toEqual([1, 2, 3, 4]);
+  });
+
+  it('merges object elements at same index in arrays', () => {
+    const target = [{ a: 1 }];
+    const source = [{ b: 2 }];
+    expect(mergeDeep(target, source, { iterableMergeStrategy: 'merge' } as any)).toEqual([{ a: 1, b: 2 }]);
+  });
 });
