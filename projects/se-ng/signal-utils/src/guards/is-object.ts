@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { isDate } from '../guards/is-date';
+import { isDate } from './is-date';
 
 /**
  * Check if an value is an Object, and not a primitive, null, array or date
