@@ -306,6 +306,18 @@ describe('mergeDeep function', () => {
     expect(mergeDeep(obj1, obj2, { iterableMergeStrategy: 'merge' })).toEqual({ a: [{ b: 1, c: 2 }] } as any);
   });
 
+  it('invokes deep merge strategy for arrays (covers merge case)', () => {
+    const target = { items: [[1], [3]] } as any;
+    const source = { items: [[, 2], [4]] } as any;
+    expect(mergeDeep(target, source, { iterableMergeStrategy: 'merge' })).toEqual({ items: [[1, 2], [4]] });
+  });
+
+  it('uses empty array when merging into undefined target (covers currentValue ?? [] branch)', () => {
+    const target = {} as any;
+    const source = { items: [[2], [4]] } as any;
+    expect(mergeDeep(target, source, { iterableMergeStrategy: 'merge' })).toEqual({ items: [[2], [4]] });
+  });
+
   it('overwrites primitive array elements when using merge strategy', () => {
     expect(
       mergeDeep({ a: [1] }, { a: [2] }, { iterableMergeStrategy: 'merge' })

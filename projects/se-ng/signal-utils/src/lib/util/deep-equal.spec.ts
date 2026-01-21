@@ -72,6 +72,26 @@ describe('deepEqual', () => {
     expect(deepEqual(a, b)).toBe(false);
   });
 
+  it('should return false for maps with object keys that are deep-equal but different references', () => {
+    const keyA = { id: 1 };
+    const keyB = { id: 1 };
+    const a = new Map([[keyA, 'a']]);
+    const b = new Map([[keyB, 'a']]);
+    expect(deepEqual(a, b)).toBe(false);
+  });
+
+  it('should return false for maps with nested object values that differ', () => {
+    const a = new Map([
+      ['k1', { x: 1 }],
+      ['k2', { y: 2 }]
+    ]);
+    const b = new Map([
+      ['k1', { x: 1 }],
+      ['k2', { y: 3 }]
+    ]);
+    expect(deepEqual(a, b)).toBe(false);
+  });
+
   it('should return false for maps with different sizes', () => {
     const a = new Map([
       [1, 'a'],
@@ -90,6 +110,14 @@ describe('deepEqual', () => {
   it('should return false for different sets', () => {
     const a = new Set([1, 2, 3]);
     const b = new Set([1, 2]);
+    expect(deepEqual(a, b)).toBe(false);
+  });
+
+  it('should return false for sets with object values that are deep-equal but different references', () => {
+    const valA = { id: 1 };
+    const valB = { id: 1 };
+    const a = new Set([valA]);
+    const b = new Set([valB]);
     expect(deepEqual(a, b)).toBe(false);
   });
 
