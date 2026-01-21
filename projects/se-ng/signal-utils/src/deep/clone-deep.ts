@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable complexity */
 
-import { isDate } from './is-date';
+import { isDate } from '../guards/is-date';
 
 /**
  * creates a deep clone of a value.

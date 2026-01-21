@@ -1,8 +1,8 @@
 import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } from '@angular/core';
 import { isObservable, type Observable, type Subscription } from 'rxjs';
 
-import { isAsyncIterable } from './util/is-async-iterable';
-import { isPromise } from './util/is-promise';
+import { isAsyncIterable } from '../guards/is-async-iterable';
+import { isPromise } from '../guards/is-promise';
 
 /**
  * @param {AbortSignal} [abortSignal] signal that allows to cancel the ongoing operation. (can be passed to fetch!)

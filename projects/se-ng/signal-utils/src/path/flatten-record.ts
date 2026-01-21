@@ -1,4 +1,4 @@
-import { isObject } from './is-object';
+import { isObject } from '../guards/is-object';
 
 // Minimal ambient declarations so TypeScript consumers don't need the
 // Node.js type definitions just to compile this utility. These are

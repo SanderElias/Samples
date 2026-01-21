@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 
-import { isIntegerString } from './is-integer-string';
+import { isIntegerString } from '../guards/is-integer-string';
 
 /**
  * takes a string, and a value, and returns an object with the value at the path

@@ -1,5 +1,5 @@
-import { flattenRecord } from './flatten-record';
-import { unFlattenRecord } from './un-flattenRecord';
+import { flattenRecord } from '../path/flatten-record';
+import { unFlattenRecord } from '../path/un-flattenRecord';
 
 /**
  * Compute a patch object that contains only the keys whose values differ
