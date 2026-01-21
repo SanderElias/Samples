@@ -1,0 +1,59 @@
+import { type UserCard, userCard } from '../generic-services/address.service';
+import { base, type SortField } from './relations.service';
+
+/**
+ * this is how you do professional security!
+ * copy this pattern, and you will get raise for sure ;-p
+ */
+export const Authorization = `Basic ${btoa('admin:password')}`; // Not secure, but this is a demo, so we don't care.
+export const headers = {
+  Authorization,
+  'Content-Type': 'application/json'
+};
+
+// a couple of helper functions to create the database,indexes and add some data to it.
+export async function goAddData(iterations = 5, ammountPerIteration = 1000) {
+  // add 5000 records when called without parameters.
+  const fakerModule = import('@faker-js/faker');
+  const module = await fakerModule;
+  const url = `${base}/relations/_bulk_docs`;
+  for (let i = 0; i <= iterations; i += 1) {
+    const newRelations: (UserCard & { _id?: string })[] = [];
+    for (let j = 0; j < ammountPerIteration; j += 1) {
+      const relation = await userCard(module.faker);
+      newRelations.push({ ...relation, _id: relation.id });
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ docs: newRelations })
+    });
+  }
+}
+export async function createIndexes() {
+  await createIndex('name');
+  await createIndex('username');
+  await createIndex('email');
+  console.log('Indexes created');
+}
+
+async function createIndex(fieldName: SortField) {
+  const url = `${base}/relations/_index`;
+  const body = {
+    index: { fields: [fieldName] },
+    name: fieldName,
+    type: 'json',
+    ddoc: 'fieldIndex-' + fieldName
+  };
+  const res = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    throw new Error(`Error creating index: ${res.statusText}`);
+  }
+  const data = await res.json();
+  console.log('Index created', data);
+  return data;
+}

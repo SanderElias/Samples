@@ -1,13 +1,37 @@
-import { HttpClient, httpResource, type HttpResourceRef } from '@angular/common/http';
+import {
+  HttpClient,
+  httpResource,
+  type HttpResourceRef
+} from '@angular/common/http';
 import type { Signal } from '@angular/core';
-import { computed, DestroyRef, effect, inject, Injectable, signal, untracked } from '@angular/core';
-import { debouncedComputed, deepEqual, HttpActionClient, mergeDeep } from '@se-ng/signal-utils';
+import {
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  Injectable,
+  signal,
+  untracked
+} from '@angular/core';
+import {
+  debouncedComputed,
+  deepEqual,
+  HttpActionClient,
+  mergeDeep
+} from '@se-ng/signal-utils';
 
-import { userCard, type UserCard } from '../generic-services/address.service';
+import { type UserCard } from '../generic-services/address.service';
 
-import { firstValueFrom, Observable, retry } from 'rxjs';
-import { SSE } from 'sse.js';
+import { firstValueFrom } from 'rxjs';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
+import { couchEventLister } from './couch-event-lister';
+import {
+  Authorization,
+  createIndexes,
+  goAddData,
+  headers
+} from './couch-helpers';
+import type { CouchUpdate } from './couch.types';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { deepDiff } from './utils/deep-diff';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';
@@ -16,17 +40,8 @@ const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
 // const base = 'https://couchdb.localhost';
-const base = 'http://kapow:5984'; // CouchDB running on local network
+export const base = 'http://kapow:5984'; // CouchDB running on local network
 
-/**
- * this is how you do professional security!
- * copy this pattern, and you will get raise for sure ;-p
- */
-const Authorization = `Basic ${btoa('admin:password')}`; // Not secure, but this is a demo, so we don't care.
-const headers = {
-  Authorization,
-  'Content-Type': 'application/json'
-};
 // enable caching for all requests from this service
 const httpCachedOptions = addCachingContext({ headers });
 // const httpOptions = ({ headers });
@@ -39,9 +54,10 @@ export class RelationsService {
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
   #http = inject(HttpActionClient);
-  #httpo = inject(HttpClient)
+  #httpo = inject(HttpClient);
   #notifyDialog = inject(NotifyDialogService);
   #cache = inject(HttpCache);
+  #des = inject(DestroyRef);
 
   filter = signal('');
   #filter = debouncedComputed(() => `(?i)${this.filter()}`, { delay: 250 }); //debounce and wrap it inside an couchDB regex.
@@ -70,7 +86,11 @@ export class RelationsService {
     {
       defaultValue: [],
       // unwrap the CouchDB response to get the list of ids.
-      parse: (response: any) => (response?.docs ?? []).map((i: { id: string; _rev: string }) => [i.id, i._rev] as [string, string])
+      parse: (response: any) =>
+        (response?.docs ?? []).map(
+          (i: { id: string; _rev: string }) =>
+            [i.id, i._rev] as [string, string]
+        )
     }
   );
   #list = this.#listRes.value;
@@ -99,7 +119,9 @@ export class RelationsService {
     if (reason.startsWith('No index exists')) {
       console.error('Index not found, creating it');
       try {
-        await createIndexes().catch(e => console.error('Error creating index', e));
+        await createIndexes().catch(e =>
+          console.error('Error creating index', e)
+        );
         this.#listRes.reload(); // reload the list after creating the index.
       } catch (e) {
         console.error('Error creating index', e);
@@ -108,7 +130,9 @@ export class RelationsService {
     if (reason.startsWith('Database does not exist')) {
       console.error('Database not found, creating it');
       try {
-        await untracked(async () => await this.#http.put(this.baseUrl, {}, httpCachedOptions));
+        await untracked(
+          async () => await this.#http.put(this.baseUrl, {}, httpCachedOptions)
+        );
         await goAddData();
         this.#listRes.reload(); // reload the list after creating the index.
       } catch (e) {
@@ -122,21 +146,34 @@ export class RelationsService {
     });
   });
 
-  _subscription = couchEventLister('relations', Authorization).subscribe(event => {
-    this.#cache.purge(this.idUrl(event.id)); // remove from cache as well.
-    if (event.deleted) {
-      // remove from list
-      this.#list.update(oldList => oldList.filter(i => i[0] !== event.id));
-    } else {
-      // update or add to list
-      const rev = event.changes[0]?.rev ?? '';
-      this.#list.update(oldList => oldList.map(i => (i[0] === event.id ? ([i[0], rev] as [string, string]) : i)));
-    }
-  });
+  constructor() {
+    // use a timeout to prevent the page-spinner
+    setTimeout(() => {
+      const s = couchEventLister(base, 'relations', Authorization).subscribe(
+        event => {
+          this.#cache.purge(this.idUrl(event.id)); // remove from cache as well.
+          if (event.deleted) {
+            // remove from list
+            this.#list.update(oldList =>
+              oldList.filter(i => i[0] !== event.id)
+            );
+          } else {
+            // update or add to list
+            const rev = event.changes[0]?.rev ?? '';
+            this.#list.update(oldList =>
+              oldList.map(i =>
+                i[0] === event.id ? ([i[0], rev] as [string, string]) : i
+              )
+            );
+          }
+        }
+      );
 
-  _ = inject(DestroyRef).onDestroy(() => {
-    this._subscription.unsubscribe();
-  });
+      this.#des.onDestroy(() => {
+        s.unsubscribe();
+      });
+    }, 1000);
+  }
 
   create = async (data: UserCard) => {
     const url = this.idUrl(data.id);
@@ -144,7 +181,9 @@ export class RelationsService {
       // await firstValueFrom(this.#http.post(url, data));
       const response = await this.#http.put(url, data, httpCachedOptions);
       console.dir(response);
-      this.#list.update(oldList => [[data.id, ''] as [string, string], ...oldList].splice(0, 50));
+      this.#list.update(oldList =>
+        [[data.id, ''] as [string, string], ...oldList].splice(0, 50)
+      );
       return true;
     } catch (e) {
       console.error('Error creating user', e);
@@ -188,16 +227,25 @@ export class RelationsService {
       return { result: 'noChange' };
     }
     try {
-      const { rev } = await this.#http.put<CouchUpdate>(url, data, httpCachedOptions);
+      const { rev } = await this.#http.put<CouchUpdate>(
+        url,
+        data,
+        httpCachedOptions
+      );
       if (oldData[this.sort()] !== data[this.sort()]!) {
-        console.log(`sort field changed from ${oldData[this.sort()]} to ${data[this.sort()]}`);
+        console.log(
+          `sort field changed from ${oldData[this.sort()]} to ${data[this.sort()]}`
+        );
         // if the sort field has changed, we need to update the list.
         this.#refresh.update(old => old + 1);
       } else {
         // update the revision in the list
         this.#list.update(oldList =>
           oldList.reduce(
-            (acc, item) => [...acc, [item[0], item[0] === id ? rev : item[1]] as [string, string]],
+            (acc, item) => [
+              ...acc,
+              [item[0], item[0] === id ? rev : item[1]] as [string, string]
+            ],
             [] as [string, string][]
           )
         );
@@ -216,7 +264,10 @@ export class RelationsService {
           // create a object that has only the properties that are different from the original.
           const myDiff = deepDiff(oldData, data);
           // now fetch the updated remote data.
-          const remoteData = (await this.#http.get(url, httpCachedOptions)) as UserCard;
+          const remoteData = (await this.#http.get(
+            url,
+            httpCachedOptions
+          )) as UserCard;
           // mergeDeep will overwrite the properties of the updated remote with the changes I extracted above.
           const remoteDiff = deepDiff(oldData, remoteData);
           const merged = mergeDeep(remoteData, myDiff);
@@ -224,7 +275,8 @@ export class RelationsService {
           // inform the user
           this.#notifyDialog.show({
             title: 'Sorry, we detected a conflict',
-            message: 'we have merged in the upstream change, please verify your edit, and submit your changes again'
+            message:
+              'we have merged in the upstream change, please verify your edit, and submit your changes again'
           });
           return { result: 'conflict', user: merged as UserCard };
         } catch {
@@ -261,7 +313,11 @@ export class RelationsService {
         });
         const { _rev } = await this.#http.get(url, httpCachedOptions);
         // update the rev in the list so related components can decide to reload.
-        this.#list.update(oldList => oldList.map(i => (i[0] === id ? ([i[0], _rev] as [string, string]) : i)));
+        this.#list.update(oldList =>
+          oldList.map(i =>
+            i[0] === id ? ([i[0], _rev] as [string, string]) : i
+          )
+        );
         return false;
       }
     }
@@ -272,115 +328,11 @@ export class RelationsService {
   reFetch = async (ids: string) => {
     const url = this.idUrl(ids);
     return firstValueFrom(this.#httpo.get(url, httpCachedOptions));
-  }
+  };
 
   info = async () => {
+    await goAddData();
     const url = `${this.baseUrl}`;
     return this.#http.get(url, httpCachedOptions);
   };
-}
-
-// a couple of helper functions to create the database,indexes and add some data to it.
-
-async function goAddData() {
-  const fakerModule = import('@faker-js/faker');
-  const module = await fakerModule;
-  const url = `${base}/relations/`;
-  for (let i = 0; i <= 2500; i += 1) {
-    const relation = await userCard(module.faker);
-    const res = await fetch(`${url}/${relation.id}`, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(relation)
-    });
-  }
-}
-
-async function createIndexes() {
-  await createIndex('name');
-  await createIndex('username');
-  await createIndex('email');
-  console.log('Indexes created');
-}
-
-async function createIndex(fieldName: SortField) {
-  const url = `${base}/relations/_index`;
-  const body = {
-    index: { fields: [fieldName] },
-    name: fieldName,
-    type: 'json',
-    ddoc: 'fieldIndex-' + fieldName
-  };
-  const res = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    throw new Error(`Error creating index: ${res.statusText}`);
-  }
-  const data = await res.json();
-  console.log('Index created', data);
-  return data;
-}
-
-export interface CouchUpdate {
-  ok: boolean;
-  id: string;
-  rev: string;
-}
-
-function couchEventLister(db: string, authorization: string) {
-  // hardcoding the baseUrl for now. the username password should not be hardcoded in real world apps.
-  const dbUrl = `${base}/${db}`;
-  console.log('Starting CouchDB event listener for', dbUrl);
-
-  return new Observable<CouchDbEvent>(subscriber => {
-    const eventSource = new SSE(`${dbUrl}/_changes?feed=eventsource&include_docs=false&since=now`, {
-      headers: {
-        Authorization: authorization
-      },
-      withCredentials: true,
-      autoReconnect: true, // Enable auto-reconnect
-      reconnectDelay: 3000, // Wait 3 seconds before reconnecting
-      maxRetries: null, // Retry indefinitely (set a number to limit retries)
-      useLastEventId: true // Send Last-Event-ID header on reconnect (recommended)
-    });
-
-    eventSource.onmessage = event => {
-      try {
-        const data = JSON.parse(event.data) as CouchDbEvent;
-        subscriber.next(data);
-      } catch (err) {
-        subscriber.error(err);
-      }
-    };
-
-    eventSource.onerror = error => {
-      console.error('CouchDB EventSource error:', error);
-      subscriber.error(error);
-      eventSource.close();
-    };
-
-    eventSource.stream();
-
-    // Teardown logic: close SSE when unsubscribed
-    return () => {
-      eventSource.close();
-      console.log('CouchDB event listener closed');
-    };
-  }).pipe(
-    retry(5) // Retry up to 5 times on error
-  );
-}
-
-export interface CouchDbEvent {
-  seq: string;
-  id: string;
-  deleted?: boolean;
-  changes: Change[];
-}
-
-export interface Change {
-  rev: string;
 }
