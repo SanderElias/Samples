@@ -23,7 +23,7 @@ export async function goAddData(iterations = 5, ammountPerIteration = 1000) {
       const relation = await userCard(module.faker);
       newRelations.push({ ...relation, _id: relation.id });
     }
-    const res = await fetch(url, {
+    await fetch(url, {
       method: 'POST',
       headers,
       body: JSON.stringify({ docs: newRelations })
