@@ -5,7 +5,8 @@ import type { CouchDbEvent } from './couch.types';
 export function couchEventLister(
   base = 'http://localhost:5984',
   db: string,
-  authorization: string) {
+  authorization: string
+) {
   // hardcoding the baseUrl for now. the username password should not be hardcoded in real world apps.
   const dbUrl = `${base}/${db}`;
 
@@ -33,7 +34,7 @@ export function couchEventLister(
     // };
     eventSource.onmessage = event => {
       try {
-        const { data, ...meta } = event;
+        const { data } = event;
         if (data !== '\n') {
           // ignore keep-alive new lines
           const json = JSON.parse(data) as CouchDbEvent;

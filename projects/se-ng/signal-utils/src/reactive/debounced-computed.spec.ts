@@ -1,13 +1,12 @@
-import { Injector, provideZonelessChangeDetection, runInInjectionContext, signal } from '@angular/core';
+import { Injector, provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
-import { debouncedSignal, debouncedComputed } from './debounced-computed';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { debouncedComputed, debouncedSignal } from './debounced-computed';
 
 describe('debouncedSignal / debouncedComputed', () => {
   let injector: Injector;
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] });
-    injector = TestBed.inject(Injector);
     // use fake timers and control Date.now so the implementation's Date.now() checks behave deterministically
     vi.useFakeTimers();
   });
