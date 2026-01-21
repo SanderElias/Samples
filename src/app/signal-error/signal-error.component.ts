@@ -1,6 +1,6 @@
-import type { Signal} from '@angular/core';
+import type { Signal } from '@angular/core';
 import { Component, computed, signal } from '@angular/core';
-import { asyncComputed } from 'projects/se-ng/signal-utils/src/lib/async-computed';
+import { asyncComputed } from '@se-ng/signal-utils';
 import { map, timer } from 'rxjs';
 
 @Component({

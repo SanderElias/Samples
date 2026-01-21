@@ -18,9 +18,8 @@ export function deepEqual(a: unknown, b: unknown): boolean {
 
     let length, i;
     if (Array.isArray(a)) {
-      if (!Array.isArray(b)) return false;
       length = a.length;
-      if (length != b.length) return false;
+      if (length != (b as unknown[]).length) return false;
       for (i = length; i-- !== 0; ) if (!deepEqual(a[i], b[i])) return false;
       return true;
     }

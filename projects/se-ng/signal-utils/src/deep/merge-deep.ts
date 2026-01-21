@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { cloneDeep } from './clone-deep';
-import { isObject } from './is-object';
+import { isObject } from '../guards/is-object';
 
 export type IterableMergeStrategy = 'concat' | 'replace' | 'merge';
 

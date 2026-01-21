@@ -20,5 +20,34 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "chat.tools.terminal.autoApprove": {
     "ng": true
-  }
+  },
+
+  // Project-specific testing & coverage context used by the team and CI.
+  // This is intentionally stored in workspace settings so editors and tasks
+  // can rely on authoritative commands and notes.
+  "seNg.projectInfo": {
+    "projects": {
+      "samples": {
+        "testCommand": "ng test samples --watch=false",
+        "coverageCommand": "ng test samples --watch=false --coverage",
+        "coverageDir": "coverage/samples"
+      },
+      "signalUtils": {
+        "testCommand": "ng test \"@se-ng/signalUtils\" --watch=false",
+        "coverageCommand": "ng test \"@se-ng/signalUtils\" --watch=false --coverage",
+        "coverageDir": "coverage/@se-ng/signalUtils"
+      }
+    },
+    "vitest": {
+      "coverageProvider": "v8",
+      "coverageNotes": "Use c8 ignore comments (/* c8 ignore next */ or block) to exclude test-only exports from V8 coverage."
+    },
+    "ciHints": [
+      "Use --watch=false for CI runs",
+      "Run per-project test if ng test exits non-zero (e.g., ng test samples)",
+      "Upload coverage/coverage-final.json after coverage runs"
+    ]
+  },
+
+  "seNg.vscodeContextUpdated": "2026-01-21T11:00:00Z"
 }

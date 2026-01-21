@@ -1,7 +1,5 @@
 import { type FieldTree } from '@angular/forms/signals';
-import { isObject } from '@se-ng/signal-utils';
-
-import { flattenRecord } from '../../crud-stuff/utils/flatten-record';
+import { flattenRecord, isObject } from '@se-ng/signal-utils';
 
 /**
  * Mimics a slow server response and randomly returns a custom error for a random field in the form.
@@ -14,7 +12,8 @@ export const randomError = async (form: FieldTree<unknown>) => {
   if (isObject(data)) {
     const fieldNames = Object.keys(flattenRecord(data));
     // pick a random field name
-    const randomField = fieldNames[Math.ceil(Math.random() * fieldNames.length)].split('.');
+    const randomField =
+      fieldNames[Math.ceil(Math.random() * fieldNames.length)].split('.');
     try {
       // sometimes the random field is not a valid field, so we need to catch the error
       const field = randomField.reduce((f, key) => {

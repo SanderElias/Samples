@@ -1,8 +1,8 @@
 import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } from '@angular/core';
 import { isObservable, type Observable, type Subscription } from 'rxjs';
 
-import { isAsyncIterable } from './util/is-async-iterable';
-import { isPromise } from './util/is-promise';
+import { isAsyncIterable } from '../guards/is-async-iterable';
+import { isPromise } from '../guards/is-promise';
 
 /**
  * @param {AbortSignal} [abortSignal] signal that allows to cancel the ongoing operation. (can be passed to fetch!)
@@ -49,7 +49,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     // not adding the completed state. a Signals has no way to communicate this
     // to its consumers without custom wrapping. That is a different concern that
     // is outside the scope of this helper
-    /* v8 ignore next 11 */
+    /* c8 ignore start */
   } as { value?: T | Y | undefined; error?: any });
   try {
     destroyRef = destroyRef ?? inject(DestroyRef);
@@ -61,6 +61,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
       throw new Error('[asyncComputed] parameter destroyRef is not a DestroyRef');
     }
   }
+  /* c8 ignore stop */
   let abortPrevious: AbortController | undefined;
   let subscription: Subscription | undefined;
   const cleanUp = () => (subscription?.unsubscribe(), abortPrevious?.abort()); // helper to clean up subscribers or promises
@@ -124,6 +125,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
 
   return computed(() => {
     const currentState = state();
+    /* c8 ignore start */
     if (currentState.error) {
       if (isDevMode()) {
         console.warn(`
@@ -141,6 +143,7 @@ export const asyncComputed: AsyncComputed = <T, Y>(
       throw currentState.error;
       // note to self: do not wrap this in a new error, as it will hide the original stack trace
     }
+    /* c8 ignore stop */
     return currentState.value;
   });
 };
