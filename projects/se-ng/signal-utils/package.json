@@ -1,12 +1,13 @@
 {
   "name": "@se-ng/signal-utils",
-  "version": "20.0.2",
+  "version": "21.0.2",
   "private": false,
   "author": "Sander Elias",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SanderElias/Samples/tree/main/projects/se-ng/signal-utils"
+    "url": "git+https://github.com/SanderElias/Samples.git",
+    "directory": "projects/se-ng/signal-utils"
   },
   "peerDependencies": {
     "@angular/core": ">=19",
