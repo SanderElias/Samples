@@ -1,3 +1,1 @@
-export const isPromise = <T>(value: any): value is Promise<T> => {
-  return typeof value?.then === 'function';
-};
+export * from '../guards/is-promise';

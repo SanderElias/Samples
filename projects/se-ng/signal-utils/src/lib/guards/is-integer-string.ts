@@ -18,4 +18,6 @@
  * @param str The input string to test.
  * @returns True when the string contains only digits and represents a non-negative integer.
  */
-export * from '../guards/is-integer-string';
+export const isIntegerString = (str: string) => {
+  return /^\d+$/.test(str);
+};

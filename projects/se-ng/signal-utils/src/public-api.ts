@@ -2,22 +2,22 @@
  * Public API Surface of signal-utils
  */
 
-export { asyncComputed } from './lib/async-computed';
-export { computedResource } from './lib/async-resource';
-export { debouncedComputed, debouncedSignal } from './lib/debounced-computed';
-export { HttpActionClient } from './lib/http-action-client';
-export { injectAwaitSignal, awaitSignal } from './lib/await-signal';
-export { isAsyncIterable } from './lib/util/is-async-iterable';
-export { isPromise } from './lib/util/is-promise';
+export { asyncComputed } from './lib/reactive/async-computed';
+export { computedResource } from './lib/reactive/async-resource';
+export { debouncedComputed, debouncedSignal } from './lib/reactive/debounced-computed';
+export { HttpActionClient } from './lib/http/http-action-client';
+export { injectAwaitSignal, awaitSignal } from './lib/reactive/await-signal';
+export { isAsyncIterable } from './lib/guards/is-async-iterable';
+export { isPromise } from './lib/guards/is-promise';
 
-export { cloneDeep } from './lib/util/clone-deep';
-export { deepEqual } from './lib/util/deep-equal';
-export { isDate } from './lib/util/is-date';
-export { Deferred } from './lib/util/deferred';
-export { isIntegerString } from './lib/util/is-integer-string';
-export { isObject } from './lib/util/is-object';
-export { mergeDeep } from './lib/util/merge-deep';
-export { objFromPath } from './lib/util/obj-from-path';
-export { deepDiff } from './lib/util/deep-diff';
-export { flattenRecord } from './lib/util/flatten-record';
-export { unFlattenRecord } from './lib/util/un-flattenRecord';
+export { cloneDeep } from './lib/deep/clone-deep';
+export { deepEqual } from './lib/deep/deep-equal';
+export { isDate } from './lib/guards/is-date';
+export { Deferred } from './lib/async/deferred';
+export { isIntegerString } from './lib/guards/is-integer-string';
+export { isObject } from './lib/guards/is-object';
+export { mergeDeep } from './lib/deep/merge-deep';
+export { objFromPath } from './lib/path/obj-from-path';
+export { deepDiff } from './lib/deep/deep-diff';
+export { flattenRecord } from './lib/path/flatten-record';
+export { unFlattenRecord } from './lib/path/un-flattenRecord';
