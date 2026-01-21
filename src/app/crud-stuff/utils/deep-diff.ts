@@ -1,5 +1,4 @@
-import { flattenRecord } from './flatten-record';
-import { unFlattenRecord } from './un-flattenRecord';
+import { flattenRecord, unFlattenRecord } from '@se-ng/signal-utils';
 
 export const deepDiff = <T extends {}>(a: T, b: T) => {
 const aFlat = flattenRecord(a);

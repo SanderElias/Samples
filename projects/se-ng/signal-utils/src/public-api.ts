@@ -18,3 +18,5 @@ export { isIntegerString } from './lib/util/is-integer-string';
 export { isObject } from './lib/util/is-object';
 export { mergeDeep } from './lib/util/merge-deep';
 export { objFromPath } from './lib/util/obj-from-path';
+export { flattenRecord } from './lib/util/flatten-record';
+export { unFlattenRecord } from './lib/util/un-flattenRecord';
