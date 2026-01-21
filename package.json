@@ -28,7 +28,7 @@
     "test": "ng test",
     "ntest": "wireit",
     "serve:ssr:slido": "wireit",
-    "publish.libs": "npm set \"//registry.npmjs.org/:_authToken=$NPM_TOKEN\" && node scripts/bump-and-publish.mjs"
+    "publish.libs": "node scripts/bump-and-publish.mjs"
   },
   "wireit": {
     "start": {
@@ -291,6 +291,7 @@
     "@types/eslint": "9.6.1",
     "@types/express": "5.0.6",
     "@types/js-yaml": "4.0.9",
+    "json5": "2.2.3",
     "@types/jsdom": "27.0.0",
     "@types/msgpack-lite": "0.1.12",
     "@types/node": "24.10.1",
@@ -298,6 +299,7 @@
     "@typescript-eslint/eslint-plugin": "8.53.1",
     "@typescript-eslint/parser": "8.53.1",
     "@vitest/coverage-v8": "4.0.17",
+    "@npmcli/package-json": "7.0.4",
     "@web/test-runner": "0.20.2",
     "angular-eslint": "21.1.0",
     "eslint": "^9.39.2",
