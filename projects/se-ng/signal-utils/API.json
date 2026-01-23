@@ -122,6 +122,13 @@
       "source": "src/path/obj-from-path.ts"
     },
     {
+      "name": "pathToArray",
+      "category": "Path utils",
+      "signature": "pathToArray(path: string): string[] | undefined",
+      "description": "Convert a dot/bracket path string into an array of segments. Commas are treated like dots as separators; quoted bracket keys are unwrapped and escaped quotes are unescaped in the resulting token (e.g. a[\"b\\\"c\"] -> ['a','b\"c']); returns undefined for invalid or ambiguous paths (leading/trailing separators, consecutive separators, unbalanced/malformed quotes, empty bracket contents)",
+      "source": "src/path/path-to-array.ts"
+    },
+    {
       "name": "deepDiff",
       "category": "Deep utils",
       "signature": "deepDiff<T>(a: T, b: T): Partial<T>",

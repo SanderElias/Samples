@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-escape */
 
 import { isIntegerString } from '../guards/is-integer-string';
+import { pathToArray } from './path-to-array';
 
 /**
  * takes a string, and a value, and returns an object with the value at the path
@@ -10,20 +11,11 @@ import { isIntegerString } from '../guards/is-integer-string';
  * @returns an object with the value at the path. `a.b.c` will return `{ a: { b: { c: value } } }`
  */
 export const objFromPath = <T>(path: string, value?: unknown): T => {
-  if (path.includes('..')) {
-    throw new Error(`[objFromPath] Invalid path: "${path}", it contains two dots in a row`);
+  const parts = pathToArray(path);
+  if (!parts) {
+    throw new Error(`[objFromPath] Invalid path: "${path}", can't be parsed.`);
   }
-  const parts = path
-    .split(/[\[\]\.]/)
-    .filter(p => p)
-    .reverse();
-  if (parts.some(p => p.trim() === '')) {
-    throw new Error(`[objFromPath] Invalid path: "${path}", should not contain whitespace between the dots or brackets`);
-  }
-  if (parts.length === 0) {
-    throw new Error(`[objFromPath] Invalid path: a path can not be empty`);
-  }
-  return parts.reduce((acc, part) => {
+  return parts.reverse().reduce((acc, part) => {
     const index = parseInt(part, 10);
     // if the part is numeric (parseint returns 1 for `1maString`) its an array, otherwise a number
     if (!isIntegerString(part)) {

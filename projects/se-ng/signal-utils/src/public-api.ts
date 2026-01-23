@@ -21,6 +21,7 @@ export { isPromise } from './guards/is-promise';
 /* path */
 export { flattenRecord } from './path/flatten-record';
 export { objFromPath } from './path/obj-from-path';
+export { pathToArray } from './path/path-to-array';
 export { unFlattenRecord } from './path/un-flattenRecord';
 
 /* http */

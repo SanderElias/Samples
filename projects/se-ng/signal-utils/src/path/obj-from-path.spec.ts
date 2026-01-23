@@ -27,18 +27,12 @@ describe('Objects from path', () => {
   it('should create an sparse array with object from a path that starts with a number', () => {
     expect(objFromPath('[1].a.b', 'c')).toEqual([, { a: { b: 'c' } }]);
   });
-  it('should throw on an invalid path', () => {
-    expect(() => objFromPath('', 1)).toThrowError(`[objFromPath] Invalid path: a path can not be empty`);
-    expect(() => objFromPath('.', 1)).toThrowError(`[objFromPath] Invalid path: a path can not be empty`);
-    expect(() => objFromPath('a. .b', 1)).toThrowError(
-      `[objFromPath] Invalid path: "a. .b", should not contain whitespace between the dots or brackets`
-    );
-    expect(() => objFromPath('a..b', 1)).toThrowError(`[objFromPath] Invalid path: "a..b", it contains two dots in a row`);
-    expect(() => objFromPath('[ ]', 1)).toThrowError(
-      `[objFromPath] Invalid path: "[ ]", should not contain whitespace between the dots or brackets`
-    );
-    expect(() => objFromPath('a.[ \n].b', 1)).toThrowError(
-      `[objFromPath] Invalid path: "a.[ \n].b", should not contain whitespace between the dots or brackets`
-    );
+
+  // Keep a single, minimal invalid-path test here to exercise the error branch in `objFromPath`.
+  // Detailed invalid-path scenarios are tested by the path parsing tests (see `path-to-array.spec.ts`).
+  // This avoids duplicating parsing tests while ensuring `objFromPath`'s error handling is covered.
+  it('throws on empty path (coverage)', () => {
+    expect(() => objFromPath('', 1)).toThrowError(`[objFromPath] Invalid path: "", can't be parsed.`);
   });
+
 });

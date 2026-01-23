@@ -234,6 +234,10 @@ indications, examples, and source links.
   - `objFromPath<T>(path: string, value?): T`
   - Source: [`src/path/obj-from-path.ts`](./src/path/obj-from-path.ts)
 
+- **`pathToArray`** — `pathToArray(path: string): string[] | undefined`
+  - Convert a dot/bracket path into an array of path segments. Commas are also treated as separators (e.g. `a,b.c` -> `['a','b','c']`). Keys enclosed in quotes in bracket notation are unwrapped (e.g. `a["b"]` -> `['a','b']`) and quoted keys may contain escaped quotes which are unescaped in the returned token (e.g. `a["b\"c"]` -> `['a','b"c']`). Returns `undefined` for invalid paths (leading/trailing/consecutive separators, empty comma groups, unbalanced or malformed quotes, or empty bracket contents).
+  - Source: [`src/path/path-to-array.ts`](./src/path/path-to-array.ts)
+
   Example: `objFromPath('a[0].b', 5) // -> { a: [ { b: 5 } ] }`
 
 - **`flattenRecord` / `unFlattenRecord`** — flatten/unflatten nested

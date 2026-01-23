@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { unFlattenRecord } from './un-flattenRecord';
 
 describe('unFlattenRecord', () => {
@@ -26,9 +26,12 @@ describe('unFlattenRecord', () => {
     expect(out).toEqual({ a: { b: [{ c: 3 }] } });
   });
 
-  it('handles odd keys too', () => {
-    const out = unFlattenRecord({ 'a..b': 1 });
-    expect(out).toEqual({ a: { '': { b: 1 } } });
+  // Keep a single minimal invalid-path test to cover the error branch in `unFlattenRecord`.
+  // Comprehensive parsing validation is handled in `path-to-array.spec.ts`.
+  it('throws on empty segments (coverage)', () => {
+    expect(() => unFlattenRecord({ 'a..b': 1 })).toThrow(
+      '[unFlattenRecord] Invalid path "a..b": found empty segments'
+    );
   });
 
   it('works for various inputs', () => {
