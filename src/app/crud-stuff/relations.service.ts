@@ -40,7 +40,7 @@ const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
 // const base = 'https://couchdb.localhost';
-export const base = 'http://kapow:5984'; // CouchDB running on local network
+export const base = 'http://kapow.local:5984'; // CouchDB running on local network
 
 // enable caching for all requests from this service
 const httpCachedOptions = addCachingContext({ headers });
