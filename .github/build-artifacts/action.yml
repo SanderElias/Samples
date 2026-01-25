@@ -16,8 +16,9 @@ runs:
       uses: actions/cache@v4
       with:
         path: dist
-        # I only want to cache the dist folder for this workflow run
-        key: dist-${{ inputs.node-version }}-${{ github.run_id }}
+        key: dist-${{ inputs.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          dist-${{ inputs.node-version }}-
 
     # Set up GitHub Actions caching for Wireit.
     # - uses: google/wireit@setup-github-actions-caching/v2

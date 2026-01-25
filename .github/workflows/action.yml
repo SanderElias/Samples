@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
 
 jobs:
   build:
@@ -14,14 +22,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup Node, install dependencies, and cache node modules, build dist artifacts
         uses: ./.github/build-artifacts
         with:
           node-version: ${{ matrix.node }}
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-pages-${{ github.ref }}
+      cancel-in-progress: true
     strategy:
       matrix:
         # for future expansion, for now only node 16 is supported
@@ -29,11 +47,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # Set up GitHub Actions caching for Wireit.
       # - uses: google/wireit@setup-github-actions-caching/v2
 
 
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
       - name: Get the build
         uses: ./.github/build-artifacts
         with:
