@@ -48,6 +48,8 @@ export function couchEventLister(
       }
     };
 
+    // iot123456
+
     eventSource.onerror = error => {
       console.error('CouchDB EventSource error:', error);
       subscriber.error(error);
