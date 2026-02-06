@@ -115,6 +115,7 @@ export class TemporalComponent {
       this.now.set(this.temporal().Now); // trigger the signal to update times
     }, 1000);
     clean(() => clearInterval(int));
+    console.log(Intl.getCanonicalLocales("NL-NL"));
   });
 
   add = () => {
