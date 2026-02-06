@@ -190,6 +190,36 @@ indications, examples, and source links.
   }
   ```
 
+- **`isTemporal`** — `isTemporal(x): x is TemporalType`
+  - Detect Temporal objects by their `Symbol.toStringTag` (works with the polyfill or native Temporal when available).
+  - Source: [`src/guards/is-temporal.ts`](./src/guards/is-temporal.ts)
+
+  Example:
+
+  ```ts
+  if (isTemporal(val)) {
+    // safe to test for Temporal subtypes or call Temporal methods
+  }
+  ```
+
+- **Specific Temporal guards** (all from `src/guards/is-temporal.ts`):
+  - `isTemporalDuration` — `isTemporalDuration(x): x is Temporal.Duration`
+  - `isTemporalInstant` — `isTemporalInstant(x): x is Temporal.Instant`
+  - `isTemporalPlainDate` — `isTemporalPlainDate(x): x is Temporal.PlainDate`
+  - `isTemporalPlainDateTime` — `isTemporalPlainDateTime(x): x is Temporal.PlainDateTime`
+  - `isTemporalPlainMonthDay` — `isTemporalPlainMonthDay(x): x is Temporal.PlainMonthDay`
+  - `isTemporalPlainTime` — `isTemporalPlainTime(x): x is Temporal.PlainTime`
+  - `isTemporalPlainYearMonth` — `isTemporalPlainYearMonth(x): x is Temporal.PlainYearMonth`
+  - `isTemporalZonedDateTime` — `isTemporalZonedDateTime(x): x is Temporal.ZonedDateTime`
+
+  Example:
+
+  ```ts
+  if (isTemporalDuration(v)) {
+    // v is a Duration
+  }
+  ```
+
 ---
 
 ### Assertions ✅

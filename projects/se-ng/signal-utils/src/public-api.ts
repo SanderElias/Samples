@@ -17,6 +17,18 @@ export { isDate } from './guards/is-date';
 export { isIntegerString } from './guards/is-integer-string';
 export { isObject } from './guards/is-object';
 export { isPromise } from './guards/is-promise';
+export {
+  isTemporal,
+  isTemporalDuration,
+  isTemporalInstant,
+  isTemporalPlainDate,
+  isTemporalPlainDateTime,
+  isTemporalPlainMonthDay,
+  isTemporalPlainTime,
+  isTemporalPlainYearMonth,
+  isTemporalZonedDateTime,
+} from './guards/is-temporal';
+export type { TemporalType, Temporal } from './guards/is-temporal';
 
 /* path */
 export { flattenRecord } from './path/flatten-record';
