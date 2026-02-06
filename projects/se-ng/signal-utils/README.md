@@ -192,6 +192,19 @@ indications, examples, and source links.
 
 ---
 
+### Assertions ✅
+
+- **`assertDefined`** — Ensure a value is defined (not `undefined`) and return it narrowed to exclude `undefined`.
+  - Signature: `assertDefined<T>(value: T | undefined, message: string): T`
+  - Source: [`src/helpers/assert-defined.ts`](./src/helpers/assert-defined.ts)
+
+  Example:
+
+  ```ts
+  const maybe = Math.random() > 0.5 ? 1 : undefined;
+  const value = assertDefined(maybe, 'missing value'); // throws when maybe is undefined
+  ```
+
 ### Deep & structural utilities ✅
 
 - **`cloneDeep`** — deep clone handling circular refs, Maps, Sets, Dates, RegExp.

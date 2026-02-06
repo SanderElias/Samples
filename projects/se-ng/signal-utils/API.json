@@ -1,6 +1,6 @@
 {
   "package": "@se-ng/signal-utils",
-  "generated": "2026-01-21",
+  "generated": "2026-02-06",
   "exports": [
     {
       "name": "asyncComputed",
@@ -85,6 +85,13 @@
       "signature": "isDate(x): x is Date",
       "description": "Detects Date objects",
       "source": "src/guards/is-date.ts"
+    },
+    {
+      "name": "assertDefined",
+      "category": "Assertions",
+      "signature": "assertDefined<T>(value: T | undefined, message: string): T",
+      "description": "Throws when value is undefined and returns the value narrowed to exclude undefined",
+      "source": "src/helpers/assert-defined.ts"
     },
     {
       "name": "Deferred",

@@ -35,3 +35,6 @@ export {
   debouncedComputed,
   debouncedSignal
 } from './reactive/debounced-computed';
+
+/* Assertions */
+export { assertDefined } from './helpers/assert-defined';
