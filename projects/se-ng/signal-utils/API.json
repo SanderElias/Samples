@@ -173,8 +173,8 @@
     {
       "name": "isObject",
       "category": "Type Guard",
-      "signature": "isObject<T>(x: T): boolean",
-      "description": "True for plain objects (not arrays, dates, null)",
+      "signature": "isObject<T>(x: T): x is { [K in keyof T]: T[K] }",
+      "description": "True for plain objects (not arrays, dates, Temporal objects, null)",
       "source": "src/guards/is-object.ts"
     },
     {

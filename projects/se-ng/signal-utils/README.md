@@ -164,7 +164,7 @@ indications, examples, and source links.
   }
   ```
 
-- **`isObject`** — `isObject<T>(x: T): boolean` (object, not null/array/date)
+- **`isObject`** — `isObject<T>(x: T): x is { [K in keyof T]: T[K] }` (object, not null/array/date/Temporal)
   - Source: [`src/guards/is-object.ts`](./src/guards/is-object.ts)
 
   Example:
