@@ -13,7 +13,10 @@ import { isDate } from '../guards/is-date';
  */
 type CloneDeep = <T>(value: T) => T;
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const cloneDeep: CloneDeep = <T>(value: T, existingClones = new Map()): T => {
+export const cloneDeep: CloneDeep = <T>(
+  value: T,
+  existingClones = new Map()
+): T => {
   if (value === null || typeof value !== 'object') {
     return value;
   }
@@ -43,7 +46,9 @@ export const cloneDeep: CloneDeep = <T>(value: T, existingClones = new Map()): T
   if (value instanceof Map) {
     const clone = new Map();
     existingClones.set(value, clone);
-    [...value.entries()].forEach(val => clone.set(deepClone(val[0]), deepClone(val[1])));
+    [...value.entries()].forEach(val =>
+      clone.set(deepClone(val[0]), deepClone(val[1]))
+    );
 
     return clone as unknown as T;
   }

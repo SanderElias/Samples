@@ -164,7 +164,7 @@ indications, examples, and source links.
   }
   ```
 
-- **`isObject`** — `isObject<T>(x: T): boolean` (object, not null/array/date)
+- **`isObject`** — `isObject<T>(x: T): x is { [K in keyof T]: T[K] }` (object, not null/array/date/Temporal)
   - Source: [`src/guards/is-object.ts`](./src/guards/is-object.ts)
 
   Example:
@@ -190,7 +190,50 @@ indications, examples, and source links.
   }
   ```
 
+- **`isTemporal`** — `isTemporal(x): x is TemporalType`
+  - Detect Temporal objects by their `Symbol.toStringTag` (works with the polyfill or native Temporal when available).
+  - Source: [`src/guards/is-temporal.ts`](./src/guards/is-temporal.ts)
+
+  Example:
+
+  ```ts
+  if (isTemporal(val)) {
+    // safe to test for Temporal subtypes or call Temporal methods
+  }
+  ```
+
+- **Specific Temporal guards** (all from `src/guards/is-temporal.ts`):
+  - `isTemporalDuration` — `isTemporalDuration(x): x is Temporal.Duration`
+  - `isTemporalInstant` — `isTemporalInstant(x): x is Temporal.Instant`
+  - `isTemporalPlainDate` — `isTemporalPlainDate(x): x is Temporal.PlainDate`
+  - `isTemporalPlainDateTime` — `isTemporalPlainDateTime(x): x is Temporal.PlainDateTime`
+  - `isTemporalPlainMonthDay` — `isTemporalPlainMonthDay(x): x is Temporal.PlainMonthDay`
+  - `isTemporalPlainTime` — `isTemporalPlainTime(x): x is Temporal.PlainTime`
+  - `isTemporalPlainYearMonth` — `isTemporalPlainYearMonth(x): x is Temporal.PlainYearMonth`
+  - `isTemporalZonedDateTime` — `isTemporalZonedDateTime(x): x is Temporal.ZonedDateTime`
+
+  Example:
+
+  ```ts
+  if (isTemporalDuration(v)) {
+    // v is a Duration
+  }
+  ```
+
 ---
+
+### Assertions ✅
+
+- **`assertDefined`** — Ensure a value is defined (not `undefined`) and return it narrowed to exclude `undefined`.
+  - Signature: `assertDefined<T>(value: T | undefined, message: string): T`
+  - Source: [`src/helpers/assert-defined.ts`](./src/helpers/assert-defined.ts)
+
+  Example:
+
+  ```ts
+  const maybe = Math.random() > 0.5 ? 1 : undefined;
+  const value = assertDefined(maybe, 'missing value'); // throws when maybe is undefined
+  ```
 
 ### Deep & structural utilities ✅
 

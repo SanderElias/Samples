@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  --cellSize: 25px;
+  --xCells: 25;
+  --yCells: 25;
+  --gap: 1px;
+  --accent1: #f082cb;
+  --accent2: #9c1d7c;
+}
+
+.mouse-indicator {
+  display: none;
+  width: calc(var(--cellSize) - ( 2 * var(--gap)));
+  height: calc(var(--cellSize) - ( 2 * var(--gap)));
+  pointer-events: none;
+  border: 2px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+  /* position in grid based on mouseover coordinates */
+  grid-column-start: var(--x);
+  grid-row-start: var(--y);
+}
+
+.grid-container {
+  display: grid;
+  inline-size: calc(
+    var(--xCells) * var(--cellSize) + (var(--xCells) - 1) * var(--gap)
+  );
+  block-size: calc(
+    var(--yCells) * var(--cellSize) + (var(--yCells) - 1) * var(--gap)
+  );
+  grid-template-columns: repeat(var(--xCells), var(--cellSize));
+  grid-template-rows: repeat(var(--yCells), var(--cellSize));
+  gap: var(--gap);
+  align-items: center;
+  justify-items: center;
+  border: 1px solid white;
+
+  /* Color gradient that fills each cell area */
+  background-image:
+    /* vertical white gap lines (top layer) */
+    repeating-linear-gradient(
+      to right,
+      white 0 var(--gap),
+      rgba(255, 255, 255, 0) var(--gap) calc(var(--cellSize) + var(--gap))
+    ),
+    /* horizontal white gap lines (top layer) */
+    repeating-linear-gradient(
+        to bottom,
+        white 0 var(--gap),
+        rgba(255, 255, 255, 0) var(--gap) calc(var(--cellSize) + var(--gap))
+      ),
+    /* base color gradient that flows across the whole grid */
+    linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+
+  /* offset the white stripes so they align with gaps (first gap sits after first cell) */
+  background-position:
+    calc(var(--cellSize)) 0,
+    0 calc(var(--cellSize)),
+    0 0;
+  background-repeat: repeat, repeat, no-repeat;
+  background-size: auto;
+  background-clip: padding-box;
+
+  &:hover .mouse-indicator {
+    display: block;
+  }
+}
+
+.grid-item {
+  /** sadly, the attr() function doesn't work outside of the content property in most browsers */
+  --x: attr(data-x type(<number>));
+  --y: attr(data-y type(<number>));
+  font-weight: bold;
+  font-size: calc(var(--cellSize) * 0.95);
+  color: white;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+
+  /* position in grid based on data attributes */
+  grid-column-start: var(--x);
+  grid-row-start: var(--y);
+}

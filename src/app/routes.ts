@@ -302,6 +302,7 @@ export const routes: Routes = [
       { path: 'dyn-route', loadChildren: () => import('./dyn-route/dyn-routes.routes').then(m => m.dynRoutes) },
       { path: 'timer', loadComponent: () => import('./timer/timer.component').then(m => m.TimerComponent) },
       { path: 'temporal', loadComponent: () => import('./temporal/temporal.component').then(m => m.TemporalComponent) },
+      { path: 'gridPlay', loadComponent: () => import('./grid-play/grid-play.component').then(m => m.GridPlayComponent) },
 
       // { path: '**', redirectTo: 'routeList' },
       { path: '**', redirectTo: 'temporal' }

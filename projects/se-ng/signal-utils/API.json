@@ -1,6 +1,6 @@
 {
   "package": "@se-ng/signal-utils",
-  "generated": "2026-01-21",
+  "generated": "2026-02-06",
   "exports": [
     {
       "name": "asyncComputed",
@@ -87,6 +87,76 @@
       "source": "src/guards/is-date.ts"
     },
     {
+      "name": "isTemporal",
+      "category": "Type Guard",
+      "signature": "isTemporal(x): x is TemporalType",
+      "description": "Detects Temporal objects by checking `Symbol.toStringTag` (works with polyfill or native Temporal).",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalDuration",
+      "category": "Type Guard",
+      "signature": "isTemporalDuration(x): x is Temporal.Duration",
+      "description": "Detects Temporal.Duration objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalInstant",
+      "category": "Type Guard",
+      "signature": "isTemporalInstant(x): x is Temporal.Instant",
+      "description": "Detects Temporal.Instant objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalPlainDate",
+      "category": "Type Guard",
+      "signature": "isTemporalPlainDate(x): x is Temporal.PlainDate",
+      "description": "Detects Temporal.PlainDate objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalPlainDateTime",
+      "category": "Type Guard",
+      "signature": "isTemporalPlainDateTime(x): x is Temporal.PlainDateTime",
+      "description": "Detects Temporal.PlainDateTime objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalPlainMonthDay",
+      "category": "Type Guard",
+      "signature": "isTemporalPlainMonthDay(x): x is Temporal.PlainMonthDay",
+      "description": "Detects Temporal.PlainMonthDay objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalPlainTime",
+      "category": "Type Guard",
+      "signature": "isTemporalPlainTime(x): x is Temporal.PlainTime",
+      "description": "Detects Temporal.PlainTime objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalPlainYearMonth",
+      "category": "Type Guard",
+      "signature": "isTemporalPlainYearMonth(x): x is Temporal.PlainYearMonth",
+      "description": "Detects Temporal.PlainYearMonth objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "isTemporalZonedDateTime",
+      "category": "Type Guard",
+      "signature": "isTemporalZonedDateTime(x): x is Temporal.ZonedDateTime",
+      "description": "Detects Temporal.ZonedDateTime objects",
+      "source": "src/guards/is-temporal.ts"
+    },
+    {
+      "name": "assertDefined",
+      "category": "Assertions",
+      "signature": "assertDefined<T>(value: T | undefined, message: string): T",
+      "description": "Throws when value is undefined and returns the value narrowed to exclude undefined",
+      "source": "src/helpers/assert-defined.ts"
+    },
+    {
       "name": "Deferred",
       "category": "Async",
       "signature": "class Deferred<T> { promise: Promise<T>; resolve: (v:T)=>void; reject: (e)=>void }",
@@ -103,8 +173,8 @@
     {
       "name": "isObject",
       "category": "Type Guard",
-      "signature": "isObject<T>(x: T): boolean",
-      "description": "True for plain objects (not arrays, dates, null)",
+      "signature": "isObject<T>(x: T): x is { [K in keyof T]: T[K] }",
+      "description": "True for plain objects (not arrays, dates, Temporal objects, null)",
       "source": "src/guards/is-object.ts"
     },
     {

@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
   afterRenderEffect,
   Component,
@@ -11,7 +10,7 @@ import { form, FormField } from '@angular/forms/signals';
 
 @Component({
   selector: 'se-temporal',
-  imports: [JsonPipe, FormField],
+  imports: [ FormField],
   template: `
     <H1>Playing with Temporal</H1>
     <form>
