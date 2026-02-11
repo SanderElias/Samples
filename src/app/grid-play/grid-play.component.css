@@ -1,17 +1,17 @@
 :host {
   display: block;
-  --cellSize: 10px;
-  --xCells: 50;
-  --yCells: 50;
+  --cellSize: 25px;
+  --xCells: 25;
+  --yCells: 25;
   --gap: 1px;
   --accent1: #f082cb;
   --accent2: #9c1d7c;
 }
 
 .mouse-indicator {
-  display:none;
-  width: calc(var(--cellSize));
-  height: calc(var(--cellSize));
+  display: none;
+  width: calc(var(--cellSize) - ( 2 * var(--gap)));
+  height: calc(var(--cellSize) - ( 2 * var(--gap)));
   pointer-events: none;
   border: 2px solid black;
   border-radius: 4px;
@@ -21,7 +21,6 @@
   grid-column-start: var(--x);
   grid-row-start: var(--y);
 }
-
 
 .grid-container {
   display: grid;
@@ -70,10 +69,11 @@
 }
 
 .grid-item {
+  /** sadly, the attr() function doesn't work outside of the content property in most browsers */
   --x: attr(data-x type(<number>));
   --y: attr(data-y type(<number>));
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: calc(var(--cellSize) * 0.95);
   color: white;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
   border-radius: 4px;
