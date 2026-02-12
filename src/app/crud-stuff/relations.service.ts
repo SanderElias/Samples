@@ -22,25 +22,22 @@ import {
 
 import { type UserCard } from '../generic-services/address.service';
 
+import { deepDiff } from '@se-ng/signal-utils';
 import { firstValueFrom } from 'rxjs';
+import { LoggedIn } from '../grid-play/logged-in-user.service';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
 import { couchEventLister } from './couch-event-lister';
 import {
-  Authorization,
   createIndexes,
   goAddData,
   headers
 } from './couch-helpers';
 import type { CouchUpdate } from './couch.types';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
-import { deepDiff } from '@se-ng/signal-utils';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
-
-// const base = 'https://couchdb.localhost';
-export const base = 'https://demodb.eliasweb.nl';
 
 // enable caching for all requests from this service
 const httpCachedOptions = addCachingContext({ headers });
@@ -49,8 +46,16 @@ const httpCachedOptions = addCachingContext({ headers });
 // note: not injected in root, it is supposed to be provided in the route/component that holds the component-tree that uses it.
 @Injectable()
 export class RelationsService {
-  baseUrl = `${base}/relations` as const;
-  idUrl = (id: string) => `${this.baseUrl}/${id}`;
+  user = inject(LoggedIn).user;
+  base = computed(
+    () =>
+      `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
+  );
+  baseUrl = computed(
+    () =>
+      `${this.base()}/relations` as const
+  );
+  idUrl = (id: string) => `${this.baseUrl()}/${id}`;
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
   #http = inject(HttpActionClient);
@@ -131,7 +136,7 @@ export class RelationsService {
       console.error('Database not found, creating it');
       try {
         await untracked(
-          async () => await this.#http.put(this.baseUrl, {}, httpCachedOptions)
+          async () => await this.#http.put(this.baseUrl(), {}, httpCachedOptions)
         );
         await goAddData();
         this.#listRes.reload(); // reload the list after creating the index.
@@ -149,7 +154,7 @@ export class RelationsService {
   constructor() {
     // use a timeout to prevent the page-spinner
     setTimeout(() => {
-      const s = couchEventLister(base, 'relations', Authorization).subscribe(
+      const s = couchEventLister(this.base(), 'relations').subscribe(
         event => {
           this.#cache.purge(this.idUrl(event.id)); // remove from cache as well.
           if (event.deleted) {
