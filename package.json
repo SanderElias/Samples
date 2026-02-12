@@ -93,7 +93,7 @@
       ]
     },
     "build.samples": {
-      "command": "ng build --configuration production",
+      "command": "ng build --configuration production --prerender",
       "files": [
         "src/**",
         "tsconfig.app.json"
