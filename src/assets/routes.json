@@ -27,7 +27,7 @@
     "path": "/blog",
     "modulePath": "/src/app/blogs",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/blogs",
-    "title": "Sanders demo page",
+    "title": "Blog",
     "largeImage": "/assets/snapshots/blog.png",
     "description": ""
   },
@@ -219,7 +219,7 @@
     "path": "/card",
     "modulePath": "/src/app/card",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/card",
-    "title": "Sanders demo page",
+    "title": "Cards",
     "largeImage": "/assets/snapshots/card.png",
     "description": ""
   },
@@ -227,7 +227,7 @@
     "path": "/cells",
     "modulePath": "/src/app/cells",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/cells",
-    "title": "Sanders demo page",
+    "title": "Cells (Game of Life)",
     "largeImage": "/assets/snapshots/cells.png",
     "description": ""
   },
@@ -235,7 +235,7 @@
     "path": "/cellsRaw",
     "modulePath": "/src/app/cells/cell-raw",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/cells/cell-raw",
-    "title": "Sanders demo page",
+    "title": "Cells (Raw DOM)",
     "largeImage": "/assets/snapshots/cellsRaw.png",
     "description": ""
   },
@@ -243,7 +243,7 @@
     "path": "/clock",
     "modulePath": "/src/app/analog-clock",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/analog-clock",
-    "title": "Sanders demo page",
+    "title": "Analog Clock",
     "largeImage": "/assets/snapshots/clock.png",
     "description": ""
   },
@@ -251,7 +251,7 @@
     "path": "/complexAPI",
     "modulePath": "/src/app/complex-api/apisample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/complex-api/apisample",
-    "title": "Sanders demo page",
+    "title": "Complex API Sample",
     "largeImage": "/assets/snapshots/complexAPI.png",
     "description": ""
   },
@@ -292,7 +292,7 @@
     "modulePath": "/src/app/dyn-route",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/dyn-route",
     "description": "",
-    "title": "Sanders demo page",
+    "title": "Dynamic Route Loading",
     "largeImage": "/assets/snapshots/dyn-route.png"
   },
   {
@@ -315,7 +315,7 @@
     "path": "/dynSignalForm",
     "modulePath": "/src/app/dynsignal-form",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/dynsignal-form",
-    "title": "Sanders demo page",
+    "title": "Dynamic Signal Form",
     "largeImage": "/assets/snapshots/dynSignalForm.png",
     "description": ""
   },
@@ -323,7 +323,7 @@
     "path": "/eventedOutputs",
     "modulePath": "/src/app/evented-outputs",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/evented-outputs",
-    "title": "Sanders demo page",
+    "title": "Evented Outputs",
     "largeImage": "/assets/snapshots/eventedOutputs.png",
     "description": ""
   },
@@ -331,7 +331,7 @@
     "path": "/filterSamp",
     "modulePath": "/src/app/filter-samp/filter-sample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/filter-samp/filter-sample",
-    "title": "Sanders demo page",
+    "title": "Filter Sample",
     "largeImage": "/assets/snapshots/filterSamp.png",
     "description": ""
   },
@@ -379,7 +379,7 @@
     "path": "/htmlLoad",
     "modulePath": "/src/app/html-load/htmlload",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/html-load/htmlload",
-    "title": "Sanders demo page",
+    "title": "HTML Load",
     "largeImage": "/assets/snapshots/htmlLoad.png",
     "description": ""
   },
@@ -387,7 +387,7 @@
     "path": "/iconSprite",
     "modulePath": "/src/app/icon-sprite",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/icon-sprite",
-    "title": "Sanders demo page",
+    "title": "Icon Sprite",
     "largeImage": "/assets/snapshots/iconSprite.png",
     "description": ""
   },
@@ -395,7 +395,7 @@
     "path": "/indexDb",
     "modulePath": "/src/app/indexdb",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/indexdb",
-    "title": "Sanders demo page",
+    "title": "Event-Source DB Sample",
     "largeImage": "/assets/snapshots/indexDb.png",
     "description": ""
   },
@@ -419,7 +419,7 @@
     "path": "/lazyComponents",
     "modulePath": "/src/app/lazy-component",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/lazy-component",
-    "title": "Sanders demo page",
+    "title": "Lazy Loaded Components",
     "largeImage": "/assets/snapshots/lazyComponents.png",
     "description": ""
   },
@@ -427,7 +427,7 @@
     "path": "/localState",
     "modulePath": "/src/app/local-state",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/local-state",
-    "title": "Sanders demo page",
+    "title": "Local State",
     "largeImage": "/assets/snapshots/localState.png",
     "description": ""
   },
@@ -435,7 +435,7 @@
     "path": "/localState/",
     "modulePath": "/src/app",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
-    "title": "Sanders demo page",
+    "title": "Local State",
     "largeImage": "/assets/snapshots/localState-.png",
     "description": ""
   },
@@ -459,7 +459,7 @@
     "path": "/modalSamp",
     "modulePath": "/src/app/modal-samp/modal-demo",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/modal-samp/modal-demo",
-    "title": "Sanders demo page",
+    "title": "Modal Demo",
     "largeImage": "/assets/snapshots/modalSamp.png",
     "description": ""
   },
@@ -467,7 +467,7 @@
     "path": "/mqtt",
     "modulePath": "/src/app/mqtt",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/mqtt",
-    "title": "Sanders demo page",
+    "title": "MQTT",
     "largeImage": "/assets/snapshots/mqtt.png",
     "description": ""
   },
@@ -475,7 +475,7 @@
     "path": "/mqtt/",
     "modulePath": "/src/app",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
-    "title": "Sanders demo page",
+    "title": "MQTT",
     "largeImage": "/assets/snapshots/mqtt-.png",
     "description": ""
   },
@@ -483,7 +483,7 @@
     "path": "/mqtt/list",
     "modulePath": "/src/app",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
-    "title": "Sanders demo page",
+    "title": "MQTT Device List",
     "largeImage": "/assets/snapshots/mqtt-list.png",
     "description": ""
   },
@@ -507,7 +507,7 @@
     "path": "/observableState/hook",
     "modulePath": "/src/app/lifeycle-hooks-sample",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/lifeycle-hooks-sample",
-    "title": "Sanders demo page",
+    "title": "Lifecycle Hooks Sample",
     "largeImage": "/assets/snapshots/observableState-hook.png",
     "description": ""
   },
@@ -531,7 +531,7 @@
     "path": "/pokeAPI",
     "modulePath": "/src/app/poke-api/pokemain",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/poke-api/pokemain",
-    "title": "Sanders demo page",
+    "title": "PokeAPI Sample",
     "largeImage": "/assets/snapshots/pokeAPI.png",
     "description": ""
   },
@@ -547,7 +547,7 @@
     "path": "/resizePanel",
     "modulePath": "/src/app/resizable-panels",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/resizable-panels",
-    "title": "Sanders demo page",
+    "title": "Resizable Panels",
     "largeImage": "/assets/snapshots/resizePanel.png",
     "description": ""
   },
@@ -563,7 +563,7 @@
     "path": "/routeList",
     "modulePath": "/src/app/route-list",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/route-list",
-    "title": "Sanders demo page",
+    "title": "Route List",
     "largeImage": "/assets/snapshots/routeList.png",
     "description": ""
   },
@@ -635,7 +635,7 @@
     "path": "/signalForms/tree",
     "modulePath": "/src/app/signal-forms-experiment/signal-tree",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signal-forms-experiment/signal-tree",
-    "title": "Sanders demo page",
+    "title": "Signal Forms Tree",
     "largeImage": "/assets/snapshots/signalForms-tree.png",
     "description": ""
   },
@@ -643,7 +643,7 @@
     "path": "/signalInputMusings",
     "modulePath": "/src/app/signal-input-musings",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signal-input-musings",
-    "title": "Sanders demo page",
+    "title": "Signal Input Musings",
     "largeImage": "/assets/snapshots/signalInputMusings.png",
     "description": ""
   },
@@ -651,7 +651,7 @@
     "path": "/signalPlay",
     "modulePath": "/src/app/signal-play",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signal-play",
-    "title": "Sanders demo page",
+    "title": "Signal Play (JSONPlaceholder)",
     "largeImage": "/assets/snapshots/signalPlay.png",
     "description": ""
   },
@@ -659,7 +659,7 @@
     "path": "/signalsForms",
     "modulePath": "/src/app/signals-form",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signals-form",
-    "title": "Sanders demo page",
+    "title": "Signals Form (Full Name)",
     "largeImage": "/assets/snapshots/signalsForms.png",
     "description": ""
   },
@@ -667,7 +667,7 @@
     "path": "/signalsInForm",
     "modulePath": "/src/app/signals-form",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/signals-form",
-    "title": "Sanders demo page",
+    "title": "Signals in Form (Full Name)",
     "largeImage": "/assets/snapshots/signalsInForm.png",
     "description": ""
   },
@@ -675,7 +675,7 @@
     "path": "/snow",
     "modulePath": "/src/app/snow",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/snow",
-    "title": "Sanders demo page",
+    "title": "Snow",
     "largeImage": "/assets/snapshots/snow.png",
     "description": ""
   },
@@ -699,7 +699,7 @@
     "path": "/svg",
     "modulePath": "/src/app/svg-calendar/svg-calender",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/svg-calendar/svg-calender",
-    "title": "Sanders demo page",
+    "title": "SVG Calendar",
     "largeImage": "/assets/snapshots/svg.png",
     "description": ""
   },
@@ -747,7 +747,7 @@
     "path": "/testOb",
     "modulePath": "/src/app/test",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test",
-    "title": "Sanders demo page",
+    "title": "Directive Input Test",
     "largeImage": "/assets/snapshots/testOb.png",
     "description": ""
   },
@@ -755,7 +755,7 @@
     "path": "/testOb/testob",
     "modulePath": "/src/app/test",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test",
-    "title": "Sanders demo page",
+    "title": "Directive Input Test",
     "largeImage": "/assets/snapshots/testOb-testob.png",
     "description": ""
   },
