@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { httpResource } from '@angular/common/http';
+import { Component, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { compile } from 'path-to-regexp';
 
 @Component({
   selector: 'se-route-list',
@@ -22,8 +22,13 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./route-list.component.css']
 })
 export class RouteListComponent {
-  #http = inject(HttpClient);
-  routes = toSignal(this.#http.get<RouteData[]>('../../assets/routes.json'));
+  routesRes = httpResource<RouteData[]>(() => '../../assets/routes.json', {
+    defaultValue: [] as RouteData[]
+  });
+  routes = computed(() => {
+    if (!this.routesRes.hasValue()) return [];
+    return  this.routesRes.value().filter(route => !route.path.startsWith('/blog')).sort((a, b) => a.title.localeCompare(b.title));
+  });
 }
 
 export interface RouteData {

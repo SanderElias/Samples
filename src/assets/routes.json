@@ -363,7 +363,7 @@
     "path": "/gridThings",
     "modulePath": "/src/app/gridthings/gridthings",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/gridthings/gridthings",
-    "title": "1",
+    "title": "CSS grid sparse table sample",
     "largeImage": "/assets/snapshots/gridThings.png",
     "description": ""
   },
