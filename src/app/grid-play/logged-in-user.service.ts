@@ -11,8 +11,11 @@ export class LoggedIn {
     credentials: 'include'
   }));
 
-  user = computed(() =>
-    this.#userRs.hasValue() ? this.#userRs.value()?.data?.username : undefined
+  user = computed(() => {
+    if (!this.#userRs.hasValue()) return undefined;
+    const userName = this.#userRs.value()?.data?.username || '';
+    return userName ? userName : undefined;
+  }
   );
 }
 

@@ -3,12 +3,10 @@ import { type SortField } from './relations.service';
 
 const baseFallback = 'https://couchdb.eliasweb.nl'
 
-/**
- * this is how you do professional security!
- * copy this pattern, and you will get raise for sure ;-p
- */
 export const headers = {
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  'credentials': 'include',
+  'mode': 'cors'
 };
 
 // a couple of helper functions to create the database,indexes and add some data to it.

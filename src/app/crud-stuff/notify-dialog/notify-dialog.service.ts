@@ -1,5 +1,6 @@
 import type { TemplateRef } from '@angular/core';
 import { Injectable, signal } from '@angular/core';
+import { Deferred } from '../../../utils/signals/deferred';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class NotifyDialogService {
   title = signal('Sorry, something went wrong');
   type = signal<'info' | 'error' | 'warning'>('error');
   dismissButtonText = signal('dismiss');
+  active = new Deferred<void>();
 
   showTemplate = (template: TemplateRef<unknown>) => {
     this.template.set(template);
@@ -36,7 +38,10 @@ export class NotifyDialogService {
     this.type.set(type);
     this.dismissButtonText.set(dismissButtonText);
     this.shown.set(true);
+    this.active = new Deferred<void>();
+    return this.active.promise;
   };
+
   close = () => {
     this.shown.set(false);
     this.template.set(undefined);
@@ -44,6 +49,7 @@ export class NotifyDialogService {
     this.type.set('error');
     this.title.set('Sorry, something went wrong');
     this.dismissButtonText.set('dismiss');
+    this.active.resolve();
   };
   isShown = () => {
     return this.shown();

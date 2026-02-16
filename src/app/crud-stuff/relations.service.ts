@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import {
   debouncedComputed,
+  deepDiff,
   deepEqual,
   HttpActionClient,
   mergeDeep
@@ -22,26 +23,25 @@ import {
 
 import { type UserCard } from '../generic-services/address.service';
 
-import { deepDiff } from '@se-ng/signal-utils';
 import { firstValueFrom } from 'rxjs';
 import { LoggedIn } from '../grid-play/logged-in-user.service';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
-import { couchEventLister } from './couch-event-lister';
-import {
-  createIndexes,
-  goAddData,
-  headers
-} from './couch-helpers';
+import { createIndexes, goAddData } from './couch-helpers';
 import type { CouchUpdate } from './couch.types';
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';
+import { couchEventLister } from './couch-event-lister';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
-// enable caching for all requests from this service
-const httpCachedOptions = addCachingContext({ headers });
-// const httpOptions = ({ headers });
+// enable caching for all requests from this service, also set some default options for the requests, like credentials and mode. This is to support CouchDB authentication cookies and CORS.
+const httpCachedOptions: Record<string, unknown> = {
+  ...addCachingContext({
+    credentials: 'include',
+    mode: 'cors'
+  })
+};
 
 // note: not injected in root, it is supposed to be provided in the route/component that holds the component-tree that uses it.
 @Injectable()
@@ -51,10 +51,7 @@ export class RelationsService {
     () =>
       `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
   );
-  baseUrl = computed(
-    () =>
-      `${this.base()}/relations` as const
-  );
+  baseUrl = computed(() => `${this.base()}/relations` as const);
   idUrl = (id: string) => `${this.baseUrl()}/${id}`;
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
@@ -72,7 +69,7 @@ export class RelationsService {
 
   #listRes = httpResource<[string, string][]>(
     () => ({
-      url: `${this.baseUrl}/_find?v=${this.#refresh()}`,
+      url: `${this.baseUrl()}/_find?v=${this.#refresh()}`,
       method: 'POST',
       body: {
         selector: {
@@ -86,7 +83,8 @@ export class RelationsService {
         sort: [{ [this.sort()]: this.order() }],
         limit: 15
       },
-      headers
+      credentials: 'include', // include credentials to support CouchDB authentication cookies.
+      mode: 'cors'
     }),
     {
       defaultValue: [],
@@ -136,7 +134,8 @@ export class RelationsService {
       console.error('Database not found, creating it');
       try {
         await untracked(
-          async () => await this.#http.put(this.baseUrl(), {}, httpCachedOptions)
+          async () =>
+            await this.#http.put(this.baseUrl(), {}, httpCachedOptions)
         );
         await goAddData();
         this.#listRes.reload(); // reload the list after creating the index.
@@ -154,30 +153,25 @@ export class RelationsService {
   constructor() {
     // use a timeout to prevent the page-spinner
     setTimeout(() => {
-      const s = couchEventLister(this.base(), 'relations').subscribe(
-        event => {
-          this.#cache.purge(this.idUrl(event.id)); // remove from cache as well.
-          if (event.deleted) {
-            // remove from list
-            this.#list.update(oldList =>
-              oldList.filter(i => i[0] !== event.id)
-            );
-          } else {
-            // update or add to list
-            const rev = event.changes[0]?.rev ?? '';
-            this.#list.update(oldList =>
-              oldList.map(i =>
-                i[0] === event.id ? ([i[0], rev] as [string, string]) : i
-              )
-            );
-          }
+      const s = couchEventLister(this.base(), 'relations').subscribe(event => {
+        this.#cache.purge(this.idUrl(event.id)); // remove from cache as well.
+        if (event.deleted) {
+          // remove from list
+          this.#list.update(oldList => oldList.filter(i => i[0] !== event.id));
+        } else {
+          // update or add to list
+          const rev = event.changes[0]?.rev ?? '';
+          this.#list.update(oldList =>
+            oldList.map(i =>
+              i[0] === event.id ? ([i[0], rev] as [string, string]) : i
+            )
+          );
         }
-      );
-
+      });
       this.#des.onDestroy(() => {
         s.unsubscribe();
       });
-    }, 1000);
+    }, 2000);
   }
 
   create = async (data: UserCard) => {
@@ -190,7 +184,18 @@ export class RelationsService {
         [[data.id, ''] as [string, string], ...oldList].splice(0, 50)
       );
       return true;
-    } catch (e) {
+    } catch (e: any) {
+      const {
+        error: { error: err, reason }
+      } = e ?? {};
+      if (err === 'forbidden') {
+        await this.#notifyDialog.show({
+          title: 'You are not allowed to add a user',
+          message:
+            'This is likely because you are on the demo account, which has no write access'
+        });
+        return false;
+      }
       console.error('Error creating user', e);
       return false;
     }
@@ -260,7 +265,14 @@ export class RelationsService {
       const {
         error: { error: err, reason }
       } = e ?? {};
-      console.log(e, err, reason);
+      if (err === 'forbidden') {
+        await this.#notifyDialog.show({
+          title: 'You are not allowed to update this data',
+          message:
+            'This is likely because you are on the demo account, which has no write access'
+        });
+        return { result: 'error', error: 'forbidden' };
+      }
       if (reason.startsWith('Document update conflict')) {
         // updated from elsewhere.
         try {
@@ -307,6 +319,14 @@ export class RelationsService {
       const {
         error: { error: err, reason }
       } = e ?? {};
+      if (err === 'forbidden') {
+        this.#notifyDialog.show({
+          title: 'You are not allowed to delete this data',
+          message:
+            'This is likely because you are on the demo account, which has no write access'
+        });
+        return false;
+      }
       if (err === 'not_found' && reason === 'deleted') {
         console.log('already deleted, ignore this log');
       } else {
