@@ -1,16 +1,20 @@
 import { type UserCard, userCard } from '../generic-services/address.service';
 import { type SortField } from './relations.service';
 
-const baseFallback = 'https://couchdb.eliasweb.nl'
+const baseFallback = 'https://couchdb.eliasweb.nl';
 
 export const headers = {
   'Content-Type': 'application/json',
-  'credentials': 'include',
-  'mode': 'cors'
+  credentials: 'include',
+  mode: 'cors'
 };
 
 // a couple of helper functions to create the database,indexes and add some data to it.
-export async function goAddData(iterations = 5, ammountPerIteration = 1000, base=baseFallback) {
+export async function goAddData(
+  iterations = 5,
+  ammountPerIteration = 1000,
+  base = baseFallback
+) {
   // add 5000 records when called without parameters.
   const fakerModule = import('@faker-js/faker');
   const module = await fakerModule;
@@ -28,14 +32,14 @@ export async function goAddData(iterations = 5, ammountPerIteration = 1000, base
     });
   }
 }
-export async function createIndexes() {
-  await createIndex('name');
-  await createIndex('username');
-  await createIndex('email');
+export async function createIndexes(base = baseFallback) {
+  await createIndex('name', base);
+  await createIndex('username', base);
+  await createIndex('email', base);
   console.log('Indexes created');
 }
 
-async function createIndex(fieldName: SortField, base=baseFallback) {
+async function createIndex(fieldName: SortField, base = baseFallback) {
   const url = `${base}/relations/_index`;
   const body = {
     index: { fields: [fieldName] },

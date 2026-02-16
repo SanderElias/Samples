@@ -1,5 +1,5 @@
-import { computed, Injectable } from '@angular/core';
 import { httpResource } from '@angular/common/http';
+import { computed, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,8 @@ export class LoggedIn {
   user = computed(() => {
     if (!this.#userRs.hasValue()) return undefined;
     const userName = this.#userRs.value()?.data?.username || '';
-    return userName ? userName : undefined;
-  }
-  );
+    return userName ? userName : undefined; // if username is empty string, treat as not logged in, so return undefined instead
+  });
 }
 
 export interface AutheliaStatus {
