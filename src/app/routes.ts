@@ -258,9 +258,7 @@ export const routes: Routes = [
         loadComponent: () => import('./metered-view/metered-view.component').then(m => m.MeteredViewComponent)
       },
 
-      // { path: '**', redirectTo: 'inputHostExperiment' },
-      // { path: '**', redirectTo: 'routeList' },
-      // { path: '**', redirectTo: 'crudStuff' }
+
       {
         path: 'mqtt',
         loadChildren: () => import('./mqtt/routes')
@@ -304,9 +302,7 @@ export const routes: Routes = [
       { path: 'temporal', loadComponent: () => import('./temporal/temporal.component').then(m => m.TemporalComponent) },
       { path: 'gridPlay', loadComponent: () => import('./grid-play/grid-play.component').then(m => m.GridPlayComponent) },
 
-      // { path: '**', redirectTo: 'routeList' },
-      { path: '**', redirectTo: 'temporal' }
-      // { path: '**', redirectTo: 'vt' }
+      { path: '**', redirectTo: 'routeList' },
     ]
   }
 ];

@@ -352,6 +352,14 @@
     "description": ""
   },
   {
+    "path": "/gridPlay",
+    "modulePath": "/src/app/grid-play",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/grid-play",
+    "description": "",
+    "title": "Grid Play ",
+    "largeImage": "/assets/snapshots/gridPlay.png"
+  },
+  {
     "path": "/gridThings",
     "modulePath": "/src/app/gridthings/gridthings",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/gridthings/gridthings",
@@ -728,6 +736,14 @@
     "description": ""
   },
   {
+    "path": "/temporal",
+    "modulePath": "/src/app/temporal",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/temporal",
+    "description": "",
+    "title": "Playing with Temporal",
+    "largeImage": "/assets/snapshots/temporal.png"
+  },
+  {
     "path": "/testOb",
     "modulePath": "/src/app/test",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/test",
@@ -755,23 +771,23 @@
     "path": "/toh",
     "modulePath": "/src/app/toh",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/toh",
-    "title": "Sanders demo page",
+    "title": "Towers of Hanoi",
     "largeImage": "/assets/snapshots/toh.png",
-    "description": ""
+    "description": "A classic puzzle game implemented in Angular."
   },
   {
     "path": "/toh/cdk",
     "modulePath": "/src/app/toh/toh-cdk",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/toh/toh-cdk",
-    "title": "Sanders demo page",
+    "title": "Towers of Hanoi CDK",
     "largeImage": "/assets/snapshots/toh-cdk.png",
-    "description": ""
+    "description": "A CDK-based implementation of the Towers of Hanoi puzzle."
   },
   {
     "path": "/tumblr",
     "modulePath": "/src/app/tumblr",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/tumblr",
-    "title": "Sanders demo page",
+    "title": "Tumblr Integration",
     "largeImage": "/assets/snapshots/tumblr.png",
     "description": ""
   },
