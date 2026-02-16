@@ -5,18 +5,14 @@ import type { CouchDbEvent } from './couch.types';
 export function couchEventLister(
   base = 'http://localhost:5984',
   db: string,
-  authorization: string
 ) {
-  // hardcoding the baseUrl for now. the username password should not be hardcoded in real world apps.
   const dbUrl = `${base}/${db}`;
 
   return new Observable<CouchDbEvent>(subscriber => {
     const eventSource = new SSE(
       `${dbUrl}/_changes?feed=eventsource&include_docs=false&since=now&heartbeat=3000`,
       {
-        headers: {
-          Authorization: authorization
-        },
+
         withCredentials: true,
         autoReconnect: true, // Enable auto-reconnect
         reconnectDelay: 1000, // Wait 1 seconds before reconnecting
@@ -26,6 +22,7 @@ export function couchEventLister(
       }
     );
 
+    // leave this comment here, so we can see the readyState changes in the console if needed for debugging
     // eventSource.onreadystatechange = () => {
     //   console.log(
     //     'CouchDB EventSource readyState changed to:',

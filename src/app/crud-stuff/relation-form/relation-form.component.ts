@@ -110,14 +110,21 @@ export class RelationForm {
   async submit(ev: SubmitEvent) {
     ev.preventDefault();
     const newUser = this.currentFormData();
-    const { result, user } = await this.rs.update(newUser);
+    const { result, user, error } = await this.rs.update(newUser);
     if (result === 'conflict') {
       console.log('Conflict detected, please reload the user data');
       this.relation.value.set(user!); //
     }
     if (result === 'error') {
+      if (error === 'forbidden') {
+        // no write access, likely on demo account.
+        // error is already handled in the service, I just need to close the dialog here.
+        return this.done.emit();
+      }
+      // other error, just throw it in the console.
       console.log('Error updating the user');
-      console.error('Error updating the user');
+      console.dir(error);
+
     }
     if (result === 'ok' || result === 'noChange') {
       console.log('User updated successfully');

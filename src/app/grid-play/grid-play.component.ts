@@ -1,17 +1,14 @@
-import { httpResource } from '@angular/common/http';
 import {
   afterRenderEffect,
   Component,
   computed,
-  effect,
   ElementRef,
   inject,
-  Injectable,
   signal,
-  viewChild,
-  type Signal
+  viewChild
 } from '@angular/core';
 import { assertDefined } from '@se-ng/signal-utils';
+import { LoggedIn } from './logged-in-user.service';
 
 @Component({
   selector: 'se-grid-play',
@@ -32,6 +29,7 @@ import { assertDefined } from '@se-ng/signal-utils';
   styleUrl: './grid-play.component.css'
 })
 export class GridPlayComponent {
+  user = inject(LoggedIn).user;
   mouseOnCell = signal(
     { x: 0, y: 0 },
     //  Custom equality function to prevent unnecessary updates when the mouse is in the same cell
@@ -76,35 +74,4 @@ export class GridPlayComponent {
     /** update the mouseOver signal with the new cell coordinates */
     this.mouseOnCell.set({ x, y });
   }
-  user = inject(UserService).user;
-
-}
-
-/**
- * @description
- * @class UserService
- */
-@Injectable({
-  providedIn: 'root'
-})
-class UserService {
-  userRs = httpResource<AutheliaStatus>(() => ({
-    url: 'https://auth.eliasweb.nl/api/state' ,
-    mode: 'cors',
-    credentials: 'include'
-  }));
-  user = computed(() =>
-    this.userRs.hasValue() ? this.userRs.value()?.data?.username : undefined
-  );
-}
-export interface AutheliaStatus {
-  status: string;
-  data:   Data;
-}
-
-export interface Data {
-  username:                string;
-  authentication_level:    number;
-  factor_knowledge:        boolean;
-  default_redirection_url: string;
 }

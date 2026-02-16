@@ -1,18 +1,20 @@
 import { type UserCard, userCard } from '../generic-services/address.service';
-import { base, type SortField } from './relations.service';
+import { type SortField } from './relations.service';
 
-/**
- * this is how you do professional security!
- * copy this pattern, and you will get raise for sure ;-p
- */
-export const Authorization = `Basic ${btoa('admin:password')}`; // Not secure, but this is a demo, so we don't care.
+const baseFallback = 'https://couchdb.eliasweb.nl';
+
 export const headers = {
-  Authorization,
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  credentials: 'include',
+  mode: 'cors'
 };
 
 // a couple of helper functions to create the database,indexes and add some data to it.
-export async function goAddData(iterations = 5, ammountPerIteration = 1000) {
+export async function goAddData(
+  iterations = 5,
+  ammountPerIteration = 1000,
+  base = baseFallback
+) {
   // add 5000 records when called without parameters.
   const fakerModule = import('@faker-js/faker');
   const module = await fakerModule;
@@ -30,14 +32,14 @@ export async function goAddData(iterations = 5, ammountPerIteration = 1000) {
     });
   }
 }
-export async function createIndexes() {
-  await createIndex('name');
-  await createIndex('username');
-  await createIndex('email');
+export async function createIndexes(base = baseFallback) {
+  await createIndex('name', base);
+  await createIndex('username', base);
+  await createIndex('email', base);
   console.log('Indexes created');
 }
 
-async function createIndex(fieldName: SortField) {
+async function createIndex(fieldName: SortField, base = baseFallback) {
   const url = `${base}/relations/_index`;
   const body = {
     index: { fields: [fieldName] },
