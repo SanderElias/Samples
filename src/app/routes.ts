@@ -69,7 +69,8 @@ export const routes: Routes = [
       },
       {
         path: 'home',
-        loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
+        // loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
+        redirectTo: 'routeList'
       },
       {
         path: 'dynhtml',

@@ -5,6 +5,7 @@ import { EvChildComponent } from './ev-child/ev-child.component';
 declare global {
   interface HTMLElementEventMap {
     onSelected: CustomEvent<string>;
+    onDeselected: CustomEvent<string>;
   }
 }
 

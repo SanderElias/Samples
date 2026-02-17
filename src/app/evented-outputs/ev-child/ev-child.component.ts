@@ -7,7 +7,8 @@ import { Component, ElementRef, inject, model } from '@angular/core';
   styleUrl: './ev-child.component.css',
   host: {
     '[class.selected]': 'selected()',
-    '(click)': 'handleClick()'
+    '(click)': 'handleClick()',
+    '[id]': 'id'
   }
 })
 export class EvChildComponent<T = unknown> {
@@ -15,12 +16,15 @@ export class EvChildComponent<T = unknown> {
   value = model.required<T>();
   id = `evChild-${childId++}`;
 
-  onSelected = domEventOutput('onSelected');
+  #onSelected = domEventOutput('onSelected');
+  #onDeselected = domEventOutput('onDeselected');
 
   handleClick() {
     this.selected.set(!this.selected());
     if (this.selected()) {
-      this.onSelected.emit(this.id);
+      this.#onSelected.emit(this.id);
+    } else {
+      this.#onDeselected.emit(this.id);
     }
   }
 }
