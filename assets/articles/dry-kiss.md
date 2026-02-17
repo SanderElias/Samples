@@ -1,17 +1,17 @@
 # Dry kiss Yagni ASAP.
 
-When you where lured here by the title and was expecting some story about why someone would to dry kiss this Yagni person, I'm sorry, the following will be probably boring for you.
+When you were lured here by the title and were expecting some story about why someone would dry kiss this Yagni person, I'm sorry, the following will probably be boring for you.
 If you came here because you recognized the title as having some interesting keywords. Congratulations, you are into coding, and you came to the right place.
 When you recognized the title consists only out of principle abbreviations, I'm sorry too ;) you are probably a bit too much into coding.
 
-By now you probably understand this this article is going to be about coding. It is indeed. But first things first, lets un-abbreviate the title.
+By now you probably understand this article is going to be about coding. It is indeed. But first things first, let's un-abbreviate the title.
 
 - DRY: Don't Repeat Yourself
 - KISS: Keep It Stupid Simple (or super simple, or short and simple, or ...)
 - YAGNI: You Ain't Gonna Need It
 - ASAP: As Simple As Possible
 
-So, with that out of the way, lets ask us the most important question: Why would I combine these four principles in one title?
+So, with that out of the way, let's ask us the most important question: Why would I combine these four principles in one title?
 Well first of all, because I can. It came to me in a dream. Well, not actually, but I found it amusing enough to create an article about it.
 Secondly, because those four principles are very important for coding. I'm not going to say they are the _most_ important, because I would like to leave that up to you. But they are a solid(pun intended) way to keep your sanity while coding.
 
@@ -21,7 +21,7 @@ Enough with the introduction, let me start with high level explanation of the fo
 
 ### DRY
 
-This is about not repeating (copy-pasting) code. When you need to do the same thing in multiple places, you should abstract this away into a function, class, macro, decorator, whaterver your language supports. This way, when you need to change the behavior, you only need to change it in one place.
+This is about not repeating (copy-pasting) code. When you need to do the same thing in multiple places, you should abstract this away into a function, class, macro, decorator, whatever your language supports. This way, when you need to change the behavior, you only need to change it in one place.
 
 ### KISS
 
@@ -35,7 +35,7 @@ This is about not over-engineering. When you write code, you should always keep 
 
 This is about keeping it simple. But not entirely the same as KISS. The 'As Possible' part is operative here. This is a warning against under-engineering.
 
-## Whats in common between them?
+## What's in common between them?
 
 All four principles are about keeping your code maintainable, readable, and understandable. They are about keeping your code bug-free, and keeping your code future-proof. They are about the quality of your code in good shape. They are telling you to be friendly to the person that has to maintain the code in the future. Keep in mind that this person might be you. But there is _no_ guarantee that this person is you. So, be nice to them.
 
@@ -48,7 +48,7 @@ this all is _not_ simple. It is a balancing act. With experience you will get be
 
 ### Interlude.
 
-Writing all this, reminded me of a very old quote from a french mathematician, Blaise Pascal:
+Writing all this reminded me of a very old quote from a French mathematician, Blaise Pascal:
 
 > Je n’ai fait celle-ci plus longue que parce que je n’ai pas eu le loisir de la faire plus courte.
 
@@ -56,7 +56,7 @@ Well, not the french version, but the translated version:
 
 > I have made this letter longer than usual because I lack the time to make it shorter.
 
-This _underscribes_ the problem with all of the principles. It is _harder_ and more _time consuming_ to write good code. Why would we do that then? Because it is _easier_ and _less time consuming_ to maintain good code. Also the likelihood of bugs is _lower_. And the likelihood of future requirements being met is _higher_. So, in the end, it is _easier_ and _less time consuming_ to write good code.
+This _underscores_ the problem with all of the principles. It is _harder_ and more _time consuming_ to write good code. Why would we do that then? Because it is _easier_ and _less time consuming_ to maintain good code. Also the likelihood of bugs is _lower_. And the likelihood of future requirements being met is _higher_. So, in the end, it is _easier_ and _less time consuming_ to write good code.
 Remember, we usually spend more time on maintaining as we do on writing new code.
 
 ## HELP! I'm lost!
@@ -81,19 +81,19 @@ Look at your code. Are there many brackets? Is it deeply nested? Are there multi
 
 When you are writing code, and you think: "I might need this in the future", stop. Ask yourself: "Do I need this now?" If the answer is no, don't write it. If the answer is yes, write it. But keep in mind that you are writing it for the current requirements. If you need it in the future, you can always add it later. But you might not need it in the future. So, don't write it now. You Ain't Gonna Need It.
 
-> [!TIP] your 85% sure you are going to need it in the future?
+> [!TIP] you're 85% sure you are going to need it in the future?
 > Write it down in a TODO. But don't write the code. Just write down what you think you are going to need. This way, you can always look it up later. And you can always decide to write it later. But you might not need it at all. So, don't write it now.
 
 > [!TIP] PRO-TIP
-> your 98% sure you are going to need it in the very near future? **write it!**
+> you're 98% sure you are going to need it in the very near future? **write it!**
 
 ### ASAP
 
-Look at your unit. Check for KISS, Check for DRY, Check for YAGNI. If you are OK with all of them, you are probably OK with ASAP. But keep in mind that ASAP is about keeping it simple, _as possible_. So, are you sure _all_ edge-cases are dealt with? Are _all_ requirements indeed met?
+Look at your unit. Check for KISS, Check for DRY, Check for YAGNI. If you are OK with all of them, you are probably OK with ASAP. But keep in mind that ASAP is about keeping it simple, _as possible_. So, are you sure _all_ edge cases are dealt with? Are _all_ requirements indeed met?
 
 ## Conclusion
 
-Those four principles will help you to fight the complexity of your day to day job. Keeping them in mind will help code quality. But remember, just as with anything else (eyeballing "best practices" especially here!), that those are guidelines. It is oke to violate them. Make sure there is a just cause for it though. And if you do, strongly consider documenting in a code-comment why you did it. This way, the person that has to maintain your code in the future, will at least have a fighting chance to understand why you did it.
+Those four principles will help you to fight the complexity of your day-to-day job. Keeping them in mind will help code quality. But remember, just as with anything else (eyeballing "best practices" especially here!), that those are guidelines. It's ok to violate them. Make sure there is a just cause for it though. And if you do, strongly consider documenting in a code-comment why you did it. This way, the person that has to maintain your code in the future, will at least have a fighting chance to understand why you did it.
 
 ```javascript
 // not DRY: performance reasons.
@@ -111,7 +111,7 @@ Let me quote Antoine de Saint-Exupéry
 
 > Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 
-This _is_ the essence of the four principles. He was talking about design. But it is even more true (yes, there are gradations in truth!) for code. It actually means you are doing the job with the most optimal amount of code. And in most cases that will also means the best possible performance. (There is a whole slew of other things that can influence performance, but that is a whole other article)
+This _is_ the essence of the four principles. He was talking about design. But it is even more true (yes, there are gradations in truth!) for code. It actually means you are doing the job with the most optimal amount of code. And in most cases that will also mean the best possible performance. (There is a whole slew of other things that can influence performance, but that is a whole other article)
 
 So, when you are going back to code, make sure you are going to:
 

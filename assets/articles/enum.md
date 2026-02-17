@@ -23,7 +23,7 @@ Which is a lot more readable than:
 move(1);
 ```
 
-However, there are some things to keep in mind when using enums. They are a TypeScript feature, not a Javascript feature.
+However, there are some things to keep in mind when using enums. They are a TypeScript feature, not a JavaScript feature.
 That means that after compilation the whole `ENUM` is gone.
 
 The above sample would be compiled to:
@@ -32,7 +32,7 @@ The above sample would be compiled to:
 move(1);
 ```
 
-Also, there is no way to inspect a `ENUM` at runtime. So, you can't do something like:
+Also, there is no way to inspect an `enum` at runtime. So, you can't do something like:
 
 ```typescript
 console.log(Direction);

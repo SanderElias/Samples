@@ -24,7 +24,7 @@ A 32-bit signed integer is a data type used in computer programming to represent
 
 ### What does that translate to in dates?
 
-Well, let do the math.
+Well, let's do the math.
 
 ```math
 2,147,483,647 / (60 * 60 * 24) = 24,855 days (approx)
@@ -38,7 +38,7 @@ which is:
 
 so, `1970 + 68 = 2038`
 
-### what means rollover?
+### what does rollover mean?
 
 That is what happens when we add `1` to the maximum value of a 32-bit signed integer, adding `1` to `2,147,483,647` causes the value to "roll over" to `-2,147,483,648`, which is the minimum value for this data type.
 In systems using a signed 32 bit integer this will lead to a date of `December, 1902`. (1970 - 68).
@@ -67,7 +67,7 @@ So, by using a 64-bit signed integer we can go up to almost 300 billion years in
 I mean, even when they designed the original systems, they must have known this would be a problem in the future, right? a range of dates that does not even span one and a half century? They did put a man on the moon with this tech, were they this stupid?
 Well, no. At the time (1960s) memory and storage were _very expensive_ and limited resources. Using a 32-bit signed integer was a practical choice that balanced the need for date representation with the constraints of the hardware. At that point in time a main memory of a kilobyte was considered large. Remember the uproar when the IBM PC AT came with 256 kilobytes of RAM as standard? And then when Bill Gates said that 640 kilobytes should be enough for anyone? (1981, and yes, I know he claims he never said that).
 
-> [!NOTE] take a second look at those numbers in the above paragraph. A kilobyte is 1024 bytes. The numbers are measured in _kilobytes_! Nowadays, we measure main memory in gigabytes. Lets line that up: 
+> [!NOTE] take a second look at those numbers in the above paragraph. A kilobyte is 1024 bytes. The numbers are measured in _kilobytes_! Nowadays, we measure main memory in gigabytes. Let's line that up: 
 > | | | 
 > | -------- | ------------ | 
 > | kilobyte | 1024 | 
@@ -77,7 +77,7 @@ Well, no. At the time (1960s) memory and storage were _very expensive_ and limit
 
 ## What does this mean to me?
 
-The good news is probably nothing!. Most modern systems have already addressed this issue. To be extra certain, you can check your own stack, and look up of any of the languages, libraries, databases or frameworks you are using have any known issues with the year 2038 problem. When you are maintaining a legacy system build duren the last century switch, you might want to take a closer look.
+The good news is probably nothing! Most modern systems have already addressed this issue. To be extra certain, you can check your own stack, and look up whether any of the languages, libraries, databases or frameworks you are using have known issues with the year 2038 problem. When you are maintaining a legacy system built during the last century switch, you might want to take a closer look.
 
 ## TL;DR
 

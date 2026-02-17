@@ -1,7 +1,7 @@
-# Whats this all'bout?
+# What's this all 'bout?
 
 This is my little corner of the web. You have found my "blog".
-That's a big word for wat it is. Its a collection of markdown files I wrote.
+That's a big word for what it is. It's a collection of markdown files I wrote.
 I wanted a place where I could finally put them all. And share them. Mostly with my friends and colleagues. But if you find it interesting, feel free to read along.
 
 If you want to reach out to me:
@@ -24,8 +24,7 @@ If you want to reach out to me:
 
 ### how??
 
-I write my articles in markdown. I use [makred](https://marked.js.org/) to convert the markdown to HTML. then I use Angular with SSG to generate static HTML pages for all of. 
-my articles. Finally I host it all on GitHub pages. 
+I write my articles in markdown. I use [marked](https://marked.js.org/) to convert the markdown to HTML. Then I use Angular with SSG to generate static HTML pages for all of my articles. Finally I host it all on GitHub pages.
 
 
 

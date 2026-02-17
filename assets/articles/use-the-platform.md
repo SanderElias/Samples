@@ -3,15 +3,15 @@
 might be a phrase you have heard before. When you heard it from me, it meant that
 I want you to use the browser. More specifically, I mean,
 
-**DON'T SHIP CODE FOR EXISITING THINGS**
+**DON'T SHIP CODE FOR EXISTING THINGS**
 
 Yes, the amount of code I see in projects that just re-implement existing browser
-functionality is staggering.different versions of the same component, just because
+functionality is staggering. Different versions of the same component, just because
 "we need a different design on a smaller screen" (yes, CSS can do that for you).
-Or, even buttons that are build on top of an `<div>` instead of just using
+Or, even buttons that are built on top of a `<div>` instead of just using
 `<button>`. (again, CSS can help you style it the way you want). Just take some
 time every year to see what new features have landed in [Baseline](https://web-platform-dx.github.io/web-features/).
-There is a huge change that your editor already can tell you that the feature you
+There is a huge chance that your editor already can tell you that the feature you
 want to use is supported by all browsers.
 
 So please, before you start coding something new, check if the platform already
@@ -19,7 +19,7 @@ has what you need.
 
 ## Very low hanging fruits
 
-### model dialogs
+### modal dialogs
 
 This is one of the most common things I see being implemented from scratch. Most
 of those implementations are not accessible, and have complex API's,
@@ -27,7 +27,7 @@ not to mention the amount of bugs, and hoops you need to jump with templates or
 portals, or sinkholes, or ....; Yeah, I have seen all kinds of crazy
 implementations for something that is natively supported by the browser.
 
-Lets implement a simple modal dialog:
+Let's implement a simple modal dialog:
 
 ```html
 <dialog id="myDialog" closedby="any">
@@ -90,7 +90,7 @@ _Stop right there._
 First of all, _really?_ ever heard of [uniformity](https://www.andyrutledge.com/gestalt-principles-3.html)?
 Also, its an HTML element, and CSS does already exist for a while now....
 
-Oh, and your app makes heavy use of `z-index`. We got your covered, a dialog is
+Oh, and your app makes heavy use of `z-index`. We got you covered, a dialog is
 set on the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer),
 it will show on top of anything else by design!
 
@@ -109,7 +109,7 @@ export class DialogComponent {
   shown = model(false);
   dialog = this.elementRef.nativeElement as HTMLDialogElement;
 
-  _ afterRenderEffect(() => {
+  afterRenderEffect(() => {
     if (this.shown()) {
       this.dialog.showModal();
     } else {
@@ -119,7 +119,7 @@ export class DialogComponent {
 }
 ```
 
-**TADA!** A fully function modal dialog, with _no need_ for `ng-template` or `@if`
+**TADA!** A fully functional modal dialog, with _no need_ for `ng-template` or `@if`
 or whatever you want to use. All the accessibility, and browser quirks are
 handled by the browser.
 
@@ -183,7 +183,7 @@ Demo:
 </details>
 
 Yes, an exclusive accordion. Just give all your details the same `name` attribute.
-And if you where paying close attention, you have seen I added some animation to
+And if you were paying close attention, you have seen I added some animation to
 it as well. While those are poorly done, that is on me, being sucky as CSS animations.
 The possibilities for `<details>` are endless. You can even use it for tabs,
 and so on.
@@ -223,8 +223,8 @@ Demo:
 
 ### Styling select elements
 
-This is not yet supported in all browsers, but as it is coming soo, I'll show you
-anyway. Also, when your browsers doesn't support it, it will just fallback to a
+This is not yet supported in all browsers, but as it is coming soon, I'll show you
+anyway. Also, when your browser doesn't support it, it will just fall back to a
 normal select that isn't that bad either.
 
 <form>
@@ -400,7 +400,7 @@ option .icon {
 ### Yes, there is more.
 
 But I just wanted to show you a few low hanging fruits. All of the above are
-just that. And they allow you to build rich UI's with no Typescript/JavaScript
+just that. And they allow you to build rich UIs with no TypeScript/JavaScript
 code at all. *Just HTML and CSS*! And the progress is accelerating. More and more
 features are landing in browsers that allow you to build complex UIs without
 needing to ship code for existing things.
@@ -408,13 +408,13 @@ needing to ship code for existing things.
 ## Call to action
 
 So, when you need something in your app. **Check if the platform already has it**.
-This has become much easier nowadays with with the Baseline project, and tools
-it that can show you support probably in your own editor already. Then there is 
+This has become much easier nowadays with the Baseline project, and tools
+that can show you support probably in your own editor already. Then there is 
 the MDN web docs, caniuse.com, and so on.
-I also can not forget mentioning the [Interop project](https://github.com/web-platform-tests/interop), that runs since 2019. Every year
+I also cannot forget mentioning the [Interop project](https://github.com/web-platform-tests/interop), that runs since 2019. Every year
 they try to align browser vendors on a set of features that should be implemented
 by all browsers. For [this year(2025)](https://wpt.fyi/interop-2025), most things
- are done already! You can weven help out there.
+ are done already! You can even help out there.
 
 ## Conclusion
 
@@ -425,10 +425,10 @@ I didn't even mention performance improvements, because native browser features
 are often more optimized than custom implementations.
 Oh, and don't think that this article mentions everything. It is not. There are 
 things like [popovers(HTML)](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
-for tooltips, snackbars and so on. Css has now [anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-position),
+for tooltips, snackbars and so on. CSS has now [anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-position),
 that gives you relational positioning based on other elements. 
 
-There is to much to mention.
+There is too much to mention.
 
 
 So, please, _use the platform_.

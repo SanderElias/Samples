@@ -1,14 +1,14 @@
 # Component Styling
 
 This is where it begins. You are tasked with styling a component.
-The designer has send you a mockup. The product owner has approved it.
+The designer has sent you a mockup. The product owner has approved it.
 The marketing team is eagerly waiting to see it live. The CEO wants it
-yesterday. It is your job to make it happen. Let say it is a  button. 
-How hard can it be? Lets find out.
+yesterday. It is your job to make it happen. Let's say it's a button.
+How hard can it be? Let's find out.
 
 ## Basic component styling
 
-Lets take a look at a simple button:
+Let's take a look at a simple button:
 
 ```html
 <button>I am a button</button>
@@ -24,7 +24,7 @@ Hmm, that looks styled. Let us see if we can get rid of that styling:
 
 <button style="all: revert;">I am a button</button>
 
-Yup, that's unstyled. Lets get to work.
+Yup, that's unstyled. Let's get to work.
 
 ```html
 <style>
@@ -90,12 +90,12 @@ _never end_.
 
 ## Is there a way out?
 
-Sure, quite your job, and become a monk. Problem solved.
+Sure, quit your job, and become a monk. Problem solved.
 
 ## But seriously
 
 Well, it is not all gloom and doom. There are ways to manage this madness.
-First step is to create a solid foundation. Call it a a guardrail if you will.
+First step is to create a solid foundation. Call it a guardrail if you will.
 A set of rules that everyone agrees on, and follows. Things like:
 
 - What Font(s) are we (going to) use? (typography)
@@ -158,7 +158,7 @@ You might end up with something like this:
 ```
 
 (euh, hey autocomplete, that wasn't too bad! I'll give you
-that one. And I'll leave it in) But I want you to thin a bit more abstract.
+that one. And I'll leave it in) But I want you to think a bit more abstract.
 
 ```css
 :root {
@@ -245,16 +245,16 @@ when needed. When you do this with intent, it makes your life so much easier.
 
 All I have talked about above, is setting up a solid base, for the HTML you use
 to build your application. From here on, you can just use plain HTML in your
-templates, and it will look and feel consistent. Heck, even most off your 3rth party
-components might look decant now. But I'll get back to that.
+templates, and it will look and feel consistent. Heck, even most of your 3rth party
+components might look decent now. But I'll get back to that.
 
 ## handling exceptions
 
 Inevitably, you will run into situations where you need to deviate from the base
-styles. I'm going to give a stupid but simple example. Lets say we have a
+styles. I'm going to give a stupid but simple example. Let's say we have a
 component, that needs to be more positive, and stand out. So we have settled on
 making all text inside that component green. How do we do that, without
-messing up the rest of the styling? Lets call the component `<positive-message>`.
+messing up the rest of the styling? Let's call the component `<positive-message>`.
 
 ```css
 positive-message {
@@ -380,7 +380,8 @@ Styling components is never done in isolation. By thinking ahead, and setting up
 a basic foundation, you can make your life easier. Embrace the cascade. Use
 CSS-vars to your advantage. Keep it simple. When your project has skipped this
 step, your not to late. You can still introduce it. Start small. Evolve. And
-sooner as you think you will start removing wads of now unnecessary CSS.
+step, you're not too late. You can still introduce it. Start small. Evolve. And
+sooner than you think you will start removing wads of now unnecessary CSS.
 
 But it will never be just:
 
