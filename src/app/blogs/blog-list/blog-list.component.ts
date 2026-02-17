@@ -9,7 +9,7 @@ import type { Article } from '../article.interface';
   template: `
     @for (article of articles(); track article.id) {
       <li>
-        <a [routerLink]="['/blog', article.published ? article.name : article.id]">{{ article.title }}</a>
+        <a [routerLink]="['/blog', article.published ? article.name : article.id]" [title]="article.description">{{ article.title }}</a>
       </li>
     }
   `,
