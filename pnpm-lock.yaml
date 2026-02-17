@@ -8846,7 +8846,7 @@ snapshots:
   '@modelcontextprotocol/sdk@1.26.0':
     dependencies:
       '@hono/node-server': 1.19.9(hono@4.11.9)
-      ajv: 8.18.0
+      ajv: 8.17.1
       ajv-formats: 3.0.1
       content-type: 1.0.5
       cors: 2.8.6
@@ -10070,15 +10070,15 @@ snapshots:
 
   ajv-formats@2.1.1:
     dependencies:
-      ajv: 8.18.0
+      ajv: 8.17.1
 
   ajv-formats@3.0.1:
     dependencies:
       ajv: 8.17.1
 
-  ajv-keywords@5.1.0(ajv@8.18.0):
+  ajv-keywords@5.1.0(ajv@8.17.1):
     dependencies:
-      ajv: 8.18.0
+      ajv: 8.17.1
       fast-deep-equal: 3.1.3
 
   ajv@6.12.6:
@@ -13231,9 +13231,9 @@ snapshots:
   schema-utils@4.3.3:
     dependencies:
       '@types/json-schema': 7.0.15
-      ajv: 8.18.0
+      ajv: 8.17.1
       ajv-formats: 2.1.1
-      ajv-keywords: 5.1.0(ajv@8.18.0)
+      ajv-keywords: 5.1.0(ajv@8.17.1)
 
   seedrandom@3.0.5: {}
 
