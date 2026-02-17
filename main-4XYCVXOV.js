@@ -1,0 +1,1 @@
+(async function(){let{init:t}=await import("./plausible-625MLZNB.js");t({domain:"samples.selias.dev",endpoint:"https://track.eliasweb.nl/track",outboundLinks:!0,bindToWindow:!1,captureOnLocalhost:!0}),await import("./bootspa-4XTPG52N.js")})();

@@ -1,7 +1,7 @@
 [
   {
     "id": "vTjn3EjDgIcljkmM",
-    "description": "",
+    "description": "Hit a dead link? Here’s why an article might not resolve—and how to get back to the blog.",
     "tags": [],
     "name": "404",
     "title": "Article not found.",
@@ -10,7 +10,7 @@
   },
   {
     "id": "w2jw3vjIgFcpjrmo",
-    "description": "",
+    "description": "A quick hello, what this “blog” is (a set of markdown notes), and where to find me around the web.",
     "tags": [],
     "name": "about",
     "title": "What's this all 'bout?",
@@ -19,7 +19,7 @@
   },
   {
     "id": "wDje3njxg2cnjZmT",
-    "description": "",
+    "description": "A practical set of code and architecture rules-of-thumb for keeping a codebase readable, maintainable, and drama-free.",
     "tags": [],
     "name": "code-guidish",
     "title": "Code/Style guidelines",
@@ -28,7 +28,7 @@
   },
   {
     "id": "wVjz34jxggcejlmR",
-    "description": "",
+    "description": "DRY, KISS, YAGNI, ASAP—four principles, one balancing act. Learn when to abstract, when to simplify, and when to stop “future-proofing”.",
     "tags": [],
     "name": "dry-kiss",
     "title": "Dry kiss Yagni ASAP.",
@@ -37,7 +37,7 @@
   },
   {
     "id": "wEjI3tjog1cdjjmE",
-    "description": "",
+    "description": "Enums look tidy in TypeScript, but they disappear at runtime. This post explains the trade-offs so you can choose the right alternative for your API.",
     "tags": [],
     "name": "enum",
     "title": "what about ENUM's in typescript?",
@@ -46,7 +46,7 @@
   },
   {
     "id": "xOjX3IjHg5ckjImW",
-    "description": "",
+    "description": "Your next Y2K: Unix time overflows in 2038 on 32‑bit systems. Understand what breaks, why it happens, and how 64‑bit time fixes it.",
     "tags": [],
     "name": "the-year-2038",
     "title": "The year 2038 problem",
@@ -55,7 +55,7 @@
   },
   {
     "id": "xYj937jtgycHjWm1",
-    "description": "",
+    "description": "Welcome aboard: bite-sized thoughts on software, Angular, and the web—written for curious developers at any level.",
     "tags": [],
     "name": "welcome",
     "title": "welcome",
@@ -64,7 +64,7 @@
   },
   {
     "id": "x2jb3xjzg6cgjEmn",
-    "description": "",
+    "description": "A developer-friendly take on what “data” really is: things, context, meaning, and the questions you should ask before designing your next model.",
     "tags": [],
     "name": "what-is-data",
     "title": "What is data",
@@ -73,7 +73,7 @@
   },
   {
     "id": "xCgWt94YrscijEmA",
-    "description": "",
+    "description": "Signals are Angular’s missing reactive primitive. A deep dive into the why, what, and wherefore—plus how signals complement (not replace) RxJS.",
     "tags": [],
     "name": "angular-signals-www",
     "title": "Angular Signals WWW",
@@ -82,7 +82,7 @@
   },
   {
     "id": "rtvui0r9ycgGjLmz",
-    "description": "",
+    "description": "Stop shipping code the browser already has. A tour of high-leverage platform features (dialogs, details, datalist, and more) you can use today.",
     "tags": [],
     "name": "use-the-platform",
     "title": "use the platform",
@@ -91,7 +91,7 @@
   },
   {
     "id": "bofLwbpvxlqejmml",
-    "description": "",
+    "description": "Styling isn’t just CSS—it’s systems. Learn how to build durable design foundations with tokens, custom properties, theming, and the cascade.",
     "tags": [],
     "name": "component-styling",
     "title": "Component Styling",
@@ -100,7 +100,7 @@
   },
   {
     "id": "9Mgg7tw79EsOjvm8",
-    "description": "",
+    "description": "Specificity is the silent source of CSS bugs. Get an intuition for the cascade, why `!important` hurts, and how `@layer` makes styling predictable.",
     "tags": [],
     "name": "css-specificity",
     "title": "CSS specificity",
@@ -109,7 +109,7 @@
   },
   {
     "id": "eplS4feKm5whjZmY",
-    "description": "",
+    "description": "A small public roadmap for this site: tags, RSS, comments, related posts, and more.",
     "tags": [],
     "name": "todo",
     "title": "List of things still to do",
@@ -118,7 +118,7 @@
   },
   {
     "id": "8G8isa16rm3AkTmN",
-    "description": "",
+    "description": "Angular Resources make async data feel synchronous—safely. Learn the shared API, when to use `resource`/`httpResource`, and when not to.",
     "tags": [],
     "name": "resource-do-and-donts",
     "title": "Let us resource all the things!",
@@ -127,7 +127,7 @@
   },
   {
     "id": "u89borhC8WqHl2ms",
-    "description": "",
+    "description": "Performance isn’t one number. A pragmatic guide to defining goals with stakeholders, measuring what matters, and shipping less JS (and less data) for faster apps.",
     "tags": [],
     "name": "performance",
     "title": "Performance",
