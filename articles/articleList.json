@@ -13,7 +13,7 @@
     "description": "",
     "tags": [],
     "name": "about",
-    "title": "Whats this all'bout?",
+    "title": "What's this all 'bout?",
     "published": true,
     "dateAdded": "2025-12-19T05:57:13.532Z"
   },
@@ -112,7 +112,7 @@
     "description": "",
     "tags": [],
     "name": "todo",
-    "title": "List for things stil to do",
+    "title": "List of things still to do",
     "published": false,
     "dateAdded": "2026-01-02T08:36:42.818Z"
   },

@@ -7,7 +7,7 @@ As we know a signal is a reactive primitive that holds data in a sync way.
 That means, however, as those are sync, and the way we interface with
 the rest of the ecosystem is mostly async, we need a way to bridge
 that gap. Resources in Angular bridge this gap. They allow us to
-fetch the data in a async way, while still being able to use signals
+fetch the data in an async way, while still being able to use signals
 and synchronous thinking in our application. And all this time we
 are still being reactive. This is very neat!
 
@@ -22,18 +22,18 @@ Right now we have three types of resources:
 - `httpResource`
 - `RxResource`
 
-They have all a similar API, but differ in how they handle the
-async part. First, lets dig into the commonalities:
+They all have a similar API, but differ in how they handle the
+async part. First, let's dig into the commonalities:
 
 ## Commonalities
 
-All resources share a common API, Let me list the most important
+All resources share a common API. Let me list the most important
 ones here:
 
 - `value()`: A signal that holds the current value
   of the resource. If the resource is still loading, it will hold
   `undefined` (or the initial value you provided).
-- 'isLoading()`: A signal that tells you if the resource
+- `isLoading()`: A signal that tells you if the resource
   is currently loading or not.
 - `error()`: A signal that holds the current error
   of the resource, if any, otherwise it is `undefined`.
@@ -43,15 +43,15 @@ ones here:
 There is a little bit more, but those are the important ones,
 and shared between all resources.
 
-witch that out of the way, lets dig into each resource type.
+With that out of the way, let's dig into each resource type.
 
 ### resource
 
-This is the most basic resource, and the others are mostly build on
+This is the most basic resource, and the others are mostly built on
 top of this one. Let us do a basic example:
 
 ```typescript
-@injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 export class StupidSample {
   source = signal<undefined|number>(undefined);
   myResource = resource({
@@ -60,7 +60,7 @@ export class StupidSample {
     loader: async ({params}) => {
       // a small pause to simulate async work
       await new Promise((r) => setTimeout(r, 250));
-      if (math.random() < 0.2) {
+      if (Math.random() < 0.2) {
         // simulate a failure 20% of the time
         throw new Error('Random failure!');
       }
@@ -96,14 +96,14 @@ API for making HTTP requests.
 Here is a basic example:
 
 ```typescript
-@injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 export class StupidSample {
   userId = signal<undefined | number>(undefined);
   #userUrl = computed(() => {
-    const id = this.#userUrl();
+    const id = this.userId();
     return id ? `https://api.example.com/users/${id}` : undefined;
   });
-  userResource = httpResource(this.userUrl);
+  userResource = httpResource(this.#userUrl);
 }
 ```
 
@@ -138,7 +138,7 @@ I'm not going to cover this one in detail here.
 
 #### But why not?
 
-I have a strong opinion that you should not longer use
+I have a strong opinion that you should no longer use
 observables in your Angular applications. Signals are
 the way to go. They need a different mindset. By using observables
 you are mixing two different paradigms, and that can lead to very
@@ -167,7 +167,7 @@ to know about _their_ job.
 
 ## something, something, **_costs_**?
 
-Ah, someone is paying attention! Lets dig a bit into that.
+Ah, someone is paying attention! Let's dig a bit into that.
 Resources do have a cost. For every value you fetch from the
 backend there is a whole state machine running, on top of
 what you needed to do before. This means more memory usage,
@@ -175,7 +175,7 @@ and more CPU usage.
 
 Is that a problem? When used for the right things, no. Because
 for fetching data, you need most of this state machine anyway.
-But you needed to build tha manually before, and over and over
+But you needed to build that manually before, and over and over
 again.
 
 However, if you go like:
@@ -198,7 +198,7 @@ For one-off calls, like updating your model on the server,
 just use the `HttpClient` directly. It is simpler, and
 cheaper. (remember, resources have a cost, on _TOP_ of that).
 
-### I don't believer that!
+### I don't believe that!
 
 Good! Always question things.
 Let me sample you a simple CRUD endpoint service:
@@ -346,7 +346,7 @@ When using this in a component, using this service would look like this:
 })
 export class UserDetailComponent {
   userId = input<number | undefined>();
-  // linkt the userId signal to the service,
+  // link the userId signal to the service,
   // so the service knows which user to load
   #userService = inject(UserService).link(this.userId);
   userResource = this.#userService.userResource;
@@ -369,7 +369,7 @@ export class UserDetailComponent {
 }
 ```
 
-Lets do a small analysis of this code:
+Let's do a small analysis of this code:
 
 - The service uses an `httpResource` to fetch the user data.
 - The service has methods for `create`, `read`, `update`, and `delete`
@@ -397,7 +397,7 @@ So, you still believe resources are better for one-off calls?
 If se, please explain to me why you think so. I'm curious. 
 I really want to understand. 
 
-## So, lets get on with it
+## So, let's get on with it
 
 Back to the program. Use resources where they are created for:
 
@@ -419,7 +419,7 @@ So, for getting data we need:
 - a way to have an initial value
 - a way to depend on parameters/triggers
 
-A resource provides all that. witch a very nice API.
+A resource provides all that. With a very nice API.
 
 For one-off calls, like saving a form, or deleting an item,
 the expectations are different.

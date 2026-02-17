@@ -3,14 +3,14 @@
 In this document I will jot down my guiding principles for writing and architecting code.
 Some of the things might be controversial, but I believe they will help to keep the codebase maintainable, readable and easy to understand.
 
-This guide is an forever in progress document that I update from time to time.
+This guide is a forever in progress document that I update from time to time.
 
 1. Document your code. Add comments where necessary to explain the why, not the what.
    - Use TSDoc style comments for public APIs.
    - Add readme files to explain the purpose the [^code-unit].
      - Most files don't need a separate readme, but for larger code-units it helps.
    - Keep comments up to date with code changes.
-   - working on a issue? put a link to the issue in the comment.
+  - working on an issue? put a link to the issue in the comment.
    - working around a 3rth-party bug? put a link to the bug report in the comment. 
    - I'll add a separate article about documenting code later.
 2. Follow the [Angular Style Guide](https://angular.dev/style-guide) as much as possible. 
@@ -57,7 +57,7 @@ This guide is an forever in progress document that I update from time to time.
      - the grouped things are optional.
      - the group itself is optional.
 
-> [!NOTE] code-unit: chis means a variable, a function, a Class, a Macro, a Decorator, a Template, a Partial, a Component, a Module, a Package, a Library, a Framework, a Service, a Microservice, a Plugin, a Middleware, a Hook, a Mixin, a Trait, a Aspect, a ... you get the idea. There are many ways to abstract code away. Choose the one that fits your language and your problem best.
+> [!NOTE] code-unit: this means a variable, a function, a Class, a Macro, a Decorator, a Template, a Partial, a Component, a Module, a Package, a Library, a Framework, a Service, a Microservice, a Plugin, a Middleware, a Hook, a Mixin, a Trait, a Aspect, a ... you get the idea. There are many ways to abstract code away. Choose the one that fits your language and your problem best.
 
 ## Conclusion
 

@@ -2,7 +2,7 @@
 
 I was asked about `@layer` last week, and it got me thinking about [CSS specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascade/Specificity)
 in general. Why does a question about `layers` lead me to think about specificity?
-Good question! Let get on with it!
+Good question! Let's get on with it!
 
 ## Why is specificity something to think about?
 
@@ -23,14 +23,13 @@ you only so far.
 
 Well, I can try to explain, but [Brammus](https://www.bram.us/about/) has already
 done a great job explaining this in [his CSS-day talk on specificity](https://www.bram.us/2022/06/28/the-css-cascade-a-deep-dive-2022-06-09-css-day/).
-So I recommend you watch that. It is does a great job on explaining the problem
-with specificity, and how to deal with it. I was lucky enough ti see that one live!
+So I recommend you watch that. It does a great job explaining the problem with specificity, and how to deal with it. I was lucky enough to see that one live!
 Also the MDN article I linked to above has a great amount of details.
 
 ### what is the _root_ problem.
 
 The root problem is that specificity calculations are not exactly intuitive.
-those calculations can have the same result for different selectors, and different
+Those calculations can have the same result for different selectors, and different
 results for similar selectors.
 
 A sample of different selectors with the same specificity:
@@ -59,7 +58,7 @@ about your CSS. And it makes it harder for others (and yourself in the future)
 to amend your styling. So avoid it, unless you really, _really_ have to use it.
 It is the "cast to `any`" of CSS.
 
-## Lets add some layers.
+## Let's add some layers.
 
 Now we are ready to understand where `@layer` fits in this whole specificity
 thing. `@layer` adds another dimension to the specificity calculation. Layers
@@ -82,7 +81,7 @@ earlier. So if you have:
 The `h1` will be green, because the `base` layer comes after the `theme` layer.
 I hear you thinking, "but that is the same as the last example". Well, yes and no.
 The difference is that now you can control the order of the layers.
-put this on top of your CSS: (or on top of your very top CSS file)
+Put this on top of your CSS: (or on top of your very top CSS file)
 
 ```css
 @layer base, theme;
@@ -91,31 +90,32 @@ put this on top of your CSS: (or on top of your very top CSS file)
 This will make sure that the `base` layer comes before the `theme` layer, and
 thus the `h1` will be purple. This is a powerful way to control the cascade
 of your CSS. It allows you to create a base layer that contains all your
-default styles, and then a theme layer that contains all your theme specific
+default styles, and then a theme layer that contains all your theme-specific
 styles. This way, you can easily switch themes by changing the order of the
 layers.
 
 ### Is that all?
 
 No, not by a long shot, there is much more to layers.
-you can use the same layer in different files. You can "namespace" your layers.
+You can use the same layer in different files. You can "namespace" your layers.
 
-I assume you have read [my article on Componet Styling](/blog/component-styling),
+I assume you have read [my article on Component Styling](/blog/component-styling),
 right? If not, go read it now!
 
 Let me show you an idea about how to use layers in component styling:
 
 ```css
-/* somewhere on top in your CSS three */
-@layer base, utils ,theme, components;
+/* somewhere on top in your CSS tree */
+@layer base, utils, theme, components;
 
 /* in your components.css */
 @layer components.componentName {
   /** in this component, we need all text to be green */
-  --base-color: var(--green-3) --highlight-color: var(--green-9);
+  --base-color: var(--green-3);
+  --highlight-color: var(--green-9);
 
   @layer overrides {
-    /** except when it is an header */
+    /** except when it is a header */
     :is(header) {
       --base-color: var(--purple-3);
       --highlight-color: var(--purple-9);
@@ -125,10 +125,9 @@ Let me show you an idea about how to use layers in component styling:
 ```
 
 The top layer order defines the global order of layers. You can decide what you
-to put in which layer. You can even `@import` things into specific layers.
+want to put in which layer. You can even `@import` things into specific layers.
 
-But I digress. The point is that layers add to specificity. In the abo
-ve example, the `overrides` layer will win over the `components.componentName`
+But I digress. The point is that layers add to specificity. In the above example, the `overrides` layer will win over the `components.componentName`
 layer, because it comes later in the order. This allows you to create a hierarchy
 of layers that can be used to control the cascade of your CSS in a more granular
 way. The sample above doesn't show the true power of the layering system, but
@@ -148,6 +147,4 @@ you get something similar _for free!_)
 As usual, there are more layers to this story.
 Specificity rocks. Layers make it dance. Use them wisely. It allows you to make
 your CSS more maintainable. More predictable. More robust. More versatile.
-Now, go develop some awesome [styled components](/blog/component-styling) and
-
-Be specific!
+Now, go develop some awesome [styled components](/blog/component-styling), and be specific!

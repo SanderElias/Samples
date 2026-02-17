@@ -1,12 +1,12 @@
 # What is data
 
-Well, let see what [Wikipedia](https://en.wikipedia.org/wiki/Data) has to say about it:
+Well, let's see what [Wikipedia](https://en.wikipedia.org/wiki/Data) has to say about it:
 
 > Data are a collection of discrete or continuous values that convey information, describing the quantity, quality, fact, statistics, other basic units of meaning, or simply sequences of symbols that may be further interpreted formally. A datum is an individual value in a collection of data. Data are usually organized into structures such as tables that provide additional context and meaning, and may themselves be used as data in larger structures. Data may be used as variables in a computational process
 
 ## done?
 
-Well, its is a wall of text, but even after I read it a couple of times, it really doesn't say anything useful. Also, it seems to miss quite some things.
+Well, it's a wall of text, but even after I read it a couple of times, it really doesn't say anything useful. Also, it seems to miss quite some things.
 
 So, let me summarize it for you:
 
@@ -16,20 +16,20 @@ hmm, that is not very useful either. While true, we should make it a bit more co
 
 > data is anything that can be stored, processed or transmitted by a computer.
 
-Well, at least in the context of programming, and that is the take I'm taking here, that is a better definition. but while talking about context, we should probably add that as well.
+Well, at least in the context of programming, and that is the take I'm taking here, that is a better definition. But while talking about context, we should probably add that as well.
 
 > data is how we describe a thing in a known context
 
-ooo, more things to unpack there. What is a "thing"? what is a "known context"? And why would we want to describe that anyway?
+ooo, more things to unpack there. What is a "thing"? What is a "known context"? And why would we want to describe that anyway?
 
 ### what is a "thing"?
 
 Yeah, euhm, well, a thing is... any thing. Usually something that has a meaning to us. It can be a physical object, like a chair, a car, a house.
-it can be a transaction, like a money transfer, a purchase, a sale.
-it can be an event, like a meeting, a birthday, a holiday.
-it can be a concept, like a customer, an order, a product.
-it can be a measurement, like a temperature, a weight, a distance.
-it can be ....
+It can be a transaction, like a money transfer, a purchase, a sale.
+It can be an event, like a meeting, a birthday, a holiday.
+It can be a concept, like a customer, an order, a product.
+It can be a measurement, like a temperature, a weight, a distance.
+It can be ....
 
 Euhm, sorry, lost myself a bit there. Well, you get the idea. A thing is anything that we can point to, or name.
 
@@ -37,7 +37,7 @@ Euhm, sorry, lost myself a bit there. Well, you get the idea. A thing is anythin
 
 > A known context is the environment in which we understand the thing. It is the set of rules, conventions, and assumptions that we use to interpret the data.
 
-Wow, autocomplete, you actually got something right for once. Lets elaborate on that a bit. what does that mean? Well, I'm going to provide you with a a data point:
+Wow, autocomplete, you actually got something right for once. Let's elaborate on that a bit. What does that mean? Well, I'm going to provide you with a data point:
 
 ```text
 word
@@ -59,7 +59,7 @@ So, in the end, data is everything, because everything can be described by data.
 
 ## So, everything is data?
 
-Yah, and data is everything. And we have gone full circle. Congratulations me, achieved circular reasoning! (please excuse me, I need to kick my own but now)
+Yah, and data is everything. And we have gone full circle. Congratulations me, achieved circular reasoning! (please excuse me, I need to kick my own butt now)
 
 ### That is all very philosophical, how does that help me as a programmer?
 
@@ -73,7 +73,7 @@ You have those two lists now, right? Good, I'm going to ask questions about them
 - what data do you need to define a person?
 - is there a difference between a person and a customer?
 - is there a difference between a person and an employee?
-- is there a difference between a friend an a person?
+- is there a difference between a friend and a person?
 - did you add an address to the person?
 - isn't that address also a thing on its own?
 - how are you going to contact the person?
@@ -87,10 +87,10 @@ You have those two lists now, right? Good, I'm going to ask questions about them
 
 Hah!, got you. Thinking that is, I hope. The point is, I want you to think a bit more when you are designing your data structures. Don't just throw in everything that comes to mind. Think about the context, think about the relationships, think about the meaning. Think about deduplication, think about normalization, think about future requirements.
 
-Wow, loads of thinking, and buzzwords too. I want you to make the connections. I picked persons above for a reason. Almost all systems I have come across have them. In most they even are a core part. And then when a person is a customer, and also works for an supplier, we end up with two of them. A person can have multiple roles, do we really have to store them multiple times? No, we don't. But we do need to think about it.
-And that is just one sample. There is way more correlation in our data-sets as we usually think off.
+Wow, loads of thinking, and buzzwords too. I want you to make the connections. I picked persons above for a reason. Almost all systems I have come across have them. In most they even are a core part. And then when a person is a customer, and also works for a supplier, we end up with two of them. A person can have multiple roles, do we really have to store them multiple times? No, we don't. But we do need to think about it.
+And that is just one sample. There is way more correlation in our data-sets than we usually think of.
 
-Hmmm, correlation, would that be data too? Yep, one can describe a correlation into a data-point. That is what graph-databases do. (look it up, very interesting stuff).
+Hmmm, correlation, would that be data too? Yep, one can describe a correlation as a data point. That is what graph-databases do. (look it up, very interesting stuff).
 
 ## conclusion
 
