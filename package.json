@@ -9,6 +9,7 @@
     "node": ">24.7.0"
   },
   "type": "module",
+  "packageManager": "pnpm",
   "scripts": {
     "build.samples": "wireit",
     "build.deploy": "wireit",
@@ -93,7 +94,7 @@
       ]
     },
     "build.samples": {
-      "command": "ng build --configuration production --prerender --output-mode=static",
+      "command": "ng build --configuration production",
       "files": [
         "src/**",
         "tsconfig.app.json"
@@ -141,7 +142,7 @@
       ]
     },
     "build.lib.blogList": {
-      "command": "node blogScan.ts",
+      "command": "node scripts/blogScan.ts",
       "files": [
         "articles/*.md"
       ],

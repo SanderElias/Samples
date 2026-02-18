@@ -51,9 +51,9 @@
     "path": "/blog/about",
     "modulePath": "/articles/about.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "Whats this all'bout?",
-    "largeImage": "/assets/snapshots/blog-about.png",
-    "description": ""
+    "title": "What's this all 'bout?",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-about.png"
   },
   {
     "path": "/blog/angular-signals-www",
@@ -107,7 +107,7 @@
     "path": "/blog/eplS4feKm5whjZmY",
     "modulePath": "/articles/eplS4feKm5whjZmY.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "List for things stil to do",
+    "title": "List of things still to do",
     "description": "",
     "largeImage": "/assets/snapshots/blog-eplS4feKm5whjZmY.png"
   },
@@ -126,6 +126,14 @@
     "title": "The year 2038 problem",
     "largeImage": "/assets/snapshots/blog-the-year-2038.png",
     "description": ""
+  },
+  {
+    "path": "/blog/u89borhC8WqHl2ms",
+    "modulePath": "/articles/u89borhC8WqHl2ms.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Performance",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-u89borhC8WqHl2ms.png"
   },
   {
     "path": "/blog/use-the-platform",
@@ -147,7 +155,7 @@
     "path": "/blog/w2jw3vjIgFcpjrmo",
     "modulePath": "/articles/w2jw3vjIgFcpjrmo.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "Whats this all'bout?",
+    "title": "What's this all 'bout?",
     "description": "",
     "largeImage": "/assets/snapshots/blog-w2jw3vjIgFcpjrmo.png"
   },
