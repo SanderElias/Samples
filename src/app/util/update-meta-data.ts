@@ -12,12 +12,14 @@ export const updateRouteInfo =
         let desc = '';
         if (article) {
           desc = `Blog post: ${article.title}
-      Written by Sander Elias.
-      Read it on ${origin}${routeInfo.path}`;
+          description: ${article.description}
+          author: Sander Elias
+          url: ${origin}${routeInfo.path}`;
         } else {
           desc = `Angular Sample page for ${routeInfo.path}
+    ${routeInfo.description}
     sourcecode: ${routeInfo.gitFolder}
-    demo: ${`${origin}${routeInfo.path}`}`;
+    url: ${`${origin}${routeInfo.path}`}`;
         }
 
         const updateMeta = (prop: string, content: string) => {
@@ -29,6 +31,7 @@ export const updateRouteInfo =
         };
         const location = new URL(origin + routeInfo.path);
 
+        updateMeta('description', desc);
         if (article) {
           updateMeta('og:type', 'article');
           updateMeta('article:published_time', article.dateAdded);
@@ -40,7 +43,6 @@ export const updateRouteInfo =
         }
         updateMeta('og:title', routeInfo.title);
         updateMeta('og:description', desc);
-        updateMeta('description', desc);
         updateMeta('og:image', `${origin}${routeInfo.largeImage}`);
         updateMeta('og:image:type', 'image/png');
         updateMeta('og:image:width', '800');
