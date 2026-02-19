@@ -42,4 +42,6 @@ Block ignore (wrap multiple lines):
 ```
 - If you prefer convenience scripts, see `package.json` for `test:samples` and `test:samples:ci` and `test:signal-utils`.
 
+Note: this repo uses **Wireit** to orchestrate many tasks (see `package.json -> wireit`). Run Wireit-managed tasks with `npm run <task>` or `pnpm run <task>` (examples: `npm run start`, `npm run ntest`, `npm run compileTest`). Wireit provides incremental builds, watch mode (`--watch`), local caching in `.wireit/`, and GitHub Actions caching (`google/wireit@setup-github-actions-caching/v2`).
+
 If you want, I can add CI job snippets showing how to run these commands in GitHub Actions or another CI provider.
