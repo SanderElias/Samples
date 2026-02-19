@@ -1,22 +1,26 @@
-import { httpResource } from '@angular/common/http';
-import { effect, inject, Injectable, linkedSignal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { combineLatest, filter, map, of, type Observable } from 'rxjs';
 import type { Article } from '../blogs/article.interface';
 import { isGuardsCheckEnd } from '../show-source/show-source.component';
 import { RouteInfo } from './RouteInfo';
 import { updateRouteInfo } from './update-meta-data';
 
 export abstract class MetaData {
-  abstract currentRouteInfo(): RouteInfo | undefined;
-  abstract updateMetaTags(): void;
+  abstract currentRouteInfo$: Observable<
+    | {
+        url: string;
+        routeInfo: RouteInfo | undefined;
+        article: Article | undefined;
+      }
+    | undefined
+  >;
 }
 
 export function injectMetaData() {
   const meta = inject(MetaData);
-  meta.updateMetaTags(); // initialize the meta tags
   return meta;
 }
 
@@ -27,10 +31,7 @@ export function injectMetaData() {
 @Injectable()
 export class ClientMetaData implements MetaData {
   /** this only needs to be available server-side */
-  currentRouteInfo(): RouteInfo | undefined {
-    return undefined;
-  }
-  updateMetaTags(): void {}
+  currentRouteInfo$ = of(undefined);
 }
 
 /**
@@ -41,57 +42,55 @@ export class ClientMetaData implements MetaData {
  */
 @Injectable()
 export class ServerMetaData implements MetaData {
-  #routeData = httpResource<RouteInfo[]>(() => '/assets/routes.json');
-  #blogListResource = httpResource<Article[]>(() => '/assets/articles/articleList.json');
+  #http = inject(HttpClient);
+  #router = inject(Router);
+  #routeData$ = this.#http.get<RouteInfo[]>('/assets/routes.json');
+  #blogList$ = this.#http.get<Article[]>('/assets/articles/articleList.json');
+  #currentUrl$ = this.#router.events.pipe(
+    filter(isGuardsCheckEnd),
+    map(ev => ev.url)
+  );
+
+  currentRouteInfo$ = combineLatest([
+    this.#routeData$,
+    this.#blogList$,
+    this.#currentUrl$
+  ]).pipe(
+    map(([routesData, blogList, url]) => {
+      if (!routesData || !url) {
+        return undefined;
+      }
+      let article: Article | undefined;
+      if (url.startsWith('/blog/')) {
+        const blogId = url.replace('/blog/', '').split('/')[0];
+        article = blogList.find(a => a.id === blogId || a.name === blogId);
+        if (!article) {
+          console.warn(`No article found for blogId ${blogId}`);
+        }
+      }
+      const routeInfo = routesData.find(r => r.path?.startsWith(url));
+      if (!routeInfo) {
+        console.warn(`No routeInfo found for url ${url}`);
+      }
+      return {
+        url,
+        routeInfo,
+        article
+      };
+    })
+  );
 
   #updateMetaTags = updateRouteInfo(inject(Meta), inject(Title));
 
-  #router = inject(Router);
-  #path = toSignal(
-    this.#router.events.pipe(
-      filter(isGuardsCheckEnd),
-      map(ev => ev.url)
-      // tap(path => console.log(`navigated to ${path}`))
-    )
-  );
-
-  currentBlogInfo = linkedSignal({
-    source: () => ({
-      articleList: this.#blogListResource.value(),
-      path: this.#path()
-    }),
-    computation: ({ path, articleList }) => {
-      if (!path || !articleList || !path.startsWith('/blog/')) {
-        return undefined;
+  constructor() {
+    this.currentRouteInfo$.subscribe(ri => {
+      const { url, routeInfo, article } = ri || {};
+      // if (url?.startsWith('/blog/') ) {
+      //   console.dir({ url, article, p: routeInfo?.path });
+      // }
+      if (routeInfo) {
+        this.#updateMetaTags(routeInfo, article);
       }
-      const blogId = path.replace('/blog/', '').split('/')[0];
-      return articleList.find(a => a.id === blogId || a.name === blogId);
-    }
-  });
-
-  currentRouteInfo = linkedSignal({
-    source: () => ({
-      routeInfo: this.#routeData.value(),
-      article: this.currentBlogInfo(),
-      path: this.#path()
-    }),
-    computation: ({ routeInfo, path, article }) => {
-      if (!routeInfo || !path) {
-        return undefined;
-      }
-      if (article) {
-        // if we have an article, find the routeInfo for it
-        return routeInfo.find(r => r.path === `/blog/${article.name}`); // blogs have dynamic paths
-      }
-      return routeInfo.find(r => r.path?.startsWith(path));
-    }
-  });
-  updateMetaTags(): void {
-    const effectRef = effect(() => {
-      const routeInfo = this.currentRouteInfo();
-      if (!routeInfo) return;
-      // console.log('Updating meta tags for', routeInfo.path);
-      this.#updateMetaTags(routeInfo, this.currentBlogInfo());
     });
   }
 }
