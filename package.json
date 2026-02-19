@@ -22,7 +22,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "server.dev": "cd projects/folderCrud && tsc-watch --onSuccess 'node --experimental-vm-modules ../../dist/folderCrud'",
-    "serveHtml": "npx light-server -s ./ -w '*' --port 8888 ",
+    "serveHtml": "pnpm dlx light-server -s ./ -w '*' --port 8888",
     "start": "wireit",
     "start.slido": "wireit",
     "start.lazy": "wireit",
@@ -44,7 +44,7 @@
       ]
     },
     "jsonServer": {
-      "command": "npx json-server --watch db.json --port 3003",
+      "command": "pnpm dlx json-server --watch db.json --port 3003",
       "service": true
     },
     "start.slido": {
@@ -199,7 +199,7 @@
       ]
     },
     "build.lib.swapi": {
-      "command": "ng build @se-ng/swapi --configuration",
+      "command": "ng build @se-ng/swapi --configuration production",
       "files": [
         "projects/se-ng/swapi/src/*",
         "projects/se-ng/swapi/tsconfig.lib.json",
