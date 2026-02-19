@@ -1,0 +1,1 @@
+import"./chunk-C6Q5SG76.js";var t=[{path:"",loadComponent:()=>import("./mqtt.component-EKN263UB.js").then(e=>e.MqttComponent)},{path:"list",loadComponent:()=>import("./device-list.component-6VRYLRKJ.js").then(e=>e.DeviceListComponent)}],o=t;export{o as default,t as routes};
