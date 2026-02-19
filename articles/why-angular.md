@@ -1,4 +1,4 @@
-# Why [Angular?](https://angular.dev/)
+# Why Angular?
 
 I get this question quite a bit. It is a fair question, but every time I just stand there, looking sheepish. Not because I don't have the answer, but because there is an enormity to this question that makes it hard to verbalize concisely.
 

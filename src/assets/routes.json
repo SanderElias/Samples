@@ -112,6 +112,14 @@
     "largeImage": "/assets/snapshots/blog-eplS4feKm5whjZmY.png"
   },
   {
+    "path": "/blog/gs6RhX9W76tAlFmM",
+    "modulePath": "/articles/gs6RhX9W76tAlFmM.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Why Angular?",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-gs6RhX9W76tAlFmM.png"
+  },
+  {
     "path": "/blog/rtvui0r9ycgGjLmz",
     "modulePath": "/articles/rtvui0r9ycgGjLmz.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
