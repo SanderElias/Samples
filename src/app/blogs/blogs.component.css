@@ -15,6 +15,15 @@ se-blogs {
     ' footer footer footer footer ';
   column-gap: var(--size-3);
 
+  div[aria-hidden='true'] {
+    display: none;
+  }
+
+  --icon-color: var(--yellow-6, #f6d32d);
+  --icon-accent-color: var(--blue-6, #2d9bf6);
+  --icon-contrast-color: var(--gray-10, #080808);
+
+
   @media (width < 1050px) {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -35,7 +44,7 @@ se-blogs {
   }
 
   ::backdrop {
-    backdrop-filter: blur(2px); ;
+    backdrop-filter: blur(2px);
   }
 
   label {
@@ -57,7 +66,7 @@ se-blogs {
   h2 {
     border-block-end: 1px solid;
   }
-  article {
+  main {
     grid-area: article;
     margin-inline: auto;
     max-inline-size: var(--article-inline-size);
@@ -118,18 +127,17 @@ se-blogs {
     gap: 0;
 
     span.icon {
+      display: flex;
       grid-column: 1 / 2;
       grid-row: 1 / 10;
-      font-size: var(--font-size-5);
-      line-height: 1;
-      display: flex;
       align-items: center;
       justify-content: center;
       padding-inline-end: var(--size-3);
-    }
 
-    span[data-icon='NOTE'] {
-      color: var(--blue-6);
+      svg {
+        inline-size: 48px;
+        block-size: 48px;
+      }
     }
   }
 
@@ -241,7 +249,10 @@ se-blogs {
 
   /** Overline */
   :where(.overline, hgroup > :where(p, .p):first-of-type:first-child) {
-    color: light-dark(oklch(from var(--text-color-2) calc(l * 1.25) c h), oklch(from var(--text-color-2) calc(l * 0.75) c h));
+    color: light-dark(
+      oklch(from var(--text-color-2) calc(l * 1.25) c h),
+      oklch(from var(--text-color-2) calc(l * 0.75) c h)
+    );
     font-size: var(--font-size-xs);
     font-weight: 500;
     letter-spacing: 0.06em;

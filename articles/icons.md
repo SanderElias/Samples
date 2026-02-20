@@ -36,8 +36,8 @@ I found the icons on [iconoir](https://iconoir.com/) and [SVG Repo](https://www.
     --icon-contrast-color: var(--gray-10, #080808);
   }
   svg {
-    inline-size: 24px;
-    block-size: 24px;
+    inline-size: 48px;
+    block-size: 48px;
   }
 </style>
 
@@ -45,24 +45,102 @@ I found the icons on [iconoir](https://iconoir.com/) and [SVG Repo](https://www.
 
 ### the tip icon:
 
-<svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 2L20 3" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 2L4 3" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 16L20 15" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 16L4 15" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 18H15" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10 21H14" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11.9998 3C7.9997 3 5.95186 4.95029 5.99985 8C6.02324 9.48689 6.4997 10.5 7.49985 11.5C8.5 12.5 9 13 8.99985 15H14.9998C15 13.0001 15.5 12.5 16.4997 11.5001L16.4998 11.5C17.4997 10.5 17.9765 9.48689 17.9998 8C18.0478 4.95029 16 3 11.9998 3Z" stroke="var(--icon-color)" fill="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<svg role="img" aria-label="Tip"><use href="#icon-tip"></use></svg>
 
 ### the warning icon:
 
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.61617 3.6419C10.6736 1.80296 13.3268 1.80296 14.3841 3.6419L22.4271 17.6296C23.4813 19.463 22.1579 21.7504 20.0431 21.7504H3.95721C1.84242 21.7504 0.519055 19.463 1.57322 17.6296L9.61617 3.6419Z" fill="var(--icon-color)"></path><g transform="translate(9, 3.5) scale(0.5)"><circle fill="var(--icon-contrast-color)" cx="6" cy="32" r="3"></circle><path fill="var(--icon-contrast-color)" d="M9 24a3 3 0 1 1-6 0V5a3 3 0 1 1 6 0v19z"></path></g></svg>
+<svg role="img" aria-label="Warning"><use href="#icon-warning"></use></svg>
 
 ### the important icon:
 
-None, just using the `!` character. I couldn't find a good icon for this one, and I think the `!` character is pretty universally understood as a symbol for something important.
-
-<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="none"><g transform="translate(12, 0)"><circle fill="var(--icon-color)" cx="6" cy="32" r="3"></circle><path fill="var(--icon-color)" d="M9 24a3 3 0 1 1-6 0V5a3 3 0 1 1 6 0v19z"></path></g></svg>
+<svg role="img" aria-label="Important"><use href="#icon-important"></use></svg>
 
 ### the note icon:
 
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 11.5V16.5" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 7.51L12.01 7.49889" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<svg role="img" aria-label="Note"><use href="#icon-note"></use></svg>
 
 ### the uhm icon:
 
 this is my fallback icon, for when I use an non-exisistent icon. I use it in the "uhm" section, which is for things that I'm not sure about, or that I want to highlight as something that might be wrong. I couldn't find a good icon for this one, so I just
 
-<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="var(--icon-color)" d="M21 27a3 3 0 0 1-3-3v-4a3 3 0 0 1 3-3c.603-.006 6-1 6-5c0-2-2-4-5-4c-2.441 0-4 2-4 3a3 3 0 1 1-6 0c0-4.878 4.58-9 10-9c8 0 11 5.982 11 11c0 4.145-2.277 7.313-6.413 8.92c-.9.351-1.79.587-2.587.747V24a3 3 0 0 1-3 3z"></path><circle fill="var(--icon-color)" cx="21" cy="32" r="3"></circle><circle fill="var(--icon-color)" cx="6" cy="32" r="3"></circle><path fill="var(--icon-color)" d="M9 24a3 3 0 1 1-6 0V5a3 3 0 1 1 6 0v19z"></path></g></svg>
+<svg role="img" aria-label="Uhm"><use href="#icon-uhm"></use></svg>
+
+## How to use SVG sprites
+
+You can use the generated SVG sprite file at `assets/icons-sprite.svg` in two common ways: inline the sprite into your HTML (recommended when using CSS custom properties), or reference the external file.
+
+- Inline (recommended for CSS variables): copy the contents of `assets/icons-sprite.svg` and paste it near the start of your document (for example inside the `<body>` just after its opening tag). This ensures CSS custom properties such as `--icon-color` and `--icon-accent-color` resolve as expected.
+
+```html
+<!-- Inline sprite (paste the full file contents) -->
+<!-- place once per page, e.g. <body> start -->
+<div aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <!-- paste contents of assets/icons-sprite.svg here -->
+</div>
+```
+
+- External file (simpler, may not inherit page CSS variables in all browsers): reference the symbol by its ID. Use an absolute or root-relative path that matches your site layout.
+
+```html
+<!-- External sprite file usage -->
+<svg width="24" height="24" aria-hidden="true" focusable="false">
+  <use href="/assets/icons-sprite.svg#icon-tip"></use>
+</svg>
+```
+
+Notes:
+- Available symbol IDs: `icon-tip`, `icon-warning`, `icon-important`, `icon-note`, `icon-uhm`.
+- If you rely on CSS custom properties (for example `--icon-color`) prefer the inline approach or ensure the variables are defined inside the sprite itself; otherwise the external `<use>` may not receive those variables in some browsers.
+- For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
+ - For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
+
+## Using SVG sprites as CSS background images
+
+Short answer: it's possible but limited — using symbols from an SVG sprite directly as a `background-image` isn't well supported across all browsers. Prefer inline `<svg><use></use></svg>` or individual SVG files for background images. If you still want background-style usage, here are viable approaches with caveats.
+
+- Method: CSS mask (recommended when you want to tint an icon via CSS)
+
+```css
+.icon--tip {
+  width: 24px; height: 24px;
+  background-color: var(--icon-color);
+  -webkit-mask: url('/assets/icons-sprite.svg#icon-tip') no-repeat center / contain;
+  mask: url('/assets/icons-sprite.svg#icon-tip') no-repeat center / contain;
+}
+```
+
+Notes: `mask` (and `-webkit-mask`) lets the SVG shape act as a mask so the element's `background-color` becomes the icon color. Browser support is good in modern Chromium and WebKit builds, but test older browsers. Use vendor prefixes for wider support.
+
+- Method: Data-URI embedding (works when sprite is inline or when you embed the symbol markup directly)
+
+```css
+.icon-bg {
+  width:24px; height:24px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23f6d32d' d='...'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+```
+
+Notes: Data URIs are very compatible, but embedding `<use href="#icon-id">` inside the data URI won't resolve against an external sprite — either embed the full SVG markup in the data URI or inline the sprite in the page so fragment references resolve.
+
+- Method: Export individual SVG files (most compatible for `background-image`)
+
+Create standalone SVG files for each icon (for example `assets/icon-tip.svg`) and then:
+
+```css
+.icon {
+  width:24px; height:24px;
+  background-image: url('/assets/icon-tip.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+```
+
+Notes: This is the simplest and most compatible approach for using SVGs as CSS background images.
+
+Summary: For programmatic, reusable colored icons prefer inline `<svg><use></use></svg>`; for CSS-background style icons prefer either exported single-SVG files or `mask` with an external sprite (with cross-browser testing). 
+
+
+
+

@@ -18,8 +18,10 @@ export async function parser(content: MarkDown): Promise<string> {
     for (const match of content.matchAll(blockIcons)) {
       const fullMatch = match[0];
       // if no matching icon found, use UHM as default
-      const iconName = (Object.keys(icons).includes(match[1]) ? match[1] : 'UHM') as IconName;
-      const iconHtml = `<span class="icon" data-icon="${iconName}">${icons[iconName]}</span>`;
+      const iconName = (
+        Object.keys(icons).includes(match[1].toUpperCase()) ? match[1].toUpperCase() : 'UHM'
+      ) as IconName;
+      const iconHtml = `<span class=icon><svg role="img" class="icon" aria-label="${iconName}"><use href="#icon-${iconName.toLowerCase()}"></use></svg></span>`;
       content = content.replace(fullMatch, iconHtml);
     }
   } catch (err) {
@@ -32,11 +34,14 @@ export async function parser(content: MarkDown): Promise<string> {
   try {
     const { markedHighlight } = await import('marked-highlight');
     const { default: hljs } = await import('highlight.js/lib/core');
-    const { default: typescript } = await import('highlight.js/lib/languages/typescript');
+    const { default: typescript } =
+      await import('highlight.js/lib/languages/typescript');
     const { default: css } = await import('highlight.js/lib/languages/css');
     const { default: html } = await import('highlight.js/lib/languages/xml');
-    const { default: javascript } = await import('highlight.js/lib/languages/javascript');
-    const { default: plaintext } = await import('highlight.js/lib/languages/plaintext');
+    const { default: javascript } =
+      await import('highlight.js/lib/languages/javascript');
+    const { default: plaintext } =
+      await import('highlight.js/lib/languages/plaintext');
 
     hljs.registerLanguage('plaintext', plaintext);
     hljs.registerLanguage('typescript', typescript);
@@ -66,5 +71,8 @@ export async function parser(content: MarkDown): Promise<string> {
     .parse(content);
 
   // by default all links open in the same tab, this forces external links to open in a new tab
-  return context.replaceAll('href="http', 'target="_blank" rel="noopener noreferrer" href="http');
+  return context.replaceAll(
+    'href="http',
+    'target="_blank" rel="noopener noreferrer" href="http'
+  );
 }
