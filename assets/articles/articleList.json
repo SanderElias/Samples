@@ -136,11 +136,20 @@
   },
   {
     "id": "gs6RhX9W76tAlFmM",
-    "description": "Why Angular? Explore the key reasons—from stability and powerful tooling to a vibrant community—that make Angular the top choice for scalable, maintainable web apps.",
+    "description": "Explore the key reasons—from stability and powerful tooling to a vibrant community—that make Angular the top choice for scalable, maintainable web apps.",
     "tags": [],
     "name": "why-angular",
     "title": "Why Angular?",
     "published": false,
     "dateAdded": "2026-02-19T08:29:17.752Z"
+  },
+  {
+    "id": "wbc1c3mJqnuDlymf",
+    "description": "",
+    "tags": [],
+    "name": "icons",
+    "title": "Icons!",
+    "published": false,
+    "dateAdded": "2026-02-20T10:18:56.912Z"
   }
 ]
