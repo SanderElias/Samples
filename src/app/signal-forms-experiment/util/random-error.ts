@@ -5,28 +5,31 @@ import { flattenRecord, isObject } from '@se-ng/signal-utils';
  * Mimics a slow server response and randomly returns a custom error for a random field in the form.
  */
 export const randomError = async (form: FieldTree<unknown>) => {
-  // mimicking a slow server response
-  console.log('submit with error');
-  await new Promise(resolve => setTimeout(resolve, 3000));
   const data = form().value();
   if (isObject(data)) {
-    const fieldNames = Object.keys(flattenRecord(data));
+    // get all field names in the form, including nested fields, and flatten them to a single array of strings
+    const fieldNames = Object.keys(flattenRecord(data)) as [string, ...string[]] ;
     // pick a random field name
     const randomField =
-      fieldNames[Math.ceil(Math.random() * fieldNames.length)].split('.');
+      fieldNames[Math.floor(Math.random() * fieldNames.length)].split('.');
     try {
       // sometimes the random field is not a valid field, so we need to catch the error
-      const field = randomField.reduce((f, key) => {
+      const fieldTree = randomField.reduce((f, key) => {
         return f[key] ?? f;
       }, form);
-      console.log('random field with error', randomField.join('.'));
+      console.log(`the field "${randomField.join('.')}" will have the error`);
       return {
         kind: 'randomError',
         message: 'This is a random server-side error for testing purposes',
-        field
+        fieldTree
       };
     } catch {
-      return null;
+      // if the random field is not valid, we just return a generic error for the name field
+      return {
+        kind: 'randomError',
+        message: 'This is a random server-side error for testing purposes',
+        fieldTree: form['name']
+      };
     }
   }
 };
