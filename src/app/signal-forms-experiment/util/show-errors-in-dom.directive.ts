@@ -41,12 +41,19 @@ export class ShowErrorsInDom {
         this.#errorContainer.setAttribute(a, '');
       }
 
+      // When using custom build components, those might not support
+      // the setCustomValidity API, so we need to check if it's available
+      // before using it.
+      const hasCustomValidity = this.#inputElement?.setCustomValidity !== undefined;
+
       if (messages.length > 0) {
+        console.log('showing errors in DOM', messages);
         this.renderErrors(messages);
         this.attachErrorContainer();
-        // this.#inputElement.setCustomValidity(messages.join(', '));
+        // DOM errors are for user feedback, so we also set the custom validity of the input element to the error messages joined by a comma, so it shows up in the browser's built-in validation UI (e.g. when trying to submit the form).
+        hasCustomValidity && this.#inputElement.setCustomValidity(messages.join(', '));
       } else {
-        // this.#inputElement.setCustomValidity('');
+        hasCustomValidity && this.#inputElement.setCustomValidity('');
         this.#errorContainer.remove();
       }
     });

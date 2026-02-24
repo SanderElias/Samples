@@ -168,27 +168,26 @@ export class SignalFormsExperimentComponent {
   relation = this.dataService.getById(this.id);
   dlgText = signal('Submitting and validating on the server, please hold!');
 
-  /** submission now movid into the form handler, there is more to it as I'm using here. */
+  /** submission now moved into the form handler, there is more to it as I'm using here. */
   fd = form(this.relation, sampleDataValidationSchema, {
     submission: {
       action: async value => {
-        const d = this.dlg()?.nativeElement as HTMLDialogElement;
+        const dialog = this.dlg()?.nativeElement as HTMLDialogElement;
         let result: undefined | TreeValidationResult = undefined;
         this.dlgText.set(
           'Submitting and validating on the server, please hold!'
         );
-        d.showModal();
-
-        console.log('Submitting form with value', value());
-        await new Promise(resolve => setTimeout(resolve, 2000)); // wait a bit, to simulate a slow server response
-        if (Math.random() < 0.6) {
+        dialog.showModal();
+        await new Promise(resolve => setTimeout(resolve, 1000)); // wait a bit, to simulate a slow server response
+        if (Math.random() < 0.9) {
           this.dlgText.set('Server validation failed, please fix the error!');
           result = await randomError(this.fd);
         } else {
           this.dlgText.set('Form submitted successfully!');
         }
         setTimeout(() => {
-          d.close(); // close the dialog after a bit
+          dialog.close(); // close the dialog after a bit
+          // probably in a real app, you want to do this after the user clicks a button in the dialog, but for this sample, we'll just close it after a few seconds
         }, 2000);
         return result; //
       }

@@ -74,13 +74,21 @@ button[type='submit'] {
 }
 
 fieldset > legend {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  background: var(--surface-2);
+  padding-inline: calc(var(--size-2));
+  z-index: 1;
+}
+
+fieldset:has(legend button.action) {
+  padding-block-start: var(--size-5);
 }
 
 fieldset {
   container-type: inline-size;
   margin-block-end: 0;
+  position: relative;
 }
 
 div.error-messages {
@@ -124,10 +132,11 @@ button.action {
   justify-content: center;
 }
 
-legend button.action {
-  position: relative;
-  left: 0;
-  translate: calc(95cqi - 100%) 0;
+fieldset > legend button.action {
+  position: absolute;
+  right: var(--size-3);
+  top: -2rem;
+  /* transform: translateY(calc(-1 * var(--size-4))); */
 }
 
 dialog {
