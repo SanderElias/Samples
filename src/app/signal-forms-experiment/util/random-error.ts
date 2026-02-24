@@ -7,7 +7,6 @@ import { flattenRecord, isObject } from '@se-ng/signal-utils';
 export const randomError = async (form: FieldTree<unknown>) => {
   // mimicking a slow server response
   console.log('submit with error');
-  await new Promise(resolve => setTimeout(resolve, 3000));
   const data = form().value();
   if (isObject(data)) {
     const fieldNames = Object.keys(flattenRecord(data));

@@ -1,7 +1,7 @@
 :host {
   display: block;
   margin-top: var(--size-3);
-  max-width: 99vw;;
+  max-width: 99vw;
   columns: 2;
 }
 
@@ -125,8 +125,9 @@ button.action {
 }
 
 legend button.action {
-  position: absolute;
-  translate: calc(98cqi - 100%);
+  position: relative;
+  left: 0;
+  translate: calc(95cqi - 100%) 0;
 }
 
 dialog {
@@ -135,4 +136,32 @@ dialog {
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-4);
   width: var(--size-content-3);
+}
+
+/* Improve caret and focus visibility inside form fields */
+:is(input, textarea, [contenteditable]) {
+  caret-color: #ff6b6b; /* bright accent for the caret */
+  transition:
+    box-shadow 0.12s ease,
+    background-color 0.12s ease;
+}
+:is(input:focus, textarea:focus, [contenteditable]:focus) {
+  box-shadow:
+    0 0 0 2px rgba(255, 107, 107, 0.12),
+    inset 0 0 0 1px rgba(255, 107, 107, 0.18);
+  background-color: rgba(255, 107, 107, 0.02);
+}
+:is(input::selection, textarea::selection) {
+  background: rgba(255, 107, 107, 0.18);
+}
+
+/* Make number inputs' inner caret area easier to spot */
+input[type='number'] {
+  caret-color: #ff6b6b;
+}
+
+/* For contenteditable elements ensure outline for keyboard focus */
+[contenteditable]:focus {
+  outline: 2px solid rgba(255, 107, 107, 0.18);
+  outline-offset: 2px;
 }

@@ -44,9 +44,9 @@ export class ShowErrorsInDom {
       if (messages.length > 0) {
         this.renderErrors(messages);
         this.attachErrorContainer();
-        this.#inputElement.setCustomValidity(messages.join(', '));
+        // this.#inputElement.setCustomValidity(messages.join(', '));
       } else {
-        this.#inputElement.setCustomValidity('');
+        // this.#inputElement.setCustomValidity('');
         this.#errorContainer.remove();
       }
     });
