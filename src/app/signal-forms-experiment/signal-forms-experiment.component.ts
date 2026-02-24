@@ -40,7 +40,7 @@ import { NotifyDialogService } from '../crud-stuff/notify-dialog/notify-dialog.s
   template: `
     <h1>
       Signal Forms Experiment
-      <small><a href="/signalForms/tree">recusive form</a></small>
+      <small><a href="/signalForms/tree">recursive form</a></small>
     </h1>
     <!-- FormRoot is new in V21.2. It provides a way to handle form submission and validation in a more structured way. -->
     <form [formRoot]="fd">

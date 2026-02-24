@@ -47,7 +47,6 @@ export class ShowErrorsInDom {
       const hasCustomValidity = this.#inputElement?.setCustomValidity !== undefined;
 
       if (messages.length > 0) {
-        console.log('showing errors in DOM', messages);
         this.renderErrors(messages);
         this.attachErrorContainer();
         // DOM errors are for user feedback, so we also set the custom validity of the input element to the error messages joined by a comma, so it shows up in the browser's built-in validation UI (e.g. when trying to submit the form).
@@ -58,6 +57,10 @@ export class ShowErrorsInDom {
       }
     });
 
+    // Not the correct place to do it, but for demo
+    // purposes, we also want to add a class to the input
+    //  element when it's touched, so we can style it
+    //  differently (e.g. show errors only when the field is touched).
     afterRenderEffect(() => {
       if (this.#touched()) {
         this.#inputElement.classList.add('se-touched');
