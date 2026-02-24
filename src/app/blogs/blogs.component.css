@@ -15,14 +15,6 @@ se-blogs {
     ' footer footer footer footer ';
   column-gap: var(--size-3);
 
-  div[aria-hidden='true'] {
-    display: none;
-  }
-
-  --icon-color: var(--yellow-6, #f6d32d);
-  --icon-accent-color: var(--blue-6, #2d9bf6);
-  --icon-contrast-color: var(--gray-10, #080808);
-
 
   @media (width < 1050px) {
     grid-template-columns: 1fr;

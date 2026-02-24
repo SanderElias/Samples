@@ -5,8 +5,6 @@ import {
   concat,
   concatAll,
   concatMap,
-  EMPTY,
-  expand,
   filter,
   from,
   map,
@@ -22,7 +20,7 @@ import {
 } from 'rxjs';
 import { addToCache, cacheHas, getFromCache, initCache } from './cache';
 import { Film, FilmsRoot } from './FilmsRoot.interface';
-import { PeopleRoot, Person } from './PeopleRoot.interface';
+import { Person } from './PeopleRoot.interface';
 import { SwapiRoot } from './SwapiRoot.interface';
 
 @Injectable({
