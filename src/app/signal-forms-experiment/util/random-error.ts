@@ -8,7 +8,10 @@ export const randomError = async (form: FieldTree<unknown>) => {
   const data = form().value();
   if (isObject(data)) {
     // get all field names in the form, including nested fields, and flatten them to a single array of strings
-    const fieldNames = Object.keys(flattenRecord(data)) as [string, ...string[]] ;
+    const fieldNames = Object.keys(flattenRecord(data)) as [
+      string,
+      ...string[]
+    ];
     // pick a random field name
     const randomField =
       fieldNames[Math.floor(Math.random() * fieldNames.length)].split('.');
@@ -28,7 +31,7 @@ export const randomError = async (form: FieldTree<unknown>) => {
       return {
         kind: 'randomError',
         message: 'This is a random server-side error for testing purposes',
-        fieldTree: form['name']
+        fieldTree: form['name'] as unknown as FieldTree<string>
       };
     }
   }
