@@ -303,6 +303,8 @@ export const routes: Routes = [
       { path: 'temporal', loadComponent: () => import('./temporal/temporal.component').then(m => m.TemporalComponent) },
       { path: 'gridPlay', loadComponent: () => import('./grid-play/grid-play.component').then(m => m.GridPlayComponent) },
 
+      { path: 'caddy', loadComponent: () => import('./caddy/caddy.component').then(m => m.CaddyComponent) },
+
       { path: '**', redirectTo: 'routeList' },
     ]
   }
