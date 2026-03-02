@@ -22,7 +22,7 @@ import type {
 @Injectable({ providedIn: 'root' })
 export class MqttService {
   mqtt = import('mqtt');
-  client = this.mqtt.then(m => m.default.connectAsync(`ws://kapow:1884`));
+  client = this.mqtt.then(m => m.default.connectAsync(`wss://mqtt.eliasweb.nl`))
   /** base topic */
   readonly baseTopic = 'zigbee2mqtt';
   messages$ = new Observable<MqttMessage>(subscriber => {
@@ -37,6 +37,10 @@ export class MqttService {
     this.client.then(client => {
       console.log('start listening for MQTT messages');
       client.on('message', cb);
+      client.on('error', err => {
+        console.error('MQTT client error', err);
+        subscriber.error(err);
+      });
     });
     return () => {
       this.client.then(client => {
@@ -52,6 +56,7 @@ export class MqttService {
     })
   );
 
+  // 43 binnen 35 buiten
   activeTopics = new Map<string, Observable<Record<string, unknown>>>();
   listenFor(listenTopic: string | undefined) {
     const cl = this.client;

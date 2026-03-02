@@ -55,4 +55,7 @@ scully/plugins/*.js.map
 .wireit
 scully.samples.config.mjs
 scully/plugins/render-once.js.map
-.couchdb/data/** 
+.couchdb/data/**
+.playwright-mcp/page-2026-03-02T09-01-50-638Z.png
+.playwright-mcp/page-2026-03-02T09-02-12-760Z.png
+.playwright-mcp/page-2026-03-02T09-03-36-142Z.png
