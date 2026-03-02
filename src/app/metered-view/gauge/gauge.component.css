@@ -27,8 +27,12 @@
 
   --v: calc(var(--percentage) * 280deg); /* length of scale */
   --b: 20px; /* width of scale */
-  --_percent : ; /* percentage in degrees */
-  --_f: round(down, calc(var(--percentage) * 100), 66); /* round down to 140deg */
+  --_percent: ; /* percentage in degrees */
+  --_f: round(
+    down,
+    calc(var(--percentage) * 100),
+    66
+  ); /* round down to 140deg */
 
   aspect-ratio: 1;
 
@@ -48,12 +52,16 @@
   background: linear-gradient(60deg in hsl, #542437, #158207);
   clip-path: shape(
     from top,
-    arc to calc(50% + 50% * sin(var(--v))) calc(50% - 50% * cos(var(--v))) of 50% cw var(--_c, large),
-    arc to calc(50% + (50% - var(--b)) * sin(var(--v))) calc(50% - (50% - var(--b)) * cos(var(--v))) of 1% cw,
+    arc to calc(50% + 50% * sin(var(--v))) calc(50% - 50% * cos(var(--v))) of
+      50% cw var(--_c, large),
+    arc to calc(50% + (50% - var(--b)) * sin(var(--v)))
+      calc(50% - (50% - var(--b)) * cos(var(--v))) of 1% cw,
     arc to 50% var(--b) of calc(50% - var(--b)) var(--_c, large),
     arc to top of 1% cw
   );
-  transform: rotate(220deg); /* the thing works from the top, so to have a proper gauge we need to rotate it a bit */
+  transform: rotate(
+    220deg
+  ); /* the thing works from the top, so to have a proper gauge we need to rotate it a bit */
   & > * {
     transform-origin: 50% 50%;
     transform: rotate(-220deg);
@@ -62,6 +70,7 @@
     --_c: small;
   }
 }
+
 
 .gauge {
   --end: 280deg; /* length of scale */
@@ -73,8 +82,10 @@
   background: gray;
   clip-path: shape(
     from top,
-    arc to calc(50% + 50% * sin(var(--end))) calc(50% - 50% * cos(var(--end))) of 50% cw var(--_c, large),
-    arc to calc(50% + (50% - var(--b)) * sin(var(--end))) calc(50% - (50% - var(--b)) * cos(var(--end))) of 1% cw,
+    arc to calc(50% + 50% * sin(var(--end))) calc(50% - 50% * cos(var(--end)))
+      of 50% cw var(--_c, large),
+    arc to calc(50% + (50% - var(--b)) * sin(var(--end)))
+      calc(50% - (50% - var(--b)) * cos(var(--end))) of 1% cw,
     arc to 50% var(--b) of calc(50% - var(--b)) var(--_c, large),
     arc to top of 1% cw
   );
@@ -94,7 +105,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: white;
   text-align: center;
 }

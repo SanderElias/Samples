@@ -4,3 +4,8 @@
 }
 
 
+svg {
+  background: conic-gradient(from 204deg at center, #00c853 0deg, #ff0000 312deg, transparent 312deg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
