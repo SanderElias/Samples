@@ -28,14 +28,22 @@ import { StackedPerComponent } from './stacked-per/stacked-per.component';
       height="200"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <!-- center (100,100), radius 80, gap ~70° centered at bottom -->
-      <path
-        d="M54.114 165.532 A80 80 0 1 1 145.886 165.532"
-        fill="none"
-        stroke="gray"
-        stroke-width="35"
-        stroke-linecap="round"
-      />
+      <defs>
+        <!-- mask: white = opaque, black = transparent; the arc stroke is black to cut a hole -->
+        <mask id="arcMask" maskUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="200" height="200" fill="white" />
+          <path
+            d="M54.114 165.532 A80 80 0 1 1 145.886 165.532"
+            fill="none"
+            stroke="black"
+            stroke-width="35"
+            stroke-linecap="round"
+          />
+        </mask>
+      </defs>
+
+      <!-- fill the SVG with the surface color, but mask out the arc so page background shows through -->
+      <rect width="100%" height="100%" fill="var(--surface-1)" mask="url(#arcMask)" />
     </svg>
   `,
   styleUrl: './metered-view.component.css'
