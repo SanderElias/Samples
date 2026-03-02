@@ -37,7 +37,7 @@ import { StackedPerComponent } from './stacked-per/stacked-per.component';
             fill="none"
             stroke="black"
             stroke-width="35"
-            stroke-linecap="round"
+            stroke-linecap="button"
           />
         </mask>
       </defs>
@@ -51,7 +51,7 @@ import { StackedPerComponent } from './stacked-per/stacked-per.component';
         fill="none"
         stroke="gray"
         stroke-width="35"
-        stroke-linecap="round"
+        stroke-linecap="button"
       />
     </svg>
   `,
