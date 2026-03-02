@@ -69,6 +69,8 @@ export class MeteredViewComponent {
   private readonly startY = 165.532;
   private readonly endX = 145.886;
   private readonly endY = 165.532;
+  // bottom gap in degrees, centered on the bottom (90°)
+  private readonly bottomGapDegrees = 44;
 
   private toDeg(rad: number) {
     return (rad * 180) / Math.PI;
@@ -79,11 +81,11 @@ export class MeteredViewComponent {
   }
 
   private getStartAngle(): number {
-    return this.toDeg(Math.atan2(this.startY - this.cy, this.startX - this.cx));
+    return 90 + this.bottomGapDegrees / 2;
   }
 
   private getEndAngle(): number {
-    return this.toDeg(Math.atan2(this.endY - this.cy, this.endX - this.cx));
+    return 90 - this.bottomGapDegrees / 2;
   }
 
   private normalizeSweep(start: number, end: number): number {
@@ -111,10 +113,11 @@ export class MeteredViewComponent {
     const sweep = (totalSweep * p) / 100;
     const midA = startA + sweep;
 
+    const startPt = this.pointAt(startA);
     const endPoint = this.pointAt(midA);
     const largeArc = Math.abs(sweep) > 180 ? 1 : 0;
 
-    return `M${this.startX} ${this.startY} A${this.r} ${this.r} 0 ${largeArc} 1 ${endPoint.x} ${endPoint.y}`;
+    return `M${startPt.x} ${startPt.y} A${this.r} ${this.r} 0 ${largeArc} 1 ${endPoint.x} ${endPoint.y}`;
   }
 
   // returns an SVG arc path for the remainder (from percent to 100)

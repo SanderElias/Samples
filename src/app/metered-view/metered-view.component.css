@@ -5,7 +5,8 @@
 
 
 svg {
-  background: conic-gradient(from 202deg at center, #00c853 0deg, #ff0000 316deg, transparent 316deg);
+  /* background: conic-gradient(from 202deg at center, #00c853 0deg, #ff0000 316deg, transparent 316deg); */
+  background: conic-gradient(from 180deg at center, #00c853 0deg, #ff0000 360deg, transparent 316deg);
   background-repeat: no-repeat;
   background-position: center;
 }
