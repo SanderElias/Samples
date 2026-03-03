@@ -50,8 +50,8 @@ export function deepEqual(a: unknown, b: unknown): boolean {
       return true;
     }
 
-    // @ts-expect-error
     if (a.constructor === RegExp)
+      // @ts-expect-error
       return a.source === b.source && a.flags === b.flags;
     if (a.valueOf !== Object.prototype.valueOf)
       return a.valueOf() === b.valueOf();
