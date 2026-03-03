@@ -12,14 +12,14 @@ import { Component, computed, input } from '@angular/core';
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <mask id="arcMask" maskUnits="userSpaceOnUse">
+        <mask [attr.id]="maskId" maskUnits="userSpaceOnUse">
           <rect x="0" y="0" width="200" height="200" fill="white" />
           <path
             [attr.d]="getArcPath(per() * 100)"
             fill="none"
             stroke="black"
             stroke-width="35"
-            stroke-linecap="button"
+            stroke-linecap="butt"
           />
         </mask>
       </defs>
@@ -29,7 +29,7 @@ import { Component, computed, input } from '@angular/core';
         width="100%"
         height="100%"
         fill="var(--_meter-backgroundColor, #f0f0f0)"
-        mask="url(#arcMask)"
+        [attr.mask]="'url(#' + maskId + ')'"
       />
 
       <path
@@ -37,7 +37,7 @@ import { Component, computed, input } from '@angular/core';
         fill="none"
         stroke="gray"
         stroke-width="35"
-        stroke-linecap="button"
+        stroke-linecap="butt"
       />
     </svg>
 
@@ -48,6 +48,7 @@ import { Component, computed, input } from '@angular/core';
 export class GaugeComponent {
   readonly value = input(15);
   readonly maxVal = input(100);
+  readonly maskId = `arcMask-${Math.random().toString(36).slice(2, 9)}`;
 
   readonly per = computed(() => {
     return Math.max(
