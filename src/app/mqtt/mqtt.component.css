@@ -11,6 +11,8 @@ div.grid {
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: 10px;
 
+  --meter-backgroundColor: var(--surface-3);
+
   & * {
     background: var(--surface-3);
     border-radius: 1rem;
