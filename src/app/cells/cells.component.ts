@@ -1,6 +1,4 @@
-import type {
-  WritableSignal
-} from '@angular/core';
+import type { WritableSignal } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -19,7 +17,8 @@ export interface Cell {
   alive: boolean;
 }
 
-const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
+const clampedRandom = (min: number, max: number) =>
+  Math.round(Math.random() * (max - min)) + min;
 
 @Component({
   selector: 'se-cells',
@@ -64,16 +63,23 @@ export class CellsComponent {
       this.cells.update(c => c.concat(newCells));
       await new Promise(r => setTimeout(r, 5));
     }
-    console.log(`Done, created ${neededCells} in a ${this.gridSize()} x ${this.gridSize()} grid.`);
+    console.log(
+      `Done, created ${neededCells} in a ${this.gridSize()} x ${this.gridSize()} grid.`
+    );
   };
 
-  repopulate = () => this.cells().forEach(cell => cell.update(({ id }) => ({ id, alive: Math.random() < 0.06 })));
+  repopulate = () =>
+    this.cells().forEach(cell =>
+      cell.update(({ id }) => ({ id, alive: Math.random() < 0.06 }))
+    );
 
   calcGrid = () => {
     if (typeof window === 'undefined') return;
     // get the number off cells that are fitting the browsers window.
     const gridStyle = window.getComputedStyle(this.elm);
-    const cols = gridStyle.getPropertyValue('grid-template-columns').split(' ').length;
+    const cols = gridStyle
+      .getPropertyValue('grid-template-columns')
+      .split(' ').length;
     this.gridSize.set(cols);
   };
 
@@ -84,7 +90,10 @@ export class CellsComponent {
     const gs = this.gridSize();
     for (const cell of cells) {
       const { id, alive } = cell();
-      const alives = neighbors(id, gs).reduce((aliveCOunt, cellId) => (aliveCOunt += cells[cellId]?.().alive ? 1 : 0), 0);
+      const alives = neighbors(id, gs).reduce(
+        (aliveCOunt, cellId) => (aliveCOunt += cells[cellId]?.().alive ? 1 : 0),
+        0
+      );
       if (alive && !(alives === 2 || alives === 3)) {
         // cell dies
         cell.set({ id, alive: false });
@@ -123,11 +132,25 @@ export class CellsComponent {
 }
 
 function neighbors(id: number, rowLength: number) {
-  const above = id => (id < rowLength ? id - rowLength + rowLength * rowLength : id - rowLength); // use last row when on first
-  const below = id => (id + rowLength > rowLength * rowLength - 1 ? id + rowLength - rowLength * rowLength : id + rowLength); // use first row when on last
+  const above = id =>
+    id < rowLength ? id - rowLength + rowLength * rowLength : id - rowLength; // use last row when on first
+  const below = id =>
+    id + rowLength > rowLength * rowLength - 1
+      ? id + rowLength - rowLength * rowLength
+      : id + rowLength; // use first row when on last
   const left = id => (id % rowLength === 0 ? id + rowLength - 1 : id - 1); // use last column when on start
-  const right = id => (id + (1 % rowLength) === 0 ? id - rowLength + 1 : id + 1); // use first column when on end
+  const right = id =>
+    id + (1 % rowLength) === 0 ? id - rowLength + 1 : id + 1; // use first column when on end
   const aboveId = above(id);
   const belowId = below(id);
-  return [left(aboveId), aboveId, right(aboveId), left(id), right(id), left(belowId), belowId, right(belowId)];
+  return [
+    left(aboveId),
+    aboveId,
+    right(aboveId),
+    left(id),
+    right(id),
+    left(belowId),
+    belowId,
+    right(belowId)
+  ];
 }

@@ -10,7 +10,10 @@ import { filter, map } from 'rxjs';
  */
 export function injectRoutePart(pos: number): Signal<string> {
   const router = inject(Router);
-  const state = signal<{ value?: string; error?: any }>({ value: '', error: undefined });
+  const state = signal<{ value?: string; error?: any }>({
+    value: '',
+    error: undefined
+  });
   inject(DestroyRef).onDestroy(() => sub.unsubscribe());
 
   const sub = router.events

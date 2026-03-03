@@ -58,17 +58,23 @@ td:hover {
 }
 
 @container style(--coll: 1) {
-  table:has(td:nth-of-type(1):hover) tr:not(:first-of-type):has(~ tr:hover) td:nth-of-type(1) {
+  table:has(td:nth-of-type(1):hover)
+    tr:not(:first-of-type):has(~ tr:hover)
+    td:nth-of-type(1) {
     background: var(--highlighted);
   }
 }
 @container style(--coll: 2) {
-  table:has(td:nth-of-type(2):hover) tr:not(:first-of-type):has(~ tr:hover) td:nth-of-type(2) {
+  table:has(td:nth-of-type(2):hover)
+    tr:not(:first-of-type):has(~ tr:hover)
+    td:nth-of-type(2) {
     background: var(--highlighted);
   }
 }
 @container style(--coll: 3) {
-  table:has(td:nth-of-type(3):hover) tr:not(:first-of-type):has(~ tr:hover) td:nth-of-type(3) {
+  table:has(td:nth-of-type(3):hover)
+    tr:not(:first-of-type):has(~ tr:hover)
+    td:nth-of-type(3) {
     background: var(--highlighted);
   }
 }

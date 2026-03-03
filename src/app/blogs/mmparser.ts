@@ -1,7 +1,11 @@
 import { micromark } from 'micromark';
 import { gfm, gfmHtml } from 'micromark-extension-gfm';
-import type { Extension, TokenizeContext, Effects, State } from 'micromark-util-types';
-
+import type {
+  Effects,
+  Extension,
+  State,
+  TokenizeContext
+} from 'micromark-util-types';
 
 export async function mmparser(content: string) {
   try {
@@ -17,12 +21,20 @@ export async function mmparser(content: string) {
     return '<p>Error processing blog content.</p>';
   }
 }
-const QuoteHeaderConstruct = { name: 'quoteheader', tokenize: quoteHeaderTokenize };
+const QuoteHeaderConstruct = {
+  name: 'quoteheader',
+  tokenize: quoteHeaderTokenize
+};
 const startToken = '['.charCodeAt(0);
 const endToken = ']'.charCodeAt(0);
 const kindToken = '!'.charCodeAt(0);
 const quoteHeader: Extension = { text: { [startToken]: QuoteHeaderConstruct } };
-function quoteHeaderTokenize(this: TokenizeContext, effects: Effects, ok: State, nok: State): State {
+function quoteHeaderTokenize(
+  this: TokenizeContext,
+  effects: Effects,
+  ok: State,
+  nok: State
+): State {
   return start;
 
   function start(code) {

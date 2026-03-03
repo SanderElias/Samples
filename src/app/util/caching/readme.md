@@ -1,6 +1,7 @@
 # HTTP Caching utilities (README) 🔧
 
 ## TL;DR ✅
+
 This module provides an opt-in, in-memory HTTP caching layer for Angular.
 
 - Interceptor: `HttpGetCachingInterceptor` — caches successful GET
@@ -21,10 +22,7 @@ readable metadata block and structured sections for easy parsing.
 {
   "name": "angular-http-cache",
   "version": "1.0",
-  "entrypoints": [
-    "HttpGetCachingInterceptor",
-    "HttpCache"
-  ],
+  "entrypoints": ["HttpGetCachingInterceptor", "HttpCache"],
   "tokens": {
     "enableHttpCache": "HttpContextToken<boolean>",
     "httpCacheExpiryTime": "HttpContextToken<number>",
@@ -59,7 +57,7 @@ readable metadata block and structured sections for easy parsing.
 - `HttpCache` methods:
   - `get(rawUrl: string, revision?: string): HttpEvent | undefined`
   - `set(rawUrl: string, response: HttpEvent, revision?: string,
-    expiryTime?: number): void`
+expiryTime?: number): void`
   - `purge(rawUrl: string): void`
   - `cleanUrl(url: string): string` — normalizes to host + pathname (no
     trailing slash)
@@ -95,9 +93,9 @@ bootstrapApplication(AppComponent, {
     { provide: HttpCachingDefaultExpiry, useValue: 5 * 60 * 1000 },
     { provide: HttpCachingRevisionName, useValue: 'rev' },
     provideHttpClient(
-      withFetch(), 
+      withFetch(),
       withInterceptors([HttpGetCachingInterceptor])
-    ),
+    )
   ]
 });
 ```
@@ -137,5 +135,3 @@ These rules help humans and LLMs reason about the cache.
   normalized key + revision) receive the same shared Observable. The
   in-flight entry is removed on completion or error, so subsequent
   requests receive fresh network behavior.
-
-

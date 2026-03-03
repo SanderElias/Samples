@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import type { ServerRoute } from '@angular/ssr';
 import { RenderMode } from '@angular/ssr';
+
 import { Bloglist } from './blogs/bloglist';
 
 export const serverRoutes: ServerRoute[] = [

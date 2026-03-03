@@ -9,7 +9,7 @@ import {
   isTemporalPlainMonthDay,
   isTemporalPlainTime,
   isTemporalPlainYearMonth,
-  isTemporalZonedDateTime,
+  isTemporalZonedDateTime
 } from './is-temporal';
 
 // The polyfill may export a named `Temporal` or attach it to globalThis depending on bundler; prefer the named export with a fallback
@@ -24,7 +24,9 @@ describe('isTemporal (real Temporal objects)', () => {
     expect(isTemporal(T.PlainMonthDay.from('--01-02'))).toBe(true);
     expect(isTemporal(T.PlainTime.from('12:34'))).toBe(true);
     expect(isTemporal(T.PlainYearMonth.from('2020-01'))).toBe(true);
-    expect(isTemporal(T.ZonedDateTime.from('2020-01-01T00:00[UTC]'))).toBe(true);
+    expect(isTemporal(T.ZonedDateTime.from('2020-01-01T00:00[UTC]'))).toBe(
+      true
+    );
   });
 
   it('returns false for non Temporal values', () => {
@@ -49,11 +51,15 @@ describe('specific Temporal guards (real objects)', () => {
 
   it('isTemporalPlainDate identifies Temporal.PlainDate only', () => {
     expect(isTemporalPlainDate(T.PlainDate.from('2020-01-01'))).toBe(true);
-    expect(isTemporalPlainDate(T.PlainDateTime.from('2020-01-01T01:02'))).toBe(false);
+    expect(isTemporalPlainDate(T.PlainDateTime.from('2020-01-01T01:02'))).toBe(
+      false
+    );
   });
 
   it('isTemporalPlainDateTime identifies Temporal.PlainDateTime only', () => {
-    expect(isTemporalPlainDateTime(T.PlainDateTime.from('2020-01-01T01:02'))).toBe(true);
+    expect(
+      isTemporalPlainDateTime(T.PlainDateTime.from('2020-01-01T01:02'))
+    ).toBe(true);
     expect(isTemporalPlainDateTime(T.PlainDate.from('2020-01-01'))).toBe(false);
   });
 
@@ -68,12 +74,20 @@ describe('specific Temporal guards (real objects)', () => {
   });
 
   it('isTemporalPlainYearMonth identifies Temporal.PlainYearMonth only', () => {
-    expect(isTemporalPlainYearMonth(T.PlainYearMonth.from('2020-01'))).toBe(true);
-    expect(isTemporalPlainYearMonth(T.PlainMonthDay.from('--01-02'))).toBe(false);
+    expect(isTemporalPlainYearMonth(T.PlainYearMonth.from('2020-01'))).toBe(
+      true
+    );
+    expect(isTemporalPlainYearMonth(T.PlainMonthDay.from('--01-02'))).toBe(
+      false
+    );
   });
 
   it('isTemporalZonedDateTime identifies Temporal.ZonedDateTime only', () => {
-    expect(isTemporalZonedDateTime(T.ZonedDateTime.from('2020-01-01T00:00[UTC]'))).toBe(true);
-    expect(isTemporalZonedDateTime(T.Instant.from('1970-01-01T00:00Z'))).toBe(false);
+    expect(
+      isTemporalZonedDateTime(T.ZonedDateTime.from('2020-01-01T00:00[UTC]'))
+    ).toBe(true);
+    expect(isTemporalZonedDateTime(T.Instant.from('1970-01-01T00:00Z'))).toBe(
+      false
+    );
   });
 });

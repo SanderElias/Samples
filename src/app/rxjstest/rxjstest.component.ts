@@ -1,7 +1,19 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import type { Observable} from 'rxjs';
-import { BehaviorSubject, combineLatest, finalize, map, tap, timer } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject
+} from '@angular/core';
+import type { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  finalize,
+  map,
+  tap,
+  timer
+} from 'rxjs';
 
 import { combinator } from './combinator';
 
@@ -10,7 +22,8 @@ import { combinator } from './combinator';
   imports: [AsyncPipe],
   template: `<h1>Rxjs cleanup test</h1>
     @if (vm$ | async; as vm) {
-      <button (click)="add()">Add</button> <span>Number of items :{{ vm.comp.length }}</span>
+      <button (click)="add()">Add</button>
+      <span>Number of items :{{ vm.comp.length }}</span>
       <ul>
         @for (item of vm.comp; track identify($index, item)) {
           <li>
@@ -26,12 +39,17 @@ import { combinator } from './combinator';
 export class RxjstestComponent {
   cdr = inject(ChangeDetectorRef);
   result = new Map<number, Observable<{ value: number; iteration: number }>>();
-  data$ = new BehaviorSubject<number[]>(Array.from({ length: 300 }, () => Math.floor(Math.random() * 100000) + 1));
+  data$ = new BehaviorSubject<number[]>(
+    Array.from({ length: 300 }, () => Math.floor(Math.random() * 100000) + 1)
+  );
   enrich = (value: number) => {
     if (!this.result.has(value)) {
       this.result.set(
         value,
-        timer(Math.floor(Math.random() * 10000), Math.floor(Math.random() * 500) + 500).pipe(
+        timer(
+          Math.floor(Math.random() * 10000),
+          Math.floor(Math.random() * 500) + 500
+        ).pipe(
           map(iteration => ({ value, iteration })),
           finalize(() => {
             this.result.delete(value);

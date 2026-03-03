@@ -7,12 +7,22 @@
 @if (time$ | async; as time) {
   <svg viewBox="-50 -50 100 100">
     @for (color of strokeColors; track color; let i = $index) {
-      <circle [attr.r]="radiusFromPosition(i)" stroke="lightgray" style="stroke-width: 2" />
+      <circle
+        [attr.r]="radiusFromPosition(i)"
+        stroke="lightgray"
+        style="stroke-width: 2"
+      />
     }
     @for (color of strokeColors; track color; let i = $index) {
-      <circle [attr.r]="radiusFromPosition(i)" [attr.stroke]="color" [attr.stroke-dasharray]="dashArray(time[i], i)" />
+      <circle
+        [attr.r]="radiusFromPosition(i)"
+        [attr.stroke]="color"
+        [attr.stroke-dasharray]="dashArray(time[i], i)"
+      />
     }
-    <text dominant-baseline="central" text-anchor="middle">{{ zerod(time[0]) }}:{{ zerod(time[1]) }}:{{ zerod(time[2]) }}</text>
+    <text dominant-baseline="central" text-anchor="middle">
+      {{ zerod(time[0]) }}:{{ zerod(time[1]) }}:{{ zerod(time[2]) }}
+    </text>
   </svg>
 }
 

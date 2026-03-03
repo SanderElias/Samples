@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
-export function injectCrudlClient<T = Record<string, unknown>>(baseUrl: string) {
+export function injectCrudlClient<T = Record<string, unknown>>(
+  baseUrl: string
+) {
   const http = inject(HttpClient);
   return new CrudlClient<T>(baseUrl, http);
 }
@@ -15,7 +17,9 @@ class CrudlClient<T> {
 
   async create(data: T) {
     try {
-      const result = await firstValueFrom(this.http.post<T>(this.baseUrl, data));
+      const result = await firstValueFrom(
+        this.http.post<T>(this.baseUrl, data)
+      );
       return result;
     } catch (error) {
       // for now, we probably want to rethrow the original error
@@ -25,7 +29,9 @@ class CrudlClient<T> {
 
   async read(id: string) {
     try {
-      const result = await firstValueFrom(this.http.get<T>(`${this.baseUrl}/${id}`));
+      const result = await firstValueFrom(
+        this.http.get<T>(`${this.baseUrl}/${id}`)
+      );
       return result;
     } catch (error) {
       throw new Error('Failed to read data');
@@ -34,7 +40,9 @@ class CrudlClient<T> {
 
   async update(id: string, data: T) {
     try {
-      const result = await firstValueFrom(this.http.put<T>(`${this.baseUrl}/${id}`, data));
+      const result = await firstValueFrom(
+        this.http.put<T>(`${this.baseUrl}/${id}`, data)
+      );
       return result;
     } catch (error) {
       throw new Error('Failed to update data');
@@ -62,7 +70,9 @@ class CrudlClient<T> {
     try {
       const params = new HttpParams({ fromObject: constraints as any });
       // we probably want to add a real check and conversion from constraints to HttpParams, and put in sane defaults
-      const result = await firstValueFrom(this.http.get<Id[]>(this.baseUrl, { params }));
+      const result = await firstValueFrom(
+        this.http.get<Id[]>(this.baseUrl, { params })
+      );
       return result;
     } catch (error) {
       throw new Error('Failed to list data');
@@ -75,7 +85,17 @@ type Id = string;
 interface Filter {
   field: FieldName;
   value: string;
-  operator: 'eq' | 'ne' | 'lt' | 'lte' | 'gt' | 'gte' | 'like' | 'in' | 'startsWith' | 'endsWith';
+  operator:
+    | 'eq'
+    | 'ne'
+    | 'lt'
+    | 'lte'
+    | 'gt'
+    | 'gte'
+    | 'like'
+    | 'in'
+    | 'startsWith'
+    | 'endsWith';
 }
 interface Constrains {
   order: 'asc' | 'desc';

@@ -12,7 +12,9 @@ export class IdDirective {
   selector: 'img[src]'
 })
 export class lazyImagesLoadDirective implements OnInit {
-  private elmRef = inject<ElementRef<HTMLImageElement>>(ElementRef<HTMLImageElement>);
+  private elmRef = inject<ElementRef<HTMLImageElement>>(
+    ElementRef<HTMLImageElement>
+  );
 
   #elm = this.elmRef.nativeElement;
 

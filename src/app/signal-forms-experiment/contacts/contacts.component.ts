@@ -1,20 +1,33 @@
 import { Component, computed, input } from '@angular/core';
-import type {FieldTree } from '@angular/forms/signals';
-import { FormField, type FieldState } from '@angular/forms/signals';
+import type { FieldTree } from '@angular/forms/signals';
+import { type FieldState, FormField } from '@angular/forms/signals';
 
-import { type SampleDataContactDetail,SampleDataContactDetailType } from '../util/sample-data.model';
+import {
+  type SampleDataContactDetail,
+  SampleDataContactDetailType
+} from '../util/sample-data.model';
 import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
 @Component({
   selector: 'fieldset [contacts]',
   imports: [FormField, ShowErrorsInDom],
-  template: `<legend>Contacts <button type="button" class="action" (click)="addContact()">+</button></legend>
+  template: `<legend>
+      Contacts
+      <button type="button" class="action" (click)="addContact()">+</button>
+    </legend>
     <div>
       Try adding the contact "i@exists.gov" to see aSync validation in action.
     </div>
     @for (contact of contacts(); track $index) {
       <div class="row">
-        <button class="action" type="button" (click)="delContact(contact().value())" [disabled]="isLastOne()">🗑️</button>
+        <button
+          class="action"
+          type="button"
+          (click)="delContact(contact().value())"
+          [disabled]="isLastOne()"
+        >
+          🗑️
+        </button>
         <!-- the div is needed to align the error with the control -->
         <label>
           <span>type</span>
@@ -28,11 +41,21 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
         <!-- the div is needed to align the error with the control -->
         <label>
           <span>info</span>
-          <input type="text" [formField]="contact.info" placeholder="value" showError [style.backgroundColor]="backgroundColor(contact.info)()"/>
+          <input
+            type="text"
+            [formField]="contact.info"
+            placeholder="value"
+            showError
+            [style.backgroundColor]="backgroundColor(contact.info)()"
+          />
         </label>
         <label>
           <span>priority</span>
-          <input type="number" [formField]="contact.priority" placeholder="priority" />
+          <input
+            type="number"
+            [formField]="contact.priority"
+            placeholder="priority"
+          />
         </label>
       </div>
     } `,
@@ -51,7 +74,10 @@ export class ContactsComponent {
     });
 
   addContact() {
-    this.contactList().value.update(contacts => [...contacts, { type: SampleDataContactDetailType.Email, info: '', priority: 0 }]);
+    this.contactList().value.update(contacts => [
+      ...contacts,
+      { type: SampleDataContactDetailType.Email, info: '', priority: 0 }
+    ]);
   }
 
   delContact(contact: SampleDataContactDetail) {
@@ -60,5 +86,4 @@ export class ContactsComponent {
       contacts.update(contacts => contacts.filter(t => t !== contact));
     }
   }
-
 }

@@ -1,5 +1,16 @@
-import { afterRenderEffect, Component, computed, ElementRef, input, viewChild } from '@angular/core';
-import { FormField, type FieldTree,MaxLengthValidationError } from '@angular/forms/signals';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  ElementRef,
+  input,
+  viewChild
+} from '@angular/core';
+import {
+  type FieldTree,
+  FormField,
+  MaxLengthValidationError
+} from '@angular/forms/signals';
 
 import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
 
@@ -17,7 +28,14 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
     <input type="text" name="tags" #tagsInput style="display: none;" />
     @for (tag of tags(); track $index) {
       <label class="tags">
-        <button type="button" class="action" (click)="delTag($index)" [disabled]="isLastOne()">🗑️</button>
+        <button
+          type="button"
+          class="action"
+          (click)="delTag($index)"
+          [disabled]="isLastOne()"
+        >
+          🗑️
+        </button>
         <input type="text" [formField]="tag" showError />
       </label>
     }
@@ -32,7 +50,9 @@ export class TagsComponent {
   isLastOne = computed(() => this.tagsList().value().length === 1);
 
   maxLength = computed(() => {
-    const error = (this.tagsList().errors() || []).find(e => e instanceof MaxLengthValidationError);
+    const error = (this.tagsList().errors() || []).find(
+      e => e instanceof MaxLengthValidationError
+    );
 
     return error === undefined ? null : error.maxLength;
   });

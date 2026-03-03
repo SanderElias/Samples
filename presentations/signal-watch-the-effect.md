@@ -206,8 +206,13 @@ type MyResourceParams = { resource: number; abortSignal?: AbortSignal };
 @injectable({ providedIn: 'root' })
 class UserService {
   // gets a user by id, this operation will _never_ fail!!!
-  getUser = async ({ request, abortSignal }: MyResourceParams): Promise<User> => {
-    return fetch(`https://api.example.com/users/${request}`, { signal: abortSignal })
+  getUser = async ({
+    request,
+    abortSignal
+  }: MyResourceParams): Promise<User> => {
+    return fetch(`https://api.example.com/users/${request}`, {
+      signal: abortSignal
+    })
       .then(response => response.json())
       .catch(() => ({}));
   };
@@ -508,12 +513,20 @@ class MyComponent {
 
 class CrudService {
   http = inject(HttpClient);
-  createUser = async (user: User) => firstValueFrom(this.http.post<User>(`https://api.example.com/users`, user));
+  createUser = async (user: User) =>
+    firstValueFrom(this.http.post<User>(`https://api.example.com/users`, user));
 
-  readUserResource = (id: Signal<number>) => httpResource<User>(`https://api.example.com/users/${id()}`);
+  readUserResource = (id: Signal<number>) =>
+    httpResource<User>(`https://api.example.com/users/${id()}`);
 
-  updateUser = async (user: User) => firstValueFrom(this.http.put<User>(`https://api.example.com/users/${user.id}`, user));
-  deleteUser = async (id: number) => firstValueFrom(this.http.delete<void>(`https://api.example.com/users/${id}`));
+  updateUser = async (user: User) =>
+    firstValueFrom(
+      this.http.put<User>(`https://api.example.com/users/${user.id}`, user)
+    );
+  deleteUser = async (id: number) =>
+    firstValueFrom(
+      this.http.delete<void>(`https://api.example.com/users/${id}`)
+    );
 }
 ```
 

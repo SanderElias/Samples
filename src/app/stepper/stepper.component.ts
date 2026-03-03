@@ -32,9 +32,15 @@ import { StepsComponent } from './steps/steps.component';
       @for (step of steps; track step.stepNumber) {
         <label (click)="setStep(step.stepNumber)">
           <span
-            ><span class="id">{{ step.stepNumber }}</span> {{ step.stepName }}</span
+            ><span class="id">{{ step.stepNumber }}</span>
+            {{ step.stepName }}</span
           >
-          <input name="testGroep" type="radio" [checked]="radioStep() === step.stepNumber" [value]="step.stepNumber" />
+          <input
+            name="testGroep"
+            type="radio"
+            [checked]="radioStep() === step.stepNumber"
+            [value]="step.stepNumber"
+          />
         </label>
       }
     </fieldset>

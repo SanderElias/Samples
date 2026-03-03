@@ -4,13 +4,23 @@ import { Component } from '@angular/core';
 import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PannelCloseDirective, PannelComponent, PannelFooterDirective } from './pannel/pannel.component';
+import {
+  PannelCloseDirective,
+  PannelComponent,
+  PannelFooterDirective
+} from './pannel/pannel.component';
 
 @Component({
   selector: 'app-pannel-stuff',
   templateUrl: './pannel-stuff.component.html',
   styles: [],
-  imports: [PannelComponent, PannelCloseDirective, PannelFooterDirective, AsyncPipe, DatePipe]
+  imports: [
+    PannelComponent,
+    PannelCloseDirective,
+    PannelFooterDirective,
+    AsyncPipe,
+    DatePipe
+  ]
 })
 export class PannelStuffComponent implements OnInit {
   time$ = interval(1000).pipe(map(() => new Date()));

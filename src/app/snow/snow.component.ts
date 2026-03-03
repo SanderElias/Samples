@@ -1,4 +1,8 @@
-import { afterNextRender, ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component
+} from '@angular/core';
 // import html2canvas from 'html2canvas';
 
 // import html2canvas from 'html2canvas';
@@ -23,7 +27,8 @@ function makeItSnow() {
   const height = snowCanvas.height;
   const width = snowCanvas.width;
   /** create a gray between `aaaaaa` and `ffffff`, and convert it back to a number */
-  const makeColor = () => Number.parseInt((9 + getRandomInt(6)).toString(16).repeat(6), 16);
+  const makeColor = () =>
+    Number.parseInt((9 + getRandomInt(6)).toString(16).repeat(6), 16);
   const makeFlake = () => [
     width - getRandomInt(width), // x
     getRandomInt(5), // y
@@ -48,7 +53,11 @@ function makeItSnow() {
       ctx.clearRect(0, 0, width, height); // clear the old flakes
       animate(
         flakes
-          .concat(flakes.length < needFlakeCount ? makeFlakes(1 + getRandomInt(7)) : []) // add up to 7 if too little
+          .concat(
+            flakes.length < needFlakeCount
+              ? makeFlakes(1 + getRandomInt(7))
+              : []
+          ) // add up to 7 if too little
           .map(drawFlake) // draw the actual flakes
           .filter(([x, y]) => x > 0 && x < width && y < height) // remove flakes that are out of the view
       );
@@ -71,7 +80,8 @@ function getRandomInt(max: number): number {
 // var particleCanvas, particleCtx;
 function createSnowCanvas() {
   if (typeof window === 'undefined') throw new Error('window is not defined');
-  if (typeof document === 'undefined') throw new Error('document is not defined');
+  if (typeof document === 'undefined')
+    throw new Error('document is not defined');
   const snowFlakesCanvas = document.createElement('canvas');
   snowFlakesCanvas.width = window.innerWidth;
   snowFlakesCanvas.height = window.innerHeight;

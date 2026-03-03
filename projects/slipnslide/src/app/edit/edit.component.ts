@@ -1,6 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { debounceTime, filter, map, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  debounceTime,
+  filter,
+  map,
+  shareReplay,
+  switchMap,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { Slide, SlidesService } from '../slides.service';
 import { MdEditComponent } from './md-edit/md-edit.component';
 import { AsyncPipe } from '@angular/common';
@@ -31,7 +39,10 @@ export class EditComponent implements OnInit, OnDestroy {
     this.updateSub = this.mde.updates
       .pipe(
         withLatestFrom(this.slide$),
-        filter(([markdown, slide]: [string, Slide]) => slide.markdown.trimStart() !== markdown),
+        filter(
+          ([markdown, slide]: [string, Slide]) =>
+            slide.markdown.trimStart() !== markdown
+        ),
         map(([markdown, slide]) => ({ ...slide, markdown })),
         tap(slide => this.slides.save(slide))
       )

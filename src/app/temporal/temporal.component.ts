@@ -10,7 +10,7 @@ import { form, FormField } from '@angular/forms/signals';
 
 @Component({
   selector: 'se-temporal',
-  imports: [ FormField],
+  imports: [FormField],
   template: `
     <H1>Playing with Temporal</H1>
     <form>
@@ -114,7 +114,7 @@ export class TemporalComponent {
       this.now.set(this.temporal().Now); // trigger the signal to update times
     }, 1000);
     clean(() => clearInterval(int));
-    console.log(Intl.getCanonicalLocales("NL-NL"));
+    console.log(Intl.getCanonicalLocales('NL-NL'));
   });
 
   add = () => {

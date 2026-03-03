@@ -1,4 +1,12 @@
-import { afterRenderEffect, computed, Directive, DOCUMENT, ElementRef, inject, input } from '@angular/core';
+import {
+  afterRenderEffect,
+  computed,
+  Directive,
+  DOCUMENT,
+  ElementRef,
+  inject,
+  input
+} from '@angular/core';
 import { FormField } from '@angular/forms/signals';
 
 /**
@@ -15,7 +23,8 @@ export class ShowErrorsInDom {
   #control = inject(FormField);
   #doc = inject(DOCUMENT);
 
-  #inputElement: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement = inject(ElementRef).nativeElement;
+  #inputElement: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement =
+    inject(ElementRef).nativeElement;
   #parentElement = this.#inputElement.parentElement;
   #errorContainer = this.#doc.createElement('div');
 
@@ -44,13 +53,15 @@ export class ShowErrorsInDom {
       // When using custom build components, those might not support
       // the setCustomValidity API, so we need to check if it's available
       // before using it.
-      const hasCustomValidity = this.#inputElement?.setCustomValidity !== undefined;
+      const hasCustomValidity =
+        this.#inputElement?.setCustomValidity !== undefined;
 
       if (messages.length > 0) {
         this.renderErrors(messages);
         this.attachErrorContainer();
         // DOM errors are for user feedback, so we also set the custom validity of the input element to the error messages joined by a comma, so it shows up in the browser's built-in validation UI (e.g. when trying to submit the form).
-        hasCustomValidity && this.#inputElement.setCustomValidity(messages.join(', '));
+        hasCustomValidity &&
+          this.#inputElement.setCustomValidity(messages.join(', '));
       } else {
         hasCustomValidity && this.#inputElement.setCustomValidity('');
         this.#errorContainer.remove();
@@ -67,14 +78,16 @@ export class ShowErrorsInDom {
       } else {
         this.#inputElement.classList.remove('se-touched');
       }
-    })
+    });
   }
 
   findNgContentAttributes() {
     let maxIterations = 5;
     let parent = this.#parentElement;
     const attrs = this.#inputElement.attributes;
-    const ngA = Array.from(attrs).find(attr => attr.name.startsWith('_ngcontent-'));
+    const ngA = Array.from(attrs).find(attr =>
+      attr.name.startsWith('_ngcontent-')
+    );
     return ngA?.name || '';
   }
 

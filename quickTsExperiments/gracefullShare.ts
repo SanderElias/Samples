@@ -36,7 +36,10 @@ const shareOptions = <T>(): ShareConfig<T> => {
       const ig = inGrace;
       // const ig = NEVER
       console.log(`start caching for ${defaultTimeout}ms`);
-      return merge(ig.pipe(filter(g => g === true)), timer(defaultTimeout)).pipe(
+      return merge(
+        ig.pipe(filter(g => g === true)),
+        timer(defaultTimeout)
+      ).pipe(
         tap(() => {
           console.log(`[cache delete] `);
           inGrace.next(false);

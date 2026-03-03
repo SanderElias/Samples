@@ -5,8 +5,16 @@ import {
   type CdkDragExit,
   CdkDragPlaceholder,
   CdkDropList,
-  CdkDropListGroup} from '@angular/cdk/drag-drop';
-import { afterRenderEffect, Component, ElementRef, inject,linkedSignal, signal } from '@angular/core';
+  CdkDropListGroup
+} from '@angular/cdk/drag-drop';
+import {
+  afterRenderEffect,
+  Component,
+  ElementRef,
+  inject,
+  linkedSignal,
+  signal
+} from '@angular/core';
 
 @Component({
   selector: 'se-toh-cdk',
@@ -24,8 +32,18 @@ import { afterRenderEffect, Component, ElementRef, inject,linkedSignal, signal }
           class="stack"
         >
           @for (puck of col; track $index) {
-            <div cdkDrag [cdkDragData]="puck" [attr.data-weight]="puck" class="puck" [cdkDragDisabled]="$index !== 0">
-              <div *cdkDragPlaceholder class="puck placeholder" [attr.data-weight]="puck"></div>
+            <div
+              cdkDrag
+              [cdkDragData]="puck"
+              [attr.data-weight]="puck"
+              class="puck"
+              [cdkDragDisabled]="$index !== 0"
+            >
+              <div
+                *cdkDragPlaceholder
+                class="puck placeholder"
+                [attr.data-weight]="puck"
+              ></div>
             </div>
           }
         </div>
@@ -35,11 +53,23 @@ import { afterRenderEffect, Component, ElementRef, inject,linkedSignal, signal }
       }
       <label class="row">
         <span>Number of pucks: {{ pucksNumber() }}</span>
-        <input type="range" [value]="pucksNumber()" (input)="pucksNumber.set($any($event.target).valueAsNumber)" min="3" max="10" />
+        <input
+          type="range"
+          [value]="pucksNumber()"
+          (input)="pucksNumber.set($any($event.target).valueAsNumber)"
+          min="3"
+          max="10"
+        />
       </label>
       <label class="row">
         <span>Number of stacks: {{ colsNumber() }}</span>
-        <input type="range" [value]="colsNumber()" (input)="colsNumber.set($any($event.target).valueAsNumber)" min="3" max="5" />
+        <input
+          type="range"
+          [value]="colsNumber()"
+          (input)="colsNumber.set($any($event.target).valueAsNumber)"
+          min="3"
+          max="5"
+        />
       </label>
     </div>
   `,
@@ -51,7 +81,10 @@ export class TohCdkComponent {
   colsNumber = signal(3);
   pucksNumber = signal(5);
   data = linkedSignal({
-    source: () => ({ colNumber: this.colsNumber(), puckNumber: this.pucksNumber() }),
+    source: () => ({
+      colNumber: this.colsNumber(),
+      puckNumber: this.pucksNumber()
+    }),
     computation: ({ colNumber, puckNumber }) => {
       const pucks = Array.from({ length: puckNumber }, (_, i) => i + 1);
       const data: number[][] = Array.from({ length: colNumber }, () => []);
@@ -106,7 +139,8 @@ export class TohCdkComponent {
     el.classList.remove('cantdrop');
   };
   // logic to determine if a puck can be dropped on a target stack
-  #canDrop = (puckNumber, target: number[]) => puckNumber < (target[0] || Number.MAX_VALUE);
+  #canDrop = (puckNumber, target: number[]) =>
+    puckNumber < (target[0] || Number.MAX_VALUE);
 
   _1 = afterRenderEffect(() => {
     this.#elm.style.setProperty('--cols', this.colsNumber().toString());

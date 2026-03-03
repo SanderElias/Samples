@@ -15,14 +15,14 @@ import {
   timer
 } from 'rxjs';
 
-import type {
-  MqttMessage
-} from './mqtt.types';
+import type { MqttMessage } from './mqtt.types';
 
 @Injectable({ providedIn: 'root' })
 export class MqttService {
   mqtt = import('mqtt');
-  client = this.mqtt.then(m => m.default.connectAsync(`ws://kapow:1884`));
+  client = this.mqtt.then(m =>
+    m.default.connectAsync(`wss://mqtt.eliasweb.nl`)
+  );
   /** base topic */
   readonly baseTopic = 'zigbee2mqtt';
   messages$ = new Observable<MqttMessage>(subscriber => {
@@ -37,6 +37,10 @@ export class MqttService {
     this.client.then(client => {
       console.log('start listening for MQTT messages');
       client.on('message', cb);
+      client.on('error', err => {
+        console.error('MQTT client error', err);
+        subscriber.error(err);
+      });
     });
     return () => {
       this.client.then(client => {
@@ -52,6 +56,7 @@ export class MqttService {
     })
   );
 
+  // 43 binnen 35 buiten
   activeTopics = new Map<string, Observable<Record<string, unknown>>>();
   listenFor(listenTopic: string | undefined) {
     const cl = this.client;
@@ -59,16 +64,26 @@ export class MqttService {
       console.warn('listenFor expects a string topic, got', listenTopic);
       return EMPTY;
     }
-    listenTopic = listenTopic.startsWith(this.baseTopic) ? listenTopic : `${this.baseTopic}/${listenTopic}`;
+    listenTopic = listenTopic.startsWith(this.baseTopic)
+      ? listenTopic
+      : `${this.baseTopic}/${listenTopic}`;
     const activeTopics = this.activeTopics;
     if (activeTopics.has(listenTopic)) {
       // console.log('already listening for', listenTopic);
-      return activeTopics.get(listenTopic) as Observable<Record<string, unknown>>;
+      return activeTopics.get(listenTopic) as Observable<
+        Record<string, unknown>
+      >;
     }
 
     const topic$ = this.messages$.pipe(
-      filter(({ topic }) => (Array.isArray(topic) ? topic.includes(listenTopic) : topic === listenTopic)),
-      map(({ message }: { message: string | Record<string, unknown> }) => message),
+      filter(({ topic }) =>
+        Array.isArray(topic)
+          ? topic.includes(listenTopic)
+          : topic === listenTopic
+      ),
+      map(
+        ({ message }: { message: string | Record<string, unknown> }) => message
+      ),
       debounceTime(100),
       // deepEqual is costly, but less costly as unneeded display updates/ layout-trashing
       distinctUntilChanged<string | Record<string, unknown>>(deepEqual),
@@ -90,7 +105,10 @@ export class MqttService {
         resetOnRefCountZero: () => timer(5 + 1000) // keep the topic active for a while after the last subscriber unsubscribes, changes are we are going to need it again soon.
       })
     );
-    this.activeTopics.set(listenTopic, topic$ as Observable<Record<string, unknown>>);
+    this.activeTopics.set(
+      listenTopic,
+      topic$ as Observable<Record<string, unknown>>
+    );
     // console.log('listenFor', listenTopic);
     // finally, tell the client the topic to start listening to
     cl.then(client => {

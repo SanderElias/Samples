@@ -22,7 +22,7 @@ interface BaseEntry<T = unknown> {
     min?: number;
     max?: number;
     step?: number;
-  }
+  };
 }
 
-export type FormEntry<T = unknown> = Signal<BaseEntry<T>>
+export type FormEntry<T = unknown> = Signal<BaseEntry<T>>;

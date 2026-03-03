@@ -86,9 +86,14 @@ class DigitInput extends HTMLElement {
   }
 
   checkValidity() {
-    const values = Array.from(this.#form.querySelectorAll('input')).map(i => i.value);
+    const values = Array.from(this.#form.querySelectorAll('input')).map(
+      i => i.value
+    );
     if (values.some(i => i < '0' || i > '9')) {
-      this.#internals.setValidity({ badInput: true }, 'Please enter only numbers');
+      this.#internals.setValidity(
+        { badInput: true },
+        'Please enter only numbers'
+      );
       return false;
     } else {
       this.#internals.setValidity({});
@@ -114,7 +119,9 @@ class DigitInput extends HTMLElement {
     // This is a terrible shortcut. for non-sample behavior this should match more what normal form elements do.
     form.addEventListener('change', e => {
       e.preventDefault();
-      const values = Array.from(form.querySelectorAll('input')).map(i => i.value);
+      const values = Array.from(form.querySelectorAll('input')).map(
+        i => i.value
+      );
       this.#value = values.join('');
       this.#internals.setFormValue(this.#value);
       if (this.checkValidity()) {
@@ -134,7 +141,10 @@ class DigitInput extends HTMLElement {
       const input = this.#form.querySelectorAll('input');
       const inputs = Array.from(input);
       if (inputs.length === 0) {
-        setTimeout(() => this.attributeChangedCallback(name, oldValue, newValue), 5);
+        setTimeout(
+          () => this.attributeChangedCallback(name, oldValue, newValue),
+          5
+        );
       }
       const values = newValue.split('');
       inputs.forEach((input, i) => {

@@ -1,7 +1,14 @@
 <h1
   (drop)="handleDrop($event)"
-  ondragenter="document.getElementById('output').textContent = ''; event.stopPropagation(); event.preventDefault();"
-  ondragover="event.stopPropagation(); event.preventDefault();"
+  ondragenter="
+    document.getElementById('output').textContent = '';
+    event.stopPropagation();
+    event.preventDefault();
+  "
+  ondragover="
+    event.stopPropagation();
+    event.preventDefault();
+  "
 >
   Slido overview
 </h1>

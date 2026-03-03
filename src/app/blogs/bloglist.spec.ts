@@ -6,7 +6,9 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 const articleListPath = resolve(process.cwd(), 'articles/articleList.json');
-const articleListJson = JSON.parse(readFileSync(articleListPath, 'utf8')) as any[];
+const articleListJson = JSON.parse(
+  readFileSync(articleListPath, 'utf8')
+) as any[];
 
 describe('Bloglist (prerender guard)', () => {
   beforeEach(() => {
@@ -14,7 +16,9 @@ describe('Bloglist (prerender guard)', () => {
     vi.stubGlobal('fetch', (input: RequestInfo) => {
       const url = typeof input === 'string' ? input : String(input);
       if (url.endsWith('/assets/articles/articleList.json')) {
-        return Promise.resolve(new Response(JSON.stringify(articleListJson), { status: 200 }));
+        return Promise.resolve(
+          new Response(JSON.stringify(articleListJson), { status: 200 })
+        );
       }
       return Promise.resolve(new Response(null, { status: 404 }));
     });
@@ -41,7 +45,9 @@ describe('Bloglist (prerender guard)', () => {
     const ids = await svc.idList();
 
     const actual = ids.map(i => i.id).sort();
-    const expected = articleListJson.flatMap((a: any) => (a.published ? [a.id, a.name] : [a.id])).sort();
+    const expected = articleListJson
+      .flatMap((a: any) => (a.published ? [a.id, a.name] : [a.id]))
+      .sort();
 
     expect(actual).toEqual(expected);
   });

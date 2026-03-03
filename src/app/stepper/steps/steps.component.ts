@@ -24,7 +24,9 @@ export class StepsComponent {
 
   // I really wished this would work
   // #dummy = syncSignals(this.selectedStepId, this.sd.selected)
-  #dummy = afterRenderEffect(() => untracked(() => this.sd.select(this.selectedStepId())));
+  #dummy = afterRenderEffect(() =>
+    untracked(() => this.sd.select(this.selectedStepId()))
+  );
   #dummy1 = afterRenderEffect(() => {
     const newId = this.sd.selected();
     if (newId !== this.selectedStepId()) {
@@ -33,7 +35,10 @@ export class StepsComponent {
   });
 }
 
-const syncSignals = <T = unknown>(a: WritableSignal<T>, b: WritableSignal<T>): void => {
+const syncSignals = <T = unknown>(
+  a: WritableSignal<T>,
+  b: WritableSignal<T>
+): void => {
   inject(DestroyRef).onDestroy(() => {
     refA.destroy();
     refB.destroy();

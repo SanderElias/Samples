@@ -11,11 +11,11 @@ import {
   viewChild
 } from '@angular/core';
 import { cloneDeep } from '@se-ng/signal-utils';
+import { deepDiff } from '@se-ng/signal-utils';
+import { flattenRecord, unFlattenRecord } from '@se-ng/signal-utils';
 
 import type { UserCard } from '../../generic-services/address.service';
 import { RelationsService } from '../relations.service';
-import { deepDiff } from '@se-ng/signal-utils';
-import { flattenRecord, unFlattenRecord } from '@se-ng/signal-utils';
 
 @Component({
   selector: 'relation-form',
@@ -124,7 +124,6 @@ export class RelationForm {
       // other error, just throw it in the console.
       console.log('Error updating the user');
       console.dir(error);
-
     }
     if (result === 'ok' || result === 'noChange') {
       console.log('User updated successfully');
@@ -144,10 +143,7 @@ export class RelationForm {
         'The relation has been updated elsewhere. Please reload the form to get the latest data.'
       );
       const myChanges = deepDiff(this.originalData(), this.currentFormData());
-      const remoteChanges = deepDiff(
-        this.originalData(),
-        newData!
-      );
+      const remoteChanges = deepDiff(this.originalData(), newData!);
       console.log('Remote changes:');
       console.dir(remoteChanges);
       console.log('Your unsaved changes:');

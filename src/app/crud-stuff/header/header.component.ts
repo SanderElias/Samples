@@ -11,7 +11,13 @@ import { generateRelation } from '../utils/generateRelation';
     <button (click)="addRelation()">Add relation</button>
     <label for="search">
       Search:
-      <input id="search" type="search" placeholder="Search..." (input)="filter.set($any($event.target).value)" [value]="filter()" />
+      <input
+        id="search"
+        type="search"
+        placeholder="Search..."
+        (input)="filter.set($any($event.target).value)"
+        [value]="filter()"
+      />
       <se-spinner [show]="relationsService.listIsLoading()" />
     </label>
     <button (click)="info()">Info</button>

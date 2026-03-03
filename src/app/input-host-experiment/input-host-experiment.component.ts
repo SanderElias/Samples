@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect,signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 
 import { InputHostComponent } from './input-host/input-host.component';
 
@@ -7,13 +7,16 @@ import { InputHostComponent } from './input-host/input-host.component';
   selector: 'se-input-host-experiment',
   imports: [InputHostComponent, JsonPipe],
   template: `<h1>Input Host Experiment</h1>
-    <p>This component is used to experiment with using input as a host. Don't try this in production!</p>
+    <p>
+      This component is used to experiment with using input as a host. Don't try
+      this in production!
+    </p>
     <form (submit)="log($event)">
       @let error1 = inp1.error();
-      @if (error1 && error1.length  ) {
-        <p class="error">Error: {{   error1 }}</p>
+      @if (error1 && error1.length) {
+        <p class="error">Error: {{ error1 }}</p>
       }
-      <input experiment type="text" [(value)]="value" required #inp1/>
+      <input experiment type="text" [(value)]="value" required #inp1 />
       <input experiment type="text" [(value)]="value" required />
       <input experiment type="password" [(value)]="value" required />
 

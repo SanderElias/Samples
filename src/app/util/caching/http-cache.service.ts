@@ -1,5 +1,6 @@
 import type { HttpEvent } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+
 import { HttpCachingDefaultExpiry, minute } from './caching.util';
 
 /**

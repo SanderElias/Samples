@@ -58,7 +58,7 @@ well, we can add more bits.
 | ...  | ...            | ...             |
 | 64   | 9.223372036e18 | 292,471,208,677 |
 
-> [!NOTE] the number of years is an approximation, done by dividing the maximum value by the number of seconds in a year (60 &ast; 60 &ast; 24 &ast; 365.25)
+> [!NOTE] the number of years is an approximation, done by dividing the maximum value by the number of seconds in a year (60 \* 60 \* 24 \* 365.25)
 
 So, by using a 64-bit signed integer we can go up to almost 300 billion years into the future (or past). That should be enough for now.
 
@@ -67,11 +67,11 @@ So, by using a 64-bit signed integer we can go up to almost 300 billion years in
 I mean, even when they designed the original systems, they must have known this would be a problem in the future, right? a range of dates that does not even span one and a half century? They did put a man on the moon with this tech, were they this stupid?
 Well, no. At the time (1960s) memory and storage were _very expensive_ and limited resources. Using a 32-bit signed integer was a practical choice that balanced the need for date representation with the constraints of the hardware. At that point in time a main memory of a kilobyte was considered large. Remember the uproar when the IBM PC AT came with 256 kilobytes of RAM as standard? And then when Bill Gates said that 640 kilobytes should be enough for anyone? (1981, and yes, I know he claims he never said that).
 
-> [!NOTE] take a second look at those numbers in the above paragraph. A kilobyte is 1024 bytes. The numbers are measured in _kilobytes_! Nowadays, we measure main memory in gigabytes. Let's line that up: 
-> | | | 
-> | -------- | ------------ | 
-> | kilobyte | 1024 | 
-> | gigabyte | 1,073,741,824 | 
+> [!NOTE] take a second look at those numbers in the above paragraph. A kilobyte is 1024 bytes. The numbers are measured in _kilobytes_! Nowadays, we measure main memory in gigabytes. Let's line that up:
+> | | |
+> | -------- | ------------ |
+> | kilobyte | 1024 |
+> | gigabyte | 1,073,741,824 |
 >
 > Let that sink in for a moment.
 

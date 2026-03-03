@@ -1,5 +1,5 @@
 import type { WritableSignal } from '@angular/core';
-import { type Observable, firstValueFrom } from 'rxjs';
+import { firstValueFrom, type Observable } from 'rxjs';
 
 type ActionType = 'create' | 'update' | 'delete';
 
@@ -7,9 +7,21 @@ type InitialAction = { running: false };
 type RunningAction = { running: true; actionType: ActionType };
 export type SuccessResult = { success: true; data: unknown };
 export type FailureResult = { success: false; error: Error };
-export type SuccessFulAction = { running: false; actionType: ActionType; lastResult: SuccessResult };
-export type FailedAction = { running: false; actionType: ActionType; lastResult: FailureResult };
-export type Action = InitialAction | RunningAction | SuccessFulAction | FailedAction;
+export type SuccessFulAction = {
+  running: false;
+  actionType: ActionType;
+  lastResult: SuccessResult;
+};
+export type FailedAction = {
+  running: false;
+  actionType: ActionType;
+  lastResult: FailureResult;
+};
+export type Action =
+  | InitialAction
+  | RunningAction
+  | SuccessFulAction
+  | FailedAction;
 
 export type Result = SuccessResult | FailureResult;
 
@@ -19,7 +31,11 @@ interface EndpointHandlerParams {
   actionSignal: WritableSignal<Action>;
 }
 
-export const endpointHandler = ({ serverCall, actionType, actionSignal }: EndpointHandlerParams): Promise<Result> => {
+export const endpointHandler = ({
+  serverCall,
+  actionType,
+  actionSignal
+}: EndpointHandlerParams): Promise<Result> => {
   if (actionSignal().running) {
     // prevent concurrent actions
     throw new Error('Another action is already running');

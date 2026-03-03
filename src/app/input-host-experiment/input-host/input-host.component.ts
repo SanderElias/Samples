@@ -11,7 +11,6 @@ export class InputHostComponent {
   value = model<string>('');
   error = model<string | string[] | undefined>(undefined);
 
-
   constructor() {
     const input = this.input;
     // sync the input value with the model
@@ -30,7 +29,9 @@ export class InputHostComponent {
         ? (this.error() as string[])
         : [this.error() as string | undefined].filter(e => e !== undefined);
       if (error.length) {
-        input.setCustomValidity(error.length === 1 ? error[0] : error.join('. '));
+        input.setCustomValidity(
+          error.length === 1 ? error[0] : error.join('. ')
+        );
       } else {
         input.setCustomValidity('');
       }
@@ -39,7 +40,7 @@ export class InputHostComponent {
     });
     input.addEventListener('input', () => {
       this.value.set(input.value);
-      const {customError, ...HtmlErrors} = input.validity;
+      const { customError, ...HtmlErrors } = input.validity;
       const htmlHasError = Object.values(HtmlErrors).some(v => v);
       if (htmlHasError) {
         // if the input is invalid, we can set the error here

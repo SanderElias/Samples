@@ -11,11 +11,17 @@ import type { ArtObject, CollectionObject, RakiObject } from './rakiCollection';
  */
 const key = '4a3Fxmua';
 
-const serialize = o => Object.keys(o).reduce((search, k) => (search += `${k}=${encodeURIComponent(o[k])}&`), '');
+const serialize = o =>
+  Object.keys(o).reduce(
+    (search, k) => (search += `${k}=${encodeURIComponent(o[k])}&`),
+    ''
+  );
 
-const collection = searchObj => `https://www.rijksmuseum.nl/api/en/collection/?${serialize(searchObj)}key=${key}&format=json`;
+const collection = searchObj =>
+  `https://www.rijksmuseum.nl/api/en/collection/?${serialize(searchObj)}key=${key}&format=json`;
 
-const detail = detailNumber => `https://www.rijksmuseum.nl/api/en/collection/${detailNumber}?key=${key}&format=json`;
+const detail = detailNumber =>
+  `https://www.rijksmuseum.nl/api/en/collection/${detailNumber}?key=${key}&format=json`;
 
 /**
  * If you want to use this get your own key at:
@@ -34,7 +40,13 @@ export class RakiService {
   private detailNumber = new Subject<string | undefined>();
 
   detail$: Observable<RakiObject.ArtDetailObject[]> = this.detailNumber.pipe(
-    switchMap(number => (number ? this.http.get<RakiObject.RootObject>(detail(number)).pipe(map(r => [r.artObject])) : of([])))
+    switchMap(number =>
+      number
+        ? this.http
+            .get<RakiObject.RootObject>(detail(number))
+            .pipe(map(r => [r.artObject]))
+        : of([])
+    )
   );
 
   private selection = {
@@ -43,13 +55,15 @@ export class RakiService {
     type: 'painting'
   };
 
-  randomImage$ = this.http.get<CollectionObject>(collection(this.selection)).pipe(
-    tap(r => (this.artCount = r.count)),
-    switchMap(() => timer(0, 20000)),
-    switchMap(() => this.getArtObject$),
-    // please note that switchmMap handles a promise also!
-    switchMap(artObject => this.preload(artObject.webImage.url))
-  );
+  randomImage$ = this.http
+    .get<CollectionObject>(collection(this.selection))
+    .pipe(
+      tap(r => (this.artCount = r.count)),
+      switchMap(() => timer(0, 20000)),
+      switchMap(() => this.getArtObject$),
+      // please note that switchmMap handles a promise also!
+      switchMap(artObject => this.preload(artObject.webImage.url))
+    );
 
   private getArtObject$: Observable<ArtObject> = Observable.create(obs => {
     obs.next({
@@ -64,7 +78,11 @@ export class RakiService {
         catchError(() => timer(500).pipe(switchMap(() => this.getArtObject$)))
       )
     ),
-    switchMap((artObject: ArtObject) => (artObject.webImage && artObject.webImage.url ? of(artObject) : this.getArtObject$)),
+    switchMap((artObject: ArtObject) =>
+      artObject.webImage && artObject.webImage.url
+        ? of(artObject)
+        : this.getArtObject$
+    ),
     catchError(_e => of([]))
   );
 
@@ -76,7 +94,12 @@ export class RakiService {
     console.log(q, serialize({ q }));
     return this.http.get<CollectionObject>(collection({ q })).pipe(
       map(r => r.artObjects),
-      map((artObjects: ArtObject[]) => artObjects.reduce((acc, e) => (e.hasImage ? acc.concat(e) : acc), [] as ArtObject[])),
+      map((artObjects: ArtObject[]) =>
+        artObjects.reduce(
+          (acc, e) => (e.hasImage ? acc.concat(e) : acc),
+          [] as ArtObject[]
+        )
+      ),
       tap(r => console.log(r))
     );
   }

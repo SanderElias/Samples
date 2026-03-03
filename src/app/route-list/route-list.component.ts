@@ -1,7 +1,6 @@
 import { httpResource } from '@angular/common/http';
 import { Component, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { compile } from 'path-to-regexp';
 
 @Component({
   selector: 'se-route-list',
@@ -27,7 +26,10 @@ export class RouteListComponent {
   });
   routes = computed(() => {
     if (!this.routesRes.hasValue()) return [];
-    return  this.routesRes.value().filter(route => !route.path.startsWith('/blog')).sort((a, b) => a.title.localeCompare(b.title));
+    return this.routesRes
+      .value()
+      .filter(route => !route.path.startsWith('/blog'))
+      .sort((a, b) => a.title.localeCompare(b.title));
   });
 }
 

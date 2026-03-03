@@ -1,7 +1,31 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, EMPTY, from, Observable, of, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
+import {
+  Component,
+  ElementRef,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  inject
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  EMPTY,
+  from,
+  Observable,
+  of,
+  ReplaySubject
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  pluck,
+  shareReplay,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 // import * as monaco from 'monaco-editor';
 declare const monaco: any;
 
@@ -29,7 +53,11 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
   private elmRef = inject(ElementRef);
   private zone = inject(NgZone);
 
-  state$ = new BehaviorSubject<State>({ src: '', startLine: 0, originalCode: '' });
+  state$ = new BehaviorSubject<State>({
+    src: '',
+    startLine: 0,
+    originalCode: ''
+  });
   @Input() set src(src) {
     // = ''; //'slipnslide/src/app/code-sample/code-sample.component.ts';
     if (typeof src === 'string') {
@@ -49,8 +77,12 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
   code$ = this.state$.pipe(
     pluck('src'),
     distinctUntilChanged(),
-    switchMap(src => this.http.get(this.fileUrl(src), { responseType: 'text' })),
-    tap(originalCode => this.state$.next({ ...this.state$.value, originalCode })),
+    switchMap(src =>
+      this.http.get(this.fileUrl(src), { responseType: 'text' })
+    ),
+    tap(originalCode =>
+      this.state$.next({ ...this.state$.value, originalCode })
+    ),
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
@@ -62,7 +94,11 @@ export class CodeSampleComponent implements OnInit, OnDestroy {
     combineLatest([this.state$, this.code$])
       .pipe(
         take(1),
-        switchMap(([state, oldContent]) => (oldContent !== newContent ? this.http.put(this.fileUrl(state.src), newContent) : EMPTY))
+        switchMap(([state, oldContent]) =>
+          oldContent !== newContent
+            ? this.http.put(this.fileUrl(state.src), newContent)
+            : EMPTY
+        )
       )
       .subscribe();
   }

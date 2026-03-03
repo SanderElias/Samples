@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
 import { get, set } from 'idb-keyval';
-import { firstValueFrom, map, merge, mergeMap, ReplaySubject, shareReplay, startWith, switchMap, tap } from 'rxjs';
+import {
+  firstValueFrom,
+  map,
+  merge,
+  mergeMap,
+  ReplaySubject,
+  shareReplay,
+  startWith,
+  switchMap,
+  tap
+} from 'rxjs';
 import { PackageJson } from '@npm/types';
 
 @Injectable({
@@ -92,7 +102,9 @@ export class PackageJsonService {
       delete current.scripts[name];
       current.scripts[newName] = `wireit`;
       Object.values(current.wireit).forEach(entry => {
-        entry.dependencies = entry.dependencies?.map(dep => (dep === name ? newName : dep));
+        entry.dependencies = entry.dependencies?.map(dep =>
+          dep === name ? newName : dep
+        );
       });
     }
     this.#contents$.next(current);
@@ -179,7 +191,10 @@ export interface WireItEntry {
   packageLocks?: string[];
 }
 
-async function verifyPermission(fileHandle: FileSystemFileHandle, readWrite = true) {
+async function verifyPermission(
+  fileHandle: FileSystemFileHandle,
+  readWrite = true
+) {
   console.log('verifyPermission', fileHandle, readWrite);
   const options = {} as any;
   if (readWrite) {

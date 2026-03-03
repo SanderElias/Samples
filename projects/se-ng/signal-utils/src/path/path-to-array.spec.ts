@@ -25,7 +25,22 @@ describe('pathToArray', () => {
   });
 
   it('returns undefined for invalid/ambiguous paths', () => {
-    const invalid = ['', '.', '.a', 'a.', 'a..b', 'a. .b', 'a[]', 'a[ ]', ' ', '   ', 'a,,b', 'a, ,b', ',a', 'a,'];
+    const invalid = [
+      '',
+      '.',
+      '.a',
+      'a.',
+      'a..b',
+      'a. .b',
+      'a[]',
+      'a[ ]',
+      ' ',
+      '   ',
+      'a,,b',
+      'a, ,b',
+      ',a',
+      'a,'
+    ];
     for (const p of invalid) {
       expect(pathToArray(p)).toBeUndefined();
     }
@@ -84,13 +99,17 @@ describe('pathToArray', () => {
     expect(pathToArray('a[1,]')).toBeUndefined();
   });
 
-
   it('handles unicode and dots-inside-brackets by splitting', () => {
     expect(pathToArray('a.☃.b')).toEqual(['a', '☃', 'b']);
     expect(pathToArray('a[b.c]')).toEqual(['a', 'b', 'c']);
   });
 
   it('accepts numeric keys with leading zeros and deep nesting', () => {
-    expect(pathToArray(' arr[0001][02].x ')).toEqual(['arr', '0001', '02', 'x']);
+    expect(pathToArray(' arr[0001][02].x ')).toEqual([
+      'arr',
+      '0001',
+      '02',
+      'x'
+    ]);
   });
 });

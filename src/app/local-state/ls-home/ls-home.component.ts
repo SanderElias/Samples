@@ -1,6 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import type { OnInit} from '@angular/core';
-import { Component, ElementRef, inject, input, linkedSignal, QueryList, ViewChildren } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  linkedSignal,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
 import { filter, map, pluck, switchMap } from 'rxjs/operators';
@@ -69,7 +77,10 @@ class oldLsHomeComponent implements OnInit {
   clicks$ = this.localState$
     .pipe(
       pluck('buttons'),
-      filter((ql): ql is QueryList<ElementRef<HTMLButtonElement>> => ql instanceof QueryList),
+      filter(
+        (ql): ql is QueryList<ElementRef<HTMLButtonElement>> =>
+          ql instanceof QueryList
+      ),
       map(ql => ql.toArray().map(b => b.nativeElement)),
       // tap(btns => btns.forEach(b => console.log(b))),
       switchMap(buttons => fromEvent(buttons, 'click'))
@@ -114,7 +125,9 @@ export function ObservableInput(input: string): any {
         }
       },
       get: function (this: any) {
-        throw new Error(`Don't read the "${propertyName}" directly, instead take it from the "${input}" behaviourSubject`);
+        throw new Error(
+          `Don't read the "${propertyName}" directly, instead take it from the "${input}" behaviourSubject`
+        );
       },
       configurable: false,
       enumerable: true

@@ -5,7 +5,15 @@ import type { OnInit } from '@angular/core';
 import { Component, ElementRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, EMPTY, from, fromEvent } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  shareReplay,
+  switchMap
+} from 'rxjs/operators';
 
 const apiKey = `RSIq08oTL7lA1DyETOmqujDSph7rvP4akG8NRPz9os6ywJjBhE`;
 const clientId = 'e972ca06cc4b961';
@@ -36,7 +44,13 @@ export class TumblrComponent implements OnInit {
     ),
     map(data => data?.data?.items),
     filter(s => !!s),
-    map(items => items!.filter((item: Item) => [Type.ImageJPEG, Type.ImagePNG].includes(item?.images?.[0].type || Type.VideoMp4))),
+    map(items =>
+      items!.filter((item: Item) =>
+        [Type.ImageJPEG, Type.ImagePNG].includes(
+          item?.images?.[0].type || Type.VideoMp4
+        )
+      )
+    ),
     shareReplay(1)
   );
 

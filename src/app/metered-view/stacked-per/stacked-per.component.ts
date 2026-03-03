@@ -5,7 +5,11 @@ import { Component, computed, input } from '@angular/core';
   imports: [],
   template: `
     @for (per of percentages(); track $index) {
-      <div class="bar" [style.width.%]="per.value" [style.backgroundColor]="'var(--metered-color-' + $index + ')'">
+      <div
+        class="bar"
+        [style.width.%]="per.value"
+        [style.backgroundColor]="'var(--metered-color-' + $index + ')'"
+      >
         {{ per.value.toFixed(1) }}%<br />
         {{ per.name }}
       </div>
@@ -25,5 +29,10 @@ export class StackedPerComponent {
     { value: 0.2, name: 'G' }
   ]);
   total = computed(() => this.data().reduce((acc, val) => acc + val.value, 0));
-  percentages = computed(() => this.data().map(num => ({ value: (num.value / this.total()) * 100, name: num.name })));
+  percentages = computed(() =>
+    this.data().map(num => ({
+      value: (num.value / this.total()) * 100,
+      name: num.name
+    }))
+  );
 }

@@ -1,4 +1,13 @@
-import { apply, maxError, minError, minLengthError, patternError, required, schema, validate } from '@angular/forms/signals';
+import {
+  apply,
+  maxError,
+  minError,
+  minLengthError,
+  patternError,
+  required,
+  schema,
+  validate
+} from '@angular/forms/signals';
 
 import { type SampleData } from '../util/sample-data.model';
 
@@ -11,12 +20,16 @@ export const sampleDataValidationSchema = schema<SampleData>(relation => {
   // Name: required, min length 3, only letters and spaces
   required(relation.name, { message: 'a name is required' });
   validate(relation.name, ({ value }) => {
-    const v = value() ;
+    const v = value();
     if (v && v.length < 3) {
-      return minLengthError(3, { message: 'Name must be at least 3 characters' });
+      return minLengthError(3, {
+        message: 'Name must be at least 3 characters'
+      });
     }
     if (v && !/^[A-Za-z\s]+$/.test(v)) {
-      return patternError(/^[A-Za-z\s]+$/, { message: 'Name must contain only letters and spaces' });
+      return patternError(/^[A-Za-z\s]+$/, {
+        message: 'Name must contain only letters and spaces'
+      });
       // return {"kind": "complexity", "message": "Name must contain only letters and spaces", "requiredComplexity": "only letters and spaces"};
     }
     return null;
@@ -28,7 +41,9 @@ export const sampleDataValidationSchema = schema<SampleData>(relation => {
   validate(relation.dob, ({ value }) => {
     const v = value() as Date;
     if (v && new Date(v).getTime() > Date.now()) {
-      return maxError(Date.now(), { message: 'Date of birth cannot be in the future' });
+      return maxError(Date.now(), {
+        message: 'Date of birth cannot be in the future'
+      });
     }
     return null;
   });
@@ -48,7 +63,7 @@ export const sampleDataValidationSchema = schema<SampleData>(relation => {
   required(relation.confirm);
   // Confirm Password: must match password
   validate(relation.confirm, ({ value, valueOf }) => {
-    const v = value() ;
+    const v = value();
     const pw = valueOf(relation.password);
     if (v !== pw) {
       return { kind: 'mismatch', message: 'Passwords do not match' };

@@ -3,4 +3,15 @@
   padding: var(--size-3);
 }
 
-
+svg {
+  /* Fit the arc: SVG start = 112deg, CSS conic-gradient 'from' is SVG+90 => 202deg */
+  /* background: conic-gradient(from 202deg at center, #00c853 0deg, #ff0000 316deg, transparent 316deg); */
+  background: conic-gradient(
+    from 202deg at center,
+    #00c853 0deg,
+    #ff0000 316deg,
+    transparent 316deg
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+}

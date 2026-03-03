@@ -1,5 +1,14 @@
-import type { Signal} from '@angular/core';
-import { afterRenderEffect, Component, computed, ElementRef, inject, input, signal, viewChild } from '@angular/core';
+import type { Signal } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  signal,
+  viewChild
+} from '@angular/core';
 
 import type { ZigbeePrefixes } from '../mqtt.component';
 import { ZigbeeService } from '../zigbee.service';
@@ -22,7 +31,12 @@ import { ZigbeeService } from '../zigbee.service';
         <h3>Kies device om mee te pairen</h3>
         <select (change)="selectedRouter.set($any($event.target).value)">
           @for (opt of routerList(); track opt.ieee_address) {
-            <option [value]="opt.friendly_name" [selected]="opt.friendly_name === selectedRouter()">{{ opt.friendly_name }}</option>
+            <option
+              [value]="opt.friendly_name"
+              [selected]="opt.friendly_name === selectedRouter()"
+            >
+              {{ opt.friendly_name }}
+            </option>
           }
         </select>
         <button (click)="startPairing()">Start pairen</button>
@@ -32,7 +46,8 @@ import { ZigbeeService } from '../zigbee.service';
   `,
   styleUrl: './pair-button.component.css',
   host: {
-    '[style.backgroundColor]': 'joinAllowed() ? "var(--color-success)" : "var(--color-error)"',
+    '[style.backgroundColor]':
+      'joinAllowed() ? "var(--color-success)" : "var(--color-error)"',
     '(click)': 'showDialog($event)'
   }
 })
@@ -48,12 +63,17 @@ export class PairButtonComponent {
     this.z2m
       .devices()
       .filter(d => d.type === 'Router')
-      .filter(d => this.selectedPrefixes().some(prefix => d.friendly_name?.startsWith(prefix)))
+      .filter(d =>
+        this.selectedPrefixes().some(prefix =>
+          d.friendly_name?.startsWith(prefix)
+        )
+      )
 
       .map(d => ({
         friendly_name: d.friendly_name,
         ieee_address: d.ieee_address
-      })).sort((a, b) => a.friendly_name.localeCompare(b.friendly_name))
+      }))
+      .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name))
   );
   dlg: Signal<ElementRef<HTMLDialogElement>> = viewChild.required('dlg');
 
@@ -83,11 +103,17 @@ export class PairButtonComponent {
   showDialog = (ev: MouseEvent) => {
     const div = this.elm.querySelector('div.pbWrapper');
     // only handle clicks on the button or things inside the wrapper, exclude the dialog itself
-    if (this.elm !== ev.target && div !== ev.target && !div?.contains(ev.target as Node)) {
+    if (
+      this.elm !== ev.target &&
+      div !== ev.target &&
+      !div?.contains(ev.target as Node)
+    ) {
       return;
     }
     // if we can join, we should switch off joining, we need no dialog for stopping.
-    this.joinAllowed() ? this.switchJoin(false) : this.dlg().nativeElement.showModal();
+    this.joinAllowed()
+      ? this.switchJoin(false)
+      : this.dlg().nativeElement.showModal();
   };
 
   joinAllowed = this.z2m.joinAllowed;
@@ -109,11 +135,14 @@ export class PairButtonComponent {
 
   switchJoin = async (allow: boolean) => {
     try {
-      const result = await this.z2m.publish('zigbee2mqtt/bridge/request/permit_join', {
-        value: allow,
-        time: allow ? 120 : 0,
-        device: this.selectedRouter()
-      });
+      const result = await this.z2m.publish(
+        'zigbee2mqtt/bridge/request/permit_join',
+        {
+          value: allow,
+          time: allow ? 120 : 0,
+          device: this.selectedRouter()
+        }
+      );
     } catch (error) {
       console.error('Error switching join:', error);
     }
@@ -123,7 +152,8 @@ export class PairButtonComponent {
 export function getPath(elm: HTMLDivElement) {
   let path = '';
   while (elm && elm.tagName !== 'BODY') {
-    const idx = Array.from(elm.parentElement?.children ?? [])?.indexOf(elm) ?? 0;
+    const idx =
+      Array.from(elm.parentElement?.children ?? [])?.indexOf(elm) ?? 0;
     path = `${elm.tagName}[${idx}]${path ? '/' : ''}${path}`.trim();
     if (elm.tagName === 'HTML') break;
     elm = elm.parentElement as HTMLDivElement;

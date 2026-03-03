@@ -1,11 +1,16 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnDestroy } from '@angular/core';
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import type { Observable} from 'rxjs';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import type { Observable } from 'rxjs';
 import { shareReplay, startWith } from 'rxjs';
 
-import type { Model} from '../sampledata.service';
+import type { Model } from '../sampledata.service';
 import { SampledataService } from '../sampledata.service';
 
 @Component({
@@ -18,28 +23,62 @@ import { SampledataService } from '../sampledata.service';
         <form [formGroup]="form" (ngSubmit)="save()">
           <label>
             <span>Name</span>
-            <input name="name" type="text" placeholder="Name" formControlName="name" />
+            <input
+              name="name"
+              type="text"
+              placeholder="Name"
+              formControlName="name"
+            />
           </label>
           <label>
             <span>Date of birth</span>
-            <input name="dob" type="date" placeholder="Date of birth" formControlName="dob" />
+            <input
+              name="dob"
+              type="date"
+              placeholder="Date of birth"
+              formControlName="dob"
+            />
           </label>
           <label>
             <span>Email Address</span>
-            <input name="email" type="email" placeholder="Email Address" formControlName="email" />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email Address"
+              formControlName="email"
+            />
           </label>
           <label>
             <span>Favorite Number</span>
-            <input name="favNumber" type="number" placeholder="Favorite Number" formControlName="favNumber" />
+            <input
+              name="favNumber"
+              type="number"
+              placeholder="Favorite Number"
+              formControlName="favNumber"
+            />
           </label>
           <label>
-            <span><input name="admin" type="checkbox" formControlName="admin" /> Admin</span>
+            <span
+              ><input name="admin" type="checkbox" formControlName="admin" />
+              Admin</span
+            >
           </label>
           <label>
             <span>Level {{ level$ | async }}</span>
-            <input name="level" type="range" min="1" max="5" formControlName="level" />
+            <input
+              name="level"
+              type="range"
+              min="1"
+              max="5"
+              formControlName="level"
+            />
           </label>
-          <button type="cancel" (click)="updateForm(data); $event.preventDefault()">Reset form</button>
+          <button
+            type="cancel"
+            (click)="updateForm(data); $event.preventDefault()"
+          >
+            Reset form
+          </button>
           <button type="submit" [disabled]="!form.valid">Submit</button>
         </form>
       </main>
@@ -65,7 +104,9 @@ export default class ReactiveComponent implements OnDestroy {
 
   sub = this.data$.subscribe(data => {
     this.updateForm(data);
-    this.level$ = this.form.get('level')!.valueChanges.pipe(startWith(data.level));
+    this.level$ = this.form
+      .get('level')!
+      .valueChanges.pipe(startWith(data.level));
   });
 
   updateForm(data: Model) {
@@ -83,7 +124,9 @@ export default class ReactiveComponent implements OnDestroy {
   }
 
   save() {
-    console.log(`saving reactive ${JSON.stringify(this.form.value, undefined, 2)}`);
+    console.log(
+      `saving reactive ${JSON.stringify(this.form.value, undefined, 2)}`
+    );
     const dob = new Date(this.form.value.dob!);
     this.ds.save({ ...this.form.value, dob } as any);
   }

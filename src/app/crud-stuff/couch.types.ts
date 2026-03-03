@@ -1,5 +1,3 @@
-
-
 export interface CouchUpdate {
   ok: boolean;
   id: string;

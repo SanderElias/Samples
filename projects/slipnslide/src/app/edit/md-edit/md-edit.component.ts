@@ -1,8 +1,24 @@
-import { Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+  inject
+} from '@angular/core';
 import Editor from '@toast-ui/editor';
 // import { safeDump } from 'js-yaml';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  tap
+} from 'rxjs/operators';
 
 const styles = [
   'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css',
@@ -82,7 +98,9 @@ export class MdEditComponent implements OnInit, OnDestroy {
 
 function loadCss(href): Promise<void> {
   return new Promise((resolve, reject) => {
-    const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+    const links = Array.from(
+      document.querySelectorAll('link[rel="stylesheet"]')
+    );
     if (links.find((e: HTMLLinkElement) => e.href === href) === undefined) {
       const lnk = document.createElement('link');
       const loaded = () => {

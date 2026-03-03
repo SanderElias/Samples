@@ -1,8 +1,17 @@
-import { afterRenderEffect, Component, computed, ElementRef, inject, model, NgZone } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  model,
+  NgZone
+} from '@angular/core';
 
 import type { Cell } from '../cells.component';
 
-const clampedRandom = (min: number, max: number) => Math.round(Math.random() * (max - min)) + min;
+const clampedRandom = (min: number, max: number) =>
+  Math.round(Math.random() * (max - min)) + min;
 
 @Component({
   selector: 'se-cell',
@@ -22,7 +31,12 @@ export class CellComponent {
   id = computed(() => this.cellData().id);
   alive = computed(() => this.cellData().alive);
   setBg = () =>
-    this.zone.runOutsideAngular(() => this.elm.style.setProperty('--cellBg', this.alive() ? this.aliveColor : this.deadColor));
+    this.zone.runOutsideAngular(() =>
+      this.elm.style.setProperty(
+        '--cellBg',
+        this.alive() ? this.aliveColor : this.deadColor
+      )
+    );
 
   // update the DOM when the cell dies or resurrects.
   // dummy = effect(() => this.setBg());

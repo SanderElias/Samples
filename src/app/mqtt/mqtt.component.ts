@@ -10,10 +10,14 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { deepEqual } from '@se-ng/signal-utils';
 import { EMPTY } from 'rxjs';
 
+import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
 
 import { PairButtonComponent } from './pair-button/pair-button.component';
-import { extractPrefix, PowerMeterComponent } from './power-meter/power-meter.component';
+import {
+  extractPrefix,
+  PowerMeterComponent
+} from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { persistentSignal } from './util/idbstorage';
 import { MqttService } from './mqtt.service';
@@ -24,47 +28,59 @@ export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 
 @Component({
   selector: 'se-mqtt',
-  imports: [PrettyJson, PowerMeterComponent, PairButtonComponent, StackedPerComponent],
+  imports: [
+    PrettyJson,
+    PowerMeterComponent,
+    PairButtonComponent,
+    StackedPerComponent,
+    AuthenticadedUserOnlyComponent
+  ],
   template: `
-    <details>
-      <summary>Settings</summary>
-      <div class="zigbee-prefixes">
-        @for (pf of zigbeePrefixes; track $index) {
-          <label>
-            <input type="checkbox" [checked]="selectedPrefixes().includes(pf)" (change)="checkPf(pf)" />
-            {{ pf }}
-          </label>
+    <authenticated-user-only>
+      <details>
+        <summary>Settings</summary>
+        <div class="zigbee-prefixes">
+          @for (pf of zigbeePrefixes; track $index) {
+            <label>
+              <input
+                type="checkbox"
+                [checked]="selectedPrefixes().includes(pf)"
+                (change)="checkPf(pf)"
+              />
+              {{ pf }}
+            </label>
+          }
+        </div>
+        <div class="toolbar">
+          <select (change)="selected.set($any($event.target).value)">
+            @for (device of deviceList(); track device.name) {
+              <option [value]="device.name">{{ device.name }}</option>
+            }
+          </select>
+          <select (change)="filter.set($any($event.target).value)">
+            @for (type of deviceTypes(); track type[0]) {
+              <option [value]="type[0]">{{ type[1] }}</option>
+            }
+          </select>
+          <label><input #sd type="checkbox" />show details</label>
+        </div>
+        <se-stacked-per [data]="powerUsage()" />
+        @if (sd.checked) {
+          <div class="grid">
+            <!-- selectedDevice.value()| json }}</code></pre> -->
+            <pretty-json [json]="selectedDevice.value()" />
+            <pretty-json [json]="selectedDetails()" />
+          </div>
+        }
+      </details>
+      <div class="devGrid">
+        <se-pair-button [selectedPrefixes]="selectedPrefixes()" />
+
+        @for (device of powerMeters(); track device.ieee_address) {
+          <power-meter [ieeeAddress]="device.ieee_address" />
         }
       </div>
-      <div class="toolbar">
-        <select (change)="selected.set($any($event.target).value)">
-          @for (device of deviceList(); track device.name) {
-            <option [value]="device.name">{{ device.name }}</option>
-          }
-        </select>
-        <select (change)="filter.set($any($event.target).value)">
-          @for (type of deviceTypes(); track type[0]) {
-            <option [value]="type[0]">{{ type[1] }}</option>
-          }
-        </select>
-        <label><input #sd type="checkbox" />show details</label>
-      </div>
-      <se-stacked-per [data]="powerUsage()" />
-      @if (sd.checked) {
-        <div class="grid">
-          <!-- selectedDevice.value()| json }}</code></pre> -->
-          <pretty-json [json]="selectedDevice.value()" />
-          <pretty-json [json]="selectedDetails()" />
-        </div>
-      }
-    </details>
-    <div class="devGrid">
-      <se-pair-button [selectedPrefixes]="selectedPrefixes()" />
-
-      @for (device of powerMeters(); track device.ieee_address) {
-        <power-meter [ieeeAddress]="device.ieee_address" />
-      }
-    </div>
+    </authenticated-user-only>
   `,
   styleUrl: './mqtt.component.css',
   providers: [MqttService, ZigbeeService]
@@ -78,7 +94,10 @@ export class MqttComponent {
   readonly filter = signal<string | undefined>(undefined);
   readonly devices = this.#z2m.devices;
 
-  readonly selectedPrefixes = persistentSignal<ZigbeePrefixes[]>('defaultSelectedPrefixes', ['e&m', 'kamp']);
+  readonly selectedPrefixes = persistentSignal<ZigbeePrefixes[]>(
+    'defaultSelectedPrefixes',
+    ['e&m', 'kamp']
+  );
 
   readonly zigbeePrefixes = zigbeePrefixes;
 
@@ -96,7 +115,13 @@ export class MqttComponent {
   readonly deviceList = computed(
     () => {
       const devices = this.devices();
-      return devices.map(device => ({ name: device.friendly_name || device.ieee_address })).sort() ?? [];
+      return (
+        devices
+          .map(device => ({
+            name: device.friendly_name || device.ieee_address
+          }))
+          .sort((a, b) => a.name.localeCompare(b.name)) ?? []
+      );
     },
     { equal: deepEqual }
   );
@@ -134,13 +159,25 @@ export class MqttComponent {
   readonly powerMeters = computed(
     () =>
       this.devices()
-        ?.filter(d => d.definition?.exposes?.some(e => e.property === 'power' && e.type === 'numeric'))
-        .filter(d => this.selectedPrefixes().some(prefix => d.friendly_name?.startsWith(prefix) || !d.friendly_name?.includes('/')))
+        ?.filter(d =>
+          d.definition?.exposes?.some(
+            e => e.property === 'power' && e.type === 'numeric'
+          )
+        )
+        .filter(d =>
+          this.selectedPrefixes().some(
+            prefix =>
+              d.friendly_name?.startsWith(prefix) ||
+              !d.friendly_name?.includes('/')
+          )
+        )
         .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name)) ?? []
   );
 
   devNames = computed(() => {
-    const result = this.powerMeters().map(d => d.friendly_name || d.ieee_address);
+    const result = this.powerMeters().map(
+      d => d.friendly_name || d.ieee_address
+    );
     return result;
   });
 
@@ -148,7 +185,10 @@ export class MqttComponent {
 
   readonly powerUse = computed(() => {
     const allStates = this.allStates.value() ?? [];
-    const result: Record<string, { power: number; energy: number; current: number }> = {};
+    const result: Record<
+      string,
+      { power: number; energy: number; current: number }
+    > = {};
     for (const state of allStates) {
       const prefix = extractPrefix(state.friendly_name);
       result[prefix] ??= { power: 0, energy: 0, current: 0 }; // Initialize with 0
@@ -171,7 +211,9 @@ export class MqttComponent {
     const devices = this.devices();
     const selected = this.selected();
     if (!selected) return undefined;
-    return devices?.find(d => d.friendly_name === selected || d.ieee_address === selected);
+    return devices?.find(
+      d => d.friendly_name === selected || d.ieee_address === selected
+    );
   });
 
   readonly selectedDevice = rxResource({

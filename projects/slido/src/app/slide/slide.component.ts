@@ -29,7 +29,7 @@ const mm = import('micromark');
   `,
   styleUrl: './slide.component.css',
   encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
  * @description SlideComponent is a standalone component that renders a slide
@@ -62,8 +62,6 @@ export class SlideComponent {
     const html = micromark(content, { allowDangerousHtml: true });
     return this.san.bypassSecurityTrustHtml(html);
   }, '');
-
-
 
   _ = afterRenderEffect({
     read: () => {

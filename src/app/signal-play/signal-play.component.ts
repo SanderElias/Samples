@@ -29,7 +29,9 @@ export default class SignalPlayComponent {
 
   // $street = linkedSignal(this.$user, user => user.address.street);
 
-  $availableUserCount = computed(() => this.jph.usersResource.value()?.length ?? 0);
+  $availableUserCount = computed(
+    () => this.jph.usersResource.value()?.length ?? 0
+  );
 
   relId = (n = 1) => {
     const currentId = +this.id() || 0;

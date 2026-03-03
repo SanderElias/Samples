@@ -32,7 +32,8 @@ describe('Objects from path', () => {
   // Detailed invalid-path scenarios are tested by the path parsing tests (see `path-to-array.spec.ts`).
   // This avoids duplicating parsing tests while ensuring `objFromPath`'s error handling is covered.
   it('throws on empty path (coverage)', () => {
-    expect(() => objFromPath('', 1)).toThrowError(`[objFromPath] Invalid path: "", can't be parsed.`);
+    expect(() => objFromPath('', 1)).toThrowError(
+      `[objFromPath] Invalid path: "", can't be parsed.`
+    );
   });
-
 });

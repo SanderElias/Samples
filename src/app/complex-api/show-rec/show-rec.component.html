@@ -7,7 +7,11 @@
           <details>
             <summary>
               {{ rec.name || rec.title }}
-              <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
+              <button
+                (click)="selected.emit([key(item), rec.name || rec.title])"
+              >
+                Select
+              </button>
             </summary>
             <app-show-rec [record]="rec"></app-show-rec>
           </details>
@@ -19,7 +23,11 @@
           <details>
             <summary>
               {{ rec.name || rec.title }}
-              <button (click)="selected.emit([key(item), rec.name || rec.title])">Select</button>
+              <button
+                (click)="selected.emit([key(item), rec.name || rec.title])"
+              >
+                Select
+              </button>
             </summary>
             <app-show-rec [record]="rec"></app-show-rec>
           </details>

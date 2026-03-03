@@ -1,5 +1,11 @@
-import type { OnInit} from '@angular/core';
-import { Component, computed, EventEmitter, input, Output } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  EventEmitter,
+  input,
+  Output
+} from '@angular/core';
 
 interface Record {
   name: string;

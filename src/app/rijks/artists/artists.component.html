@@ -5,7 +5,11 @@
       <li>
         <!-- <a [href]='piece.links.web' target="_blank">{{piece.title}}</a> -->
         @if (piece.hasImage) {
-          <img (click)="raki.loadDetail(piece.objectNumber)" [title]="piece.longTitle" [src]="piece.headerImage.url" />
+          <img
+            (click)="raki.loadDetail(piece.objectNumber)"
+            [title]="piece.longTitle"
+            [src]="piece.headerImage.url"
+          />
         }
       </li>
     }

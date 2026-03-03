@@ -7,7 +7,8 @@ export const routes: Routes = [
   },
   {
     path: 'list',
-    loadComponent: () => import('./device-list.component').then(m => m.DeviceListComponent)
+    loadComponent: () =>
+      import('./device-list.component').then(m => m.DeviceListComponent)
   }
 ];
 

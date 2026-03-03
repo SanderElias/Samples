@@ -1,8 +1,24 @@
 import { ient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import fm from 'front-matter';
-import { combineLatest, EMPTY, forkJoin, Observable, ReplaySubject, Subject } from 'rxjs';
-import { catchError, concatMap, debounceTime, map, repeat, shareReplay, take, tap } from 'rxjs/operators';
+import {
+  combineLatest,
+  EMPTY,
+  forkJoin,
+  Observable,
+  ReplaySubject,
+  Subject
+} from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  map,
+  repeat,
+  shareReplay,
+  take,
+  tap
+} from 'rxjs/operators';
 import { stringify } from 'yaml';
 
 // import { safeDump } from 'js-yaml';
@@ -46,21 +62,25 @@ export class SlidesService {
       concatMap(files =>
         forkJoin(
           files.map(filename =>
-            this.http.get(`http://localhost:8201/slides/${filename}`, { responseType: 'text' }).pipe(
-              catchError(e => {
-                console.log(e);
-                return EMPTY;
-              }),
-              map(rawContent => {
-                const { attributes, body } = fm(rawContent);
-                return {
-                  filename,
-                  yaml: attributes as SlideHeader,
-                  markdown: body,
-                  position: attributes['position'] || 999
-                };
+            this.http
+              .get(`http://localhost:8201/slides/${filename}`, {
+                responseType: 'text'
               })
-            )
+              .pipe(
+                catchError(e => {
+                  console.log(e);
+                  return EMPTY;
+                }),
+                map(rawContent => {
+                  const { attributes, body } = fm(rawContent);
+                  return {
+                    filename,
+                    yaml: attributes as SlideHeader,
+                    markdown: body,
+                    position: attributes['position'] || 999
+                  };
+                })
+              )
           )
         )
       ),
@@ -79,7 +99,9 @@ ${stringify(slide.yaml)}---
 ${slide.markdown.trimStart()}
 `;
         // this.http.put(`http://localhost:8201/slides/${slide.filename}`, newText).subscribe();
-        const newSlides = slides.map(sl => (sl.filename === slide.filename ? slide : sl));
+        const newSlides = slides.map(sl =>
+          sl.filename === slide.filename ? slide : sl
+        );
         this.slides.next(newSlides);
       }),
       repeat()
@@ -91,6 +113,8 @@ ${slide.markdown.trimStart()}
   }
 
   getByFilename(name: string): Observable<Slide> {
-    return this.slides$.pipe(map(files => files.find(slide => slide.filename === name)));
+    return this.slides$.pipe(
+      map(files => files.find(slide => slide.filename === name))
+    );
   }
 }

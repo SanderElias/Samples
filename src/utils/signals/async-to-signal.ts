@@ -1,8 +1,12 @@
-import type { CreateComputedOptions, Signal, WritableSignal } from '@angular/core';
+import type {
+  CreateComputedOptions,
+  Signal,
+  WritableSignal
+} from '@angular/core';
 import { DestroyRef, inject, isSignal, signal } from '@angular/core';
 import type { ToObservableOptions } from '@angular/core/rxjs-interop';
 import { toObservable } from '@angular/core/rxjs-interop';
-import type { Observable} from 'rxjs';
+import type { Observable } from 'rxjs';
 import { from, isObservable, of, switchMap } from 'rxjs';
 
 type Prettify<T> = {
@@ -19,9 +23,16 @@ export interface DataResultError {
   loading: false;
   error: any;
 }
-export type DataResult<T> = Prettify<DataResultInitial | DataResultSucces<T> | DataResultError>;
+export type DataResult<T> = Prettify<
+  DataResultInitial | DataResultSucces<T> | DataResultError
+>;
 
-export type AsyncInput<I> = Signal<I> | WritableSignal<I> | Observable<I> | Promise<I> | I;
+export type AsyncInput<I> =
+  | Signal<I>
+  | WritableSignal<I>
+  | Observable<I>
+  | Promise<I>
+  | I;
 /**
  *
  * @param input Signal, promise or observable with the value to feed to the loader function
@@ -34,7 +45,9 @@ export type AsyncInput<I> = Signal<I> | WritableSignal<I> | Observable<I> | Prom
  */
 export function asyncToSignal<I, T>(
   input: AsyncInput<I>,
-  loader: (start: I) => Observable<DataResult<T> | T> | Promise<DataResult<T> | T>,
+  loader: (
+    start: I
+  ) => Observable<DataResult<T> | T> | Promise<DataResult<T> | T>,
   options: AsyncToSignalOptions<T> = {}
 ): Signal<DataResult<T>> {
   try {
@@ -42,11 +55,14 @@ export function asyncToSignal<I, T>(
       unSub.unsubscribe();
     });
     const startData: DataResult<T> =
-      options.initialValue !== undefined ? { loading: false, data: options.initialValue } : { loading: true };
+      options.initialValue !== undefined
+        ? { loading: false, data: options.initialValue }
+        : { loading: true };
     const outputSignal = options.signalToUse ?? signal(startData);
     const start = convertToObservable(input);
     const unSub = start.pipe(switchMap(loader)).subscribe({
-      next: data => outputSignal.set(isDataResult(data) ? data : { loading: false, data }),
+      next: data =>
+        outputSignal.set(isDataResult(data) ? data : { loading: false, data }),
       error: error => outputSignal.set({ loading: false, error }),
       complete: () => undefined // todo: decide if we want to handle completion
     });
@@ -55,7 +71,9 @@ export function asyncToSignal<I, T>(
   } catch (e) {
     const { message } = e as Error;
     if (message.startsWith('NG0203')) {
-      throw new Error('asyncToSignal: Must be run inside the injection context');
+      throw new Error(
+        'asyncToSignal: Must be run inside the injection context'
+      );
     } else {
       throw e;
     }
@@ -80,7 +98,8 @@ const convertToObservable = <I>(x: AsyncInput<I>): Observable<I> => {
  * @param x unknown value
  * @returns True when `x.then` is a function. We are for 99.9% sure its a promise
  */
-const isPromise = <T>(x: T | Promise<T>): x is Promise<T> => typeof (x as Promise<T>).then === 'function';
+const isPromise = <T>(x: T | Promise<T>): x is Promise<T> =>
+  typeof (x as Promise<T>).then === 'function';
 
 const isDataResult = <T>(x: T | DataResult<T>): x is DataResult<T> => {
   return typeof x === 'object' && x !== null && 'loading' in x;

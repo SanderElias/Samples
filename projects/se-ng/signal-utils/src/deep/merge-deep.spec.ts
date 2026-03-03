@@ -37,7 +37,9 @@ describe('mergeDeep function', () => {
   });
 
   it('recursively merges the objects', () => {
-    expect(mergeDeep({ a: { b: 123 } }, { a: { c: 456 } })).toEqual({ a: { b: 123, c: 456 } });
+    expect(mergeDeep({ a: { b: 123 } }, { a: { c: 456 } })).toEqual({
+      a: { b: 123, c: 456 }
+    });
   });
 
   it('does not clone property values which are not affected by the merge', () => {
@@ -80,7 +82,9 @@ describe('mergeDeep function', () => {
 
   it('replaces arrays that appear in both objects', () => {
     // this uses the default strategy, which is 'concat'
-    expect(mergeDeep(sourceA, sourceC, { iterableMergeStrategy: 'replace' })).toEqual({
+    expect(
+      mergeDeep(sourceA, sourceC, { iterableMergeStrategy: 'replace' })
+    ).toEqual({
       toiletHistory: ['poo'],
       toiletPaper: {
         numberOfSheetsLeft: 1_000,
@@ -90,20 +94,44 @@ describe('mergeDeep function', () => {
   });
 
   it('merges arrays that appear in both objects', () => {
-    expect(mergeDeep({ a: [1, , 3, , 5] }, { a: [, 2, , 4] }, { iterableMergeStrategy: 'merge' })).toEqual({
+    expect(
+      mergeDeep(
+        { a: [1, , 3, , 5] },
+        { a: [, 2, , 4] },
+        { iterableMergeStrategy: 'merge' }
+      )
+    ).toEqual({
       a: [1, 2, 3, 4, 5]
     });
   });
   it('throws when trying to merge a set with a non-set', () => {
-    expect(() => mergeDeep({ a: [1, 2, 3] }, { a: new Set([4, 5]) }, { iterableMergeStrategy: 'merge' })).toThrow();
+    expect(() =>
+      mergeDeep(
+        { a: [1, 2, 3] },
+        { a: new Set([4, 5]) },
+        { iterableMergeStrategy: 'merge' }
+      )
+    ).toThrow();
   });
   it('merges sets that appear in both objects', () => {
-    expect(mergeDeep({ a: new Set([1, 2, 3]) }, { a: new Set([4, 5]) }, { iterableMergeStrategy: 'merge' })).toEqual({
+    expect(
+      mergeDeep(
+        { a: new Set([1, 2, 3]) },
+        { a: new Set([4, 5]) },
+        { iterableMergeStrategy: 'merge' }
+      )
+    ).toEqual({
       a: new Set([1, 2, 3, 4, 5])
     });
   });
   it('replaces sets that appear in both objects', () => {
-    expect(mergeDeep({ a: new Set([1, 2, 3]) }, { a: new Set([4, 5]) }, { iterableMergeStrategy: 'replace' })).toEqual({
+    expect(
+      mergeDeep(
+        { a: new Set([1, 2, 3]) },
+        { a: new Set([4, 5]) },
+        { iterableMergeStrategy: 'replace' }
+      )
+    ).toEqual({
       a: new Set([4, 5])
     });
   });
@@ -202,7 +230,8 @@ describe('mergeDeep function', () => {
     };
 
     const mergedObject = mergeDeep(firstObject, secondObject, {
-      iterableMergeStrategy: path => (path.at(-1) === 'a' ? 'replace' : 'concat')
+      iterableMergeStrategy: path =>
+        path.at(-1) === 'a' ? 'replace' : 'concat'
     });
 
     expect(mergedObject).toEqual({
@@ -212,11 +241,19 @@ describe('mergeDeep function', () => {
   });
 
   it('skips undefined values in source when skipAssignUndefined is true', () => {
-    expect(mergeDeep({ a: 1 }, { a: undefined, b: 2 }, { skipAssignUndefined: true })).toEqual({ a: 1, b: 2 });
+    expect(
+      mergeDeep({ a: 1 }, { a: undefined, b: 2 }, { skipAssignUndefined: true })
+    ).toEqual({ a: 1, b: 2 });
   });
 
   it('assigns undefined values in source when skipAssignUndefined is false', () => {
-    expect(mergeDeep({ a: 1 }, { a: undefined, b: 2 }, { skipAssignUndefined: false })).toEqual({ a: undefined, b: 2 });
+    expect(
+      mergeDeep(
+        { a: 1 },
+        { a: undefined, b: 2 },
+        { skipAssignUndefined: false }
+      )
+    ).toEqual({ a: undefined, b: 2 });
   });
 
   it('clones Date values from source', () => {
@@ -233,11 +270,18 @@ describe('mergeDeep function', () => {
   it('merges maps', () => {
     const map = new Map([[1, 'a']]);
     const map1 = new Map([[2, 'b']]);
-    expect(mergeDeep({m:map}, { m: map1 })).toEqual({ m: new Map([[1, 'a'], [2, 'b']]) });
+    expect(mergeDeep({ m: map }, { m: map1 })).toEqual({
+      m: new Map([
+        [1, 'a'],
+        [2, 'b']
+      ])
+    });
   });
 
   it('throws when trying to merge a Map with a non-Map', () => {
-    expect(() => mergeDeep( { m: 'not a map' }, { m: new Map([[2, 'b']]) })).toThrow();
+    expect(() =>
+      mergeDeep({ m: 'not a map' }, { m: new Map([[2, 'b']]) })
+    ).toThrow();
   });
 
   it('merges Set when target is undefined', () => {
@@ -248,29 +292,43 @@ describe('mergeDeep function', () => {
   it('merges sets', () => {
     const set = new Set([1, 2, 3]);
     const set1 = new Set([4, 5]);
-    expect(mergeDeep({s:set}, { s: set1 })).toEqual({ s: new Set([1, 2, 3, 4, 5]) });
+    expect(mergeDeep({ s: set }, { s: set1 })).toEqual({
+      s: new Set([1, 2, 3, 4, 5])
+    });
   });
 
   it('throws when trying to merge a Set with a non-Set', () => {
-    expect(() => mergeDeep( { s: [1, 2] }, { s: new Set([3, 4]) }, { iterableMergeStrategy: 'merge' })).toThrow();
+    expect(() =>
+      mergeDeep(
+        { s: [1, 2] },
+        { s: new Set([3, 4]) },
+        { iterableMergeStrategy: 'merge' }
+      )
+    ).toThrow();
   });
 
   it('replaces Map when strategy is replace and target is defined', () => {
     const map1 = new Map([[1, 'a']]);
     const map2 = new Map([[2, 'b']]);
-    expect(mergeDeep({ m: map1 }, { m: map2 }, { iterableMergeStrategy: 'replace' })).toEqual({ m: map2 });
+    expect(
+      mergeDeep({ m: map1 }, { m: map2 }, { iterableMergeStrategy: 'replace' })
+    ).toEqual({ m: map2 });
   });
 
   it('replaces Map when strategy is replace and target is defined', () => {
     const map1 = new Map([[1, 'a']]);
     const map2 = new Map([[2, 'b']]);
-    expect(mergeDeep({ m: map1 }, { m: map2 }, { iterableMergeStrategy: 'replace' })).toEqual({ m: map2 });
+    expect(
+      mergeDeep({ m: map1 }, { m: map2 }, { iterableMergeStrategy: 'replace' })
+    ).toEqual({ m: map2 });
   });
 
   it('replaces Set when strategy is replace and target is defined', () => {
     const set1 = new Set([1]);
     const set2 = new Set([2]);
-    expect(mergeDeep({ s: set1 }, { s: set2 }, { iterableMergeStrategy: 'replace' })).toEqual({ s: set2 });
+    expect(
+      mergeDeep({ s: set1 }, { s: set2 }, { iterableMergeStrategy: 'replace' })
+    ).toEqual({ s: set2 });
   });
 
   it('merges with a custom iterableMergeStrategy function', () => {
@@ -291,31 +349,41 @@ describe('mergeDeep function', () => {
   it('merges arrays with sparse values', () => {
     const arr1 = [1, , 3];
     const arr2 = [, 2, , 4];
-    expect(mergeDeep({ a: arr1 }, { a: arr2 }, { iterableMergeStrategy: 'merge' })).toEqual({ a: [1, 2, 3, 4] });
+    expect(
+      mergeDeep({ a: arr1 }, { a: arr2 }, { iterableMergeStrategy: 'merge' })
+    ).toEqual({ a: [1, 2, 3, 4] });
   });
 
   it('merges nested nested arrays', () => {
     const arr1 = [[1, 2, [3, 4, [5, 6]]]];
     const arr2 = [[, , [, , [, , 7, 8]]]];
-    expect(mergeDeep(arr1, arr2, { iterableMergeStrategy: 'merge' })).toEqual([[1, 2, [3, 4, [5, 6, 7, 8]]]]);
+    expect(mergeDeep(arr1, arr2, { iterableMergeStrategy: 'merge' })).toEqual([
+      [1, 2, [3, 4, [5, 6, 7, 8]]]
+    ]);
   });
 
   it('merges nested arrays and objects', () => {
     const obj1 = { a: [{ b: 1 }] };
     const obj2 = { a: [{ c: 2 }] };
-    expect(mergeDeep(obj1, obj2, { iterableMergeStrategy: 'merge' })).toEqual({ a: [{ b: 1, c: 2 }] } as any);
+    expect(mergeDeep(obj1, obj2, { iterableMergeStrategy: 'merge' })).toEqual({
+      a: [{ b: 1, c: 2 }]
+    } as any);
   });
 
   it('invokes deep merge strategy for arrays (covers merge case)', () => {
     const target = { items: [[1], [3]] } as any;
     const source = { items: [[, 2], [4]] } as any;
-    expect(mergeDeep(target, source, { iterableMergeStrategy: 'merge' })).toEqual({ items: [[1, 2], [4]] });
+    expect(
+      mergeDeep(target, source, { iterableMergeStrategy: 'merge' })
+    ).toEqual({ items: [[1, 2], [4]] });
   });
 
   it('uses empty array when merging into undefined target (covers currentValue ?? [] branch)', () => {
     const target = {} as any;
     const source = { items: [[2], [4]] } as any;
-    expect(mergeDeep(target, source, { iterableMergeStrategy: 'merge' })).toEqual({ items: [[2], [4]] });
+    expect(
+      mergeDeep(target, source, { iterableMergeStrategy: 'merge' })
+    ).toEqual({ items: [[2], [4]] });
   });
 
   it('overwrites primitive array elements when using merge strategy', () => {
@@ -326,23 +394,35 @@ describe('mergeDeep function', () => {
 
   it('merges object elements into arrays when target element missing', () => {
     expect(
-      mergeDeep({ a: [] }, { a: [{ b: 2 }] }, { iterableMergeStrategy: 'merge' })
+      mergeDeep(
+        { a: [] },
+        { a: [{ b: 2 }] },
+        { iterableMergeStrategy: 'merge' }
+      )
     ).toEqual({ a: [{ b: 2 }] });
   });
 
   it('deep merges nested arrays when using merge strategy', () => {
     expect(
-      mergeDeep({ a: [[1]] }, { a: [[,2]] }, { iterableMergeStrategy: 'merge' })
-    ).toEqual({ a: [[1,2]] });
+      mergeDeep(
+        { a: [[1]] },
+        { a: [[, 2]] },
+        { iterableMergeStrategy: 'merge' }
+      )
+    ).toEqual({ a: [[1, 2]] });
   });
 
   it('merges top-level arrays when using merge strategy', () => {
-    expect(mergeDeep([1, , 3], [, 2, , 4], { iterableMergeStrategy: 'merge' } as any)).toEqual([1, 2, 3, 4]);
+    expect(
+      mergeDeep([1, , 3], [, 2, , 4], { iterableMergeStrategy: 'merge' } as any)
+    ).toEqual([1, 2, 3, 4]);
   });
 
   it('merges object elements at same index in arrays', () => {
     const target = [{ a: 1 }];
     const source = [{ b: 2 }];
-    expect(mergeDeep(target, source, { iterableMergeStrategy: 'merge' } as any)).toEqual([{ a: 1, b: 2 }]);
+    expect(
+      mergeDeep(target, source, { iterableMergeStrategy: 'merge' } as any)
+    ).toEqual([{ a: 1, b: 2 }]);
   });
 });

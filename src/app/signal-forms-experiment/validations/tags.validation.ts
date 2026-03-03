@@ -1,6 +1,14 @@
-import { applyEach, maxLength, minLength, patternError, required, schema, validate } from '@angular/forms/signals';
+import {
+  applyEach,
+  maxLength,
+  minLength,
+  patternError,
+  required,
+  schema,
+  validate
+} from '@angular/forms/signals';
 
-export const tagsSchema = schema<string[]>((tagsArray) => {
+export const tagsSchema = schema<string[]>(tagsArray => {
   maxLength(tagsArray, 7, { message: 'Maximum 7 tags allowed' });
   // Each tag: required, min length 2, no duplicates
   const tagSchema = schema<string>(tag => {
@@ -14,7 +22,9 @@ export const tagsSchema = schema<string[]>((tagsArray) => {
 
       for (const [tag, idx] of tags) {
         if (idx !== index && tag === tagToTest) {
-          return patternError(/.*/, { message: 'Duplicate tags are not allowed' });
+          return patternError(/.*/, {
+            message: 'Duplicate tags are not allowed'
+          });
         }
       }
     });

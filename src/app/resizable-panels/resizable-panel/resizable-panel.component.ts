@@ -1,4 +1,10 @@
-import { afterNextRender, Component, DestroyRef, ElementRef, inject } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject
+} from '@angular/core';
 
 @Component({
   selector: 'se-resizable-panel',
@@ -52,7 +58,8 @@ function path(elm) {
     ];
 
     // Trim
-    for (let i = 0; i < d.length; i++) d[i] = typeof d[i] == 'string' ? d[i].trim() : d[i];
+    for (let i = 0; i < d.length; i++)
+      d[i] = typeof d[i] == 'string' ? d[i].trim() : d[i];
 
     if (d[1] != '') d[1] = '.' + d[1].split(' ').join('.');
     if (d[2] != '') d[2] = '#' + d[2];

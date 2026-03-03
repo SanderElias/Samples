@@ -15,7 +15,6 @@ se-blogs {
     ' footer footer footer footer ';
   column-gap: var(--size-3);
 
-
   @media (width < 1050px) {
     grid-template-columns: 1fr;
     grid-template-areas:

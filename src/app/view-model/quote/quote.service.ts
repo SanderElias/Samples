@@ -64,13 +64,15 @@ function quotes(): Quote[] {
     },
 
     {
-      quote: "But Marge, valets. For once, maybe someone will call me 'sir' without adding, 'you're making a scene.'",
+      quote:
+        "But Marge, valets. For once, maybe someone will call me 'sir' without adding, 'you're making a scene.'",
       author: 'Homer Simpson',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S07E14/1162928.jpg'
     },
     {
-      quote: "Um... how can I put this delicately? I don't got enough booze in this place to make you look good.",
+      quote:
+        "Um... how can I put this delicately? I don't got enough booze in this place to make you look good.",
       author: 'Moe Szyslak',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S14E09/1093551.jpg'
@@ -108,7 +110,8 @@ function quotes(): Quote[] {
       imgSrc: 'https://frinkiac.com/img/S12E01/890848.jpg'
     },
     {
-      quote: "No, Flanders. It's, uh...a meeting of gay witches for abortion. You wouldn't be interested.",
+      quote:
+        "No, Flanders. It's, uh...a meeting of gay witches for abortion. You wouldn't be interested.",
       author: 'Homer Simpson',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S16E19/676427.jpg'
@@ -127,7 +130,8 @@ function quotes(): Quote[] {
       imgSrc: 'https://frinkiac.com/img/S03E11/1085359.jpg'
     },
     {
-      quote: "Ah, the mirthless laugh of the damned. Hold your nose, Smithers. We're going in.",
+      quote:
+        "Ah, the mirthless laugh of the damned. Hold your nose, Smithers. We're going in.",
       author: 'Mr Burns',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S03E11/1109416.jpg'
@@ -140,31 +144,36 @@ function quotes(): Quote[] {
       imgSrc: 'https://frinkiac.com/img/S06E23/561410.jpg'
     },
     {
-      quote: "You got the brains and talent to go as far as you want and when you do I'll be right there to borrow money.",
+      quote:
+        "You got the brains and talent to go as far as you want and when you do I'll be right there to borrow money.",
       author: 'Bart Simpson',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S03E18/1287978.jpg'
     },
     {
-      quote: 'Stop. We have reached the limits of what rectal probing can teach us.',
+      quote:
+        'Stop. We have reached the limits of what rectal probing can teach us.',
       author: 'Kodos',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S08E01/868033.jpg'
     },
     {
-      quote: "I've said it before, and i'll say it again: Democracy simply doesn't work.",
+      quote:
+        "I've said it before, and i'll say it again: Democracy simply doesn't work.",
       author: 'Kent Brockman',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S06E14/866081.jpg'
     },
     {
-      quote: "Ned, have you thought about one of the other major religions? They're all pretty much the same.",
+      quote:
+        "Ned, have you thought about one of the other major religions? They're all pretty much the same.",
       author: 'Reverend Lovejoy',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S07E03/1086634.jpg'
     },
     {
-      quote: 'Son, we are about to break the surly bonds of gravity and punch the face of God.',
+      quote:
+        'Son, we are about to break the surly bonds of gravity and punch the face of God.',
       author: 'Homer Simpson',
       cat: 'simpsons',
       imgSrc: 'https://frinkiac.com/img/S13E06/329871.jpg'

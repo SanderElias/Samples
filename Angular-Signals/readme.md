@@ -117,7 +117,9 @@ It is easier to show than to explain. So here is an example:
 const counter = signal(0);
 const double = computed(() => counter.value * 2);
 const triple = computed(() => double.value * 3);
-const pickOne = computed(() => (counter.value % 2 === 0 ? double.value : triple.value));
+const pickOne = computed(() =>
+  counter.value % 2 === 0 ? double.value : triple.value
+);
 
 effect(() => {
   console.log(`counter: ${counter.value}`);
@@ -148,7 +150,9 @@ class SampleComponent {
     // this is too fast for a reason.
     map(() => new Date().toISOString().split('T')[1].split('.')[0])
   );
-  color$ = this.time.pipe(map(time => (this.alarmList.includes(time) ? 'red' : 'green')));
+  color$ = this.time.pipe(
+    map(time => (this.alarmList.includes(time) ? 'red' : 'green'))
+  );
 }
 // NOTE: see disclaimer at the top.
 ```
@@ -172,7 +176,9 @@ class SampleComponent {
       map(() => new Date().toISOString().split('T')[1].split('.')[0])
     )
   );
-  color = compute(() => (this.alarmList.includes(this.time.value) ? 'red' : 'green'));
+  color = compute(() =>
+    this.alarmList.includes(this.time.value) ? 'red' : 'green'
+  );
 }
 // NOTE: see disclaimer at the top.
 ```
@@ -205,7 +211,9 @@ class SomeComponent {
    * think of this as a alternative to the @Input decorator. but then reactive.
    * I'm casting only for the example, this will be done automatically
    */
-  customerId = futureMagicalSignalFromInput('customerId', undefined) as signal<number | undefined>;
+  customerId = futureMagicalSignalFromInput('customerId', undefined) as signal<
+    number | undefined
+  >;
 
   // make a Observable stream from a signal
   customer$ = observableFromSignal(this.customerId).pipe(
@@ -228,7 +236,9 @@ class SomeComponent {
   // use the life-cycle hook signal to do something
   destroyEffect = effect(() => {
     if (this.destroy) {
-      console.log('destroying the customer signal, while destroying the component');
+      console.log(
+        'destroying the customer signal, while destroying the component'
+      );
     }
   });
 }

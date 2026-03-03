@@ -1,8 +1,8 @@
-
 export type UniqueId = string & { __brand: 'Unique identifier' };
 
 const datePartLength = Date.now().toString(36).length;
-const randomChar = () => String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+const randomChar = () =>
+  String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 // create a unique id, based on the current time, with a random character inserted between each digit.
 export const createId = (date = Date.now()) =>
   date
@@ -21,7 +21,10 @@ export const isId = (id: string): id is UniqueId => {
     return false;
   }
   const dateString = datePart(id as UniqueId);
-  if (dateString.length !== datePartLength || isNaN(datePart2Date(dateString).getTime())) {
+  if (
+    dateString.length !== datePartLength ||
+    isNaN(datePart2Date(dateString).getTime())
+  ) {
     return false;
   }
   return true;

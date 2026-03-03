@@ -13,8 +13,11 @@ class mySignal<T> {
     // add the currently running effect to the list
     const currentEffect = effects.at(-1)!;
     if (!this.#effects.has(currentEffect)) {
-      currentEffect[dispose_symbol] = currentEffect[dispose_symbol] || new Set<Function>();
-      currentEffect[dispose_symbol].add(() => this.#effects.delete(currentEffect));
+      currentEffect[dispose_symbol] =
+        currentEffect[dispose_symbol] || new Set<Function>();
+      currentEffect[dispose_symbol].add(() =>
+        this.#effects.delete(currentEffect)
+      );
       this.#effects.add(currentEffect);
     }
     return this.#value;
