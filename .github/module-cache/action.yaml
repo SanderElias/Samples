@@ -10,7 +10,7 @@ runs:
     - name: Get pnpm version from package.json
       id: get-pnpm-version
       run: |
-        echo "pnpm-version=$(node -e \"const p=require('./package.json').packageManager||''; const v=(p.split('@')[1]||'10'); console.log(v)\")" >> $GITHUB_OUTPUT
+        node -e "const p=require('./package.json').packageManager||''; const v=(p.split('@')[1]||'10'); console.log('pnpm-version='+v)" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Install pnpm
