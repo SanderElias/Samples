@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, HostBinding, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostBinding,
+  inject,
+  input
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({

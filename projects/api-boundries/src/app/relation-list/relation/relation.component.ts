@@ -1,5 +1,12 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, HostListener, Input, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  inject,
+  signal
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject, firstValueFrom } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -40,7 +47,9 @@ export class RelationComponent {
   detail = signal(false); // check if the attribute `detail` is present
 
   @HostListener('click') async onClick() {
-    const relationId = await firstValueFrom(this.relation$.pipe(pluck('id'), take(1)));
+    const relationId = await firstValueFrom(
+      this.relation$.pipe(pluck('id'), take(1))
+    );
     this.router.navigate(['/relations', relationId]);
   }
 }

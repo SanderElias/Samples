@@ -10,6 +10,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { deepEqual } from '@se-ng/signal-utils';
 import { EMPTY } from 'rxjs';
 
+import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
 
 import { PairButtonComponent } from './pair-button/pair-button.component';
@@ -21,7 +22,6 @@ import { PrettyJson } from './pretty-json/pretty-json.component';
 import { persistentSignal } from './util/idbstorage';
 import { MqttService } from './mqtt.service';
 import { ZigbeeService } from './zigbee.service';
-import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 
 export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'test'] as const;
 export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
@@ -120,7 +120,7 @@ export class MqttComponent {
           .map(device => ({
             name: device.friendly_name || device.ieee_address
           }))
-          .sort() ?? []
+          .sort((a, b) => a.name.localeCompare(b.name)) ?? []
       );
     },
     { equal: deepEqual }

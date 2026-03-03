@@ -13,7 +13,10 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
       <section>
         <h5>Products:</h5>
         @for (item of order.products; track item) {
-          <app-product-detail [productId]="item.productId" [relationId]="item.handler"></app-product-detail>
+          <app-product-detail
+            [productId]="item.productId"
+            [relationId]="item.handler"
+          ></app-product-detail>
         }
       </section>
       <app-relation [relationId]="order.processor"></app-relation>

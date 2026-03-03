@@ -10,8 +10,8 @@
 
 .mouse-indicator {
   display: none;
-  width: calc(var(--cellSize) - ( 2 * var(--gap)));
-  height: calc(var(--cellSize) - ( 2 * var(--gap)));
+  width: calc(var(--cellSize) - (2 * var(--gap)));
+  height: calc(var(--cellSize) - (2 * var(--gap)));
   pointer-events: none;
   border: 2px solid black;
   border-radius: 4px;

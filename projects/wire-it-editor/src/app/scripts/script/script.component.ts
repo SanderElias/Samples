@@ -1,11 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input
+} from '@angular/core';
 
 import { PackageJsonService } from '../../package.json.service';
 
 @Component({
   selector: 'app-script',
   imports: [],
-  template: ` <button (click)="pjs.upgrade(script[0])" [title]="script[1]">{{ script[0] }}</button> `,
+  template: `
+    <button (click)="pjs.upgrade(script[0])" [title]="script[1]">
+      {{ script[0] }}
+    </button>
+  `,
   styles: [
     `
       :host {

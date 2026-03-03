@@ -1,7 +1,12 @@
-import type { Signal} from '@angular/core';
-import { computed, Injectable, signal, type WritableSignal } from '@angular/core';
+import type { Signal } from '@angular/core';
+import {
+  computed,
+  Injectable,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 
-import type { DbRecord, Id} from './in-mem.model';
+import type { DbRecord, Id } from './in-mem.model';
 import { type NewDbRecord } from './in-mem.model';
 import { assertRecord, createId } from './in-mem-utils';
 
@@ -9,7 +14,9 @@ import { assertRecord, createId } from './in-mem-utils';
   providedIn: 'root'
 })
 export class InMemDb {
-  #db = signal<Map<Id, WritableSignal<DbRecord>>>(new Map(), { equal: () => false });
+  #db = signal<Map<Id, WritableSignal<DbRecord>>>(new Map(), {
+    equal: () => false
+  });
   #indexes = new Map<
     string,
     WritableSignal<{
@@ -86,7 +93,10 @@ export class InMemDb {
     );
   }
 
-  findByProp<T extends DbRecord>(tableName: string, predicate: (rec: T) => boolean): Signal<T | undefined> {
+  findByProp<T extends DbRecord>(
+    tableName: string,
+    predicate: (rec: T) => boolean
+  ): Signal<T | undefined> {
     const db = this.#db();
     for (const record of db.values()) {
       if (record().table.includes(tableName) && predicate(record() as T)) {
@@ -108,7 +118,10 @@ export class InMemDb {
           indexMap.set(record().id, key);
         }
       });
-      this.#indexes.set(mapId, signal({ table: tableName, sortFn, index: indexMap }));
+      this.#indexes.set(
+        mapId,
+        signal({ table: tableName, sortFn, index: indexMap })
+      );
     }
     const indexSignal = this.#indexes.get(mapId)!;
     return computed(() =>

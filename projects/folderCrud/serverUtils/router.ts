@@ -17,7 +17,11 @@ export interface Request extends IncomingMessage {
   rawData?: string;
 }
 
-type RouteHandler = (req: Request, res: ServerResponse, params?: Params) => void;
+type RouteHandler = (
+  req: Request,
+  res: ServerResponse,
+  params?: Params
+) => void;
 
 class Handler {
   types = ['GET'];
@@ -102,7 +106,8 @@ export class Router {
   route(req: IncomingMessage) {
     const url = parse(req.url!, true);
     const matcher = matchRoute(req);
-    const handler = this.handlers[Object.keys(this.handlers).find(matcher) || ''];
+    const handler =
+      this.handlers[Object.keys(this.handlers).find(matcher) || ''];
     return handler || this.checkForFile(req);
   }
 
@@ -125,7 +130,9 @@ export class Router {
   }
 }
 
-function matchRoute(req: IncomingMessage): (value: string, index: number, obj: string[]) => boolean {
+function matchRoute(
+  req: IncomingMessage
+): (value: string, index: number, obj: string[]) => boolean {
   return route => {
     try {
       const path = req.url || '';

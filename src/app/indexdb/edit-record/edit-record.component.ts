@@ -1,4 +1,11 @@
-import { Component, computed, inject, input, output, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  output,
+  signal
+} from '@angular/core';
 
 import { EvSourceDbService } from '../ev-source-db.service';
 import type { DbRecord } from '../event-source.types';
@@ -6,7 +13,13 @@ import { type UniqueId } from '../unique-id-helpers';
 
 import { FieldEditComponent } from './field-edit/field-edit.component';
 
-export type FieldType = 'string' | 'number' | 'boolean' | 'symbol' | 'date' | 'nonEditable';
+export type FieldType =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'symbol'
+  | 'date'
+  | 'nonEditable';
 
 @Component({
   selector: 'se-edit-record',
@@ -25,11 +38,17 @@ export type FieldType = 'string' | 'number' | 'boolean' | 'symbol' | 'date' | 'n
       @for (prop of $availableProps(); track prop) {
         <label>
           <span>{{ prop.name }}</span>
-          <se-field-edit [(data)]="$state().$data()[prop.name]" [type]="prop.type" />
+          <se-field-edit
+            [(data)]="$state().$data()[prop.name]"
+            [type]="prop.type"
+          />
         </label>
       }
       <label class="addProp">
-        <input [value]="$state().$newProp()" (input)="$state().$newProp.set($any($event.target).value)" />
+        <input
+          [value]="$state().$newProp()"
+          (input)="$state().$newProp.set($any($event.target).value)"
+        />
         <select #sel>
           <option value="string">string</option>
           <option value="number">number</option>
@@ -73,7 +92,10 @@ export class EditRecordComponent {
   });
 
   $availableProps = computed(() => {
-    const available = new Set([...this.fields(), ...Object.keys(this.$state().$data())]);
+    const available = new Set([
+      ...this.fields(),
+      ...Object.keys(this.$state().$data())
+    ]);
     for (const prop of this.excludedFields) {
       available.delete(prop);
     }

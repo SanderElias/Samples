@@ -36,7 +36,9 @@ export class RelationDetailComponent {
   );
   orders$ = this.relation$.pipe(
     pluck('orders'),
-    switchMap(orders => zip(...orders.map(order => this.getOrderWithDetail(order)))),
+    switchMap(orders =>
+      zip(...orders.map(order => this.getOrderWithDetail(order)))
+    ),
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
@@ -52,7 +54,12 @@ export class RelationDetailComponent {
           this.getOrderProducts(order.products)
         )
       ),
-      map(([order, processor, transporter, products]) => ({ ...order, processor, transporter, products })),
+      map(([order, processor, transporter, products]) => ({
+        ...order,
+        processor,
+        transporter,
+        products
+      })),
       take(1)
     );
   }
@@ -60,8 +67,14 @@ export class RelationDetailComponent {
   getOrderProducts(p: { productId: string; handler: string }[]) {
     return combineLatest(
       p.map(({ handler, productId }) => {
-        return combineLatest([this.product.getProduct(productId), this.relation.getRelation(handler)]).pipe(
-          map(([product, handler]) => ({ productName: product.name, handlerName: handler.name }))
+        return combineLatest([
+          this.product.getProduct(productId),
+          this.relation.getRelation(handler)
+        ]).pipe(
+          map(([product, handler]) => ({
+            productName: product.name,
+            handlerName: handler.name
+          }))
         );
       })
     );

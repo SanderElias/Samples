@@ -1,6 +1,9 @@
 <h1>User list demo</h1>
 @if (viewModel$ | async; as vm) {
-  <input type="text" (input)="setState('searchText', $any($event.target).value)" />
+  <input
+    type="text"
+    (input)="setState('searchText', $any($event.target).value)"
+  />
   <span>{{ vm.total }} found: {{ vm.found }} {{ vm.pages }}</span>
   <table>
     <thead>

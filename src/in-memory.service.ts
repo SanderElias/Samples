@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 
-const randomChar = () => String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-const createId = () => Date.now().toString(36) + '-' + randomChar() + randomChar() + randomChar();
+const randomChar = () =>
+  String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+const createId = () =>
+  Date.now().toString(36) + '-' + randomChar() + randomChar() + randomChar();
 
 export type RowType = 'contact' | 'product' | 'order';
 
@@ -49,13 +51,18 @@ export class InMemoryDataService {
     if (!current) {
       throw new Error(`No row with id: ${row.id}`);
     }
-    this.inMemDb.set(row.id, dropUndefinedFieldsFromRow({ ...current, ...row }));
+    this.inMemDb.set(
+      row.id,
+      dropUndefinedFieldsFromRow({ ...current, ...row })
+    );
   }
   delete(id: Id) {
     this.inMemDb.delete(id);
   }
   list(table: string) {
-    return Array.from(this.inMemDb.values()).filter(row => row.table.includes(table));
+    return Array.from(this.inMemDb.values()).filter(row =>
+      row.table.includes(table)
+    );
   }
 
   // for easy serialization
@@ -71,7 +78,6 @@ export class InMemoryDataService {
     return this.toJson();
   }
 }
-
 
 function dropUndefinedFieldsFromRow(row: Row): Row {
   const cleanedRow: Row = { id: row.id, table: row.table };

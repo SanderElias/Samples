@@ -6,7 +6,10 @@ describe('deepDiff (signal-utils)', () => {
     const a = { user: { name: 'Alice', age: 30 }, tags: ['x'] } as any;
     const b = { user: { name: 'Alice', age: 31 }, tags: ['x', 'y'] } as any;
     // current behavior: sparse arrays for changes
-    expect(deepDiff(a, b)).toEqual({ user: { age: 31 }, tags: [undefined, 'y'] });
+    expect(deepDiff(a, b)).toEqual({
+      user: { age: 31 },
+      tags: [undefined, 'y']
+    });
   });
 
   it('includes keys added in b', () => {

@@ -26,7 +26,10 @@ import { WeakRef } from './weak_ref.js';
  *
  * @developerPreview
  */
-export function computed<T>(computation: () => T, equal: ValueEqualityFn<T> = defaultEquals): Signal<T> {
+export function computed<T>(
+  computation: () => T,
+  equal: ValueEqualityFn<T> = defaultEquals
+): Signal<T> {
   const node = new ComputedImpl(computation, equal);
   return markSignal(node.signal.bind(node));
 }
@@ -96,7 +99,11 @@ class ComputedImpl<T> implements Producer, Consumer {
 
     // The current value is stale. Check whether we need to produce a new one.
 
-    if (this.value !== UNSET && this.value !== COMPUTING && !consumerPollValueStatus(this)) {
+    if (
+      this.value !== UNSET &&
+      this.value !== COMPUTING &&
+      !consumerPollValueStatus(this)
+    ) {
       // Even though we were previously notified of a potential dependency update, all of
       // our dependencies report that they have not actually changed in value, so we can
       // resolve the stale state without needing to recompute the current value.
@@ -133,7 +140,12 @@ class ComputedImpl<T> implements Producer, Consumer {
 
     this.stale = false;
 
-    if (oldValue !== UNSET && oldValue !== ERRORED && newValue !== ERRORED && this.equal(oldValue, newValue)) {
+    if (
+      oldValue !== UNSET &&
+      oldValue !== ERRORED &&
+      newValue !== ERRORED &&
+      this.equal(oldValue, newValue)
+    ) {
       // No change to `valueVersion` - old and new values are
       // semantically equivalent.
       this.value = oldValue;

@@ -1,7 +1,7 @@
 import { Component, input, model } from '@angular/core';
 import {
-  transformedValue,
-  type FormValueControl
+  type FormValueControl,
+  transformedValue
 } from '@angular/forms/signals';
 
 const defaultMaxLength = 5;

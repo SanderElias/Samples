@@ -1,5 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { SlidesService } from '../../slides.service';

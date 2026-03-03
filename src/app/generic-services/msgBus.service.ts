@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import type { Observable} from 'rxjs';
+import type { Observable } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
 import { filter, pluck, share } from 'rxjs/operators';
 
@@ -88,9 +88,16 @@ export class MsgBusSerrvice {
    * `const authEvents$ = filteredObservable<AuthMessage>(MsgBusType.auth)`
    */
 
-  filteredObservable = <T>(filterOn: MsgBusType, subTypeToFilter?: string): Observable<T> => {
+  filteredObservable = <T>(
+    filterOn: MsgBusType,
+    subTypeToFilter?: string
+  ): Observable<T> => {
     return this.messages$.pipe(
-      filter(m => m.type === filterOn && (subTypeToFilter === undefined || m.subType === subTypeToFilter)),
+      filter(
+        m =>
+          m.type === filterOn &&
+          (subTypeToFilter === undefined || m.subType === subTypeToFilter)
+      ),
       pluck('payload')
       // tap<T>(pl => console.log('msg', type, subType, pl))
     );

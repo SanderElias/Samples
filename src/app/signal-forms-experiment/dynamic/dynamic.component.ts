@@ -26,7 +26,7 @@ export interface CarShape {
 export type Shape = PersonShape | CompanyShape | AnimalShape | CarShape;
 import { JsonPipe } from '@angular/common';
 import { Component, signal, type WritableSignal } from '@angular/core';
-import { form, FormField, type FieldTree } from '@angular/forms/signals';
+import { type FieldTree, form, FormField } from '@angular/forms/signals';
 import { isObject } from '@se-ng/signal-utils';
 
 @Component({

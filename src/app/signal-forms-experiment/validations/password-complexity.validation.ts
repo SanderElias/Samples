@@ -1,6 +1,12 @@
-import { minLength, required, schema, validate, type ValidationError } from '@angular/forms/signals';
+import {
+  minLength,
+  required,
+  schema,
+  validate,
+  type ValidationError
+} from '@angular/forms/signals';
 
-export const passwordComplexitySchema = schema<string>((password) => {
+export const passwordComplexitySchema = schema<string>(password => {
   required(password, { message: 'can not be empty' });
   minLength(password, 6, { message: 'must be at least 6 characters' });
   validate(password, ({ value }) => {
@@ -8,7 +14,10 @@ export const passwordComplexitySchema = schema<string>((password) => {
     const errors: ValidationError[] = [];
     if (!/[A-Z]/.test(v)) {
       // show how to use an object to create a custom error
-      errors.push({kind:'complexity', message: 'must contain an uppercase letter' });
+      errors.push({
+        kind: 'complexity',
+        message: 'must contain an uppercase letter'
+      });
     }
     if (!/[a-z]/.test(v)) {
       // show how to create a custom wrapper function for custom errors

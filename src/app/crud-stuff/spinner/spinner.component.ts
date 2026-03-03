@@ -4,7 +4,12 @@ import { Component, input } from '@angular/core';
   selector: 'se-spinner',
   imports: [],
   template: `@if (show()) {
-    <svg width="32" height="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <style>
         .spinner_EUy1 {
           animation: spinner_grm3 1.2s infinite;

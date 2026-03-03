@@ -26,7 +26,7 @@ export {
   isTemporalPlainMonthDay,
   isTemporalPlainTime,
   isTemporalPlainYearMonth,
-  isTemporalZonedDateTime,
+  isTemporalZonedDateTime
 } from './guards/is-temporal';
 export type { TemporalType, Temporal } from './guards/is-temporal';
 

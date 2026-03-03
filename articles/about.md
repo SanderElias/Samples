@@ -26,8 +26,6 @@ If you want to reach out to me:
 
 I write my articles in markdown. I use [marked](https://marked.js.org/) to convert the markdown to HTML. Then I use Angular with SSG to generate static HTML pages for all of my articles. Finally I host it all on GitHub pages.
 
-
-
 ## Conclusion
 
 What? I need a conclusion here? I have no idea what to write here. Just read the articles. Enjoy.

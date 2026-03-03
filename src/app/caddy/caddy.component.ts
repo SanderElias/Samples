@@ -1,5 +1,8 @@
 import { httpResource } from '@angular/common/http';
 import { Component, computed } from '@angular/core';
+
+import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
+
 import type {
   CaddyConfig,
   CaddyRoute,
@@ -7,7 +10,6 @@ import type {
   Handler,
   MatchCondition
 } from './caddy-config-types';
-import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 
 @Component({
   selector: 'se-caddy',

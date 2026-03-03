@@ -1,18 +1,15 @@
 import { Observable, retry } from 'rxjs';
 import { SSE } from 'sse.js';
+
 import type { CouchDbEvent } from './couch.types';
 
-export function couchEventLister(
-  base = 'http://localhost:5984',
-  db: string,
-) {
+export function couchEventLister(base = 'http://localhost:5984', db: string) {
   const dbUrl = `${base}/${db}`;
 
   return new Observable<CouchDbEvent>(subscriber => {
     const eventSource = new SSE(
       `${dbUrl}/_changes?feed=eventsource&include_docs=false&since=now&heartbeat=3000`,
       {
-
         withCredentials: true,
         autoReconnect: true, // Enable auto-reconnect
         reconnectDelay: 1000, // Wait 1 seconds before reconnecting

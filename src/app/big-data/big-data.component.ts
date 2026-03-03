@@ -1,8 +1,15 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
-import type { DemoUser} from 'src/app/demo-users.service';
+import {
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
+import type { DemoUser } from 'src/app/demo-users.service';
 import { DemoUserService } from 'src/app/demo-users.service';
 
 interface LocalState {
@@ -25,7 +32,9 @@ interface LocalState {
     @if (vm$ | async; as vm) {
       <section>
         <!-- show how many users are currently available, and how much e have done. -->
-        Available users:{{ vm.users.length }} (Loading done:{{ vm.done }}%)<br />
+        Available users:{{ vm.users.length }} (Loading done:{{
+          vm.done
+        }}%)<br />
         <!-- update the search property in the state when the user inputs something. -->
         <label>Search <input (input)="setProp('search', $event)" /></label>
         <div id="buttons">
@@ -34,7 +43,9 @@ interface LocalState {
           use a button to update the 'sort' state
         -->
           <button value="" (click)="setProp('sort', $event)">none</button>
-          <button value="username" (click)="setProp('sort', $event)">username</button>
+          <button value="username" (click)="setProp('sort', $event)">
+            username
+          </button>
           <button value="email" (click)="setProp('sort', $event)">email</button>
           <button value="id" (click)="setProp('sort', $event)">id</button>
         </div>
@@ -45,7 +56,11 @@ interface LocalState {
           I'm using the state to set the max,
           and using the setProp again to update the position property in the state$
         -->
-          <input type="range" [max]="vm.users.length / vm.state.pageSize" (input)="setProp('position', $event)" />
+          <input
+            type="range"
+            [max]="vm.users.length / vm.state.pageSize"
+            (input)="setProp('position', $event)"
+          />
           <table>
             <tbody>
               <!--
@@ -112,7 +127,11 @@ export class BigDataComponent {
          * as the list is hot, and will grow, this is a bad idea, and will
          * block the stack. This is done here anyway to be able to show the impact of doing this
          */
-        map(users => (sort === '' ? users : users.sort((a, b) => (a[sort]! < b[sort]! ? -1 : 1))))
+        map(users =>
+          sort === ''
+            ? users
+            : users.sort((a, b) => (a[sort]! < b[sort]! ? -1 : 1))
+        )
       )
     )
   );
@@ -137,7 +156,9 @@ export class BigDataComponent {
      * Merge in the state with the complete (or partial) user list.
      * the find users will take the state, and the users-list and return what needs to be displayed for this page.
      */
-    mergeMap(state => this.users$.pipe(map(users => this.findFirst(users, state))))
+    mergeMap(state =>
+      this.users$.pipe(map(users => this.findFirst(users, state)))
+    )
   );
 
   /** wrap everything into a view model we can use in the view */
@@ -174,7 +195,10 @@ export class BigDataComponent {
    * takes a property-name from the state, and an event.
    * In here I'm casting the event to `ev: { target: HTMLInputElement }` to make it easier to consume
    */
-  setProp<T extends keyof LocalState>(prop: T, ev: MouseEvent | KeyboardEvent | InputEvent | Event) {
+  setProp<T extends keyof LocalState>(
+    prop: T,
+    ev: MouseEvent | KeyboardEvent | InputEvent | Event
+  ) {
     /** extract the dom element from the event. */
     const domElement = ev.target as HTMLInputElement;
     /** extract the current state from the behavior subject */

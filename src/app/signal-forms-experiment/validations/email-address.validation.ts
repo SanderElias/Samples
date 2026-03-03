@@ -1,5 +1,10 @@
 import { resource } from '@angular/core';
-import { patternError, schema, validate, validateAsync } from '@angular/forms/signals';
+import {
+  patternError,
+  schema,
+  validate,
+  validateAsync
+} from '@angular/forms/signals';
 
 /**
  * check email address format
@@ -10,13 +15,16 @@ export const emailAddress = schema<string>(emailAddress => {
   validate(emailAddress, ({ value }) => {
     const v = value() as string;
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) {
-      return patternError(/^[^@\s]+@[^@\s]+\.[^@\s]+$/, { message: 'Invalid email address' });
+      return patternError(/^[^@\s]+@[^@\s]+\.[^@\s]+$/, {
+        message: 'Invalid email address'
+      });
     }
     return null;
   });
 
   validateAsync(emailAddress, {
-    params: ({ value, state }) => (state.dirty() ? value() : undefined) as string | undefined,
+    params: ({ value, state }) =>
+      (state.dirty() ? value() : undefined) as string | undefined,
     factory: params =>
       resource({
         params,
@@ -32,7 +40,8 @@ export const emailAddress = schema<string>(emailAddress => {
       }),
     onError: err => ({
       kind: 'serverConnectionError',
-      message: 'Could not validate email address at this time\nPlease try again later.'
+      message:
+        'Could not validate email address at this time\nPlease try again later.'
     }),
     onSuccess: result =>
       result

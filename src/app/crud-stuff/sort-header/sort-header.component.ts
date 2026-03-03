@@ -1,4 +1,4 @@
-import { Component, inject,input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
 import { RelationsService, type SortField } from '../relations.service';
 
@@ -27,7 +27,9 @@ export class SortHeaderComponent {
     const key = this.sortOn();
     const currentSort = this.relationsService.sort();
     if (currentSort === key) {
-      this.relationsService.order.update(currentOrder => (currentOrder === 'asc' ? 'desc' : 'asc'));
+      this.relationsService.order.update(currentOrder =>
+        currentOrder === 'asc' ? 'desc' : 'asc'
+      );
     } else {
       this.relationsService.sort.set(key);
       this.relationsService.order.set('asc');

@@ -8,6 +8,7 @@ import {
   viewChild
 } from '@angular/core';
 import { assertDefined } from '@se-ng/signal-utils';
+
 import { LoggedIn } from './logged-in-user.service';
 
 @Component({

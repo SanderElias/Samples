@@ -1,4 +1,11 @@
-import { afterRenderEffect, Component, computed, inject, input, output, signal } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  inject,
+  input,
+  output
+} from '@angular/core';
 import { ConfirmItComponent } from '@se-ng/headless-ui';
 
 import type { UserCard } from '../../generic-services/address.service';
@@ -23,7 +30,9 @@ import { isEmptyRelation } from '../utils/is-empty-relation';
     <td ignoreHl>
       <img
         loading="eager"
-        [src]="rel().avatar ?? 'https://avatars.githubusercontent.com/u/96109922'"
+        [src]="
+          rel().avatar ?? 'https://avatars.githubusercontent.com/u/96109922'
+        "
         alt="User Avatar"
         width="42"
         height="42"
@@ -35,7 +44,7 @@ import { isEmptyRelation } from '../utils/is-empty-relation';
   `,
   styleUrl: './user-row.component.css'
 })
-  export class UserRowComponent {
+export class UserRowComponent {
   relationService = inject(RelationsService);
   userId = input.required<string>();
   rev = input.required<string>();

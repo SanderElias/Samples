@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { combineLatest, filter, map, of, type Observable } from 'rxjs';
+import { combineLatest, filter, map, type Observable, of } from 'rxjs';
+
 import type { Article } from '../blogs/article.interface';
 import { isGuardsCheckEnd } from '../show-source/show-source.component';
-import { RouteInfo } from './RouteInfo';
+
+import type { RouteInfo } from './RouteInfo';
 import { updateRouteInfo } from './update-meta-data';
 
 export abstract class MetaData {

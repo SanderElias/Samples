@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  input
+} from '@angular/core';
 
 import type { Quote } from './quote.service';
 

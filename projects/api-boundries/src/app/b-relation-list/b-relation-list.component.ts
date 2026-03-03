@@ -27,7 +27,11 @@ export class BRelationListComponent {
       this.search.valueChanges.pipe(
         startWith(''),
         map(search =>
-          search === null || search === '' ? list : list.filter(rel => rel.name.toLowerCase().includes(search.toLowerCase()))
+          search === null || search === ''
+            ? list
+            : list.filter(rel =>
+                rel.name.toLowerCase().includes(search.toLowerCase())
+              )
         )
       )
     ),

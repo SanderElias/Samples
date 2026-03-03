@@ -1,4 +1,13 @@
-import { from, Observable, of, OperatorFunction, pipe, shareReplay, switchMap, tap } from 'rxjs';
+import {
+  from,
+  Observable,
+  of,
+  OperatorFunction,
+  pipe,
+  shareReplay,
+  switchMap,
+  tap
+} from 'rxjs';
 
 /**
  * type helper to define the function that gets an observable from the property stream
@@ -11,7 +20,9 @@ interface GetByProp<Object> {
  * @param getByProp a function that will fetch the data if not cached (returns an observable)
  * @returns Operator that memoizes the result of getByProp
  */
-export function memoizeByProperty<Object>(getByProp: GetByProp<Object>): OperatorFunction<unknown, Object> {
+export function memoizeByProperty<Object>(
+  getByProp: GetByProp<Object>
+): OperatorFunction<unknown, Object> {
   const cache = new Map<unknown, Observable<Object>>();
   return handleCache(cache, getByProp);
 }
@@ -24,14 +35,20 @@ const cacheAll = new Map<string, Map<unknown, unknown>>();
  * @param cacheKey string the key to use to cache the result
  * @param getByProp function that will fetch the data if not cached (returns an observable)
  */
-export function cacheByProperty<Object>(cacheKey: string, getByProp: GetByProp<Object>): OperatorFunction<unknown, Object>;
+export function cacheByProperty<Object>(
+  cacheKey: string,
+  getByProp: GetByProp<Object>
+): OperatorFunction<unknown, Object>;
 /**
  * Clears the full cache, unless a cacheKey is provided
  * @param clearCache symbol the clearCache symbol, used to clear the cache
  * @param cacheKey string, optional, if provided only the cache for this key will be cleared
  */
 export function cacheByProperty(clearCache: symbol, cacheKey?: string): void;
-export function cacheByProperty<Object>(cacheKey: string | symbol, getByProp: GetByProp<Object> | string) {
+export function cacheByProperty<Object>(
+  cacheKey: string | symbol,
+  getByProp: GetByProp<Object> | string
+) {
   /** handle the symbol scenario */
   if (typeof cacheKey === 'symbol') {
     const cacheId = getByProp as string;
@@ -52,11 +69,17 @@ export function cacheByProperty<Object>(cacheKey: string | symbol, getByProp: Ge
 /**
  * extracted to helper function, as its the same for both cache and memoize
  */
-function handleCache<Object>(cache: Map<unknown, Observable<Object>>, getByProp: GetByProp<Object>) {
+function handleCache<Object>(
+  cache: Map<unknown, Observable<Object>>,
+  getByProp: GetByProp<Object>
+) {
   return pipe(
     switchMap((value: unknown) => {
       if (!cache.has(value)) {
-        cache.set(value, getByProp(value).pipe(shareReplay({ bufferSize: 1, refCount: true })));
+        cache.set(
+          value,
+          getByProp(value).pipe(shareReplay({ bufferSize: 1, refCount: true }))
+        );
       }
       return cache.get(value);
     })

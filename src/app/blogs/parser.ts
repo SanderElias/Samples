@@ -19,7 +19,9 @@ export async function parser(content: MarkDown): Promise<string> {
       const fullMatch = match[0];
       // if no matching icon found, use UHM as default
       const iconName = (
-        Object.keys(icons).includes(match[1].toUpperCase()) ? match[1].toUpperCase() : 'UHM'
+        Object.keys(icons).includes(match[1].toUpperCase())
+          ? match[1].toUpperCase()
+          : 'UHM'
       ) as IconName;
       const iconHtml = `<span class=icon><svg role="img" class="icon" aria-label="${iconName}"><use href="#icon-${iconName.toLowerCase()}"></use></svg></span>`;
       content = content.replace(fullMatch, iconHtml);

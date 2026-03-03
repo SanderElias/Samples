@@ -23,19 +23,17 @@
 export function pathToArray(path: string): string[] | undefined {
   // reject unmatched closing bracket or unclosed '['
   if (
-    path
-      .split('')
-      .reduce(
-        // count open and close brackets, reject if unbalanced
-        (acc, c) => (c === '[' ? acc + 1 : c === ']' ? acc - 1 : acc),
-        0
-      ) !== 0
+    path.split('').reduce(
+      // count open and close brackets, reject if unbalanced
+      (acc, c) => (c === '[' ? acc + 1 : c === ']' ? acc - 1 : acc),
+      0
+    ) !== 0
   ) {
     return undefined;
   }
 
   let cleanStr = path
-    .replace(/[[\]]/g, (m) => (m === '[' ? '.' : '')) // '[' -> '.', ']' -> ''
+    .replace(/[[\]]/g, m => (m === '[' ? '.' : '')) // '[' -> '.', ']' -> ''
     .replaceAll(',', '.') // replace commas with dots
     .replaceAll(`"`, '') // remove double quotes to handle quoted keys
     .replaceAll(`'`, '') // remove single quotes to handle quoted keys

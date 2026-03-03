@@ -5,7 +5,9 @@ import { isObject } from '../guards/is-object';
 // intentionally small and only cover the properties used by the runtime
 // detection logic in tests (`process.env` and `globalThis.__vitest`).
 // This avoids pulling in `@types/node` in browser or library builds.
-declare const process: { env?: { NODE_ENV?: string; VITEST?: string } } | undefined;
+declare const process:
+  | { env?: { NODE_ENV?: string; VITEST?: string } }
+  | undefined;
 
 export function flattenRecord(
   r: Record<string, any>,

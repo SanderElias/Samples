@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { FormField, type FieldTree } from '@angular/forms/signals';
+import { type FieldTree, FormField } from '@angular/forms/signals';
 
 import { ShowErrorsInDom } from '../../util/show-errors-in-dom.directive';
 import type { SignalTreeNode } from '../signal-tree-node.model';
@@ -9,7 +9,7 @@ import type { SignalTreeNode } from '../signal-tree-node.model';
   imports: [FormField, ShowErrorsInDom],
   template: `<label>
       <span>Node ID</span>
-      <input type="text" [formField]="treeNode().id"  />
+      <input type="text" [formField]="treeNode().id" />
     </label>
     <label>
       <span>Name</span>
@@ -25,16 +25,16 @@ import type { SignalTreeNode } from '../signal-tree-node.model';
         }
       </div>
     }`,
-  styleUrl: './tree-node-edit.component.css',
+  styleUrl: './tree-node-edit.component.css'
 })
 export class TreeNodeEditComponent {
   treeNode = input.required<FieldTree<SignalTreeNode>>();
 
   addChild() {
     const children = this.treeNode().children;
-    children().value.update((cs) => [
+    children().value.update(cs => [
       { id: crypto.randomUUID(), name: '', children: [] },
-      ...cs,
+      ...cs
     ]);
   }
 }

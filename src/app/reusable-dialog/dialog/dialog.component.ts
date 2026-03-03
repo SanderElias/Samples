@@ -1,4 +1,10 @@
-import { afterRenderEffect, Component, ElementRef, inject, input } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  ElementRef,
+  inject,
+  input
+} from '@angular/core';
 
 @Component({
   selector: 'dialog',

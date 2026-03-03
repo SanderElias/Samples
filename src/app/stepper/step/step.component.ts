@@ -1,6 +1,15 @@
-import { afterNextRender, booleanAttribute, Component, computed, inject, input, signal, untracked } from '@angular/core';
+import {
+  afterNextRender,
+  booleanAttribute,
+  Component,
+  computed,
+  inject,
+  input,
+  signal,
+  untracked
+} from '@angular/core';
 
-import { type StepData,StepDataService } from '../step-data.service';
+import { type StepData, StepDataService } from '../step-data.service';
 
 @Component({
   selector: 'se-step',

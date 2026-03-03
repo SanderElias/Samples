@@ -25,7 +25,9 @@ export class OutOfOrderComponent {
   naiveData = signal<number | string>(0);
   _naiveEffect = effect(async () => {
     const id = this.myId();
-    const data = await simulateFetch({ params: id }).catch((e: Error) => e.message);
+    const data = await simulateFetch({ params: id }).catch(
+      (e: Error) => e.message
+    );
     if (this.myId() !== data) {
       this.naiveData.set(`out-of-order: ${this.myId()} !== ${data}`);
       console.log('out-of-order detected');
@@ -44,7 +46,9 @@ export class OutOfOrderComponent {
     const abortSignal = this.ab.signal;
     const id = this.myId();
     try {
-      const data = await simulateFetch({ params: id, abortSignal }).catch((e: Error) => e.message);
+      const data = await simulateFetch({ params: id, abortSignal }).catch(
+        (e: Error) => e.message
+      );
       this.naiveDataWithAbort.set(data);
     } catch {
       // console.log('prevented out-of-order for ID:', id);
@@ -58,14 +62,25 @@ export class OutOfOrderComponent {
   });
   status = computed(() => {
     // we need this to visualize the status of the resource, and why it "flickers"
-    const statusus = ['Idle', 'Error', 'Loading', 'Reloading', 'Resolved', 'Local'] as const;
+    const statusus = [
+      'Idle',
+      'Error',
+      'Loading',
+      'Reloading',
+      'Resolved',
+      'Local'
+    ] as const;
     return statusus[this.datUsingResource.status()];
   });
 
   // related data using `asyncComputed` that is stable and availabe on NPM as `@se-ng/signal-utils`
-  usingAsyncComputed = asyncComputed(() => simulateFetch({ params: this.myId() }));
+  usingAsyncComputed = asyncComputed(() =>
+    simulateFetch({ params: this.myId() })
+  );
 
-  usingComputedResource = computedResource(() => simulateFetch({ params: this.myId() }));
+  usingComputedResource = computedResource(() =>
+    simulateFetch({ params: this.myId() })
+  );
 
   constructor() {
     // make the ID change every second
@@ -73,7 +88,13 @@ export class OutOfOrderComponent {
   }
 }
 
-const simulateFetch = async ({ params, abortSignal }: { params: number; abortSignal?: AbortSignal }) => {
+const simulateFetch = async ({
+  params,
+  abortSignal
+}: {
+  params: number;
+  abortSignal?: AbortSignal;
+}) => {
   const delay = 500 + Math.random() * 600; // between 800 and 1400 ms
   if (params % 25 === 0) {
     // simulate unexpected error

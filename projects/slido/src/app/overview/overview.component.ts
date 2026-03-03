@@ -31,12 +31,15 @@ export class OverviewComponent {
 
   $id = computed(() => this.file.$state().name);
 
-  $needToAskPermission = computed(() => this.$id() !== '' && this.file.$state().permission() === false);
+  $needToAskPermission = computed(
+    () => this.$id() !== '' && this.file.$state().permission() === false
+  );
 
   askPermission = () => {
     this.file.askPermission();
   };
 
-  addSlide = () => this.deck.addSlide(this.deck.$slides().length, '# New Slide');
+  addSlide = () =>
+    this.deck.addSlide(this.deck.$slides().length, '# New Slide');
   save = () => this.deck.save(true);
 }

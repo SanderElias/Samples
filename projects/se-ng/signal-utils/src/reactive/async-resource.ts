@@ -1,9 +1,17 @@
-import { computed, DestroyRef, effect, inject, linkedSignal, type Signal, signal, type WritableSignal } from '@angular/core';
+import {
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  linkedSignal,
+  type Signal,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 import { isObservable, type Subscription } from 'rxjs';
 import type { ObservableComputedFn } from './async-computed';
 import { isAsyncIterable } from '../guards/is-async-iterable';
 import { isPromise } from '../guards/is-promise';
-
 
 /**
  * This file predates the Resource concept in Angular.
@@ -45,7 +53,11 @@ export type Resource<T> = {
 interface AsyncResource {
   <T>(cb: ObservableComputedFn<T>): Signal<Resource<T | undefined>>;
   <X, Y>(cb: ObservableComputedFn<X>, initialValue: Y): Signal<Resource<X | Y>>;
-  <X, Y = X>(cb: ObservableComputedFn<X>, initialValue: Y, destroyRef: DestroyRef): Signal<Resource<X | Y>>;
+  <X, Y = X>(
+    cb: ObservableComputedFn<X>,
+    initialValue: Y,
+    destroyRef: DestroyRef
+  ): Signal<Resource<X | Y>>;
 }
 
 export const computedResource: AsyncResource = <T, Y>(
@@ -67,16 +79,21 @@ export const computedResource: AsyncResource = <T, Y>(
     stream: 'init'
   });
 
-  const upState = (s: Partial<InternalState>) => state.update(prev => ({ ...prev, ...s }));
+  const upState = (s: Partial<InternalState>) =>
+    state.update(prev => ({ ...prev, ...s }));
 
   try {
     destroyRef = destroyRef ?? inject(DestroyRef);
   } catch (e) {
     if (!destroyRef) {
-      throw new Error('[asyncComputed] destroyRef is mandatory when used outside a injection context');
+      throw new Error(
+        '[asyncComputed] destroyRef is mandatory when used outside a injection context'
+      );
     }
     if (!(destroyRef instanceof DestroyRef)) {
-      throw new Error('[asyncComputed] parameter destroyRef is not a DestroyRef');
+      throw new Error(
+        '[asyncComputed] parameter destroyRef is not a DestroyRef'
+      );
     }
   }
   let abortPrevious: AbortController | undefined;
@@ -111,11 +128,21 @@ export const computedResource: AsyncResource = <T, Y>(
           subscription = outcome.subscribe({
             next: value => {
               assertContinue(abortSignal!);
-              state.update(s => ({ ...s, value, error: undefined, status: ResourceState.awaiting }));
+              state.update(s => ({
+                ...s,
+                value,
+                error: undefined,
+                status: ResourceState.awaiting
+              }));
             },
             error: error => {
               assertContinue(abortSignal!);
-              upState({ error, value: undefined, status: ResourceState.error, stream: 'done' });
+              upState({
+                error,
+                value: undefined,
+                status: ResourceState.error,
+                stream: 'done'
+              });
             },
             complete: () => {
               assertContinue(abortSignal!);
@@ -125,16 +152,30 @@ export const computedResource: AsyncResource = <T, Y>(
         } else if (isPromise(outcome)) {
           const value = await outcome;
           assertContinue(abortSignal);
-          upState({ value, error: undefined, status: ResourceState.loaded, stream: 'done' });
+          upState({
+            value,
+            error: undefined,
+            status: ResourceState.loaded,
+            stream: 'done'
+          });
         } else if (isAsyncIterable(outcome)) {
           upState({ stream: 'ongoing' });
           for await (const value of outcome) {
             assertContinue(abortSignal);
-            upState({ value, error: undefined, status: ResourceState.awaiting });
+            upState({
+              value,
+              error: undefined,
+              status: ResourceState.awaiting
+            });
           }
           upState({ stream: 'done' });
         } else {
-          upState({ value: outcome, error: undefined, status: ResourceState.loaded, stream: 'done' });
+          upState({
+            value: outcome,
+            error: undefined,
+            status: ResourceState.loaded,
+            stream: 'done'
+          });
         }
       } catch (error: any) {
         if (error.message !== 'aborted') {

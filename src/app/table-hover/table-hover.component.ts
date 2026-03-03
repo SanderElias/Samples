@@ -25,7 +25,12 @@ import { Component } from '@angular/core';
   styleUrl: './table-hover.component.css'
 })
 export class TableHoverComponent {
-  table = Array.from({ length: 10 }, (_, i) => Array.from({ length: 10 }, (_, j) => `${i + 1} x ${j + 1} = ${(i + 1) * (j + 1)}`));
+  table = Array.from({ length: 10 }, (_, i) =>
+    Array.from(
+      { length: 10 },
+      (_, j) => `${i + 1} x ${j + 1} = ${(i + 1) * (j + 1)}`
+    )
+  );
 }
 
 // td:has(~ td:hover), /* previous sibling cells */

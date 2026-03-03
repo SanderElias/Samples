@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { injectMetaData } from './util/metaData.service';
 
 @Component({
@@ -9,8 +10,4 @@ import { injectMetaData } from './util/metaData.service';
 })
 export class AppComponent {
   #meta = injectMetaData();
-
 }
-
-
-

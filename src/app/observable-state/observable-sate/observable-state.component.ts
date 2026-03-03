@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { createGetStateMethod, createSetStateMethod } from '@se-ng/observable-utils';
+import {
+  createGetStateMethod,
+  createSetStateMethod
+} from '@se-ng/observable-utils';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 

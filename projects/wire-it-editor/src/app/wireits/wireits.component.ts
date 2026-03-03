@@ -1,7 +1,23 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, CreateSignalOptions, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  CreateSignalOptions,
+  inject,
+  signal
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable, catchError, combineLatest, filter, firstValueFrom, map, of, startWith, tap } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  combineLatest,
+  filter,
+  firstValueFrom,
+  map,
+  of,
+  startWith,
+  tap
+} from 'rxjs';
 import { PackageJsonService } from '../package.json.service';
 import { WireitComponent } from './wireit/wireit.component';
 
@@ -39,7 +55,9 @@ export class WireitsComponent {
   }).pipe(
     map(({ wireits, search }) => {
       return {
-        wireits: wireits.filter(([name]) => search === '' || name.includes(search))
+        wireits: wireits.filter(
+          ([name]) => search === '' || name.includes(search)
+        )
       };
     }),
     tap(console.log)
@@ -65,9 +83,13 @@ function createSignal<T>(
   options?: { initialValue?: T } & CreateSignalOptions<T>,
   handleError = ignoreErrorHandler
 ) {
-  const initialValue = options?.hasOwnProperty('initialValue') ? options.initialValue : ([] as T);
+  const initialValue = options?.hasOwnProperty('initialValue')
+    ? options.initialValue
+    : ([] as T);
   const sgn = signal(initialValue, options);
-  firstValueFrom(observable.pipe(catchError(err => handleError(err, initialValue)))).then(value => sgn.set(value));
+  firstValueFrom(
+    observable.pipe(catchError(err => handleError(err, initialValue)))
+  ).then(value => sgn.set(value));
 
   return signal;
 }

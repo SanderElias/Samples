@@ -5,7 +5,9 @@ import { debouncedComputed, debouncedSignal } from './debounced-computed';
 
 describe('debouncedSignal / debouncedComputed', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] });
+    TestBed.configureTestingModule({
+      providers: [provideZonelessChangeDetection()]
+    });
     // use fake timers and control Date.now so the implementation's Date.now() checks behave deterministically
     vi.useFakeTimers();
   });
@@ -21,7 +23,9 @@ describe('debouncedSignal / debouncedComputed', () => {
     const dateSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
 
     const src = TestBed.runInInjectionContext(() => signal(1));
-    const deb = TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: 50 }));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(() => src(), { delay: 50 })
+    );
 
     // initial value should be visible immediately
     expect(deb()).toBe(1);
@@ -49,7 +53,9 @@ describe('debouncedSignal / debouncedComputed', () => {
     const dateSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
 
     const src = TestBed.runInInjectionContext(() => signal(1));
-    const deb = TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: 50 }));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(() => src(), { delay: 50 })
+    );
 
     expect(deb()).toBe(1);
 
@@ -74,7 +80,9 @@ describe('debouncedSignal / debouncedComputed', () => {
     const dateSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
 
     const src = TestBed.runInInjectionContext(() => signal(10));
-    const readonly = TestBed.runInInjectionContext(() => debouncedComputed(() => src(), { delay: 20 }));
+    const readonly = TestBed.runInInjectionContext(() =>
+      debouncedComputed(() => src(), { delay: 20 })
+    );
 
     expect(readonly()).toBe(10);
 
@@ -94,7 +102,9 @@ describe('debouncedSignal / debouncedComputed', () => {
     const dateSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
 
     const src = TestBed.runInInjectionContext(() => signal(1));
-    const deb = TestBed.runInInjectionContext(() => debouncedSignal(() => src(), {}));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(() => src(), {})
+    );
 
     expect(deb()).toBe(1);
 
@@ -120,7 +130,9 @@ describe('debouncedSignal / debouncedComputed', () => {
     const eq = vi.fn(() => true);
 
     const src = TestBed.runInInjectionContext(() => signal(1));
-    const deb = TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: 50, equal: eq }));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(() => src(), { delay: 50, equal: eq })
+    );
 
     expect(deb()).toBe(1);
 
@@ -139,7 +151,9 @@ describe('debouncedSignal / debouncedComputed', () => {
     const dateSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
 
     const src = TestBed.runInInjectionContext(() => signal(1));
-    const deb = TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: 50 }));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(() => src(), { delay: 50 })
+    );
 
     expect(deb()).toBe(1);
 
@@ -169,7 +183,9 @@ describe('debouncedSignal / debouncedComputed', () => {
 
     const eq = vi.fn(() => false);
     const src = TestBed.runInInjectionContext(() => signal(1));
-    const deb = TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: 20, equal: eq }));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(() => src(), { delay: 20, equal: eq })
+    );
 
     expect(deb()).toBe(1);
     src.set(2);
@@ -184,27 +200,37 @@ describe('debouncedSignal / debouncedComputed', () => {
   it('construction of debouncedSignal creates internal trigger signal (smoke test)', () => {
     // simple smoke test that constructs the debounced signal to ensure the module line that creates the internal trigger is exercised
     const src = TestBed.runInInjectionContext(() => signal(5));
-    const deb = TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: 10 }));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(() => src(), { delay: 10 })
+    );
     expect(typeof deb).toBe('function');
   });
 
   it('throws when delay is zero or negative for debouncedSignal', () => {
     const src = TestBed.runInInjectionContext(() => signal(1));
-    expect(() => TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: 0 as any }))).toThrow(
-      '[debouncedSignal] delay must be a positive number'
-    );
-    expect(() => TestBed.runInInjectionContext(() => debouncedSignal(() => src(), { delay: -10 as any }))).toThrow(
-      '[debouncedSignal] delay must be a positive number'
-    );
+    expect(() =>
+      TestBed.runInInjectionContext(() =>
+        debouncedSignal(() => src(), { delay: 0 as any })
+      )
+    ).toThrow('[debouncedSignal] delay must be a positive number');
+    expect(() =>
+      TestBed.runInInjectionContext(() =>
+        debouncedSignal(() => src(), { delay: -10 as any })
+      )
+    ).toThrow('[debouncedSignal] delay must be a positive number');
   });
 
   it('throws when delay is zero or negative for debouncedComputed', () => {
     const src = TestBed.runInInjectionContext(() => signal(1));
-    expect(() => TestBed.runInInjectionContext(() => debouncedComputed(() => src(), { delay: 0 as any }))).toThrow(
-      '[debouncedSignal] delay must be a positive number'
-    );
-    expect(() => TestBed.runInInjectionContext(() => debouncedComputed(() => src(), { delay: -1 as any }))).toThrow(
-      '[debouncedSignal] delay must be a positive number'
-    );
+    expect(() =>
+      TestBed.runInInjectionContext(() =>
+        debouncedComputed(() => src(), { delay: 0 as any })
+      )
+    ).toThrow('[debouncedSignal] delay must be a positive number');
+    expect(() =>
+      TestBed.runInInjectionContext(() =>
+        debouncedComputed(() => src(), { delay: -1 as any })
+      )
+    ).toThrow('[debouncedSignal] delay must be a positive number');
   });
 });

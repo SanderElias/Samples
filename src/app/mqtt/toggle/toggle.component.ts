@@ -4,17 +4,20 @@ import { Component, input, output } from '@angular/core';
   selector: 'se-toggle',
   imports: [],
   template: `
-  <label>
-    <input type="checkbox" [checked]="value()" (change)="valueChange.emit(!value())" />
-    <span class="switch"><span></span></span>
-    <span>{{ value() ? toggleOnText() : toggleOffText() }}</span>
-  </label>
-
+    <label>
+      <input
+        type="checkbox"
+        [checked]="value()"
+        (change)="valueChange.emit(!value())"
+      />
+      <span class="switch"><span></span></span>
+      <span>{{ value() ? toggleOnText() : toggleOffText() }}</span>
+    </label>
   `,
   styleUrl: './toggle.component.css'
 })
 export class ToggleComponent {
-  toggleOnText = input('Aan')
+  toggleOnText = input('Aan');
   toggleOffText = input('Uit');
   value = input.required<boolean>();
   valueChange = output<boolean>();

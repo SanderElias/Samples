@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, Input, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  ViewChild
+} from '@angular/core';
 
 import { PackageJsonService, WireItEntry } from '../../package.json.service';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -10,12 +16,22 @@ import { DepedenciesComponent } from './depedencies/depedencies.component';
 
 @Component({
   selector: 'se-wireit',
-  imports: [FormsModule, ArrInputComponent, ShowMessageComponent, DepedenciesComponent],
+  imports: [
+    FormsModule,
+    ArrInputComponent,
+    ShowMessageComponent,
+    DepedenciesComponent
+  ],
   template: `
     <header>
       <h3 contenteditable (blur)="nameEdit($event)">{{ name }}</h3>
       <div class="buttongroup">
-        <button (click)="pjs.removeWireitScript(name)" title="downgrade to script">🗑️</button>
+        <button
+          (click)="pjs.removeWireitScript(name)"
+          title="downgrade to script"
+        >
+          🗑️
+        </button>
         <button (click)="downgrade()" title="downgrade to script">👎️</button>
         <button (click)="split()" title="create a duplicate">🖇️</button>
         <button (click)="save()" title="save changes">💾</button>
@@ -33,7 +49,9 @@ import { DepedenciesComponent } from './depedencies/depedencies.component';
             (click)="toggleService()"
             type="button"
             [style.scale]="0.7"
-            [style.--_bg]="props.service ? 'var(--green-9)' : 'var(--color-error)'"
+            [style.--_bg]="
+              props.service ? 'var(--green-9)' : 'var(--color-error)'
+            "
           >
             {{ props.service ? '🟢' : '🔴' }}
             {{ props.service ? 'Enabled' : 'disabled' }}
@@ -41,23 +59,48 @@ import { DepedenciesComponent } from './depedencies/depedencies.component';
           <input name="service" type="hidden" [ngModel]="props.service" />
         </label>
         <label>
-          <span>Files <button class="action" type="button" (click)="addFile()">➕</button></span>
+          <span
+            >Files
+            <button class="action" type="button" (click)="addFile()">
+              ➕
+            </button></span
+          >
           <div>
             @for (file of props.files; track file; let index = $index) {
-              <se-arr-input name="files" [index]="index" [value]="file" (delete)="props.files.splice(index, 1)"></se-arr-input>
+              <se-arr-input
+                name="files"
+                [index]="index"
+                [value]="file"
+                (delete)="props.files.splice(index, 1)"
+              ></se-arr-input>
             }
           </div>
         </label>
         <label>
-          <span>Output <button class="action" type="button" (click)="addOutput()">➕</button></span>
+          <span
+            >Output
+            <button class="action" type="button" (click)="addOutput()">
+              ➕
+            </button></span
+          >
           <div>
             @for (file of props.output; track file; let index = $index) {
-              <se-arr-input name="output" [index]="index" [value]="file" (delete)="props.output.splice(index, 1)"></se-arr-input>
+              <se-arr-input
+                name="output"
+                [index]="index"
+                [value]="file"
+                (delete)="props.output.splice(index, 1)"
+              ></se-arr-input>
             }
           </div>
         </label>
         <label>
-          <span>PackageLocks <button class="action" type="button" (click)="addLock()">➕</button></span>
+          <span
+            >PackageLocks
+            <button class="action" type="button" (click)="addLock()">
+              ➕
+            </button></span
+          >
           <div>
             @for (file of props.packageLocks; track file; let index = $index) {
               <se-arr-input
@@ -70,14 +113,26 @@ import { DepedenciesComponent } from './depedencies/depedencies.component';
           </div>
         </label>
         <label>
-          <span>Dependecies <button class="action" type="button" (click)="dep.addOne()">➕</button></span>
-          <se-dependencies #dep [deps]="props.dependencies" [current]="name"></se-dependencies>
+          <span
+            >Dependecies
+            <button class="action" type="button" (click)="dep.addOne()">
+              ➕
+            </button></span
+          >
+          <se-dependencies
+            #dep
+            [deps]="props.dependencies"
+            [current]="name"
+          ></se-dependencies>
         </label>
       </form>
 
       <!-- <pre>{{ props|json }}</pre> -->
     </main>
-    <se-show-message [message]="message" (dismissed)="message = ''"></se-show-message>
+    <se-show-message
+      [message]="message"
+      (dismissed)="message = ''"
+    ></se-show-message>
   `,
   styleUrls: ['./wireit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -135,7 +190,9 @@ export class WireitComponent {
   };
 
   save = () => {
-    const props = ObjectFromRawFormValue(this.form.control.getRawValue()) as WireItEntry;
+    const props = ObjectFromRawFormValue(
+      this.form.control.getRawValue()
+    ) as WireItEntry;
     console.dir(props);
     this.pjs.updateWireItEntry(this.name, props);
   };

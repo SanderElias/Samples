@@ -50,17 +50,18 @@ export interface HeaderRegexp {
   [key: string]: any;
 }
 
-export type Handler = BaseHandler & (
-  | SubrouteHandler
-  | ReverseProxyHandler
-  | HeadersHandler
-  | StaticResponseHandler
-  | FileServerHandler
-  | VarsHandler
-  | RewriteHandler
-  | EncodeHandler
-  | UnknownHandler
-);
+export type Handler = BaseHandler &
+  (
+    | SubrouteHandler
+    | ReverseProxyHandler
+    | HeadersHandler
+    | StaticResponseHandler
+    | FileServerHandler
+    | VarsHandler
+    | RewriteHandler
+    | EncodeHandler
+    | UnknownHandler
+  );
 
 export interface BaseHandler {
   handler: string;

@@ -18,15 +18,27 @@ const fromObservable = <T>(obs: Observable<T>): Signal<T> => {
 
 const tick = (ms = 100) => new Promise(resolve => setTimeout(resolve, ms));
 
-function createInvoiceRow(price: number, quantity: number, vat: number): Signal<invoiceRow> {
+function createInvoiceRow(
+  price: number,
+  quantity: number,
+  vat: number
+): Signal<invoiceRow> {
   const row = signal({ price, quantity, vat } as invoiceRow);
-  const total = computed(() => Math.floor(100 * row().price * row().quantity * (1 + row().vat / 100)) / 100);
+  const total = computed(
+    () =>
+      Math.floor(100 * row().price * row().quantity * (1 + row().vat / 100)) /
+      100
+  );
   row.update(row => ({ ...row, total: total() }));
   return row;
 }
 
 const randomRow = () =>
-  createInvoiceRow(Math.floor(Math.random() * 10000) / 100, Math.floor(Math.random() * 30), Math.random() > 0.5 ? 21 : 9);
+  createInvoiceRow(
+    Math.floor(Math.random() * 10000) / 100,
+    Math.floor(Math.random() * 30),
+    Math.random() > 0.5 ? 21 : 9
+  );
 
 const lastRow = signal(randomRow());
 

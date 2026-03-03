@@ -32,7 +32,12 @@ export function fromBase(hash: string): number {
 
   const l = hash.length - 1;
 
-  const ret = hash.split('').reduce((tot, car, i) => (tot += seed.indexOf(car) * Math.pow(radix, l - i)), 0);
+  const ret = hash
+    .split('')
+    .reduce(
+      (tot, car, i) => (tot += seed.indexOf(car) * Math.pow(radix, l - i)),
+      0
+    );
 
   if (isNaN(ret)) {
     throw new Error(`Unknown error: Can not decode '${hash}'`);
@@ -60,7 +65,8 @@ export function toBase(num: number): string {
 }
 
 const randChar = () => seed[Math.floor(Math.random() * radix)];
-const randChars = (n = 3) => Array.from({ length: n }, () => randChar()).join('');
+const randChars = (n = 3) =>
+  Array.from({ length: n }, () => randChar()).join('');
 
 const getId = () => randChars(3) + toBase(Date.now());
 

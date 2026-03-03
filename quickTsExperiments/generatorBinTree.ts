@@ -1,6 +1,6 @@
 import { Observable, ReplaySubject } from 'rxjs';
 
-export { };
+export {};
 
 interface BinNode {
   value: any;
@@ -36,7 +36,8 @@ root.right.right.left = createNode('leaf R1');
 function keepState<T>(initialState?: Partial<T>): Generator<T> {
   function* intKeepState(initialState?: Partial<T>) {
     let internalState = initialState ?? ({} as Partial<T>);
-    const updateState = (newState: Partial<T>) => (internalState = { ...internalState, ...newState });
+    const updateState = (newState: Partial<T>) =>
+      (internalState = { ...internalState, ...newState });
     while (true) {
       const newState = yield internalState as T;
       if (typeof newState === 'object') {

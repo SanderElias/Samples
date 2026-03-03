@@ -33,7 +33,9 @@ if (!existsSync(slideFolder)) {
 
   router.register('/slides', (req, res, params) => {
     console.log('slides');
-    const files = walkSync(slideFolder).map(folder => folder.replace(slideFolder, ''));
+    const files = walkSync(slideFolder).map(folder =>
+      folder.replace(slideFolder, '')
+    );
     sendJson(req, res)(files);
   });
 
@@ -60,13 +62,22 @@ if (!existsSync(slideFolder)) {
   }).listen(8201);
 })();
 
-function fileFromFolder(fileRoot: string, req: Request, res: ServerResponse, params: any) {
+function fileFromFolder(
+  fileRoot: string,
+  req: Request,
+  res: ServerResponse,
+  params: any
+) {
   try {
     const type = (req.method || 'get').toLowerCase();
     const send = sendJson(req, res);
-    const files = walkSync(fileRoot).map(folder => folder.replace(fileRoot, ''));
+    const files = walkSync(fileRoot).map(folder =>
+      folder.replace(fileRoot, '')
+    );
     const { file } = params || {};
-    const fileName = (Array.isArray(file) ? file.join('/') : file).split('..//').join('');
+    const fileName = (Array.isArray(file) ? file.join('/') : file)
+      .split('..//')
+      .join('');
     switch (type) {
       case 'get':
         handleFileRead(fileName);

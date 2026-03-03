@@ -13,7 +13,12 @@ const circumference = (radius: number) => twoPi * radius;
 })
 export class SvgTimerComponent {
   // the colors for the circls we want to show
-  strokeColors = [`rgb(132, 35, 156)`, 'rgb(240, 26, 115)', `rgb(70, 166, 179)`, '#3dd656'];
+  strokeColors = [
+    `rgb(132, 35, 156)`,
+    'rgb(240, 26, 115)',
+    `rgb(70, 166, 179)`,
+    '#3dd656'
+  ];
   timer$ = timer(0, 250).pipe(
     // mimic 60 minutes
     take(60),

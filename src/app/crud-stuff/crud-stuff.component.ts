@@ -1,17 +1,31 @@
 import type { ElementRef } from '@angular/core';
-import { Component, computed, inject, linkedSignal, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  linkedSignal,
+  signal,
+  viewChild
+} from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
 import { HighLightBodyComponent } from './high-light-body/high-light-body.component';
 import { NotifyDialogComponent } from './notify-dialog/notify-dialog.component';
 import { RelationForm } from './relation-form/relation-form.component';
-import { RelationsService } from './relations.service';
 import { SortHeaderComponent } from './sort-header/sort-header.component';
 import { UserRowComponent } from './user-row/user-row.component';
+import { RelationsService } from './relations.service';
 
 @Component({
   selector: 'se-crud-stuff',
-  imports: [RelationForm, UserRowComponent, HighLightBodyComponent, NotifyDialogComponent, HeaderComponent, SortHeaderComponent],
+  imports: [
+    RelationForm,
+    UserRowComponent,
+    HighLightBodyComponent,
+    NotifyDialogComponent,
+    HeaderComponent,
+    SortHeaderComponent
+  ],
   template: `<h1>CRUD - Signals Best practices</h1>
     <crud-header />
     <table>
@@ -32,7 +46,11 @@ import { UserRowComponent } from './user-row/user-row.component';
     </table>
     <dialog #dlg>
       @defer (on viewport) {
-        <relation-form [id]="editRec()!" [rev]="editRev()" (done)="dlg.close()" />
+        <relation-form
+          [id]="editRec()!"
+          [rev]="editRev()"
+          (done)="dlg.close()"
+        />
       } @placeholder {
         <p>Loading...</p>
       }
@@ -50,8 +68,14 @@ export class CrudStuffComponent {
 
   relationIds = linkedSignal({
     source: () => this.relationsService.list(),
-    computation: (list, previous?: { source: [string,string][]; value?: [string,string][] }) => {
-      const emptyRow = Array.from({ length: 10 }, () => ['', ''] as [string,string]);
+    computation: (
+      list,
+      previous?: { source: [string, string][]; value?: [string, string][] }
+    ) => {
+      const emptyRow = Array.from(
+        { length: 10 },
+        () => ['', ''] as [string, string]
+      );
       const loading = this.relationsService.listIsLoading();
       if (list.length === 0 && loading) {
         list.concat(previous?.value || []); // use the previous list when loading to prevent flicker.
@@ -64,13 +88,13 @@ export class CrudStuffComponent {
   editRev = computed(() => {
     const id = this.editRec();
     const listItem = this.relationIds().find(r => r[0] === id);
-    return listItem ? listItem[1] : "_not_in_list_"
+    return listItem ? listItem[1] : '_not_in_list_';
   });
   dlgRef = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
   // convenience so I don't have to use the `relationsService.*` everywhere.
   filter = this.relationsService.filter.asReadonly();
 
-  async edit(rel: string)  {
+  async edit(rel: string) {
     const dialog = this.dlgRef().nativeElement;
     this.editRec.set(rel);
     dialog.showModal();

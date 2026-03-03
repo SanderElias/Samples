@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
-import { firstValueFrom, map, mergeMap, shareReplay, startWith, Subject, take, tap, timer } from 'rxjs';
+import {
+  firstValueFrom,
+  map,
+  mergeMap,
+  shareReplay,
+  startWith,
+  Subject,
+  take,
+  tap,
+  timer
+} from 'rxjs';
 
 import { createUniqueId } from './util/random-things';
 
@@ -48,9 +58,13 @@ export class DemoUserService {
   );
 
   /**  as the allUsers$ is cached, I don't need to do that here. unless it's an really big list */
-  admins$ = this.allUsers$.pipe(map(userList => userList.filter(row => row.isAdmin)));
+  admins$ = this.allUsers$.pipe(
+    map(userList => userList.filter(row => row.isAdmin))
+  );
   /** the same for normal users */
-  users$ = this.allUsers$.pipe(map(userList => userList.filter(row => !row.isAdmin)));
+  users$ = this.allUsers$.pipe(
+    map(userList => userList.filter(row => !row.isAdmin))
+  );
 
   /** the coconstructor */
   constructor() {
@@ -94,7 +108,9 @@ export class DemoUserService {
   /** helper to 'delete' a user  */
   async deleteUser(user: DemoUser) {
     /** get a list of users with the chosen one filtered out */
-    const users = (await firstValueFrom(this.allUsers$)).filter(row => row.id !== user.id);
+    const users = (await firstValueFrom(this.allUsers$)).filter(
+      row => row.id !== user.id
+    );
     /** in a non-sample function you are probably also saving stuff to the server! */
     this.updatedUsers$.next(users);
   }

@@ -69,7 +69,10 @@ export function resetEffects(): void {
 const globalWatches = new Set<Watch>();
 const queuedWatches = new Set<Watch>();
 
-let watchQueuePromise: { promise: Promise<void>; resolveFn: () => void } | null = null;
+let watchQueuePromise: {
+  promise: Promise<void>;
+  resolveFn: () => void;
+} | null = null;
 
 /**
  * Helper to check if there is an active reactive context.

@@ -13,7 +13,11 @@ const circumference = (radius: number) => twoPi * radius;
 })
 export class SvgClockComponent {
   // the colors for the circls we want to show
-  strokeColors = [`rgb(132, 35, 156)`, 'rgb(240, 26, 115)', `rgb(70, 166, 179)`];
+  strokeColors = [
+    `rgb(132, 35, 156)`,
+    'rgb(240, 26, 115)',
+    `rgb(70, 166, 179)`
+  ];
   time$ = timer(0, 500).pipe(
     // Minutes start with 1, not zero.
     map(i => {

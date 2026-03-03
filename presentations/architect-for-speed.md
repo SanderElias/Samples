@@ -305,8 +305,6 @@ Demo-time!
 Thank you!
 </p>
 
-
-
 <style>
   div#slide {
     display: grid;

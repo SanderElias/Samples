@@ -66,7 +66,8 @@ export class MonthComponent {
 function createMonthArray(date: Date): CalenderDay[] {
   const day = 24 * 60 * 60 * 1000;
   const nextDay = (date: Date) => new Date(date.getTime() + day);
-  const dateFromDay = (day: number) => new Date(date.getFullYear(), date.getMonth(), day);
+  const dateFromDay = (day: number) =>
+    new Date(date.getFullYear(), date.getMonth(), day);
   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   const dayArray: CalenderDay[] = [];

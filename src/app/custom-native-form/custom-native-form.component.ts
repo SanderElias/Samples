@@ -15,7 +15,13 @@ import { DigitsComponent } from './digits/digits.component';
       </label>
       <label for="email">
         <span>Email:</span>
-        <input type="email" id="email" name="email" required value="sander@email.com" />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          value="sander@email.com"
+        />
       </label>
       <label for="code">
         <span>Code:</span>

@@ -1,8 +1,17 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ɵInternalFormsSharedModule,ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import {
+  ɵInternalFormsSharedModule,
+  ReactiveFormsModule,
+  UntypedFormControl
+} from '@angular/forms';
 import { combineLatest } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith
+} from 'rxjs/operators';
 
 import type { UserCard } from '../../generic-services/address.service';
 import { AddressService } from '../../generic-services/address.service';
@@ -33,7 +42,9 @@ export class FilterSampleComponent {
 
   vm$ = combineLatest([this.users$, this.filter$]).pipe(
     map(([users, filterStr]: Vm) => ({
-      users: users.filter(row => (filterStr ? row.name.toLocaleLowerCase().includes(filterStr) : true))
+      users: users.filter(row =>
+        filterStr ? row.name.toLocaleLowerCase().includes(filterStr) : true
+      )
     }))
   );
 }

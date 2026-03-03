@@ -1,5 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  inject
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ReplaySubject, firstValueFrom } from 'rxjs';
@@ -41,5 +47,7 @@ export class RelationComponent {
     this.router.navigate(['/bRelations', relationId]);
   }
 
-  relation = toSignal(this.relationId$.pipe(switchMap(id => this.rel.getRelation(id))));
+  relation = toSignal(
+    this.relationId$.pipe(switchMap(id => this.rel.getRelation(id)))
+  );
 }

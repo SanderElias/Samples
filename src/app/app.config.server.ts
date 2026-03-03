@@ -1,8 +1,8 @@
 import type { ApplicationConfig } from '@angular/core';
 import { mergeApplicationConfig } from '@angular/core';
 
-import { appConfig } from './app.config';
 import { MetaData, ServerMetaData } from './util/metaData.service';
+import { appConfig } from './app.config';
 
 const serverConfig: ApplicationConfig = {
   // providers: [provideServerRendering()]

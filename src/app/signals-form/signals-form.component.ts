@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, Injectable, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  Injectable,
+  signal
+} from '@angular/core';
 
 @Component({
   selector: 'se-symbols-form',
@@ -7,11 +15,19 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, Injectabl
     <h3>Symbol Form for "{{ fullName() }}"</h3>
     <label
       >First Name
-      <input type="text" [value]="vm().firstName()" (input)="vm().firstName.set($any($event).target.value)" />
+      <input
+        type="text"
+        [value]="vm().firstName()"
+        (input)="vm().firstName.set($any($event).target.value)"
+      />
     </label>
     <label
       >Last Name
-      <input type="text" [value]="vm().lastName()" (input)="vm().lastName.set($any($event).target.value)" />
+      <input
+        type="text"
+        [value]="vm().lastName()"
+        (input)="vm().lastName.set($any($event).target.value)"
+      />
     </label>
   `,
   styleUrls: ['./signals-form.component.css'],
@@ -31,7 +47,9 @@ export class SignalsFormSampleService {
     lastName: signal('Elias')
   });
 
-  readonly fullName = computed(() => `${this.vm().firstName()} ${this.vm().lastName()}`.trim());
+  readonly fullName = computed(() =>
+    `${this.vm().firstName()} ${this.vm().lastName()}`.trim()
+  );
 
   constructor() {
     effect(() => {

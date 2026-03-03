@@ -1,22 +1,20 @@
 import { createId } from './in-mem-utils';
 
-type Brand<K, T> = K & { __brand: T }
-
+type Brand<K, T> = K & { __brand: T };
 
 export type Id = Brand<string, 'Id'>;
 
-export interface DbRecord  {
+export interface DbRecord {
   id: Id;
-  table: [string, ...string[]]
+  table: [string, ...string[]];
   [key: string]: unknown;
 }
 
-export interface NewDbRecord  {
+export interface NewDbRecord {
   id?: Id;
-  table: [string, ...string[]]
+  table: [string, ...string[]];
   [key: string]: unknown;
 }
-
 
 function demo() {
   const person: DbRecord = {
@@ -24,6 +22,6 @@ function demo() {
     table: ['users', 'admins', 'employees'],
     name: 'Alice',
     age: 30,
-    email: ["alice@example.com"]
+    email: ['alice@example.com']
   };
 }

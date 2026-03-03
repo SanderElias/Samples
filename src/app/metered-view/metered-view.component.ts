@@ -43,7 +43,12 @@ import { StackedPerComponent } from './stacked-per/stacked-per.component';
       </defs>
 
       <!-- fill the SVG with the surface color, but mask out the arc (filled part) so page background shows through -->
-      <rect width="100%" height="100%" fill="var(--surface-1)" mask="url(#arcMask)" />
+      <rect
+        width="100%"
+        height="100%"
+        fill="var(--surface-1)"
+        mask="url(#arcMask)"
+      />
 
       <!-- gray remainder of the arc (unfilled part) -->
       <path

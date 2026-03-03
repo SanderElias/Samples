@@ -18,7 +18,9 @@ import { Component, computed, signal } from '@angular/core';
       />
 
       <section>
-        <div class="anchored" [style]="pos()"><p>⚓︎ The anchored content</p></div>
+        <div class="anchored" [style]="pos()">
+          <p>⚓︎ The anchored content</p>
+        </div>
 
         <div class="infobox">
           <p>this is the box we are going to anchor to</p>
@@ -30,7 +32,16 @@ import { Component, computed, signal } from '@angular/core';
   styleUrl: './anchor-pos.component.css'
 })
 export class AnchorPosComponent {
-  posOptions = ['start start', 'start center', 'start end', 'center end', 'end end', 'end center', 'end start', 'center start'];
+  posOptions = [
+    'start start',
+    'start center',
+    'start end',
+    'center end',
+    'end end',
+    'end center',
+    'end start',
+    'center start'
+  ];
   currentPos = signal(0);
 
   pos = computed(() => {

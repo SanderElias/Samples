@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import type { Observable} from 'rxjs';
+import type { Observable } from 'rxjs';
 import { from, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 
@@ -88,11 +88,16 @@ export function userCard(faker: any): UserCard {
         lng: faker.location.longitude()
       }
     },
-    tags: Array.from({ length: faker.number.int({ min: 2, max: 5 }) }, () => faker.word.noun()),
-    contactBy: Array.from({ length: faker.number.int({ min: 2, max: 4 }) }, () => ({
-      mean: faker.word.noun(),
-      value: faker.word.verb()
-    })),
+    tags: Array.from({ length: faker.number.int({ min: 2, max: 5 }) }, () =>
+      faker.word.noun()
+    ),
+    contactBy: Array.from(
+      { length: faker.number.int({ min: 2, max: 4 }) },
+      () => ({
+        mean: faker.word.noun(),
+        value: faker.word.verb()
+      })
+    ),
     phone: faker.phone.number,
     website: faker.internet.domainName(),
     company: {

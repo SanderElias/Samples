@@ -1,4 +1,3 @@
-
 export const assertPrimitive = <T extends string | number | boolean>(
   value: unknown,
   message = 'Expected a primitive value (string, number, or boolean)'

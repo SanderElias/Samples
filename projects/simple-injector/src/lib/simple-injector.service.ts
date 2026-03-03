@@ -30,7 +30,10 @@ const root: Provider = new Root(); // circular reference, make the root the pare
 
 let lastUsedProvider: Provider = root;
 
-export function simpleInject<T>(target: Constructor<T>, provider = lastUsedProvider): T {
+export function simpleInject<T>(
+  target: Constructor<T>,
+  provider = lastUsedProvider
+): T {
   const injectAble = provider.injectAbles.get(target);
   if (injectAble) {
     if (!injectAble.instance) {
@@ -51,7 +54,9 @@ export function simpleInject<T>(target: Constructor<T>, provider = lastUsedProvi
   throw new Error(`No provider found for ${target.name}`);
 }
 
-export function provide<T>(provide: Constructor<unknown>[] | Constructor<unknown>): Provider {
+export function provide<T>(
+  provide: Constructor<unknown>[] | Constructor<unknown>
+): Provider {
   if (!Array.isArray(provide)) {
     provide = [provide];
   }
@@ -68,12 +73,19 @@ export function provide<T>(provide: Constructor<unknown>[] | Constructor<unknown
   lastUsedProvider.providers.set(constructor, provider);
   lastUsedProvider = provider;
   provide.forEach(provide => {
-    provider.injectAbles.set(provide, { identifier: provide, instance: new provide(), provider });
+    provider.injectAbles.set(provide, {
+      identifier: provide,
+      instance: new provide(),
+      provider
+    });
   });
   return provider;
 }
 
-export function getProvider<T>(target: Constructor<T>, provider: Provider = lastUsedProvider) {
+export function getProvider<T>(
+  target: Constructor<T>,
+  provider: Provider = lastUsedProvider
+) {
   if (provider.injectAbles.has(target)) {
     return provider;
   }
@@ -85,7 +97,10 @@ export function getProvider<T>(target: Constructor<T>, provider: Provider = last
 }
 
 export const dumpTree = (provider: Provider = root, indent = 0) => {
-  const id = typeof provider.identifier === 'string' ? provider.identifier : provider.identifier.constructor.name;
+  const id =
+    typeof provider.identifier === 'string'
+      ? provider.identifier
+      : provider.identifier.constructor.name;
   console.log(' '.repeat(indent), id);
   provider.injectAbles.forEach(injectable => {
     console.log('  '.repeat(indent), injectable.identifier.name);

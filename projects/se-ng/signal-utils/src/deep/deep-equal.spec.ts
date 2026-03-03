@@ -47,11 +47,15 @@ describe('deepEqual', () => {
   });
 
   it('should return true for equal dates', () => {
-    expect(deepEqual(new Date('2020-01-01'), new Date('2020-01-01'))).toBe(true);
+    expect(deepEqual(new Date('2020-01-01'), new Date('2020-01-01'))).toBe(
+      true
+    );
   });
 
   it('should return false for different dates', () => {
-    expect(deepEqual(new Date('2020-01-01'), new Date('2021-01-01'))).toBe(false);
+    expect(deepEqual(new Date('2020-01-01'), new Date('2021-01-01'))).toBe(
+      false
+    );
   });
 
   it('should return true for equal maps', () => {
@@ -122,11 +126,15 @@ describe('deepEqual', () => {
   });
 
   it('should return true for equal typed arrays', () => {
-    expect(deepEqual(new Uint8Array([1, 2]), new Uint8Array([1, 2]))).toBe(true);
+    expect(deepEqual(new Uint8Array([1, 2]), new Uint8Array([1, 2]))).toBe(
+      true
+    );
   });
 
   it('should return false for different typed arrays', () => {
-    expect(deepEqual(new Uint8Array([1, 2]), new Uint8Array([2, 1]))).toBe(false);
+    expect(deepEqual(new Uint8Array([1, 2]), new Uint8Array([2, 1]))).toBe(
+      false
+    );
   });
 
   it('should return true for equal regexps', () => {
@@ -139,8 +147,12 @@ describe('deepEqual', () => {
   });
 
   it('should return false for objects with different constructors', () => {
-    class A { x = 1; }
-    class B { x = 1; }
+    class A {
+      x = 1;
+    }
+    class B {
+      x = 1;
+    }
     expect(deepEqual(new A(), new B())).toBe(false);
   });
 
@@ -164,23 +176,55 @@ describe('deepEqual', () => {
   });
 
   it('should compare objects with custom valueOf', () => {
-    const a = { value: 1, valueOf() { return 42; } };
-    const b = { value: 2, valueOf() { return 42; } };
+    const a = {
+      value: 1,
+      valueOf() {
+        return 42;
+      }
+    };
+    const b = {
+      value: 2,
+      valueOf() {
+        return 42;
+      }
+    };
     expect(deepEqual(a, b)).toBe(true);
-    const c = { value: 1, valueOf() { return 43; } };
+    const c = {
+      value: 1,
+      valueOf() {
+        return 43;
+      }
+    };
     expect(deepEqual(a, c)).toBe(false);
   });
 
   it('should compare objects with custom toString', () => {
-    const a = { value: 1, toString() { return 'foo'; } };
-    const b = { value: 2, toString() { return 'foo'; } };
+    const a = {
+      value: 1,
+      toString() {
+        return 'foo';
+      }
+    };
+    const b = {
+      value: 2,
+      toString() {
+        return 'foo';
+      }
+    };
     expect(deepEqual(a, b)).toBe(true);
-    const c = { value: 1, toString() { return 'bar'; } };
+    const c = {
+      value: 1,
+      toString() {
+        return 'bar';
+      }
+    };
     expect(deepEqual(a, c)).toBe(false);
   });
 
   it('should return false for ArrayBuffer views with different lengths', () => {
-    expect(deepEqual(new Uint8Array([1, 2]), new Uint8Array([1, 2, 3]))).toBe(false);
+    expect(deepEqual(new Uint8Array([1, 2]), new Uint8Array([1, 2, 3]))).toBe(
+      false
+    );
   });
 
   it('should return false for RegExp with different sources', () => {

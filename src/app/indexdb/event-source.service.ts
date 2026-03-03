@@ -2,7 +2,11 @@ import { Injectable, signal } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 import type { DbEvent } from './event-source.types';
-import { getAllFromStore, initializeDb, saveToIndexedDb } from './indexed-db-helpers';
+import {
+  getAllFromStore,
+  initializeDb,
+  saveToIndexedDb
+} from './indexed-db-helpers';
 
 const DbName = 'EventSourceDb';
 const storeName = 'events';
@@ -47,7 +51,9 @@ export class EventSourceService {
     /*
       Initialize the database, provide an array with "upgrades" to be performed on the database
     */
-    initializeDb(DbName, [db => db.createObjectStore(storeName, { autoIncrement: true })]);
+    initializeDb(DbName, [
+      db => db.createObjectStore(storeName, { autoIncrement: true })
+    ]);
     this.#getInitialEvents();
   }
 
@@ -60,7 +66,9 @@ export class EventSourceService {
       }
       this.#$ready.set(true);
       // for now, just log the time it took to load the data. If it gets too slow, we can optimize it
-      console.log(`IndexedDB load time: ${Date.now() - startTime}ms for ${rowCount} events`);
+      console.log(
+        `IndexedDB load time: ${Date.now() - startTime}ms for ${rowCount} events`
+      );
     } catch (error) {
       console.error(error);
     }

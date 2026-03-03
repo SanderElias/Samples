@@ -6,7 +6,11 @@ import { ResizablePanelComponent } from './resizable-panel/resizable-panel.compo
   selector: 'se-resizable-panels',
   imports: [ResizablePanelComponent],
   template: `
-    <input type="range" [value]="$range()" (change)="$range.set($any($event.target).value)" />
+    <input
+      type="range"
+      [value]="$range()"
+      (change)="$range.set($any($event.target).value)"
+    />
     @for (n of panels; track n) {
       <se-resizable-panel>
         <h3>Panel {{ n }}</h3>

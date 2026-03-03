@@ -9,7 +9,10 @@ import { ScriptComponent } from './script/script.component';
   imports: [AsyncPipe, ScriptComponent],
   template: `<header>
       <h2>NPM scripts</h2>
-      <small>(click one to upgrade it to WireIt!<br />Only non-upgraded ones are shown)</small>
+      <small
+        >(click one to upgrade it to WireIt!<br />Only non-upgraded ones are
+        shown)</small
+      >
     </header>
     @for (script of scripts$ | async; track script) {
       <app-script [script]="script"></app-script>
@@ -40,6 +43,10 @@ export class ScriptsComponent {
   pjs = inject(PackageJsonService);
   scripts$ = this.pjs.pjObject$.pipe(
     map(contents => contents.scripts as Record<string, string>),
-    map(scripts => Object.entries(scripts).filter(([key, value]) => !value.includes('wireit')))
+    map(scripts =>
+      Object.entries(scripts).filter(
+        ([key, value]) => !value.includes('wireit')
+      )
+    )
   );
 }

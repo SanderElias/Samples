@@ -1,5 +1,13 @@
-import type { ElementRef, Signal} from '@angular/core';
-import { afterRenderEffect, Component, computed, inject, input, model, viewChild } from '@angular/core';
+import type { ElementRef, Signal } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  inject,
+  input,
+  model,
+  viewChild
+} from '@angular/core';
 
 import { zigbeePrefixes } from '../../mqtt.component';
 import { ZigbeeService } from '../../zigbee.service';
@@ -17,7 +25,9 @@ import { extractPrefix } from '../power-meter.component';
           <span>indelen bij:</span>
           <select name="prefix" id="prefix" [value]="prefix()">
             @for (pf of zigbeePrefixes; track $index) {
-              <option value="{{ pf }}" [selected]="prefix() === pf">{{ pf }}</option>
+              <option value="{{ pf }}" [selected]="prefix() === pf">
+                {{ pf }}
+              </option>
             }
             <option value="" [selected]="!prefix()">Geen</option>
           </select>
@@ -33,33 +43,45 @@ import { extractPrefix } from '../power-meter.component';
   `
 })
 export class PowerMeterDialogComponent {
-  protected readonly dialogRef: Signal<ElementRef<HTMLDialogElement>> = viewChild.required('dlg');
+  protected readonly dialogRef: Signal<ElementRef<HTMLDialogElement>> =
+    viewChild.required('dlg');
   protected readonly z2m = inject(ZigbeeService);
 
   readonly ieeeAddress = input.required<string>();
   readonly zigbeePrefixes = zigbeePrefixes;
 
   readonly #deviceInfo = this.z2m.getDeviceInfo(this.ieeeAddress);
-  readonly baseName = computed(() => this.#deviceInfo()?.friendly_name || this.ieeeAddress());
+  readonly baseName = computed(
+    () => this.#deviceInfo()?.friendly_name || this.ieeeAddress()
+  );
   readonly name = computed(() => this.baseName().split('/').pop() || '');
   readonly prefix = computed(() => extractPrefix(this.baseName()));
   readonly show = model<boolean>();
 
-  readonly _ = afterRenderEffect(() => (this.show() ? this.openDialog() : this.closeDialog()));
+  readonly _ = afterRenderEffect(() =>
+    this.show() ? this.openDialog() : this.closeDialog()
+  );
 
   updateName = async (evt: SubmitEvent) => {
     evt.preventDefault();
     const form = evt.target as HTMLFormElement;
-    const newName = (form.elements.namedItem('name') as HTMLInputElement)?.value?.trim() ?? '';
-    const newPrefix = (form.elements.namedItem('prefix') as HTMLInputElement)?.value?.trim() ?? '';
+    const newName =
+      (form.elements.namedItem('name') as HTMLInputElement)?.value?.trim() ??
+      '';
+    const newPrefix =
+      (form.elements.namedItem('prefix') as HTMLInputElement)?.value?.trim() ??
+      '';
     const newBaseName = `${newPrefix}/${newName}`.trim();
     if (newPrefix && newName && newBaseName !== this.baseName()) {
-      const result = await this.z2m.publish('zigbee2mqtt/bridge/request/device/rename', {
-        from: this.baseName(),
-        to: newBaseName,
-        homeassistant_rename: true
-      });
-      console.log(result)
+      const result = await this.z2m.publish(
+        'zigbee2mqtt/bridge/request/device/rename',
+        {
+          from: this.baseName(),
+          to: newBaseName,
+          homeassistant_rename: true
+        }
+      );
+      console.log(result);
     }
     this.closeDialog();
   };

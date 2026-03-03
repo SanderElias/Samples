@@ -10,7 +10,6 @@ declare global {
   }
 }
 
-
 @Component({
   selector: 'app-select-package-json',
   imports: [AsyncPipe],

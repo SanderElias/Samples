@@ -98,7 +98,9 @@ look at the `order.processor` and the `order.transporter`, and even the `order.p
 But first think about the `handing down` part. In the sample, the app-relation is responsible for showing the relation. When someone decides that they want to upper-case the name they might do this in the template:
 
 ```html
-<app-relation [relation]="{...order.processor, name:order.processor.name.toUpperCase()}"></app-relation>
+<app-relation
+  [relation]="{...order.processor, name:order.processor.name.toUpperCase()}"
+></app-relation>
 ```
 
 (This syntax might not be valid, its about making a point)
