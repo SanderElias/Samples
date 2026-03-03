@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "npm": "This project switched to PNPM",
-    "yarn": "This project is switched to PNPM",
-    "pnpm": "^10.24.0",
     "node": ">24.7.0"
   },
   "type": "module",
