@@ -33,10 +33,7 @@ Let's implement a simple modal dialog:
 <dialog id="myDialog" closedby="any">
   <h3>HTML is awesome!</h3>
   <p>Modal dialogs are natively supported by the browser</p>
-  <button
-    aria-controls="myDialog"
-    commandfor="myDialog"
-    command="close">
+  <button aria-controls="myDialog" commandfor="myDialog" command="close">
     Close dialog
   </button>
 </dialog>
@@ -342,7 +339,8 @@ option .icon {
       </option>
       <option value="snake">
         <span class="icon" aria-hidden="true">🐍</span>
-        <span class="option-label">Snake</span></option>
+        <span class="option-label">Snake</span>
+      </option>
     </select>
   </p>
 </form>
@@ -396,12 +394,11 @@ option .icon {
 
 </details>
 
-
 ### Yes, there is more.
 
 But I just wanted to show you a few low hanging fruits. All of the above are
 just that. And they allow you to build rich UIs with no TypeScript/JavaScript
-code at all. *Just HTML and CSS*! And the progress is accelerating. More and more
+code at all. _Just HTML and CSS_! And the progress is accelerating. More and more
 features are landing in browsers that allow you to build complex UIs without
 needing to ship code for existing things.
 
@@ -409,28 +406,25 @@ needing to ship code for existing things.
 
 So, when you need something in your app. **Check if the platform already has it**.
 This has become much easier nowadays with the Baseline project, and tools
-that can show you support probably in your own editor already. Then there is 
+that can show you support probably in your own editor already. Then there is
 the MDN web docs, caniuse.com, and so on.
 I also cannot forget mentioning the [Interop project](https://github.com/web-platform-tests/interop), that runs since 2019. Every year
 they try to align browser vendors on a set of features that should be implemented
 by all browsers. For [this year(2025)](https://wpt.fyi/interop-2025), most things
- are done already! You can even help out there.
+are done already! You can even help out there.
 
 ## Conclusion
 
 The web platform is evolving rapidly, and more and more features are landing.
 Do yourself a favor, and use them. It gives you less code to maintain, less bugs
 to fix, and more time to focus on the unique parts of your application.
-I didn't even mention performance improvements, because native browser features 
+I didn't even mention performance improvements, because native browser features
 are often more optimized than custom implementations.
-Oh, and don't think that this article mentions everything. It is not. There are 
+Oh, and don't think that this article mentions everything. It is not. There are
 things like [popovers(HTML)](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
 for tooltips, snackbars and so on. CSS has now [anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-position),
-that gives you relational positioning based on other elements. 
+that gives you relational positioning based on other elements.
 
 There is too much to mention.
 
-
 So, please, _use the platform_.
-
-

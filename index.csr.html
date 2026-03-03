@@ -12,9 +12,48 @@
         background-color: var(--surface-1, #333);
         color: var(--text-1, #eee);
       }
+      div[aria-hidden='true'],
+      div[aria-hidden] {
+        display: none;
+      }
+
+      :root {
+        --icon-color: var(--yellow-6, #f6d32d);
+        --icon-accent-color: var(--blue-6, #2d9bf6);
+        --icon-contrast-color: var(--gray-10, #080808);
+      }
     </style>
   <style>@media(prefers-color-scheme:dark){}@media(prefers-color-scheme:dark){}*,:after,:before{box-sizing:border-box}html{--brand-light:#e30ae7;--text-1-light:var(--gray-8);--text-2-light:var(--gray-7);--surface-1-light:var(--gray-2);--surface-2-light:var(--gray-3);--surface-3-light:var(--gray-4);--surface-4-light:var(--gray-5);--surface-shadow-light:var(--gray-8-hsl);--shadow-strength-light:2%;--brand-dark:#6200ee;--text-1-dark:var(--gray-2);--text-2-dark:var(--gray-5);--surface-1-dark:var(--gray-11);--surface-2-dark:var(--gray-10);--surface-3-dark:var(--gray-9);--surface-4-dark:var(--gray-8);--surface-shadow-dark:var(--gray-12-hsl);--shadow-strength-dark:80%;--brand-dim:var(--orange-4);--text-1-dim:var(--gray-3);--text-2-dim:var(--gray-4);--surface-1-dim:var(--gray-8);--surface-2-dim:var(--gray-7);--surface-3-dim:var(--gray-6);--surface-4-dim:var(--gray-5);--surface-shadow-dim:var(--gray-9-hsl);--shadow-strength-dim:20%;--brand-grape:var(--purple-5);--text-1-grape:var(--purple-9);--text-2-grape:var(--purple-7);--surface-1-grape:var(--purple-0);--surface-2-grape:var(--purple-1);--surface-3-grape:var(--purple-2);--surface-4-grape:var(--purple-3);--surface-shadow-grape:var(--purple-12-hsl);--shadow-strength-grape:2%;--brand-choco:var(--choco-5);--text-1-choco:var(--choco-1);--text-2-choco:var(--choco-2);--surface-1-choco:var(--choco-12);--surface-2-choco:var(--choco-11);--surface-3-choco:var(--choco-10);--surface-4-choco:var(--choco-9);--surface-shadow-choco:25deg 65% 11%;--shadow-strength-choco:50%}:root{interpolate-size:allow-keywords;color-scheme:light;--brand:var(--brand-light);--text-1:var(--text-1-light);--text-2:var(--text-2-light);--surface-1:var(--surface-1-light);--surface-2:var(--surface-2-light);--surface-3:var(--surface-3-light);--surface-4:var(--surface-4-light);--surface-shadow:var(--surface-shadow-light);--shadow-strength:var(--shadow-strength-light)}@media(prefers-color-scheme:dark){:root{color-scheme:dark;--brand:var(--brand-dark);--text-1:var(--text-1-dark);--text-2:var(--text-2-dark);--surface-1:var(--surface-1-dark);--surface-2:var(--surface-2-dim);--surface-3:var(--surface-3-dark);--surface-4:var(--surface-4-dark);--surface-shadow:var(--surface-shadow-dark);--shadow-strength:var(--shadow-strength-dark)}}html{background-color:var(--surface-1);color:var(--text-1)}body{font:18px/1 Roboto,sans-serif;-webkit-font-smoothing:antialiased}</style><link rel="stylesheet" href="styles-FWQD7CFL.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-FWQD7CFL.css"></noscript></head>
   <body ngcm="">
+    <div aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="icon-tip" viewBox="0 0 24 24" fill="none">
+          <path d="M21 2l-1 1M3 2l1 1M21 16l-1-1M3 16l1-1M12 3c-4 0-6.048 1.95-6 5 .023 1.487.5 2.5 1.5 3.5 1 1 1.5 1.5 1.5 3.5h6c0-2 .5-2.5 1.5-3.5 1-1 1.477-2.013 1.5-3.5.048-3.05-2-5-6-5Z" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 18h6M10 21h4" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+
+        <symbol id="icon-warning" viewBox="0 0 24 24" fill="none">
+          <path d="M9.6 3.6c1.1-1.8 3.7-1.8 4.8 0L22.4 17.6c1.1 1.8-.2 4.1-2.4 4.1H4c-2.1 0-3.4-2.3-2.4-4.1L9.6 3.6z" fill="var(--icon-color)"/>
+          <g transform="translate(0,-0.94) translate(12,13.4) scale(1.51) translate(-12,-13.4)">
+            <rect x="11" y="8.0" width="2" height="8.0" rx="1" fill="var(--icon-contrast-color)"/>
+            <circle cx="12" cy="17.8" r="1" fill="var(--icon-contrast-color)"/>
+          </g>
+        </symbol>
+
+        <symbol id="icon-important" viewBox="0 0 24 24" fill="none">
+          <circle fill="var(--icon-color)" cx="12" cy="21.333" r="2"/>
+          <path fill="var(--icon-color)" d="M14 16a2 2 0 1 1 -4 0V3.333a2 2 0 1 1 4 0v12.667z"/>
+        </symbol>
+
+        <symbol id="icon-note" viewBox="0 0 24 24" fill="none" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 11.5V16.5M12 7.51v-.01M12 22C17.5 22 22 17.5 22 12S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z"/>
+        </symbol>
+
+        <symbol id="icon-uhm" viewBox="0 0 24 24" fill="none">
+          <path fill="var(--icon-color)" d="M14 18a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2c.4 0 4-.7 4-3.3C18 6.4 16.7 5 14.7 5 13 5 12 6.3 12 7a2 2 0 1 1-4 0c0-3.3 3-6 6.7-6 5.3 0 7.3 4 7.3 7.3 0 2.8-1.5 4.9-4.3 6-.6.2-1.2.4-1.7.5V16c0 1.1-.9 2-2 2zM12 21.3a2 2 0 1 0 4 0 2 2 0 0 0-4 0M2 21.3a2 2 0 1 0 4 0 2 2 0 0 0-4 0M4 18a2 2 0 0 0 2-2V4a2 2 0 1 0-4 0v12c0 1.1.9 2 2 2z"/>
+        </symbol>
+      </svg>
+    </div>
     <app-root></app-root>
-  <script src="main-IWACRQMI.js" type="module"></script></body>
+  <script src="main-AW5SWCU4.js" type="module"></script></body>
 </html>

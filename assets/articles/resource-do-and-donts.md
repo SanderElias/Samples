@@ -117,7 +117,9 @@ only make a request when the URL is defined. It would be an
 easy mistake to do something like this:
 
 ```typescript
-userResource = httpResource(() => `https://api.example.com/users/${this.userId()}`);
+userResource = httpResource(
+  () => `https://api.example.com/users/${this.userId()}`
+);
 ```
 
 In this case, when `userId` is `undefined`, the URL would be
@@ -204,7 +206,12 @@ Good! Always question things.
 Let me sample you a simple CRUD endpoint service:
 
 ```typescript
-import { endpointHandler, successHandler, type Action, type Result } from './endpoint-action-handler';
+import {
+  endpointHandler,
+  successHandler,
+  type Action,
+  type Result
+} from './endpoint-action-handler';
 @Injectable()
 export class UserService {
   #http = inject(HttpClient);
@@ -284,9 +291,21 @@ type InitialAction = { running: false };
 type RunningAction = { running: true; actionType: ActionType };
 export type SuccessResult = { success: true; data: unknown };
 export type FailureResult = { success: false; error: Error };
-export type SuccessFulAction = { running: false; actionType: ActionType; lastResult: SuccessResult };
-export type FailedAction = { running: false; actionType: ActionType; lastResult: FailureResult };
-export type Action = InitialAction | RunningAction | SuccessFulAction | FailedAction;
+export type SuccessFulAction = {
+  running: false;
+  actionType: ActionType;
+  lastResult: SuccessResult;
+};
+export type FailedAction = {
+  running: false;
+  actionType: ActionType;
+  lastResult: FailureResult;
+};
+export type Action =
+  | InitialAction
+  | RunningAction
+  | SuccessFulAction
+  | FailedAction;
 
 export type Result = SuccessResult | FailureResult;
 
@@ -296,7 +315,11 @@ interface EndpointHandlerParams {
   actionSignal: WritableSignal<Action>;
 }
 
-export const endpointHandler = ({ serverCall, actionType, actionSignal }: EndpointHandlerParams): Promise<Result> => {
+export const endpointHandler = ({
+  serverCall,
+  actionType,
+  actionSignal
+}: EndpointHandlerParams): Promise<Result> => {
   if (actionSignal().running) {
     // prevent concurrent actions
     throw new Error('Another action is already running');
@@ -394,8 +417,8 @@ Still, the component is fully reactive, and has all the state it
 needs to inform the user about loading and error states.
 
 So, you still believe resources are better for one-off calls?
-If se, please explain to me why you think so. I'm curious. 
-I really want to understand. 
+If se, please explain to me why you think so. I'm curious.
+I really want to understand.
 
 ## So, let's get on with it
 
@@ -407,7 +430,7 @@ But not for one-off calls, like updating/creating/deleting data.
 Why is that different? Because fetching data is something your
 app does _before_ the user can do anything. The user needs to
 wait until it is there. Also, when something fails, the user
-probably needs something else as a blank screen. 
+probably needs something else as a blank screen.
 Also, we might need to update data that is already on the screen.
 because an other user changed it, or, well, whatever reason.
 So, for getting data we need:
@@ -436,7 +459,7 @@ either success or failure. It translates to:
 action -> running -> success | failure
 
 Do we have a tool in our box that models this? Well, yes.
-this is exactly what a  promise models. You start it, and after a while
+this is exactly what a promise models. You start it, and after a while
 it either resolves or rejects. Perfect fit!
 
 In the above example I added a convenience layer, that makes it easier
@@ -445,14 +468,15 @@ in the context of Angular. But at its core it is _a promise._
 ## conclusion
 
 Resources are a powerful tool to fetch data in a reactive way, based on
-signals. They provide a clean API to handle loading states and errors, 
+signals. They provide a clean API to handle loading states and errors,
 and all that is needed around _fetching_ data.
 
 However, quite often I hear a question like:
+
 > But can I use resources for saving data too?
 
 The answer is: No, you should not. For one-off actions like saving,
-deleting, or updating data, you should use promises. 
+deleting, or updating data, you should use promises.
 While it is technically possible to use resources, they are a suboptimal
 fit for that use case. They add unnecessary complexity and cost,
 while promises provide a simpler and more direct way to handle

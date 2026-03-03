@@ -1,0 +1,1 @@
+import{Yb as n,Zb as i,sb as o,vc as s}from"./chunk-HQFTBR46.js";import"./chunk-C6Q5SG76.js";var r=(()=>{class t{static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275cmp=o({type:t,selectors:[["se-baz"]],decls:2,vars:0,template:function(e,m){e&1&&(n(0,"p"),s(1,"baz works!"),i())},styles:["[_nghost-%COMP%]{display:block}"]})}}return t})();export{r as BazComponent};

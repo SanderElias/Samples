@@ -115,7 +115,6 @@ There are clearly documented phases for new features. Most have a public RFC pro
 
 The same goes for deprecations: they are clearly documented and come with a migration path. Quite often there is tooling to help with this. This lets me plan ahead and avoid surprises from breaking changes.
 
-
 ## Less valued
 
 ### The perceived learning curve
@@ -134,7 +133,7 @@ Yes, it's bigger than I would like. Still, it gives you easy ways to lazy‑load
 
 This is a personal one. People who know me know that I have strong opinions about how things should be done. One of the things I loved (past tense) was that templates were fully HTML‑spec‑compliant. This meant that tools that validate HTML could be used to validate templates. Even though I protested loudly, this is no longer the case. We now have, for example, self‑closing tags like `<component-name />`. This is not valid HTML: the `/>` part is _not_ in the HTML spec. It is a common practice in XML, but not in HTML. It's a small thing, but it still irks me. The control‑flow syntax also made templates lose HTML‑spec compliance.
 The control‑flow syntax made this worth it, if you ask me. But I still wish they could have found a way to keep templates HTML‑spec‑compliant. I understand this is a trade‑off and that the team made the right decision, but it still irks me.
-By the way, talking about community pressure: the original syntax used `#`, as in `#if (...)`. This is a fairly common syntax in multiple languages. I preferred that! However, the community preferred `@`, so that is what we got. 
+By the way, talking about community pressure: the original syntax used `#`, as in `#if (...)`. This is a fairly common syntax in multiple languages. I preferred that! However, the community preferred `@`, so that is what we got.
 
 I'm actually not sure if this is good or bad. Listening to the community is a good thing — unless the community is wrong. And sometimes it is. Still, the team seems to strike a good balance here.
 
@@ -161,7 +160,6 @@ Yes.
 
 But if you aim for apps the size Angular can easily handle, there is actually a lot of added value in TypeScript.
 
-
 ## unpack "allows me to do more with less code"
 
 When I said that, I meant that Angular allows me to build complex apps with less code. This was a bit more true in the AngularJS days.
@@ -176,4 +174,3 @@ Ultimately, it boils down to trust and efficiency. I want a platform that respec
 When you weigh the stability, the community, and the sheer power it puts at your fingertips, you have found the answer to the question:
 
 **Why Angular?**
-

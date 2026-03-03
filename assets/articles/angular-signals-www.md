@@ -4,7 +4,6 @@
 > introduced in Angular. Since then the API has changed, and signals are now
 > part of Angular stable.
 
-
 In this article, I will go into the **_Why_**, **_What_**, and **_Wherefor_** of Angular Signals. And why this is such a big deal that everyone seems to have an opinion on. How it is going to be a complementary technology to Angular, and not a replacement to anything already there. (spoiler alert: it is not a replacement for RxJS)
 
 > DISCLAIMER: this is not the current API of Angular Signals. As the current API doesn't really exist just yet. Yes, there is a POC implementation, but it is not the final API. The API is still being discussed. But this is the API that I think will make it easier to read samples. And it is the API that I think will be the most intuitive to use. So, I will use it in this article. But it is not the final API, and it is also not the current implementation.
@@ -122,7 +121,9 @@ It is easier to show than to explain. So here is an example:
 const counter = signal(0);
 const double = computed(() => counter.value * 2);
 const triple = computed(() => double.value * 3);
-const pickOne = computed(() => (counter.value % 2 === 0 ? double.value : triple.value));
+const pickOne = computed(() =>
+  counter.value % 2 === 0 ? double.value : triple.value
+);
 
 effect(() => {
   console.log(`counter: ${counter.value}`);
@@ -153,7 +154,9 @@ class SampleComponent {
     // this is too fast for a reason.
     map(() => new Date().toISOString().split('T')[1].split('.')[0])
   );
-  color$ = this.time.pipe(map(time => (this.alarmList.includes(time) ? 'red' : 'green')));
+  color$ = this.time.pipe(
+    map(time => (this.alarmList.includes(time) ? 'red' : 'green'))
+  );
 }
 // NOTE: see disclaimer at the top.
 ```
@@ -177,7 +180,9 @@ class SampleComponent {
       map(() => new Date().toISOString().split('T')[1].split('.')[0])
     )
   );
-  color = compute(() => (this.alarmList.includes(this.time.value) ? 'red' : 'green'));
+  color = compute(() =>
+    this.alarmList.includes(this.time.value) ? 'red' : 'green'
+  );
 }
 // NOTE: see disclaimer at the top.
 ```
@@ -210,7 +215,9 @@ class SomeComponent {
    * think of this as a alternative to the @Input decorator. but then reactive.
    * I'm casting only for the example, this will be done automatically
    */
-  customerId = futureMagicalSignalFromInput('customerId', undefined) as signal<number | undefined>;
+  customerId = futureMagicalSignalFromInput('customerId', undefined) as signal<
+    number | undefined
+  >;
 
   // make a Observable stream from a signal
   customer$ = observableFromSignal(this.customerId).pipe(
@@ -233,7 +240,9 @@ class SomeComponent {
   // use the life-cycle hook signal to do something
   destroyEffect = effect(() => {
     if (this.destroy) {
-      console.log('destroying the customer signal, while destroying the component');
+      console.log(
+        'destroying the customer signal, while destroying the component'
+      );
     }
   });
 }
