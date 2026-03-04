@@ -1,1 +1,0 @@
-import"./chunk-C6Q5SG76.js";var o=[{path:"",loadComponent:()=>import("./observable-state.component-Z75BX5DY.js").then(e=>e.ObservableStateComponent)},{path:"hook",loadComponent:()=>import("./lifeycle-hooks-sample.component-6X7GBWTM.js").then(e=>e.LifeycleHooksSampleComponent)},{path:"**",redirectTo:""}];export{o as routes};

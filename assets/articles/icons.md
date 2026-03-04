@@ -65,6 +65,10 @@ this is my fallback icon, for when I use an non-exisistent icon. I use it in the
 
 <svg role="img" aria-label="Uhm"><use href="#icon-uhm"></use></svg>
 
+### the pencil icon:
+
+<svg role="img" aria-label="Pencil"><use href="#icon-pencil"></use></svg>
+
 ## How to use SVG sprites
 
 You can use the generated SVG sprite file at `assets/icons-sprite.svg` in two common ways: inline the sprite into your HTML (recommended when using CSS custom properties), or reference the external file.
@@ -93,7 +97,7 @@ You can use the generated SVG sprite file at `assets/icons-sprite.svg` in two co
 
 Notes:
 
-- Available symbol IDs: `icon-tip`, `icon-warning`, `icon-important`, `icon-note`, `icon-uhm`.
+- Available symbol IDs: `icon-tip`, `icon-warning`, `icon-important`, `icon-note`, `icon-uhm`, `icon-pencil`.
 - If you rely on CSS custom properties (for example `--icon-color`) prefer the inline approach or ensure the variables are defined inside the sprite itself; otherwise the external `<use>` may not receive those variables in some browsers.
 - For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
 - For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
