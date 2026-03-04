@@ -6,7 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Consumer, consumerPollValueStatus, Edge, nextReactiveId, ProducerId, setActiveConsumer } from './internal.js';
+import {
+  Consumer,
+  consumerPollValueStatus,
+  Edge,
+  nextReactiveId,
+  ProducerId,
+  setActiveConsumer
+} from './internal.js';
 import { WeakRef } from './weak_ref.js';
 
 /**

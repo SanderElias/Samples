@@ -89,7 +89,10 @@ export interface Producer {
 export function producerNotifyConsumers(producer: Producer): void {
   for (const [consumerId, edge] of producer.consumers) {
     const consumer = edge.consumerRef.deref();
-    if (consumer === undefined || consumer.trackingVersion !== edge.atTrackingVersion) {
+    if (
+      consumer === undefined ||
+      consumer.trackingVersion !== edge.atTrackingVersion
+    ) {
       producer.consumers.delete(consumerId);
       consumer?.producers.delete(producer.id);
       continue;
@@ -130,7 +133,10 @@ export function producerAccessed(producer: Producer): void {
  * last seen at a specific version by a `Consumer` which recorded a dependency on
  * this `Producer`.
  */
-function producerPollStatus(producer: Producer, lastSeenValueVersion: number): boolean {
+function producerPollStatus(
+  producer: Producer,
+  lastSeenValueVersion: number
+): boolean {
   // `producer.valueVersion` may be stale, but a mismatch still means that the value
   // last seen by the `Consumer` is also stale.
   if (producer.valueVersion !== lastSeenValueVersion) {
@@ -213,7 +219,10 @@ export function consumerPollValueStatus(consumer: Consumer): boolean {
   for (const [producerId, edge] of consumer.producers) {
     const producer = edge.producerRef.deref();
 
-    if (producer === undefined || edge.atTrackingVersion !== consumer.trackingVersion) {
+    if (
+      producer === undefined ||
+      edge.atTrackingVersion !== consumer.trackingVersion
+    ) {
       // This dependency edge is stale, so remove it.
       consumer.producers.delete(producerId);
       producer?.consumers.delete(consumer.id);

@@ -66,7 +66,9 @@ class Worker {
         this.#worker.kill();
       } catch {}
       if (this.#errCount > 3) {
-        console.error(`Can't recover job, failed 3 times in a row. job is inactive now`);
+        console.error(
+          `Can't recover job, failed 3 times in a row. job is inactive now`
+        );
         this.active = false;
         this.#worker = undefined;
       } else if (this.active) {
@@ -87,7 +89,9 @@ class job {
   #done = undefined;
   #fail = undefined;
   /** default timeout time, job wil fail if not done whitin this time */
-  done = new Promise((resolve, reject) => ((this.#done = resolve), (this.#fail = reject)));
+  done = new Promise(
+    (resolve, reject) => ((this.#done = resolve), (this.#fail = reject))
+  );
   constructor(taskName, taskValue, trigger) {
     this.taskName = taskName;
     this.trigger = trigger;
@@ -139,7 +143,9 @@ async function handleJobs(jobs, poolSize = 100) {
       nextJob.startWithWorker(jobDone.worker);
       jobDone.worker = undefined;
     }
-    tasks = jobs.filter(row => row.pending && row.started).map(task => task.done.then(() => task));
+    tasks = jobs
+      .filter(row => row.pending && row.started)
+      .map(task => task.done.then(() => task));
   }
 
   await Promise.all(tasks);

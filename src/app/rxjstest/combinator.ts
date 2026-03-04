@@ -3,7 +3,10 @@ import { Observable } from 'rxjs';
 
 type CombinatorFn<R, T> = (source: R) => Observable<T>[];
 
-export function combinator<R, T>(fn?: CombinatorFn<R, T> | number, debounceTime = 50): (source: Observable<R>) => Observable<T[]> {
+export function combinator<R, T>(
+  fn?: CombinatorFn<R, T> | number,
+  debounceTime = 50
+): (source: Observable<R>) => Observable<T[]> {
   interface clientState {
     sub: Subscription;
     last?: T;

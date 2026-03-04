@@ -1,5 +1,4 @@
 import {
-  afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -15,6 +14,8 @@ import {
   type TreeValidationResult
 } from '@angular/forms/signals';
 
+import { NotifyDialogService } from '../crud-stuff/notify-dialog/notify-dialog.service';
+
 // import { FormsModule } from '@angular/forms';
 import { ContactsComponent } from './contacts/contacts.component';
 import { InputRandomIntComponent } from './input-random-int/input-random-int.component';
@@ -24,7 +25,6 @@ import { SampleDataService } from './util/sample-data.service';
 import { ShowErrorsInDom } from './util/show-errors-in-dom.directive';
 import { sampleDataValidationSchema } from './validations/sampledata-validation';
 import { ZeroPadNumberComponent } from './zero-padd-number/zero-pad-number.component';
-import { NotifyDialogService } from '../crud-stuff/notify-dialog/notify-dialog.service';
 
 @Component({
   imports: [
@@ -195,6 +195,4 @@ export class SignalFormsExperimentComponent {
   });
 
   dlg = viewChild('dlg', { read: ElementRef });
-
-
 }

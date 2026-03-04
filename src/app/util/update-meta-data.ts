@@ -1,8 +1,8 @@
 import type { Meta, Title } from '@angular/platform-browser';
+
 import type { Article } from '../blogs/article.interface';
+
 import type { RouteInfo } from './RouteInfo';
-import { json } from 'stream/consumers';
-import { ar } from '@faker-js/faker';
 
 export const updateRouteInfo =
   (meta: Meta, title: Title) => (routeInfo: RouteInfo, article?: Article) => {

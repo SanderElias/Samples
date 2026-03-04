@@ -14,7 +14,9 @@ export interface MergeDeepOptions {
    * - `'merge'` will merge the two.
    * - A function can be provided as well that conditionally selects one of the options above, depending on the property path
    */
-  iterableMergeStrategy?: IterableMergeStrategy | ((path: string[]) => IterableMergeStrategy);
+  iterableMergeStrategy?:
+    | IterableMergeStrategy
+    | ((path: string[]) => IterableMergeStrategy);
 
   /**
    * Skip assigning undefined values from the source object. defaults to `false`.
@@ -36,14 +38,21 @@ export const mergeDeep = <A extends {}, B extends {}>(
   options: MergeDeepOptions = {},
   path: string[] = []
 ): DeepMergeObjects<A, B> => {
-  const resolveMergeStrategy = (propertyPath: string[]): IterableMergeStrategy =>
+  const resolveMergeStrategy = (
+    propertyPath: string[]
+  ): IterableMergeStrategy =>
     typeof options.iterableMergeStrategy === 'function'
       ? options.iterableMergeStrategy(propertyPath)
       : (options.iterableMergeStrategy ?? 'concat');
   const skipAssignUndefined = options.skipAssignUndefined ?? false;
 
-  if (! (Array.isArray(target) || isObject(target)) || ! (Array.isArray(source) || isObject(source))) {
-    throw new Error('[deepMergeObjects] target and source must be objects or arrays');
+  if (
+    !(Array.isArray(target) || isObject(target)) ||
+    !(Array.isArray(source) || isObject(source))
+  ) {
+    throw new Error(
+      '[deepMergeObjects] target and source must be objects or arrays'
+    );
   }
 
   const result: Record<string, unknown> = cloneDeep(target);
@@ -69,7 +78,12 @@ export const mergeDeep = <A extends {}, B extends {}>(
           break;
         }
         case 'merge': {
-          result[key] = deepMergeArray(currentValue ?? [], valueToMerge, options, childPath);
+          result[key] = deepMergeArray(
+            currentValue ?? [],
+            valueToMerge,
+            options,
+            childPath
+          );
           break;
         }
       }
@@ -79,7 +93,9 @@ export const mergeDeep = <A extends {}, B extends {}>(
         result[key] = new Set(valueToMerge);
       } else {
         if (!(currentValue instanceof Set)) {
-          throw new Error('[deepMergeObjects] Cannot merge or concat a Set with a non-Set');
+          throw new Error(
+            '[deepMergeObjects] Cannot merge or concat a Set with a non-Set'
+          );
         }
         result[key] = new Set([...currentValue, ...valueToMerge]);
       }
@@ -89,12 +105,19 @@ export const mergeDeep = <A extends {}, B extends {}>(
         result[key] = new Map(valueToMerge);
       } else {
         if (!(currentValue instanceof Map)) {
-          throw new Error('[deepMergeObjects] Cannot merge or concat a Map with a non-Map');
+          throw new Error(
+            '[deepMergeObjects] Cannot merge or concat a Map with a non-Map'
+          );
         }
         result[key] = new Map([...currentValue, ...valueToMerge]);
       }
     } else if (isObject(valueToMerge)) {
-      result[key] = mergeDeep(isObject(currentValue) ? currentValue : {}, valueToMerge, options, childPath);
+      result[key] = mergeDeep(
+        isObject(currentValue) ? currentValue : {},
+        valueToMerge,
+        options,
+        childPath
+      );
     } else if (valueToMerge instanceof Date) {
       result[key] = new Date(valueToMerge);
     } else {
@@ -113,7 +136,12 @@ export const mergeDeep = <A extends {}, B extends {}>(
  * @returns new array where all values of both are present, in the same order. in case of conflicts, the source value is used.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const deepMergeArray = <T>(target: T[], source: T[], options: MergeDeepOptions = {}, path: string[] = []): T[] => {
+const deepMergeArray = <T>(
+  target: T[],
+  source: T[],
+  options: MergeDeepOptions = {},
+  path: string[] = []
+): T[] => {
   const result: T[] = target.reduce<T[]>((acc, value, index) => {
     acc[index] = cloneDeep(value); // clone in the original value.
 
@@ -124,7 +152,12 @@ const deepMergeArray = <T>(target: T[], source: T[], options: MergeDeepOptions =
     if (Array.isArray(value)) {
       valueToMerge = deepMergeArray(valueToMerge ?? [], value, options, path);
     } else if (isObject(value)) {
-      valueToMerge = mergeDeep(valueToMerge ?? {}, value as Record<string, unknown>, options, path);
+      valueToMerge = mergeDeep(
+        valueToMerge ?? {},
+        value as Record<string, unknown>,
+        options,
+        path
+      );
     } else {
       valueToMerge = cloneDeep(value);
     }

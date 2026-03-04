@@ -1,24 +1,43 @@
-import { afterNextRender, Component, computed, inject, input, signal, type WritableSignal } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  computed,
+  inject,
+  input,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
-import { type ZigbeePrefixes,zigbeePrefixes } from '../mqtt.component';
+import { type ZigbeePrefixes, zigbeePrefixes } from '../mqtt.component';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { persistentLinkedSignal } from '../util/idbstorage';
 import { ZigbeeService } from '../zigbee.service';
 
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
+import { splitName } from './dialog/split-name';
 
 @Component({
   selector: 'power-meter',
   template: `
-    <h5 (click)="dialogOpen.set(true)">{{ name() }} 🖉</h5>
+    <h5 (click)="dialogOpen.set(true)">
+      {{ name() }}
+      <svg role="img" aria-label="Pencil">
+        <use href="#icon-pencil"></use>
+      </svg>
+    </h5>
     @if (!deviceLoading()) {
       <se-gauge [value]="currentPower()" [maxVal]="maxUsedPower()" />
-      group: {{ prefix() }}<br />
-      power: {{ currentPower() }} W<br />
-      voltage: {{ deviceStatus()?.voltage }} V<br />
-      current: {{ deviceStatus()?.current }} A<br />
-      energy: {{ deviceStatus()?.energy }} kWh<br />
+      <ul>
+        <li><span>group:</span><span>{{ splitName().prefix }}</span></li>
+        @if (splitName().subGroup) {
+           <li><span>subgroup:</span><span>{{ splitName().subGroup }}</span></li>
+        }
+        <li><span>power:</span><span>{{ currentPower() }} W</span></li>
+        <li><span>voltage:</span><span>{{ deviceStatus()?.voltage }} V</span></li>
+        <li><span>current:</span><span>{{ deviceStatus()?.current }} A</span></li>
+        <li><span>energy:</span><span>{{ deviceStatus()?.energy }} kWh</span></li>
+      </ul>
       <!-- <input type="checkbox" switch [checked]="isPoweredOn()" (change)="isPoweredOn() ? toggleOff() : toggleOn()" /> -->
     } @else {
       <span>Loading...</span><br />
@@ -40,13 +59,22 @@ export class PowerMeterComponent {
   readonly deviceLoading = this.#deviceResource.isLoading;
   readonly deviceStatus = this.#deviceResource.value;
   readonly #deviceInfo = this.z2m.getDeviceInfo(this.ieeeAddress);
-  readonly currentPower = computed(() => <number | undefined>this.deviceStatus()?.power || 0, {
-    debugName: 'CurrentPower'
+  readonly currentPower = computed(
+    () => <number | undefined>this.deviceStatus()?.power || 0,
+    {
+      debugName: 'CurrentPower'
+    }
+  );
+  maxUsedPower: WritableSignal<number> = signal(0, {
+    debugName: 'MaxUsedPower'
   });
-  maxUsedPower: WritableSignal<number> = signal(0, { debugName: 'MaxUsedPower' });
 
-  readonly name = computed(() => (this.#deviceInfo()?.friendly_name || this.ieeeAddress()).split('/').pop() || '');
-  readonly prefix = computed(() => extractPrefix(this.#deviceInfo()?.friendly_name || this.ieeeAddress()));
+  readonly splitName = computed(() =>
+    splitName(this.#deviceInfo()?.friendly_name || this.ieeeAddress())
+  );
+
+  readonly name = computed(() => this.splitName().name);
+  readonly prefix = computed(() => this.splitName().prefix);
   readonly isPoweredOn = computed(() => this.deviceStatus()?.state === 'ON');
 
   refresh = () => {
@@ -72,5 +100,7 @@ export class PowerMeterComponent {
 // create function to extract the prefix from the name
 export function extractPrefix(name: string): ZigbeePrefixes {
   const match = name.match(new RegExp(`^(${zigbeePrefixes.join('|')})`));
-  return match && match[0] ? (match[0] as ZigbeePrefixes) : ('' as ZigbeePrefixes);
+  return match && match[0]
+    ? (match[0] as ZigbeePrefixes)
+    : ('' as ZigbeePrefixes);
 }

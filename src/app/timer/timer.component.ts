@@ -1,5 +1,14 @@
 import { HttpClient, httpResource } from '@angular/common/http';
-import { Component, computed, DestroyRef, inject, Injectable, linkedSignal, signal, Signal } from '@angular/core';
+import type { Signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  Injectable,
+  linkedSignal,
+  signal
+} from '@angular/core';
 
 const second = 1000;
 const minute = 60 * second;
@@ -25,7 +34,9 @@ export class TimerComponent {
   downFrom = 1 * hour;
   startTime = Date.now();
   now = signal(Date.now());
-  trueDuration = computed(() => +this.now() - +this.startTime - (this.downFrom || 0));
+  trueDuration = computed(
+    () => +this.now() - +this.startTime - (this.downFrom || 0)
+  );
   duration = computed(() => Math.abs(this.trueDuration()));
   days = computed(() => Math.floor(this.duration() / day));
   hours = computed(() => Math.floor((this.duration() % day) / hour));
@@ -56,7 +67,12 @@ interface User {
   email: string;
 }
 
-import { endpointHandler, successHandler, type Action, type Result } from './endpoint-action-handler';
+import {
+  type Action,
+  endpointHandler,
+  type Result,
+  successHandler
+} from './endpoint-action-handler';
 @Injectable()
 export class UserService {
   #http = inject(HttpClient);
@@ -95,13 +111,19 @@ export class UserService {
 
   update(user: User): Promise<Result> {
     if (this.userResource.value()!.id !== user.id) {
-      throw new Error('Do you really want to get fired? Updating user id does not match the linked user id.');
+      throw new Error(
+        'Do you really want to get fired? Updating user id does not match the linked user id.'
+      );
     }
     return endpointHandler({
       serverCall: this.#http.put(this.#url(user.id), user),
       actionType: 'update',
       actionSignal: this.action
-    }).then(successHandler(serverUser => this.userResource.value.set(serverUser as User)));
+    }).then(
+      successHandler(serverUser =>
+        this.userResource.value.set(serverUser as User)
+      )
+    );
   }
 
   delete(id: number): Promise<Result> {
@@ -123,7 +145,9 @@ export class usersList {
   #http = inject(HttpClient);
   #url = (id: number) => `https://api.example.com/users/${id}`;
 
-  usersResource = httpResource<string[]>(() => 'https://api.example.com/users?orderBy=name');
+  usersResource = httpResource<string[]>(
+    () => 'https://api.example.com/users?orderBy=name'
+  );
   action = signal<Action>({ running: false });
 
   create(user: User): Promise<Result> {
@@ -133,18 +157,18 @@ export class usersList {
       actionType: 'create'
     }).then(
       successHandler((data: unknown) => {
-        const id = data as string
+        const id = data as string;
         // assuming the server sends back the id of the new user
         this.usersResource.value.update(users => [...(users || []), id]);
       })
     );
   }
 
-    update(user: User): Promise<Result> {
+  update(user: User): Promise<Result> {
     return endpointHandler({
       serverCall: this.#http.put(this.#url(user.id), user),
       actionType: 'update',
       actionSignal: this.action
-    })
+    });
   }
 }

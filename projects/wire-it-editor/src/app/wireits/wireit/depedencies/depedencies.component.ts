@@ -1,5 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, inject, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  Input
+} from '@angular/core';
 import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 import { map } from 'rxjs';
 import { PackageJsonService } from '../../../package.json.service';

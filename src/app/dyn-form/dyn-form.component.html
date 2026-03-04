@@ -6,7 +6,11 @@
         <label>
           {{ field.name }} {{ field.type }}
           <div>
-            <input [name]="field.name" [type]="field.type" [(ngModel)]="vm.person[field.name]" />
+            <input
+              [name]="field.name"
+              [type]="field.type"
+              [(ngModel)]="vm.person[field.name]"
+            />
             @if (field.name === 'id') {
               <p>Do not change</p>
             }

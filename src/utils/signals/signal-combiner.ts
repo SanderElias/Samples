@@ -1,4 +1,4 @@
-import type { Signal} from '@angular/core';
+import type { Signal } from '@angular/core';
 import { computed, effect, isSignal, signal } from '@angular/core';
 
 class demo {
@@ -19,12 +19,22 @@ class demo {
 }
 
 function combine<P extends Signal<unknown>[]>(...signals: P) {
-  return computed(() => signals.map(s => s()) as { [K in keyof P]: P[K] extends Signal<infer T> ? T : never });
+  return computed(
+    () =>
+      signals.map(s => s()) as {
+        [K in keyof P]: P[K] extends Signal<infer T> ? T : never;
+      }
+  );
 }
 
-function combineObject<O extends {}, P extends Signal<unknown>[]>(O: O, ...signals: P) {
+function combineObject<O extends {}, P extends Signal<unknown>[]>(
+  O: O,
+  ...signals: P
+) {
   return computed(() => {
-    const values = signals.map(s => s()) as { [K in keyof P]: P[K] extends Signal<infer T> ? T : never };
+    const values = signals.map(s => s()) as {
+      [K in keyof P]: P[K] extends Signal<infer T> ? T : never;
+    };
     const result = {} as { [K in keyof O]: (typeof values)[number] };
     Object.entries(O).forEach(([key, value]) => {
       if (!isSignal(value)) return;

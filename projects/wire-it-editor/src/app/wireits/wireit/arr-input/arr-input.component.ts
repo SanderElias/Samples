@@ -1,11 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'se-arr-input',
   imports: [FormsModule],
-  template: ` <button class="action" type="button" (click)="delete.emit(index)">🗑️</button>
+  template: ` <button class="action" type="button" (click)="delete.emit(index)">
+      🗑️
+    </button>
     <input type="text" [name]="name + '.' + index" [(ngModel)]="value" />`,
   styles: [
     `

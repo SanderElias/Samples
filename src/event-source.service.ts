@@ -18,7 +18,10 @@ export class EventSourceService {
       actions.push('create');
     }
     const action = curDb.length < 5 ? 'create' : getWeightedAction();
-    const id = action === 'create' ? '' : curDb[Math.floor(Math.random() * curDb.length)].id;
+    const id =
+      action === 'create'
+        ? ''
+        : curDb[Math.floor(Math.random() * curDb.length)].id;
     if (action === 'delete') {
       this.db.delete(id);
       return { action, id };
@@ -34,7 +37,10 @@ export class EventSourceService {
       // image: faker.image.avatar,
       tag: faker.lorem.word
     };
-    const field = Object.keys(fieldOptions)[Math.floor(Math.random() * Object.keys(fieldOptions).length)];
+    const field =
+      Object.keys(fieldOptions)[
+        Math.floor(Math.random() * Object.keys(fieldOptions).length)
+      ];
     const value = fieldOptions[field]();
     const row = { id, type: 'contact', [field]: value };
     if (action === 'create') {

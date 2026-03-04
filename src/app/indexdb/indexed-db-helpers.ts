@@ -1,6 +1,9 @@
 import { Deferred } from 'src/utils/signals/deferred';
 
-const allDbUpgrades = new Map<string, ((db: IDBDatabase) => IDBObjectStore)[]>();
+const allDbUpgrades = new Map<
+  string,
+  ((db: IDBDatabase) => IDBObjectStore)[]
+>();
 
 export const getAllFromStore = async function* <T = any>(
   dbName: string,
@@ -33,7 +36,11 @@ export const getAllFromStore = async function* <T = any>(
   };
 };
 
-export const getData = async (dbName: string, storeName: string, key: number | IDBKeyRange): Promise<any[]> =>
+export const getData = async (
+  dbName: string,
+  storeName: string,
+  key: number | IDBKeyRange
+): Promise<any[]> =>
   new Promise(async (resolve, reject) => {
     try {
       const db = await openDb(dbName);
@@ -60,7 +67,11 @@ export const getData = async (dbName: string, storeName: string, key: number | I
     }
   });
 
-export const saveToIndexedDb = async (dbName: string, storeName: string, event: any): Promise<boolean> =>
+export const saveToIndexedDb = async (
+  dbName: string,
+  storeName: string,
+  event: any
+): Promise<boolean> =>
   new Promise(async (resolve, reject) => {
     try {
       const db = await openDb(dbName);
@@ -69,7 +80,9 @@ export const saveToIndexedDb = async (dbName: string, storeName: string, event: 
         throw new Error(`Object store ${storeName} not found in db ${dbName}`);
       }
       const tx = db.transaction(storeName, 'readwrite');
-      const store = db.transaction(storeName, 'readwrite').objectStore(storeName);
+      const store = db
+        .transaction(storeName, 'readwrite')
+        .objectStore(storeName);
 
       store.put(event);
       tx.oncomplete = function () {
@@ -90,7 +103,9 @@ export const saveToIndexedDb = async (dbName: string, storeName: string, event: 
  * @param {string} db - The name of the database to open.
  * @returns {Promise<IDBDatabase>} A promise that resolves to the opened IDBDatabase instance.
  */
-export const openDb: (db: string) => Promise<IDBDatabase> = (db: string): Promise<IDBDatabase> =>
+export const openDb: (db: string) => Promise<IDBDatabase> = (
+  db: string
+): Promise<IDBDatabase> =>
   new Promise((resolve, reject) => {
     // handle the upgrades
     const upgrade = (upgrades: Array<(db: IDBDatabase) => void>) =>
@@ -118,7 +133,9 @@ export const openDb: (db: string) => Promise<IDBDatabase> = (db: string): Promis
 
     const upgrades = allDbUpgrades.get(db) ?? [];
     if (upgrades.length === 0) {
-      return reject(`database ${db} has no initialized upgrades, make sure to first call initializeDb('${db}', /* upgrades */)`);
+      return reject(
+        `database ${db} has no initialized upgrades, make sure to first call initializeDb('${db}', /* upgrades */)`
+      );
     }
 
     // Open (or create) the database
@@ -137,9 +154,16 @@ export const openDb: (db: string) => Promise<IDBDatabase> = (db: string): Promis
  *   - If an element is a string, it represents the name of an object store to be created with auto-increment enabled.
  *   - If an element is a function, it takes an IDBDatabase instance and run the function.
  */
-export const initializeDb = (dbName: string, upgrades: (((db: IDBDatabase) => IDBObjectStore) | string)[]): void => {
+export const initializeDb = (
+  dbName: string,
+  upgrades: (((db: IDBDatabase) => IDBObjectStore) | string)[]
+): void => {
   allDbUpgrades.set(
     dbName,
-    upgrades.map(u => (typeof u === 'string' ? db => db.createObjectStore(u, { autoIncrement: true }) : u))
+    upgrades.map(u =>
+      typeof u === 'string'
+        ? db => db.createObjectStore(u, { autoIncrement: true })
+        : u
+    )
   );
 };

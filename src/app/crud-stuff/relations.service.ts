@@ -20,17 +20,17 @@ import {
   HttpActionClient,
   mergeDeep
 } from '@se-ng/signal-utils';
+import { firstValueFrom } from 'rxjs';
 
 import { type UserCard } from '../generic-services/address.service';
-
-import { firstValueFrom } from 'rxjs';
 import { LoggedIn } from '../grid-play/logged-in-user.service';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
-import { createIndexes, goAddData } from './couch-helpers';
-import type { CouchUpdate } from './couch.types';
+
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';
+import type { CouchUpdate } from './couch.types';
 import { couchEventLister } from './couch-event-lister';
+import { createIndexes, goAddData } from './couch-helpers';
 
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];

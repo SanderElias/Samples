@@ -1,15 +1,45 @@
-<h3>MTTQ stuff</h3>
+<authenticated-user-only>
+  <details>
+    <summary>Settings</summary>
+    <div class="zigbee-prefixes">
+      @for (pf of zigbeePrefixes; track $index) {
+        <label>
+          <input
+            type="checkbox"
+            [checked]="selectedPrefixes().includes(pf)"
+            (change)="checkPf(pf)"
+          />
+          {{ pf ? pf : 'Alles' }}
+        </label>
+      }
+    </div>
+    <div class="toolbar">
+      <select (change)="selected.set($any($event.target).value)">
+        @for (device of deviceList(); track device.name) {
+          <option [value]="device.name">{{ device.name }}</option>
+        }
+      </select>
+      <select (change)="filter.set($any($event.target).value)">
+        @for (type of deviceTypes(); track type[0]) {
+          <option [value]="type[0]">{{ type[1] }}</option>
+        }
+      </select>
+      <label><input #sd type="checkbox" />show details</label>
+    </div>
+    <se-stacked-per [data]="powerUsage()" />
+    @if (sd.checked) {
+      <div class="grid">
+        <!-- selectedDevice.value()| json }}</code></pre> -->
+        <pretty-json [json]="selectedDevice.value()" />
+        <pretty-json [json]="selectedDetails()" />
+      </div>
+    }
+  </details>
+  <div class="devGrid">
+    <se-pair-button [selectedPrefixes]="selectedPrefixes()" />
 
-<table>
-
-  @for (device of $state(); track device.ieee_address) {
-    <tr>
-      <td><img [src]="device.definition?.icon" alt="icon"></td>
-      <td>{{device.friendly_name}}</td>
-      <td>{{device.friendly_name}}</td>
-      <td>{{device.definition?.exposes| json}}</td>
-    </tr>
-  }
-</table>
-
-<pre><code>{{$state() | json}}</code></pre>
+    @for (device of powerMeters(); track device.ieee_address) {
+      <power-meter [ieeeAddress]="device.ieee_address" />
+    }
+  </div>
+</authenticated-user-only>

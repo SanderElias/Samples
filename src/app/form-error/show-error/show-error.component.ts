@@ -14,7 +14,9 @@ export class ShowErrorComponent {
   #sub = this.#form.form.statusChanges.subscribe({
     next: () => {
       const form = this.#form.form;
-      const inp = this.#elm.parentElement?.querySelector('[name]') as HTMLInputElement;
+      const inp = this.#elm.parentElement?.querySelector(
+        '[name]'
+      ) as HTMLInputElement;
       const name = inp?.name;
       const field = form.get(name);
 

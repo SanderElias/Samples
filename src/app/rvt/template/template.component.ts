@@ -4,7 +4,7 @@ import type { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { BehaviorSubject, switchMap } from 'rxjs';
 
-import type { Model} from '../sampledata.service';
+import type { Model } from '../sampledata.service';
 import { SampledataService } from '../sampledata.service';
 
 @Component({
@@ -17,7 +17,13 @@ import { SampledataService } from '../sampledata.service';
         <form #form="ngForm" (ngSubmit)="save(data)">
           <label>
             <span>Name</span>
-            <input name="name" type="text" placeholder="Name" [(ngModel)]="data.name" required />
+            <input
+              name="name"
+              type="text"
+              placeholder="Name"
+              [(ngModel)]="data.name"
+              required
+            />
           </label>
           <label>
             <span>Date of birth</span>
@@ -31,21 +37,47 @@ import { SampledataService } from '../sampledata.service';
           </label>
           <label>
             <span>Email Address</span>
-            <input name="email" type="email" placeholder="Email Address" [(ngModel)]="data.email" />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email Address"
+              [(ngModel)]="data.email"
+            />
           </label>
           <label>
             <span>Favorite Number</span>
-            <input name="favNumber" type="number" placeholder="Favorite Number" [(ngModel)]="data.favNumber" />
+            <input
+              name="favNumber"
+              type="number"
+              placeholder="Favorite Number"
+              [(ngModel)]="data.favNumber"
+            />
           </label>
           <label>
-            <span><input name="admin" type="checkbox" [(ngModel)]="data.admin" /> Admin</span>
+            <span
+              ><input name="admin" type="checkbox" [(ngModel)]="data.admin" />
+              Admin</span
+            >
           </label>
           <label>
             <span>Level {{ data.level }}</span>
-            <input name="level" type="range" min="1" max="5" [(ngModel)]="data.level" />
+            <input
+              name="level"
+              type="range"
+              min="1"
+              max="5"
+              [(ngModel)]="data.level"
+            />
           </label>
-          <button type="cancel" (click)="reset$.next(undefined); $event.preventDefault()">Reset form</button>
-          <button type="submit" [disabled]="!form.valid" (click)="reveal(form)">Submit</button>
+          <button
+            type="cancel"
+            (click)="reset$.next(undefined); $event.preventDefault()"
+          >
+            Reset form
+          </button>
+          <button type="submit" [disabled]="!form.valid" (click)="reveal(form)">
+            Submit
+          </button>
         </form>
       </main>
     }

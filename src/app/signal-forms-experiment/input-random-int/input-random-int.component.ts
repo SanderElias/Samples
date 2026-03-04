@@ -1,5 +1,14 @@
-import { } from '@angular/compiler';
-import { Component, computed, inject, input, linkedSignal, model, signal, type WritableSignal } from '@angular/core';
+import {} from '@angular/compiler';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  linkedSignal,
+  model,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 import { FormField, type FormValueControl } from '@angular/forms/signals';
 
 const MAX = 1000;
@@ -8,7 +17,11 @@ const MAX = 1000;
   selector: 'se-input-random-int [formField]',
   imports: [],
   template: `
-    <span (click)="showMinMax.set(!showMinMax())" title="click to set boundaries">current value: {{ value() }} </span>
+    <span
+      (click)="showMinMax.set(!showMinMax())"
+      title="click to set boundaries"
+      >current value: {{ value() }}
+    </span>
     <label
       >Min value:
       <input
@@ -30,12 +43,14 @@ const MAX = 1000;
         (blur)="field.state().markAsTouched()"
         step="1"
     /></label>
-    <button type="button" (click)="getRandomInt()">Get random int between {{ lowerBoundary() }} and {{ upperBoundary() }}</button>
+    <button type="button" (click)="getRandomInt()">
+      Get random int between {{ lowerBoundary() }} and {{ upperBoundary() }}
+    </button>
   `,
   styleUrl: './input-random-int.component.css',
   host: {
     '[class.min-max]': 'showMinMax()'
-  },
+  }
 })
 export class InputRandomIntComponent implements FormValueControl<number> {
   readonly field = inject(FormField<number>);
@@ -53,10 +68,16 @@ export class InputRandomIntComponent implements FormValueControl<number> {
       return Math.min(MAX, newValue < min ? min + 1 : newValue);
     }
   });
-  readonly upperLowest = computed(() => Math.max(this.lowerBoundary() + 1, this.min() ?? 0));
+  readonly upperLowest = computed(() =>
+    Math.max(this.lowerBoundary() + 1, this.min() ?? 0)
+  );
 
   getRandomInt() {
     //The maximum is inclusive and the minimum is inclusive
-    this.value.set(Math.floor(Math.random() * (this.upperBoundary() - this.lowerBoundary() + 1)) + this.lowerBoundary());
+    this.value.set(
+      Math.floor(
+        Math.random() * (this.upperBoundary() - this.lowerBoundary() + 1)
+      ) + this.lowerBoundary()
+    );
   }
 }

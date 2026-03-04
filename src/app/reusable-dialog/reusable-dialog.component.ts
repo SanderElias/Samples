@@ -32,6 +32,10 @@ const y = 'twee';
 
 function test<T extends string>(x: MustBeStringUnion<T>) {}
 
-type MustBeStringUnion<T> = T extends string ? (string extends T ? never : T) : T;
+type MustBeStringUnion<T> = T extends string
+  ? string extends T
+    ? never
+    : T
+  : T;
 
 test<x>(y);

@@ -1,10 +1,19 @@
 import { Component, inject, type Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import type { SwapiRoot} from '@se-ng/swapi';
+import type { SwapiRoot } from '@se-ng/swapi';
 import { SwapiService } from '@se-ng/swapi';
 import { combineLatest, firstValueFrom, of } from 'rxjs';
-import { catchError, concatMap, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  tap
+} from 'rxjs/operators';
 
 import { ShowRecComponent } from '../show-rec/show-rec.component';
 
@@ -26,7 +35,9 @@ export class APISampleComponent {
   rawData: any = {};
 
   /** extract the available tabels/sets from the root of the api */
-  availableSets$ = this.#sw.swapiRoot$.pipe(map(root => Object.keys(root ?? {})));
+  availableSets$ = this.#sw.swapiRoot$.pipe(
+    map(root => Object.keys(root ?? {}))
+  );
   availableSets = toSignal(this.availableSets$); // instead of async pipe
 
   /** the options (name or title) available in the picked set */
@@ -39,7 +50,9 @@ export class APISampleComponent {
       /** progress when the set exists */
       filter(([sets, chosen]) => sets.includes(chosen)),
       /** use the service to get the list */
-      switchMap(([_, chosen]) => this.#sw.getSetNames(chosen as keyof SwapiRoot))
+      switchMap(([_, chosen]) =>
+        this.#sw.getSetNames(chosen as keyof SwapiRoot)
+      )
     ),
     { initialValue: [] }
   );
@@ -51,10 +64,16 @@ export class APISampleComponent {
       /** act on changes in the set/table */
       this.chosenSet.valueChanges,
       /** handle the search input */
-      this.name.valueChanges.pipe(debounceTime(250), distinctUntilChanged(), filter(Boolean))
+      this.name.valueChanges.pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+        filter(Boolean)
+      )
     ]).pipe(
       /** load the raw data from the API */
-      switchMap(([setname, name]: [any, string]) => this.#sw.findIn(setname, name)),
+      switchMap(([setname, name]: [any, string]) =>
+        this.#sw.findIn(setname, name)
+      ),
       /** don't let empty results in */
       filter(Boolean),
       /** use a side-effect to store the raw data */
@@ -83,7 +102,9 @@ export class APISampleComponent {
     /** don't do extra work if it's a known 'table/set' */
     if (!availableSets.includes(property)) {
       const orgval = this.rawData[property];
-      chosenSet = this.#sw.detectSet(Array.isArray(orgval) ? orgval[0] : orgval);
+      chosenSet = this.#sw.detectSet(
+        Array.isArray(orgval) ? orgval[0] : orgval
+      );
     }
     // console.log(chosenSet, findValue);
     /** use the formControl observables to propangate the changes */

@@ -1,4 +1,11 @@
-import { afterRenderEffect, Component, computed, ElementRef, inject,signal } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  signal
+} from '@angular/core';
 
 class SignalFormController extends HTMLElement {
   static observedAttributes = ['value'] as const; // we probably need a couple more here.
@@ -19,7 +26,13 @@ class SignalFormController extends HTMLElement {
   selector: 'se-digits',
   imports: [],
   template: `@for (val of values(); track $index) {
-    <input type="text" value="{{ val }}" maxlength="1" inputmode="numeric" (change)="update()" />
+    <input
+      type="text"
+      value="{{ val }}"
+      maxlength="1"
+      inputmode="numeric"
+      (change)="update()"
+    />
   }`,
   styleUrl: './digits.component.css'
 })
@@ -35,12 +48,15 @@ export class DigitsComponent extends SignalFormController {
     console.log('set value', value);
     this.#value.set(value);
   }
-  elm = inject(ElementRef, { optional: true })?.nativeElement as DigitsComponent;
+  elm = inject(ElementRef, { optional: true })
+    ?.nativeElement as DigitsComponent;
   values = computed(() => {
     const digits = this.#digits();
     let value = this.#value();
     if (value.length > digits) {
-      console.warn(`value is longer than digits, truncated to first ${digits} digits`);
+      console.warn(
+        `value is longer than digits, truncated to first ${digits} digits`
+      );
       value = value.slice(0, digits);
     }
     if (value.length < digits) {

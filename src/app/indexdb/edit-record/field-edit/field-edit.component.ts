@@ -19,7 +19,11 @@ import type { FieldType } from '../edit-record.component';
         <input type="checkbox" [checked]="data()" (input)="update($event)" />
       }
       @case ('date') {
-        <input type="datetime-local" [value]="data() | dTos" (input)="update($event)" />
+        <input
+          type="datetime-local"
+          [value]="data() | dTos"
+          (input)="update($event)"
+        />
       }
       @case ('nonEditable') {
         <span>No editable data! {{ data() }}</span>

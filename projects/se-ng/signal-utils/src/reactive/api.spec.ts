@@ -17,7 +17,9 @@ describe('API.json / public-api consistency', () => {
 
   it('public-api exports correspond to API.json entries', () => {
     const apiJson = JSON.parse(readFileSync(apiJsonPath, 'utf8')) as any;
-    const apiNames: string[] = (apiJson.exports ?? []).map((e: any) => e.name).sort();
+    const apiNames: string[] = (apiJson.exports ?? [])
+      .map((e: any) => e.name)
+      .sort();
 
     const publicApi = readFileSync(publicApiPath, 'utf8');
     const exportRegex = /export\s*{\s*([^}]+)\s*}\s*from\s*['"][^'\"]+['"]/g;
@@ -26,14 +28,19 @@ describe('API.json / public-api consistency', () => {
     while ((m = exportRegex.exec(publicApi)) !== null) {
       const inner = m[1];
       inner.split(',').forEach(s => {
-        const token = s.trim().split(/\s+as\s+/)[0].trim();
+        const token = s
+          .trim()
+          .split(/\s+as\s+/)[0]
+          .trim();
         if (token) found.push(token);
       });
     }
     const publicApiNames = Array.from(new Set(found)).sort();
 
     const missingInApiJson = publicApiNames.filter(n => !apiNames.includes(n));
-    const missingInPublicApi = apiNames.filter(n => !publicApiNames.includes(n));
+    const missingInPublicApi = apiNames.filter(
+      n => !publicApiNames.includes(n)
+    );
 
     expect(missingInApiJson).toEqual([]);
     expect(missingInPublicApi).toEqual([]);

@@ -1,19 +1,43 @@
-import { computed, DestroyRef, inject, Injectable, type Signal, signal, type WritableSignal } from '@angular/core';
+import {
+  computed,
+  DestroyRef,
+  inject,
+  Injectable,
+  type Signal,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 import { deepEqual } from '@se-ng/signal-utils';
 
 import { EventSourceService } from './event-source.service';
 import type { DbRecord } from './event-source.types';
 import { createId, isId, type UniqueId } from './unique-id-helpers';
 
-type TypeOf = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function';
+type TypeOf =
+  | 'string'
+  | 'number'
+  | 'bigint'
+  | 'boolean'
+  | 'symbol'
+  | 'undefined'
+  | 'object'
+  | 'function';
 @Injectable({
   providedIn: 'root'
 })
 export class EvSourceDbService {
-  #$inMemDb = signal(new Map<UniqueId, WritableSignal<DbRecord>>(), { equal: () => false });
+  #$inMemDb = signal(new Map<UniqueId, WritableSignal<DbRecord>>(), {
+    equal: () => false
+  });
   #$availableTables = signal<Set<string>>(new Set(), { equal: () => false });
-  #$availableTags = signal<Map<string, WritableSignal<Set<string>>>>(new Map(), { equal: () => false });
-  #$availableTypes = signal<Map<string, WritableSignal<Map<string, TypeOf>>>>(new Map(), { equal: () => false });
+  #$availableTags = signal<Map<string, WritableSignal<Set<string>>>>(
+    new Map(),
+    { equal: () => false }
+  );
+  #$availableTypes = signal<Map<string, WritableSignal<Map<string, TypeOf>>>>(
+    new Map(),
+    { equal: () => false }
+  );
 
   #evs = inject(EventSourceService);
   #des = inject(DestroyRef).onDestroy(() => {
@@ -128,7 +152,8 @@ export class EvSourceDbService {
     this.#evs.post({ type: 'update', payload: diff });
   };
 
-  delete = (id: UniqueId): void => this.#evs.post({ type: 'delete', payload: { id } });
+  delete = (id: UniqueId): void =>
+    this.#evs.post({ type: 'delete', payload: { id } });
 
   list = (table: string) =>
     computed(() =>
@@ -205,7 +230,13 @@ const mapAdd =
 const removeEmptyValues = <T extends Object>(obj: T): T =>
   Object.entries(obj).reduce((acc, [key, value]) => {
     // > note: consider removing falsy values as well. and empty arrays/objects.
-    if (!(value === undefined || value === null || (typeof value === 'string' && value.trim() === ''))) {
+    if (
+      !(
+        value === undefined ||
+        value === null ||
+        (typeof value === 'string' && value.trim() === '')
+      )
+    ) {
       acc[key] = value;
     }
     return acc;

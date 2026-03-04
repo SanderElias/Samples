@@ -4,14 +4,35 @@
 
 button {
   background-color: var(--surface-4);
-  margin: .5rem;
+  margin: 0.5rem;
+}
+
+h5 svg {
+  display: inline-block;
+  margin-inline-start: 0.5rem;
+  aspect-ratio: 1;
+  inline-size: 1.25rem;
+
 }
 
 h4 button {
-  margin:0;
+  margin: 0;
   border-radius: 50%;
   aspect-ratio: 1 / 1;
   padding: 0.5rem;
   transform: scale(0.75);
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.5rem;
+}
+
+ul li {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}

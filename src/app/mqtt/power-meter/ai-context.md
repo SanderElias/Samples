@@ -23,7 +23,7 @@
 - Avoid decorators like `@ViewChild`; prefer the `viewChild` signal function and similar signal-based APIs.
 - Use `afterRenderEffect` instead of lifecycle hooks like `ngAfterViewInit` for signal-based side effects.
 - Mark all component properties as `readonly` and use `private` or `protected` where appropriate for encapsulation and immutability.
-- prefer `#` over typescript `private` 
+- prefer `#` over typescript `private`
 
 ## Error Handling and Debugging
 
@@ -65,4 +65,5 @@ export class PowerMeterDialogComponent {
 ```
 
 ---
+
 This file summarizes best practices and patterns learned from refactoring and debugging the Power Meter Angular component with signals and dialogs.

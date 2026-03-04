@@ -1,9 +1,18 @@
 import { AsyncPipe } from '@angular/common';
-import type { QueryList} from '@angular/core';
+import type { QueryList } from '@angular/core';
 import { Component, inject, ViewChildren } from '@angular/core';
 import type { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, combineLatest, filter, firstValueFrom, map, startWith, switchMap, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  firstValueFrom,
+  map,
+  startWith,
+  switchMap,
+  tap
+} from 'rxjs';
 
 import { AddressesService } from '../addresses.service';
 
@@ -42,14 +51,29 @@ export class DynFormComponent {
   @ViewChildren('myForm') formList!: QueryList<NgForm>;
   person$ = new BehaviorSubject({} as any);
   fieldData$ = this.person$.pipe(
-    map(person => Object.entries(person).map(([name, value]) => ({ name, value, type: extractInputType(value) }))),
+    map(person =>
+      Object.entries(person).map(([name, value]) => ({
+        name,
+        value,
+        type: extractInputType(value)
+      }))
+    ),
     map(fields => fields.filter(field => field.type !== 'Array'))
   );
 
   addresses$ = this.adr.addresses$;
 
-  vm$ = combineLatest({ person: this.person$, fields: this.fieldData$, addresses: this.addresses$ }).pipe(
-    map(({ person, fields, addresses }) => ({ person, fields, addresses, names: Object.keys(addresses[0]) }))
+  vm$ = combineLatest({
+    person: this.person$,
+    fields: this.fieldData$,
+    addresses: this.addresses$
+  }).pipe(
+    map(({ person, fields, addresses }) => ({
+      person,
+      fields,
+      addresses,
+      names: Object.keys(addresses[0])
+    }))
   );
 
   ngAfterViewInit(): void {

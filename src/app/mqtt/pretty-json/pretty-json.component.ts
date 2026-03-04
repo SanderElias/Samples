@@ -1,4 +1,11 @@
-import { afterRenderEffect, Component, computed, ElementRef, inject, input } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input
+} from '@angular/core';
 
 import { PrettyJSONCustomElement } from './pj';
 

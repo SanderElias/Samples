@@ -15,7 +15,10 @@
  * @param message - Error message used when the value is `undefined`
  * @returns The original value (narrowed to exclude `undefined`)
  */
-export const assertDefined = <T>(value: T | undefined, message = 'Value is undefined'): T => {
+export const assertDefined = <T>(
+  value: T | undefined,
+  message = 'Value is undefined'
+): T => {
   if (value === undefined) {
     throw new Error(message);
   }

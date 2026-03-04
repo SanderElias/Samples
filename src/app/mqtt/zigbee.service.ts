@@ -2,7 +2,16 @@ import type { Signal } from '@angular/core';
 import { computed, inject, Injectable, Injector } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { deepEqual } from '@se-ng/signal-utils';
-import { combineLatest, filter, map, NEVER, type Observable,of, shareReplay, startWith } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  map,
+  NEVER,
+  type Observable,
+  of,
+  shareReplay,
+  startWith
+} from 'rxjs';
 
 import { MqttService } from './mqtt.service';
 import type { Z2MDevice } from './mqtt.types';
@@ -19,14 +28,17 @@ export class ZigbeeService {
     <any>{ initialValue: [], debugName: 'ZigbeeServiceDevices' }
   ) as Signal<Z2MDevice[]>;
 
-  getDeviceInfo = (ieeeAddress: Signal<string>) => computed(() => this.#getDevice(ieeeAddress()), { equal: deepEqual });
+  getDeviceInfo = (ieeeAddress: Signal<string>) =>
+    computed(() => this.#getDevice(ieeeAddress()), { equal: deepEqual });
 
   getDeviceStatus = (ieeeAddress: Signal<string>) =>
     rxResource({
       params: () => this.#getDevice(ieeeAddress()),
       stream: ({ params }) => {
         if (params && params.friendly_name) {
-          return this.mqtt.listenFor(`zigbee2mqtt/${params.friendly_name}`) as Observable<Record<string, unknown>>;
+          return this.mqtt.listenFor(
+            `zigbee2mqtt/${params.friendly_name}`
+          ) as Observable<Record<string, unknown>>;
         }
         return NEVER as Observable<Record<string, unknown>>;
       },
@@ -35,8 +47,10 @@ export class ZigbeeService {
 
   getStatus = (topic: string | Signal<string>) =>
     rxResource({
-      params: () => undefinedWhenEmpty(typeof topic === 'string' ? topic : topic()),
-      stream: ({ params }) => this.mqtt.listenFor(params) as Observable<Record<string, unknown>>,
+      params: () =>
+        undefinedWhenEmpty(typeof topic === 'string' ? topic : topic()),
+      stream: ({ params }) =>
+        this.mqtt.listenFor(params) as Observable<Record<string, unknown>>,
       injector: this.injector
     });
 
@@ -47,12 +61,19 @@ export class ZigbeeService {
         if (!params || params.length === 0) {
           return of([]);
         }
-        return combineLatest(params.map(topic => this.mqtt.listenFor(topic).pipe(startWith(null)))).pipe(
+        return combineLatest(
+          params.map(topic => this.mqtt.listenFor(topic).pipe(startWith(null)))
+        ).pipe(
           map(statuses => {
             return statuses.map((status, index) => {
               if (typeof status !== 'object' || status === null) {
                 // console.warn(`Invalid status for topic ${params[index]}:`, status);
-                return { friendly_name: params[index], power: 0, energy: 0, current: 0 };
+                return {
+                  friendly_name: params[index],
+                  power: 0,
+                  energy: 0,
+                  current: 0
+                };
               } else {
                 return {
                   friendly_name: params[index],
@@ -74,18 +95,29 @@ export class ZigbeeService {
       (log: any) =>
         log &&
         typeof log.message === 'string' &&
-        ['permit_join', 'zh:ember: [stack status] network', 'disabling joining new devices'].some(s =>
-          log.message.toLowerCase().includes(s)
-        )
+        [
+          'permit_join',
+          'zh:ember: [stack status] network',
+          'disabling joining new devices'
+        ].some(s => log.message.toLowerCase().includes(s))
     ),
     map(checkJoinAllowed),
     // tap(log => console.log('Join allowed:', log)),
     shareReplay(1) // Cache the latest value
   );
 
-  joinAllowed: Signal<boolean> = toSignal(this.#joinAllowed$, { initialValue: false });
+  joinAllowed: Signal<{
+    pairingAllowed: boolean;
+    device?: string;
+    time?: number;
+  }> = toSignal(this.#joinAllowed$, {
+    initialValue: { pairingAllowed: false }
+  });
 
-  publish = async (topic: string, payload: Record<string, unknown> | string) => {
+  publish = async (
+    topic: string,
+    payload: Record<string, unknown> | string
+  ) => {
     if (typeof payload !== 'string') {
       payload = JSON.stringify(payload);
     }
@@ -93,7 +125,10 @@ export class ZigbeeService {
     return client.publishAsync(topic, <string>payload);
   };
 
-  #getDevice = (ieeeAddress: string) => this.devices().find(d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress);
+  #getDevice = (ieeeAddress: string) =>
+    this.devices().find(
+      d => d.ieee_address === ieeeAddress || d.friendly_name === ieeeAddress
+    );
 }
 
 //Calling Request API: bridge/request/device/rename
@@ -101,26 +136,31 @@ export const renameDevice = (from: string, to: string) => ({
   payload: { from, to, homeassistant_rename: true }
 });
 
-function checkJoinAllowed(log: Record<string, string>): boolean {
+function checkJoinAllowed(log: Record<string, string>): {
+  pairingAllowed: boolean;
+  device?: string;
+  time?: number;
+} {
   const lowerLog = log.message?.toLowerCase();
-  console.log({ lowerLog });
   const parts = lowerLog?.split(`payload '`);
   if (parts && parts.length > 1) {
     try {
       const json = JSON.parse(parts[1].split(`'`)[0]);
       const time = json?.data?.time ?? 0;
+      const device = json?.data?.device ?? 'unknown';
       if (typeof time === 'number' && time > 0) {
-        return true;
+        return { pairingAllowed: true, device, time };
       } else {
-        return false;
+        return { pairingAllowed: false };
       }
     } catch (error) {
-      return false;
+      return { pairingAllowed: false };
     }
   }
-  if (lowerLog.includes('open')) return true;
+  if (lowerLog.includes('open'))
+    return { pairingAllowed: true, device: 'unknown', time: 120 };
   // return false for all remaining cases
-  return false;
+  return { pairingAllowed: false };
 }
 
 /**

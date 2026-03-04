@@ -11,8 +11,14 @@ import { RelationComponent } from '../../relation/relation.component';
     @if (product$ | async; as product) {
       {{ product.name }}
       <section>
-        Created by <app-relation class="inline" [relationId]="product.creator"></app-relation><br />
-        product handled by <app-relation class="inline" [relationId]="relationId"></app-relation>
+        Created by
+        <app-relation
+          class="inline"
+          [relationId]="product.creator"
+        ></app-relation
+        ><br />
+        product handled by
+        <app-relation class="inline" [relationId]="relationId"></app-relation>
       </section>
     }
   `,

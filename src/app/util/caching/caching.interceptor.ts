@@ -1,11 +1,12 @@
 import {
-  HttpResponse,
   type HttpEvent,
   type HttpHandlerFn,
-  type HttpRequest
+  type HttpRequest,
+  HttpResponse
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { finalize, of, shareReplay, tap, type Observable } from 'rxjs';
+import { finalize, type Observable, of, shareReplay, tap } from 'rxjs';
+
 import {
   enableHttpCache,
   httpCacheExpiryTime,

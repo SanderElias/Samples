@@ -1,8 +1,21 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChildren } from '@angular/core';
-import type { Observable} from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  ViewChildren
+} from '@angular/core';
+import type { Observable } from 'rxjs';
 import { combineLatest, NEVER, of, timer } from 'rxjs';
-import { catchError, filter, map, scan, startWith, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  map,
+  scan,
+  startWith,
+  switchMap
+} from 'rxjs/operators';
 
 import { RakiService } from '../../../app/rijks/raki.service';
 import { PaintingComponent } from '../painting/painting.component';
@@ -57,7 +70,11 @@ export class VmHomeComponent {
     catchError(e => of(3.5))
   );
 
-  quote$ = this.speed$.pipe(switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))));
+  quote$ = this.speed$.pipe(
+    switchMap(seconds =>
+      this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))
+    )
+  );
 
   /** helpers to handle pausing */
   pauseQuote$ = this.bqClicks$.pipe(switchMap(b => (b ? NEVER : this.quote$)));

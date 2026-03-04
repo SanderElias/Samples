@@ -1,4 +1,4 @@
-import { Component, computed,inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 
 import type { Z2MDevice } from './mqtt.types';
 import { ZigbeeService } from './zigbee.service';
@@ -27,7 +27,7 @@ import { ZigbeeService } from './zigbee.service';
         }
       </tbody>
     </table>
-    `
+  `
 })
 export class DeviceListComponent {
   private zigbee = inject(ZigbeeService);

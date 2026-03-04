@@ -1,0 +1,27 @@
+.caddy-root {
+  padding: 1rem;
+}
+
+.ep-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.4rem 0;
+}
+
+.handler-chip {
+  background: #e8f0fe;
+  color: #1a3c6e;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  font-family: monospace;
+}
+
+.terminal-badge {
+  font-size: 0.75rem;
+  color: #b00020;
+  font-style: normal;
+  font-weight: 600;
+}

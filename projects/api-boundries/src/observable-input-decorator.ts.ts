@@ -22,7 +22,8 @@ export function ObservableInput() {
 
     function getSub(obj): ReplaySubject<any> {
       obj[subjProp] = obj[subjProp] ?? {};
-      obj[subjProp][propertyName] = obj[subjProp][propertyName] ?? new ReplaySubject<any>();
+      obj[subjProp][propertyName] =
+        obj[subjProp][propertyName] ?? new ReplaySubject<any>();
       return obj[subjProp][propertyName];
     }
   };

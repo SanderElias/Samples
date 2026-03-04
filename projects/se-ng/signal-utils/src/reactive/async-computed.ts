@@ -1,4 +1,12 @@
-import { computed, DestroyRef, effect, inject, isDevMode, type Signal, signal } from '@angular/core';
+import {
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  isDevMode,
+  type Signal,
+  signal
+} from '@angular/core';
 import { isObservable, type Observable, type Subscription } from 'rxjs';
 
 import { isAsyncIterable } from '../guards/is-async-iterable';
@@ -8,7 +16,9 @@ import { isPromise } from '../guards/is-promise';
  * @param {AbortSignal} [abortSignal] signal that allows to cancel the ongoing operation. (can be passed to fetch!)
  * @description returns a promise, observable, async iterable or a value
  */
-export type ObservableComputedFn<T> = (abortSignal?: AbortSignal) => Observable<T> | Promise<T> | AsyncIterable<T> | T;
+export type ObservableComputedFn<T> = (
+  abortSignal?: AbortSignal
+) => Observable<T> | Promise<T> | AsyncIterable<T> | T;
 interface AsyncComputed {
   /**
    * @description Helper to put the outcome(s) of a promise or observable into a signal, will run in a microtask
@@ -35,7 +45,11 @@ interface AsyncComputed {
    * @param {DestroyRef} [destroyRef] a manual provided destroyRef. Mandatory when the function is used outside a injection context
    * @returns {*}  {(Signal<T | Y>)}
    */
-  <X, Y = X>(cb: ObservableComputedFn<X>, initialValue: Y, destroyRef: DestroyRef): Signal<X | Y>;
+  <X, Y = X>(
+    cb: ObservableComputedFn<X>,
+    initialValue: Y,
+    destroyRef: DestroyRef
+  ): Signal<X | Y>;
 }
 
 export const asyncComputed: AsyncComputed = <T, Y>(
@@ -55,10 +69,14 @@ export const asyncComputed: AsyncComputed = <T, Y>(
     destroyRef = destroyRef ?? inject(DestroyRef);
   } catch (e) {
     if (!destroyRef) {
-      throw new Error('[asyncComputed] destroyRef is mandatory when used outside a injection context');
+      throw new Error(
+        '[asyncComputed] destroyRef is mandatory when used outside a injection context'
+      );
     }
     if (!(destroyRef instanceof DestroyRef)) {
-      throw new Error('[asyncComputed] parameter destroyRef is not a DestroyRef');
+      throw new Error(
+        '[asyncComputed] parameter destroyRef is not a DestroyRef'
+      );
     }
   }
   /* c8 ignore stop */

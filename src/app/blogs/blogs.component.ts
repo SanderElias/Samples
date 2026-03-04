@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { firstValueFrom } from 'rxjs';
+
 import { BlogListComponent } from './blog-list/blog-list.component';
 import { Bloglist } from './bloglist';
 
@@ -17,7 +18,6 @@ import { Bloglist } from './bloglist';
   imports: [BlogListComponent],
   template: `
     @defer (hydrate never) {
-
       <h1>{{ blogList.getBlogById(id())?.title || 'Welcome to the blog' }}</h1>
       <main>
         <article class="rich-text" [innerHTML]="testblog.value()"></article>

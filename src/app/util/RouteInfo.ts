@@ -1,4 +1,3 @@
-
 export interface RouteInfo {
   path: string;
   modulePath: string;

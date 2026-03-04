@@ -87,14 +87,17 @@ export class SwapiService {
     ) as Observable<Person>;
 
   /** load all the films (deprecated) */
-  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(shareReplay(1));
+  swFilms$ = from(this.load<FilmsRoot>(`${this.baseUrl}films/`)).pipe(
+    shareReplay(1)
+  );
 
   /** helper to fetch all the page of an swapi root endpoint */
   getAllPagedData(url: string): Observable<any> {
-    return from(this.load<any>(`${url}`)).pipe(
+    return from(this.load<any>(`${url}`))
+      .pipe
       /** use the expand operator to feed in the remaining pages */
       // expand(r => (r['next'] ? this.load(r['next']) : EMPTY))
-    );
+      ();
   }
 
   /** find a film by url (deprecated) */
@@ -130,7 +133,9 @@ export class SwapiService {
    * @param url
    */
   get<T>(url: string): Observable<T> {
-    const base = Object.values(this.swapiRoot).find(topUrl => url.toLowerCase().includes(topUrl.toLowerCase())) as string;
+    const base = Object.values(this.swapiRoot).find(topUrl =>
+      url.toLowerCase().includes(topUrl.toLowerCase())
+    ) as string;
     // if (base) {
     //   return this.getAllPagedData(base).pipe(
     //     reduce((allData, page: any) => allData.concat(page.results), []),
@@ -147,7 +152,9 @@ export class SwapiService {
       /** use a side-effect to store it in this service */
       tap(swapiRoot => (this.swapiRoot = swapiRoot)),
       /** loop over all listed endpoints */
-      concatMap(r => Object.values(r || {}).map(url => this.getAllPagedData(url))),
+      concatMap(r =>
+        Object.values(r || {}).map(url => this.getAllPagedData(url))
+      ),
       /** combine all observables form above into a results stream */
       concatAll(),
       /** change that into an array (Only needed when going to display) */
@@ -192,7 +199,9 @@ export class SwapiService {
         /** is it an url from a known set? */
         const subSet = this.detectSet(value);
         /** yes? load it from the set, otherwise just return the value */
-        return (subSet ? this.get(value) : of(value)).pipe(map(x => ({ [propName]: x })));
+        return (subSet ? this.get(value) : of(value)).pipe(
+          map(x => ({ [propName]: x }))
+        );
       }
       return of(value).pipe(map(x => ({ [propName]: x })));
     };
@@ -235,18 +244,28 @@ export class SwapiService {
    */
   findIn = (selectedSet: keyof SwapiRoot, nameOrTitle: string) =>
     this.getAllRows(selectedSet).pipe(
-      map(list => list.find((row: any) => (row?.name || row?.title || '').toLowerCase().includes(nameOrTitle.toLowerCase().trim())))
+      map(list =>
+        list.find((row: any) =>
+          (row?.name || row?.title || '')
+            .toLowerCase()
+            .includes(nameOrTitle.toLowerCase().trim())
+        )
+      )
     );
 
   getSetNames = (selectedSet: keyof SwapiRoot): Observable<string[]> =>
-    this.getAllRows(selectedSet).pipe(map(list => list.map((row: any) => row?.name || row?.title || '')));
+    this.getAllRows(selectedSet).pipe(
+      map(list => list.map((row: any) => row?.name || row?.title || ''))
+    );
   /**
    * Helper to detect the table of an url. return the name of the set, or undefined/false
    * @param url String to test
    */
   detectSet(url: unknown) {
     if (typeof url === 'string') {
-      const entry = Object.entries(this.swapiRoot).find(([setName, setBaseUrl]) => url.includes(setBaseUrl));
+      const entry = Object.entries(this.swapiRoot).find(
+        ([setName, setBaseUrl]) => url.includes(setBaseUrl)
+      );
       return entry && (entry[0] as unknown as keyof SwapiRoot);
     }
   }

@@ -50,7 +50,10 @@ export class ConfirmItComponent {
   private parent = this.elm.nativeElement.parentElement!;
   private originalEvent: MouseEvent | undefined;
   // note we use the deepEqual here to avoid excessive dom updates.
-  private parentBox = signal({ top: 0, left: 0, width: 0, height: 0, zIndex: 1 }, { equal: deepEqual });
+  private parentBox = signal(
+    { top: 0, left: 0, width: 0, height: 0, zIndex: 1 },
+    { equal: deepEqual }
+  );
 
   // make sure nothing of the content can "leak" into view before it is needed.
   protected hidden = signal(true);
@@ -74,7 +77,7 @@ export class ConfirmItComponent {
       const parentRect = this.parent.getBoundingClientRect();
       let zIndex: string | number = 'auto';
       if (typeof this.parent.computedStyleMap === 'function') {
-        // Firefox does not support computedStyleMap 
+        // Firefox does not support computedStyleMap
         // @ts-expect-error // TS doen't know about computedStyleMap.get(x).value apparently.
         zIndex = this.parent.computedStyleMap().get('z-index').value;
       }

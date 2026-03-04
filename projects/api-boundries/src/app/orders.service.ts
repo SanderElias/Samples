@@ -28,7 +28,10 @@ export class OrdersService {
     if (!order) {
       const newOrder: Order = {
         id,
-        products: Array.from({ length: randomInt(3) + 2 }, () => ({ productId: getId(), handler: this.rel.getExistingRandomId() })),
+        products: Array.from({ length: randomInt(3) + 2 }, () => ({
+          productId: getId(),
+          handler: this.rel.getExistingRandomId()
+        })),
         transporter: this.rel.getExistingRandomId(),
         processor: this.rel.getExistingRandomId()
       };

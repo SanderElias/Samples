@@ -17,7 +17,9 @@ const EventStream = Symbol('ObsFromEvent');
  *   map(event => `click from ${event.target.innerText}`)
  * )
  */
-export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K): any {
+export function ObsFromEvent<K extends keyof HTMLElementEventMap>(
+  eventName: K
+): any {
   return (target: any, propertyKey: string | symbol): PropertyDescriptor => {
     if (globalThis.isServer) {
       // console.log('ObsFromEvent is not supported on the server!')
@@ -42,7 +44,9 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
            * just ignore all other incoming things
            */
           if (isDevMode()) {
-            console.warn(`obsFromEvent called with ${ql['constructor']['name']} instead of queryList`);
+            console.warn(
+              `obsFromEvent called with ${ql['constructor']['name']} instead of queryList`
+            );
           }
           return;
         }
@@ -54,7 +58,9 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
             /** check for the proper type, we need an elementRef here */
             throw new Error('ObsFromEvent expects a QueryList<ElementRef>');
           }
-          const el = elementRef.nativeElement as HTMLElement & { [EventStream]: Symbol };
+          const el = elementRef.nativeElement as HTMLElement & {
+            [EventStream]: Symbol;
+          };
           if (!el[EventStream]) {
             /**
              * Don't hook up more as once for each element.
@@ -73,7 +79,10 @@ export function ObsFromEvent<K extends keyof HTMLElementEventMap>(eventName: K):
 /**
  * Helper to fetch/generate the subject for this instance/propertyKey pair
  */
-function fetchSubject(instance: any, propertyKey: string | symbol): Subject<Event> {
+function fetchSubject(
+  instance: any,
+  propertyKey: string | symbol
+): Subject<Event> {
   /** use the symbol EventStream to prevent clashes with anything else */
   const ref = (instance[EventStream] = instance[EventStream] || {});
   if (!ref[propertyKey]) {

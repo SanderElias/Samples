@@ -1,4 +1,8 @@
-import { type CreateSignalOptions, signal, type WritableSignal } from '@angular/core';
+import {
+  type CreateSignalOptions,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 
 interface BaseOptions<T> {
   value: T;
@@ -14,7 +18,9 @@ interface ClampedSignalOptionsWithUndefined<T> extends BaseOptions<T> {
   undefinedWhenOutOfBounds: true;
 }
 
-type AllClampedSignalOptions<T> = ClampedSignalOptionsWithUndefined<T> | ClampedSignalOptions<T>;
+type AllClampedSignalOptions<T> =
+  | ClampedSignalOptionsWithUndefined<T>
+  | ClampedSignalOptions<T>;
 
 export { clampedSignal };
 
@@ -26,7 +32,12 @@ export { clampedSignal };
  * @param {boolean} [undefinedWhenOutOfBounds=false] if true, the signal will return undefined when the value is out of bounds
  */
 
-function clampedSignal<T>({ value, min, max, createSignalOptions }: ClampedSignalOptions<T>): WritableSignal<T>;
+function clampedSignal<T>({
+  value,
+  min,
+  max,
+  createSignalOptions
+}: ClampedSignalOptions<T>): WritableSignal<T>;
 function clampedSignal<T>({
   value,
   min,
@@ -41,7 +52,9 @@ function clampedSignal<T>({
   createSignalOptions,
   undefinedWhenOutOfBounds
 }: AllClampedSignalOptions<T>): WritableSignal<T | undefined> {
-  const state = signal(value, createSignalOptions) as WritableSignal<T | undefined>;
+  const state = signal(value, createSignalOptions) as WritableSignal<
+    T | undefined
+  >;
   const orgSet = state.set;
 
   return Object.assign(state, {
@@ -59,7 +72,12 @@ function clampedSignal<T>({
   });
 }
 
-const t = clampedSignal({ value: 5, min: 0, max: 10, undefinedWhenOutOfBounds: true });
+const t = clampedSignal({
+  value: 5,
+  min: 0,
+  max: 10,
+  undefinedWhenOutOfBounds: true
+});
 t.set(11);
 console.log(t());
 t.set(5);

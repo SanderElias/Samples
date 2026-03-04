@@ -1,7 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
-import { Bloglist } from '../bloglist';
 import { RouterLink } from '@angular/router';
+
 import type { Article } from '../article.interface';
+import { Bloglist } from '../bloglist';
 
 @Component({
   selector: 'ul [id="blog-list"]',
@@ -9,7 +10,14 @@ import type { Article } from '../article.interface';
   template: `
     @for (article of articles(); track article.id) {
       <li>
-        <a [routerLink]="['/blog', article.published ? article.name : article.id]" [title]="article.description">{{ article.title }}</a>
+        <a
+          [routerLink]="[
+            '/blog',
+            article.published ? article.name : article.id
+          ]"
+          [title]="article.description"
+          >{{ article.title }}</a
+        >
       </li>
     }
   `,

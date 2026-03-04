@@ -23,7 +23,16 @@ describe('cloneDeep function', () => {
       },
       {
         input: [false, true, -1, 0, 1, 'test', [], ['foo', ['bar', [[], []]]]],
-        expected: [false, true, -1, 0, 1, 'test', [], ['foo', ['bar', [[], []]]]]
+        expected: [
+          false,
+          true,
+          -1,
+          0,
+          1,
+          'test',
+          [],
+          ['foo', ['bar', [[], []]]]
+        ]
       }
     ];
 
@@ -80,8 +89,22 @@ describe('cloneDeep function', () => {
         expected: {}
       },
       {
-        input: { a: false, b: true, c: 0, d: 'test', e: {}, f: { g: 'foo', h: { i: 'bar', j: { k: {}, l: {} } } } },
-        expected: { a: false, b: true, c: 0, d: 'test', e: {}, f: { g: 'foo', h: { i: 'bar', j: { k: {}, l: {} } } } }
+        input: {
+          a: false,
+          b: true,
+          c: 0,
+          d: 'test',
+          e: {},
+          f: { g: 'foo', h: { i: 'bar', j: { k: {}, l: {} } } }
+        },
+        expected: {
+          a: false,
+          b: true,
+          c: 0,
+          d: 'test',
+          e: {},
+          f: { g: 'foo', h: { i: 'bar', j: { k: {}, l: {} } } }
+        }
       }
     ];
 
@@ -94,8 +117,18 @@ describe('cloneDeep function', () => {
   });
 
   it('clones object values recursively', () => {
-    const input = { a: { b: { c: {}, d: true } }, f: 'test', g: {}, h: [1, false] };
-    const expected = { a: { b: { c: {}, d: true } }, f: 'test', g: {}, h: [1, false] };
+    const input = {
+      a: { b: { c: {}, d: true } },
+      f: 'test',
+      g: {},
+      h: [1, false]
+    };
+    const expected = {
+      a: { b: { c: {}, d: true } },
+      f: 'test',
+      g: {},
+      h: [1, false]
+    };
     const actualOutput = cloneDeep(input);
     expect(actualOutput).toEqual(expected);
     expect(actualOutput).not.toBe(expected);
@@ -157,8 +190,12 @@ describe('cloneDeep function', () => {
   });
 
   it('has no prototype pollution vulnerability', () => {
-    cloneDeep(JSON.parse('{"constructor": {"prototype": {"__isVulnerable__": true}}}'));
-    expect(({} as unknown as { __isVulnerable__?: boolean }).__isVulnerable__).toBe(undefined);
+    cloneDeep(
+      JSON.parse('{"constructor": {"prototype": {"__isVulnerable__": true}}}')
+    );
+    expect(
+      ({} as unknown as { __isVulnerable__?: boolean }).__isVulnerable__
+    ).toBe(undefined);
   });
 
   it('clones complex objects', () => {

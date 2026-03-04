@@ -8,11 +8,11 @@ input {
   margin-bottom: 1rem;
 }
 
-label:has(+input[required]) {
+label:has(+ input[required]) {
   &:after {
     display: inline;
     content: '*';
-    color: orange
+    color: orange;
   }
 }
 

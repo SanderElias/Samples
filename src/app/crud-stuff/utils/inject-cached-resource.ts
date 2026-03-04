@@ -6,7 +6,10 @@ import { inject, Injector, resource, type Signal } from '@angular/core';
  * @param cache
  * @returns
  */
-export function injectCachedResource<T>(baseUrl: string, cache = new Map<string, T>()) {
+export function injectCachedResource<T>(
+  baseUrl: string,
+  cache = new Map<string, T>()
+) {
   const injector = inject(Injector);
   return (id: Signal<string>) => {
     const res = resource({
@@ -20,7 +23,9 @@ export function injectCachedResource<T>(baseUrl: string, cache = new Map<string,
           try {
             const res = await fetch(url, { signal: abortSignal });
             if (!res.ok) {
-              throw new Error(`Failed to load user's data, ${res.status} ${res.statusText}`);
+              throw new Error(
+                `Failed to load user's data, ${res.status} ${res.statusText}`
+              );
             }
             const data: T = await res.json();
             cache.set(id, data);

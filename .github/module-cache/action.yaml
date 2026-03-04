@@ -7,10 +7,16 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Get pnpm version from package.json
+      id: get-pnpm-version
+      run: |
+        node -e "const p=require('./package.json').packageManager||''; const v=(p.split('@')[1]||'10'); console.log('pnpm-version='+v)" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: Install pnpm
       uses: pnpm/action-setup@v4
       with:
-        version: 10
+        version: ${{ steps.get-pnpm-version.outputs.pnpm-version }}
     - name: Setup node
       uses: actions/setup-node@v5
       with:

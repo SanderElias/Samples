@@ -50,8 +50,15 @@ class DynDataComponent {
   template: `
     <h1>Dynamic HTML sample</h1>
 
-    <input type="text" [value]="name" (input)="name = $any($event.target).value" />
-    <textarea [value]="html" (input)="update($any($event.target).value)"></textarea>
+    <input
+      type="text"
+      [value]="name"
+      (input)="name = $any($event.target).value"
+    />
+    <textarea
+      [value]="html"
+      (input)="update($any($event.target).value)"
+    ></textarea>
     <button>Update</button>
 
     <div id="target"></div>
@@ -111,7 +118,8 @@ export class DynamicHtmlComponent {
      */
 
     // DON'T DO THIS!
-    /** DANGER AHEAD */ target.innerHTML = newHtml; /** I mean it, this might cost you your job */
+    /** DANGER AHEAD */ target.innerHTML =
+      newHtml; /** I mean it, this might cost you your job */
     // REALLY, DON'T
     // (Really don't! They even send out Igor to comment on your sample code ;-P )
     return;

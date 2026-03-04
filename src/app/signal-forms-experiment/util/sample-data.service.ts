@@ -1,7 +1,6 @@
-
 import { Injectable, linkedSignal, type Signal } from '@angular/core';
 
-import type { SampleData} from './sample-data.model';
+import type { SampleData } from './sample-data.model';
 import { SampleDataContactDetailType } from './sample-data.model';
 
 @Injectable({
@@ -24,7 +23,8 @@ export class SampleDataService {
       }
     });
 
-  getAll = () => structuredClone(Array.from(inMemoryDb.values() as unknown as SampleData[]));
+  getAll = () =>
+    structuredClone(Array.from(inMemoryDb.values() as unknown as SampleData[]));
 
   save = async (data: Partial<SampleData>) => {
     // simulate server delay
@@ -44,7 +44,11 @@ inMemoryDb.set('1', {
   favoriteRandomInt: 42,
   contacts: [
     { type: SampleDataContactDetailType.Email, info: 'a@b.c', priority: 0 },
-    { type: SampleDataContactDetailType.Mobile, info: '+31 6123 456 789', priority: 0 }
+    {
+      type: SampleDataContactDetailType.Mobile,
+      info: '+31 6123 456 789',
+      priority: 0
+    }
   ],
   tags: ['developer', 'angular', 'aa', 'aaa', 'aaaa'],
   address: {
@@ -66,8 +70,6 @@ const emptyData = (id: string): SampleData => ({
   address: { street: '', city: '', state: '', zip: '' },
   contacts: []
 });
-
-
 
 export function isEmpty(obj: Object) {
   return Object.keys(obj).length === 0;

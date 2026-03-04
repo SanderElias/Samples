@@ -63,7 +63,10 @@ export class SlidesHandlerService {
     }
     const orgSlides = parseContentToSlides(this.file.$state().content());
     const changed =
-      slides.length !== orgSlides.length || !slides.every((slide, index) => slide.content === orgSlides[index].content);
+      slides.length !== orgSlides.length ||
+      !slides.every(
+        (slide, index) => slide.content === orgSlides[index].content
+      );
     if (changed) {
       const newContent = slides.map(parseIntoText).join(separator + '\n');
       // console.log(newContent);

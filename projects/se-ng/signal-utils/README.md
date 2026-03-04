@@ -86,10 +86,10 @@ indications, examples, and source links.
 - **`Deferred`** — a simple deferred promise container
   (useful for awaiting conditions).
   - `class Deferred<T> {
-      promise: Promise<T>;
-      resolve: (v: T) => void;
-      reject: (e: any) => void;
-    }`
+  promise: Promise<T>;
+  resolve: (v: T) => void;
+  reject: (e: any) => void;
+}`
   - Source: [`src/async/deferred.ts`](./src/async/deferred.ts)
 
   Example:
@@ -107,8 +107,8 @@ indications, examples, and source links.
 - **`HttpActionClient`** — small `HttpClient` wrapper exposing
   async methods and per-method busy `Signal`s.
   - `class HttpActionClient` (
-      methods return `Promise<any>`;
-      `busyMethods: Record<Method, Signal<boolean>>`
+    methods return `Promise<any>`;
+    `busyMethods: Record<Method, Signal<boolean>>`
     )
   - Source: [`src/http/http-action-client.ts`](./src/http/http-action-client.ts)
 

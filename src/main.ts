@@ -5,8 +5,7 @@
     endpoint: 'https://track.eliasweb.nl/track',
     outboundLinks: true,
     bindToWindow: false,
-    captureOnLocalhost: true,
-
+    captureOnLocalhost: true
   });
 
   await import('./bootspa');

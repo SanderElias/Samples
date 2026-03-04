@@ -4,7 +4,10 @@ import { pathToArray } from './path-to-array';
 
 export function unFlattenRecord(r: Record<string, any>): Record<string, any> {
   return Object.entries(r).reduce((acc, [k, v]) => {
-    const path =  assertDefined(pathToArray(k), `[unFlattenRecord] Invalid path "${k}": found empty segments`);
+    const path = assertDefined(
+      pathToArray(k),
+      `[unFlattenRecord] Invalid path "${k}": found empty segments`
+    );
     const slot = path.pop()!; // take the last element as the slot
     let obj = acc;
     for (let idx = 0; idx < path.length; idx++) {
@@ -16,5 +19,3 @@ export function unFlattenRecord(r: Record<string, any>): Record<string, any> {
     return acc;
   }, {});
 }
-
-

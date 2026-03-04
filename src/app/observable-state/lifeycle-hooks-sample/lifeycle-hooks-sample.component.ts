@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { modelFromLatest } from '@se-ng/observable-utils';
-import type { SpaceShip} from '@se-ng/swapi';
+import type { SpaceShip } from '@se-ng/swapi';
 import { SwapiService } from '@se-ng/swapi';
 import type { Observable } from 'rxjs';
 import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
@@ -14,18 +14,25 @@ import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
   styles: [],
   imports: [ReactiveFormsModule, AsyncPipe]
 })
-export class LifeycleHooksSampleComponent extends seOnInit(seOnDestroy(class {})) {
+export class LifeycleHooksSampleComponent extends seOnInit(
+  seOnDestroy(class {})
+) {
   private swapi = inject(SwapiService);
 
   search = new UntypedFormControl();
-  searchText$: Observable<string> = this.search.valueChanges.pipe(startWith(''));
+  searchText$: Observable<string> = this.search.valueChanges.pipe(
+    startWith('')
+  );
 
   starships$: Observable<SpaceShip[]> = this.seOnInit$.pipe(
     switchMap(() => this.swapi.getAllRows('starships')),
     shareReplay({ refCount: true, bufferSize: 1 })
   );
 
-  filteredShips$ = modelFromLatest({ ships: this.starships$, s: this.searchText$ }).pipe(
+  filteredShips$ = modelFromLatest({
+    ships: this.starships$,
+    s: this.searchText$
+  }).pipe(
     map(data => data.ships.filter(row => row.name.includes(data.s)))
     // tap(ships => console.log(ships))
   );

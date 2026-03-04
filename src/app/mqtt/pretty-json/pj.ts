@@ -3,7 +3,6 @@
  * added a way to set the json after first render.
  */
 
-
 class PrettyJSONError extends Error {
   /**
    *
@@ -65,8 +64,12 @@ export class PrettyJSONCustomElement extends HTMLElement {
   };
 
   #getCssVariables() {
-    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const variables = prefersDarkMode ? PrettyJSONCustomElement.DEFAULT_VARIABLES.dark : PrettyJSONCustomElement.DEFAULT_VARIABLES.light;
+    const prefersDarkMode = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    const variables = prefersDarkMode
+      ? PrettyJSONCustomElement.DEFAULT_VARIABLES.dark
+      : PrettyJSONCustomElement.DEFAULT_VARIABLES.light;
     if (!this.shadowRoot) {
       return variables;
     }
@@ -74,18 +77,27 @@ export class PrettyJSONCustomElement extends HTMLElement {
 
     return {
       keyColor: style.getPropertyValue('--key-color') || variables.keyColor,
-      arrowColor: style.getPropertyValue('--arrow-color') || variables.arrowColor,
-      braceColor: style.getPropertyValue('--brace-color') || variables.braceColor,
-      bracketColor: style.getPropertyValue('--bracket-color') || variables.bracketColor,
-      stringColor: style.getPropertyValue('--string-color') || variables.stringColor,
-      numberColor: style.getPropertyValue('--number-color') || variables.numberColor,
+      arrowColor:
+        style.getPropertyValue('--arrow-color') || variables.arrowColor,
+      braceColor:
+        style.getPropertyValue('--brace-color') || variables.braceColor,
+      bracketColor:
+        style.getPropertyValue('--bracket-color') || variables.bracketColor,
+      stringColor:
+        style.getPropertyValue('--string-color') || variables.stringColor,
+      numberColor:
+        style.getPropertyValue('--number-color') || variables.numberColor,
       nullColor: style.getPropertyValue('--null-color') || variables.nullColor,
-      booleanColor: style.getPropertyValue('--boolean-color') || variables.booleanColor,
-      commaColor: style.getPropertyValue('--comma-color') || variables.commaColor,
-      ellipsisColor: style.getPropertyValue('--ellipsis-color') || variables.ellipsisColor,
+      booleanColor:
+        style.getPropertyValue('--boolean-color') || variables.booleanColor,
+      commaColor:
+        style.getPropertyValue('--comma-color') || variables.commaColor,
+      ellipsisColor:
+        style.getPropertyValue('--ellipsis-color') || variables.ellipsisColor,
       indent: style.getPropertyValue('--indent') || variables.indent,
       fontSize: style.getPropertyValue('--font-size') || variables.fontSize,
-      fontFamily: style.getPropertyValue('--font-family') || variables.fontFamily
+      fontFamily:
+        style.getPropertyValue('--font-family') || variables.fontFamily
     };
   }
 
@@ -207,12 +219,17 @@ export class PrettyJSONCustomElement extends HTMLElement {
       return DEFAULT_TRUNCATE_STRING;
     }
     const truncateStringValue = Number.parseInt(truncateStringAttribute);
-    return isNaN(truncateStringValue) || truncateStringValue < 0 ? 0 : truncateStringValue;
+    return isNaN(truncateStringValue) || truncateStringValue < 0
+      ? 0
+      : truncateStringValue;
   }
 
   #toggle() {
     this.#isExpanded = !this.#isExpanded;
-    this.setAttribute('expand', this.#isExpanded ? String(this.#expandAttributeValue + 1) : '0');
+    this.setAttribute(
+      'expand',
+      this.#isExpanded ? String(this.#expandAttributeValue + 1) : '0'
+    );
     this.#render();
   }
 
@@ -286,14 +303,27 @@ export class PrettyJSONCustomElement extends HTMLElement {
     ellipsis.className = 'ellipsis';
 
     ellipsis.addEventListener('click', () => {
-      const expandedTimes = Number.parseInt(container.dataset.expandedTimes ?? '1');
+      const expandedTimes = Number.parseInt(
+        container.dataset.expandedTimes ?? '1'
+      );
       container.dataset.expandedTimes = String(expandedTimes + 1);
-      const expandedString = input.slice(0, (expandedTimes + 1) * this.#truncateStringAttributeValue);
+      const expandedString = input.slice(
+        0,
+        (expandedTimes + 1) * this.#truncateStringAttributeValue
+      );
       const textChild = container.childNodes[1];
-      container.replaceChild(document.createTextNode(expandedString), textChild);
+      container.replaceChild(
+        document.createTextNode(expandedString),
+        textChild
+      );
     });
 
-    container.append('"', input.slice(0, this.#truncateStringAttributeValue), ellipsis, '"');
+    container.append(
+      '"',
+      input.slice(0, this.#truncateStringAttributeValue),
+      ellipsis,
+      '"'
+    );
     return container;
   }
 
@@ -392,7 +422,10 @@ export class PrettyJSONCustomElement extends HTMLElement {
     svg.setAttribute('height', '100');
     svg.setAttribute('viewBox', '0 0 100 100');
     svg.setAttribute('class', 'arrow');
-    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    const polygon = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'polygon'
+    );
 
     polygon.setAttribute('class', 'triangle');
     polygon.setAttribute('points', '0,0 100,50 0,100');
@@ -434,7 +467,9 @@ export class PrettyJSONCustomElement extends HTMLElement {
       throw new PrettyJSONError('Shadow root not available');
     }
     this.shadowRoot.innerHTML = '';
-    this.shadowRoot.appendChild(this.#createChild(this.#input, this.#expandAttributeValue, undefined));
+    this.shadowRoot.appendChild(
+      this.#createChild(this.#input, this.#expandAttributeValue, undefined)
+    );
 
     if (this.shadowRoot.querySelector('[data-pretty-json]')) {
       return;

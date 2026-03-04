@@ -1,12 +1,23 @@
-import { afterRenderEffect,Component, computed, ElementRef, inject } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  ElementRef,
+  inject
+} from '@angular/core';
 
 import { persistentSignal } from '../mqtt/util/idbstorage';
 // --- Utility Functions ---
 export function getFirstDraggable(elm: Element): HTMLDivElement | undefined {
-  return Array.from(elm.children).find(child => child.classList.contains('puck')) as HTMLDivElement | undefined;
+  return Array.from(elm.children).find(child =>
+    child.classList.contains('puck')
+  ) as HTMLDivElement | undefined;
 }
 
-export function canDrop(targetStack: Element, currentDragged: HTMLDivElement | undefined): boolean {
+export function canDrop(
+  targetStack: Element,
+  currentDragged: HTMLDivElement | undefined
+): boolean {
   const first = targetStack.children[0] as HTMLElement;
   const draggedWeight = +(currentDragged?.dataset?.weight || 0);
   const firstWeight = +(first?.dataset?.weight || 0);
@@ -32,11 +43,23 @@ let currentDragged: HTMLDivElement | undefined;
     }
     <label class="row">
       <span>Number of pucks: {{ pucks() }}</span>
-      <input type="range" [value]="pucks()" (input)="pucks.set($any($event.target).valueAsNumber)" min="3" max="10" />
+      <input
+        type="range"
+        [value]="pucks()"
+        (input)="pucks.set($any($event.target).valueAsNumber)"
+        min="3"
+        max="10"
+      />
     </label>
     <label class="row">
       <span>Number of stacks: {{ cols() }}</span>
-      <input type="range" [value]="cols()" (input)="cols.set($any($event.target).valueAsNumber)" min="3" max="5" />
+      <input
+        type="range"
+        [value]="cols()"
+        (input)="cols.set($any($event.target).valueAsNumber)"
+        min="3"
+        max="5"
+      />
     </label>
   `,
   styleUrl: './toh.component.css'
@@ -45,14 +68,20 @@ export class TohComponent {
   #elm: HTMLDivElement = inject(ElementRef).nativeElement;
   pucks = persistentSignal('toh-pucks', 4);
   cols = persistentSignal('toh-cols', 3);
-  puckList = computed(() => Array.from({ length: this.pucks() }, (_, i) => i + 1));
-  colNums = computed(() => Array.from({ length: this.cols() }, (_, i) => i + 1));
+  puckList = computed(() =>
+    Array.from({ length: this.pucks() }, (_, i) => i + 1)
+  );
+  colNums = computed(() =>
+    Array.from({ length: this.cols() }, (_, i) => i + 1)
+  );
 
   _ = afterRenderEffect(() => {
     // --- DOM Queries ---
     const rootElm = this.#elm;
     const stacks = Array.from(rootElm.querySelectorAll('.stack'));
-    const draggables = Array.from(rootElm.querySelectorAll('[draggable]')) as HTMLDivElement[];
+    const draggables = Array.from(
+      rootElm.querySelectorAll('[draggable]')
+    ) as HTMLDivElement[];
 
     if (stacks.length !== this.cols()) {
       throw new Error('Mismatch in number of stacks');

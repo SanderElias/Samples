@@ -4,8 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { BNodeComponent } from './b-node/b-node.component';
-import type {
-  BinNode} from './BinNode';
+import type { BinNode } from './BinNode';
 import {
   addNode,
   createNode,
@@ -80,7 +79,9 @@ export class BintreeComponent implements OnInit {
 
 /** this is a playground to build a binary tree from scratch */
 const randomInt = (max = 2000) => Math.floor(Math.random() * max);
-const randomArr = count => [...new Set(Array.from({ length: count }, () => randomInt()))];
+const randomArr = count => [
+  ...new Set(Array.from({ length: count }, () => randomInt()))
+];
 async function getData(): Promise<number[]> {
   let data: number[] | undefined = undefined; // await get('binTreeSampleData')
   if (!data) {

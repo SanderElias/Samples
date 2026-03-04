@@ -1,4 +1,11 @@
-import { Component, ElementRef, Injector, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Injector,
+  OnDestroy,
+  OnInit,
+  inject
+} from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { Router } from '@angular/router';
 import { combineLatest, fromEvent, Subject } from 'rxjs';
@@ -24,13 +31,26 @@ export class ViewSlideComponent implements OnInit, OnDestroy {
   subscriber = this.init$
     .pipe(
       filter(() => !!this.elm),
-      switchMap(() => combineLatest([this.sls.slides$, fromEvent<KeyboardEvent>(document, 'keyup')])),
+      switchMap(() =>
+        combineLatest([
+          this.sls.slides$,
+          fromEvent<KeyboardEvent>(document, 'keyup')
+        ])
+      ),
       filter(([_, { key }]) => key === 'ArrowRight' || key === 'ArrowLeft'),
       throttleTime(100),
       tap(([slides, { key }]) => {
-        const currentIndex = slides.findIndex(({ filename }) => filename.replace('.md', '') === this.router.url.slice(1));
-        const nextSlide = key === 'ArrowLeft' ? Math.max(0, currentIndex - 1) : Math.min(slides.length - 1, currentIndex + 1);
-        this.router.navigate(['/' + slides[nextSlide].filename.replace('.md', '')]);
+        const currentIndex = slides.findIndex(
+          ({ filename }) =>
+            filename.replace('.md', '') === this.router.url.slice(1)
+        );
+        const nextSlide =
+          key === 'ArrowLeft'
+            ? Math.max(0, currentIndex - 1)
+            : Math.min(slides.length - 1, currentIndex + 1);
+        this.router.navigate([
+          '/' + slides[nextSlide].filename.replace('.md', '')
+        ]);
       })
     )
     .subscribe();

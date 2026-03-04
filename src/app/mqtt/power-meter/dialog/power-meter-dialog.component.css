@@ -3,11 +3,16 @@
 }
 
 label {
-  margin-block-start: .5rem;;
+  margin-block-start: 0.5rem;
   display: grid;
-  grid-template-columns: 5rem 1fr;
+  grid-template-columns: 5rem 1fr auto;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
+}
+
+svg {
+  aspect-ratio: 1;
+  inline-size: 1.5rem;
 }
 
 /* Add space between any buttons */

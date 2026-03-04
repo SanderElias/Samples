@@ -31,7 +31,10 @@ export class EvChildComponent<T = unknown> {
 
 let childId = 0n;
 
-const domEventOutput = <T = string>(name: string, options: { bubbles?: boolean; cancelable?: boolean } = { bubbles: true }) => {
+const domEventOutput = <T = string>(
+  name: string,
+  options: { bubbles?: boolean; cancelable?: boolean } = { bubbles: true }
+) => {
   const elm = inject(ElementRef).nativeElement as HTMLElement;
   return {
     emit: (payload: T) => {

@@ -93,7 +93,7 @@ Yup. Sorry. Also, I have not even scratched the surface. This is the tip of the 
 
 ## Conclusion
 
-Performance is not a single number, and it is not a frontend-only concern. It is a set of trade-offs across product, people, and technology. If you want the “holy grail” (fast load, 60fps, quick interactions), you can absolutely get there — but only if you treat it as an intentional practice: define what “fast” means for *your* app, measure it continuously, and make it part of your delivery process.
+Performance is not a single number, and it is not a frontend-only concern. It is a set of trade-offs across product, people, and technology. If you want the “holy grail” (fast load, 60fps, quick interactions), you can absolutely get there — but only if you treat it as an intentional practice: define what “fast” means for _your_ app, measure it continuously, and make it part of your delivery process.
 
 If you only remember a few things:
 
@@ -103,4 +103,4 @@ If you only remember a few things:
 - For frontend, the default heuristic holds: ship less JS.
 - For data, also ship less: fewer rows, fewer columns, fewer bytes — load what you need, when you need it.
 
-Most importantly: watch the culture you create. A short-term focus on “velocity at any cost” tends to produce long-term performance costs — technical and organizational. Balance is hard, but it’s the difference between an app that *works* and an app people actually enjoy using.
+Most importantly: watch the culture you create. A short-term focus on “velocity at any cost” tends to produce long-term performance costs — technical and organizational. Balance is hard, but it’s the difference between an app that _works_ and an app people actually enjoy using.

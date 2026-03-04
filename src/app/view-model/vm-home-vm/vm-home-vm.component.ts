@@ -1,7 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  ViewChildren
+} from '@angular/core';
 import { modelFromLatest } from '@se-ng/observable-utils';
-import type { Observable} from 'rxjs';
+import type { Observable } from 'rxjs';
 import { combineLatest, NEVER, of, timer } from 'rxjs';
 import {
   catchError,
@@ -20,7 +26,7 @@ import { RakiService } from '../../../app/rijks/raki.service';
 import { PaintingComponent } from '../painting/painting.component';
 import { PlayButtonComponent } from '../play-button/play-button.component';
 import { QuoteComponent } from '../quote/quote.component';
-import type { Quote} from '../quote/quote.service';
+import type { Quote } from '../quote/quote.service';
 import { QuoteService } from '../quote/quote.service';
 import { ObsFromEvent } from '../vm-home/ObsFromEvent';
 
@@ -75,7 +81,11 @@ export class VmHomeVmComponent {
     catchError(() => NEVER)
   );
 
-  quote$ = this.speed$.pipe(switchMap(seconds => this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))));
+  quote$ = this.speed$.pipe(
+    switchMap(seconds =>
+      this.q.RandomQuoteOnIntervalObs(seconds * 1000).pipe(filter(Boolean))
+    )
+  );
 
   /** helpers to handle pausing */
   pauseQuote$ = this.bqClicks$.pipe(switchMap(b => (b ? NEVER : this.quote$)));

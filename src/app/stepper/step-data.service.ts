@@ -1,5 +1,10 @@
-import type { Signal} from '@angular/core';
-import { computed, Injectable, signal, type WritableSignal } from '@angular/core';
+import type { Signal } from '@angular/core';
+import {
+  computed,
+  Injectable,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 
 @Injectable()
 export class StepDataService {

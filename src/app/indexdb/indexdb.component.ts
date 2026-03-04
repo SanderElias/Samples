@@ -1,4 +1,11 @@
-import { Component, computed, type ElementRef,inject, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  type ElementRef,
+  inject,
+  signal,
+  viewChild
+} from '@angular/core';
 
 import { EditRecordComponent } from './edit-record/edit-record.component';
 import { EvSourceDbService } from './ev-source-db.service';
@@ -42,7 +49,11 @@ import { createId, type UniqueId } from './unique-id-helpers';
     </table>
     <dialog #dlg>
       @if (state().activeId() !== undefined) {
-        <se-edit-record [id]="state().activeId()!" [fields]="state().cols" (done)="dlg.close()" />
+        <se-edit-record
+          [id]="state().activeId()!"
+          [fields]="state().cols"
+          (done)="dlg.close()"
+        />
       }
     </dialog>
   `,
@@ -77,7 +88,12 @@ export class IndexdbComponent {
   };
 
   newRow = () => {
-    const row = { id: createId(), table: this.currentTable(), tags: ['new'], date: new Date() };
+    const row = {
+      id: createId(),
+      table: this.currentTable(),
+      tags: ['new'],
+      date: new Date()
+    };
     this.state().activeId.set(row.id);
     this.#evsDb.create(row);
   };

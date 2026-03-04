@@ -1,7 +1,12 @@
 import type { OnInit } from '@angular/core';
 import { Component, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  take
+} from 'rxjs/operators';
 
 import { RakiService } from '../raki.service';
 

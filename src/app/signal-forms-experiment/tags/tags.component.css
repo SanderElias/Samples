@@ -1,22 +1,20 @@
 :host {
   display: block;
   /* margin-block-start: var(--size-2 ); */
-
 }
 
 label.tags {
   display: grid;
   grid-template-columns: 48px auto;
   gap: var(--size-3);
-  grid-row-gap: var(--size-1);;
+  grid-row-gap: var(--size-1);
   align-items: baseline;
-
 }
 
 .error {
   color: var(--red-5);
   font-variant: small-caps;
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin-inline-start: var(--size-2);
 }
 
@@ -24,5 +22,3 @@ label.tags > button.action {
   position: inherit;
   margin-inline-start: 0;
 }
-
-

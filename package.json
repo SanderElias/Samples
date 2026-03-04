@@ -3,13 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "npm": "This project switched to PNPM",
-    "yarn": "This project is switched to PNPM",
-    "pnpm": "^10.24.0",
     "node": ">24.7.0"
   },
   "type": "module",
-  "packageManager": "pnpm",
+  "packageManager": "pnpm@10.30.3",
   "scripts": {
     "build.samples": "wireit",
     "build.deploy": "wireit",
@@ -18,6 +15,7 @@
     "build.lib.observable-hooks": "wireit",
     "build.lib.observable-utils": "wireit",
     "build.lib.swapi": "wireit",
+    "deploy.local": "wireit",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
@@ -220,6 +218,12 @@
         "dist/se-ng/signal-utils"
       ]
     },
+    "deploy.local": {
+      "command": "rm -rf /home/sander/media/oldhome/Documents/docker/caddy/site/samples/* && mkdir -p /home/sander/media/oldhome/Documents/docker/caddy/site/samples && cp -r dist/samples/browser/. /home/sander/media/oldhome/Documents/docker/caddy/site/samples/",
+      "dependencies": [
+        "build.deploy"
+      ]
+    },
     "serve:ssr:slido": {
       "command": "node dist/slido/server/server.mjs",
       "dependencies": [
@@ -246,7 +250,7 @@
     "@fortawesome/fontawesome-svg-core": "7.2.0",
     "@fortawesome/free-regular-svg-icons": "7.2.0",
     "@fortawesome/free-solid-svg-icons": "7.2.0",
-    "@hono/node-server": "1.19.9",
+    "@hono/node-server": "1.19.10",
     "@ngneat/falso": "8.0.2",
     "@plausible-analytics/tracker": "0.4.4",
     "animate-css-grid": "1.5.1",
@@ -257,10 +261,10 @@
     "express": "5.2.1",
     "front-matter": "4.0.2",
     "highlight.js": "11.11.1",
-    "hono": "^4.11.9",
+    "hono": "^4.12.5",
     "idb-keyval": "6.2.2",
     "jsdom": "28.1.0",
-    "marked": "17.0.2",
+    "marked": "17.0.3",
     "marked-highlight": "2.2.3",
     "messagepack": "1.1.12",
     "micromark": "4.0.2",
@@ -290,18 +294,18 @@
     "@angular/compiler-cli": "21.2.0",
     "@angular/language-service": "21.2.0",
     "@eslint/js": "^9.39.2",
-    "@npmcli/package-json": "7.0.4",
+    "@npmcli/package-json": "7.0.5",
     "@playwright/test": "1.58.2",
     "@types/chance": "1.1.7",
     "@types/eslint": "9.6.1",
     "@types/express": "5.0.6",
     "@types/js-yaml": "4.0.9",
-    "@types/jsdom": "27.0.0",
+    "@types/jsdom": "28.0.0",
     "@types/msgpack-lite": "0.1.12",
     "@types/node": "24.10.1",
     "@types/wicg-file-system-access": "2023.10.7",
-    "@typescript-eslint/eslint-plugin": "8.56.0",
-    "@typescript-eslint/parser": "8.56.0",
+    "@typescript-eslint/eslint-plugin": "8.56.1",
+    "@typescript-eslint/parser": "8.56.1",
     "@vitest/coverage-v8": "4.0.18",
     "@web/test-runner": "0.20.2",
     "angular-eslint": "21.2.0",
@@ -310,13 +314,13 @@
     "eslint-plugin-unused-imports": "4.4.1",
     "json5": "2.2.3",
     "micromark-util-types": "^2.0.2",
-    "ng-packagr": "21.1.0",
+    "ng-packagr": "21.2.0",
     "prettier": "3.8.1",
     "sharp": "0.34.5",
     "ts-node": "10.9.2",
     "tsc-watch": "7.2.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "8.56.0",
+    "typescript-eslint": "8.56.1",
     "wireit": "0.14.12",
     "yargs": "18.0.0"
   },

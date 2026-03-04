@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { GuardsCheckEnd, Router } from '@angular/router';
 import { combineLatest, filter, map, tap } from 'rxjs';
+
 import type { RouteInfo } from '../util/RouteInfo';
 import { updateRouteInfo } from '../util/update-meta-data';
 
@@ -85,8 +86,6 @@ export class ShowSourceComponent {
     )
   );
 }
-
-
 
 // typeguard function. It returns true if the event is a GuardsCheckEnd, and makes sure the type is correct
 export function isGuardsCheckEnd(event: unknown): event is GuardsCheckEnd {

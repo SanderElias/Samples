@@ -1,4 +1,11 @@
-import { Component, Injector, isSignal, provideZonelessChangeDetection, runInInjectionContext, signal } from '@angular/core';
+import {
+  Component,
+  Injector,
+  isSignal,
+  provideZonelessChangeDetection,
+  runInInjectionContext,
+  signal
+} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -22,37 +29,49 @@ describe('asyncComputed (integration)', () => {
   });
 
   it('should resolve a promise and update the signal', async () => {
-    const sig = runInInjectionContext(injector, () => asyncComputed(() => Promise.resolve(123)));
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(() => Promise.resolve(123))
+    );
     await fixture.whenStable();
     expect(isSignal(sig)).toBe(true);
     expect(sig()).toBe(123);
   });
 
   it('should resolve an observable and update the signal', async () => {
-    const sig = runInInjectionContext(injector, () => asyncComputed(() => of(456)));
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(() => of(456))
+    );
     await fixture.whenStable();
     expect(sig()).toBe(456);
   });
 
   it('should handle errors from promise', async () => {
-    const sig = runInInjectionContext(injector, () => asyncComputed(() => Promise.reject(new Error('fail'))));
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(() => Promise.reject(new Error('fail')))
+    );
     await fixture.whenStable();
     expect(() => sig()).toThrowError('fail');
   });
 
   it('should handle errors from observable', async () => {
-    const sig = runInInjectionContext(injector, () => asyncComputed(() => throwError(() => new Error('obs fail'))));
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(() => throwError(() => new Error('obs fail')))
+    );
     await fixture.whenStable();
     expect(() => sig()).toThrowError('obs fail');
   });
 
   it('should use the initial value if provided', async () => {
-    const sig = runInInjectionContext(injector, () => asyncComputed(() => new Promise(() => {}), 999));
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(() => new Promise(() => {}), 999)
+    );
     expect(sig()).toBe(999);
   });
 
   it('should return a signal', () => {
-    const result = runInInjectionContext(injector, () => asyncComputed(() => 1));
+    const result = runInInjectionContext(injector, () =>
+      asyncComputed(() => 1)
+    );
     expect(isSignal(result)).toBe(true);
   });
 
@@ -64,7 +83,9 @@ describe('asyncComputed (integration)', () => {
         yield 2;
       }
     };
-    const sig = runInInjectionContext(injector, () => asyncComputed(() => asyncIterable));
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(() => asyncIterable)
+    );
     await fixture.whenStable();
     expect(sig()).toEqual(1); // First value from async iterable
     await new Promise(resolve => setTimeout(resolve, 0));
@@ -78,7 +99,9 @@ describe('asyncComputed (integration)', () => {
       await new Promise(resolve => setTimeout(resolve, 0));
       yield 2;
     }
-    const sig = runInInjectionContext(injector, () => asyncComputed(() => asyncGenerator()));
+    const sig = runInInjectionContext(injector, () =>
+      asyncComputed(() => asyncGenerator())
+    );
     await fixture.whenStable();
     expect(sig()).toEqual(1); // First value from async generator
     await new Promise(resolve => setTimeout(resolve, 0));

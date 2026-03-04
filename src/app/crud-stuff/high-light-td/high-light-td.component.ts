@@ -1,4 +1,12 @@
-import { afterEveryRender, ChangeDetectionStrategy, Component, DOCUMENT,ElementRef, inject, viewChild } from '@angular/core';
+import {
+  afterEveryRender,
+  ChangeDetectionStrategy,
+  Component,
+  DOCUMENT,
+  ElementRef,
+  inject,
+  viewChild
+} from '@angular/core';
 
 import { HighLightBodyComponent } from '../high-light-body/high-light-body.component';
 
@@ -14,7 +22,10 @@ export class HighLightTDComponent {
   elm = inject(ElementRef).nativeElement as HTMLElement; // get the native element of this component
   fakeElm = inject(DOCUMENT).createElement('span'); // create a new span to use for the highlighted version of the content.
 
-  originalContent = viewChild.required<string, ElementRef<HTMLSpanElement>>('org', { read: ElementRef }); // get the original content of the cell.
+  originalContent = viewChild.required<string, ElementRef<HTMLSpanElement>>(
+    'org',
+    { read: ElementRef }
+  ); // get the original content of the cell.
 
   highLight = () => {
     const original = this.originalContent().nativeElement;
@@ -26,9 +37,17 @@ export class HighLightTDComponent {
     }
   };
 
-  highlightIsDone = (originalContent: HTMLSpanElement, fakeContent: HTMLSpanElement) => {
+  highlightIsDone = (
+    originalContent: HTMLSpanElement,
+    fakeContent: HTMLSpanElement
+  ) => {
     const originalText = originalContent.innerHTML;
-    if (!originalText || originalText.trim() === '' || originalText.trim() === '--') return false; // nothing in the source that can be highlighted
+    if (
+      !originalText ||
+      originalText.trim() === '' ||
+      originalText.trim() === '--'
+    )
+      return false; // nothing in the source that can be highlighted
     const highLight = this.tbody?.highLight();
     if (!highLight) return false; // if there is nothing to highlight, we are done too
     const hl = new RegExp(highLight, 'gi');
@@ -44,7 +63,9 @@ export class HighLightTDComponent {
 
   constructor() {
     if (!this.tbody) {
-      throw new Error(`[HighLightTDComponent] could not find the required parent \`<tbody [highLight]="someSignal<string>"\``);
+      throw new Error(
+        `[HighLightTDComponent] could not find the required parent \`<tbody [highLight]="someSignal<string>"\``
+      );
     }
 
     this.elm.appendChild(this.fakeElm); // add the empty span, so its ready to go.

@@ -1,5 +1,7 @@
-const randomChar = () => String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-const createId = () => Date.now().toString(36) + '-' + randomChar() + randomChar() + randomChar();
+const randomChar = () =>
+  String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+const createId = () =>
+  Date.now().toString(36) + '-' + randomChar() + randomChar() + randomChar();
 
 export type BinNodeId = string;
 
@@ -16,7 +18,12 @@ export interface BinNode {
 
 const nodes = new Map<BinNodeId, BinNode>();
 
-export const createNode = (value: number | string, parentId?: BinNodeId, left?: BinNodeId, right?: BinNodeId): BinNode => {
+export const createNode = (
+  value: number | string,
+  parentId?: BinNodeId,
+  left?: BinNodeId,
+  right?: BinNodeId
+): BinNode => {
   const newNode = {
     id: createId(),
     parentId,
@@ -28,9 +35,12 @@ export const createNode = (value: number | string, parentId?: BinNodeId, left?: 
   return newNode;
 };
 
-export const getNode = (id?: BinNodeId): BinNode | undefined => (id ? nodes.get(id) : undefined);
-export const set = (node: BinNode): Map<BinNodeId, BinNode> => nodes.set(node.id, node);
-export const getRoot = () => [...nodes.values()].find(n => n.parentId === undefined)!;
+export const getNode = (id?: BinNodeId): BinNode | undefined =>
+  id ? nodes.get(id) : undefined;
+export const set = (node: BinNode): Map<BinNodeId, BinNode> =>
+  nodes.set(node.id, node);
+export const getRoot = () =>
+  [...nodes.values()].find(n => n.parentId === undefined)!;
 export const reset = () => {
   nodes.clear();
 };
@@ -68,7 +78,12 @@ export function dump() {
   console.table(
     [...nodes.values()]
       .sort((a, b) => (a.value < b.value ? -1 : 1))
-      .map(n => ({ ...n, leftVal: getNode(n.left)?.value, cur: n.value, rightVal: getNode(n.right)?.value }))
+      .map(n => ({
+        ...n,
+        leftVal: getNode(n.left)?.value,
+        cur: n.value,
+        rightVal: getNode(n.right)?.value
+      }))
   );
 }
 
@@ -101,7 +116,8 @@ export function rotateLeft(node = getRoot()) {
   return replaceNode;
 }
 
-export const getSorted = () => [...nodes.values()].sort((a, b) => (a.value < b.value ? -1 : 1));
+export const getSorted = () =>
+  [...nodes.values()].sort((a, b) => (a.value < b.value ? -1 : 1));
 
 export function rotateRight(node = getRoot()) {
   const grandParent = getNode(node.parentId);
@@ -137,7 +153,10 @@ export function height(node?: BinNode) {
     return 0;
   }
 
-  const childHeight = Math.max(height(getNode(node.left)), height(getNode(node.right)));
+  const childHeight = Math.max(
+    height(getNode(node.left)),
+    height(getNode(node.right))
+  );
   node.height = childHeight + 1;
   return node.height;
 }

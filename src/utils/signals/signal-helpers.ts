@@ -1,5 +1,12 @@
-import type { EffectCleanupRegisterFn} from '@angular/core';
-import { afterNextRender, effect, inject, Injector, signal, type WritableSignal } from '@angular/core';
+import type { EffectCleanupRegisterFn } from '@angular/core';
+import {
+  afterNextRender,
+  effect,
+  inject,
+  Injector,
+  signal,
+  type WritableSignal
+} from '@angular/core';
 import type { Observable } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 
@@ -10,7 +17,10 @@ export type ToWritableSignalOptions<T> = {
 
 type ToWritableSignal = {
   <T>(src: Observable<T>): WritableSignal<T | undefined>;
-  <T>(src: Observable<T>, options: ToWritableSignalOptions<T>): WritableSignal<T>;
+  <T>(
+    src: Observable<T>,
+    options: ToWritableSignalOptions<T>
+  ): WritableSignal<T>;
 };
 
 /**
@@ -21,7 +31,9 @@ type ToWritableSignal = {
  */
 export const toWritableSignal = <T, U>(
   src: Observable<T>,
-  { initialValue, errorCallback } = {} as ToWritableSignalOptions<T | U | undefined>
+  { initialValue, errorCallback } = {} as ToWritableSignalOptions<
+    T | U | undefined
+  >
 ) => {
   const sig = signal<T | U | undefined>(initialValue);
 
@@ -37,7 +49,9 @@ export const toWritableSignal = <T, U>(
  * this will help circumvent some types of dom issues with SSR.
  * @param fn The effect to run
  */
-export function afterNextRenderEffect(fn: (onCleanup: EffectCleanupRegisterFn) => void) {
+export function afterNextRenderEffect(
+  fn: (onCleanup: EffectCleanupRegisterFn) => void
+) {
   const injector = inject(Injector);
   afterNextRender(() => effect(fn, { injector }));
 }

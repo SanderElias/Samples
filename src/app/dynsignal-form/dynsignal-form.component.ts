@@ -1,8 +1,8 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect, linkedSignal, signal } from '@angular/core';
-import { FormField, form, metadata, type Validator } from '@angular/forms/signals';
+import { Component, linkedSignal, signal } from '@angular/core';
+import { form, FormField, type Validator } from '@angular/forms/signals';
+
 import { getPropNames } from '../signal-forms-experiment/dynamic/dynamic.component';
-import path from 'path';
 
 export const types = ['boolean', 'number', 'string'];
 export type Types = (typeof types)[number];
@@ -19,17 +19,15 @@ interface FormFieldDef<T> {
   type: Types;
   defaultValue: boolean | number | string | {} | [];
   label: string;
-  placeholder?:  string;
+  placeholder?: string;
   description?: string;
-  helpText?:  string;
+  helpText?: string;
   readonly?: boolean;
   disabled?: boolean;
   required?: boolean;
   hidden?: boolean;
   validators?: Validator<T>[];
 }
-
-
 
 @Component({
   selector: 'se-dynsignal-form',
@@ -63,7 +61,16 @@ interface FormFieldDef<T> {
           }
         }
       </label>
-      <button type="button" (click)="addField(nfFd.name().value(), nfFd.type().value(), nfFd.defaultValue().value())">
+      <button
+        type="button"
+        (click)="
+          addField(
+            nfFd.name().value(),
+            nfFd.type().value(),
+            nfFd.defaultValue().value()
+          )
+        "
+      >
         Add Field
       </button>
     </form>
@@ -73,7 +80,11 @@ interface FormFieldDef<T> {
       @for (_field of fields(); track _field) {
         <label for="{{ _field }}">
           <span>{{ _field }}</span>
-          <input type="text" placeholder="{{ _field }}" [formField]="$any(dataForm[_field])" />
+          <input
+            type="text"
+            placeholder="{{ _field }}"
+            [formField]="$any(dataForm[_field])"
+          />
         </label>
       }
     </form>
@@ -94,7 +105,11 @@ export class DynsignalFormComponent {
   });
   types = types;
 
-  newField = signal<{ name: string; type: (typeof types)[number]; defaultValue: boolean | number | string }>({
+  newField = signal<{
+    name: string;
+    type: (typeof types)[number];
+    defaultValue: boolean | number | string;
+  }>({
     name: '',
     type: 'string',
     defaultValue: ''
@@ -104,13 +119,17 @@ export class DynsignalFormComponent {
 
   dynForm = form(this.formData);
 
-  dataForm = form(this.model, (path) => {
+  dataForm = form(this.model, path => {
     // metadata(path.name,() => {});
   });
 
   fields = getPropNames.bind(this.dataForm);
 
-  addField(fieldName: string, fieldType: (typeof types)[number], defaultValue: boolean | number | string) {
+  addField(
+    fieldName: string,
+    fieldType: (typeof types)[number],
+    defaultValue: boolean | number | string
+  ) {
     this.formData.update(fd => {
       return {
         ...fd,
@@ -123,7 +142,6 @@ export class DynsignalFormComponent {
   }
 }
 
-
 function formModelFromDynForm(dynForm: DynForm) {
   const model: { [key: string]: boolean | number | string } = {};
   for (const key in dynForm) {
@@ -131,7 +149,6 @@ function formModelFromDynForm(dynForm: DynForm) {
   }
   return model;
 }
-
 
 // this part is commented out because it doesn't currently work
 // and currently only serves as a discussion point.
@@ -180,5 +197,3 @@ function formModelFromDynForm(dynForm: DynForm) {
 //   });
 //   optForm = form(this.model);
 // }
-
-

@@ -1,5 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { applyEach, disabled, form, minLength, readonly, required, schema } from '@angular/forms/signals';
+import {
+  applyEach,
+  disabled,
+  form,
+  minLength,
+  readonly,
+  required,
+  schema
+} from '@angular/forms/signals';
 
 import { TreeNodeEditComponent } from './tree-node-edit/tree-node-edit.component';
 import type { SignalTreeNode } from './signal-tree-node.model';
@@ -8,10 +16,13 @@ import type { SignalTreeNode } from './signal-tree-node.model';
   selector: 'se-signal-tree',
   imports: [TreeNodeEditComponent],
   template: `
-    <h2>Signal Tree Component <small><a href="/signalForms">complex? form</a></small></h2>
+    <h2>
+      Signal Tree Component
+      <small><a href="/signalForms">complex? form</a></small>
+    </h2>
     <se-tree-node-edit [treeNode]="fd"></se-tree-node-edit>
   `,
-  styleUrl: './signal-tree.component.css',
+  styleUrl: './signal-tree.component.css'
 })
 export class SignalTreeComponent {
   tree = signal<SignalTreeNode>({
@@ -31,13 +42,11 @@ export class SignalTreeComponent {
   });
 
   fd = form(this.tree, validateSignalTreeNode);
-
 }
 
-const validateSignalTreeNode = schema<SignalTreeNode>((tn) => {
+const validateSignalTreeNode = schema<SignalTreeNode>(tn => {
   disabled(tn.id);
   readonly(tn.id);
-
 
   required(tn.name, { message: 'Name is required' });
   minLength(tn.name, 2, { message: 'Name must be at least 2 characters' });

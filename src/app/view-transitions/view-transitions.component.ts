@@ -1,4 +1,4 @@
-import { Component, computed,signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   selector: 'se-view-transitions',
@@ -24,7 +24,12 @@ import { Component, computed,signal } from '@angular/core';
   styleUrl: './view-transitions.component.css'
 })
 export class ViewTransitionsComponent {
-  boxes = signal(Array.from({ length: 10 }, (_, i) => ({ id: i, value: Math.floor(Math.random() * 100) })));
+  boxes = signal(
+    Array.from({ length: 10 }, (_, i) => ({
+      id: i,
+      value: Math.floor(Math.random() * 100)
+    }))
+  );
   sortOrder = signal<'asc' | 'desc' | 'none'>('none');
 
   sortedBoxes = computed(() => {
@@ -33,12 +38,17 @@ export class ViewTransitionsComponent {
     if (order === 'none') {
       return boxes;
     }
-    return [...boxes].sort((a, b) => (order === 'asc' ? a.value - b.value : b.value - a.value));
+    return [...boxes].sort((a, b) =>
+      order === 'asc' ? a.value - b.value : b.value - a.value
+    );
   });
 
   addBox() {
     const currentBoxes = this.boxes();
-    const newBox = { id: currentBoxes.length, value: Math.floor(Math.random() * 100) };
+    const newBox = {
+      id: currentBoxes.length,
+      value: Math.floor(Math.random() * 100)
+    };
     this.boxes.set([...currentBoxes, newBox]);
   }
 
@@ -46,10 +56,22 @@ export class ViewTransitionsComponent {
     // Use View Transitions API if available
     if ('startViewTransition' in document) {
       document.startViewTransition(() => {
-        this.sortOrder.set(this.sortOrder() === 'none' ? 'asc' : this.sortOrder() === 'asc' ? 'desc' : 'none');
+        this.sortOrder.set(
+          this.sortOrder() === 'none'
+            ? 'asc'
+            : this.sortOrder() === 'asc'
+              ? 'desc'
+              : 'none'
+        );
       });
     } else {
-      this.sortOrder.set(this.sortOrder() === 'none' ? 'asc' : this.sortOrder() === 'asc' ? 'desc' : 'none');
+      this.sortOrder.set(
+        this.sortOrder() === 'none'
+          ? 'asc'
+          : this.sortOrder() === 'asc'
+            ? 'desc'
+            : 'none'
+      );
     }
   }
 }

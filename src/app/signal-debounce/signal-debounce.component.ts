@@ -9,10 +9,16 @@ import { debouncedComputed } from '@se-ng/signal-utils';
     <p>This is a option to debounce a signal update.</p>
     <p>Counter: {{ counter() }}</p>
     <p>Debounced Counter: {{ debouncedCounter() }} {{ dSearch() }}</p>
-    <input type="text" [value]="search() ?? ''" (input)="search.set($any($event.target).value)" />
+    <input
+      type="text"
+      [value]="search() ?? ''"
+      (input)="search.set($any($event.target).value)"
+    />
     @for (result of results.value(); track result.id) {
       <p>
-        <a target="_blank" [href]="result.html_url">{{ result.name }} by {{ result.owner.login }}</a>
+        <a target="_blank" [href]="result.html_url"
+          >{{ result.name }} by {{ result.owner.login }}</a
+        >
       </p>
     }
   `,
@@ -29,7 +35,10 @@ export class SignalDebounce {
     params: this.dSearch,
     loader: async ({ params: request, abortSignal }) => {
       console.log('fetching', request);
-      const response = await fetch(`https://api.github.com/search/repositories?q=${request}`, { signal: abortSignal });
+      const response = await fetch(
+        `https://api.github.com/search/repositories?q=${request}`,
+        { signal: abortSignal }
+      );
       const json = (await response.json()) as GitResults;
       console.log('fetched', console.log(json));
       return json.items;

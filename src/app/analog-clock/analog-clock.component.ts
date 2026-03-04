@@ -24,7 +24,10 @@ export class AnalogClockComponent implements OnInit {
 function analogClock(ctx) {
   //  Functional helpers, curry and compose
   function curry(fn, ...args) {
-    let _curry = args => (args.length < fn.length ? (..._args) => _curry([...args, ..._args]) : fn(...args));
+    let _curry = args =>
+      args.length < fn.length
+        ? (..._args) => _curry([...args, ..._args])
+        : fn(...args);
     return _curry(args);
   }
   const compose = (...fns) =>
@@ -168,8 +171,14 @@ function analogClock(ctx) {
    * @param direction the direction we want to draw into. [x,y], where x and y are below zero indicators
    */
   function xxLine(ctx, origin, offset, length, direction) {
-    let start = [origin[0] + direction[0] * offset, origin[1] + direction[1] * offset];
-    let end = [origin[0] + direction[0] * (offset + length), origin[1] + direction[1] * (offset + length)];
+    let start = [
+      origin[0] + direction[0] * offset,
+      origin[1] + direction[1] * offset
+    ];
+    let end = [
+      origin[0] + direction[0] * (offset + length),
+      origin[1] + direction[1] * (offset + length)
+    ];
     /** draw the line */
     line(ctx, start, end);
   }

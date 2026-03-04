@@ -8,7 +8,14 @@
 
 import { defaultEquals, markSignal, Signal, ValueEqualityFn } from './api.js';
 import { hasActiveReactiveContent } from './effect.js';
-import { ConsumerId, Edge, nextReactiveId, Producer, producerAccessed, producerNotifyConsumers } from './internal.js';
+import {
+  ConsumerId,
+  Edge,
+  nextReactiveId,
+  Producer,
+  producerAccessed,
+  producerNotifyConsumers
+} from './internal.js';
 import { WeakRef } from './weak_ref.js';
 
 /**
@@ -104,7 +111,10 @@ class SettableSignalImpl<T> implements Producer {
  *
  * @developerPreview
  */
-export function signal<T>(initialValue: T, equal: ValueEqualityFn<T> = defaultEquals): SettableSignal<T> {
+export function signal<T>(
+  initialValue: T,
+  equal: ValueEqualityFn<T> = defaultEquals
+): SettableSignal<T> {
   const sig = new SettableSignalImpl(initialValue, equal);
   const res = markSignal(sig.signal.bind(sig), {
     set: sig.set.bind(sig),

@@ -65,6 +65,10 @@ this is my fallback icon, for when I use an non-exisistent icon. I use it in the
 
 <svg role="img" aria-label="Uhm"><use href="#icon-uhm"></use></svg>
 
+### the pencil icon:
+
+<svg role="img" aria-label="Pencil"><use href="#icon-pencil"></use></svg>
+
 ## How to use SVG sprites
 
 You can use the generated SVG sprite file at `assets/icons-sprite.svg` in two common ways: inline the sprite into your HTML (recommended when using CSS custom properties), or reference the external file.
@@ -74,7 +78,10 @@ You can use the generated SVG sprite file at `assets/icons-sprite.svg` in two co
 ```html
 <!-- Inline sprite (paste the full file contents) -->
 <!-- place once per page, e.g. <body> start -->
-<div aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+<div
+  aria-hidden="true"
+  style="position:absolute;width:0;height:0;overflow:hidden"
+>
   <!-- paste contents of assets/icons-sprite.svg here -->
 </div>
 ```
@@ -89,10 +96,11 @@ You can use the generated SVG sprite file at `assets/icons-sprite.svg` in two co
 ```
 
 Notes:
-- Available symbol IDs: `icon-tip`, `icon-warning`, `icon-important`, `icon-note`, `icon-uhm`.
+
+- Available symbol IDs: `icon-tip`, `icon-warning`, `icon-important`, `icon-note`, `icon-uhm`, `icon-pencil`.
 - If you rely on CSS custom properties (for example `--icon-color`) prefer the inline approach or ensure the variables are defined inside the sprite itself; otherwise the external `<use>` may not receive those variables in some browsers.
 - For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
- - For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
+- For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
 
 ## Using SVG sprites as CSS background images
 
@@ -102,9 +110,11 @@ Short answer: it's possible but limited — using symbols from an SVG sprite dir
 
 ```css
 .icon--tip {
-  width: 24px; height: 24px;
+  width: 24px;
+  height: 24px;
   background-color: var(--icon-color);
-  -webkit-mask: url('/assets/icons-sprite.svg#icon-tip') no-repeat center / contain;
+  -webkit-mask: url('/assets/icons-sprite.svg#icon-tip') no-repeat center /
+    contain;
   mask: url('/assets/icons-sprite.svg#icon-tip') no-repeat center / contain;
 }
 ```
@@ -115,7 +125,8 @@ Notes: `mask` (and `-webkit-mask`) lets the SVG shape act as a mask so the eleme
 
 ```css
 .icon-bg {
-  width:24px; height:24px;
+  width: 24px;
+  height: 24px;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23f6d32d' d='...'/></svg>");
   background-size: contain;
   background-repeat: no-repeat;
@@ -130,7 +141,8 @@ Create standalone SVG files for each icon (for example `assets/icon-tip.svg`) an
 
 ```css
 .icon {
-  width:24px; height:24px;
+  width: 24px;
+  height: 24px;
   background-image: url('/assets/icon-tip.svg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -139,8 +151,4 @@ Create standalone SVG files for each icon (for example `assets/icon-tip.svg`) an
 
 Notes: This is the simplest and most compatible approach for using SVGs as CSS background images.
 
-Summary: For programmatic, reusable colored icons prefer inline `<svg><use></use></svg>`; for CSS-background style icons prefer either exported single-SVG files or `mask` with an external sprite (with cross-browser testing). 
-
-
-
-
+Summary: For programmatic, reusable colored icons prefer inline `<svg><use></use></svg>`; for CSS-background style icons prefer either exported single-SVG files or `mask` with an external sprite (with cross-browser testing).

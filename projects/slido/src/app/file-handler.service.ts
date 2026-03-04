@@ -1,4 +1,11 @@
-import { afterNextRender, effect, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import {
+  afterNextRender,
+  effect,
+  Injectable,
+  signal,
+  Signal,
+  WritableSignal
+} from '@angular/core';
 import { asyncComputed } from '@se-ng/signal-utils';
 import { get, set } from 'idb-keyval';
 
@@ -67,7 +74,9 @@ export class FileHandlerService {
 
   #monitor = effect(onCleanup => {
     if (!('FileSystemObserver' in self)) {
-      console.warn('FileSystemObserver not available, perhaps enable it in "about:flags"');
+      console.warn(
+        'FileSystemObserver not available, perhaps enable it in "about:flags"'
+      );
       this.#monitor.destroy();
       return;
     }

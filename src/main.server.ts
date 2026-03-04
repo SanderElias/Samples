@@ -13,7 +13,10 @@ const bootstrap = (context: BootstrapContext) =>
     AppComponent,
     {
       ...config,
-      providers: [...config.providers, provideServerRendering(withRoutes(serverRoutes), )]
+      providers: [
+        ...config.providers,
+        provideServerRendering(withRoutes(serverRoutes))
+      ]
     },
     context
   );

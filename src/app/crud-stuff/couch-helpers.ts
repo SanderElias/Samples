@@ -1,4 +1,5 @@
 import { type UserCard, userCard } from '../generic-services/address.service';
+
 import { type SortField } from './relations.service';
 
 const baseFallback = 'https://couchdb.eliasweb.nl';

@@ -5,9 +5,7 @@
     "types": [],
     "module": "es2022"
   },
-  "files": [
-    "main.server.ts"
-  ],
+  "files": ["main.server.ts"],
   "angularCompilerOptions": {
     "compilationMode": "partial"
   }

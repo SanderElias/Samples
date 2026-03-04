@@ -4,7 +4,13 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { createSetStateMethod, modelFromLatest } from '@se-ng/observable-utils';
 import { BehaviorSubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, pluck, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  pluck,
+  tap
+} from 'rxjs/operators';
 
 import { DemoUserService } from '../../../../src/app/demo-users.service';
 
@@ -28,11 +34,17 @@ export class DemoUserComponent implements OnInit {
 
   foundUsers$ = modelFromLatest({
     users: this.users$,
-    search: this.state$.pipe(pluck('searchText'), distinctUntilChanged(), debounceTime(250))
+    search: this.state$.pipe(
+      pluck('searchText'),
+      distinctUntilChanged(),
+      debounceTime(250)
+    )
   }).pipe(
     map(({ users, search }) =>
       users
-        .filter(row => row.username.toLowerCase().includes(search.toLowerCase()))
+        .filter(row =>
+          row.username.toLowerCase().includes(search.toLowerCase())
+        )
         .sort((a, b) => (a.username < b.username ? -1 : 1))
     )
   );

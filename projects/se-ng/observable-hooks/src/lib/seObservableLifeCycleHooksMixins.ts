@@ -39,7 +39,9 @@ export const seOnDestroy = <T extends Constructor>(base: T = class {} as T) =>
   };
 
 /** extends component with an observable seAfterContentChecked$ lifecycle hook */
-export const seAfterContentChecked = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterContentChecked = <T extends Constructor>(
+  base: T = class {} as T
+) =>
   class extends base implements AfterContentChecked, OnDestroy {
     [_acc] = new Subject<void>();
     /** Observable that emits when content is checked */
@@ -55,7 +57,9 @@ export const seAfterContentChecked = <T extends Constructor>(base: T = class {} 
   };
 
 /** extends component with an observable seAfterContentInit$ lifecycle hook */
-export const seAfterContentInit = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterContentInit = <T extends Constructor>(
+  base: T = class {} as T
+) =>
   class extends base implements AfterContentInit {
     [_aci] = new Subject<void>();
     /** `Observable<void>` that emits once and completes afer content init */
@@ -71,7 +75,9 @@ export const seAfterContentInit = <T extends Constructor>(base: T = class {} as 
   };
 
 /** extends component with an observable seAfterViewChecked$ lifecycle hook */
-export const seAfterViewChecked = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterViewChecked = <T extends Constructor>(
+  base: T = class {} as T
+) =>
   class extends base implements AfterViewChecked, OnDestroy {
     [_avc] = new Subject<void>();
     /** observable that emits after the view is checked */
@@ -87,7 +93,9 @@ export const seAfterViewChecked = <T extends Constructor>(base: T = class {} as 
   };
 
 /** extends component with an observable seAfterViewInit$ lifecycle hook */
-export const seAfterViewInit = <T extends Constructor>(base: T = class {} as T) =>
+export const seAfterViewInit = <T extends Constructor>(
+  base: T = class {} as T
+) =>
   class extends base implements AfterViewInit {
     [_avi] = new Subject<void>();
     /** observable that emits and completes after view init */

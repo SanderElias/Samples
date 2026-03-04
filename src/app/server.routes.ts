@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import type { ServerRoute } from '@angular/ssr';
 import { RenderMode } from '@angular/ssr';
+
 import { Bloglist } from './blogs/bloglist';
 
 export const serverRoutes: ServerRoute[] = [
@@ -23,7 +24,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'mqtt',
-    renderMode: RenderMode.Client
+    renderMode: RenderMode.Prerender
   },
   {
     path: 'mqtt/list',
@@ -31,6 +32,10 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'svgTest',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'caddy',
     renderMode: RenderMode.Client
   },
   {

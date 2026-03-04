@@ -30,7 +30,9 @@ Single-line ignore (for one statement):
 
 ```ts
 /* c8 ignore next */
-if (testOnly) { /* ... */ }
+if (testOnly) {
+  /* ... */
+}
 ```
 
 Block ignore (wrap multiple lines):
@@ -40,6 +42,7 @@ Block ignore (wrap multiple lines):
 // code you want to exclude from coverage
 /* c8 ignore stop */
 ```
+
 - If you prefer convenience scripts, see `package.json` for `test:samples` and `test:samples:ci` and `test:signal-utils`.
 
 Note: this repo uses **Wireit** to orchestrate many tasks (see `package.json -> wireit`). Run Wireit-managed tasks with `npm run <task>` or `pnpm run <task>` (examples: `npm run start`, `npm run ntest`, `npm run compileTest`). Wireit provides incremental builds, watch mode (`--watch`), local caching in `.wireit/`, and GitHub Actions caching (`google/wireit@setup-github-actions-caching/v2`).
