@@ -24,7 +24,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'mqtt',
-    renderMode: RenderMode.Client
+    renderMode: RenderMode.Prerender
   },
   {
     path: 'mqtt/list',
@@ -32,7 +32,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'svgTest',
-    renderMode: RenderMode.Client
+    renderMode: RenderMode.Prerender
   },
   {
     path: '**',

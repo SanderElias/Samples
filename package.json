@@ -15,6 +15,7 @@
     "build.lib.observable-hooks": "wireit",
     "build.lib.observable-utils": "wireit",
     "build.lib.swapi": "wireit",
+    "deploy.local": "wireit",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
@@ -215,6 +216,12 @@
       ],
       "output": [
         "dist/se-ng/signal-utils"
+      ]
+    },
+    "deploy.local": {
+      "command": "rm -rf /home/sander/media/oldhome/Documents/docker/caddy/site/samples/* && mkdir -p /home/sander/media/oldhome/Documents/docker/caddy/site/samples && cp -r dist/samples/browser/. /home/sander/media/oldhome/Documents/docker/caddy/site/samples/",
+      "dependencies": [
+        "build.deploy"
       ]
     },
     "serve:ssr:slido": {

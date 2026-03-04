@@ -10,6 +10,18 @@ import {
   viewChild
 } from '@angular/core';
 
+import {
+  toObservable,
+  toSignal
+} from '@angular/core/rxjs-interop';
+import {
+  filter,
+  interval,
+  map,
+  startWith,
+  switchMap,
+  takeWhile
+} from 'rxjs';
 import type { ZigbeePrefixes } from '../mqtt.component';
 import { ZigbeeService } from '../zigbee.service';
 
@@ -17,10 +29,10 @@ import { ZigbeeService } from '../zigbee.service';
   selector: 'se-pair-button',
   imports: [],
   template: `
-    <div class="pbWrapper" (click)="showDialog($event)">
-      @if (joinAllowed()) {
-        <h5>Er kan</h5>
-        <h5>verbonden worden</h5>
+    <div class="pbWrapper">
+      @if (joinAllowed().pairingAllowed) {
+        <h5>Nog {{ countdown() }} seconden</h5>
+        <h5>{{ joinAllowed().device }}</h5>
       } @else {
         <h5>klik hier om te pairen</h5>
       }
@@ -47,7 +59,7 @@ import { ZigbeeService } from '../zigbee.service';
   styleUrl: './pair-button.component.css',
   host: {
     '[style.backgroundColor]':
-      'joinAllowed() ? "var(--color-success)" : "var(--color-error)"',
+      'joinAllowed().pairingAllowed ? "var(--color-success)" : "var(--color-error)"',
     '(click)': 'showDialog($event)'
   }
 })
@@ -58,7 +70,6 @@ export class PairButtonComponent {
   selectedPrefixes = input<ZigbeePrefixes[]>([]);
 
   selectedRouter = signal<string>('');
-  countdown = signal('');
   routerList = computed(() =>
     this.z2m
       .devices()
@@ -110,13 +121,27 @@ export class PairButtonComponent {
     ) {
       return;
     }
+    console.log({ ev, div });
     // if we can join, we should switch off joining, we need no dialog for stopping.
-    this.joinAllowed()
+    this.joinAllowed().pairingAllowed
       ? this.switchJoin(false)
       : this.dlg().nativeElement.showModal();
   };
 
   joinAllowed = this.z2m.joinAllowed;
+  countdown = toSignal(
+    toObservable(this.joinAllowed).pipe(
+      filter(joinAllowed => joinAllowed.pairingAllowed),
+      map(joinAllowed => joinAllowed.time ?? 120),
+      switchMap(time =>
+        interval(1000).pipe(
+          map(i => time - i),
+          takeWhile(t => t >= 1),
+          startWith(time)
+        )
+      )
+    )
+  );
 
   closeDialog = () => {
     this.dlg().nativeElement.close();

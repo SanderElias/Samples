@@ -1,5 +1,6 @@
 import {
   afterRenderEffect,
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -13,6 +14,7 @@ import { EMPTY } from 'rxjs';
 import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
 
+import { MqttService } from './mqtt.service';
 import { PairButtonComponent } from './pair-button/pair-button.component';
 import {
   extractPrefix,
@@ -20,10 +22,9 @@ import {
 } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { persistentSignal } from './util/idbstorage';
-import { MqttService } from './mqtt.service';
 import { ZigbeeService } from './zigbee.service';
 
-export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'test'] as const;
+export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'Alles'] as const;
 export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 
 @Component({
@@ -35,54 +36,9 @@ export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
     StackedPerComponent,
     AuthenticadedUserOnlyComponent
   ],
-  template: `
-    <authenticated-user-only>
-      <details>
-        <summary>Settings</summary>
-        <div class="zigbee-prefixes">
-          @for (pf of zigbeePrefixes; track $index) {
-            <label>
-              <input
-                type="checkbox"
-                [checked]="selectedPrefixes().includes(pf)"
-                (change)="checkPf(pf)"
-              />
-              {{ pf }}
-            </label>
-          }
-        </div>
-        <div class="toolbar">
-          <select (change)="selected.set($any($event.target).value)">
-            @for (device of deviceList(); track device.name) {
-              <option [value]="device.name">{{ device.name }}</option>
-            }
-          </select>
-          <select (change)="filter.set($any($event.target).value)">
-            @for (type of deviceTypes(); track type[0]) {
-              <option [value]="type[0]">{{ type[1] }}</option>
-            }
-          </select>
-          <label><input #sd type="checkbox" />show details</label>
-        </div>
-        <se-stacked-per [data]="powerUsage()" />
-        @if (sd.checked) {
-          <div class="grid">
-            <!-- selectedDevice.value()| json }}</code></pre> -->
-            <pretty-json [json]="selectedDevice.value()" />
-            <pretty-json [json]="selectedDetails()" />
-          </div>
-        }
-      </details>
-      <div class="devGrid">
-        <se-pair-button [selectedPrefixes]="selectedPrefixes()" />
-
-        @for (device of powerMeters(); track device.ieee_address) {
-          <power-meter [ieeeAddress]="device.ieee_address" />
-        }
-      </div>
-    </authenticated-user-only>
-  `,
+  templateUrl: './mqtt.component.html',
   styleUrl: './mqtt.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MqttService, ZigbeeService]
 })
 export class MqttComponent {
@@ -165,11 +121,13 @@ export class MqttComponent {
           )
         )
         .filter(d =>
-          this.selectedPrefixes().some(
-            prefix =>
-              d.friendly_name?.startsWith(prefix) ||
-              !d.friendly_name?.includes('/')
-          )
+          this.selectedPrefixes().includes('Alles')
+            ? true
+            : this.selectedPrefixes().some(
+                prefix =>
+                  d.friendly_name?.startsWith(prefix) ||
+                  !d.friendly_name?.includes('/')
+              )
         )
         .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name)) ?? []
   );

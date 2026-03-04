@@ -15,18 +15,29 @@ import { persistentLinkedSignal } from '../util/idbstorage';
 import { ZigbeeService } from '../zigbee.service';
 
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
+import { splitName } from './dialog/split-name';
 
 @Component({
   selector: 'power-meter',
   template: `
-    <h5 (click)="dialogOpen.set(true)">{{ name() }} 🖉</h5>
+    <h5 (click)="dialogOpen.set(true)">
+      {{ name() }}
+      <svg role="img" aria-label="Pencil">
+        <use href="#icon-pencil"></use>
+      </svg>
+    </h5>
     @if (!deviceLoading()) {
       <se-gauge [value]="currentPower()" [maxVal]="maxUsedPower()" />
-      group: {{ prefix() }}<br />
-      power: {{ currentPower() }} W<br />
-      voltage: {{ deviceStatus()?.voltage }} V<br />
-      current: {{ deviceStatus()?.current }} A<br />
-      energy: {{ deviceStatus()?.energy }} kWh<br />
+      <ul>
+        <li><span>group:</span><span>{{ splitName().prefix }}</span></li>
+        @if (splitName().subGroup) {
+           <li><span>subgroup:</span><span>{{ splitName().subGroup }}</span></li>
+        }
+        <li><span>power:</span><span>{{ currentPower() }} W</span></li>
+        <li><span>voltage:</span><span>{{ deviceStatus()?.voltage }} V</span></li>
+        <li><span>current:</span><span>{{ deviceStatus()?.current }} A</span></li>
+        <li><span>energy:</span><span>{{ deviceStatus()?.energy }} kWh</span></li>
+      </ul>
       <!-- <input type="checkbox" switch [checked]="isPoweredOn()" (change)="isPoweredOn() ? toggleOff() : toggleOn()" /> -->
     } @else {
       <span>Loading...</span><br />
@@ -58,15 +69,12 @@ export class PowerMeterComponent {
     debugName: 'MaxUsedPower'
   });
 
-  readonly name = computed(
-    () =>
-      (this.#deviceInfo()?.friendly_name || this.ieeeAddress())
-        .split('/')
-        .pop() || ''
+  readonly splitName = computed(() =>
+    splitName(this.#deviceInfo()?.friendly_name || this.ieeeAddress())
   );
-  readonly prefix = computed(() =>
-    extractPrefix(this.#deviceInfo()?.friendly_name || this.ieeeAddress())
-  );
+
+  readonly name = computed(() => this.splitName().name);
+  readonly prefix = computed(() => this.splitName().prefix);
   readonly isPoweredOn = computed(() => this.deviceStatus()?.state === 'ON');
 
   refresh = () => {

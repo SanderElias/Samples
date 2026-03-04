@@ -483,16 +483,8 @@
     "path": "/mqtt",
     "modulePath": "/src/app/mqtt",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app/mqtt",
-    "title": "MQTT",
+    "title": "1-MQTT",
     "largeImage": "/assets/snapshots/mqtt.png",
-    "description": ""
-  },
-  {
-    "path": "/mqtt/",
-    "modulePath": "/src/app",
-    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/src/app",
-    "title": "MQTT",
-    "largeImage": "/assets/snapshots/mqtt-.png",
     "description": ""
   },
   {

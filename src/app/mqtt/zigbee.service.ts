@@ -106,8 +106,12 @@ export class ZigbeeService {
     shareReplay(1) // Cache the latest value
   );
 
-  joinAllowed: Signal<boolean> = toSignal(this.#joinAllowed$, {
-    initialValue: false
+  joinAllowed: Signal<{
+    pairingAllowed: boolean;
+    device?: string;
+    time?: number;
+  }> = toSignal(this.#joinAllowed$, {
+    initialValue: { pairingAllowed: false }
   });
 
   publish = async (
@@ -132,26 +136,31 @@ export const renameDevice = (from: string, to: string) => ({
   payload: { from, to, homeassistant_rename: true }
 });
 
-function checkJoinAllowed(log: Record<string, string>): boolean {
+function checkJoinAllowed(log: Record<string, string>): {
+  pairingAllowed: boolean;
+  device?: string;
+  time?: number;
+} {
   const lowerLog = log.message?.toLowerCase();
-  console.log({ lowerLog });
   const parts = lowerLog?.split(`payload '`);
   if (parts && parts.length > 1) {
     try {
       const json = JSON.parse(parts[1].split(`'`)[0]);
       const time = json?.data?.time ?? 0;
+      const device = json?.data?.device ?? 'unknown';
       if (typeof time === 'number' && time > 0) {
-        return true;
+        return { pairingAllowed: true, device, time };
       } else {
-        return false;
+        return { pairingAllowed: false };
       }
     } catch (error) {
-      return false;
+      return { pairingAllowed: false };
     }
   }
-  if (lowerLog.includes('open')) return true;
+  if (lowerLog.includes('open'))
+    return { pairingAllowed: true, device: 'unknown', time: 120 };
   // return false for all remaining cases
-  return false;
+  return { pairingAllowed: false };
 }
 
 /**
