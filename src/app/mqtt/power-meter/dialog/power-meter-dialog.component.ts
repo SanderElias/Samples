@@ -25,31 +25,30 @@ import { splitName } from './split-name';
   imports: [FormField, FormRoot],
   template: `
     <dialog #dlg>
-      <h4>{{ prefix() }} {{ name() }}</h4>
+      <h4>{{ model().prefix }} {{ model().name }}</h4>
       <form [formRoot]="fd">
         <label>
           <span>indelen bij:</span>
           <select id="prefix" [formField]="fd.prefix">
             @for (pf of zigbeePrefixes; track $index) {
-              <option value="{{ pf }}" [selected]="prefix() === pf">
+              <option value="{{ pf }}" [selected]="model().prefix === pf">
                 {{ pf }}
               </option>
             }
-            <option value="" [selected]="!prefix()">Geen</option>
+            <option value="" [selected]="!model().prefix">Geen</option>
           </select>
         </label>
         <label>
           <span>Subgroep:</span>
           @if (!customGroup()) {
             <select id="subGroup" [formField]="fd.subGroup">
-              <option value="" [selected]="!name()">Geen</option>
-              @for (sg of subGroups()[prefix()] || []; track $index) {
-                <option value="{{ sg }}" [selected]="name() === sg">
+              <option value="" [selected]="!model().subGroup">Geen</option>
+              @for (sg of subGroups()[model().prefix] || []; track $index) {
+                <option value="{{ sg }}" [selected]="model().subGroup === sg">
                   {{ sg }}
                 </option>
               }
             </select>
-            <!-- <button type="button" (click)="customGroup.set(!customGroup())"> -->
             <svg
               role="button"
               aria-label="Pencil"
@@ -101,9 +100,14 @@ export class PowerMeterDialogComponent {
 
   model = linkedSignal(() => splitName(this.baseName()));
 
+  __ = afterRenderEffect(() => {
+    console.dir({ model: this.model() });
+    console.log(this.newName());
+  });
+
   newName = computed(() => {
-    const prefix = this.model().prefix.toLocaleLowerCase();
-    const subGroup = this.model().subGroup.toLocaleLowerCase();
+    const prefix = this.model().prefix.toLocaleLowerCase().trim();
+    const subGroup = this.model().subGroup.toLocaleLowerCase().trim();
     const name = this.model().name;
     return `${prefix}/${subGroup}/${name}`.replaceAll('//', '/');
   });
@@ -119,7 +123,7 @@ export class PowerMeterDialogComponent {
             homeassistant_rename: true
           }
         );
-        console.log({result});
+        console.log({ result });
         this.closeDialog();
       }
     }
@@ -129,8 +133,6 @@ export class PowerMeterDialogComponent {
   readonly baseName = computed(
     () => this.#deviceInfo()?.friendly_name || this.ieeeAddress()
   );
-  readonly name = computed(() => this.baseName().split('/').pop() || '');
-  readonly prefix = computed(() => extractPrefix(this.baseName()));
   readonly show = model<boolean>();
 
   readonly _ = afterRenderEffect(() =>
