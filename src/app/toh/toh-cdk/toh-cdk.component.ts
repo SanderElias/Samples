@@ -44,6 +44,7 @@ import {
                 *cdkDragPlaceholder
                 class="puck placeholder"
                 [attr.data-weight]="puck"
+                [style.--size]="puck"
               ></div>
             </div>
           }
