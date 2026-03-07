@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   applyEach,
   disabled,
@@ -22,6 +22,7 @@ import type { SignalTreeNode } from './signal-tree-node.model';
     </h2>
     <se-tree-node-edit [treeNode]="fd"></se-tree-node-edit>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './signal-tree.component.css'
 })
 export class SignalTreeComponent {

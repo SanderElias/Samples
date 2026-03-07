@@ -1,4 +1,11 @@
-import { Component, effect, ElementRef, inject, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { ResizablePanelComponent } from './resizable-panel/resizable-panel.component';
 
@@ -17,6 +24,7 @@ import { ResizablePanelComponent } from './resizable-panel/resizable-panel.compo
       </se-resizable-panel>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./resizable-panels.component.css']
 })
 export class ResizablePanelsComponent {

@@ -4,7 +4,8 @@ import {
   computed,
   ElementRef,
   inject,
-  input
+  input,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { PrettyJSONCustomElement } from './pj';
@@ -15,6 +16,7 @@ let prettyJsonLoaded = false;
   selector: 'pretty-json',
   imports: [],
   template: ``,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     :host {
       display: block;

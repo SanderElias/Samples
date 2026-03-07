@@ -1,5 +1,5 @@
 import type { OnInit } from '@angular/core';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { SeLetDirective } from '@se-ng/let';
 import { timer } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { PokeApiService } from '../poke-api.service';
   selector: 'app-pokemain',
   templateUrl: './pokemain.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [SeLetDirective]
 })
 export class PokeMainComponent implements OnInit {

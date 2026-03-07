@@ -1,10 +1,15 @@
 import { NgComponentOutlet } from '@angular/common';
-import { afterNextRender, Component } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'app-lazy-component',
   templateUrl: './lazy-component.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgComponentOutlet]
 })
 export class LazyComponentComponent {

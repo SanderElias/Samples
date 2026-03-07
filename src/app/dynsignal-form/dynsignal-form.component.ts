@@ -1,5 +1,10 @@
 import { JsonPipe } from '@angular/common';
-import { Component, linkedSignal, signal } from '@angular/core';
+import {
+  Component,
+  linkedSignal,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { form, FormField, type Validator } from '@angular/forms/signals';
 
 import { getPropNames } from '../signal-forms-experiment/dynamic/dynamic.component';
@@ -90,6 +95,7 @@ interface FormFieldDef<T> {
     </form>
     <pre><code>{{ dataForm().value() | json }}</code></pre>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dynsignal-form.component.css'
 })
 export class DynsignalFormComponent {

@@ -1,5 +1,5 @@
 import type { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { CellComponent } from '../cell/cell.component';
 
@@ -7,6 +7,7 @@ import { CellComponent } from '../cell/cell.component';
   selector: 'app-gridthings',
   templateUrl: './gridthings.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CellComponent]
 })
 export class GridthingsComponent implements OnInit {

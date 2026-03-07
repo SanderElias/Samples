@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import type { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { BehaviorSubject, switchMap } from 'rxjs';
@@ -82,6 +82,7 @@ import { SampledataService } from '../sampledata.service';
       </main>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./template.component.css']
 })
 export default class TemplateComponent {

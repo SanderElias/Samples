@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { RelationsService } from '../relations.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -22,6 +22,7 @@ import { generateRelation } from '../utils/generateRelation';
     </label>
     <button (click)="info()">Info</button>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {

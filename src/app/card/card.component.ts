@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'se-card',
@@ -16,6 +16,7 @@ import { Component } from '@angular/core';
       </section>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {

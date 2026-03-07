@@ -1,11 +1,17 @@
 import type { OnDestroy } from '@angular/core';
-import { Component, ElementRef, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { BogusLoadService } from '../bogus-load.service';
 
 @Component({
   selector: 'app-htmlload',
   templateUrl: './htmlload.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       :host {

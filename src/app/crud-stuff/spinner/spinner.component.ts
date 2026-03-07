@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'se-spinner',
@@ -87,6 +87,7 @@ import { Component, input } from '@angular/core';
       </g>
     </svg>
   }`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './spinner.component.css'
 })
 export class SpinnerComponent {

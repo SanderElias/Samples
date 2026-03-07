@@ -1,4 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { RelationsService, type SortField } from '../relations.service';
 
@@ -12,6 +17,7 @@ import { RelationsService, type SortField } from '../relations.service';
     }
   `,
   styleUrl: './sort-header.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '(click)': 'doSort()'
   }

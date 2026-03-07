@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { DialogComponent } from './dialog/dialog.component';
 import { DummyContentComponent } from './dummy-content/dummy-content.component';
@@ -21,6 +21,7 @@ import { DummyContentComponent } from './dummy-content/dummy-content.component';
         <p>Some content</p>
       }
     </dialog> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './reusable-dialog.component.css'
 })
 export class ReusableDialogComponent {

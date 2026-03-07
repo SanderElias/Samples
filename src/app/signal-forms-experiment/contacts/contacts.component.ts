@@ -1,4 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import type { FieldTree } from '@angular/forms/signals';
 import { type FieldState, FormField } from '@angular/forms/signals';
 
@@ -59,6 +64,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
         </label>
       </div>
     } `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './contacts.component.css'
 })
 export class ContactsComponent {

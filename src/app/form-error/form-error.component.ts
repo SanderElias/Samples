@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ShowErrorComponent } from './show-error/show-error.component';
@@ -8,6 +8,7 @@ import { ShowErrorComponent } from './show-error/show-error.component';
   selector: 'se-form-error',
   imports: [FormsModule, ShowErrorComponent, JsonPipe],
   templateUrl: './form-error.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./form-error.component.css']
 })
 export default class FormErrorComponent {

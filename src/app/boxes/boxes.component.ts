@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'se-boxes',
@@ -76,6 +76,7 @@ import { Component } from '@angular/core';
         <p>Content for Box 4</p>
       </div>
     </div> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './boxes.component.css'
 })
 export class BoxesComponent {}

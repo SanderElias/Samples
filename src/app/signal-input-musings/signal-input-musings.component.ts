@@ -1,8 +1,15 @@
-import { Component, Directive, inject, Input } from '@angular/core';
+import {
+  Component,
+  Directive,
+  inject,
+  Input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'pretty-text',
   template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[style.backgroundColor]': 'bg',
     '[style.color]': 'color'
@@ -31,6 +38,7 @@ class PrettyReversedComponent {
   template: `<h3>Signal stuff</h3>
     <pretty-text>test</pretty-text>
     <pretty-text reversed>test</pretty-text> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './signal-input-musings.component.css'
 })
 export class SignalInputMusingsComponent {}

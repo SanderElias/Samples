@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { Component, computed } from '@angular/core';
+import { Component, computed, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -18,6 +18,7 @@ import { RouterLink } from '@angular/router';
       }
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./route-list.component.css']
 })
 export class RouteListComponent {

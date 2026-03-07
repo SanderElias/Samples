@@ -5,7 +5,8 @@ import {
   ElementRef,
   inject,
   signal,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { assertDefined } from '@se-ng/signal-utils';
 
@@ -27,6 +28,7 @@ import { LoggedIn } from './logged-in-user.service';
     </div>
     <div id="cell-coords">{{ mouseOnCell().x }}, {{ mouseOnCell().y }}</div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './grid-play.component.css'
 })
 export class GridPlayComponent {

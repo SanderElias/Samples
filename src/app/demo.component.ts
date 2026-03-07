@@ -1,5 +1,11 @@
 import type { AfterContentInit } from '@angular/core';
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { ShowSourceComponent } from './show-source/show-source.component';
@@ -8,6 +14,7 @@ import { ShowSourceComponent } from './show-source/show-source.component';
   selector: 'demo-root',
   templateUrl: './demo.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterLinkActive, RouterLink, ShowSourceComponent, RouterOutlet]
 })
 export class DemoComponent implements AfterContentInit {

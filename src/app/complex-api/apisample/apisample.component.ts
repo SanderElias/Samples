@@ -1,4 +1,9 @@
-import { Component, inject, type Signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  type Signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { SwapiRoot } from '@se-ng/swapi';
@@ -21,6 +26,7 @@ import { ShowRecComponent } from '../show-rec/show-rec.component';
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ReactiveFormsModule, ShowRecComponent]
 })
 export class APISampleComponent {

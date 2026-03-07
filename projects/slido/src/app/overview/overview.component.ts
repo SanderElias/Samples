@@ -1,4 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FileHandlerService } from '../file-handler.service.js';
 import { SlideComponent } from '../slide/slide.component.js';
@@ -8,6 +13,7 @@ import { SlidesHandlerService } from '../slides-handler.service.js';
   selector: 'se-overview',
   imports: [SlideComponent, RouterLink],
   templateUrl: './overview.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './overview.component.css'
 })
 export class OverviewComponent {

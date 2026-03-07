@@ -1,4 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'se-anchor-pos',
@@ -29,6 +34,7 @@ import { Component, computed, signal } from '@angular/core';
       </section>
     </label>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './anchor-pos.component.css'
 })
 export class AnchorPosComponent {

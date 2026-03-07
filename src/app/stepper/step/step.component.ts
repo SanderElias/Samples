@@ -6,7 +6,8 @@ import {
   inject,
   input,
   signal,
-  untracked
+  untracked,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { type StepData, StepDataService } from '../step-data.service';
@@ -16,6 +17,7 @@ import { type StepData, StepDataService } from '../step-data.service';
   imports: [],
   template: ` <span class="circle"></span> <ng-content /> `,
   styleUrl: './step.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[class.selected]': 'isSelected()',
     '[class.disabled]': 'disabled()',

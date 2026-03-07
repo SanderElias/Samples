@@ -1,5 +1,10 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { OrdersService } from '../../orders.service';
@@ -35,6 +40,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
       }
     `
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ProductDetailComponent, RelationComponent, AsyncPipe]
 })
 export class OrderRowComponent {

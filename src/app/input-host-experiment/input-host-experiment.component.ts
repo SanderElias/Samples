@@ -1,5 +1,10 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { InputHostComponent } from './input-host/input-host.component';
 
@@ -25,6 +30,7 @@ import { InputHostComponent } from './input-host/input-host.component';
     <code>
       <pre>{{ inp1 | json }}</pre>
     </code>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input-host-experiment.component.css'
 })
 export class InputHostExperimentComponent {

@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnDestroy } from '@angular/core';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -84,6 +84,7 @@ import { SampledataService } from '../sampledata.service';
       </main>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./reactive.component.css']
 })
 export default class ReactiveComponent implements OnDestroy {

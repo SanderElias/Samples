@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { pluck } from '../../../pluck';
@@ -18,6 +18,7 @@ import { RelationComponent } from '../relation/relation.component';
       }
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RelationComponent, OrderRowComponent, AsyncPipe]
 })
 export class BRelationDetailComponent {

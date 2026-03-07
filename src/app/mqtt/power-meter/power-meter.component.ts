@@ -6,7 +6,8 @@ import {
   inject,
   input,
   signal,
-  type WritableSignal
+  type WritableSignal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
@@ -17,7 +18,10 @@ import { ZigbeeService } from '../zigbee.service';
 
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
 import { splitName } from './dialog/split-name';
-import { MqttDeviceSettingsService, type MqttDeviceSetting } from '../mqtt-device-settings.service';
+import {
+  MqttDeviceSettingsService,
+  type MqttDeviceSetting
+} from '../mqtt-device-settings.service';
 
 @Component({
   selector: 'power-meter',
@@ -63,6 +67,7 @@ import { MqttDeviceSettingsService, type MqttDeviceSetting } from '../mqtt-devic
     <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(show)]="dialogOpen" />
   `,
   styleUrl: './power-meter.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ToggleComponent, PowerMeterDialogComponent, GaugeComponent]
 })
 export class PowerMeterComponent {
@@ -77,7 +82,7 @@ export class PowerMeterComponent {
     if (this.ieeeAddress() === 'unknown' || !this.ieeeAddress()) return;
     const splitName = this.splitName();
     const currentPower = this.currentPower();
-    if (!splitName.name ) return;
+    if (!splitName.name) return;
     if (currentPower > this.maxUsedPower()) {
       this.maxUsedPower.set(currentPower);
     }

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { map, mergeMap, startWith, tap } from 'rxjs';
 import { RelationsService } from '../relations.service';
@@ -16,6 +16,7 @@ import { RelationComponent } from './relation/relation.component';
     }
   `,
   styleUrls: ['./b-relation-list.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RelationComponent, AsyncPipe, ReactiveFormsModule]
 })
 export class BRelationListComponent {

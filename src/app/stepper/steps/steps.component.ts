@@ -6,7 +6,8 @@ import {
   inject,
   model,
   untracked,
-  type WritableSignal
+  type WritableSignal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { StepDataService } from '../step-data.service';
@@ -16,6 +17,7 @@ import { StepDataService } from '../step-data.service';
   imports: [],
   template: ` <ng-content /> `,
   styleUrl: './steps.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [StepDataService]
 })
 export class StepsComponent {

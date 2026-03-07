@@ -3,13 +3,15 @@ import {
   Component,
   ElementRef,
   inject,
-  input
+  input,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
   selector: 'dialog',
   imports: [],
   template: `<ng-content />`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dialog.component.css'
 })
 export class DialogComponent {

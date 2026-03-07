@@ -3,7 +3,8 @@ import {
   Component,
   computed,
   ElementRef,
-  inject
+  inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { persistentSignal } from '../mqtt/util/idbstorage';
@@ -62,6 +63,7 @@ let currentDragged: HTMLDivElement | undefined;
       />
     </label>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './toh.component.css'
 })
 export class TohComponent {

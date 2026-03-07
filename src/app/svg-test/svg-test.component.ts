@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { BlocksComponent } from './blocks/blocks.component';
 
@@ -7,6 +7,7 @@ import { BlocksComponent } from './blocks/blocks.component';
   selector: 'app-svg-test',
   templateUrl: './svg-test.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [BlocksComponent, DecimalPipe]
 })
 export class SvgTestComponent {

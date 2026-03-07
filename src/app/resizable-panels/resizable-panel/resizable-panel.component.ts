@@ -3,13 +3,15 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  inject
+  inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
   selector: 'se-resizable-panel',
   imports: [],
   template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./resizable-panel.component.css']
 })
 export class ResizablePanelComponent {

@@ -13,7 +13,8 @@ import {
   ElementRef,
   inject,
   linkedSignal,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -73,6 +74,7 @@ import {
       </label>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './toh-cdk.component.css'
 })
 export class TohCdkComponent {

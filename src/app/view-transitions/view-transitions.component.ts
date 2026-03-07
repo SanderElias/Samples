@@ -1,4 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'se-view-transitions',
@@ -21,6 +26,7 @@ import { Component, computed, signal } from '@angular/core';
       }
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './view-transitions.component.css'
 })
 export class ViewTransitionsComponent {

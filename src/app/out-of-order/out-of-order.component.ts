@@ -1,4 +1,11 @@
-import { Component, computed, effect, resource, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  resource,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { asyncComputed, computedResource } from '@se-ng/signal-utils';
 
 @Component({
@@ -16,6 +23,7 @@ import { asyncComputed, computedResource } from '@se-ng/signal-utils';
     <p>async resource status {{ usingComputedResource().status }}</p>
     <p>async resource status {{ usingComputedResource().stream }}</p>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './out-of-order.component.css'
 })
 export class OutOfOrderComponent {

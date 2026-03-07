@@ -4,7 +4,8 @@ import {
   computed,
   inject,
   input,
-  output
+  output,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ConfirmItComponent } from '@se-ng/headless-ui';
 
@@ -42,6 +43,7 @@ import { isEmptyRelation } from '../utils/is-empty-relation';
     <td>{{ rel().username ?? '--' }}</td>
     <td>{{ rel().email ?? '--' }}</td>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user-row.component.css'
 })
 export class UserRowComponent {

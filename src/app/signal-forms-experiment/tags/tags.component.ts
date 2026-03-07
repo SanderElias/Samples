@@ -4,7 +4,8 @@ import {
   computed,
   ElementRef,
   input,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   type FieldTree,
@@ -40,6 +41,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
       </label>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './tags.component.css'
 })
 export class TagsComponent {

@@ -7,7 +7,8 @@ import {
   linkedSignal,
   model,
   signal,
-  type WritableSignal
+  type WritableSignal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormField, type FormValueControl } from '@angular/forms/signals';
 
@@ -48,6 +49,7 @@ const MAX = 1000;
     </button>
   `,
   styleUrl: './input-random-int.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[class.min-max]': 'showMinMax()'
   }

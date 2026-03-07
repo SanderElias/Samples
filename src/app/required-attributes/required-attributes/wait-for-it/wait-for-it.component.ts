@@ -1,12 +1,13 @@
 // tslint:disable:no-unused-expression
 import { AsyncPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-wait-for-it',
   templateUrl: './wait-for-it.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe]
 })
 export class WaitForItComponent {

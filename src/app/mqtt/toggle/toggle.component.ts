@@ -1,4 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'se-toggle',
@@ -14,6 +19,7 @@ import { Component, input, output } from '@angular/core';
       <span>{{ value() ? toggleOnText() : toggleOffText() }}</span>
     </label>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './toggle.component.css'
 })
 export class ToggleComponent {

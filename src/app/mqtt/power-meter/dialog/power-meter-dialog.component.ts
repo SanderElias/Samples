@@ -8,7 +8,8 @@ import {
   linkedSignal,
   model,
   signal,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { form, FormField, FormRoot } from '@angular/forms/signals';
@@ -23,6 +24,7 @@ import { splitName } from './split-name';
   standalone: true,
   styleUrl: './power-meter-dialog.component.css',
   imports: [FormField, FormRoot],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <dialog #dlg>
       <h4>{{ model().prefix }} {{ model().name }}</h4>

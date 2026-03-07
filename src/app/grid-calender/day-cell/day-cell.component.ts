@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 import type { CalenderDay } from '../calenderDay';
 @Component({
@@ -6,6 +6,7 @@ import type { CalenderDay } from '../calenderDay';
   imports: [],
   template: ` {{ day().day }} `,
   styleUrls: ['./day-cell.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[class.mute]': '!day().isCurrentMonth',
     '[class.special]': 'day().isSpecial',

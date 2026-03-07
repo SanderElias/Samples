@@ -1,5 +1,11 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { JsonPlaceHolderService } from './json-place-holder.service';
 
@@ -15,6 +21,7 @@ import { JsonPlaceHolderService } from './json-place-holder.service';
     <button (click)="next()">next</button>
     <button (click)="prev()">prev</button>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './signal-play.component.css'
 })
 export default class SignalPlayComponent {

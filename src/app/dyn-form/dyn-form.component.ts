@@ -1,6 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import type { QueryList } from '@angular/core';
-import { Component, inject, ViewChildren } from '@angular/core';
+import {
+  Component,
+  inject,
+  ViewChildren,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import type { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {
@@ -44,6 +49,7 @@ const extractInputType = value => {
   imports: [AsyncPipe, FormsModule],
   selector: 'app-dyn-form',
   templateUrl: './dyn-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: []
 })
 export class DynFormComponent {

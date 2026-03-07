@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { GaugeComponent } from './gauge/gauge.component';
 import { StackedPerComponent } from './stacked-per/stacked-per.component';
@@ -60,6 +60,7 @@ import { StackedPerComponent } from './stacked-per/stacked-per.component';
       />
     </svg>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './metered-view.component.css'
 })
 export class MeteredViewComponent {

@@ -4,7 +4,8 @@ import {
   computed,
   linkedSignal,
   signal,
-  untracked
+  untracked,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 
@@ -59,6 +60,7 @@ import { form, FormField } from '@angular/forms/signals';
       </tbody>
     </table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./temporal.component.css']
 })
 export class TemporalComponent {

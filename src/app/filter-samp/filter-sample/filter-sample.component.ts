@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   ɵInternalFormsSharedModule,
   ReactiveFormsModule,
@@ -22,6 +22,7 @@ type Vm = [UserCard[], string];
   selector: 'app-filter-sample',
   templateUrl: './filter-sample.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, AsyncPipe]
 })
 export class FilterSampleComponent {

@@ -5,7 +5,8 @@ import {
   HostListener,
   Input,
   inject,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject, firstValueFrom } from 'rxjs';
@@ -31,6 +32,7 @@ import { Relation } from '../../relations.service';
   `,
   styleUrls: ['./relation.component.css'],
   imports: [AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[detail]': '$detail'
   }

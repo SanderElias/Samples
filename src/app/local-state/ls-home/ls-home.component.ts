@@ -7,7 +7,8 @@ import {
   input,
   linkedSignal,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
@@ -29,6 +30,7 @@ interface LocalState {
       <button (click)="updateCounterWith(1)">+1</button>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     section {
       display: flex;
@@ -63,6 +65,7 @@ export class LsHomeComponent {
     }
   `,
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe]
 })
 class oldLsHomeComponent implements OnInit {

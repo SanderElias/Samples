@@ -1,4 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import type { Article } from '../article.interface';
@@ -21,6 +26,7 @@ import { Bloglist } from '../bloglist';
       </li>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './blog-list.component.css'
 })
 export class BlogListComponent {

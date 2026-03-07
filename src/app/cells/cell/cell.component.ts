@@ -5,7 +5,8 @@ import {
   ElementRef,
   inject,
   model,
-  NgZone
+  NgZone,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import type { Cell } from '../cells.component';
@@ -17,6 +18,7 @@ const clampedRandom = (min: number, max: number) =>
   selector: 'se-cell',
   imports: [],
   template: ``,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./cell.component.css']
 })
 export class CellComponent {

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { Bloglist } from './bloglist';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
@@ -24,7 +24,7 @@ describe('Bloglist (prerender guard)', () => {
     });
 
     TestBed.configureTestingModule({
-      providers: [Bloglist, provideHttpClient(withFetch())]
+      providers: [Bloglist, provideHttpClient()]
     });
   });
 

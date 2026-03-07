@@ -4,7 +4,8 @@ import {
   computed,
   EventEmitter,
   input,
-  Output
+  Output,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 interface Record {
@@ -22,6 +23,7 @@ const val = (e: Entry) => e[1];
   selector: 'app-show-rec',
   templateUrl: './show-rec.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: []
 })
 export class ShowRecComponent implements OnInit {

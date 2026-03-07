@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { SeDialogComponent } from './dialog/dialog.component';
 
@@ -12,6 +12,7 @@ import { SeDialogComponent } from './dialog/dialog.component';
       <p>This modal dialog has a groovy backdrop!</p>
       <button autofocus (click)="shown.set(false)">Close</button>
     </se-dialog> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./dialog.component.css']
 })
 export default class DialogComponent {

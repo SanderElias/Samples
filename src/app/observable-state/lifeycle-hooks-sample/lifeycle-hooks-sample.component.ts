@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { seOnDestroy, seOnInit } from '@se-ng/observable-hooks';
 import { modelFromLatest } from '@se-ng/observable-utils';
@@ -12,6 +12,7 @@ import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
   selector: 'app-lifeycle-hooks-sample',
   templateUrl: './lifeycle-hooks-sample.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ReactiveFormsModule, AsyncPipe]
 })
 export class LifeycleHooksSampleComponent extends seOnInit(
