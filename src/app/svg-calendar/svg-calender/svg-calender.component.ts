@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { monthNames, weekDayNames } from 'src/app/util/daysandmonthsnames';
 
 @Component({
   selector: 'app-svg-calender',
   templateUrl: './svg-calender.component.svg',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       :host {

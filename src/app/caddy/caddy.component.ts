@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { Component, computed } from '@angular/core';
+import { Component, computed, ChangeDetectionStrategy } from '@angular/core';
 
 import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 
@@ -39,6 +39,7 @@ import type {
       </authenticated-user-only>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./caddy.component.css']
 })
 export class CaddyComponent {

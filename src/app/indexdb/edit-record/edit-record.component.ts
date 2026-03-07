@@ -4,7 +4,8 @@ import {
   inject,
   input,
   output,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { EvSourceDbService } from '../ev-source-db.service';
@@ -64,6 +65,7 @@ export type FieldType =
       </div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './edit-record.component.css'
 })
 export class EditRecordComponent {

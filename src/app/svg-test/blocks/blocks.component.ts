@@ -3,7 +3,8 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -16,6 +17,7 @@ import {
       }
     `
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class BlocksComponent {

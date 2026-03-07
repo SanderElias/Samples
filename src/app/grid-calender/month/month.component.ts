@@ -1,4 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import type { CalenderDay } from '../calenderDay';
 import { DayCellComponent } from '../day-cell/day-cell.component';
@@ -19,6 +24,7 @@ import { DayCellComponent } from '../day-cell/day-cell.component';
       <se-day-cell [day]="day" (click)="select(day)"></se-day-cell>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./month.component.css']
 })
 export class MonthComponent {

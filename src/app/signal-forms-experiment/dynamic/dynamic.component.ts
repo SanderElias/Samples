@@ -25,7 +25,12 @@ export interface CarShape {
 
 export type Shape = PersonShape | CompanyShape | AnimalShape | CarShape;
 import { JsonPipe } from '@angular/common';
-import { Component, signal, type WritableSignal } from '@angular/core';
+import {
+  Component,
+  signal,
+  type WritableSignal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { type FieldTree, form, FormField } from '@angular/forms/signals';
 import { isObject } from '@se-ng/signal-utils';
 
@@ -50,6 +55,7 @@ import { isObject } from '@se-ng/signal-utils';
     </form>
     <pre><code>{{ fd().value() | json }}</code></pre>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dynamic.component.css'
 })
 export class DynamicComponent {

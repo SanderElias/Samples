@@ -1,12 +1,13 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnDestroy } from '@angular/core';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, debounceTime, map, take } from 'rxjs';
 
 @Component({
   selector: 'se-unsub-sample',
   imports: [AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <h1>Unsubscribe sample</h1>
     <p>Click the buttons to navigate to the next or previous id.</p>

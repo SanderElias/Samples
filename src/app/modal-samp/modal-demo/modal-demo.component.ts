@@ -1,10 +1,11 @@
 import type { OnInit } from '@angular/core';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-modal-demo',
   templateUrl: './modal-demo.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: []
 })
 export class ModalDemoComponent implements OnInit {

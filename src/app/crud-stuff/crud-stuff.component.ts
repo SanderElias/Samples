@@ -5,7 +5,8 @@ import {
   inject,
   linkedSignal,
   signal,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
@@ -61,6 +62,7 @@ import { RelationsService } from './relations.service';
     -->
     <se-notify-dialog /> `,
   styleUrl: './crud-stuff.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [RelationsService]
 })
 export class CrudStuffComponent {

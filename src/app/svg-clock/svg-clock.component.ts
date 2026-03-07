@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { map, timer } from 'rxjs';
 
 const twoPi = Math.PI * 2;
@@ -9,6 +9,7 @@ const circumference = (radius: number) => twoPi * radius;
   selector: 'app-svg-clock',
   templateUrl: './svg-clock.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe]
 })
 export class SvgClockComponent {

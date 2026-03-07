@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RelationsService } from '../relations.service';
 import { RelationComponent } from './relation/relation.component';
 
@@ -11,6 +11,7 @@ import { RelationComponent } from './relation/relation.component';
     }
   `,
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RelationComponent, AsyncPipe]
 })
 export class RelationListComponent {

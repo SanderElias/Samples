@@ -1,4 +1,10 @@
-import { Component, inject, input, model } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  model,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { DTosPipe } from '../../dtos.pipe';
 import { EvSourceDbService } from '../../ev-source-db.service';
@@ -30,6 +36,7 @@ import type { FieldType } from '../edit-record.component';
       }
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './field-edit.component.css'
 })
 export class FieldEditComponent {

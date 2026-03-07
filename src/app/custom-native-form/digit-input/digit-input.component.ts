@@ -1,9 +1,16 @@
-import { Component, ElementRef, inject, input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'digit-input[name][value]',
   imports: [],
   template: `<ng-content />`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './digit-input.component.css'
 })
 export class DigitInputComponent {

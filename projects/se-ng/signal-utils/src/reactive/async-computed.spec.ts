@@ -4,7 +4,8 @@ import {
   isSignal,
   provideZonelessChangeDetection,
   runInInjectionContext,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
@@ -13,7 +14,11 @@ import { asyncComputed } from './async-computed';
 // Helper to run in Angular injection context
 
 // Minimal dummy component for fixture
-@Component({ selector: 'dummy-fixture', template: '' })
+@Component({
+  selector: 'dummy-fixture',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  template: ''
+})
 class DummyComponent {}
 
 describe('asyncComputed (integration)', () => {

@@ -7,7 +7,8 @@ import {
   inject,
   input,
   signal,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { deepEqual } from '@se-ng/signal-utils';
 
@@ -37,6 +38,7 @@ import { deepEqual } from '@se-ng/signal-utils';
     }
   </dialog> `,
   styleUrl: './confirm-it.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '(click)': 'captureClick($event)'
   }

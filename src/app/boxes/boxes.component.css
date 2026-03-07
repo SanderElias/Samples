@@ -1,0 +1,44 @@
+:host {
+  display: grid;
+  block-size: 96vh;
+  padding: 0;
+  /* border: 1px solid purple; */
+  grid-template-columns: 1fr;
+  grid-template-rows: 3rem 30% 1fr;
+  gap: 2rem;
+}
+
+h1 {
+  /* grid-column: span 2;; */
+}
+
+div.box {
+  display: block;
+  block-size: 100%;
+  overflow-y: auto;
+  padding: .75rem;
+  background-color: var(--surface-3);
+  border-radius: 2rem;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-block-end: 1.4rem;
+  }
+
+}
+
+div.wrapIt {
+  display: block;
+  block-size: 100%;
+  overflow-x: auto;
+}
+
+div.top, div.bottom {
+  /* border: 1px solid red; */
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+
+

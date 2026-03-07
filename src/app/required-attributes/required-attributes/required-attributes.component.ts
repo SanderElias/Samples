@@ -1,5 +1,5 @@
 import type { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { timer } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { WaitForItComponent } from './wait-for-it/wait-for-it.component';
   selector: 'app-required-attributes',
   templateUrl: './required-attributes.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [WaitForItComponent]
 })
 export class RequiredAttributesComponent implements OnInit {

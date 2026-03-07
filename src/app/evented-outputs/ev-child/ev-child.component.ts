@@ -1,10 +1,17 @@
-import { Component, ElementRef, inject, model } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  model,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'ev-child',
   imports: [],
   template: ` <ng-content /> `,
   styleUrl: './ev-child.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[class.selected]': 'selected()',
     '(click)': 'handleClick()',

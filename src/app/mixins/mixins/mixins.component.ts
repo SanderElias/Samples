@@ -1,5 +1,5 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   seAfterContentChecked,
   seOnDestroy,
@@ -12,6 +12,7 @@ import { switchMap, tap } from 'rxjs/operators';
   selector: 'app-mixins',
   templateUrl: './mixins.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe, JsonPipe]
 })
 export class MixinsComponent extends seOnDestroy(

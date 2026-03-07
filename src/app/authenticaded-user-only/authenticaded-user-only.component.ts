@@ -1,4 +1,10 @@
-import { Component, DestroyRef, effect, inject } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { LoggedIn } from '../grid-play/logged-in-user.service';
 
@@ -16,6 +22,7 @@ import { LoggedIn } from '../grid-play/logged-in-user.service';
       </p>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './authenticaded-user-only.component.css'
 })
 export class AuthenticadedUserOnlyComponent {

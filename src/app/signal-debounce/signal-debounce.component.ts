@@ -1,4 +1,9 @@
-import { Component, resource, signal } from '@angular/core';
+import {
+  Component,
+  resource,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { debouncedComputed } from '@se-ng/signal-utils';
 
 @Component({
@@ -22,6 +27,7 @@ import { debouncedComputed } from '@se-ng/signal-utils';
       </p>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './signal-debounce.component.css'
 })
 export class SignalDebounce {

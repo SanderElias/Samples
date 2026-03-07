@@ -13,7 +13,8 @@ import {
   ElementRef,
   inject,
   linkedSignal,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -43,6 +44,7 @@ import {
                 *cdkDragPlaceholder
                 class="puck placeholder"
                 [attr.data-weight]="puck"
+                [style.--size]="puck"
               ></div>
             </div>
           }
@@ -73,6 +75,7 @@ import {
       </label>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './toh-cdk.component.css'
 })
 export class TohCdkComponent {

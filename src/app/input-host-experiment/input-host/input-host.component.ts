@@ -1,9 +1,17 @@
-import { Component, effect, ElementRef, inject, model } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  model,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'input [experiment] [type=text]',
   imports: [],
   template: ``,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input-host.component.css'
 })
 export class InputHostComponent {

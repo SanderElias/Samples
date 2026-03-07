@@ -5,7 +5,8 @@ import {
   input,
   linkedSignal,
   resource,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { firstValueFrom } from 'rxjs';
@@ -26,6 +27,7 @@ import { Bloglist } from './bloglist';
     }
   `,
   styleUrl: './blogs.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None
 })
 export class BlogsComponent {

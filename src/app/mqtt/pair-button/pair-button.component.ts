@@ -7,21 +7,12 @@ import {
   inject,
   input,
   signal,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
-import {
-  toObservable,
-  toSignal
-} from '@angular/core/rxjs-interop';
-import {
-  filter,
-  interval,
-  map,
-  startWith,
-  switchMap,
-  takeWhile
-} from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { filter, interval, map, startWith, switchMap, takeWhile } from 'rxjs';
 import type { ZigbeePrefixes } from '../mqtt.component';
 import { ZigbeeService } from '../zigbee.service';
 
@@ -57,6 +48,7 @@ import { ZigbeeService } from '../zigbee.service';
     </dialog>
   `,
   styleUrl: './pair-button.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[style.backgroundColor]':
       'joinAllowed().pairingAllowed ? "var(--color-success)" : "var(--color-error)"',

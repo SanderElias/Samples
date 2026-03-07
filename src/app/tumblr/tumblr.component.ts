@@ -2,7 +2,12 @@
 import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import type { OnInit } from '@angular/core';
-import { Component, ElementRef, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, EMPTY, from, fromEvent } from 'rxjs';
 import {
@@ -21,6 +26,7 @@ const clientId = 'e972ca06cc4b961';
 @Component({
   selector: 'app-tumblr',
   templateUrl: './tumblr-component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe]
 })
 export class TumblrComponent implements OnInit {

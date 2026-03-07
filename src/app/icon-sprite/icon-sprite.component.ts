@@ -1,4 +1,10 @@
-import { afterNextRender, Component, ElementRef, inject } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  ElementRef,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'se-icon-sprite',
@@ -11,6 +17,7 @@ import { afterNextRender, Component, ElementRef, inject } from '@angular/core';
     </svg>
     <img src="./#use_assets-icons-cloud-svg" alt="" />
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './icon-sprite.component.css'
 })
 export class IconSpriteComponent {

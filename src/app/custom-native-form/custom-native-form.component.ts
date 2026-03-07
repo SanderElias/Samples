@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { DigitInputComponent } from './digit-input/digit-input.component';
 import { DigitsComponent } from './digits/digits.component';
@@ -56,6 +56,7 @@ import { DigitsComponent } from './digits/digits.component';
       }
     </style>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './custom-native-form.component.css'
 })
 export class CustomNativeFormComponent {

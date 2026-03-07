@@ -4,7 +4,8 @@ import {
   ElementRef,
   HostListener,
   Input,
-  inject
+  inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
@@ -28,6 +29,7 @@ import { RelationsService } from '../../relations.service';
     }
   `,
   styleUrls: ['./relation.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe]
 })
 export class RelationComponent {

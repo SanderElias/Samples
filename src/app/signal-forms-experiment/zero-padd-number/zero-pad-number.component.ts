@@ -1,4 +1,9 @@
-import { Component, input, model } from '@angular/core';
+import {
+  Component,
+  input,
+  model,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import {
   type FormValueControl,
   transformedValue
@@ -14,6 +19,7 @@ const defaultMaxLength = 5;
     [value]="rawValue()"
     (input)="format($event.target.value)"
   />`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./zero-pad-number.component.css']
 })
 export class ZeroPadNumberComponent implements FormValueControl<

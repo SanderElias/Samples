@@ -3,7 +3,8 @@ import {
   Component,
   computed,
   ElementRef,
-  inject
+  inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { persistentSignal } from '../mqtt/util/idbstorage';
@@ -33,7 +34,7 @@ let currentDragged: HTMLDivElement | undefined;
       <div attr.dropzone="{{ col }}" class="stack">
         @if (col === 1) {
           @for (puck of puckList(); track $index) {
-            <div draggable="true" [attr.data-weight]="puck" class="puck"></div>
+            <div draggable="true" [attr.data-weight]="puck" [style.--size]="puck" class="puck"></div>
           }
         }
       </div>
@@ -62,6 +63,7 @@ let currentDragged: HTMLDivElement | undefined;
       />
     </label>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './toh.component.css'
 })
 export class TohComponent {

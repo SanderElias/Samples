@@ -1,9 +1,5 @@
 // import "zone.js"
-import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   provideClientHydration,
   withIncrementalHydration
@@ -17,10 +13,7 @@ import { routes } from './routes';
 export const appConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(
-      withFetch(),
-      withInterceptors([HttpGetCachingInterceptor])
-    ),
+    provideHttpClient(withInterceptors([HttpGetCachingInterceptor])),
     provideClientHydration(withIncrementalHydration()),
     { provide: MetaData, useClass: ClientMetaData }
   ]

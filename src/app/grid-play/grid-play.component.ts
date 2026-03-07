@@ -5,7 +5,8 @@ import {
   ElementRef,
   inject,
   signal,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { assertDefined } from '@se-ng/signal-utils';
 
@@ -18,7 +19,7 @@ import { LoggedIn } from './logged-in-user.service';
     <h1>Grid Play {{ user() }}</h1>
     <div #gridContainer class="grid-container" (mousemove)="mouseToXY($event)">
       <div class="grid-item" [style.--x]="1" [style.--y]="1">1</div>
-      <div class="grid-item" [style.--x]="2" [style.--y]="2">3</div>
+      <div class="grid-item" [style.--x]="20" [style.--y]="40">3</div>
       <div
         class="mouse-indicator"
         [style.--x]="mouseOnCell().x"
@@ -27,6 +28,7 @@ import { LoggedIn } from './logged-in-user.service';
     </div>
     <div id="cell-coords">{{ mouseOnCell().x }}, {{ mouseOnCell().y }}</div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './grid-play.component.css'
 })
 export class GridPlayComponent {

@@ -4,7 +4,8 @@ import {
   Component,
   inject,
   input,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { NotifyDialogService } from './notify-dialog.service';
@@ -29,6 +30,7 @@ import { NotifyDialogService } from './notify-dialog.service';
     </dialog>
   `,
   styleUrl: './notify-dialog.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '(click)': 'onClick($event)'
   }

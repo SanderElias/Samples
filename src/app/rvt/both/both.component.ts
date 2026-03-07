@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import ReactiveComponent from '../reactive/reactive.component';
 import TemplateComponent from '../template/template.component';
@@ -13,6 +13,7 @@ import TemplateComponent from '../template/template.component';
       <se-reactive></se-reactive>
     </main>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./both.component.css']
 })
 export default class BothComponent {}

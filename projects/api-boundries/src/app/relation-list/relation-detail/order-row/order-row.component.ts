@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { RelationComponent } from '../../relation/relation.component';
 
 @Component({
@@ -29,6 +34,7 @@ import { RelationComponent } from '../../relation/relation.component';
       }
     `
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RelationComponent]
 })
 export class OrderRowComponent implements OnInit {

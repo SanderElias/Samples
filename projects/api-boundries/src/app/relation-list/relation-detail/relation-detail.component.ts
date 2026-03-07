@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, of, zip } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
@@ -21,6 +21,7 @@ import { OrderRowComponent } from './order-row/order-row.component';
       <app-order-row [order]="order"></app-order-row>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RelationComponent, OrderRowComponent, AsyncPipe]
 })
 export class RelationDetailComponent {

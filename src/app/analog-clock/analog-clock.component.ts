@@ -1,9 +1,15 @@
 import type { OnInit } from '@angular/core';
-import { Component, inject, NgZone } from '@angular/core';
+import {
+  Component,
+  inject,
+  NgZone,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'app-analog-clock',
   template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: []
 })
 export class AnalogClockComponent implements OnInit {

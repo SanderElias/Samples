@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { timer } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ const circumference = (radius: number) => twoPi * radius;
 @Component({
   selector: 'app-svg-timer',
   templateUrl: './svg-timer.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe]
 })
 export class SvgTimerComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'se-table-hover',
@@ -22,6 +22,7 @@ import { Component } from '@angular/core';
       }
     </table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './table-hover.component.css'
 })
 export class TableHoverComponent {

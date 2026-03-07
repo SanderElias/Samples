@@ -1,4 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'se-stacked-per',
@@ -15,6 +20,7 @@ import { Component, computed, input } from '@angular/core';
       </div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './stacked-per.component.css'
 })
 export class StackedPerComponent {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { LangService } from '../lang.service';
 
@@ -13,6 +13,7 @@ import { LangService } from '../lang.service';
       </h1>
     </h1>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {

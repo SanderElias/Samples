@@ -1,11 +1,13 @@
 import {
   afterNextRender,
+  afterRenderEffect,
   Component,
   computed,
   inject,
   input,
   signal,
-  type WritableSignal
+  type WritableSignal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
@@ -16,6 +18,10 @@ import { ZigbeeService } from '../zigbee.service';
 
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
 import { splitName } from './dialog/split-name';
+import {
+  MqttDeviceSettingsService,
+  type MqttDeviceSetting
+} from '../mqtt-device-settings.service';
 
 @Component({
   selector: 'power-meter',
@@ -29,14 +35,26 @@ import { splitName } from './dialog/split-name';
     @if (!deviceLoading()) {
       <se-gauge [value]="currentPower()" [maxVal]="maxUsedPower()" />
       <ul>
-        <li><span>group:</span><span>{{ splitName().prefix }}</span></li>
+        <li>
+          <span>group:</span><span>{{ splitName().prefix }}</span>
+        </li>
         @if (splitName().subGroup) {
-           <li><span>subgroup:</span><span>{{ splitName().subGroup }}</span></li>
+          <li>
+            <span>subgroup:</span><span>{{ splitName().subGroup }}</span>
+          </li>
         }
-        <li><span>power:</span><span>{{ currentPower() }} W</span></li>
-        <li><span>voltage:</span><span>{{ deviceStatus()?.voltage }} V</span></li>
-        <li><span>current:</span><span>{{ deviceStatus()?.current }} A</span></li>
-        <li><span>energy:</span><span>{{ deviceStatus()?.energy }} kWh</span></li>
+        <li>
+          <span>power:</span><span>{{ currentPower() }} W</span>
+        </li>
+        <li>
+          <span>voltage:</span><span>{{ deviceStatus()?.voltage }} V</span>
+        </li>
+        <li>
+          <span>current:</span><span>{{ deviceStatus()?.current }} A</span>
+        </li>
+        <li>
+          <span>energy:</span><span>{{ deviceStatus()?.energy }} kWh</span>
+        </li>
       </ul>
       <!-- <input type="checkbox" switch [checked]="isPoweredOn()" (change)="isPoweredOn() ? toggleOff() : toggleOn()" /> -->
     } @else {
@@ -49,12 +67,52 @@ import { splitName } from './dialog/split-name';
     <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(show)]="dialogOpen" />
   `,
   styleUrl: './power-meter.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ToggleComponent, PowerMeterDialogComponent, GaugeComponent]
 })
 export class PowerMeterComponent {
-  readonly dialogOpen = signal(false, { debugName: 'PowerMeterDialogOpen' });
-  protected readonly z2m = inject(ZigbeeService);
   readonly ieeeAddress = input.required<string>();
+
+  protected readonly z2m = inject(ZigbeeService);
+  protected readonly setting = inject(MqttDeviceSettingsService);
+
+  readonly dialogOpen = signal(false, { debugName: 'PowerMeterDialogOpen' });
+  readonly options = this.setting.read(this.ieeeAddress);
+  readonly __ = afterRenderEffect(async () => {
+    if (this.ieeeAddress() === 'unknown' || !this.ieeeAddress()) return;
+    const splitName = this.splitName();
+    const currentPower = this.currentPower();
+    if (!splitName.name) return;
+    if (currentPower > this.maxUsedPower()) {
+      this.maxUsedPower.set(currentPower);
+    }
+    const notFound = this.options.error()?.['status'] === 404;
+    if (notFound) {
+      console.log('not found, creating default setting');
+      await this.setting.create({
+        id: this.ieeeAddress(),
+        friendlyName: this.friendlyName(),
+        maxPower: this.maxUsedPower()
+      });
+      return;
+    }
+    if (this.options.hasValue()) {
+      const opt = this.options.value() as MqttDeviceSetting;
+      if (
+        opt.friendlyName !== this.friendlyName() ||
+        (opt.maxPower || 0) < this.maxUsedPower()
+      ) {
+        console.log('friendly name changed, updating setting');
+        await this.setting.update({
+          ...opt,
+          friendlyName: this.friendlyName(),
+          maxPower: this.maxUsedPower()
+        });
+      }
+    }
+    // console.log(this.options.hasValue() && this.options.value());
+  });
+
   readonly #deviceResource = this.z2m.getDeviceStatus(this.ieeeAddress);
   readonly deviceLoading = this.#deviceResource.isLoading;
   readonly deviceStatus = this.#deviceResource.value;
@@ -68,10 +126,10 @@ export class PowerMeterComponent {
   maxUsedPower: WritableSignal<number> = signal(0, {
     debugName: 'MaxUsedPower'
   });
-
-  readonly splitName = computed(() =>
-    splitName(this.#deviceInfo()?.friendly_name || this.ieeeAddress())
+  readonly friendlyName = computed(
+    () => this.#deviceInfo()?.friendly_name || this.ieeeAddress()
   );
+  readonly splitName = computed(() => splitName(this.friendlyName()));
 
   readonly name = computed(() => this.splitName().name);
   readonly prefix = computed(() => this.splitName().prefix);
@@ -89,11 +147,6 @@ export class PowerMeterComponent {
   readonly _ = afterNextRender(() => {
     // trigger initial state fetch
     this.refresh();
-    this.maxUsedPower = persistentLinkedSignal<number, number>(
-      `zigbee2mqtt/${this.prefix()}-${this.name()}/maxUsedPower`,
-      this.currentPower,
-      (power, previous) => Math.max(power ?? 0, previous?.value ?? 0)
-    );
   });
 }
 

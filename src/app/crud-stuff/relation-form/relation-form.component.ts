@@ -8,7 +8,8 @@ import {
   input,
   linkedSignal,
   output,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { cloneDeep } from '@se-ng/signal-utils';
 import { deepDiff } from '@se-ng/signal-utils';
@@ -64,6 +65,7 @@ import { RelationsService } from '../relations.service';
       <button>Submit</button>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './relation-form.component.css'
 })
 export class RelationForm {

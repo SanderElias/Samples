@@ -471,6 +471,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./caddy/caddy.component').then(m => m.CaddyComponent)
       },
+      {
+        path: 'boxes',
+        loadComponent: () =>
+          import('./boxes/boxes.component').then(m => m.BoxesComponent)
+      },
 
       { path: '**', redirectTo: 'routeList' }
     ]

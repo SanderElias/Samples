@@ -6,7 +6,8 @@ import {
   NgZone,
   OnDestroy,
   OnInit,
-  inject
+  inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   BehaviorSubject,
@@ -39,6 +40,7 @@ interface State {
 @Component({
   selector: 'code-sample',
   template: ``,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       :host {

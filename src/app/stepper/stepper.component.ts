@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { StepComponent } from './step/step.component';
 import { StepsComponent } from './steps/steps.component';
@@ -45,6 +45,7 @@ import { StepsComponent } from './steps/steps.component';
       }
     </fieldset>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './stepper.component.css'
 })
 export class StepperComponent {

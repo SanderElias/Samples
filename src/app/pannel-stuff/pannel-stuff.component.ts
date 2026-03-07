@@ -1,6 +1,6 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,6 +14,7 @@ import {
   selector: 'app-pannel-stuff',
   templateUrl: './pannel-stuff.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PannelComponent,
     PannelCloseDirective,

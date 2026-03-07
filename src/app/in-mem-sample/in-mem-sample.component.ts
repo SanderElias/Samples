@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { InMemDb } from './in-mem-db.service';
 
@@ -20,6 +20,7 @@ import { InMemDb } from './in-mem-db.service';
       }
     </ul>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './in-mem-sample.component.css'
 })
 export class InMemSampleComponent {

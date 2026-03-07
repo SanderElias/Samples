@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { PackageJsonService } from './package.json.service';
 import { ScriptsComponent } from './scripts/scripts.component';
@@ -15,6 +15,7 @@ import { WireitsComponent } from './wireits/wireits.component';
     <app-select-package-json></app-select-package-json>
     <app-scripts></app-scripts>
     <se-wireits></se-wireits> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       :host {

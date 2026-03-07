@@ -7,7 +7,8 @@ import {
   inject,
   Injectable,
   linkedSignal,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 const second = 1000;
@@ -27,6 +28,7 @@ const day = 24 * hour;
       <li>{{ seconds() }} seconds</li>
       <li>{{ milliseconds() }} milliseconds</li>
     </ul> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './timer.component.css'
 })
 export class TimerComponent {

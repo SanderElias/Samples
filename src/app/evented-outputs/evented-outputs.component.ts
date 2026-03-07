@@ -1,4 +1,10 @@
-import { Component, computed, signal, viewChildren } from '@angular/core';
+import {
+  Component,
+  computed,
+  signal,
+  viewChildren,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { EvChildComponent } from './ev-child/ev-child.component';
 
@@ -28,6 +34,7 @@ declare global {
     }
   `,
   styleUrl: './evented-outputs.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     // use a custom DOM event to signal selection
     '(onSelected)': 'handleSelected($event.detail)'

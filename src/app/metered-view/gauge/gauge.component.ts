@@ -1,4 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'se-gauge',
@@ -43,6 +48,7 @@ import { Component, computed, input } from '@angular/core';
 
     <div class="text">{{ (per() * 100).toFixed(1) }}% <br />{{ value() }}</div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './gauge.component.css'
 })
 export class GaugeComponent {

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { type FieldTree, FormField } from '@angular/forms/signals';
 
 import { ShowErrorsInDom } from '../../util/show-errors-in-dom.directive';
@@ -25,6 +25,7 @@ import type { SignalTreeNode } from '../signal-tree-node.model';
         }
       </div>
     }`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './tree-node-edit.component.css'
 })
 export class TreeNodeEditComponent {

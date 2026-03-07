@@ -4,7 +4,8 @@ import {
   type ElementRef,
   inject,
   signal,
-  viewChild
+  viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { EditRecordComponent } from './edit-record/edit-record.component';
@@ -57,6 +58,7 @@ import { createId, type UniqueId } from './unique-id-helpers';
       }
     </dialog>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './indexdb.component.css'
 })
 export class IndexdbComponent {

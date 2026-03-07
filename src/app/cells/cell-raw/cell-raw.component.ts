@@ -3,7 +3,8 @@ import {
   ElementRef,
   inject,
   NgZone,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 const clampedRandom = (min: number, max: number) =>
@@ -14,6 +15,7 @@ const clampedRandom = (min: number, max: number) =>
   imports: [],
   template: ``,
   styleUrls: ['./cell-raw.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None
 })
 export class CellRawComponent {

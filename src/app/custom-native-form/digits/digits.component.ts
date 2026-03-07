@@ -4,7 +4,8 @@ import {
   computed,
   ElementRef,
   inject,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 class SignalFormController extends HTMLElement {
@@ -34,6 +35,7 @@ class SignalFormController extends HTMLElement {
       (change)="update()"
     />
   }`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './digits.component.css'
 })
 export class DigitsComponent extends SignalFormController {

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'se-baz',
   imports: [],
   template: ` <p>baz works!</p> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './baz.component.css'
 })
 export class BazComponent {}

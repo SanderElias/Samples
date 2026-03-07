@@ -1,10 +1,16 @@
-import { Component, ElementRef, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'se-show-error',
   imports: [],
   template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./show-error.component.css']
 })
 export class ShowErrorComponent {

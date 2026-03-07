@@ -1,4 +1,10 @@
-import { Component, OnDestroy, inject, input } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  inject,
+  input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { map } from 'rxjs';
 import { LangService } from '../lang.service';
@@ -8,6 +14,7 @@ import { LangService } from '../lang.service';
   imports: [RouterOutlet],
   template: ` <a href="/">Pick a language</a>
     <router-outlet></router-outlet>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./lang.component.css']
 })
 export class LangComponent {
