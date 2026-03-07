@@ -1,6 +1,7 @@
 import type { ElementRef, Signal } from '@angular/core';
 import {
   afterRenderEffect,
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -8,15 +9,17 @@ import {
   linkedSignal,
   model,
   signal,
-  viewChild,
-  ChangeDetectionStrategy
+  viewChild
 } from '@angular/core';
 
 import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { deepEqual } from '@se-ng/signal-utils';
+import {
+  MqttDeviceSettingsService,
+  type MqttDeviceOptions
+} from '../../mqtt-device-settings.service';
 import { zigbeePrefixes } from '../../mqtt.component';
 import { ZigbeeService } from '../../zigbee.service';
-import { extractPrefix } from '../power-meter.component';
 import { splitName } from './split-name';
 
 @Component({
@@ -66,6 +69,42 @@ import { splitName } from './split-name';
           <span>Naam:</span>
           <input type="text" id="name" [formField]="fd.name" />
         </label>
+        <label>
+          <input
+            type="checkbox"
+            id="isSubDevice"
+            [formField]="fd.isSubDevice"
+          />
+          <span>Is sub-apparaat (tel niet mee in totalen)</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="allowPowerControl"
+            [formField]="fd.allowPowerControl"
+          />
+          <span>Sta aan/uit commando's toe</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="alertWhenLost"
+            [formField]="fd.alertWhenLost"
+          />
+          <span>Waarschuwen als apparaat niet meer bereikbaar is</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="alertWhenOff"
+            [formField]="fd.alertWhenOff"
+          />
+          <span
+            >Waarschuwen als apparaat uit staat terwijl het aan zou moeten
+            zijn</span
+          >
+        </label>
+
         <button type="submit">Opslaan</button>
         <button type="button" (click)="closeDialog()">Annuleren</button>
       </form>
@@ -76,10 +115,12 @@ export class PowerMeterDialogComponent {
   protected readonly dialogRef: Signal<ElementRef<HTMLDialogElement>> =
     viewChild.required('dlg');
   protected readonly z2m = inject(ZigbeeService);
+  protected readonly settings = inject(MqttDeviceSettingsService);
+  readonly ieeeAddress = input.required<string>();
+  protected readonly deviceSettings = this.settings.read(this.ieeeAddress);
 
   readonly customGroup = signal(false);
 
-  readonly ieeeAddress = input.required<string>();
   readonly zigbeePrefixes = zigbeePrefixes.filter(p => p !== 'Alles');
   readonly subGroups = computed(
     () => {
@@ -100,7 +141,18 @@ export class PowerMeterDialogComponent {
     { debugName: 'SubGroups', equal: deepEqual }
   );
 
-  model = linkedSignal(() => splitName(this.baseName()));
+  model = linkedSignal(() => {
+    const options: MqttDeviceOptions = this.deviceSettings.hasValue()
+      ? this.deviceSettings.value()
+      : {};
+    return {
+      ...splitName(this.baseName()),
+      isSubDevice: options.isSubDevice || false,
+      allowPowerControl: options.allowPowerControl || false,
+      alertWhenLost: options.alertWhenLost || false,
+      alertWhenOff: options.alertWhenOff || false
+    };
+  });
 
   newName = computed(() => {
     const prefix = this.model().prefix.toLocaleLowerCase().trim();

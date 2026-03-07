@@ -13,12 +13,7 @@ import {
   signal,
   untracked
 } from '@angular/core';
-import {
-  deepDiff,
-  deepEqual,
-  HttpActionClient,
-  mergeDeep
-} from '@se-ng/signal-utils';
+import { deepDiff, deepEqual } from '@se-ng/signal-utils';
 import { firstValueFrom } from 'rxjs';
 
 import { LoggedIn } from '../grid-play/logged-in-user.service';
@@ -51,6 +46,11 @@ export interface MqttDeviceSetting {
   alertWhenOff?: boolean; // whether to show an alert when the device is turned off while it should be on (for devices that should always be on, like a fridge)
   alertWhenLost?: boolean; // whether to show an alert when the device is not reachable (for devices that should always be reachable, like a router)
 }
+
+export type MqttDeviceOptions = Omit<
+  MqttDeviceSetting,
+  'id' | '_rev' | 'friendlyName' | 'maxPower'
+>;
 
 @Injectable({
   providedIn: 'root'
