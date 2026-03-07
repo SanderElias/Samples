@@ -115,6 +115,12 @@ There are clearly documented phases for new features. Most have a public RFC pro
 
 The same goes for deprecations: they are clearly documented and come with a migration path. Quite often there is tooling to help with this. This lets me plan ahead and avoid surprises from breaking changes.
 
+### AI
+
+Yes, this needs to be mentioned. Angular is embracing AI. Does it suddenly become conscious? Almost.., but no. Angular is actively made friendlier for AI, so that it becomes easier to use AI tools when you are building an Angular app. This ranges from visible things like the the Angular MCP, to subtle documetn updates so an LLM can understand it better. Also, adopting best practices to it so it becomes easier for AI tools to understand and work with Angular code.  This is a good move, and shows that the team is forward‑thinking and willing to adapt to new technologies. But also, it makes our day to day job easier as we can quickly scaffold new features much quicker now.
+It is the next step in from the schematics that make creating new features easier. It is a natural evolution of the framework, and I'm excited to see where it goes.
+
+
 ## Less valued
 
 ### The perceived learning curve
