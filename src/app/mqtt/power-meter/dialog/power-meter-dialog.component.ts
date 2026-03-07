@@ -100,11 +100,6 @@ export class PowerMeterDialogComponent {
 
   model = linkedSignal(() => splitName(this.baseName()));
 
-  __ = afterRenderEffect(() => {
-    console.dir({ model: this.model() });
-    console.log(this.newName());
-  });
-
   newName = computed(() => {
     const prefix = this.model().prefix.toLocaleLowerCase().trim();
     const subGroup = this.model().subGroup.toLocaleLowerCase().trim();
@@ -115,15 +110,17 @@ export class PowerMeterDialogComponent {
   fd = form(this.model, () => undefined, {
     submission: {
       action: async value => {
-        const result = await this.z2m.publish(
-          'zigbee2mqtt/bridge/request/device/rename',
-          {
-            from: this.baseName(),
-            to: this.newName(),
-            homeassistant_rename: true
-          }
-        );
-        console.log({ result });
+        if (this.baseName() !== this.newName()) {
+          const result = await this.z2m.publish(
+            'zigbee2mqtt/bridge/request/device/rename',
+            {
+              from: this.baseName(),
+              to: this.newName(),
+              homeassistant_rename: true
+            }
+          );
+          console.log({ result });
+        }
         this.closeDialog();
       }
     }

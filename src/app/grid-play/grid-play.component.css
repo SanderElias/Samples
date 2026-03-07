@@ -1,6 +1,6 @@
 :host {
   display: block;
-  --cellSize: 25px;
+  --cellSize: 15px;
   --xCells: 25;
   --yCells: 25;
   --gap: 1px;
