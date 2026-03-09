@@ -102,7 +102,7 @@ export class PowerMeterComponent {
         opt.friendlyName !== this.friendlyName() ||
         (opt.maxPower || 0) < this.maxUsedPower()
       ) {
-        console.log('friendly name changed, updating setting');
+        console.log('friendly name changed, updating setting', this.maxUsedPower(), opt.maxPower);
         await this.setting.update({
           ...opt,
           friendlyName: this.friendlyName(),

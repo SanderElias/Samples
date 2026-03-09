@@ -136,6 +136,7 @@ export class PowerMeterDialogComponent {
           subGroups[prefix].push(subGroup);
         }
       }
+      console.log(JSON.stringify({ subGroups }, null, 2));
       return subGroups;
     },
     { debugName: 'SubGroups', equal: deepEqual }
@@ -165,6 +166,7 @@ export class PowerMeterDialogComponent {
     submission: {
       action: async value => {
         if (this.baseName() !== this.newName()) {
+          // update the name in the zigbee setup.
           const result = await this.z2m.publish(
             'zigbee2mqtt/bridge/request/device/rename',
             {
@@ -175,7 +177,6 @@ export class PowerMeterDialogComponent {
           );
           console.log({ result });
         }
-        this.closeDialog();
       }
     }
   });
