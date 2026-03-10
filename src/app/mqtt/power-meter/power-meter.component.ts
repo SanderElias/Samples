@@ -1,28 +1,29 @@
 import {
   afterNextRender,
   afterRenderEffect,
+  ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   inject,
   input,
+  linkedSignal,
   signal,
-  type WritableSignal,
-  ChangeDetectionStrategy,
-  linkedSignal
+  type WritableSignal
 } from '@angular/core';
 
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
-import { type ZigbeePrefixes, zigbeePrefixes } from '../mqtt.component';
+import { zigbeePrefixes, type ZigbeePrefixes } from '../mqtt.component';
 import { ToggleComponent } from '../toggle/toggle.component';
-import { persistentLinkedSignal } from '../util/idbstorage';
 import { ZigbeeService } from '../zigbee.service';
 
-import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
-import { splitName } from './dialog/split-name';
+import { debouncedComputed } from '@se-ng/signal-utils';
 import {
   MqttDeviceSettingsService,
   type MqttDeviceSetting
 } from '../mqtt-device-settings.service';
+import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
+import { splitName } from './dialog/split-name';
 
 @Component({
   selector: 'power-meter',
@@ -83,7 +84,6 @@ export class PowerMeterComponent {
   readonly __ = afterRenderEffect(async () => {
     if (this.ieeeAddress() === 'unknown' || !this.ieeeAddress()) return;
     const splitName = this.splitName();
-    const currentPower = this.currentPower();
     if (!splitName.name) return;
     const notFound = this.optionsRef.error()?.['status'] === 404;
     if (notFound) {
@@ -146,8 +146,23 @@ export class PowerMeterComponent {
   };
 
   readonly _ = afterNextRender(() => {
+    let tries = 0;
+    const randomDelay = () => Math.random() * 2000 + 1500; // 1500ms to 3500ms
+    const attemptRefresh = () => {
+      if (tries >= 15) {
+        console.log(`Max refresh attempts reached for ${this.name()}. Giving up.`);
+        return; // Give up after 5 tries
+      }
+      if (!this.deviceLoading()) {
+        return;
+      }
+      tries++;
+      this.refresh();
+      // console.log(`Attempt ${tries}: Refreshing device status for ${this.name()}`);
+      setTimeout(attemptRefresh, randomDelay());
+    };
     // trigger initial state fetch
-    this.refresh();
+    attemptRefresh();
   });
 }
 

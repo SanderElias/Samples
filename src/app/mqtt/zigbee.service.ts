@@ -43,26 +43,17 @@ export class ZigbeeService {
           subGroups[prefix].push(subGroup);
           subGroups[prefix] = [
             ...subGroups[prefix].sort((a, b) => a.localeCompare(b))
-          ] ;
+          ];
         }
       }
-      console.log(JSON.stringify({ subGroups }, null, 2));
+      // console.log(JSON.stringify({ subGroups }, null, 2));
       return subGroups;
     },
     { debugName: 'DeviceSubGroups', equal: deepEqual }
   );
 
   getDeviceInfo = (ieeeAddress: Signal<string>) =>
-    computed(() => {
-      const res = this.#getDevice(ieeeAddress());
-      // if (res) {
-      //   const setRef = this.#settings.read(() => res.ieee_address)
-      //   const devSetting = this.#settings.optionsFromDevResource(setRef);
-      //   console.log(`Found device info for ${ieeeAddress()}:`, { res, devSetting });
-      // }
-      console.log(`Getting device info for ${ieeeAddress()}:`, res);
-      return res;
-    }, { equal: deepEqual });
+    computed(() => this.#getDevice(ieeeAddress()), { equal: deepEqual });
 
   getDeviceStatus = (ieeeAddress: Signal<string>) =>
     rxResource({
