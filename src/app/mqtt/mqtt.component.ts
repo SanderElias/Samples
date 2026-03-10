@@ -23,6 +23,11 @@ import {
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { persistentSignal } from './util/idbstorage';
 import { ZigbeeService } from './zigbee.service';
+import {
+  MqttDeviceSettingsService,
+  type MqttDeviceSetting
+} from './mqtt-device-settings.service';
+import type { HttpResourceRef } from '@angular/common/http';
 
 export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'Alles'] as const;
 export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
@@ -44,6 +49,7 @@ export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 export class MqttComponent {
   readonly #mqtt = inject(MqttService);
   readonly #z2m = inject(ZigbeeService);
+  readonly #settings = inject(MqttDeviceSettingsService);
 
   readonly state = signal<Record<string, any>>({});
   readonly cleanState = computed(() => cleanUp(this.state()));

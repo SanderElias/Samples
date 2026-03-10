@@ -64,6 +64,9 @@ export class RelationsService {
   filter = signal('');
   #filter = debouncedComputed(() => `(?i)${this.filter()}`, { delay: 250 }); //debounce and wrap it inside an couchDB regex.
   #refresh = signal(0);
+  // guard to avoid repeatedly attempting database creation when multiple
+  // errors fire in quick succession (prevents repeated PUT /<db>/ calls)
+  #dbCreateAttempted = false;
   sort = signal<SortField>('name');
   order = signal<'asc' | 'desc'>('asc');
 
@@ -111,6 +114,13 @@ export class RelationsService {
       return;
     }
     const reason: string = err.error?.reason;
+    // If CouchDB reports the DB already exists (HTTP 412 / file_exists),
+    // ignore — this is benign and should not trigger repeated create attempts.
+    if (err?.status === 412 || err?.error?.error === 'file_exists' || (typeof reason === 'string' && reason.toLowerCase().includes('file exists'))) {
+      console.info('CouchDB database already exists, ignoring create.', err);
+      return;
+    }
+
     if (!reason) {
       console.error('Unknown error', err);
       this.#notifyDialog.show({
@@ -131,6 +141,11 @@ export class RelationsService {
       }
     }
     if (reason.startsWith('Database does not exist')) {
+      if (this.#dbCreateAttempted) {
+        console.info('Database create already attempted, skipping.');
+        return;
+      }
+      this.#dbCreateAttempted = true;
       console.error('Database not found, creating it');
       try {
         await untracked(

@@ -1,5 +1,5 @@
 import type { Signal } from '@angular/core';
-import { computed, inject, Injectable, Injector } from '@angular/core';
+import { computed, effect, inject, Injectable, Injector } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { deepEqual } from '@se-ng/signal-utils';
 import {
@@ -15,12 +15,14 @@ import {
 
 import { MqttService } from './mqtt.service';
 import type { Z2MDevice } from './mqtt.types';
+import { MqttDeviceSettingsService } from './mqtt-device-settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ZigbeeService {
   mqtt = inject(MqttService);
+  #settings = inject(MqttDeviceSettingsService);
   injector = inject(Injector);
 
   devices: Signal<Z2MDevice[]> = toSignal(
@@ -28,8 +30,39 @@ export class ZigbeeService {
     <any>{ initialValue: [], debugName: 'ZigbeeServiceDevices' }
   ) as Signal<Z2MDevice[]>;
 
+  deviceSubgroups = computed(
+    () => {
+      const list = this.devices().map(d => d.friendly_name.split('/'));
+      const subGroups: Record<string, string[]> = {};
+      for (const dev of list) {
+        if (dev.length <= 2) continue;
+        const prefix = dev[0].toLowerCase() as 'e&m' | 's&m' | 'zaak' | 'kamp';
+        const subGroup = dev[1];
+        subGroups[prefix] ??= [];
+        if (!subGroups[prefix].includes(subGroup)) {
+          subGroups[prefix].push(subGroup);
+          subGroups[prefix] = [
+            ...subGroups[prefix].sort((a, b) => a.localeCompare(b))
+          ] ;
+        }
+      }
+      console.log(JSON.stringify({ subGroups }, null, 2));
+      return subGroups;
+    },
+    { debugName: 'DeviceSubGroups', equal: deepEqual }
+  );
+
   getDeviceInfo = (ieeeAddress: Signal<string>) =>
-    computed(() => this.#getDevice(ieeeAddress()), { equal: deepEqual });
+    computed(() => {
+      const res = this.#getDevice(ieeeAddress());
+      // if (res) {
+      //   const setRef = this.#settings.read(() => res.ieee_address)
+      //   const devSetting = this.#settings.optionsFromDevResource(setRef);
+      //   console.log(`Found device info for ${ieeeAddress()}:`, { res, devSetting });
+      // }
+      console.log(`Getting device info for ${ieeeAddress()}:`, res);
+      return res;
+    }, { equal: deepEqual });
 
   getDeviceStatus = (ieeeAddress: Signal<string>) =>
     rxResource({
@@ -70,6 +103,7 @@ export class ZigbeeService {
                 // console.warn(`Invalid status for topic ${params[index]}:`, status);
                 return {
                   friendly_name: params[index],
+                  ieeeAddress: undefined,
                   power: 0,
                   energy: 0,
                   current: 0
@@ -77,6 +111,7 @@ export class ZigbeeService {
               } else {
                 return {
                   friendly_name: params[index],
+                  ieeeAddress: <string>status['ieee_address'] ?? undefined,
                   power: <number>status['power'] ?? 0,
                   energy: <number>status['energy'] ?? 0,
                   current: <number>status['current'] ?? 0
