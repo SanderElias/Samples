@@ -13,9 +13,9 @@ And why don't I say that anymore? Not because it isn't true, but rather because 
 
 ## Personal history
 
-I was building web applications for over a decade before Angular (then called AngularJS) came out. It was rough. At a certain point I decided to scratch my own itch and started building a library to make my life easier. I didn't even name it. What I realized was that everything I was building lacked a single source of truth. I was passing and parsing data left and right, and there was no way to know where the data was coming from or where it was going. I was also doing a lot of DOM manipulation, and it was getting out of hand.
+I was building web applications for over a decade before Angular (then called AngularJS) came out. Building web apps back then was rough. At a certain point I decided to scratch my own itch and started building a library to make my life easier. I didn't even name it. What I realized was that everything I was building lacked a single source of truth. I was passing and parsing data left and right, and there was no way to know where the data was coming from or where it was going. I was also doing a lot of DOM manipulation, and it was getting out of hand.
 So I started building a library that would allow me to bind data to the relevant DOM elements so I could update the data and have a clear single source of truth. While I was working on this somewhere in 2009, I stumbled upon AngularJS.
-There was a lot of similarity between what I was building and what AngularJS was doing. I wasn't really surprised that Misko had similar ideas to mine, because I think everyone at that time was trying to solve the same problem.
+There was a lot of similarity between what I was building and what AngularJS was doing. I wasn't really surprised that [Misko](https://github.com/mhevery) had similar ideas to mine, at that time, everyone was trying to solve the same problem.
 However, I found out that he worked for Google and had a team of people working on this. As I was just a single developer who needed to deliver products, switching from my own library to AngularJS seemed the smart thing to do. I could leverage the work of a team and focus on building products rather than a library.
 
 There are days when I still miss the simplicity of that era. An app was often a single HTML file with a few lines of JS — no build step, no bundling, no transpiling.
@@ -117,7 +117,7 @@ The same goes for deprecations: they are clearly documented and come with a migr
 
 ### AI
 
-Yes, this needs to be mentioned. Angular is embracing AI. Does it suddenly become conscious? Almost.., but no. Angular is actively made friendlier for AI, so that it becomes easier to use AI tools when you are building an Angular app. This ranges from visible things like the the Angular MCP, to subtle documetn updates so an LLM can understand it better. Also, adopting best practices to it so it becomes easier for AI tools to understand and work with Angular code.  This is a good move, and shows that the team is forward‑thinking and willing to adapt to new technologies. But also, it makes our day to day job easier as we can quickly scaffold new features much quicker now.
+Yes, this needs to be mentioned. Angular is embracing AI. Does it suddenly become conscious? Almost.., but no. Angular is actively made friendlier for AI, so that it becomes easier to use AI tools when you are building an Angular app. This ranges from visible things like the Angular MCP, to subtle documentation updates so an LLM can understand it better. Also, adopting best practices to it so it becomes easier for AI tools to understand and work with Angular code.  This is a good move, and shows that the team is forward‑thinking and willing to adapt to new technologies. But also, it makes our day to day job easier as we can quickly scaffold new features much quicker now.
 It is the next step in from the schematics that make creating new features easier. It is a natural evolution of the framework, and I'm excited to see where it goes.
 
 
@@ -149,7 +149,7 @@ TL;DR: The team doesn't really cave!
 
 ### The complexity of the framework
 
-Read the learning curve section. It's not that the framework is complex; it's that it has a lot of features.
+Read the learning curve section. It's not that the framework is complex; the API surface is expansive, as it covers _all_ you need to build a complete modern app.
 
 ### Must learn Observables
 
@@ -173,9 +173,11 @@ But I'm not talking only about the amount of code I need to write — I'm talkin
 
 Let that sink in for a moment.
 
+When I build with Angular, I can focus on the unique problem my apps solve, rather than the plumbing. Because the way Angular is set up, I can write very efficient code, and the tooling that comes with it makes sure that only the code needed is shipped. And it works very well. Compared to other solutions, I end up shipping _much less_ code, and I do have to write less too. Lazy loading, tree shaking, deferring part of the views, and the fact that I don't need to write glue code to integrate third‑party libraries all contribute to this.
+
 ## Conclusion
 
-Ultimately, it boils down to trust and efficiency. I want a platform that respects the web, empowers my team, and stands the test of time. I want tools that work for me, not against me. Angular offers a comprehensive ecosystem that removes the friction of decision fatigue and glue code, allowing me to focus entirely on the unique problems my application solves. It transforms the chaotic landscape of web development into a structured, maintainable, and enjoyable craft.
+Ultimately, it boils down to __trust__ and __efficiency__. I want a platform that respects the web, empowers my team, and stands the test of time. I want tools that work for me, not against me. Angular offers a comprehensive ecosystem that removes the friction of decision fatigue and glue code, allowing me to focus entirely on the unique problems my application solves. It transforms the chaotic landscape of web development into a structured, maintainable, and enjoyable craft.
 
 When you weigh the stability, the community, and the sheer power it puts at your fingertips, you have found the answer to the question:
 

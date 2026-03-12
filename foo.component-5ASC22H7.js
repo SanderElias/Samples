@@ -1,0 +1,1 @@
+import{Bb as o,Cc as s,dc as n,ec as i}from"./chunk-4DYKPJVH.js";import"./chunk-C6Q5SG76.js";var a=(()=>{class t{static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275cmp=o({type:t,selectors:[["se-foo"]],decls:2,vars:0,template:function(e,r){e&1&&(n(0,"p"),s(1,"foo works!"),i())},styles:["[_nghost-%COMP%]{display:block}"]})}}return t})();export{a as FooComponent};

@@ -1,0 +1,1 @@
+import{Bb as o,Cc as r,dc as n,ec as i}from"./chunk-4DYKPJVH.js";import"./chunk-C6Q5SG76.js";var p=(()=>{class t{static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275cmp=o({type:t,selectors:[["se-bar"]],decls:2,vars:0,template:function(e,s){e&1&&(n(0,"p"),r(1,"bar works!"),i())},styles:["[_nghost-%COMP%]{display:block}"]})}}return t})();export{p as BarComponent};
