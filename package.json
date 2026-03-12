@@ -144,10 +144,8 @@
       "files": [
         "articles/*.md"
       ],
-      "clean": false,
-      "output": [
-        "articles/articleList.json"
-      ]
+      "clean": false
+
     },
     "build.lib.let": {
       "command": "ng build @se-ng/let --configuration production",
