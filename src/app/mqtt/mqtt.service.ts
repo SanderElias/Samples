@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { deepEqual } from '@se-ng/signal-utils';
 import type { OnMessageCallback } from 'mqtt';
 import {
@@ -15,10 +15,12 @@ import {
   timer
 } from 'rxjs';
 
+import { isPlatformBrowser } from '@angular/common';
 import type { MqttMessage } from './mqtt.types';
 
 @Injectable({ providedIn: 'root' })
 export class MqttService {
+  #isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   mqtt = import('mqtt');
   client = this.mqtt.then(m =>
     m.default.connectAsync(`wss://mqtt.eliasweb.nl`)
@@ -26,29 +28,31 @@ export class MqttService {
   /** base topic */
   readonly baseTopic = 'zigbee2mqtt';
   messages$ = new Observable<MqttMessage>(subscriber => {
-    const cb: OnMessageCallback = (topic, message): void => {
-      try {
-        subscriber.next({ topic, message: JSON.parse(message.toString()) });
-      } catch (e) {
-        subscriber.next({ topic, message: message.toString() });
-      }
-    };
+    if (this.#isBrowser) {
+      const cb: OnMessageCallback = (topic, message): void => {
+        try {
+          subscriber.next({ topic, message: JSON.parse(message.toString()) });
+        } catch (e) {
+          subscriber.next({ topic, message: message.toString() });
+        }
+      };
 
-    this.client.then(client => {
-      console.log('start listening for MQTT messages');
-      client.on('message', cb);
-      client.on('error', err => {
-        console.error('MQTT client error', err);
-        subscriber.error(err);
-      });
-    });
-    return () => {
       this.client.then(client => {
-        client.off('message', cb);
-        client.end(); //disconnect from the MQTT broker
-        console.log('MQTT client disconnected');
+        console.log('start listening for MQTT messages');
+        client.on('message', cb);
+        client.on('error', err => {
+          console.error('MQTT client error', err);
+          subscriber.error(err);
+        });
       });
-    };
+      return () => {
+        this.client.then(client => {
+          client.off('message', cb);
+          client.end(); //disconnect from the MQTT broker
+          console.log('MQTT client disconnected');
+        });
+      };
+    }
   }).pipe(
     share({
       connector: () => new Subject(),
