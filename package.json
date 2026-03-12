@@ -261,7 +261,7 @@
     "express": "5.2.1",
     "front-matter": "4.0.2",
     "highlight.js": "11.11.1",
-    "hono": "^4.12.5",
+    "hono": "^4.12.7",
     "idb-keyval": "6.2.2",
     "jsdom": "28.1.0",
     "marked": "17.0.4",
