@@ -168,6 +168,14 @@
     "largeImage": "/assets/snapshots/blog-w2jw3vjIgFcpjrmo.png"
   },
   {
+    "path": "/blog/wbc1c3mJqnuDlymf",
+    "modulePath": "/articles/wbc1c3mJqnuDlymf.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Icons!",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-wbc1c3mJqnuDlymf.png"
+  },
+  {
     "path": "/blog/wDje3njxg2cnjZmT",
     "modulePath": "/articles/wDje3njxg2cnjZmT.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
@@ -190,6 +198,14 @@
     "title": "What is data",
     "largeImage": "/assets/snapshots/blog-what-is-data.png",
     "description": ""
+  },
+  {
+    "path": "/blog/why-angular",
+    "modulePath": "/articles/why-angular.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Why Angular?",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-why-angular.png"
   },
   {
     "path": "/blog/wVjz34jxggcejlmR",
