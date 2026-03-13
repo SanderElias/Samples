@@ -43,6 +43,28 @@ div.toolbar {
   }
 }
 
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-filters {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-filters label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
 div.devGrid {
   margin-block-start: 1rem;
   display: grid;

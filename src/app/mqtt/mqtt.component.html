@@ -35,10 +35,33 @@
       </div>
     }
   </details>
+  <div class="searchBar">
+    <input
+      type="search"
+      class="search"
+      placeholder="Search name or setting…"
+      aria-label="Search devices"
+      [value]="search().searchText"
+      (input)="setSearchText($any($event.target).value)"
+    />
+    <button type="button" title="Clear search" (click)="setSearchText('')">✕</button>
+    <div class="search-filters">
+      @for (opt of search().booleanOptions; track opt.name) {
+        <label>
+          <input
+            type="checkbox"
+            [checked]="opt.value === true"
+            (change)="setBooleanOption(opt.name, $any($event.target).checked ? true : undefined)"
+          />
+          {{ opt.description || opt.name }}
+        </label>
+      }
+    </div>
+  </div>
   <div class="devGrid">
     <se-pair-button [selectedPrefixes]="selectedPrefixes()" />
 
-    @for (device of powerMeters(); track device.ieee_address) {
+    @for (device of powerMetersFiltered(); track device.ieee_address) {
       <power-meter [ieeeAddress]="device.ieee_address" />
     }
   </div>
