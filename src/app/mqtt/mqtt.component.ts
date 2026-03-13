@@ -196,8 +196,6 @@ export class MqttComponent {
       .filter(o => o.value === true)
       .map(o => o.name);
 
-    console.log(activeBooleanFilters);
-
     return list.filter(device => {
       const fname = String(device.friendly_name ?? '').toLowerCase();
       const settings = device.settings;
@@ -214,7 +212,9 @@ export class MqttComponent {
   });
 
   devNames = computed(() => {
-    const result = this.powerMeters().map(d => d.ieee_address as string);
+    const result = this.powerMeters().map(
+      d => d.friendly_name || (d.ieee_address as string)
+    );
     return result;
   });
 
@@ -267,16 +267,18 @@ export class MqttComponent {
       const devices = this.powerMeters();
       const statuses = (this.allStates.value() ?? []) as DeviceStatus[];
       const settingsById = this.deviceSettings.value() ?? {};
-      const statusMap = new Map<string, DeviceStatus>();
+      const statusMapByFriendlyName = new Map<string, DeviceStatus>();
 
       for (const s of statuses) {
-        const ieee = s.ieeeAddress.toLowerCase();
-        if (ieee) statusMap.set(ieee, s);
+        const name = s.friendly_name?.toLowerCase();
+        if (name) statusMapByFriendlyName.set(name, s);
       }
 
       return devices.map(device => {
         const ieee = device.ieee_address.toLowerCase();
-        const status = statusMap.get(ieee);
+        const status = statusMapByFriendlyName.get(
+          device.friendly_name?.toLowerCase()
+        );
         const settings = settingsById[ieee] ?? this.#settings.defaultOptions;
 
         return {
@@ -305,13 +307,13 @@ export class MqttComponent {
       if (state.settings?.isSubDevice) continue; // Skip sub-devices in aggregate calculations
       const prefix = extractPrefix(state.friendly_name);
       result[prefix] ??= { power: 0, energy: 0, current: 0 }; // Initialize with 0
-      result[prefix].power += state.power || 0;
-      result[prefix].energy += state.energy || 0;
-      result[prefix].current += state.current || 0;
+      result[prefix].power += Math.round(state.power) || 0;
+      result[prefix].energy += Math.round(state.energy) || 0;
+      result[prefix].current += Math.round(state.current) || 0;
     }
     console.table(result);
     return result;
-  });
+  }, { equal: deepEqual });
 
   readonly powerUsage = computed(() => {
     const powerUse = this.powerUse();
