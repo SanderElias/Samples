@@ -6,7 +6,7 @@
     "node": ">24.7.0"
   },
   "type": "module",
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@10.32.1",
   "scripts": {
     "build.samples": "wireit",
     "build.deploy": "wireit",
@@ -144,10 +144,8 @@
       "files": [
         "articles/*.md"
       ],
-      "clean": false,
-      "output": [
-        "articles/articleList.json"
-      ]
+      "clean": false
+
     },
     "build.lib.let": {
       "command": "ng build @se-ng/let --configuration production",
@@ -232,19 +230,19 @@
     }
   },
   "dependencies": {
-    "@angular/animations": "22.0.0-next.1",
-    "@angular/aria": "21.3.0-next.0",
-    "@angular/cdk": "21.3.0-next.0",
-    "@angular/common": "22.0.0-next.1",
-    "@angular/compiler": "22.0.0-next.1",
-    "@angular/core": "22.0.0-next.1",
-    "@angular/elements": "22.0.0-next.1",
-    "@angular/forms": "22.0.0-next.1",
-    "@angular/platform-browser": "22.0.0-next.1",
-    "@angular/platform-browser-dynamic": "22.0.0-next.1",
-    "@angular/platform-server": "22.0.0-next.1",
-    "@angular/router": "22.0.0-next.1",
-    "@angular/ssr": "22.0.0-next.0",
+    "@angular/animations": "22.0.0-next.2",
+    "@angular/aria": "22.0.0-next.0",
+    "@angular/cdk": "22.0.0-next.0",
+    "@angular/common": "22.0.0-next.2",
+    "@angular/compiler": "22.0.0-next.2",
+    "@angular/core": "22.0.0-next.2",
+    "@angular/elements": "22.0.0-next.2",
+    "@angular/forms": "22.0.0-next.2",
+    "@angular/platform-browser": "22.0.0-next.2",
+    "@angular/platform-browser-dynamic": "22.0.0-next.2",
+    "@angular/platform-server": "22.0.0-next.2",
+    "@angular/router": "22.0.0-next.2",
+    "@angular/ssr": "22.0.0-next.1",
     "@faker-js/faker": "10.3.0",
     "@fortawesome/fontawesome-free": "7.2.0",
     "@fortawesome/fontawesome-svg-core": "7.2.0",
@@ -261,7 +259,7 @@
     "express": "5.2.1",
     "front-matter": "4.0.2",
     "highlight.js": "11.11.1",
-    "hono": "^4.12.5",
+    "hono": "^4.12.7",
     "idb-keyval": "6.2.2",
     "jsdom": "28.1.0",
     "marked": "17.0.4",
@@ -276,23 +274,23 @@
     "replicator": "1.0.5",
     "rxjs": "7.8.2",
     "sse.js": "^2.8.0",
-    "temporal-polyfill": "0.3.0",
+    "temporal-polyfill": "0.3.2",
     "tslib": "2.8.1",
-    "vitest": "4.0.18",
+    "vitest": "4.1.0",
     "yaml": "2.8.2"
   },
   "overrides": {
     "asciidoctor.js": {}
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "22.0.0-next.0",
+    "@angular-devkit/build-angular": "22.0.0-next.1",
     "@angular-eslint/builder": "21.3.0",
     "@angular-eslint/eslint-plugin": "^21.3.0",
     "@angular-eslint/template-parser": "21.3.0",
-    "@angular/build": "22.0.0-next.0",
-    "@angular/cli": "22.0.0-next.0",
-    "@angular/compiler-cli": "22.0.0-next.1",
-    "@angular/language-service": "22.0.0-next.1",
+    "@angular/build": "22.0.0-next.1",
+    "@angular/cli": "22.0.0-next.1",
+    "@angular/compiler-cli": "22.0.0-next.2",
+    "@angular/language-service": "22.0.0-next.2",
     "@eslint/js": "^9.39.2",
     "@npmcli/package-json": "7.0.5",
     "@playwright/test": "1.58.2",
@@ -304,9 +302,9 @@
     "@types/msgpack-lite": "0.1.12",
     "@types/node": "24.10.1",
     "@types/wicg-file-system-access": "2023.10.7",
-    "@typescript-eslint/eslint-plugin": "8.56.1",
-    "@typescript-eslint/parser": "8.56.1",
-    "@vitest/coverage-v8": "4.0.18",
+    "@typescript-eslint/eslint-plugin": "8.57.0",
+    "@typescript-eslint/parser": "8.57.0",
+    "@vitest/coverage-v8": "4.1.0",
     "@web/test-runner": "0.20.2",
     "angular-eslint": "21.3.0",
     "eslint": "^9.39.2",
@@ -320,7 +318,7 @@
     "ts-node": "10.9.2",
     "tsc-watch": "7.2.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "8.56.1",
+    "typescript-eslint": "8.57.0",
     "wireit": "0.14.12",
     "yargs": "18.0.0"
   },
