@@ -3,13 +3,9 @@ import {
   Component,
   computed,
   inject,
-  Injector,
-  linkedSignal,
-  signal
+  Injector
 } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { debouncedComputed, deepEqual } from '@se-ng/signal-utils';
-import { EMPTY } from 'rxjs';
 
 import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
@@ -20,13 +16,11 @@ import {
   type MqttDeviceOptions,
   type MqttDeviceSetting
 } from './mqtt-device-settings.service';
-import { MqttService } from './mqtt.service';
 import { PairButtonComponent } from './pair-button/pair-button.component';
 import {
   extractPrefix,
   PowerMeterComponent
 } from './power-meter/power-meter.component';
-import { PrettyJson } from './pretty-json/pretty-json.component';
 import { persistentSignal } from './util/idbstorage';
 import { undefinedWhenEmpty, ZigbeeService } from './zigbee.service';
 
@@ -49,11 +43,12 @@ interface BulkGetResult {
 }
 
 type BulkGetResponse = { results?: BulkGetResult[] };
+type ParsedDeviceSettings = Record<string, MqttDeviceOptions>;
 
 // Status shape returned by `getMultipleStatuses`
 interface DeviceStatus {
   friendly_name: string;
-  ieeeAddress?: string;
+  ieeeAddress: string;
   power: number;
   energy: number;
   current: number;
@@ -61,7 +56,22 @@ interface DeviceStatus {
 
 // Combined shape returned to the UI: status + minimal setting
 interface DeviceWithSetting extends DeviceStatus {
+  ieeeAddress: string;
   settings: MqttDeviceOptions;
+}
+
+interface SearchState {
+  searchText: string;
+  selectedPrefixes: ZigbeePrefixes[];
+  booleanOptions: {
+    name:
+      | 'allowPowerControl'
+      | 'alertWhenOff'
+      | 'alertWhenLost'
+      | 'isSubDevice';
+    description?: string;
+    value?: boolean | undefined;
+  }[];
 }
 
 export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'Alles'] as const;
@@ -70,7 +80,6 @@ export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
 @Component({
   selector: 'se-mqtt',
   imports: [
-    PrettyJson,
     PowerMeterComponent,
     PairButtonComponent,
     StackedPerComponent,
@@ -79,22 +88,15 @@ export type ZigbeePrefixes = (typeof zigbeePrefixes)[number];
   templateUrl: './mqtt.component.html',
   styleUrl: './mqtt.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [MqttService, ZigbeeService]
+  providers: [ZigbeeService]
 })
 export class MqttComponent {
-  readonly #mqtt = inject(MqttService);
   readonly #z2m = inject(ZigbeeService);
   readonly #settings = inject(MqttDeviceSettingsService);
 
-  readonly search = signal<{
-    searchText: string;
-    booleanOptions: {
-      name: string;
-      description?: string;
-      value?: boolean | undefined;
-    }[];
-  }>({
+  readonly search = persistentSignal<SearchState>('mqttSearchFilters', {
     searchText: '',
+    selectedPrefixes: ['e&m', 'kamp'],
     booleanOptions: [
       {
         name: 'allowPowerControl',
@@ -107,7 +109,7 @@ export class MqttComponent {
         description: 'alert when lost',
         value: undefined
       },
-      { name: 'subGroup', description: 'sub device', value: undefined }
+      { name: 'isSubDevice', description: 'sub device', value: undefined }
     ]
   });
 
@@ -115,13 +117,6 @@ export class MqttComponent {
   readonly searchDebounced = debouncedComputed(this.search, {
     delay: 200
   });
-
-  readonly booleanOptionsMap = computed(
-    () =>
-      Object.fromEntries(
-        this.search().booleanOptions.map(o => [o.name, o.value])
-      ) as Record<string, boolean | undefined>
-  );
 
   setSearchText(v: string) {
     this.search.set({ ...this.search(), searchText: v });
@@ -133,33 +128,33 @@ export class MqttComponent {
     );
     this.search.set({ ...this.search(), booleanOptions: opts });
   }
-  readonly filter = signal<string | undefined>(undefined);
-  readonly devices = this.#z2m.devices;
 
-  readonly selectedPrefixes = persistentSignal<ZigbeePrefixes[]>(
-    'defaultSelectedPrefixes',
-    ['e&m', 'kamp']
-  );
+  readonly selectedPrefixes = computed(() => this.search().selectedPrefixes);
+  readonly devices = this.#z2m.devices;
 
   readonly zigbeePrefixes = zigbeePrefixes;
 
-  readonly selected = linkedSignal<string | undefined>(() => {
-    const devices = this.devices();
-    const filter = this.filter();
-    if (!devices?.length) return undefined;
-    if (filter) {
-      const device = devices.find(d => d.definition?.model === filter);
-      if (device) return device.friendly_name || device.ieee_address;
-    }
-    return undefined;
-  });
+  #matchesSelectedPrefix(
+    friendlyName: string | undefined,
+    selectedPrefixes: ZigbeePrefixes[]
+  ) {
+    if (selectedPrefixes.includes('Alles')) return true;
+    if (!friendlyName?.includes('/')) return true;
+    return selectedPrefixes.some(prefix => friendlyName.startsWith(prefix));
+  }
 
   checkPf = (prefix: ZigbeePrefixes) => {
-    const current = this.selectedPrefixes();
+    const current = this.search().selectedPrefixes;
     if (current.includes(prefix)) {
-      this.selectedPrefixes.set(current.filter(p => p !== prefix));
+      this.search.set({
+        ...this.search(),
+        selectedPrefixes: current.filter(p => p !== prefix)
+      });
     } else {
-      this.selectedPrefixes.set([...current, prefix]);
+      this.search.set({
+        ...this.search(),
+        selectedPrefixes: [...current, prefix]
+      });
     }
   };
 
@@ -171,99 +166,55 @@ export class MqttComponent {
             e => e.property === 'power' && e.type === 'numeric'
           )
         )
-        .filter(d =>
-          this.selectedPrefixes().includes('Alles')
-            ? true
-            : this.selectedPrefixes().some(
-                prefix =>
-                  d.friendly_name?.startsWith(prefix) ||
-                  !d.friendly_name?.includes('/')
-              )
-        )
+        .filter(d => !!d.ieee_address)
         .sort((a, b) => a.friendly_name.localeCompare(b.friendly_name)) ?? []
   );
 
-  readonly deviceTypes = computed(
-    () =>
-      this.devices()
-        ?.reduce(
-          (acc, device) => {
-            const model = device.definition?.model || '';
-            if (model && !acc.find(t => t[0] === model)) {
-              acc.push([model, device.definition?.description || '']);
-            }
-            return acc;
-          },
-          [] as [string, string][]
-        )
-        .sort() ?? [],
-    { equal: deepEqual }
-  );
-
-  readonly deviceList = computed(
-    () => {
-      const devices = this.devices();
-      return (
-        devices
-          .map(device => ({
-            name: device.friendly_name || device.ieee_address
-          }))
-          .sort((a, b) => a.name.localeCompare(b.name)) ?? []
-      );
-    },
-    { equal: deepEqual }
-  );
+  // readonly deviceTypes = computed(
+  //   () =>
+  //     this.devices()
+  //       ?.reduce(
+  //         (acc, device) => {
+  //           const model = device.definition?.model || '';
+  //           if (model && !acc.find(t => t[0] === model)) {
+  //             acc.push([model, device.definition?.description || '']);
+  //           }
+  //           return acc;
+  //         },
+  //         [] as [string, string][]
+  //       )
+  //       .sort() ?? [],
+  //   { equal: deepEqual }
+  // );
 
   readonly powerMetersFiltered = computed(() => {
-    const list = this.powerMeters();
-    const q = (this.searchDebounced()?.searchText ?? '')
-      .toString()
-      .trim()
-      .toLowerCase();
+    const list = this.devicesWithSettings() ?? [];
+    const search = this.searchDebounced();
+    const selectedPrefixes = search.selectedPrefixes;
+    const searchText = (search.searchText ?? '').toString().trim().toLowerCase();
+    const activeBooleanFilters = (search.booleanOptions ?? [])
+      .filter(o => o.value === true)
+      .map(o => o.name);
 
-    // Build a settings map from devicesWithSettings (already attaches parsed settings)
-    const settingsMap = new Map<string, any>();
-    const withSettings = this.devicesWithSettings() ?? [];
-    for (const s of withSettings) {
-      const key = (s.ieeeAddress ?? s.friendly_name)?.toString().toLowerCase();
-      if (key) settingsMap.set(key, s.settings);
-      const fname = s.friendly_name?.toString().toLowerCase();
-      if (fname) settingsMap.set(fname, s.settings);
-    }
+    console.log(activeBooleanFilters);
 
-    // Use debounced boolean options so toggles are respected after debounce
-    const debounced = this.searchDebounced() ?? { booleanOptions: [] };
-    const opts = Object.fromEntries(
-      (debounced.booleanOptions ?? []).map((o: any) => [o.name, o.value])
-    ) as Record<string, boolean | undefined>;
-    const needAllow = opts.allowPowerControl === true;
-    const needAlertOff = opts.alertWhenOff === true;
-    const needAlertLost = opts.alertWhenLost === true;
-    const needSubGroup = opts.subGroup === true;
+    return list.filter(device => {
+      const fname = String(device.friendly_name ?? '').toLowerCase();
+      const settings = device.settings;
 
-    return list.filter(d => {
-      const ieee = String(d.ieee_address ?? '').toLowerCase();
-      const fname = String(d.friendly_name ?? '').toLowerCase();
-      const settings = settingsMap.get(ieee) ?? settingsMap.get(fname);
-
-      if (needAllow && !(settings && settings.allowPowerControl === true))
-        return false;
-      if (needAlertOff && !(settings && settings.alertWhenOff === true))
-        return false;
-      if (needAlertLost && !(settings && settings.alertWhenLost === true))
-        return false;
-      if (needSubGroup && !(settings && settings.isSubDevice === true))
+      if (!this.#matchesSelectedPrefix(device.friendly_name, selectedPrefixes))
         return false;
 
-      if (!q) return true;
-      return fname.includes(q);
+      if (activeBooleanFilters.some(name => settings[name] !== true))
+        return false;
+
+      if (!searchText) return true;
+      return fname.includes(searchText);
     });
   });
 
   devNames = computed(() => {
-    const result = this.powerMeters().map(
-      d => d.friendly_name || d.ieee_address
-    );
+    const result = this.powerMeters().map(d => d.ieee_address as string);
     return result;
   });
 
@@ -271,7 +222,7 @@ export class MqttComponent {
 
   // CouchDB http resource: batch_get request for all devices in `powerMeters`.
   // Use `_bulk_get` with per-document `rev` where available so CouchDB can return specific revisions.
-  readonly deviceSettings: HttpResourceRef<BulkGetResponse | undefined> =
+  readonly deviceSettings: HttpResourceRef<ParsedDeviceSettings | undefined> =
     httpResource(
       () => {
         const keys = this.powerMeters()
@@ -292,37 +243,52 @@ export class MqttComponent {
           mode: 'cors'
         } as any;
       },
-      { injector: inject(Injector), debugName: 'powerMetersBulkGet' }
+      {
+        injector: inject(Injector),
+        debugName: 'powerMetersBulkGet',
+        defaultValue: {},
+        parse: (value: unknown): ParsedDeviceSettings => {
+          const response = value as BulkGetResponse;
+          const map: ParsedDeviceSettings = {};
+          for (const r of response?.results ?? []) {
+            const id = r.id?.toString().toLowerCase();
+            const ok = r.docs?.[0]?.ok as CouchDoc | undefined;
+            if (!id || !ok) continue;
+            map[id] = this.#settings.extractedOptions(ok);
+          }
+          return map;
+        }
+      }
     );
 
   // Combine runtime statuses with device settings (attach `settings` per device)
   readonly devicesWithSettings = computed(
     (): DeviceWithSetting[] => {
+      const devices = this.powerMeters();
       const statuses = (this.allStates.value() ?? []) as DeviceStatus[];
-      const bulk = this.deviceSettings.value();
-      const settingsMap = new Map<string, MqttDeviceOptions>();
-      if (bulk?.results) {
-        for (const r of bulk.results) {
-          const id = r.id?.toString().toLowerCase();
-          const firstDoc = r.docs?.[0];
-          const ok = firstDoc?.ok as CouchDoc | undefined;
-          if (id && ok)
-            settingsMap.set(id, this.#settings.extractedOptions(ok));
-        }
+      const settingsById = this.deviceSettings.value() ?? {};
+      const statusMap = new Map<string, DeviceStatus>();
+
+      for (const s of statuses) {
+        const ieee = s.ieeeAddress.toLowerCase();
+        if (ieee) statusMap.set(ieee, s);
       }
-      return statuses.map(s => {
-        let rawKey = s.ieeeAddress ?? s.friendly_name;
-        if (!s.ieeeAddress) {
-          const dev = this.devices()?.find(
-            d => d.friendly_name === s.friendly_name
-          );
-          if (dev?.ieee_address) rawKey = dev.ieee_address;
-        }
-        const key = rawKey?.toString().toLowerCase();
+
+      return devices.map(device => {
+        const ieee = device.ieee_address.toLowerCase();
+        const status = statusMap.get(ieee);
+        const settings = settingsById[ieee] ?? this.#settings.defaultOptions;
+
         return {
-          ...s,
-          settings:
-            (key && settingsMap.get(key)) ?? this.#settings.defaultOptions
+          friendly_name:
+            status?.friendly_name ??
+            device.friendly_name ??
+            device.ieee_address,
+          ieeeAddress: device.ieee_address,
+          power: status?.power ?? 0,
+          energy: status?.energy ?? 0,
+          current: status?.current ?? 0,
+          settings
         } as DeviceWithSetting;
       });
     },
@@ -353,23 +319,5 @@ export class MqttComponent {
       name: prefix,
       value: usage.power
     }));
-  });
-
-  readonly selectedDetails = computed(() => {
-    const devices = this.devices();
-    const selected = this.selected();
-    if (!selected) return undefined;
-    return devices?.find(
-      d => d.friendly_name === selected || d.ieee_address === selected
-    );
-  });
-
-  readonly selectedDevice = rxResource({
-    params: this.selected,
-    stream: args => {
-      const device = args.params;
-      if (!device) return EMPTY;
-      return this.#mqtt.listenFor(device);
-    }
   });
 }

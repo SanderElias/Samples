@@ -91,10 +91,10 @@ export class ZigbeeService {
           map(statuses => {
             return statuses.map((status, index) => {
               if (typeof status !== 'object' || status === null) {
-                // console.warn(`Invalid status for topic ${params[index]}:`, status);
+                console.warn(`Invalid status for topic ${params[index]}:`, status);
                 return {
                   friendly_name: params[index],
-                  ieeeAddress: undefined,
+                  ieeeAddress: '',
                   power: 0,
                   energy: 0,
                   current: 0
@@ -102,7 +102,7 @@ export class ZigbeeService {
               } else {
                 return {
                   friendly_name: params[index],
-                  ieeeAddress: <string>status['ieee_address'] ?? undefined,
+                  ieeeAddress: <string>status['ieee_address'] ?? '',
                   power: <number>status['power'] ?? 0,
                   energy: <number>status['energy'] ?? 0,
                   current: <number>status['current'] ?? 0
