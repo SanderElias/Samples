@@ -1,5 +1,5 @@
 import type { Signal } from '@angular/core';
-import { computed, effect, inject, Injectable, Injector } from '@angular/core';
+import { computed, inject, Injectable, Injector } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { deepEqual } from '@se-ng/signal-utils';
 import {
