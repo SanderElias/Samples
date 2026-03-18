@@ -38,6 +38,7 @@ export class ZigbeeService {
         if (dev.length <= 2) continue;
         const prefix = dev[0].toLowerCase() as 'e&m' | 's&m' | 'zaak' | 'kamp';
         const subGroup = dev[1];
+        if (!subGroup) continue;
         subGroups[prefix] ??= [];
         if (!subGroups[prefix].includes(subGroup)) {
           subGroups[prefix].push(subGroup);
