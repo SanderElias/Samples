@@ -16,7 +16,6 @@ import { zigbeePrefixes, type ZigbeePrefixes } from '../zigbee-prefixes.types';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { ZigbeeService } from '../zigbee.service';
 
-import { debouncedComputed } from '@se-ng/signal-utils';
 import { MqttDeviceSettingsService } from '../mqtt-device-settings.service';
 import type { MqttDeviceSetting } from '../mqtt-device-settings.types';
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
