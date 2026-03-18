@@ -12,10 +12,6 @@ import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.com
 
 import { httpResource } from '@angular/common/http';
 import { MqttDeviceSettingsService } from './mqtt-device-settings.service';
-import type {
-  MqttDeviceOptions,
-  MqttDeviceSetting
-} from './mqtt-device-settings.types';
 import { PairButtonComponent } from './pair-button/pair-button.component';
 import {
   extractPrefix,
