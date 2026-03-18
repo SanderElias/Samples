@@ -13,15 +13,13 @@ import {
 } from '@angular/core';
 
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
-import { zigbeePrefixes, type ZigbeePrefixes } from '../mqtt.component';
+import { zigbeePrefixes, type ZigbeePrefixes } from '../zigbee-prefixes.types';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { ZigbeeService } from '../zigbee.service';
 
 import { debouncedComputed } from '@se-ng/signal-utils';
-import {
-  MqttDeviceSettingsService,
-  type MqttDeviceSetting
-} from '../mqtt-device-settings.service';
+import { MqttDeviceSettingsService } from '../mqtt-device-settings.service';
+import type { MqttDeviceSetting } from '../mqtt-device-settings.types';
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
 import { splitName } from './dialog/split-name';
 
@@ -63,7 +61,7 @@ import { splitName } from './dialog/split-name';
       <span>Loading...</span><br />
       <button (click)="refresh()">Refresh</button>
     }
-    @if (options()?.allowPowerControl) {
+    @if (options().allowPowerControl) {
       <se-toggle [value]="isPoweredOn()" (valueChange)="toggle()" />
     }
     <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(show)]="dialogOpen" />

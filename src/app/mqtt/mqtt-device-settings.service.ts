@@ -19,6 +19,10 @@ import { firstValueFrom } from 'rxjs';
 
 import { LoggedIn } from '../grid-play/logged-in-user.service';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
+import type {
+  MqttDeviceOptions,
+  MqttDeviceSetting
+} from './mqtt-device-settings.types';
 
 import { couchEventLister } from '../crud-stuff/couch-event-lister';
 import { goAddData } from '../crud-stuff/couch-helpers';
@@ -32,28 +36,6 @@ const httpCachedOptions: Record<string, unknown> = {
     credentials: 'include',
     mode: 'cors'
   })
-};
-
-const sortFields = ['id', 'friendlyName'] as const;
-export type SortField = (typeof sortFields)[number];
-
-export interface MqttDeviceSetting {
-  id: string; // the device id, also used as the document id in CouchDB
-  _rev?: string; // the CouchDB revision, used for updates and deletes
-  friendlyName: string; //  the user friendly name for the device
-  maxPower: number; // the maximum power usage of this device, used for calculating percentages in the UI
-  isSubDevice?: boolean; // whether this device is a subDevice of another device (exclude it when totalling up power usage, for example)
-  allowPowerControl?: boolean; // whether the device can be turned on/off remotely
-  alertWhenOff?: boolean; // whether to show an alert when the device is turned off while it should be on (for devices that should always be on, like a fridge)
-  alertWhenLost?: boolean; // whether to show an alert when the device is not reachable (for devices that should always be reachable, like a router)
-}
-
-export type MqttDeviceOptions = {
-  isSubDevice: boolean;
-  allowPowerControl: boolean;
-  alertWhenOff: boolean;
-  alertWhenLost: boolean;
-  maxPower?: number;
 };
 
 @Injectable({

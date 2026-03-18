@@ -14,11 +14,9 @@ import {
 
 import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { deepEqual } from '@se-ng/signal-utils';
-import {
-  MqttDeviceSettingsService,
-  type MqttDeviceOptions
-} from '../../mqtt-device-settings.service';
-import { zigbeePrefixes } from '../../mqtt.component';
+import { MqttDeviceSettingsService } from '../../mqtt-device-settings.service';
+import type { MqttDeviceOptions } from '../../mqtt-device-settings.types';
+import { zigbeePrefixes } from '../../zigbee-prefixes.types';
 import { ZigbeeService } from '../../zigbee.service';
 import { splitName } from './split-name';
 

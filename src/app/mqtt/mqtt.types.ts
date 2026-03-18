@@ -1,13 +1,6 @@
-// Types and interfaces moved from mqtt.service.ts
-
-export interface MqttMessage {
-  topic: string;
-  message: string;
-}
-
 export interface Z2MDevice {
   disabled: boolean;
-  endpoints: { [key: string]: Endpoint };
+  endpoints: Record<string, Endpoint>;
   friendly_name: string;
   ieee_address: string;
   interview_completed: boolean;
@@ -69,7 +62,7 @@ export interface ExposeFeature {
   value_toggle?: ValueToggle;
   value_max?: number;
   value_min?: number;
-  presets?: PurplePreset[];
+  presets?: NumericPreset[];
   unit?: string;
   features?: Option[];
 }
@@ -92,26 +85,26 @@ export interface Option {
 
 export interface OptionFeature {
   access: number;
-  description: FeatureDescription;
-  label: Label;
-  name: PropertyEnum;
-  property: PropertyEnum;
+  description: OptionFeatureDescription;
+  label: OptionFeatureLabel;
+  name: OptionFeatureProperty;
+  property: OptionFeatureProperty;
   type: FeatureType;
   value_min: number;
   unit?: string;
 }
 
-export enum FeatureDescription {
+export enum OptionFeatureDescription {
   DeltaPerInterval20ByDefault = 'Delta per interval, 20 by default',
   IntervalDuration = 'Interval duration'
 }
 
-export enum Label {
+export enum OptionFeatureLabel {
   Delta = 'Delta',
   Interval = 'Interval'
 }
 
-export enum PropertyEnum {
+export enum OptionFeatureProperty {
   Delta = 'delta',
   Interval = 'interval'
 }
@@ -135,8 +128,8 @@ export interface ItemType {
 
 export interface OptionPreset {
   description: PresetDescription;
-  name: ValueEnum;
-  value: ValueEnum;
+  name: PresetValue;
+  value: PresetValue;
 }
 
 export enum PresetDescription {
@@ -144,12 +137,12 @@ export enum PresetDescription {
   UsePreviousValue = 'Use previous value'
 }
 
-export enum ValueEnum {
+export enum PresetValue {
   Minimum = 'minimum',
   Previous = 'previous'
 }
 
-export interface PurplePreset {
+export interface NumericPreset {
   description: string;
   name: string;
   value: number;
@@ -177,7 +170,7 @@ export interface Endpoint {
   bindings: Binding[];
   clusters: Clusters;
   configured_reportings: ConfiguredReporting[];
-  scenes: any[];
+  scenes: unknown[];
 }
 
 export interface Binding {
@@ -187,12 +180,12 @@ export interface Binding {
 
 export interface Target {
   endpoint?: number;
-  ieee_address?: IEEEAddress;
+  ieee_address?: IeeeAddress;
   type: TargetType;
   id?: number;
 }
 
-export enum IEEEAddress {
+export enum IeeeAddress {
   The0Xccccccfffe8A8966 = '0xccccccfffe8a8966',
   The0Xe0798Dfffebc6E5D = '0xe0798dfffebc6e5d'
 }
@@ -236,3 +229,4 @@ export enum Z2MDeviceType {
   EndDevice = 'EndDevice',
   Router = 'Router'
 }
+

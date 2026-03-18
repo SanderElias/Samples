@@ -16,7 +16,7 @@ import {
 } from 'rxjs';
 
 import { isPlatformBrowser } from '@angular/common';
-import type { MqttMessage } from './mqtt.types';
+import type { MqttMessage } from './mqtt.service.types';
 
 @Injectable({ providedIn: 'root' })
 export class MqttService {

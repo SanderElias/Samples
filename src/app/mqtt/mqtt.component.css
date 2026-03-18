@@ -44,25 +44,34 @@ div.toolbar {
 }
 
 .searchBar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  main {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: transparent;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    label:has(button) {
+      background: var(--surface-3);
+      gap:0;
+      padding: 0;
+      margin: 0
+    }
+  }
 }
 
-.search-filters {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.search-filters label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: transparent;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
+@media (max-width: 700px) {
+  .searchBar main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 div.devGrid {

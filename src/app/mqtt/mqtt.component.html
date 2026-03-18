@@ -7,7 +7,7 @@
           <input
             type="checkbox"
             [checked]="selectedPrefixes().includes(pf)"
-            (change)="checkPf(pf)"
+            (change)="togglePrefixSelection(pf)"
           />
           {{ pf ? pf : 'Alles' }}
         </label>
@@ -38,29 +38,39 @@
       }
     -->
   </details>
-  <div class="searchBar">
-    <input
-      type="search"
-      class="search"
-      placeholder="Search name or setting…"
-      aria-label="Search devices"
-      [value]="search().searchText"
-      (input)="setSearchText($any($event.target).value)"
-    />
-    <button type="button" title="Clear search" (click)="setSearchText('')">✕</button>
-    <div class="search-filters">
+  <details class="searchBar">
+    <summary>Filter</summary>
+    <main>
+      <label>
+        <input
+          type="search"
+          class="search"
+          placeholder="Search name"
+          aria-label="Search devices"
+          [value]="search().searchText"
+          (input)="setSearchText($any($event.target).value)"
+        />
+        <button type="button" title="Clear search" (click)="setSearchText('')">
+          ✕
+        </button>
+      </label>
       @for (opt of search().booleanOptions; track opt.name) {
         <label>
           <input
             type="checkbox"
             [checked]="opt.value === true"
-            (change)="setBooleanOption(opt.name, $any($event.target).checked ? true : undefined)"
+            (change)="
+              setBooleanOption(
+                opt.name,
+                $any($event.target).checked ? true : undefined
+              )
+            "
           />
           {{ opt.description || opt.name }}
         </label>
       }
-    </div>
-  </div>
+    </main>
+  </details>
   <div class="devGrid">
     <se-pair-button [selectedPrefixes]="selectedPrefixes()" />
 
