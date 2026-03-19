@@ -242,7 +242,7 @@
     "@angular/platform-browser-dynamic": "22.0.0-next.2",
     "@angular/platform-server": "22.0.0-next.2",
     "@angular/router": "22.0.0-next.2",
-    "@angular/ssr": "22.0.0-next.1",
+    "@angular/ssr": "22.0.0-next.2",
     "@faker-js/faker": "10.3.0",
     "@fortawesome/fontawesome-free": "7.2.0",
     "@fortawesome/fontawesome-svg-core": "7.2.0",
