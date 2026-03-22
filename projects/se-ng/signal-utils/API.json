@@ -40,15 +40,15 @@
     {
       "name": "injectAwaitSignal",
       "category": "Reactive",
-      "signature": "injectAwaitSignal(injector?) => <T>(signalFn, predicate) => Promise<T>",
-      "description": "Factory that returns an awaitSignal bound to an injector",
+      "signature": "injectAwaitSignal(injector?) => <T>(signalFn, predicate, abortSignal?) => Promise<T>",
+      "description": "Factory that returns an awaitSignal bound to an injector. Supports optional AbortSignal for cancellation.",
       "source": "src/reactive/await-signal.ts"
     },
     {
       "name": "awaitSignal",
       "category": "Reactive",
-      "signature": "awaitSignal<T>(signalFn, predicate) => Promise<T>",
-      "description": "Wait for a signal to satisfy a predicate",
+      "signature": "awaitSignal<T>(signalFn, predicate, abortSignal?) => Promise<T>",
+      "description": "Wait for a signal to satisfy a predicate. Rejects via AbortSignal if provided and aborted. NG0950 (required input not yet set) is silently retried.",
       "source": "src/reactive/await-signal.ts"
     },
     {

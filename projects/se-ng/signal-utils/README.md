@@ -74,19 +74,27 @@ indications, examples, and source links.
   ```
 
 - **`injectAwaitSignal` / `awaitSignal`** — wait for a signal to
-  satisfy a predicate.
-  - `awaitSignal<T>(signalFn, predicate) => Promise<T>`
-  - `injectAwaitSignal(injector?) => <T>(signalFn, predicate) => Promise<T>`
+  satisfy a predicate, with optional cancellation via `AbortSignal`.
+  - `awaitSignal<T>(signalFn, predicate, abortSignal?) => Promise<T>`
+  - `injectAwaitSignal(injector?) => <T>(signalFn, predicate, abortSignal?) => Promise<T>`
   - Source: [`src/reactive/await-signal.ts`](./src/reactive/await-signal.ts)
+
+  Behaviour:
+  - Resolves with the signal value as soon as `predicate` returns `true`.
+  - Rejects with the error if `predicate` or the signal itself throws (NG0950 is silently retried).
+  - If an `AbortSignal` is provided and aborted, the promise rejects with `abortSignal.reason` and the internal effect is destroyed.
+  - If no `AbortSignal` is provided, the promise simply stays pending until the predicate is satisfied or the context is destroyed (and is then garbage-collected without an unhandled rejection).
 
   Example:
 
   ```ts
-  await awaitSignal(
-    () => readyFlag(),
-    v => v === true
-  );
-  // resolves when readyFlag() becomes true
+  // Basic usage
+  await awaitSignal(() => readyFlag(), v => v === true);
+
+  // With cancellation (e.g. bound to component lifetime)
+  const controller = new AbortController();
+  inject(DestroyRef).onDestroy(() => controller.abort());
+  await awaitSignal(() => readyFlag(), v => v === true, controller.signal);
   ```
 
 ---
