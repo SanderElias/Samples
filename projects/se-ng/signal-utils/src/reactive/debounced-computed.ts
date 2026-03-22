@@ -1,4 +1,5 @@
 import {
+  isWritableSignal,
   linkedSignal,
   type Signal,
   signal,
@@ -36,7 +37,7 @@ export const debouncedSignal = <T>(
   /* c8 ignore start */
   const triggerSignal = signal(0);
   /* c8 ignore stop */
-  return linkedSignal({
+  const linked: WritableSignal<T> = linkedSignal({
     source: () => ({
       value: fn(),
       time: triggerSignal()
@@ -65,8 +66,17 @@ export const debouncedSignal = <T>(
 
       return currentResult;
     },
-    equal: options.equal
+    equal: options.equal,
+    debugName: 'debouncedSignal'
   });
+
+  //  when the original signal, we proxy the set and update method to the linked signal, so that the user can use the same API as a normal signal
+  if (isWritableSignal(fn as unknown as Signal<T>)) {
+    const originSignal = fn as unknown as WritableSignal<T>;
+    linked.set = originSignal.set;
+    linked.update = originSignal.update;
+  }
+  return linked;
 };
 
 export const debouncedComputed = <T>(
