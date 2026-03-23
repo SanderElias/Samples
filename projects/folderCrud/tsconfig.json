@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "outDir": "../../dist/folderCrud",
-    "downlevelIteration": false,
     "experimentalDecorators": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,

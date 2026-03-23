@@ -18,6 +18,7 @@ export class LoggedIn {
   );
 
   user = computed(() => {
+    if (!this.#isBrowser) return undefined;
     if (!this.#userRs.hasValue()) return undefined;
     const userName = this.#userRs.value()?.data?.username || '';
     return userName ? userName : undefined; // if username is empty string, treat as not logged in, so return undefined instead

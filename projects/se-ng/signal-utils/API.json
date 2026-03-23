@@ -20,14 +20,14 @@
       "name": "debouncedSignal",
       "category": "Reactive",
       "signature": "debouncedSignal<T>(fn, {delay?, equal?}) => WritableSignal<T>",
-      "description": "Debounce a computed signal",
+      "description": "Throttle-with-trailing-catch-up for a computed signal. Emits the initial value immediately; during a burst emits at most once per delay ms (window anchored to the first change); the last value in the burst window is picked up when the window closes. For short bursts the behaviour matches classical trailing-edge debounce. No injection context required. Proxies set/update to the source when fn is a WritableSignal.",
       "source": "src/reactive/debounced-computed.ts"
     },
     {
       "name": "debouncedComputed",
       "category": "Reactive",
       "signature": "debouncedComputed<T>(fn, {delay?, equal?}) => Signal<T>",
-      "description": "Readonly debounced signal",
+      "description": "Readonly variant of debouncedSignal. Same throttle-with-trailing-catch-up semantics; returns a read-only Signal<T>.",
       "source": "src/reactive/debounced-computed.ts"
     },
     {
@@ -40,15 +40,15 @@
     {
       "name": "injectAwaitSignal",
       "category": "Reactive",
-      "signature": "injectAwaitSignal(injector?) => <T>(signalFn, predicate) => Promise<T>",
-      "description": "Factory that returns an awaitSignal bound to an injector",
+      "signature": "injectAwaitSignal(injector?) => <T>(signalFn, predicate, abortSignal?) => Promise<T>",
+      "description": "Factory that returns an awaitSignal bound to an injector. Supports optional AbortSignal for cancellation.",
       "source": "src/reactive/await-signal.ts"
     },
     {
       "name": "awaitSignal",
       "category": "Reactive",
-      "signature": "awaitSignal<T>(signalFn, predicate) => Promise<T>",
-      "description": "Wait for a signal to satisfy a predicate",
+      "signature": "awaitSignal<T>(signalFn, predicate, abortSignal?) => Promise<T>",
+      "description": "Wait for a signal to satisfy a predicate. Rejects via AbortSignal if provided and aborted. NG0950 (required input not yet set) is silently retried.",
       "source": "src/reactive/await-signal.ts"
     },
     {

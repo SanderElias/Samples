@@ -1,5 +1,11 @@
 :host {
-  display: block;
+  display: flex;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
 }
 
 label {
@@ -7,7 +13,14 @@ label {
   display: grid;
   grid-template-columns: 5rem 1fr auto;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--size-1);
+
+  &:has([type='checkbox']) {
+    grid-template-columns: auto 1fr auto;
+    input {
+      justify-self: end;;
+    }
+  }
 }
 
 svg {

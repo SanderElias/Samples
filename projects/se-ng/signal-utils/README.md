@@ -51,32 +51,50 @@ indications, examples, and source links.
   // access current value: resource().value(); resource().status
   ```
 
-- **`debouncedSignal` / `debouncedComputed`** — debounce helpers for signals.
+- **`debouncedSignal` / `debouncedComputed`** — throttle-with-trailing-catch-up helpers for signals.
   - `debouncedSignal<T>(fn, {delay?, equal?}) => WritableSignal<T>`
   - `debouncedComputed<T>(...) => Signal<T>`
   - Source: [`src/reactive/debounced-computed.ts`](./src/reactive/debounced-computed.ts)
+
+  Behavior: the initial value is always emitted immediately. During a burst of
+  changes at most one new value is propagated per `delay` ms — the window is
+  anchored to the **first** change in each interval. The latest value in a burst
+  window is picked up when the window closes. For short bursts (silence longer
+  than `delay`) the behaviour is identical to classical trailing-edge debounce.
+  Uses `linkedSignal` internally, so **no injection context is required**.
+  When `fn` is itself a `WritableSignal`, `.set()` and `.update()` are proxied
+  back to the source signal.
 
   Example:
 
   ```ts
   const debounced = debouncedSignal(() => searchTerm(), { delay: 200 });
-  // debounced.asReadonly() or debounced() to read
+  // During rapid typing debounced() updates at most every 200 ms;
+  // the final search term is always captured when typing stops.
   ```
 
 - **`injectAwaitSignal` / `awaitSignal`** — wait for a signal to
-  satisfy a predicate.
-  - `awaitSignal<T>(signalFn, predicate) => Promise<T>`
-  - `injectAwaitSignal(injector?) => <T>(signalFn, predicate) => Promise<T>`
+  satisfy a predicate, with optional cancellation via `AbortSignal`.
+  - `awaitSignal<T>(signalFn, predicate, abortSignal?) => Promise<T>`
+  - `injectAwaitSignal(injector?) => <T>(signalFn, predicate, abortSignal?) => Promise<T>`
   - Source: [`src/reactive/await-signal.ts`](./src/reactive/await-signal.ts)
+
+  Behaviour:
+  - Resolves with the signal value as soon as `predicate` returns `true`.
+  - Rejects with the error if `predicate` or the signal itself throws (NG0950 is silently retried).
+  - If an `AbortSignal` is provided and aborted, the promise rejects with `abortSignal.reason` and the internal effect is destroyed.
+  - If no `AbortSignal` is provided, the promise simply stays pending until the predicate is satisfied or the context is destroyed (and is then garbage-collected without an unhandled rejection).
 
   Example:
 
   ```ts
-  await awaitSignal(
-    () => readyFlag(),
-    v => v === true
-  );
-  // resolves when readyFlag() becomes true
+  // Basic usage
+  await awaitSignal(() => readyFlag(), v => v === true);
+
+  // With cancellation (e.g. bound to component lifetime)
+  const controller = new AbortController();
+  inject(DestroyRef).onDestroy(() => controller.abort());
+  await awaitSignal(() => readyFlag(), v => v === true, controller.signal);
   ```
 
 ---

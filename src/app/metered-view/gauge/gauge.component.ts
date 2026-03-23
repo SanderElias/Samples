@@ -12,8 +12,6 @@ import {
     <svg
       class="myGauge"
       viewBox="0 0 200 200"
-      width="100"
-      height="100"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
@@ -31,8 +29,8 @@ import {
 
       <!-- Fill with surface color and let the SVG element background (conic-gradient) show through the masked arc -->
       <rect
-        width="100%"
-        height="100%"
+        width="204"
+        height="204"
         fill="var(--_meter-backgroundColor, #f0f0f0)"
         [attr.mask]="'url(#' + maskId + ')'"
       />

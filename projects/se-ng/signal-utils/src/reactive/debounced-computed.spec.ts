@@ -61,6 +61,7 @@ describe('debouncedSignal / debouncedComputed', () => {
 
     // rapid updates
     src.set(2);
+    expect(deb()).toBe(1); // reading here triggers the computation and starts the debounce window
     now += 10;
     vi.advanceTimersByTime(10);
 
@@ -158,6 +159,7 @@ describe('debouncedSignal / debouncedComputed', () => {
     expect(deb()).toBe(1);
 
     src.set(2);
+    expect(deb()).toBe(1); // reading here triggers the computation and starts the debounce window
     now += 51;
     vi.advanceTimersByTime(51);
     expect(deb()).toBe(2);
@@ -189,6 +191,7 @@ describe('debouncedSignal / debouncedComputed', () => {
 
     expect(deb()).toBe(1);
     src.set(2);
+    expect(deb()).toBe(1); // reading here triggers the computation and starts the debounce window
 
     now += 21;
     vi.advanceTimersByTime(21);
@@ -218,6 +221,28 @@ describe('debouncedSignal / debouncedComputed', () => {
         debouncedSignal(() => src(), { delay: -10 as any })
       )
     ).toThrow('[debouncedSignal] delay must be a positive number');
+  });
+
+  it('proxies set and update to the source signal when fn is a WritableSignal', () => {
+    let now = Date.now();
+    const dateSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
+
+    const src = TestBed.runInInjectionContext(() => signal(1));
+    const deb = TestBed.runInInjectionContext(() =>
+      debouncedSignal(src, { delay: 50 })
+    );
+
+    expect(deb()).toBe(1);
+
+    // .set() on the debounced signal should write through to the source
+    deb.set(42);
+    expect(src()).toBe(42);
+
+    // .update() on the debounced signal should write through to the source
+    deb.update(v => v + 1);
+    expect(src()).toBe(43);
+
+    dateSpy.mockRestore();
   });
 
   it('throws when delay is zero or negative for debouncedComputed', () => {

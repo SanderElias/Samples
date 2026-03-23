@@ -13,7 +13,7 @@ library.add(faPlay as any, faPause as any);
 dom.watch();
 
 if (environment.production) {
-  enableProdMode();
+  // enableProdMode();
 } else {
   // // @ts-expect-error
   // setTimeout(() => ng.enableProfiling(), 0);
