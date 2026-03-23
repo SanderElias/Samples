@@ -3,7 +3,6 @@
     // Setting the "baseUrl" to a different directory than "packages/" because otherwise
     // packages like the native "http" module are resolved to the Angular "http" package.
     "declaration": true,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strict": true,
