@@ -101,33 +101,23 @@ se-blogs {
     }
   }
 
-  blockquote:has(span.icon) {
+  blockquote:has(> span.icon) {
     display: grid;
     grid-template-columns: auto 1fr;
+    column-gap: var(--size-3);
 
-    p,
-    table {
-      grid-column: 2 / 3;
+    > :not(span.icon) {
+      grid-column: 2;
     }
-  }
 
-  blockquote > p:has(span.icon) {
-    display: grid;
-    grid-column: span 2;
-    grid-template-columns: subgrid;
-    gap: 0;
-
-    span.icon {
+    > span.icon {
       display: flex;
-      grid-column: 1 / 2;
-      grid-row: 1 / 10;
       align-items: center;
       justify-content: center;
-      padding-inline-end: var(--size-3);
 
       svg {
-        inline-size: 48px;
-        block-size: 48px;
+        inline-size: 44px;
+        block-size: 44px;
       }
     }
   }

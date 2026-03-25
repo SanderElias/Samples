@@ -73,8 +73,16 @@ export async function parser(content: MarkDown): Promise<string> {
     .parse(content);
 
   // by default all links open in the same tab, this forces external links to open in a new tab
-  return context.replaceAll(
-    'href="http',
-    'target="_blank" rel="noopener noreferrer" href="http'
-  );
+  return context
+    .replaceAll('href="http', 'target="_blank" rel="noopener noreferrer" href="http')
+    // Lift the icon out of its <p> and wrap all remaining blockquote content in
+    // a single <div>. This gives the grid exactly two children: the icon (col 1)
+    // and one wrapper (col 2), so the icon always spans the full content height.
+    .replace(
+      /<blockquote>\n?<p>(<span class=icon>[\s\S]*?<\/span>)([\s\S]*?)<\/p>([\s\S]*?)<\/blockquote>/g,
+      (_, icon, firstParaRest, remaining) => {
+        const content = (firstParaRest.trim() ? `<p>${firstParaRest}</p>` : '') + remaining;
+        return `<blockquote>\n${icon}<div>${content}</div></blockquote>`;
+      }
+    );
 }
