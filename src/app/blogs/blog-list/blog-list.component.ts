@@ -1,10 +1,11 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
-  ChangeDetectionStrategy
+  DOCUMENT,
+  inject
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import type { Article } from '../article.interface';
 import { Bloglist } from '../bloglist';
@@ -31,12 +32,19 @@ import { Bloglist } from '../bloglist';
 })
 export class BlogListComponent {
   blogList = inject(Bloglist);
+  #w = inject(DOCUMENT)
 
   articles = computed(() => {
     const l = this.blogList.getBlogs();
+    let host = this.#w.location?.host ?? '';
+
+    const isDev = ['localhost', '10.', '127.'].some(prefix =>
+      host.startsWith(prefix)
+    );
+    console.log({ host, isDev });
     const result: Article[] = [];
     for (const article of l) {
-      if (article.published) {
+      if (article.published || isDev) {
         result.push(article);
       }
     }
