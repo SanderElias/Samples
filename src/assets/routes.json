@@ -128,6 +128,14 @@
     "largeImage": "/assets/snapshots/blog-rtvui0r9ycgGjLmz.png"
   },
   {
+    "path": "/blog/state-of-state",
+    "modulePath": "/articles/state-of-state.md",
+    "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
+    "title": "Stating the state of state",
+    "description": "",
+    "largeImage": "/assets/snapshots/blog-state-of-state.png"
+  },
+  {
     "path": "/blog/the-year-2038",
     "modulePath": "/articles/the-year-2038.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
@@ -139,7 +147,7 @@
     "path": "/blog/u75TnYk9lG5nnkmR",
     "modulePath": "/articles/u75TnYk9lG5nnkmR.md",
     "gitFolder": "https://github.com/SanderElias/Samples/tree/main/articles/",
-    "title": "The state of hm... state?",
+    "title": "Stating the state of state",
     "description": "",
     "largeImage": "/assets/snapshots/blog-u75TnYk9lG5nnkmR.png"
   },
