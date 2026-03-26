@@ -41,7 +41,6 @@ export class BlogListComponent {
     const isDev = ['localhost', '10.', '127.'].some(prefix =>
       host.startsWith(prefix)
     );
-    console.log({ host, isDev });
     const result: Article[] = [];
     for (const article of l) {
       if (article.published || isDev) {

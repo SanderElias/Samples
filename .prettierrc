@@ -12,5 +12,13 @@
   "semi": true,
   "singleAttributePerLine": false,
   "trailingComma": "none",
-  "useTabs": false
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": "*.md",
+      "options": {
+        "printWidth": 60
+      }
+    }
+  ]
 }

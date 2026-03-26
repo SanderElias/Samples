@@ -24,13 +24,9 @@ class SomeUIThing {
   count = signal(10);
 
   // this is the state:
-  colorOfTheNumber = computed(() => {
-    if (this.count() > 5) {
-      return 'red';
-    } else {
-      return 'green';
-    }
-  });
+  colorOfTheNumber = computed(() =>
+    this.count() > 5 ? 'red' : 'green'
+  );
 }
 ```
 
@@ -120,7 +116,9 @@ export class ProductDetailComponent {
   id = input.required<string>();
 
   // derive the product URI
-  uri = computed(() => (this.id() ? `/api/products/${this.id()}` : undefined));
+  uri = computed(() =>
+    this.id() ? `/api/products/${this.id()}` : undefined
+  );
 
   // complete state for the fetch:
   //   value,
@@ -135,7 +133,11 @@ export class ProductDetailComponent {
     // still (rel)loading or errored? then no badge
     if (!ref.hasValue()) return undefined;
     const { stock, discount } = ref.value();
-    return stock === 0 ? 'sold-out' : discount > 0 ? 'on-sale' : undefined;
+    return stock === 0
+      ? 'sold-out'
+      : discount > 0
+        ? 'on-sale'
+        : undefined;
   });
 }
 ```

@@ -29,9 +29,17 @@ se-blogs {
     max-inline-size: unset;
   }
 
-  :where(pre, code) {
+  pre {
+    overflow-x: auto;
+    max-inline-size: 100%;
+  }
+
+  pre code {
+    white-space: pre;
+  }
+
+  code:not(pre code) {
     white-space: pre-wrap;
-    max-inline-size: unset;
   }
 
   ::backdrop {
@@ -60,6 +68,8 @@ se-blogs {
   main {
     grid-area: article;
     margin-inline: auto;
+    inline-size: 100%;
+    min-inline-size: 0;
     max-inline-size: var(--article-inline-size);
     text-wrap: wrap;
     text-wrap: pretty;
