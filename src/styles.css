@@ -10,6 +10,9 @@ html {
   --brand-light: #e30ae7;
   --text-1-light: var(--gray-8);
   --text-2-light: var(--gray-7);
+  --link-light: var(--blue-9);
+  --link-hover-light: var(--blue-10);
+  --link-visited-light: var(--violet-8);
   --surface-1-light: var(--gray-2);
   --surface-2-light: var(--gray-3);
   --surface-3-light: var(--gray-4);
@@ -21,6 +24,9 @@ html {
   --brand-dark: #6200ee;
   --text-1-dark: var(--gray-2);
   --text-2-dark: var(--gray-5);
+  --link-dark: var(--blue-2);
+  --link-hover-dark: var(--blue-1);
+  --link-visited-dark: var(--indigo-2);
   --surface-1-dark: var(--gray-11);
   --surface-2-dark: var(--gray-10);
   --surface-3-dark: var(--gray-9);
@@ -32,6 +38,9 @@ html {
   --brand-dim: var(--orange-4);
   --text-1-dim: var(--gray-3);
   --text-2-dim: var(--gray-4);
+  --link-dim: var(--orange-3);
+  --link-hover-dim: var(--orange-2);
+  --link-visited-dim: var(--grape-3);
   --surface-1-dim: var(--gray-8);
   --surface-2-dim: var(--gray-7);
   --surface-3-dim: var(--gray-6);
@@ -43,6 +52,9 @@ html {
   --brand-grape: var(--purple-5);
   --text-1-grape: var(--purple-9);
   --text-2-grape: var(--purple-7);
+  --link-grape: var(--grape-8);
+  --link-hover-grape: var(--grape-9);
+  --link-visited-grape: var(--violet-8);
   --surface-1-grape: var(--purple-0);
   --surface-2-grape: var(--purple-1);
   --surface-3-grape: var(--purple-2);
@@ -54,6 +66,9 @@ html {
   --brand-choco: var(--choco-5);
   --text-1-choco: var(--choco-1);
   --text-2-choco: var(--choco-2);
+  --link-choco: var(--orange-2);
+  --link-hover-choco: var(--yellow-1);
+  --link-visited-choco: var(--grape-2);
   --surface-1-choco: var(--choco-12);
   --surface-2-choco: var(--choco-11);
   --surface-3-choco: var(--choco-10);
@@ -72,6 +87,9 @@ html {
   --brand: var(--brand-light);
   --text-1: var(--text-1-light);
   --text-2: var(--text-2-light);
+  --link: var(--link-light);
+  --link-hover: var(--link-hover-light);
+  --link-visited: var(--link-visited-light);
   --surface-1: var(--surface-1-light);
   --surface-2: var(--surface-2-light);
   --surface-3: var(--surface-3-light);
@@ -86,6 +104,9 @@ html {
     --brand: var(--brand-dark);
     --text-1: var(--text-1-dark);
     --text-2: var(--text-2-dark);
+    --link: var(--link-dark);
+    --link-hover: var(--link-hover-dark);
+    --link-visited: var(--link-visited-dark);
     --surface-1: var(--surface-1-dark);
     --surface-2: var(--surface-2-dim);
     --surface-3: var(--surface-3-dark);
@@ -100,6 +121,33 @@ html {
   color: var(--text-1);
 }
 
+a {
+  color: var(--link);
+  text-decoration-color: var(--link);
+  text-underline-offset: 2px;
+
+  &[href] {
+    &:hover,
+    &:focus-visible {
+      color: var(--link-hover);
+      text-decoration-color: var(--link-hover);
+    }
+  }
+
+  &:visited {
+    color: var(--link-visited);
+    text-decoration-color: var(--link-visited);
+
+    &[href] {
+      &:hover,
+      &:focus-visible {
+        color: var(--link-hover);
+        text-decoration-color: var(--link-hover);
+      }
+    }
+  }
+}
+
 form {
   accent-color: var(--brand);
 }
@@ -111,8 +159,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-:root {
-}
 html:has(div#outlet) {
   inline-size: 100dvw;
   block-size: 100dvh;

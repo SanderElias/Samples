@@ -283,32 +283,12 @@ se-blogs {
   }
 
   a {
-    color: var(--blue-4);
     cursor: pointer;
     font-size: inherit;
     font-weight: 700;
     line-height: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--blue-4);
     text-underline-offset: 2px;
-
-    &[href] {
-      &:hover,
-      &:focus-visible {
-        color: var(--blue-6);
-      }
-    }
-
-    &:visited {
-      color: var(--blue-7);
-
-      &[href] {
-        &:hover,
-        &:focus-visible {
-          color: var(--blue-9);
-        }
-      }
-    }
   }
 
   /* Text */
@@ -546,7 +526,7 @@ se-blogs {
       font-style: italic;
     }
     .hljs-doctag {
-      color: #608b4e;
+      color: #79a56a;
     }
     .hljs-meta,
     .hljs-meta .hljs-keyword,
@@ -622,18 +602,18 @@ se-blogs {
     .hljs-meta,
     .hljs-selector-attr,
     .hljs-selector-pseudo {
-      color: #2b91af;
+      color: #0b6e87;
     }
     .hljs-doctag {
-      color: grey;
+      color: #616161;
     }
     .hljs-attr {
-      color: red;
+      color: #a31515;
     }
     .hljs-bullet,
     .hljs-link,
     .hljs-symbol {
-      color: #00b0e8;
+      color: #0078d4;
     }
     .hljs-emphasis {
       font-style: italic;
