@@ -53,7 +53,7 @@ export class BlogListComponent {
 
   onArticleClick() {
     // Close the menu toggle when an article is clicked
-    const toggle = document.getElementById('blog-menu-toggle') as HTMLInputElement;
+    const toggle = this.#w?.getElementById?.('blog-menu-toggle') as HTMLInputElement | null;
     if (toggle) {
       toggle.checked = false;
     }
