@@ -19,7 +19,11 @@ import { Bloglist } from './bloglist';
   imports: [BlogListComponent],
   template: `
     @defer (hydrate never) {
-      <input id="blog-menu-toggle" type="checkbox" />
+      <input
+        id="blog-menu-toggle"
+        type="checkbox"
+        aria-label="Toggle article menu"
+      />
       <label for="blog-menu-toggle" class="blog-menu-btn" title="Toggle article menu">
         <span class="sr-only menu-open-text">Open article menu</span>
         <span class="sr-only menu-close-text">Close article menu</span>
@@ -33,7 +37,7 @@ import { Bloglist } from './bloglist';
       <header>
         <h1>{{ blogList.getBlogById(id())?.title || 'Welcome to the blog' }}</h1>
       </header>
-      <main>
+      <main tabindex="0" aria-label="Blog article content">
         <article class="rich-text" [innerHTML]="testblog.value()"></article>
       </main>
       <ul id="blog-list"></ul>
