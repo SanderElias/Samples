@@ -17,6 +17,7 @@ import { Bloglist } from '../bloglist';
     @for (article of articles(); track article.id) {
       <li>
         <a
+          (click)="onArticleClick()"
           [routerLink]="[
             '/blog',
             article.published ? article.name : article.id
@@ -49,4 +50,12 @@ export class BlogListComponent {
     }
     return result;
   });
+
+  onArticleClick() {
+    // Close the menu toggle when an article is clicked
+    const toggle = this.#w?.getElementById?.('blog-menu-toggle') as HTMLInputElement | null;
+    if (toggle) {
+      toggle.checked = false;
+    }
+  }
 }

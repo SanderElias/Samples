@@ -19,8 +19,25 @@ import { Bloglist } from './bloglist';
   imports: [BlogListComponent],
   template: `
     @defer (hydrate never) {
-      <h1>{{ blogList.getBlogById(id())?.title || 'Welcome to the blog' }}</h1>
-      <main>
+      <input
+        id="blog-menu-toggle"
+        type="checkbox"
+        aria-label="Toggle article menu"
+      />
+      <label for="blog-menu-toggle" class="blog-menu-btn" title="Toggle article menu">
+        <span class="sr-only menu-open-text">Open article menu</span>
+        <span class="sr-only menu-close-text">Close article menu</span>
+        <svg class="menu-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24">
+          <use href="#icon-menu"></use>
+        </svg>
+        <svg class="close-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24">
+          <use href="#icon-close"></use>
+        </svg>
+      </label>
+      <header>
+        <h1>{{ blogList.getBlogById(id())?.title || 'Welcome to the blog' }}</h1>
+      </header>
+      <main tabindex="0" aria-label="Blog article content">
         <article class="rich-text" [innerHTML]="testblog.value()"></article>
       </main>
       <ul id="blog-list"></ul>

@@ -43,7 +43,7 @@ import { isObject } from '@se-ng/signal-utils';
     <button (click)="inspect()">inspect</button>
     <form>
       <label>Type</label>
-      <input type="text" [formField]="fd.type" />
+      <input type="text" [formField]="$any(fd.type)" />
 
       @for (_field of fields(); track _field) {
         <label for="{{ _field }}">

@@ -1,4 +1,4 @@
-# Icons!
+# Icons
 
 I use a few icons in my blog. Right now, this is in my code:
 
@@ -20,13 +20,17 @@ I'm writing this article to document the icons I'm using, and to share the SVG c
 I found the icons on [iconoir](https://iconoir.com/) and [SVG Repo](https://www.svgrepo.com/) , which let me easily copy-paste the raw svg. I modified them a bit to fit my needs. I also changed the colors to use the colors from OpenProps.
 
 > [!NOTE] how I use a note icon
-
+<!-- -->
 > [!TIP] how I use a tip icon
-
+<!-- -->
 > [!WARNING] how I use a warning icon
-
+<!-- -->
 > [!IMPORTANT] how I use an important icon
-
+<!-- -->
+> [!MENU] how I use a menu icon
+<!-- -->
+> [!CLOSE] how I use a close icon
+<!-- -->
 > [!UHM] how I use an uhm icon
 
 <style>
@@ -35,6 +39,15 @@ I found the icons on [iconoir](https://iconoir.com/) and [SVG Repo](https://www.
     --icon-accent-color: var(--blue-6, #2d9bf6);
     --icon-contrast-color: var(--gray-10, #080808);
   }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --icon-color: var(--yellow-8, #b67400);
+      --icon-accent-color: var(--blue-9, #0b5aa2);
+      --icon-contrast-color: var(--gray-12, #000000);
+    }
+  }
+
   svg {
     inline-size: 48px;
     block-size: 48px;
@@ -43,29 +56,39 @@ I found the icons on [iconoir](https://iconoir.com/) and [SVG Repo](https://www.
 
 ## the icons
 
-### the tip icon:
+### the tip icon
 
 <svg role="img" aria-label="Tip"><use href="#icon-tip"></use></svg>
 
-### the warning icon:
+### the warning icon
 
 <svg role="img" aria-label="Warning"><use href="#icon-warning"></use></svg>
 
-### the important icon:
+### the important icon
 
 <svg role="img" aria-label="Important"><use href="#icon-important"></use></svg>
 
-### the note icon:
+### the note icon
 
 <svg role="img" aria-label="Note"><use href="#icon-note"></use></svg>
 
-### the uhm icon:
+### the menu icon
+
+this one is intentionally not a plain hamburger. It is a small panel/list glyph so it reads as "menu" while still feeling part of this icon set.
+
+<svg role="img" aria-label="Menu"><use href="#icon-menu"></use></svg>
+
+### the close icon
+
+<svg role="img" aria-label="Close"><use href="#icon-close"></use></svg>
+
+### the uhm icon
 
 this is my fallback icon, for when I use an non-exisistent icon. I use it in the "uhm" section, which is for things that I'm not sure about, or that I want to highlight as something that might be wrong. I couldn't find a good icon for this one, so I just
 
 <svg role="img" aria-label="Uhm"><use href="#icon-uhm"></use></svg>
 
-### the pencil icon:
+### the pencil icon
 
 <svg role="img" aria-label="Pencil"><use href="#icon-pencil"></use></svg>
 
@@ -97,10 +120,19 @@ You can use the generated SVG sprite file at `assets/icons-sprite.svg` in two co
 
 Notes:
 
-- Available symbol IDs: `icon-tip`, `icon-warning`, `icon-important`, `icon-note`, `icon-uhm`, `icon-pencil`.
+- Available symbol IDs: `icon-tip`, `icon-warning`, `icon-important`, `icon-note`, `icon-menu`, `icon-close`, `icon-uhm`, `icon-pencil`.
 - If you rely on CSS custom properties (for example `--icon-color`) prefer the inline approach or ensure the variables are defined inside the sprite itself; otherwise the external `<use>` may not receive those variables in some browsers.
 - For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
-- For accessibility, add `aria-hidden="true"` for purely decorative icons, or an appropriate `role`/`aria-label` when icons convey meaning.
+
+## Iteration workflow before merge
+
+Use this loop for each icon (`icon-menu`, then `icon-close`) before merging into broader UI usage:
+
+1. edit one icon geometry only (single commit)
+2. preview this article and compare with existing icons at multiple sizes
+3. check marker rendering with `[!MENU]` or `[!CLOSE]`
+4. if needed, adjust stroke weight or spacing in a follow-up commit
+5. when satisfied, squash or keep the commit history as your review trail
 
 ## Using SVG sprites as CSS background images
 
