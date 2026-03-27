@@ -22,6 +22,16 @@
     <path d="M12 11.5V16.5M12 7.51v-.01M12 22C17.5 22 22 17.5 22 12S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z"/>
   </symbol>
 
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none">
+    <rect x="2" y="2.5" width="20" height="19" rx="3.5" stroke="var(--icon-accent-color)" stroke-width="1.5"/>
+    <path d="M6 6.5v11M9.5 7.5h9M9.5 12h9M9.5 16.5h6" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" stroke="var(--icon-accent-color)" stroke-width="1.5"/>
+    <path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="var(--icon-color)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
   <symbol id="icon-uhm" viewBox="0 0 24 24" fill="none">
     <path fill="var(--icon-color)" d="M14 18a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2c.4 0 4-.7 4-3.3C18 6.4 16.7 5 14.7 5 13 5 12 6.3 12 7a2 2 0 1 1-4 0c0-3.3 3-6 6.7-6 5.3 0 7.3 4 7.3 7.3 0 2.8-1.5 4.9-4.3 6-.6.2-1.2.4-1.7.5V16c0 1.1-.9 2-2 2zM12 21.3a2 2 0 1 0 4 0 2 2 0 0 0-4 0M2 21.3a2 2 0 1 0 4 0 2 2 0 0 0-4 0M4 18a2 2 0 0 0 2-2V4a2 2 0 1 0-4 0v12c0 1.1.9 2 2 2z"/>
   </symbol>

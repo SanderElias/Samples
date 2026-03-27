@@ -3,6 +3,8 @@ const icons = {
   WARNING: '⚠️',
   IMPORTANT: '❗',
   NOTE: '🛈',
+  MENU: '≡',
+  CLOSE: '✕',
   UHM: '⁉️'
 };
 
