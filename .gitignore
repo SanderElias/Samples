@@ -67,3 +67,4 @@ scully/plugins/render-once.js.map
 /playwright/.cache/
 /playwright/.auth/
 /.playwright/**
+.playwright-mcp/**

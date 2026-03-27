@@ -5,7 +5,7 @@ se-blogs {
   max-inline-size: 98dvs;
   /* writing-mode: vertical-lr; */
   padding: var(--size-4);
-  overflow-y: auto;
+  overflow: clip;
   padding-inline-end: 1rem;
   grid-template-columns: 1fr var(--article-inline-size) auto 1fr;
   grid-template-rows: auto 1fr auto;
@@ -15,14 +15,47 @@ se-blogs {
     ' footer footer footer footer ';
   column-gap: var(--size-3);
 
+  /* Hidden checkbox for menu toggle */
+  #blog-menu-toggle {
+    display: none;
+  }
+
+  /* Menu button hidden on wide viewports */
+  .blog-menu-btn {
+    display: none;
+  }
+
   @media (width < 1050px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: [icon] 24px [content-start] minmax(0, 1fr) [content-end];
+    grid-template-rows:
+      [header-start] auto
+      [body-start] 1fr
+      [footer-start] auto
+      [footer-end];
     grid-template-areas:
-      'header'
-      'article'
-      'menu'
-      'footer';
-    justify-items: center;
+      'icon header'
+      '. article'
+      'footer footer';
+
+    /* Show menu button on narrow viewports */
+    .blog-menu-btn {
+      display: block;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      inline-size: 24px;
+      min-inline-size: 24px;
+      block-size: 24px;
+      min-block-size: 24px;
+      align-self: center;
+
+      svg {
+        inline-size: 24px;
+        block-size: 24px;
+        display: block;
+      }
+    }
   }
 
   :where(h1, h2, h3, h4, p, blockquote, ul, table, pre, code) {
@@ -52,11 +85,27 @@ se-blogs {
     gap: var(--size-3);
   }
 
-  h1 {
+  header {
     grid-area: header;
-    /* justify-self: start; */
-    /* margin-inline: auto; */
-    /* margin-block-start: var(--size-6); */
+  }
+
+  .blog-menu-btn {
+    @media (width < 1050px) {
+      grid-column: icon;
+      grid-row: header-start / body-start;
+      align-self: center;
+      justify-self: center;
+    }
+  }
+
+  h1 {
+
+    @media (width < 1050px) {
+      align-self: center;
+      margin-block-end: 0;
+    }
+
+    /* Common styles */
     margin-block-end: var(--size-4);
     text-align: left;
     text-wrap: balance;
@@ -67,10 +116,12 @@ se-blogs {
   }
   main {
     grid-area: article;
+    overflow-y: auto;
     margin-inline: auto;
     inline-size: 100%;
     min-inline-size: 0;
     max-inline-size: var(--article-inline-size);
+    padding-inline-end: var(--size-3);
     text-wrap: wrap;
     text-wrap: pretty;
     word-break: break-word;
@@ -78,12 +129,88 @@ se-blogs {
     h1:first-child {
       display: none;
     }
+
+    @media (width < 1050px) {
+      margin-inline: 0;
+      max-inline-size: 100%;
+      padding-inline-end: 0;
+    }
   }
 
   ul#blog-list {
-    grid-area: menu;
-    display: block;
-    list-style: none;
+    @media (width >= 1050px) {
+      grid-area: menu;
+      display: block;
+      list-style: none;
+    }
+
+    @media (width < 1050px) {
+      grid-column: icon / content-end;
+      grid-row: body-start / footer-start;
+      justify-self: start;
+      align-self: stretch;
+      margin-inline-start: calc(-1 * var(--size-4));
+      display: block;
+      list-style: none;
+      inline-size: min(300px, 80vw);
+      max-inline-size: 100%;
+      padding: var(--size-4);
+      min-inline-size: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transform: translateX(calc(-100% - var(--size-3)));
+      transition:
+        transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+        visibility 0s linear 0.5s;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 2;
+      border-start-end-radius: var(--border-size-5);
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+
+      &:hover {
+        scrollbar-color: var(--surface-4) transparent;
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: var(--border-size-5);
+        transition: background 0.3s;
+      }
+
+      &:hover::-webkit-scrollbar-thumb {
+        background: var(--surface-4);
+      }
+    }
+  }
+
+  @media (width < 1050px) {
+    &:has(#blog-menu-toggle:checked) ul#blog-list {
+      transform: translateX(0);
+      visibility: visible;
+      pointer-events: auto;
+      transition-delay: 0s;
+    }
+  }
+
+  /* Icon toggle — use :has() because label is inside header, not a direct sibling */
+  @media (width < 1050px) {
+    .blog-menu-btn .close-icon {
+      display: none;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .close-icon {
+      display: block;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-icon {
+      display: none;
+    }
   }
 
   p,

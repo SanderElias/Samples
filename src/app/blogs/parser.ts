@@ -8,7 +8,7 @@ const icons = {
   UHM: '⁉️'
 };
 
-type IconName = keyof typeof icons;
+export type IconNames = keyof typeof icons;
 
 export type MarkDown = string;
 
@@ -24,7 +24,7 @@ export async function parser(content: MarkDown): Promise<string> {
         Object.keys(icons).includes(match[1].toUpperCase())
           ? match[1].toUpperCase()
           : 'UHM'
-      ) as IconName;
+      ) as IconNames;
       const iconHtml = `<span class=icon><svg role="img" class="icon" aria-label="${iconName}"><use href="#icon-${iconName.toLowerCase()}"></use></svg></span>`;
       content = content.replace(fullMatch, iconHtml);
     }
