@@ -1,32 +1,95 @@
 se-blogs {
   --article-inline-size: 70ch;
   display: grid;
-  block-size: calc(100dvb - 45px);
+  block-size: 100dvb;
   max-inline-size: 98dvs;
-  /* writing-mode: vertical-lr; */
   padding: var(--size-4);
-  overflow-y: auto;
+  padding-block-end: 0;
+  overflow: clip;
   padding-inline-end: 1rem;
   grid-template-columns: 1fr var(--article-inline-size) auto 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr 0;
   grid-template-areas:
     ' . header header . '
     ' . article menu . '
     ' footer footer footer footer ';
   column-gap: var(--size-3);
 
+  /* Hidden checkbox for menu toggle */
+  #blog-menu-toggle {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  #blog-menu-toggle:focus-visible + .blog-menu-btn {
+    outline: 2px solid var(--blue-5);
+    outline-offset: 2px;
+  }
+
+  /* Menu button hidden on wide viewports */
+  .blog-menu-btn {
+    display: none;
+  }
+
   @media (width < 1050px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: [icon] 24px [content-start] minmax(0, 1fr) [content-end];
+    grid-template-rows:
+      [header-start] auto
+      [body-start] 1fr
+      [footer-start] 0
+      [footer-end];
     grid-template-areas:
-      'header'
-      'article'
-      'menu'
-      'footer';
-    justify-items: center;
+      'icon header'
+      '. article'
+      'footer footer';
+
+    /* Show menu button on narrow viewports */
+    .blog-menu-btn {
+      grid-column: icon;
+      grid-row: header-start / body-start;
+      justify-self: center;
+      display: block;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      inline-size: 24px;
+      min-inline-size: 24px;
+      block-size: 24px;
+      min-block-size: 24px;
+      align-self: center;
+
+      svg {
+        inline-size: 24px;
+        block-size: 24px;
+        display: block;
+      }
+    }
   }
 
   :where(h1, h2, h3, h4, p, blockquote, ul, table, pre, code) {
     max-inline-size: unset;
+  }
+
+  .sr-only {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   pre {
@@ -46,17 +109,17 @@ se-blogs {
     backdrop-filter: blur(2px);
   }
 
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-3);
+  header {
+    grid-area: header;
   }
 
   h1 {
-    grid-area: header;
-    /* justify-self: start; */
-    /* margin-inline: auto; */
-    /* margin-block-start: var(--size-6); */
+    @media (width < 1050px) {
+      align-self: center;
+      margin-block-end: 0;
+    }
+
+    /* Common styles */
     margin-block-end: var(--size-4);
     text-align: left;
     text-wrap: balance;
@@ -67,23 +130,110 @@ se-blogs {
   }
   main {
     grid-area: article;
+    overflow-y: auto;
     margin-inline: auto;
     inline-size: 100%;
     min-inline-size: 0;
     max-inline-size: var(--article-inline-size);
-    text-wrap: wrap;
+    padding-inline-end: var(--size-3);
     text-wrap: pretty;
     word-break: break-word;
 
     h1:first-child {
       display: none;
     }
+
+    @media (width < 1050px) {
+      margin-inline: 0;
+      max-inline-size: 100%;
+    }
   }
 
   ul#blog-list {
-    grid-area: menu;
     display: block;
     list-style: none;
+
+    @media (width >= 1050px) {
+      grid-area: menu;
+    }
+
+    @media (width < 1050px) {
+      grid-column: icon / content-end;
+      grid-row: body-start / footer-start;
+      justify-self: start;
+      align-self: stretch;
+      margin-inline-start: calc(-1 * var(--size-4));
+      inline-size: min(300px, 80vw);
+      max-inline-size: 100%;
+      padding: var(--size-4);
+      min-inline-size: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transform: translateX(calc(-100% - var(--size-3)));
+      transition:
+        transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+        visibility 0s linear 0.5s;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 2;
+      border-start-end-radius: var(--border-size-5);
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+
+      &:hover {
+        scrollbar-color: var(--surface-4) transparent;
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: var(--border-size-5);
+        transition: background 0.3s;
+      }
+
+      &:hover::-webkit-scrollbar-thumb {
+        background: var(--surface-4);
+      }
+    }
+  }
+
+  @media (width < 1050px) {
+    &:has(#blog-menu-toggle:checked) ul#blog-list {
+      transform: translateX(0);
+      visibility: visible;
+      pointer-events: auto;
+      transition-delay: 0s;
+    }
+  }
+
+  /* Icon toggle — use :has() because label is inside header, not a direct sibling */
+  @media (width < 1050px) {
+    .blog-menu-btn .close-icon {
+      display: none;
+    }
+
+    .blog-menu-btn .menu-close-text {
+      display: none;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .close-icon {
+      display: block;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-icon {
+      display: none;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-open-text {
+      display: none;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-close-text {
+      display: inline;
+    }
   }
 
   p,
@@ -133,50 +283,16 @@ se-blogs {
   }
 
   a {
-    color: var(--blue-4);
     cursor: pointer;
     font-size: inherit;
     font-weight: 700;
     line-height: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--blue-4);
     text-underline-offset: 2px;
-
-    &[href] {
-      &:hover,
-      &:focus-visible {
-        color: var(--blue-6);
-      }
-    }
-
-    &:visited {
-      color: var(--blue-7);
-
-      &[href] {
-        &:hover,
-        &:focus-visible {
-          color: var(--blue-9);
-        }
-      }
-    }
   }
-
-  /* Blockquote */
-  /* blockquote {
-    font-size: inherit;
-    line-height: inherit;
-    :first-child {
-      margin-block-start: 0;
-    }
-
-    :last-child {
-      margin-block-end: 0;
-    }
-  } */
 
   /* Text */
   p {
-    /* font-size: inherit; */
     line-height: 1.5;
     margin-block: var(--size-2);
   }
@@ -367,14 +483,6 @@ se-blogs {
 
   @media (prefers-color-scheme: dark) {
     /* VS Highlighting Theme, copied from highlight.js/styles/vs2015.min.css  */
-    pre code.hljs {
-      display: block;
-      overflow-x: auto;
-      padding: 1em;
-    }
-    code.hljs {
-      padding: 3px 5px;
-    }
     .hljs {
       background: #1e1e1e;
       color: #dcdcdc;
@@ -418,7 +526,7 @@ se-blogs {
       font-style: italic;
     }
     .hljs-doctag {
-      color: #608b4e;
+      color: #79a56a;
     }
     .hljs-meta,
     .hljs-meta .hljs-keyword,
@@ -463,15 +571,6 @@ se-blogs {
   }
   @media (prefers-color-scheme: light) {
     /* VS Highlighting Theme, copied from highlight.js/styles/vs.min.css  */
-
-    pre code.hljs {
-      display: block;
-      overflow-x: auto;
-      padding: 1em;
-    }
-    code.hljs {
-      padding: 3px 5px;
-    }
     .hljs {
       background: #fff;
       color: #000;
@@ -503,18 +602,18 @@ se-blogs {
     .hljs-meta,
     .hljs-selector-attr,
     .hljs-selector-pseudo {
-      color: #2b91af;
+      color: #0b6e87;
     }
     .hljs-doctag {
-      color: grey;
+      color: #616161;
     }
     .hljs-attr {
-      color: red;
+      color: #a31515;
     }
     .hljs-bullet,
     .hljs-link,
     .hljs-symbol {
-      color: #00b0e8;
+      color: #0078d4;
     }
     .hljs-emphasis {
       font-style: italic;
@@ -522,5 +621,14 @@ se-blogs {
     .hljs-strong {
       font-weight: 700;
     }
+  }
+
+  pre code.hljs {
+    display: block;
+    padding: 1em;
+  }
+
+  code.hljs {
+    padding: 3px 5px;
   }
 }

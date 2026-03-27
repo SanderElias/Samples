@@ -8,6 +8,13 @@
   block-size: fit-content;
   border-radius: var(--border-size-5);
 
+  @media (width < 1050px) {
+    inline-size: 100%;
+    min-inline-size: 0;
+    block-size: auto;
+    border-radius: 0;
+  }
+
   li {
     margin: 0;
   }

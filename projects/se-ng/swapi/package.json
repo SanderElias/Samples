@@ -7,13 +7,13 @@
     "url": "https://github.com/SanderElias/Samples/tree/main/projects/se-ng/swapi"
   },
   "dependencies": {
-    "tslib": "^2.4.0"
+    "tslib": "2.8.1"
   },
   "type": "module",
   "peerDependencies": {
-    "@angular/common": ">=18.0.0",
-    "@angular/core": ">=18.0.0",
-    "rxjs": ">=7.5.0",
-    "idb-keyval": "^6.2.0"
+    "@angular/common": ">=21",
+    "@angular/core": ">=21",
+    "rxjs": ">=7",
+    "idb-keyval": ">=6"
   }
 }

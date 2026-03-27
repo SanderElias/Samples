@@ -8,7 +8,7 @@ const icons = {
   UHM: '⁉️'
 };
 
-type IconName = keyof typeof icons;
+export type IconNames = keyof typeof icons;
 
 export type MarkDown = string;
 
@@ -24,7 +24,7 @@ export async function parser(content: MarkDown): Promise<string> {
         Object.keys(icons).includes(match[1].toUpperCase())
           ? match[1].toUpperCase()
           : 'UHM'
-      ) as IconName;
+      ) as IconNames;
       const iconHtml = `<span class=icon><svg role="img" class="icon" aria-label="${iconName}"><use href="#icon-${iconName.toLowerCase()}"></use></svg></span>`;
       content = content.replace(fullMatch, iconHtml);
     }
@@ -76,6 +76,17 @@ export async function parser(content: MarkDown): Promise<string> {
 
   // by default all links open in the same tab, this forces external links to open in a new tab
   return context
+    // Make scrollable code block containers keyboard-focusable for a11y.
+    .replaceAll('<pre>', '<pre tabindex="0" aria-label="Code block">')
+    // Ensure markdown task-list checkboxes have accessible names.
+    .replaceAll(
+      '<input checked="" disabled="" type="checkbox">',
+      '<input checked="" disabled="" type="checkbox" aria-label="Checklist item">'
+    )
+    .replaceAll(
+      '<input disabled="" type="checkbox">',
+      '<input disabled="" type="checkbox" aria-label="Checklist item">'
+    )
     .replaceAll('href="http', 'target="_blank" rel="noopener noreferrer" href="http')
     // Lift the icon out of its <p> and wrap all remaining blockquote content in
     // a single <div>. This gives the grid exactly two children: the icon (col 1)
