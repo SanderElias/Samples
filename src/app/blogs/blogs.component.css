@@ -1,14 +1,14 @@
 se-blogs {
   --article-inline-size: 70ch;
   display: grid;
-  block-size: calc(100dvb - 45px);
+  block-size: 100dvb;
   max-inline-size: 98dvs;
-  /* writing-mode: vertical-lr; */
   padding: var(--size-4);
+  padding-block-end: 0;
   overflow: clip;
   padding-inline-end: 1rem;
   grid-template-columns: 1fr var(--article-inline-size) auto 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr 0;
   grid-template-areas:
     ' . header header . '
     ' . article menu . '
@@ -17,7 +17,21 @@ se-blogs {
 
   /* Hidden checkbox for menu toggle */
   #blog-menu-toggle {
-    display: none;
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  #blog-menu-toggle:focus-visible + .blog-menu-btn {
+    outline: 2px solid var(--blue-5);
+    outline-offset: 2px;
   }
 
   /* Menu button hidden on wide viewports */
@@ -30,7 +44,7 @@ se-blogs {
     grid-template-rows:
       [header-start] auto
       [body-start] 1fr
-      [footer-start] auto
+      [footer-start] 0
       [footer-end];
     grid-template-areas:
       'icon header'
@@ -39,6 +53,9 @@ se-blogs {
 
     /* Show menu button on narrow viewports */
     .blog-menu-btn {
+      grid-column: icon;
+      grid-row: header-start / body-start;
+      justify-self: center;
       display: block;
       cursor: pointer;
       background: none;
@@ -62,6 +79,19 @@ se-blogs {
     max-inline-size: unset;
   }
 
+  .sr-only {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   pre {
     overflow-x: auto;
     max-inline-size: 100%;
@@ -79,27 +109,11 @@ se-blogs {
     backdrop-filter: blur(2px);
   }
 
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-3);
-  }
-
   header {
     grid-area: header;
   }
 
-  .blog-menu-btn {
-    @media (width < 1050px) {
-      grid-column: icon;
-      grid-row: header-start / body-start;
-      align-self: center;
-      justify-self: center;
-    }
-  }
-
   h1 {
-
     @media (width < 1050px) {
       align-self: center;
       margin-block-end: 0;
@@ -122,7 +136,6 @@ se-blogs {
     min-inline-size: 0;
     max-inline-size: var(--article-inline-size);
     padding-inline-end: var(--size-3);
-    text-wrap: wrap;
     text-wrap: pretty;
     word-break: break-word;
 
@@ -133,15 +146,15 @@ se-blogs {
     @media (width < 1050px) {
       margin-inline: 0;
       max-inline-size: 100%;
-      padding-inline-end: 0;
     }
   }
 
   ul#blog-list {
+    display: block;
+    list-style: none;
+
     @media (width >= 1050px) {
       grid-area: menu;
-      display: block;
-      list-style: none;
     }
 
     @media (width < 1050px) {
@@ -150,8 +163,6 @@ se-blogs {
       justify-self: start;
       align-self: stretch;
       margin-inline-start: calc(-1 * var(--size-4));
-      display: block;
-      list-style: none;
       inline-size: min(300px, 80vw);
       max-inline-size: 100%;
       padding: var(--size-4);
@@ -204,12 +215,24 @@ se-blogs {
       display: none;
     }
 
+    .blog-menu-btn .menu-close-text {
+      display: none;
+    }
+
     &:has(#blog-menu-toggle:checked) .blog-menu-btn .close-icon {
       display: block;
     }
 
     &:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-icon {
       display: none;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-open-text {
+      display: none;
+    }
+
+    &:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-close-text {
+      display: inline;
     }
   }
 
@@ -288,22 +311,8 @@ se-blogs {
     }
   }
 
-  /* Blockquote */
-  /* blockquote {
-    font-size: inherit;
-    line-height: inherit;
-    :first-child {
-      margin-block-start: 0;
-    }
-
-    :last-child {
-      margin-block-end: 0;
-    }
-  } */
-
   /* Text */
   p {
-    /* font-size: inherit; */
     line-height: 1.5;
     margin-block: var(--size-2);
   }
@@ -494,14 +503,6 @@ se-blogs {
 
   @media (prefers-color-scheme: dark) {
     /* VS Highlighting Theme, copied from highlight.js/styles/vs2015.min.css  */
-    pre code.hljs {
-      display: block;
-      overflow-x: auto;
-      padding: 1em;
-    }
-    code.hljs {
-      padding: 3px 5px;
-    }
     .hljs {
       background: #1e1e1e;
       color: #dcdcdc;
@@ -590,15 +591,6 @@ se-blogs {
   }
   @media (prefers-color-scheme: light) {
     /* VS Highlighting Theme, copied from highlight.js/styles/vs.min.css  */
-
-    pre code.hljs {
-      display: block;
-      overflow-x: auto;
-      padding: 1em;
-    }
-    code.hljs {
-      padding: 3px 5px;
-    }
     .hljs {
       background: #fff;
       color: #000;
@@ -649,5 +641,15 @@ se-blogs {
     .hljs-strong {
       font-weight: 700;
     }
+  }
+
+  pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+  }
+
+  code.hljs {
+    padding: 3px 5px;
   }
 }

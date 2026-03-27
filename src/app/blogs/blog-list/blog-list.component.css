@@ -9,11 +9,6 @@
   border-radius: var(--border-size-5);
 
   @media (width < 1050px) {
-    display: block;
-    background-color: var(--surface-2);
-    padding: var(--size-4);
-    margin: 0;
-    list-style-type: none;
     inline-size: 100%;
     min-inline-size: 0;
     block-size: auto;

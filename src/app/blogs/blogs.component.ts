@@ -20,11 +20,13 @@ import { Bloglist } from './bloglist';
   template: `
     @defer (hydrate never) {
       <input id="blog-menu-toggle" type="checkbox" />
-      <label for="blog-menu-toggle" class="blog-menu-btn">
-        <svg class="menu-icon" aria-label="Open menu" width="24" height="24" viewBox="0 0 24 24">
+      <label for="blog-menu-toggle" class="blog-menu-btn" title="Toggle article menu">
+        <span class="sr-only menu-open-text">Open article menu</span>
+        <span class="sr-only menu-close-text">Close article menu</span>
+        <svg class="menu-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24">
           <use href="#icon-menu"></use>
         </svg>
-        <svg class="close-icon" aria-label="Close menu" width="24" height="24" viewBox="0 0 24 24">
+        <svg class="close-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24">
           <use href="#icon-close"></use>
         </svg>
       </label>
