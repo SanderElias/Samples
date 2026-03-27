@@ -10,10 +10,10 @@
   "type": "module",
   "publisher": "Sander Elias",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "2.8.1"
   },
   "peerDependencies": {
-    "rxjs": ">5.5",
-    "@angular/core": ">5"
+    "rxjs": ">=7",
+    "@angular/core": ">=21"
   }
 }

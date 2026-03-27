@@ -9,10 +9,10 @@
   },
   "publisher": "Sander Elias",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "2.8.1"
   },
   "type": "module",
   "peerDependencies": {
-    "rxjs": ">5.5"
+    "rxjs": ">=7"
   }
 }
