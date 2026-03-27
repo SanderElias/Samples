@@ -1,9 +1,9 @@
+# The year 2038 problem
+
 <style>
   .num-table td:not(:first-child),
   .num-table th:not(:first-child) { text-align: right; }
 </style>
-
-# The year 2038 problem
 
 Just like the year 2000 problem, the year 2038 problem is a potential issue that may arise in computer systems and software applications due to the way dates are represented and processed. As we approach the year 2038, some systems may encounter difficulties in handling dates beyond this point, leading to errors, data corruption, or system failures.
 
@@ -77,11 +77,12 @@ I mean, even when they designed the original systems, they must have known this 
 Well, no. At the time (1960s) memory and storage were _very expensive_ and limited resources. Using a 32-bit signed integer was a practical choice that balanced the need for date representation with the constraints of the hardware. At that point in time a main memory of a kilobyte was considered large. Remember the uproar when the IBM PC AT came with 256 kilobytes of RAM as standard? And then when Bill Gates said that 640 kilobytes should be enough for anyone? (1981, and yes, I know he claims he never said that).
 
 > [!NOTE] take a second look at those numbers in the above paragraph. A kilobyte is 1024 bytes. The numbers are measured in _kilobytes_! Nowadays, we measure main memory in gigabytes. Let's line that up:
+>
 > <div class="num-table">
 >
-> | | |
-> | -------- | ------------ |
-> | kilobyte | 1024 |
+> |    unit  |               |
+> | -------- | ------------- |
+> | kilobyte | 1024          |
 > | gigabyte | 1,073,741,824 |
 >
 > </div>
