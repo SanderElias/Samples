@@ -15,7 +15,7 @@ import { WireitsComponent } from './wireits/wireits.component';
     <app-select-package-json></app-select-package-json>
     <app-scripts></app-scripts>
     <se-wireits></se-wireits> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {

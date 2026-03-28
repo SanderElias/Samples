@@ -34,7 +34,7 @@ import {
       </section>
     </label>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './anchor-pos.component.css'
 })
 export class AnchorPosComponent {

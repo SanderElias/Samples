@@ -12,7 +12,7 @@ import { switchMap, tap } from 'rxjs/operators';
   selector: 'app-mixins',
   templateUrl: './mixins.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe, JsonPipe]
 })
 export class MixinsComponent extends seOnDestroy(

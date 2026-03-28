@@ -62,7 +62,7 @@ import { RelationsService } from './relations.service';
     -->
     <se-notify-dialog /> `,
   styleUrl: './crud-stuff.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RelationsService]
 })
 export class CrudStuffComponent {

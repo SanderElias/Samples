@@ -26,7 +26,7 @@ import {
       }
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './view-transitions.component.css'
 })
 export class ViewTransitionsComponent {

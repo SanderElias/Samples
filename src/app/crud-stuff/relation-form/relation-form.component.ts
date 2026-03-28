@@ -65,7 +65,7 @@ import { RelationsService } from '../relations.service';
       <button>Submit</button>
     </form>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './relation-form.component.css'
 })
 export class RelationForm {

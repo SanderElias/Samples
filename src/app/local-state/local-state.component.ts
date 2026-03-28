@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-local-state',
   templateUrl: './local-state.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet]
 })
 export class LocalStateComponent {}

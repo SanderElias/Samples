@@ -20,7 +20,7 @@ import { InMemDb } from './in-mem-db.service';
       }
     </ul>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './in-mem-sample.component.css'
 })
 export class InMemSampleComponent {

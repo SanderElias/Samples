@@ -27,7 +27,7 @@ import { debouncedComputed } from '@se-ng/signal-utils';
       </p>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './signal-debounce.component.css'
 })
 export class SignalDebounce {

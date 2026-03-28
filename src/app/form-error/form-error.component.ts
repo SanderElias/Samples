@@ -8,7 +8,7 @@ import { ShowErrorComponent } from './show-error/show-error.component';
   selector: 'se-form-error',
   imports: [FormsModule, ShowErrorComponent, JsonPipe],
   templateUrl: './form-error.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./form-error.component.css']
 })
 export default class FormErrorComponent {

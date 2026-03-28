@@ -12,7 +12,7 @@ import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
   selector: 'app-lifeycle-hooks-sample',
   templateUrl: './lifeycle-hooks-sample.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, AsyncPipe]
 })
 export class LifeycleHooksSampleComponent extends seOnInit(

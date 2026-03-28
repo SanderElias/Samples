@@ -38,7 +38,7 @@ import { deepEqual } from '@se-ng/signal-utils';
     }
   </dialog> `,
   styleUrl: './confirm-it.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(click)': 'captureClick($event)'
   }

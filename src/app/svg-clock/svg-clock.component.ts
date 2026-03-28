@@ -9,7 +9,7 @@ const circumference = (radius: number) => twoPi * radius;
   selector: 'app-svg-clock',
   templateUrl: './svg-clock.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe]
 })
 export class SvgClockComponent {

@@ -84,7 +84,7 @@ import { SampledataService } from '../sampledata.service';
       </main>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./reactive.component.css']
 })
 export default class ReactiveComponent implements OnDestroy {

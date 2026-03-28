@@ -41,7 +41,7 @@ import { RelationComponent } from '../../relation/relation.component';
       }
     `
   ],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RelationComponent, AsyncPipe]
 })
 export class ProductDetailComponent {

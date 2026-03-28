@@ -35,7 +35,7 @@ class SignalFormController extends HTMLElement {
       (change)="update()"
     />
   }`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './digits.component.css'
 })
 export class DigitsComponent extends SignalFormController {

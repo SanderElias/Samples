@@ -60,7 +60,7 @@ import { StackedPerComponent } from './stacked-per/stacked-per.component';
       />
     </svg>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './metered-view.component.css'
 })
 export class MeteredViewComponent {

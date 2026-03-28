@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'app-cell',
   template: `<ng-content></ng-content>`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {

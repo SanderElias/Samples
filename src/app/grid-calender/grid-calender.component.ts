@@ -11,7 +11,7 @@ import { MonthComponent } from './month/month.component';
         <se-month [date]="m"></se-month>
       }
     </div> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./grid-calender.component.css']
 })
 export class GridCalenderComponent {

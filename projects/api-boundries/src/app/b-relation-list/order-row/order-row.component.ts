@@ -40,7 +40,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
       }
     `
   ],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProductDetailComponent, RelationComponent, AsyncPipe]
 })
 export class OrderRowComponent {

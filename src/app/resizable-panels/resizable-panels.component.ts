@@ -24,7 +24,7 @@ import { ResizablePanelComponent } from './resizable-panel/resizable-panel.compo
       </se-resizable-panel>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./resizable-panels.component.css']
 })
 export class ResizablePanelsComponent {

@@ -22,7 +22,7 @@ type Vm = [UserCard[], string];
   selector: 'app-filter-sample',
   templateUrl: './filter-sample.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, AsyncPipe]
 })
 export class FilterSampleComponent {

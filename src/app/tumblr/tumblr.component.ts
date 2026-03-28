@@ -26,7 +26,7 @@ const clientId = 'e972ca06cc4b961';
 @Component({
   selector: 'app-tumblr',
   templateUrl: './tumblr-component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe]
 })
 export class TumblrComponent implements OnInit {

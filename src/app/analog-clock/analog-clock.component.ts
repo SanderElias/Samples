@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'app-analog-clock',
   template: ` <canvas width="400" height="400" class="canvas"></canvas> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: []
 })
 export class AnalogClockComponent implements OnInit {

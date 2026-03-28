@@ -63,7 +63,7 @@ let currentDragged: HTMLDivElement | undefined;
       />
     </label>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './toh.component.css'
 })
 export class TohComponent {

@@ -1,5 +1,5 @@
 import type { OnInit } from '@angular/core';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { timer } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
@@ -9,16 +9,21 @@ import { WaitForItComponent } from './wait-for-it/wait-for-it.component';
   selector: 'app-required-attributes',
   templateUrl: './required-attributes.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [WaitForItComponent]
 })
 export class RequiredAttributesComponent implements OnInit {
-  reqProps: string[] = [];
+  reqProps = signal<string[]>([]);
   /** no need to unsub, will be done after 4 */
   fillthem = timer(1000, 1000)
     .pipe(
       take(4),
-      tap(n => this.reqProps.push('prop 1' + Math.ceil(Math.random() * 100)))
+      tap(() =>
+        this.reqProps.update(props => [
+          ...props,
+          'prop 1' + Math.ceil(Math.random() * 100)
+        ])
+      )
     )
     .subscribe();
 

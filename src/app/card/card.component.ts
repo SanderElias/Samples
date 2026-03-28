@@ -16,7 +16,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       </section>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {

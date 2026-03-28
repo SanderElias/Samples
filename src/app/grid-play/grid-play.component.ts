@@ -28,7 +28,7 @@ import { LoggedIn } from './logged-in-user.service';
     </div>
     <div id="cell-coords">{{ mouseOnCell().x }}, {{ mouseOnCell().y }}</div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './grid-play.component.css'
 })
 export class GridPlayComponent {

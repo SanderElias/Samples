@@ -17,7 +17,7 @@ import {
     </svg>
     <img src="./#use_assets-icons-cloud-svg" alt="" />
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './icon-sprite.component.css'
 })
 export class IconSpriteComponent {

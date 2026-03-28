@@ -17,7 +17,7 @@ import { StepDataService } from '../step-data.service';
   imports: [],
   template: ` <ng-content /> `,
   styleUrl: './steps.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [StepDataService]
 })
 export class StepsComponent {

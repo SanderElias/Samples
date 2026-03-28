@@ -36,7 +36,7 @@ import type { FieldType } from '../edit-record.component';
       }
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './field-edit.component.css'
 })
 export class FieldEditComponent {

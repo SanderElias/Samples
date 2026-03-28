@@ -4,7 +4,7 @@ import { monthNames, weekDayNames } from 'src/app/util/daysandmonthsnames';
 @Component({
   selector: 'app-svg-calender',
   templateUrl: './svg-calender.component.svg',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {

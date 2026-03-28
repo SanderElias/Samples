@@ -49,7 +49,7 @@ const MAX = 1000;
     </button>
   `,
   styleUrl: './input-random-int.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.min-max]': 'showMinMax()'
   }

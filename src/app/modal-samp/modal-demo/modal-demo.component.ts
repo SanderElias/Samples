@@ -1,19 +1,15 @@
-import type { OnInit } from '@angular/core';
-import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, model, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-modal-demo',
   templateUrl: './modal-demo.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: []
 })
-export class ModalDemoComponent implements OnInit {
-  @ViewChild('modal', { static: true }) modal: any;
-  shown = false;
+export class ModalDemoComponent {
+  modal = viewChild<HTMLDivElement>('modal');
+  shown = model(false);
 
-  ngOnInit() {
-    // console.log(this.modal);
-    setTimeout(() => (this.shown = true), 1500);
-  }
+  #_ = afterNextRender(() => setTimeout(() => this.shown.set(true), 1500));
 }

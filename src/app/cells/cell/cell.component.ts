@@ -18,7 +18,7 @@ const clampedRandom = (min: number, max: number) =>
   selector: 'se-cell',
   imports: [],
   template: ``,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./cell.component.css']
 })
 export class CellComponent {

@@ -11,7 +11,7 @@ import { BogusLoadService } from '../bogus-load.service';
 @Component({
   selector: 'app-htmlload',
   templateUrl: './htmlload.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {

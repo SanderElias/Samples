@@ -1,9 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   effect,
-  inject,
-  ChangeDetectionStrategy
+  inject
 } from '@angular/core';
 
 import { LoggedIn } from '../grid-play/logged-in-user.service';
@@ -22,7 +22,7 @@ import { LoggedIn } from '../grid-play/logged-in-user.service';
       </p>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './authenticaded-user-only.component.css'
 })
 export class AuthenticadedUserOnlyComponent {
@@ -34,20 +34,16 @@ export class AuthenticadedUserOnlyComponent {
   user = this.#loggedIn.user;
   #verify = async () => {
     const res = await this.#loggedIn.refreshSession();
-    // console.log(
-    //   'Session refresh triggered from AuthenticadedUserOnlyComponent',
-    //   res
-    // );
     // Schedule the next verification in 4 minutes (less than the typical 5-minute session timeout)
     this.#lastVerify = setTimeout(this.#verify, 4 * 60 * 1000);
   };
   #lastVerify = undefined as ReturnType<typeof setTimeout> | undefined;
 
+  // when the user changes (e.g. logs in or out), we want to start or stop the periodic session verification accordingly
   _ = effect(() => {
     this.#lastVerify && clearTimeout(this.#lastVerify); // clear any existing timeout to avoid multiple concurrent timers
     this.#lastVerify = undefined; // reset lastVerify since we just cleared it
     if (this.user()) {
-      // console.log('User is logged in, starting session refresh cycle');
       this.#verify();
     }
   });

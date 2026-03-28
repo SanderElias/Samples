@@ -28,7 +28,7 @@ const day = 24 * hour;
       <li>{{ seconds() }} seconds</li>
       <li>{{ milliseconds() }} milliseconds</li>
     </ul> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './timer.component.css'
 })
 export class TimerComponent {

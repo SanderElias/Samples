@@ -21,7 +21,7 @@ import { OrderRowComponent } from './order-row/order-row.component';
       <app-order-row [order]="order"></app-order-row>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RelationComponent, OrderRowComponent, AsyncPipe]
 })
 export class RelationDetailComponent {

@@ -20,7 +20,7 @@ import {
       </div>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './stacked-per.component.css'
 })
 export class StackedPerComponent {

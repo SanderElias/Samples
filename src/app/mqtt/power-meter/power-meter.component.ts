@@ -67,7 +67,7 @@ import {
     <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(show)]="dialogOpen" />
   `,
   styleUrl: './power-meter.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ToggleComponent, PowerMeterDialogComponent, GaugeComponent]
 })
 export class PowerMeterComponent {

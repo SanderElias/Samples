@@ -11,7 +11,7 @@ import {
   selector: 'input [experiment] [type=text]',
   imports: [],
   template: ``,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './input-host.component.css'
 })
 export class InputHostComponent {

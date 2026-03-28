@@ -12,7 +12,7 @@ import { SeDialogComponent } from './dialog/dialog.component';
       <p>This modal dialog has a groovy backdrop!</p>
       <button autofocus (click)="shown.set(false)">Close</button>
     </se-dialog> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./dialog.component.css']
 })
 export default class DialogComponent {

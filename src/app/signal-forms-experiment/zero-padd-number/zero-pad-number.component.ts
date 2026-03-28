@@ -19,7 +19,7 @@ const defaultMaxLength = 5;
     [value]="rawValue()"
     (input)="format($event.target.value)"
   />`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./zero-pad-number.component.css']
 })
 export class ZeroPadNumberComponent implements FormValueControl<

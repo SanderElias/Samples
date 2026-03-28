@@ -87,7 +87,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
       </g>
     </svg>
   }`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './spinner.component.css'
 })
 export class SpinnerComponent {

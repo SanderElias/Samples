@@ -13,7 +13,7 @@ import { LangService } from '../lang.service';
       }
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./pick-lang.component.css']
 })
 export class PickLangComponent {

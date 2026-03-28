@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'show-comp',
   template: ` <p>show-comp works! {{ component }}</p> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: []
 })
 export class ShowCompComponent implements OnInit {

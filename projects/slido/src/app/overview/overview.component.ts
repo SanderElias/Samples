@@ -13,7 +13,7 @@ import { SlidesHandlerService } from '../slides-handler.service.js';
   selector: 'se-overview',
   imports: [SlideComponent, RouterLink],
   templateUrl: './overview.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './overview.component.css'
 })
 export class OverviewComponent {

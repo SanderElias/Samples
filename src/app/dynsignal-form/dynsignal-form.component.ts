@@ -95,7 +95,7 @@ interface FormFieldDef<T> {
     </form>
     <pre><code>{{ dataForm().value() | json }}</code></pre>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './dynsignal-form.component.css'
 })
 export class DynsignalFormComponent {

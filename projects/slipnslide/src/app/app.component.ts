@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   template: `<router-outlet></router-outlet>`,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet]
 })
 export class AppComponent {

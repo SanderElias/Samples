@@ -64,7 +64,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
         </label>
       </div>
     } `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './contacts.component.css'
 })
 export class ContactsComponent {

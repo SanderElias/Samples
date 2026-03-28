@@ -9,7 +9,7 @@ import {
   selector: 'app-lazy-component',
   templateUrl: './lazy-component.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgComponentOutlet]
 })
 export class LazyComponentComponent {

@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
       }
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./route-list.component.css']
 })
 export class RouteListComponent {

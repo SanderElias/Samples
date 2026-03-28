@@ -14,7 +14,7 @@ import { IdDirective } from '../id.directive';
   selector: 'app-directives-sample',
   templateUrl: './directives-sample.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IdDirective, AsyncPipe]
 })
 export class DirectivesSampleComponent extends seAfterContentInit() {
