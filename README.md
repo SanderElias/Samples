@@ -71,6 +71,9 @@ flowchart LR
 
 - **Always** read and prioritize `TESTING.md` (canonical testing instructions), `lmm-angular.txt` (Angular style guide), and `package.json` (check the `wireit` section) when answering questions or suggesting code/CI changes.
 - Preferred test commands: `pnpm test` or `ng test samples --watch=false`. Coverage output: `coverage/<project>/index.html`.
+- Prefer the existing jcodemunch index for workspace exploration and code
+  search. Avoid rescanning the full repository unless the index is stale or the
+  user asks for a fresh reindex.
 - Before proposing changes, check `package.json`, `angular.json`, and `TESTING.md`, and report which files were consulted.
 
 (See `copilot-instructions.md` for machine-readable assistant guidance.)

@@ -24,6 +24,9 @@ Please load and _prioritize_ the files listed in the frontmatter every time this
 
 Behavior rules
 
+- Prefer the existing jcodemunch index for workspace analysis. Query the
+  indexed repo first instead of rescanning the folder from scratch. Re-index
+  only when the workspace has changed materially or the user explicitly asks.
 - When responding about testing, cite `TESTING.md` first and prefer the `package.json`/`wireit` scripts (use `pnpm test` / `ng test <project>` examples).
 - When asked about Angular conventions or style, use `lmm-angular.txt` as the primary source.
 - Before suggesting code or CI changes, scan `TESTING.md`, `package.json`, and `angular.json` and report which files were consulted.
