@@ -1,0 +1,60 @@
+Murmur Garden high-level plan
+=============================
+
+1. Core product
+
+   Build a federated, threaded discussion platform that feels closer to Google
+   Groups or a forum than to chat. The main objects are communities, threads,
+   posts, replies, and moderation state.
+
+2. Protocol choice
+
+   Use ActivityPub as the federation layer for server-to-server exchange. That
+   keeps the system aligned with the "federated discussion" goal and gives the
+   project a well-known baseline.
+
+3. Runtime shape
+
+   Run the system in Podman containers and lean toward many small services
+   rather than a single monolith. A simple starting layout would be:
+
+   - API service for local app traffic
+   - federation service for ActivityPub inbox/outbox handling
+   - worker service for retries, fan-out, and cleanup
+   - postgres container for primary storage
+   - bridge container for WhatsApp/SMS adapters
+   - optional search/index container later if needed
+
+   Keep the web client separate from backend services.
+
+4. Client shape
+
+   Build the web client with Angular and open-props. Treat it as a static site
+   if possible, so it can be served by Caddy or hosted on GitHub Pages.
+
+5. Storage choice
+
+   Prefer PostgreSQL for the main database. It is a strong default for threads,
+   federation state, moderation records, and bridge mappings. Revisit only if a
+   later constraint makes a different store clearly better.
+
+6. Bridge layer
+
+   Add bridges as a separate layer that maps selected communities or threads to
+   external channels like WhatsApp or SMS. Bridges should be opt-in and
+   independently controllable.
+
+7. Operational concerns
+
+   Plan for moderation, spam protection, retries, delivery tracking, backups,
+   and observability from the start. Federation and bridging both increase the
+   need for explicit state tracking.
+
+8. Suggested milestones
+
+   - define the minimum data model
+   - sketch the ActivityPub-facing message flow and service boundaries
+   - outline the Podman container layout
+   - confirm the Angular + open-props client and static hosting path
+   - decide the bridge boundaries
+   - then refine the UI and deployment story
