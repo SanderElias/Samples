@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-labelledby="aiMateTitle aiMateDesc">
+  <title id="aiMateTitle">AI-Mate</title>
+  <desc id="aiMateDesc">A ship's helm steering wheel with an asymmetrical gold circuit-board targeting reticle and plated traces branching from the hub — the AI-Mate logo.</desc>
+
+  <circle cx="200" cy="200" r="194" fill="#FFFFFF"/>
+  <circle cx="200" cy="200" r="194" fill="none" stroke="#0D0D0D" stroke-width="8"/>
+
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(0,200,200)"/>
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(45,200,200)"/>
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(90,200,200)"/>
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(135,200,200)"/>
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(180,200,200)"/>
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(225,200,200)"/>
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(270,200,200)"/>
+  <line x1="200" y1="200" x2="200" y2="48" stroke="#0D0D0D" stroke-width="10" stroke-linecap="round" transform="rotate(315,200,200)"/>
+
+  <circle cx="200" cy="200" r="136" fill="none" stroke="#0D0D0D" stroke-width="20"/>
+  <circle cx="200" cy="200" r="120" fill="none" stroke="#CC1820" stroke-width="5"/>
+
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(0,200,200)"/>
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(45,200,200)"/>
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(90,200,200)"/>
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(135,200,200)"/>
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(180,200,200)"/>
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(225,200,200)"/>
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(270,200,200)"/>
+  <circle cx="200" cy="34" r="14" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="3.5" transform="rotate(315,200,200)"/>
+
+  <circle cx="200" cy="200" r="46" fill="#FFFFFF" stroke="#0D0D0D" stroke-width="5"/>
+
+  <circle cx="200" cy="200" r="37" fill="none" stroke="#C89620" stroke-width="3.8"/>
+  <circle cx="200" cy="200" r="24" fill="none" stroke="#C89620" stroke-width="2.8"/>
+  <circle cx="200" cy="200" r="7.5" fill="#C89620"/>
+
+  <line x1="173" y1="200" x2="190" y2="200" stroke="#C89620" stroke-width="3.2"/>
+  <line x1="210" y1="200" x2="227" y2="200" stroke="#C89620" stroke-width="3.2"/>
+  <line x1="200" y1="173" x2="200" y2="190" stroke="#C89620" stroke-width="3.2"/>
+  <line x1="200" y1="210" x2="200" y2="227" stroke="#C89620" stroke-width="3.2"/>
+
+  <line x1="182" y1="182" x2="187" y2="187" stroke="#C89620" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="218" y1="182" x2="213" y2="187" stroke="#C89620" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="182" y1="218" x2="187" y2="213" stroke="#C89620" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="218" y1="218" x2="213" y2="213" stroke="#C89620" stroke-width="2.8" stroke-linecap="round"/>
+
+  <polyline points="214,162 230,162 234,158 234,138 240,132 255,132"
+            stroke="#C89620" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="230" cy="162" r="3.6" fill="#C89620"/>
+  <circle cx="234" cy="138" r="3.1" fill="#C89620"/>
+  <circle cx="255" cy="132" r="5.6" fill="#FFFFFF" stroke="#C89620" stroke-width="3"/>
+  <circle cx="255" cy="132" r="2.2" fill="#C89620"/>
+
+  <polyline points="244,212 260,212 264,208 280,208 284,204 289,200"
+            stroke="#C89620" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="260" cy="212" r="3.6" fill="#C89620"/>
+  <circle cx="280" cy="208" r="3.1" fill="#C89620"/>
+  <circle cx="289" cy="200" r="6.4" fill="#FFFFFF" stroke="#C89620" stroke-width="3"/>
+  <circle cx="289" cy="200" r="2.2" fill="#C89620"/>
+
+  <polyline points="188,240 170,240 166,244 166,264 160,268 144,268"
+            stroke="#C89620" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="170" cy="240" r="3.6" fill="#C89620"/>
+  <circle cx="166" cy="264" r="3.1" fill="#C89620"/>
+  <circle cx="144" cy="268" r="5.6" fill="#FFFFFF" stroke="#C89620" stroke-width="3"/>
+  <circle cx="144" cy="268" r="2.2" fill="#C89620"/>
+
+  <polyline points="208,166 208,152 204,148 204,134 200,130 200,118"
+            stroke="#C89620" stroke-width="4.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="208" cy="152" r="3.8" fill="#C89620"/>
+  <circle cx="204" cy="134" r="3.3" fill="#C89620"/>
+  <circle cx="200" cy="118" r="6.4" fill="#FFFFFF" stroke="#C89620" stroke-width="3.2"/>
+  <circle cx="200" cy="118" r="2.4" fill="#C89620"/>
+
+  <polyline points="160,188 146,188 142,184 142,168 138,164 124,164"
+            stroke="#C89620" stroke-width="2.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="146" cy="188" r="3" fill="#C89620"/>
+  <circle cx="142" cy="168" r="2.6" fill="#C89620"/>
+  <circle cx="124" cy="164" r="5" fill="#FFFFFF" stroke="#C89620" stroke-width="2.4"/>
+  <circle cx="124" cy="164" r="2" fill="#C89620"/>
+</svg>
