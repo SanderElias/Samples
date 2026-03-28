@@ -76,7 +76,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <p>Content for Box 4</p>
       </div>
     </div> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './boxes.component.css'
 })
 export class BoxesComponent {}

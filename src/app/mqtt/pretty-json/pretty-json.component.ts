@@ -16,7 +16,7 @@ let prettyJsonLoaded = false;
   selector: 'pretty-json',
   imports: [],
   template: ``,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     :host {
       display: block;

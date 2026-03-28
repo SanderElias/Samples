@@ -11,7 +11,7 @@ import {
   imports: [],
   template: ` <ng-content /> `,
   styleUrl: './ev-child.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.selected]': 'selected()',
     '(click)': 'handleClick()',

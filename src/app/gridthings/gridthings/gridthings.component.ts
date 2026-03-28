@@ -7,7 +7,7 @@ import { CellComponent } from '../cell/cell.component';
   selector: 'app-gridthings',
   templateUrl: './gridthings.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CellComponent]
 })
 export class GridthingsComponent implements OnInit {

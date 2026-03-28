@@ -13,7 +13,7 @@ import TemplateComponent from '../template/template.component';
       <se-reactive></se-reactive>
     </main>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./both.component.css']
 })
 export default class BothComponent {}

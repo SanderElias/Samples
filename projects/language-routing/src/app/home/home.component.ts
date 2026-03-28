@@ -13,7 +13,7 @@ import { LangService } from '../lang.service';
       </h1>
     </h1>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {

@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'pretty-text',
   template: `<ng-content></ng-content>`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[style.backgroundColor]': 'bg',
     '[style.color]': 'color'
@@ -38,7 +38,7 @@ class PrettyReversedComponent {
   template: `<h3>Signal stuff</h3>
     <pretty-text>test</pretty-text>
     <pretty-text reversed>test</pretty-text> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './signal-input-musings.component.css'
 })
 export class SignalInputMusingsComponent {}

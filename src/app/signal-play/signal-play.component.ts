@@ -21,7 +21,7 @@ import { JsonPlaceHolderService } from './json-place-holder.service';
     <button (click)="next()">next</button>
     <button (click)="prev()">prev</button>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './signal-play.component.css'
 })
 export default class SignalPlayComponent {

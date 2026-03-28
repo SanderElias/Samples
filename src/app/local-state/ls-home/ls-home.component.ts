@@ -30,7 +30,7 @@ interface LocalState {
       <button (click)="updateCounterWith(1)">+1</button>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     section {
       display: flex;
@@ -65,7 +65,7 @@ export class LsHomeComponent {
     }
   `,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe]
 })
 class oldLsHomeComponent implements OnInit {

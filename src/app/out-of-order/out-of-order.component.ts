@@ -23,7 +23,7 @@ import { asyncComputed, computedResource } from '@se-ng/signal-utils';
     <p>async resource status {{ usingComputedResource().status }}</p>
     <p>async resource status {{ usingComputedResource().stream }}</p>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './out-of-order.component.css'
 })
 export class OutOfOrderComponent {

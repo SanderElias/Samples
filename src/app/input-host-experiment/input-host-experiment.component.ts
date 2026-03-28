@@ -30,7 +30,7 @@ import { InputHostComponent } from './input-host/input-host.component';
     <code>
       <pre>{{ inp1 | json }}</pre>
     </code>`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './input-host-experiment.component.css'
 })
 export class InputHostExperimentComponent {

@@ -43,7 +43,7 @@ import { isEmptyRelation } from '../utils/is-empty-relation';
     <td>{{ rel().username ?? '--' }}</td>
     <td>{{ rel().email ?? '--' }}</td>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './user-row.component.css'
 })
 export class UserRowComponent {

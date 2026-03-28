@@ -14,7 +14,7 @@ import { ShowSourceComponent } from './show-source/show-source.component';
   selector: 'demo-root',
   templateUrl: './demo.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLinkActive, RouterLink, ShowSourceComponent, RouterOutlet]
 })
 export class DemoComponent implements AfterContentInit {

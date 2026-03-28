@@ -60,7 +60,7 @@ import { form, FormField } from '@angular/forms/signals';
       </tbody>
     </table>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./temporal.component.css']
 })
 export class TemporalComponent {

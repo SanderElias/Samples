@@ -24,7 +24,7 @@ import { DayCellComponent } from '../day-cell/day-cell.component';
       <se-day-cell [day]="day" (click)="select(day)"></se-day-cell>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./month.component.css']
 })
 export class MonthComponent {

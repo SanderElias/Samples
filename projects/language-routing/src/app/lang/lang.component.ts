@@ -14,7 +14,7 @@ import { LangService } from '../lang.service';
   imports: [RouterOutlet],
   template: ` <a href="/">Pick a language</a>
     <router-outlet></router-outlet>`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./lang.component.css']
 })
 export class LangComponent {

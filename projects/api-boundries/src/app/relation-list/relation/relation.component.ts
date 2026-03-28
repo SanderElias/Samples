@@ -32,7 +32,7 @@ import { Relation } from '../../relations.service';
   `,
   styleUrls: ['./relation.component.css'],
   imports: [AsyncPipe],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[detail]': '$detail'
   }

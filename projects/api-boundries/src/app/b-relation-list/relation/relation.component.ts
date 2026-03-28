@@ -29,7 +29,7 @@ import { RelationsService } from '../../relations.service';
     }
   `,
   styleUrls: ['./relation.component.css'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe]
 })
 export class RelationComponent {

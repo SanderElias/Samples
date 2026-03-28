@@ -39,7 +39,7 @@ import type {
       </authenticated-user-only>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./caddy.component.css']
 })
 export class CaddyComponent {

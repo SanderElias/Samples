@@ -55,7 +55,7 @@ import { isObject } from '@se-ng/signal-utils';
     </form>
     <pre><code>{{ fd().value() | json }}</code></pre>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './dynamic.component.css'
 })
 export class DynamicComponent {

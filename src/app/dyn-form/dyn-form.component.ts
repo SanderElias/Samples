@@ -49,7 +49,7 @@ const extractInputType = value => {
   imports: [AsyncPipe, FormsModule],
   selector: 'app-dyn-form',
   templateUrl: './dyn-form.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: []
 })
 export class DynFormComponent {

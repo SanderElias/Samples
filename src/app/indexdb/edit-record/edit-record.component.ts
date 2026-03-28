@@ -65,7 +65,7 @@ export type FieldType =
       </div>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './edit-record.component.css'
 })
 export class EditRecordComponent {

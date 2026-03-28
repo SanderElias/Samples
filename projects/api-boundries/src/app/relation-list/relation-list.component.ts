@@ -11,7 +11,7 @@ import { RelationComponent } from './relation/relation.component';
     }
   `,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RelationComponent, AsyncPipe]
 })
 export class RelationListComponent {

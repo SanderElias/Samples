@@ -45,7 +45,7 @@ import { StepsComponent } from './steps/steps.component';
       }
     </fieldset>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './stepper.component.css'
 })
 export class StepperComponent {

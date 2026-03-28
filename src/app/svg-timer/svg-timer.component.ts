@@ -9,7 +9,7 @@ const circumference = (radius: number) => twoPi * radius;
 @Component({
   selector: 'app-svg-timer',
   templateUrl: './svg-timer.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe]
 })
 export class SvgTimerComponent {

@@ -19,7 +19,7 @@ import {
       <span>{{ value() ? toggleOnText() : toggleOffText() }}</span>
     </label>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './toggle.component.css'
 })
 export class ToggleComponent {

@@ -7,7 +7,7 @@ import { ObsClickDirective } from '../obs-click.directive';
   selector: 'app-test',
   templateUrl: './test.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ObsClickDirective]
 })
 export class TestComponent implements OnInit {

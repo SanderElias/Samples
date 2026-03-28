@@ -18,7 +18,7 @@ import { RelationComponent } from '../relation/relation.component';
       }
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RelationComponent, OrderRowComponent, AsyncPipe]
 })
 export class BRelationDetailComponent {

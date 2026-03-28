@@ -1,6 +1,6 @@
-@if (goodToGo$ | async; as goodToGo) {
+@if (goodToGo()!==undefined) {
   <ul>
-    @for (item of goodToGo; track item) {
+    @for (item of goodToGo(); track item) {
       <li>{{ item.propName }} - {{ item.value }}</li>
     }
   </ul>

@@ -15,7 +15,7 @@ const clampedRandom = (min: number, max: number) =>
   imports: [],
   template: ``,
   styleUrls: ['./cell-raw.component.css'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class CellRawComponent {

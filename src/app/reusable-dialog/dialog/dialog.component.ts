@@ -11,7 +11,7 @@ import {
   selector: 'dialog',
   imports: [],
   template: `<ng-content />`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './dialog.component.css'
 })
 export class DialogComponent {

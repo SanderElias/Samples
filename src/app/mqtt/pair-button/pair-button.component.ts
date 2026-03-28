@@ -48,7 +48,7 @@ import { ZigbeeService } from '../zigbee.service';
     </dialog>
   `,
   styleUrl: './pair-button.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[style.backgroundColor]':
       'joinAllowed().pairingAllowed ? "var(--color-success)" : "var(--color-error)"',

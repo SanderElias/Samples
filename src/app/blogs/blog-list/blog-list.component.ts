@@ -28,7 +28,7 @@ import { Bloglist } from '../bloglist';
       </li>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './blog-list.component.css'
 })
 export class BlogListComponent {

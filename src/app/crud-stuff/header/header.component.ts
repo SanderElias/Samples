@@ -22,7 +22,7 @@ import { generateRelation } from '../utils/generateRelation';
     </label>
     <button (click)="info()">Info</button>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {

@@ -34,7 +34,7 @@ import { updateRouteInfo } from '../util/update-meta-data';
       </a>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       /** put the host on right top */

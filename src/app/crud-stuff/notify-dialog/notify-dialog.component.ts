@@ -30,7 +30,7 @@ import { NotifyDialogService } from './notify-dialog.service';
     </dialog>
   `,
   styleUrl: './notify-dialog.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(click)': 'onClick($event)'
   }

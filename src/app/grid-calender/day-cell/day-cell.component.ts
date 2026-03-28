@@ -6,7 +6,7 @@ import type { CalenderDay } from '../calenderDay';
   imports: [],
   template: ` {{ day().day }} `,
   styleUrls: ['./day-cell.component.css'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.mute]': '!day().isCurrentMonth',
     '[class.special]': 'day().isSpecial',

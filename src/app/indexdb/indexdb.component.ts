@@ -58,7 +58,7 @@ import { createId, type UniqueId } from './unique-id-helpers';
       }
     </dialog>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './indexdb.component.css'
 })
 export class IndexdbComponent {

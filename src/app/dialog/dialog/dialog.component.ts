@@ -11,7 +11,7 @@ import {
   selector: 'se-dialog',
   imports: [],
   template: ` <dialog><ng-content></ng-content></dialog> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./dialog.component.css']
 })
 export class SeDialogComponent {

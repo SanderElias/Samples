@@ -16,7 +16,7 @@ import { RelationComponent } from './relation/relation.component';
     }
   `,
   styleUrls: ['./b-relation-list.css'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RelationComponent, AsyncPipe, ReactiveFormsModule]
 })
 export class BRelationListComponent {

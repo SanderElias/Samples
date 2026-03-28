@@ -41,7 +41,7 @@ import { ShowErrorsInDom } from '../util/show-errors-in-dom.directive';
       </label>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './tags.component.css'
 })
 export class TagsComponent {

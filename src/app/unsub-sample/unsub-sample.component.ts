@@ -7,7 +7,7 @@ import { BehaviorSubject, combineLatest, debounceTime, map, take } from 'rxjs';
 @Component({
   selector: 'se-unsub-sample',
   imports: [AsyncPipe],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1>Unsubscribe sample</h1>
     <p>Click the buttons to navigate to the next or previous id.</p>

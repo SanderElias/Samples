@@ -7,7 +7,7 @@ import { BlocksComponent } from './blocks/blocks.component';
   selector: 'app-svg-test',
   templateUrl: './svg-test.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BlocksComponent, DecimalPipe]
 })
 export class SvgTestComponent {

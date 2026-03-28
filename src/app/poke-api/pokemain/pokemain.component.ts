@@ -10,7 +10,7 @@ import { PokeApiService } from '../poke-api.service';
   selector: 'app-pokemain',
   templateUrl: './pokemain.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SeLetDirective]
 })
 export class PokeMainComponent implements OnInit {

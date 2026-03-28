@@ -17,7 +17,7 @@ import { RelationsService, type SortField } from '../relations.service';
     }
   `,
   styleUrl: './sort-header.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(click)': 'doSort()'
   }

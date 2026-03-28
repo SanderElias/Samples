@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'se-dummy-content',
   imports: [],
   template: ` <p>dummy-content works!</p> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './dummy-content.component.css'
 })
 export class DummyContentComponent {}

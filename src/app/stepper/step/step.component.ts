@@ -17,7 +17,7 @@ import { type StepData, StepDataService } from '../step-data.service';
   imports: [],
   template: ` <span class="circle"></span> <ng-content /> `,
   styleUrl: './step.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.selected]': 'isSelected()',
     '[class.disabled]': 'disabled()',

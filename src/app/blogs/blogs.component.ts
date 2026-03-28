@@ -44,7 +44,7 @@ import { Bloglist } from './bloglist';
     }
   `,
   styleUrl: './blogs.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class BlogsComponent {

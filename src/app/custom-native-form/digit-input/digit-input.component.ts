@@ -10,7 +10,7 @@ import {
   selector: 'digit-input[name][value]',
   imports: [],
   template: `<ng-content />`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './digit-input.component.css'
 })
 export class DigitInputComponent {

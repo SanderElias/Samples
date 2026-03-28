@@ -34,7 +34,7 @@ import { RelationComponent } from '../../relation/relation.component';
       }
     `
   ],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RelationComponent]
 })
 export class OrderRowComponent implements OnInit {

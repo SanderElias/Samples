@@ -23,7 +23,7 @@ const val = (e: Entry) => e[1];
   selector: 'app-show-rec',
   templateUrl: './show-rec.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: []
 })
 export class ShowRecComponent implements OnInit {

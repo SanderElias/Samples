@@ -1,40 +1,37 @@
-// tslint:disable:no-unused-expression
-import { AsyncPipe } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Subject } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input
+} from '@angular/core';
 
 @Component({
   selector: 'app-wait-for-it',
   templateUrl: './wait-for-it.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [AsyncPipe]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: []
 })
 export class WaitForItComponent {
-  someVar: string[] | undefined;
-  @Input('someVar') private set _someVar(newContent) {
-    /** do some stuff */
-    this.someVar = newContent;
-  }
+  someVar = input<string[] | undefined>();
+  prop1 = input<string>('');
+  prop2 = input<string>('');
+  prop3 = input<string>('');
 
-  @Input() set prop1(val) {
-    val && this.setIt('prop1', val);
-  }
-  @Input() set prop2(val) {
-    val && this.setIt('prop2', val);
-  }
-  @Input() set prop3(val) {
-    val && this.setIt('prop3', val);
-  }
+  #collectedProps = computed(() => {
+    const createProp = (propName: string, value: string) =>
+      value ? { propName, value } : undefined;
+    return [
+      createProp('prop1', this.prop1()),
+      createProp('prop2', this.prop2()),
+      createProp('prop3', this.prop3())
+    ].filter(p => !!p);
+  });
 
-  requiredProps = [] as Record<string, string>[];
+  requiredProps = computed(() => this.#collectedProps());
 
-  goodToGo$ = new Subject<any[]>();
-
-  setIt(propName: string, value: string) {
-    this.requiredProps.push({ propName, value });
-    if (this.requiredProps.length === 3) {
-      this.goodToGo$.next(this.requiredProps);
-    }
-  }
+  goodToGo = computed(() => {
+    const props = this.#collectedProps();
+    return props.length === 3 ? props : undefined;
+  });
 }

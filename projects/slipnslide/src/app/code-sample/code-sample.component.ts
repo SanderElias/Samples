@@ -40,7 +40,7 @@ interface State {
 @Component({
   selector: 'code-sample',
   template: ``,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {

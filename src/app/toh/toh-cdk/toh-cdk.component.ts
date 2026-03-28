@@ -75,7 +75,7 @@ import {
       </label>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './toh-cdk.component.css'
 })
 export class TohCdkComponent {

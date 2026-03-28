@@ -48,7 +48,7 @@ import {
 
     <div class="text">{{ (per() * 100).toFixed(1) }}% <br />{{ value() }}</div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './gauge.component.css'
 })
 export class GaugeComponent {

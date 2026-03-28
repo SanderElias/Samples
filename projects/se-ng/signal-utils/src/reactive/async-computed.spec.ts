@@ -16,7 +16,7 @@ import { asyncComputed } from './async-computed';
 // Minimal dummy component for fixture
 @Component({
   selector: 'dummy-fixture',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: ''
 })
 class DummyComponent {}

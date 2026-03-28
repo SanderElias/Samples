@@ -82,7 +82,7 @@ import { SampledataService } from '../sampledata.service';
       </main>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./template.component.css']
 })
 export default class TemplateComponent {

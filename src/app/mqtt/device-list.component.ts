@@ -12,7 +12,7 @@ import { ZigbeeService } from './zigbee.service';
   selector: 'app-device-list',
   standalone: true,
   imports: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2>Zigbee Devices</h2>
     <table>

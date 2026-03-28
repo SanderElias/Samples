@@ -34,7 +34,7 @@ declare global {
     }
   `,
   styleUrl: './evented-outputs.component.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     // use a custom DOM event to signal selection
     '(onSelected)': 'handleSelected($event.detail)'

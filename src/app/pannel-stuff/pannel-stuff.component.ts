@@ -14,7 +14,7 @@ import {
   selector: 'app-pannel-stuff',
   templateUrl: './pannel-stuff.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     PannelComponent,
     PannelCloseDirective,

@@ -56,7 +56,7 @@ import { DigitsComponent } from './digits/digits.component';
       }
     </style>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './custom-native-form.component.css'
 })
 export class CustomNativeFormComponent {

@@ -11,7 +11,7 @@ import {
   selector: 'se-resizable-panel',
   imports: [],
   template: `<ng-content></ng-content>`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./resizable-panel.component.css']
 })
 export class ResizablePanelComponent {

@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
   selector: 'se-show-error',
   imports: [],
   template: `<ng-content></ng-content>`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./show-error.component.css']
 })
 export class ShowErrorComponent {

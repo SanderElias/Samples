@@ -6,7 +6,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     <h1>Swapi module is in place</h1>
     <p>Inject the swapi service where you need it.</p>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: []
 })
 export class SwapiComponent implements OnInit {

@@ -27,7 +27,7 @@ import { splitName } from './split-name';
   standalone: true,
   styleUrl: './power-meter-dialog.component.css',
   imports: [FormField, FormRoot],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <dialog #dlg>
       <h4>{{ model().prefix }} {{ model().name }}</h4>

@@ -22,7 +22,7 @@ import type { SignalTreeNode } from './signal-tree-node.model';
     </h2>
     <se-tree-node-edit [treeNode]="fd"></se-tree-node-edit>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './signal-tree.component.css'
 })
 export class SignalTreeComponent {

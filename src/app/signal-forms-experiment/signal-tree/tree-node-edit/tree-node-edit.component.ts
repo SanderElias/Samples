@@ -25,7 +25,7 @@ import type { SignalTreeNode } from '../signal-tree-node.model';
         }
       </div>
     }`,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './tree-node-edit.component.css'
 })
 export class TreeNodeEditComponent {

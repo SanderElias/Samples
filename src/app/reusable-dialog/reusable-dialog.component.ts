@@ -21,7 +21,7 @@ import { DummyContentComponent } from './dummy-content/dummy-content.component';
         <p>Some content</p>
       }
     </dialog> `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './reusable-dialog.component.css'
 })
 export class ReusableDialogComponent {

@@ -26,7 +26,7 @@ import { ShowRecComponent } from '../show-rec/show-rec.component';
   selector: 'app-apisample',
   templateUrl: './apisample.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, ShowRecComponent]
 })
 export class APISampleComponent {

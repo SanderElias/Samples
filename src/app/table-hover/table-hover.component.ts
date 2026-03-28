@@ -22,7 +22,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       }
     </table>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './table-hover.component.css'
 })
 export class TableHoverComponent {
