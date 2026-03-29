@@ -12,6 +12,20 @@ export type IconNames = keyof typeof icons;
 
 export type MarkDown = string;
 
+interface MermaidApi {
+  initialize(options: {
+    startOnLoad: boolean;
+    theme: 'default' | 'dark';
+  }): void;
+  render(
+    id: string,
+    source: string
+  ): Promise<{ svg: string; bindFunctions?: (element: HTMLElement) => void }>;
+}
+
+let mermaidLoader: Promise<MermaidApi> | undefined;
+let mermaidRenderCount = 0;
+
 export async function parser(content: MarkDown): Promise<string> {
   try {
     // replace GFM block icons like [!TIP], [!WARNING], [!IMPORTANT], [!NOTE]
@@ -36,7 +50,6 @@ export async function parser(content: MarkDown): Promise<string> {
   const { Marked } = await import('marked');
   let marked = new Marked();
   try {
-    const { markedHighlight } = await import('marked-highlight');
     const { default: hljs } = await import('highlight.js/lib/core');
     const { default: typescript } =
       await import('highlight.js/lib/languages/typescript');
@@ -53,16 +66,46 @@ export async function parser(content: MarkDown): Promise<string> {
     hljs.registerLanguage('html', html);
     hljs.registerLanguage('javascript', javascript);
 
-    marked = new Marked(
-      markedHighlight({
-        emptyLangClass: 'hljs',
-        langPrefix: 'hljs language-',
-        highlight(code, lang, info) {
-          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-          return hljs.highlight(code, { language }).value;
+    marked = new Marked();
+    // Keep all custom Markdown rendering in one marked hook so the special
+    // cases stay close to the default renderer they extend.
+    marked.use({
+      renderer: {
+        // Mermaid fences become a custom element so the browser can render
+        // them later with the local Mermaid package.
+        code({ text, lang }) {
+          if (lang?.toLowerCase() === 'mermaid') {
+            return `<mermaid-diagram>${escapeHtml(text.trim())}</mermaid-diagram>`;
+          }
+          const language = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
+          const className = lang ? `hljs language-${lang}` : 'hljs';
+          // Make code blocks keyboard-focusable so users can scroll them with
+          // the keyboard when they overflow horizontally.
+          return `<pre tabindex="0" aria-label="Code block"><code class="${className}">${hljs.highlight(text, { language }).value}</code></pre>`;
+        },
+        // Mark task-list checkboxes as plain disabled inputs, but give them an
+        // accessible name so screen readers still announce what they are.
+        checkbox({ checked }) {
+          // The checkbox itself remains disabled because the markdown task is
+          // informational, but the label preserves the meaning for assistive tech.
+          return `<input ${checked ? 'checked="" ' : ''}disabled="" type="checkbox" aria-label="Checklist item">`;
+        },
+        // External links should open in a new tab, but internal blog links
+        // should keep the normal in-app navigation.
+        link({ href, title, tokens }) {
+          if (!isExternalHttpLink(href)) {
+            return false;
+          }
+
+          const titleAttribute = title
+            ? ` title="${escapeAttribute(title)}"`
+            : '';
+          return `<a target="_blank" rel="noopener noreferrer" href="${escapeAttribute(
+            href
+          )}"${titleAttribute}>${this.parser.parseInline(tokens)}</a>`;
         }
-      })
-    );
+      }
+    });
   } catch (err) {
     console.error('Error setting up syntax highlighting:', err);
   }
@@ -74,28 +117,107 @@ export async function parser(content: MarkDown): Promise<string> {
     // .use(markedFootnote())
     .parse(content);
 
-  // by default all links open in the same tab, this forces external links to open in a new tab
-  return context
-    // Make scrollable code block containers keyboard-focusable for a11y.
-    .replaceAll('<pre>', '<pre tabindex="0" aria-label="Code block">')
-    // Ensure markdown task-list checkboxes have accessible names.
-    .replaceAll(
-      '<input checked="" disabled="" type="checkbox">',
-      '<input checked="" disabled="" type="checkbox" aria-label="Checklist item">'
-    )
-    .replaceAll(
-      '<input disabled="" type="checkbox">',
-      '<input disabled="" type="checkbox" aria-label="Checklist item">'
-    )
-    .replaceAll('href="http', 'target="_blank" rel="noopener noreferrer" href="http')
-    // Lift the icon out of its <p> and wrap all remaining blockquote content in
-    // a single <div>. This gives the grid exactly two children: the icon (col 1)
-    // and one wrapper (col 2), so the icon always spans the full content height.
-    .replace(
-      /<blockquote>\n?<p>(<span class=icon>[\s\S]*?<\/span>)([\s\S]*?)<\/p>([\s\S]*?)<\/blockquote>/g,
-      (_, icon, firstParaRest, remaining) => {
-        const content = (firstParaRest.trim() ? `<p>${firstParaRest}</p>` : '') + remaining;
-        return `<blockquote>\n${icon}<div>${content}</div></blockquote>`;
+  return (
+    context
+      // Preserve the existing blockquote icon layout by wrapping the non-icon
+      // content in a dedicated container for the CSS grid.
+      // Lift the icon out of its <p> and wrap all remaining blockquote content in
+      // a single <div>. This gives the grid exactly two children: the icon (col 1)
+      // and one wrapper (col 2), so the icon always spans the full content height.
+      .replace(
+        /<blockquote>\n?<p>(<span class=icon>[\s\S]*?<\/span>)([\s\S]*?)<\/p>([\s\S]*?)<\/blockquote>/g,
+        (_, icon, firstParaRest, remaining) => {
+          const content =
+            (firstParaRest.trim() ? `<p>${firstParaRest}</p>` : '') + remaining;
+          return `<blockquote>\n${icon}<div>${content}</div></blockquote>`;
+        }
+      )
+  );
+}
+
+function escapeHtml(value: string) {
+  return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;');
+}
+
+function escapeAttribute(value: string) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;');
+}
+
+function isExternalHttpLink(href: string) {
+  return /^https?:\/\//i.test(href);
+}
+
+function decodeHtmlEntities(value: string) {
+  return value
+    .replaceAll('&amp;gt;', '>')
+    .replaceAll('&amp;lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&amp;', '&');
+}
+
+function loadMermaid() {
+  if (!mermaidLoader) {
+    mermaidLoader = import('mermaid').then(({ default: mermaid }) => mermaid);
+  }
+
+  return mermaidLoader;
+}
+
+if (typeof HTMLElement !== 'undefined') {
+  class MermaidDiagramElement extends HTMLElement {
+    #renderToken = 0;
+
+    connectedCallback() {
+      void this.#render();
+    }
+
+    disconnectedCallback() {
+      this.#renderToken++;
+    }
+
+    async #render() {
+      const source = decodeHtmlEntities(this.textContent ?? '').trim();
+      if (!source) {
+        return;
       }
-    );
+
+      const token = ++this.#renderToken;
+      const mermaid = await loadMermaid();
+      if (token !== this.#renderToken) {
+        return;
+      }
+
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'default'
+      });
+
+      const { svg, bindFunctions } = await mermaid.render(
+        `mermaid-${++mermaidRenderCount}`,
+        source
+      );
+
+      if (token !== this.#renderToken) {
+        return;
+      }
+
+      this.innerHTML = svg;
+      bindFunctions?.(this);
+    }
+  }
+
+  if (
+    typeof customElements !== 'undefined' &&
+    !customElements.get('mermaid-diagram')
+  ) {
+    // The upstream plugin renders Mermaid immediately; we defer that work to a
+    // custom element because this app loads article HTML asynchronously.
+    customElements.define('mermaid-diagram', MermaidDiagramElement);
+  }
 }

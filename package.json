@@ -263,6 +263,7 @@
     "jsdom": "29.0.1",
     "marked": "17.0.5",
     "marked-highlight": "2.2.3",
+    "mermaid": "11.13.0",
     "messagepack": "1.1.12",
     "micromark": "4.0.2",
     "micromark-extension-gfm": "3.0.0",

@@ -149,6 +149,18 @@ se-blogs {
     }
   }
 
+  mermaid-diagram {
+    display: block;
+    overflow-x: auto;
+    margin-block: var(--size-4);
+  }
+
+  mermaid-diagram svg {
+    display: block;
+    max-inline-size: 100%;
+    height: auto;
+  }
+
   ul#blog-list {
     display: block;
     list-style: none;
