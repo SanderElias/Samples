@@ -1,27 +1,25 @@
 import {
   afterNextRender,
   afterRenderEffect,
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
   input,
+  linkedSignal,
   signal,
-  type WritableSignal,
-  ChangeDetectionStrategy
+  type WritableSignal
 } from '@angular/core';
 
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
-import { type ZigbeePrefixes, zigbeePrefixes } from '../mqtt.component';
+import { zigbeePrefixes, type ZigbeePrefixes } from '../zigbee-prefixes.types';
 import { ToggleComponent } from '../toggle/toggle.component';
-import { persistentLinkedSignal } from '../util/idbstorage';
 import { ZigbeeService } from '../zigbee.service';
 
+import { MqttDeviceSettingsService } from '../mqtt-device-settings.service';
+import type { MqttDeviceSetting } from '../mqtt-device-settings.types';
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
 import { splitName } from './dialog/split-name';
-import {
-  MqttDeviceSettingsService,
-  type MqttDeviceSetting
-} from '../mqtt-device-settings.service';
 
 @Component({
   selector: 'power-meter',
@@ -61,7 +59,7 @@ import {
       <span>Loading...</span><br />
       <button (click)="refresh()">Refresh</button>
     }
-    @if (!name().includes('Computer')) {
+    @if (options().allowPowerControl) {
       <se-toggle [value]="isPoweredOn()" (valueChange)="toggle()" />
     }
     <power-meter-dialog [ieeeAddress]="ieeeAddress()" [(show)]="dialogOpen" />
@@ -77,16 +75,13 @@ export class PowerMeterComponent {
   protected readonly setting = inject(MqttDeviceSettingsService);
 
   readonly dialogOpen = signal(false, { debugName: 'PowerMeterDialogOpen' });
-  readonly options = this.setting.read(this.ieeeAddress);
+  readonly optionsRef = this.setting.read(this.ieeeAddress);
+  readonly options = this.setting.optionsFromDevResource(this.optionsRef);
   readonly __ = afterRenderEffect(async () => {
     if (this.ieeeAddress() === 'unknown' || !this.ieeeAddress()) return;
     const splitName = this.splitName();
-    const currentPower = this.currentPower();
     if (!splitName.name) return;
-    if (currentPower > this.maxUsedPower()) {
-      this.maxUsedPower.set(currentPower);
-    }
-    const notFound = this.options.error()?.['status'] === 404;
+    const notFound = this.optionsRef.error()?.['status'] === 404;
     if (notFound) {
       console.log('not found, creating default setting');
       await this.setting.create({
@@ -96,13 +91,13 @@ export class PowerMeterComponent {
       });
       return;
     }
-    if (this.options.hasValue()) {
-      const opt = this.options.value() as MqttDeviceSetting;
+    if (this.optionsRef.hasValue()) {
+      const opt = this.optionsRef.value() as MqttDeviceSetting;
+      if (!opt?.id) return;
       if (
-        opt.friendlyName !== this.friendlyName() ||
-        (opt.maxPower || 0) < this.maxUsedPower()
+        opt.friendlyName !== this.friendlyName() || // update friendly name if it has changed
+        (opt.maxPower || 0) < this.maxUsedPower() // update max power if current max is higher than stored max
       ) {
-        console.log('friendly name changed, updating setting');
         await this.setting.update({
           ...opt,
           friendlyName: this.friendlyName(),
@@ -110,7 +105,6 @@ export class PowerMeterComponent {
         });
       }
     }
-    // console.log(this.options.hasValue() && this.options.value());
   });
 
   readonly #deviceResource = this.z2m.getDeviceStatus(this.ieeeAddress);
@@ -123,8 +117,11 @@ export class PowerMeterComponent {
       debugName: 'CurrentPower'
     }
   );
-  maxUsedPower: WritableSignal<number> = signal(0, {
-    debugName: 'MaxUsedPower'
+  maxUsedPower: WritableSignal<number> = linkedSignal(() => {
+    const optionsMax = this.optionsRef.hasValue()
+      ? this.optionsRef.value()?.maxPower || 0
+      : 0;
+    return Math.max(optionsMax, this.currentPower() || 0);
   });
   readonly friendlyName = computed(
     () => this.#deviceInfo()?.friendly_name || this.ieeeAddress()
@@ -145,8 +142,23 @@ export class PowerMeterComponent {
   };
 
   readonly _ = afterNextRender(() => {
+    let tries = 0;
+    const randomDelay = () => Math.random() * 2000 + 1500; // 1500ms to 3500ms
+    const attemptRefresh = () => {
+      if (tries >= 15) {
+        console.log(`Max refresh attempts reached for ${this.name()}. Giving up.`);
+        return; // Give up after 5 tries
+      }
+      if (!this.deviceLoading()) {
+        return;
+      }
+      tries++;
+      this.refresh();
+      // console.log(`Attempt ${tries}: Refreshing device status for ${this.name()}`);
+      setTimeout(attemptRefresh, randomDelay());
+    };
     // trigger initial state fetch
-    this.refresh();
+    attemptRefresh();
   });
 }
 

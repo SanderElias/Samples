@@ -13,7 +13,7 @@ import {
 
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, interval, map, startWith, switchMap, takeWhile } from 'rxjs';
-import type { ZigbeePrefixes } from '../mqtt.component';
+import type { ZigbeePrefixes } from '../zigbee-prefixes.types';
 import { ZigbeeService } from '../zigbee.service';
 
 @Component({
