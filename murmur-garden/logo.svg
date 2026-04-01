@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Murmur Garden logo</title>
+  <desc id="desc">A speech bubble surrounded by soft ripple lines and a small leaf, suggesting murmurs in a garden.</desc>
+  <defs>
+    <linearGradient id="bg" x1="96" y1="80" x2="416" y2="432" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f4fbf4"/>
+      <stop offset="1" stop-color="#ddf2e1"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="132" y1="122" x2="384" y2="392" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2f7a4a"/>
+      <stop offset="1" stop-color="#214f33"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="228" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#2f7a4a" stroke-opacity=".12" stroke-width="8"/>
+
+  <g fill="none" stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M162 214c18-25 43-39 73-43" stroke-width="13" stroke-opacity=".22"/>
+    <path d="M350 214c-18-25-43-39-73-43" stroke-width="13" stroke-opacity=".22"/>
+    <path d="M146 262c26-45 64-67 110-72" stroke-width="12" stroke-opacity=".16"/>
+    <path d="M366 262c-26-45-64-67-110-72" stroke-width="12" stroke-opacity=".16"/>
+    <path d="M182 314c19-23 43-35 74-38" stroke-width="11" stroke-opacity=".12"/>
+    <path d="M330 314c-19-23-43-35-74-38" stroke-width="11" stroke-opacity=".12"/>
+  </g>
+
+  <path
+    d="M164 196c0-27 22-49 49-49h86c27 0 49 22 49 49v77c0 27-22 49-49 49h-58l-36 28v-28h-4c-27 0-49-22-49-49z"
+    fill="#ffffff"
+    stroke="url(#ink)"
+    stroke-width="12"
+    stroke-linejoin="round"
+  />
+
+  <path
+    d="M201 268c16 12 36 18 55 18s39-6 55-18"
+    fill="none"
+    stroke="url(#ink)"
+    stroke-width="12"
+    stroke-linecap="round"
+  />
+
+  <circle cx="229" cy="233" r="10" fill="#2f7a4a"/>
+  <circle cx="256" cy="233" r="10" fill="#2f7a4a"/>
+  <circle cx="283" cy="233" r="10" fill="#2f7a4a"/>
+
+  <path
+    d="M312 329c18 6 31 22 31 40 0 24-20 44-44 44-18 0-34-11-41-27 20-3 37-13 54-34z"
+    fill="#7fcf86"
+    opacity=".95"
+  />
+  <path
+    d="M317 341c-7 10-16 18-29 24"
+    fill="none"
+    stroke="#2f7a4a"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity=".7"
+  />
+</svg>
