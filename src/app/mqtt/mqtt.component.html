@@ -1,43 +1,5 @@
 <authenticated-user-only>
-  <details>
-    <summary>Settings</summary>
-    <div class="zigbee-prefixes">
-      @for (pf of zigbeePrefixes; track $index) {
-        <label>
-          <input
-            type="checkbox"
-            [checked]="selectedPrefixes().includes(pf)"
-            (change)="togglePrefixSelection(pf)"
-          />
-          {{ pf ? pf : 'Alles' }}
-        </label>
-      }
-    </div>
-    <!--
-      <div class="toolbar">
-        <select (change)="selected.set($any($event.target).value)">
-          @for (device of deviceList(); track device.name) {
-            <option [value]="device.name">{{ device.name }}</option>
-          }
-        </select>
-        <select (change)="filter.set($any($event.target).value)">
-          @for (type of deviceTypes(); track type[0]) {
-            <option [value]="type[0]">{{ type[1] }}</option>
-          }
-        </select>
-        <label><input #sd type="checkbox" />show details</label>
-      </div>
-      -->
-    <se-stacked-per [data]="powerUsage()" />
-    <!--
-      @if (sd.checked) {
-        <div class="grid">
-          <pretty-json [json]="selectedDevice.value()" />
-          <pretty-json [json]="selectedDetails()" />
-        </div>
-      }
-    -->
-  </details>
+  <se-mqtt-settings [(selectedPrefixes)]="selectedPrefixes" [powerUsage]="powerUsage()" />
   <details class="searchBar">
     <summary>Filter</summary>
     <main>

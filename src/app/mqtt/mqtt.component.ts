@@ -1,22 +1,26 @@
+import type { HttpResourceRef } from '@angular/common/http';
+import { httpResource } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   inject,
-  Injector
+  Injector,
+  isWritableSignal,
+  linkedSignal,
+  type WritableSignal
 } from '@angular/core';
 import { debouncedComputed, deepEqual } from '@se-ng/signal-utils';
 
 import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
-import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
 
-import { httpResource } from '@angular/common/http';
-import { MqttDeviceSettingsService } from './mqtt-device-settings.service';
+import { MqttSettingsComponent } from './mqtt-settings/mqtt-settings.component';
 import { PairButtonComponent } from './pair-button/pair-button.component';
 import {
   extractPrefix,
   PowerMeterComponent
 } from './power-meter/power-meter.component';
+import { persistentSignal } from './util/idbstorage';
 import {
   type BulkGetResponse,
   type CouchDoc,
@@ -25,18 +29,16 @@ import {
   type ParsedDeviceSettings,
   type SearchState
 } from './mqtt.component.types';
-import { zigbeePrefixes, type ZigbeePrefixes } from './zigbee-prefixes.types';
-import { persistentSignal } from './util/idbstorage';
+import { MqttDeviceSettingsService } from './mqtt-device-settings.service';
 import { undefinedWhenEmpty, ZigbeeService } from './zigbee.service';
-
-import type { HttpResourceRef } from '@angular/common/http';
+import { type ZigbeePrefixes } from './zigbee-prefixes.types';
 
 @Component({
   selector: 'se-mqtt',
   imports: [
     PowerMeterComponent,
     PairButtonComponent,
-    StackedPerComponent,
+    MqttSettingsComponent,
     AuthenticadedUserOnlyComponent
   ],
   templateUrl: './mqtt.component.html',
@@ -50,7 +52,6 @@ export class MqttComponent {
 
   readonly search = persistentSignal<SearchState>('mqttSearchFilters', {
     searchText: '',
-    selectedPrefixes: ['e&m', 'kamp'],
     booleanOptions: [
       {
         name: 'allowPowerControl',
@@ -85,32 +86,15 @@ export class MqttComponent {
     }));
   }
 
-  readonly selectedPrefixes = computed(() => this.search().selectedPrefixes);
-
-  readonly zigbeePrefixes = zigbeePrefixes;
-
-  #matchesSelectedPrefix(
-    friendlyName: string | undefined,
-    selectedPrefixes: ZigbeePrefixes[]
-  ) {
-    if (selectedPrefixes.includes('Alles')) return true;
-    if (!friendlyName?.includes('/')) return true;
-    return selectedPrefixes.some(prefix => friendlyName.startsWith(prefix));
-  }
-
-  togglePrefixSelection = (prefix: ZigbeePrefixes) => {
-    this.search.update(current => {
-      const selectedPrefixes = current.selectedPrefixes.includes(prefix)
-        ? current.selectedPrefixes.filter(p => p !== prefix)
-        : [...current.selectedPrefixes, prefix];
-
-      return { ...current, selectedPrefixes };
-    });
-  };
+  readonly selectedPrefixes = persistentSignal<ZigbeePrefixes[]>(
+    'mqttSelectedPrefixes',
+    ['e&m', 'kamp']
+  );
 
   readonly powerMeters = computed(
     () =>
-      this.#z2m.devices()
+      this.#z2m
+        .devices()
         ?.filter(d =>
           d.definition?.exposes?.some(
             e => e.property === 'power' && e.type === 'numeric'
@@ -140,6 +124,7 @@ export class MqttComponent {
   readonly powerMetersFiltered = computed(() => {
     const devices = this.devicesWithSettings() ?? [];
     const searchState = this.searchDebounced();
+    const selectedPrefixes = this.selectedPrefixes();
     const searchText = (searchState.searchText ?? '')
       .toString()
       .trim()
@@ -149,17 +134,19 @@ export class MqttComponent {
       .map(o => o.name);
 
     return devices.filter(device => {
-      const friendlyNameLower = String(device.friendly_name ?? '').toLowerCase();
+      const friendlyNameLower = String(
+        device.friendly_name ?? ''
+      ).toLowerCase();
+      const name = device.friendly_name;
 
-      if (
-        !this.#matchesSelectedPrefix(
-          device.friendly_name,
-          searchState.selectedPrefixes
-        )
-      )
-        return false;
+      const matchesPrefix =
+        selectedPrefixes.includes('Alles') ||
+        !name?.includes('/') ||
+        selectedPrefixes.some(prefix => name.startsWith(prefix));
 
-      if (requiredBooleanOptions.some(name => device.settings[name] !== true))
+      if (!matchesPrefix) return false;
+
+      if (requiredBooleanOptions.some(n => device.settings[n] !== true))
         return false;
 
       if (!searchText) return true;
@@ -250,22 +237,25 @@ export class MqttComponent {
     { equal: deepEqual }
   );
 
-  readonly powerUseByPrefix = computed(() => {
-    const selectedDevices = this.devicesWithSettings() ?? [];
-    const result: Record<
-      string,
-      { power: number; energy: number; current: number }
-    > = {};
-    for (const state of selectedDevices) {
-      if (state.settings?.isSubDevice) continue; // Skip sub-devices in aggregate calculations
-      const prefix = extractPrefix(state.friendly_name);
-      result[prefix] ??= { power: 0, energy: 0, current: 0 }; // Initialize with 0
-      result[prefix].power += Math.round(state.power) || 0;
-      result[prefix].energy += Math.round(state.energy) || 0;
-      result[prefix].current += Math.round(state.current) || 0;
-    }
-    return result;
-  }, { equal: deepEqual });
+  readonly powerUseByPrefix = computed(
+    () => {
+      const selectedDevices = this.devicesWithSettings() ?? [];
+      const result: Record<
+        string,
+        { power: number; energy: number; current: number }
+      > = {};
+      for (const state of selectedDevices) {
+        if (state.settings?.isSubDevice) continue; // Skip sub-devices in aggregate calculations
+        const prefix = extractPrefix(state.friendly_name);
+        result[prefix] ??= { power: 0, energy: 0, current: 0 }; // Initialize with 0
+        result[prefix].power += Math.round(state.power) || 0;
+        result[prefix].energy += Math.round(state.energy) || 0;
+        result[prefix].current += Math.round(state.current) || 0;
+      }
+      return result;
+    },
+    { equal: deepEqual }
+  );
 
   readonly powerUsage = computed(() =>
     Object.entries(this.powerUseByPrefix()).map(([prefix, usage]) => ({
@@ -274,3 +264,23 @@ export class MqttComponent {
     }))
   );
 }
+
+const proxySignal = <T extends object, K extends keyof T>(
+  prop: K,
+  source: () => T
+): WritableSignal<T[K]> => {
+  const result = linkedSignal(() => source()[prop]);
+  if (isWritableSignal(source)) {
+    result.set = v => {
+      const obj = source();
+      source.set({ ...obj, [prop]: v });
+    };
+    result.update = fn => {
+      const obj = source();
+      const updatedValue = fn(obj[prop]);
+      source.set({ ...obj, [prop]: updatedValue });
+    };
+  }
+
+  return result;
+};

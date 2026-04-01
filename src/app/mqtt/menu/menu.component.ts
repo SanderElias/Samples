@@ -1,14 +1,16 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, DOCUMENT, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { LoggedIn } from '../../grid-play/logged-in-user.service';
 
 @Component({
   selector: 'se-menu',
-  imports: [],
+  imports: [RouterLink],
   template: `
     @if (ready()) {
       @if (loggenId()) {
-        <p>Logged in</p>
+        <a [routerLink]="['./power']">stroom meter beheer</a>
+        <a [routerLink]="['./list']">apparaten lijst</a>
       } @else {
         <a [href]="'https://auth.eliasweb.nl/ui/login?redirect=' + url()"
           >Login</a
@@ -17,13 +19,12 @@ import { LoggedIn } from '../../grid-play/logged-in-user.service';
     } @else {
       <p>Loading...</p>
     }
-    @endif
   `,
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
   #loggedin = inject(LoggedIn);
-  #doc = inject(Document);
+  #doc = inject(DOCUMENT);
   url = computed(() => this.#doc.location.href);
 
   ready = this.#loggedin.ready;

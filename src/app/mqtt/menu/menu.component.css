@@ -1,3 +1,43 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  padding: var(--size-4);
+  gap: var(--size-4);;
+}
+
+a {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-block-size: var(--size-11);
+  max-block-size: 50dvb;
+  padding-block: var(--size-4);
+  padding-inline: var(--size-5);
+  border: var(--border-size-1) solid var(--surface-3);
+  border-radius: var(--radius-3);
+  background: var(--surface-2);
+  color: var(--text-1);
+  text-align: center;
+  text-decoration: none;
+  font-weight: var(--font-weight-6);
+  transition: transform 120ms var(--ease-3), box-shadow 160ms var(--ease-3),
+    background-color 160ms var(--ease-3), border-color 160ms var(--ease-3);
+
+  &:hover {
+    background: var(--surface-3);
+    border-color: var(--surface-4);
+    box-shadow: var(--shadow-2);
+  }
+
+  &:focus-visible {
+    outline: var(--border-size-2) solid var(--link);
+    outline-offset: var(--size-1);
+    box-shadow: var(--shadow-3);
+  }
+
+  &:active {
+    transform: translateY(var(--size-px-2));
+    box-shadow: var(--shadow-1);
+  }
 }

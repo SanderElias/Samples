@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+div.zigbee-prefixes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+
+  & * {
+    background: var(--surface-3);
+    border-radius: 1rem;
+    padding: 1rem;
+    overflow: auto;
+  }
+}

@@ -1,0 +1,16 @@
+<details>
+  <summary>Settings</summary>
+  <div class="zigbee-prefixes">
+    @for (pf of zigbeePrefixes; track $index) {
+      <label>
+        <input
+          type="checkbox"
+          [checked]="selectedPrefixes().includes(pf)"
+          (change)="togglePrefixSelection(pf)"
+        />
+        {{ pf ? pf : 'Alles' }}
+      </label>
+    }
+  </div>
+  <se-stacked-per [data]="powerUsage()" />
+</details>

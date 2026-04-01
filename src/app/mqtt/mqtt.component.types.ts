@@ -2,7 +2,6 @@ import type {
   MqttDeviceOptions,
   MqttDeviceSetting
 } from './mqtt-device-settings.types';
-import type { ZigbeePrefixes } from './zigbee-prefixes.types';
 
 export type CouchDoc = MqttDeviceSetting & { _id?: string; _rev?: string };
 
@@ -46,6 +45,5 @@ export interface SearchBooleanOption {
 
 export interface SearchState {
   searchText: string;
-  selectedPrefixes: ZigbeePrefixes[];
   booleanOptions: SearchBooleanOption[];
 }
