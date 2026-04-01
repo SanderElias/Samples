@@ -22,4 +22,13 @@
   li + li {
     margin-block-start: var(--size-3);
   }
+
+  li > svg {
+    display: inline;
+    inline-size: 0.75em;
+    block-size: 0.75em;
+    margin-inline-end: 0.25em;
+    color: var(--orange-6);
+    vertical-align: -0.0625em;
+  }
 }

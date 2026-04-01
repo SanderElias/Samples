@@ -15,8 +15,9 @@ import { Bloglist } from '../bloglist';
   imports: [RouterLink],
   template: `
     @for (article of articles(); track article.id) {
-      <li>
-        <a
+      <li>        @if (!article.published) {
+          <svg role="img" aria-label="Draft"><use href="#icon-pencil"></use></svg>
+        }        <a
           (click)="onArticleClick()"
           [routerLink]="[
             '/blog',

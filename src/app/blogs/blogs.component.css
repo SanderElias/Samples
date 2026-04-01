@@ -1,5 +1,21 @@
 se-blogs {
   --article-inline-size: 70ch;
+  --task-unchecked-bg: color-mix(in oklab, var(--surface-2) 88%, var(--surface-1));
+  --task-unchecked-border: color-mix(in oklab, var(--surface-4) 70%, var(--text-2));
+  --task-checked-bg: color-mix(in oklab, var(--brand) 78%, var(--surface-1));
+  --task-checked-border: color-mix(in oklab, var(--brand) 66%, var(--text-1));
+  --task-checkmark: var(--surface-1);
+
+  @media (prefers-color-scheme: dark) {
+    --task-checked-bg: color-mix(in oklab, var(--brand) 70%, var(--surface-2));
+    --task-checked-border: color-mix(in oklab, var(--brand) 58%, var(--text-1));
+    --task-unchecked-border: color-mix(
+      in oklab,
+      var(--surface-4) 62%,
+      var(--text-2)
+    );
+  }
+
   display: grid;
   block-size: 100dvb;
   max-inline-size: 98dvs;
@@ -252,6 +268,59 @@ se-blogs {
   ul,
   blockquote {
     margin-block-end: var(--size-3);
+  }
+
+  main article li:has(> input[type='checkbox']) {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  main article li > input[type='checkbox'] {
+    margin: 0;
+    margin-block-start: 0.25em;
+    inline-size: 1em;
+    block-size: 1em;
+    flex: 0 0 auto;
+    appearance: none;
+    -webkit-appearance: none;
+    display: grid;
+    place-content: center;
+    border: 1px solid var(--task-unchecked-border);
+    border-radius: 0.2em;
+    background: var(--task-unchecked-bg);
+    cursor: default;
+  }
+
+  main article li > input[type='checkbox']::before {
+    content: '';
+    inline-size: 0.55em;
+    block-size: 0.55em;
+    transform: scale(0);
+    transform-origin: center;
+    transition: transform 120ms ease-in-out;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+    background: var(--task-checkmark);
+  }
+
+  main article li > input[type='checkbox']:checked {
+    background: var(--task-checked-bg);
+    border-color: var(--task-checked-border);
+  }
+
+  main article li > input[type='checkbox']:checked::before {
+    transform: scale(1);
+  }
+
+  main article li > input[type='checkbox']:disabled {
+    opacity: 1;
+  }
+
+  main article li:has(> input[type='checkbox']:checked) {
+    color: color-mix(in oklab, var(--text-2) 84%, var(--text-1));
+    text-decoration: line-through;
+    text-decoration-thickness: 0.091em;
+    text-decoration-color: color-mix(in oklab, currentColor 70%, transparent);
   }
 
   table {
