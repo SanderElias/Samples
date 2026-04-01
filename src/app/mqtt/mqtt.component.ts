@@ -14,7 +14,6 @@ import { EMPTY } from 'rxjs';
 import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 import { StackedPerComponent } from '../metered-view/stacked-per/stacked-per.component';
 
-import { MqttService } from './mqtt.service';
 import { PairButtonComponent } from './pair-button/pair-button.component';
 import {
   extractPrefix,
@@ -22,6 +21,7 @@ import {
 } from './power-meter/power-meter.component';
 import { PrettyJson } from './pretty-json/pretty-json.component';
 import { persistentSignal } from './util/idbstorage';
+import { MqttService } from './mqtt.service';
 import { ZigbeeService } from './zigbee.service';
 
 export const zigbeePrefixes = ['e&m', 's&m', `zaak`, 'kamp', 'Alles'] as const;
