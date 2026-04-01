@@ -12,6 +12,10 @@ export const routes: Routes = [
       import('./blogs/blogs.component').then(m => m.BlogsComponent)
   },
   {
+    path: 'mqtt',
+    loadChildren: () => import('./mqtt/mqtt.routes').then(m => m.routes)
+  },
+  {
     path: '',
     loadComponent: () => import('./demo.component').then(m => m.DemoComponent),
     children: [
@@ -387,10 +391,6 @@ export const routes: Routes = [
           )
       },
 
-      {
-        path: 'mqtt',
-        loadChildren: () => import('./mqtt/routes')
-      },
       {
         path: 'signalForms',
         loadComponent: () =>

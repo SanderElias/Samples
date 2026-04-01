@@ -49,6 +49,11 @@ export class LoggedIn {
     return true;
   }
 
+  ready = computed(() => {
+    if (!this.#isBrowser) return true; // if not in browser, we are always ready, since we can't be logged in
+    return !this.#userRs.isLoading();
+  });
+
   userDetails = computed(() =>
     this.#userDetailsRs.hasValue() ? this.#userDetailsRs.value() : undefined
   );
