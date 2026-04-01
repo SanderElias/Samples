@@ -3,6 +3,15 @@
 This is a small file to remind myself of the things I
 still want to do in this project.
 
+This post also doubles as a quick mermaid rendering sample:
+
+```mermaid
+flowchart TD
+  A[Draft a blog note] --> B[Add a mermaid fence]
+  B --> C[Render it in the browser]
+  C --> D[Enjoy the diagram]
+```
+
 - [x] add some initial blog articles
 - [x] make blog articles show up in the meta data service
 - [x] make blog articles have dynamic routes

@@ -1,0 +1,1 @@
+(async function(){let{init:t}=await import("./plausible-4XPZ7BAW.js");t({domain:"samples.selias.dev",endpoint:"https://track.eliasweb.nl/track",outboundLinks:!0,bindToWindow:!1,captureOnLocalhost:!0}),await import("./bootspa-I3MNOJ4P.js")})();
