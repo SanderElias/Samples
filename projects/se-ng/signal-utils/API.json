@@ -52,6 +52,13 @@
       "source": "src/reactive/await-signal.ts"
     },
     {
+      "name": "proxySignal",
+      "category": "Reactive",
+      "signature": "proxySignal<T extends object, K extends keyof T>(prop: K, source: WritableSignal<T>): WritableSignal<T[K]>",
+      "description": "Creates a WritableSignal that proxies a single property of an object signal. Reads derive from source()[prop] via linkedSignal. Writes forward to source.update(), replacing only the proxied property while preserving sibling fields. Throws if source is not writable or if the source value is not an object.",
+      "source": "src/reactive/proxy-signal.ts"
+    },
+    {
       "name": "isAsyncIterable",
       "category": "Type Guard",
       "signature": "isAsyncIterable(x): x is AsyncIterable<any>",
@@ -155,6 +162,13 @@
       "signature": "assertDefined<T>(value: T | undefined, message: string): T",
       "description": "Throws when value is undefined and returns the value narrowed to exclude undefined",
       "source": "src/helpers/assert-defined.ts"
+    },
+    {
+      "name": "assertObject",
+      "category": "Assertions",
+      "signature": "assertObject<T extends object>(value: unknown, message: string): T",
+      "description": "Throws when value is not a plain object (rejects null, arrays, dates, Temporal, primitives) and returns the value cast to T",
+      "source": "src/helpers/assert-object.ts"
     },
     {
       "name": "Deferred",

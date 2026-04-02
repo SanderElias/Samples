@@ -8,6 +8,7 @@ import {
   Injector
 } from '@angular/core';
 import { debouncedComputed, deepEqual } from '@se-ng/signal-utils';
+import { proxySignal } from '@se-ng/signal-utils';
 
 import { AuthenticadedUserOnlyComponent } from '../authenticaded-user-only/authenticaded-user-only.component';
 
@@ -18,7 +19,6 @@ import {
   PowerMeterComponent
 } from './power-meter/power-meter.component';
 import { persistentSignal } from './util/idbstorage';
-import { proxySignal } from './util/proxy-signal';
 import {
   type BulkGetResponse,
   type CouchDoc,

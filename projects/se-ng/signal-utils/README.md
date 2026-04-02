@@ -97,6 +97,20 @@ indications, examples, and source links.
   await awaitSignal(() => readyFlag(), v => v === true, controller.signal);
   ```
 
+- **`proxySignal`** — Creates a `WritableSignal` that proxies a single property of an object signal. Reads mirror `linkedSignal`; writes forward to `source.update()`, replacing only the proxied property while preserving sibling fields. Throws if `source` is not writable or if the source value is not a plain object.
+  - Signature: `proxySignal<T extends object, K extends keyof T>(prop: K, source: WritableSignal<T>): WritableSignal<T[K]>`
+  - Source: [`src/reactive/proxy-signal.ts`](./src/reactive/proxy-signal.ts)
+
+  Example:
+
+  ```ts
+  const state = signal({ query: '', filters: ['a'] });
+  const filters = proxySignal('filters', state);
+
+  filters.set(['b', 'c']);          // state() === { query: '', filters: ['b', 'c'] }
+  filters.update(f => [...f, 'd']); // state() === { query: '', filters: ['b', 'c', 'd'] }
+  ```
+
 ---
 
 ### Async & control helpers ✅
@@ -251,6 +265,17 @@ indications, examples, and source links.
   ```ts
   const maybe = Math.random() > 0.5 ? 1 : undefined;
   const value = assertDefined(maybe, 'missing value'); // throws when maybe is undefined
+  ```
+
+- **`assertObject`** — Ensure a value is a plain object (not null, array, date, Temporal, or primitive) and return it cast to `T`.
+  - Signature: `assertObject<T extends object>(value: unknown, message: string): T`
+  - Source: [`src/helpers/assert-object.ts`](./src/helpers/assert-object.ts)
+
+  Example:
+
+  ```ts
+  const raw: unknown = getConfig();
+  const config = assertObject<Config>(raw, 'config must be an object');
   ```
 
 ### Deep & structural utilities ✅

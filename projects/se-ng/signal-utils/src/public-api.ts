@@ -43,6 +43,7 @@ export { HttpActionClient } from './http/http-action-client';
 export { asyncComputed } from './reactive/async-computed';
 export { computedResource } from './reactive/async-resource';
 export { awaitSignal, injectAwaitSignal } from './reactive/await-signal';
+export { proxySignal } from './reactive/proxy-signal';
 export {
   debouncedComputed,
   debouncedSignal
@@ -50,3 +51,4 @@ export {
 
 /* Assertions */
 export { assertDefined } from './helpers/assert-defined';
+export { assertObject } from './helpers/assert-object';

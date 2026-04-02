@@ -26,7 +26,7 @@ describe('proxySignal', () => {
     expect(proxied()).toEqual(['x', 'y', 'z']);
   });
 
-  it('initializes nullish source values to an object before setting', () => {
+  it('throws when set is called while source value is nullish', () => {
     type SourceShape = { selectedPrefixes: string[] };
     const source = signal<SourceShape | undefined>(undefined) as unknown as WritableSignal<SourceShape>;
     const proxied = proxySignal<SourceShape, 'selectedPrefixes'>(
@@ -34,9 +34,8 @@ describe('proxySignal', () => {
       source
     );
 
-    proxied.set(['x']);
-
-    expect(source()).toEqual({ selectedPrefixes: ['x'] });
+    expect(() => proxied.set(['x'])).toThrowError('Source signal must be an object');
+    expect(source()).toBeUndefined();
   });
 
   it('throws when the current source value is a primitive', () => {
@@ -67,7 +66,7 @@ describe('proxySignal', () => {
   it('throws while required model is not yet provided and recovers after input is set', () => {
     type SourceShape = { selectedPrefixes: string[] };
 
-    @Component({ selector: 'test-ng0950', template: '' })
+    @Component({ selector: 'test-proxy-ng0950', template: '' })
     class TestComponent {
       src = model.required<SourceShape>();
     }
@@ -89,8 +88,8 @@ describe('proxySignal', () => {
     expect(proxied()).toEqual(['a', 'b']);
   });
 
-  // Write tradeoff: set() can recover from invalid/nullish source values by materializing an object.
-  it('allows set to recover from primitive source values by replacing with an object', () => {
+  // Strict write policy: set() requires an object-shaped source value.
+  it('throws when set is called while source value is primitive', () => {
     type SourceShape = { selectedPrefixes: string[] };
     const source = signal<unknown>(123) as unknown as WritableSignal<SourceShape>;
     const proxied = proxySignal<SourceShape, 'selectedPrefixes'>(
@@ -98,13 +97,11 @@ describe('proxySignal', () => {
       source
     );
 
-    proxied.set(['x']);
-
-    expect(source()).toEqual({ selectedPrefixes: ['x'] });
-    expect(proxied()).toEqual(['x']);
+    expect(() => proxied.set(['x'])).toThrowError('Source signal must be an object');
+    expect(source()).toBe(123);
   });
 
-  // Write tradeoff: update() reads current source[prop] first, so nullish source throws.
+  // Strict write policy: update() requires an object-shaped source value.
   it('throws when update is called while source value is nullish', () => {
     type SourceShape = { selectedPrefixes: string[] };
     const source = signal<SourceShape | undefined>(undefined) as unknown as WritableSignal<SourceShape>;
@@ -116,11 +113,11 @@ describe('proxySignal', () => {
     expect(() => proxied.update(() => ['x'])).toThrowError();
   });
 
-  // Same update() tradeoff for required model/input: throws before binding, works after binding.
+  // Same update() behavior for required model/input: throws before binding, works after binding.
   it('throws on update while required model is not yet provided and recovers after input is set', () => {
     type SourceShape = { selectedPrefixes: string[] };
 
-    @Component({ selector: 'test-ng0950-update', template: '' })
+    @Component({ selector: 'test-proxy-ng0950-update', template: '' })
     class TestComponent {
       src = model.required<SourceShape>();
     }
@@ -220,5 +217,4 @@ describe('proxySignal', () => {
     expect(level2Proxy().sibling).toBe('changed-at-level2');
     expect(valueProxy()).toBe(7);
   });
-
 });
