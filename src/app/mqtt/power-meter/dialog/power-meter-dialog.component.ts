@@ -11,15 +11,12 @@ import {
   signal,
   viewChild
 } from '@angular/core';
-
 import { form, FormField, FormRoot } from '@angular/forms/signals';
-import { deepEqual } from '@se-ng/signal-utils';
-import {
-  MqttDeviceSettingsService,
-  type MqttDeviceOptions
-} from '../../mqtt-device-settings.service';
-import { zigbeePrefixes } from '../../mqtt.component';
+
+import { MqttDeviceSettingsService } from '../../mqtt-device-settings.service';
 import { ZigbeeService } from '../../zigbee.service';
+import { zigbeePrefixes } from '../../zigbee-prefixes.types';
+
 import { splitName } from './split-name';
 
 @Component({
@@ -118,39 +115,19 @@ export class PowerMeterDialogComponent {
   protected readonly settings = inject(MqttDeviceSettingsService);
   readonly ieeeAddress = input.required<string>();
   protected readonly deviceSettings = this.settings.read(this.ieeeAddress);
+  protected readonly deviceOptions = this.settings.optionsFromDevResource(
+    this.deviceSettings
+  );
 
   readonly customGroup = signal(false);
 
   readonly zigbeePrefixes = zigbeePrefixes.filter(p => p !== 'Alles');
-  readonly subGroups = computed(
-    () => {
-      const list = this.z2m.devices().map(d => d.friendly_name.split('/'));
-      const subGroups: Record<string, string[]> = {};
-      for (const dev of list) {
-        if (dev.length <= 2) continue;
-        const prefix = dev[0] as 'e&m' | 's&m' | 'zaak' | 'kamp';
-        const subGroup = dev[1];
-        if (!this.zigbeePrefixes.includes(prefix) || !subGroup) continue;
-        subGroups[prefix] ??= [];
-        if (!subGroups[prefix].includes(subGroup)) {
-          subGroups[prefix].push(subGroup);
-        }
-      }
-      return subGroups;
-    },
-    { debugName: 'SubGroups', equal: deepEqual }
-  );
+  readonly subGroups = this.z2m.deviceSubgroups;
 
   model = linkedSignal(() => {
-    const options: MqttDeviceOptions = this.deviceSettings.hasValue()
-      ? this.deviceSettings.value()
-      : {};
     return {
       ...splitName(this.baseName()),
-      isSubDevice: options.isSubDevice || false,
-      allowPowerControl: options.allowPowerControl || false,
-      alertWhenLost: options.alertWhenLost || false,
-      alertWhenOff: options.alertWhenOff || false
+      ...this.deviceOptions()
     };
   });
 
@@ -164,7 +141,9 @@ export class PowerMeterDialogComponent {
   fd = form(this.model, () => undefined, {
     submission: {
       action: async value => {
+        const currentValue = this.model();
         if (this.baseName() !== this.newName()) {
+          // update the name in the zigbee setup.
           const result = await this.z2m.publish(
             'zigbee2mqtt/bridge/request/device/rename',
             {
@@ -175,6 +154,15 @@ export class PowerMeterDialogComponent {
           );
           console.log({ result });
         }
+        await this.settings.update({
+          id: this.ieeeAddress(),
+          friendlyName: this.newName(),
+          alertWhenLost: currentValue.alertWhenLost,
+          alertWhenOff: currentValue.alertWhenOff,
+          allowPowerControl: currentValue.allowPowerControl,
+          isSubDevice: currentValue.isSubDevice,
+          maxPower: this.deviceSettings.value()?.maxPower || 0
+        });
         this.closeDialog();
       }
     }

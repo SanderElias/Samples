@@ -15,18 +15,43 @@ import {
 
 import { MqttService } from './mqtt.service';
 import type { Z2MDevice } from './mqtt.types';
+import { MqttDeviceSettingsService } from './mqtt-device-settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ZigbeeService {
   mqtt = inject(MqttService);
+  #settings = inject(MqttDeviceSettingsService);
   injector = inject(Injector);
 
   devices: Signal<Z2MDevice[]> = toSignal(
     <any>this.mqtt.listenFor('bridge/devices'),
     <any>{ initialValue: [], debugName: 'ZigbeeServiceDevices' }
   ) as Signal<Z2MDevice[]>;
+
+  deviceSubgroups = computed(
+    () => {
+      const list = this.devices().map(d => d.friendly_name.split('/'));
+      const subGroups: Record<string, string[]> = {};
+      for (const dev of list) {
+        if (dev.length <= 2) continue;
+        const prefix = dev[0].toLowerCase() as 'e&m' | 's&m' | 'zaak' | 'kamp';
+        const subGroup = dev[1];
+        if (!subGroup) continue;
+        subGroups[prefix] ??= [];
+        if (!subGroups[prefix].includes(subGroup)) {
+          subGroups[prefix].push(subGroup);
+          subGroups[prefix] = [
+            ...subGroups[prefix].sort((a, b) => a.localeCompare(b))
+          ];
+        }
+      }
+      // console.log(JSON.stringify({ subGroups }, null, 2));
+      return subGroups;
+    },
+    { debugName: 'DeviceSubGroups', equal: deepEqual }
+  );
 
   getDeviceInfo = (ieeeAddress: Signal<string>) =>
     computed(() => this.#getDevice(ieeeAddress()), { equal: deepEqual });
@@ -67,9 +92,10 @@ export class ZigbeeService {
           map(statuses => {
             return statuses.map((status, index) => {
               if (typeof status !== 'object' || status === null) {
-                // console.warn(`Invalid status for topic ${params[index]}:`, status);
+                console.warn(`Invalid status for topic ${params[index]}:`, status);
                 return {
                   friendly_name: params[index],
+                  ieeeAddress: '',
                   power: 0,
                   energy: 0,
                   current: 0
@@ -77,6 +103,7 @@ export class ZigbeeService {
               } else {
                 return {
                   friendly_name: params[index],
+                  ieeeAddress: <string>status['ieee_address'] ?? '',
                   power: <number>status['power'] ?? 0,
                   energy: <number>status['energy'] ?? 0,
                   current: <number>status['current'] ?? 0

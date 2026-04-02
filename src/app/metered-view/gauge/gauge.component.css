@@ -3,13 +3,13 @@
   --_block-size: 100px;
   display: inline-block;
   position: relative;
-  width: var(--_inline-size);
-  height: var(--_block-size);
+  inline-size: var(--_inline-size);
+  block-size: var(--_block-size);
 }
 
 svg.myGauge {
-  width: var(--_inline-size);
-  height: var(--_block-size);
+  inline-size: var(--_inline-size);
+  block-size: var(--_block-size);
   --_meter-backgroundColor: var(--meter-backgroundColor, var(--surface-3));
   background-repeat: no-repeat;
   background-position: center;

@@ -10,6 +10,7 @@ import {
   effect,
   inject,
   Injectable,
+  Injector,
   signal,
   untracked
 } from '@angular/core';
@@ -18,6 +19,10 @@ import { firstValueFrom } from 'rxjs';
 
 import { LoggedIn } from '../grid-play/logged-in-user.service';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
+import type {
+  MqttDeviceOptions,
+  MqttDeviceSetting
+} from './mqtt-device-settings.types';
 
 import { couchEventLister } from '../crud-stuff/couch-event-lister';
 import { goAddData } from '../crud-stuff/couch-helpers';
@@ -33,36 +38,50 @@ const httpCachedOptions: Record<string, unknown> = {
   })
 };
 
-const sortFields = ['id', 'friendlyName'] as const;
-export type SortField = (typeof sortFields)[number];
-
-export interface MqttDeviceSetting {
-  id: string; // the device id, also used as the document id in CouchDB
-  _rev?: string; // the CouchDB revision, used for updates and deletes
-  friendlyName: string; //  the user friendly name for the device
-  maxPower: number; // the maximum power usage of this device, used for calculating percentages in the UI
-  isSubDevice?: boolean; // whether this device is a subDevice of another device (exclude it when totalling up power usage, for example)
-  allowPowerControl?: boolean; // whether the device can be turned on/off remotely
-  alertWhenOff?: boolean; // whether to show an alert when the device is turned off while it should be on (for devices that should always be on, like a fridge)
-  alertWhenLost?: boolean; // whether to show an alert when the device is not reachable (for devices that should always be reachable, like a router)
-}
-
-export type MqttDeviceOptions = Omit<
-  MqttDeviceSetting,
-  'id' | '_rev' | 'friendlyName' | 'maxPower'
->;
-
 @Injectable({
   providedIn: 'root'
 })
 export class MqttDeviceSettingsService {
   user = inject(LoggedIn).user;
+  injector = inject(Injector);
   base = computed(
     () =>
       `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
   );
   baseUrl = computed(() => `${this.base()}/mqtt_device_settings` as const);
-  idUrl = (id: string) => `${this.baseUrl()}/${id}`;
+  idUrl = (id: string, rev?: string) =>
+    `${this.baseUrl()}/${id}${rev ? `?rev=${rev}` : ''}`;
+
+  readonly defaultOptions: MqttDeviceOptions = {
+    alertWhenLost: false,
+    alertWhenOff: false,
+    allowPowerControl: false,
+    isSubDevice: false
+  } as const;
+
+  readonly extractedOptions = (
+    options: Partial<MqttDeviceSetting> | MqttDeviceOptions
+  ): MqttDeviceOptions => ({
+    alertWhenLost: options?.alertWhenLost ?? this.defaultOptions.alertWhenLost,
+    alertWhenOff: options?.alertWhenOff ?? this.defaultOptions.alertWhenOff,
+    allowPowerControl:
+      options?.allowPowerControl ?? this.defaultOptions.allowPowerControl,
+    isSubDevice: options?.isSubDevice ?? this.defaultOptions.isSubDevice,
+    maxPower: options?.maxPower 
+  });
+
+  optionsFromDevResource = (
+    resource: HttpResourceRef<MqttDeviceSetting | Partial<MqttDeviceSetting>>
+  ) =>
+    computed(
+      () => {
+        if (resource.isLoading()) return this.defaultOptions;
+        const data = resource.hasValue() && resource.value();
+        if (!data) return this.defaultOptions;
+        return this.extractedOptions(data);
+      },
+      { debugName: 'OptionsFromDevResource' }
+    );
 
   #http = inject(HttpClient);
   #notifyDialog = inject(NotifyDialogService);
@@ -71,21 +90,27 @@ export class MqttDeviceSettingsService {
 
   #refresh = signal(0);
 
+  // guard to avoid repeatedly attempting database creation when multiple
+  // errors fire in quick succession (prevents repeated PUT /<db>/ calls)
+  #dbCreateAttempted = false;
   #listRes = httpResource<[string, string][]>(
-    () => ({
-      url: `${this.baseUrl()}/_all_docs?include_docs=false&v=${this.#refresh()}`,
-      method: 'POST',
-      body: {
-        fields: ['id', '_rev']
-      },
-      credentials: 'include',
-      mode: 'cors'
-    }),
+    () =>
+      this.user() === undefined // don't attempt to load the list if we don't know the user,
+        ? undefined
+        : {
+            url: `${this.baseUrl()}/_all_docs?include_docs=false&v=${this.#refresh()}`,
+            method: 'POST',
+            body: {
+              fields: ['id', '_rev']
+            },
+            credentials: 'include',
+            mode: 'cors'
+          },
     {
       defaultValue: [],
       parse: (response: any) =>
-        (response?.docs ?? []).map(
-          (i: any) => [i.id, i._rev] as [string, string]
+        (response?.rows ?? []).map(
+          (i: any) => [i.id, i.value.rev] as [string, string]
         )
     }
   );
@@ -97,6 +122,18 @@ export class MqttDeviceSettingsService {
     const err: any = this.#listRes.error();
     if (!err) return;
     const reason: string = err.error?.reason;
+
+    // If CouchDB reports the DB already exists (HTTP 412 / file_exists),
+    // ignore — this is benign and should not trigger repeated create attempts.
+    if (
+      err?.status === 412 ||
+      err?.error?.error === 'file_exists' ||
+      (typeof reason === 'string' &&
+        reason.toLowerCase().includes('file exists'))
+    ) {
+      return;
+    }
+
     if (!reason) {
       console.error('Unknown error', err);
       this.#notifyDialog.show({
@@ -105,13 +142,30 @@ export class MqttDeviceSettingsService {
       });
       return;
     }
+
     if (reason.startsWith('No index exists')) {
       throw new Error(
         'Index missing, please create the required database and indexes by running the createDbAndIndexes function in the console.'
       );
     }
     if (reason.startsWith('Database does not exist')) {
+      if (this.#dbCreateAttempted) {
+        console.info('Database create already attempted, skipping.');
+        return;
+      }
+      this.#dbCreateAttempted = true;
       try {
+        // Double-check with a direct fetch to avoid issuing a PUT if the DB
+        // already exists (this helps when multiple instances or retries race).
+        const checkRes = await fetch(this.baseUrl(), {
+          method: 'GET',
+          credentials: 'include',
+          mode: 'cors'
+        });
+        if (checkRes.ok) {
+          this.#listRes.reload();
+          return;
+        }
         await untracked(
           async () =>
             await firstValueFrom(
@@ -132,20 +186,30 @@ export class MqttDeviceSettingsService {
 
   constructor() {
     setTimeout(() => {
+      if (!this.user()) return; // don't set up the listener if we don't know the user (e.g. not logged in)
       const s = couchEventLister(this.base(), 'mqtt_device_settings').subscribe(
         event => {
+          console.log('CouchDB change event');
+          // console.log(JSON.stringify(event, null, 2));
           this.#cache.purge(this.idUrl(event.id));
           if (event.deleted) {
             this.#list.update(oldList =>
               oldList.filter(i => i[0] !== event.id)
             );
           } else {
-            const rev = event.changes[0]?.rev ?? '';
-            this.#list.update(oldList =>
-              oldList.map(i =>
-                i[0] === event.id ? ([i[0], rev] as [string, string]) : i
-              )
-            );
+            const rev = event.changes[0]?.rev ?? Date.now().toString(36);
+            this.#list.update(oldList => {
+              // Find the item index once, then update or append accordingly.
+              const idx = oldList.findIndex(i => i[0] === event.id);
+              if (idx === -1) {
+                // Not present: append new id/rev tuple.
+                return [...oldList, [event.id, rev]];
+              } else {
+                const newList = [...oldList];
+                newList[idx] = [event.id, rev];
+                return newList;
+              }
+            });
           }
         }
       );
@@ -154,14 +218,16 @@ export class MqttDeviceSettingsService {
   }
 
   create = async (data: MqttDeviceSetting) => {
+    if (!data?.id) return false;
     const url = this.idUrl(data.id);
     try {
       const response = await firstValueFrom(
         this.#http.put(url, data, httpCachedOptions)
       );
-      this.#list.update(oldList =>
-        [[data.id, ''] as [string, string], ...oldList].splice(0, 50)
-      );
+      this.#list.update(oldList => [
+        [data.id, ''] as [string, string],
+        ...oldList
+      ]);
       return true;
     } catch (e: any) {
       const { error: { error: err, reason } = {} } = e ?? {};
@@ -178,32 +244,42 @@ export class MqttDeviceSettingsService {
   };
 
   read = (
-    ids: Signal<string>,
+    ids: () => string | undefined,
     options: Record<string, unknown> = httpCachedOptions
   ): HttpResourceRef<MqttDeviceSetting | Partial<MqttDeviceSetting>> => {
     const id = computed(() => earlyReadToUndefined(ids) ?? '');
+    // use the list signal to get the current revision for this id, so that the resource updates when the revision changes (e.g. after an update or external change)
+    const rev = computed(() => {
+      const list = earlyReadToUndefined(this.list) ?? [];
+      const item = list.find(i => i[0] === id());
+      return item ? item[1] : undefined;
+    });
     const httpOptions = computed(() => {
       if (!id()) return undefined;
-      return { url: this.idUrl(id()), ...options };
+      return { url: this.idUrl(id(), rev()), ...options };
     });
     return httpResource<MqttDeviceSetting | Partial<MqttDeviceSetting>>(
       httpOptions,
       {
-        defaultValue: { id: id() } as unknown as Partial<MqttDeviceSetting>
+        defaultValue: { id: id() } as unknown as Partial<MqttDeviceSetting>,
+        injector: this.injector
       }
     );
   };
 
   update = async (data: MqttDeviceSetting) => {
-    const id = data.id;
+    const id = data?.id;
+    if (!id) return { result: 'error', error: 'missing-id' };
     const url = this.idUrl(id);
     const oldData = (await firstValueFrom(
       this.#http.get(url, httpCachedOptions)
     )) as MqttDeviceSetting;
-    if (deepEqual(oldData, data)) return { result: 'noChange' };
+    // Ensure we include the current revision when updating so CouchDB accepts the PUT
+    const toSend = { ...data, _rev: oldData._rev } as MqttDeviceSetting;
+    if (deepEqual(oldData, toSend)) return { result: 'noChange' };
     try {
       const { rev } = await firstValueFrom(
-        this.#http.put<CouchUpdate>(url, data, httpCachedOptions)
+        this.#http.put<CouchUpdate>(url, toSend, httpCachedOptions)
       );
       this.#list.update(oldList =>
         oldList.reduce(
@@ -226,15 +302,16 @@ export class MqttDeviceSettingsService {
       }
       if (reason?.startsWith('Document update conflict')) {
         try {
-          this.#cache.purge(url);
+          this.#cache.purge(url); // purge the cache to avoid repeated conflicts on retry
           const myDiff = deepDiff(oldData, data);
           const remoteData = (await firstValueFrom(
-            this.#http.get(url, { mode: 'cors', credentials: 'include' })
+            this.#http.get(url, { mode: 'cors', credentials: 'include' }) // don't use cache here to ensure we get the latest revision and data, even if it's a bit slower
           )) as MqttDeviceSetting;
           console.log({ myDiff, remoteData });
           const merged = {
             ...remoteData,
             ...myDiff,
+            // for maxPower, we want to keep the highest value to avoid losing important data about power usage
             maxPower: Math.max(
               remoteData.maxPower || 0,
               data.maxPower || 0,
@@ -280,11 +357,11 @@ export class MqttDeviceSettingsService {
         const { _rev } = await firstValueFrom(
           this.#http.get<{ _rev: string }>(url, httpCachedOptions)
         );
-        this.#list.update(oldList =>
-          oldList.map(i =>
+        this.#list.update(oldList => [
+          ...oldList.map(i =>
             i[0] === id ? ([i[0], _rev] as [string, string]) : i
           )
-        );
+        ]);
         return false;
       }
     }

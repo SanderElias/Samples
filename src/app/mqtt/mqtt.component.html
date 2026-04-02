@@ -1,45 +1,43 @@
 <authenticated-user-only>
-  <details>
-    <summary>Settings</summary>
-    <div class="zigbee-prefixes">
-      @for (pf of zigbeePrefixes; track $index) {
+  <se-mqtt-settings [(selectedPrefixes)]="selectedPrefixes" [powerUsage]="powerUsage()" />
+  <details class="searchBar">
+    <summary>Filter</summary>
+    <main>
+      <label>
+        <input
+          type="search"
+          class="search"
+          placeholder="Search name"
+          aria-label="Search devices"
+          [value]="search().searchText"
+          (input)="setSearchText($any($event.target).value)"
+        />
+        <button type="button" title="Clear search" (click)="setSearchText('')">
+          ✕
+        </button>
+      </label>
+      @for (opt of search().booleanOptions; track opt.name) {
         <label>
           <input
             type="checkbox"
-            [checked]="selectedPrefixes().includes(pf)"
-            (change)="checkPf(pf)"
+            [checked]="opt.value === true"
+            (change)="
+              setBooleanOption(
+                opt.name,
+                $any($event.target).checked ? true : undefined
+              )
+            "
           />
-          {{ pf ? pf : 'Alles' }}
+          {{ opt.description || opt.name }}
         </label>
       }
-    </div>
-    <div class="toolbar">
-      <select (change)="selected.set($any($event.target).value)">
-        @for (device of deviceList(); track device.name) {
-          <option [value]="device.name">{{ device.name }}</option>
-        }
-      </select>
-      <select (change)="filter.set($any($event.target).value)">
-        @for (type of deviceTypes(); track type[0]) {
-          <option [value]="type[0]">{{ type[1] }}</option>
-        }
-      </select>
-      <label><input #sd type="checkbox" />show details</label>
-    </div>
-    <se-stacked-per [data]="powerUsage()" />
-    @if (sd.checked) {
-      <div class="grid">
-        <!-- selectedDevice.value()| json }}</code></pre> -->
-        <pretty-json [json]="selectedDevice.value()" />
-        <pretty-json [json]="selectedDetails()" />
-      </div>
-    }
+    </main>
   </details>
   <div class="devGrid">
     <se-pair-button [selectedPrefixes]="selectedPrefixes()" />
 
-    @for (device of powerMeters(); track device.ieee_address) {
-      <power-meter [ieeeAddress]="device.ieee_address" />
+    @for (device of powerMetersFiltered(); track device.ieeeAddress) {
+      <power-meter [ieeeAddress]="device.ieeeAddress" />
     }
   </div>
 </authenticated-user-only>

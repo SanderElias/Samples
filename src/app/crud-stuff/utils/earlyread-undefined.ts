@@ -6,7 +6,7 @@ import type { Signal } from '@angular/core';
  * @param data
  * @returns
  */
-export const earlyReadToUndefined = <T>(data: Signal<T>): T | undefined => {
+export const earlyReadToUndefined = <T>(data: Signal<T> | (() => T)): T | undefined => {
   try {
     return data();
   } catch (err) {

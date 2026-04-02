@@ -36,24 +36,24 @@ describe('awaitSignal', () => {
     await expect(result).resolves.toBe(5);
   });
 
-  it('rejects when the signal is destroyed before resolving', async () => {
+  it('rejects with abort reason when AbortSignal is aborted', async () => {
     const sig = runInInjectionContext(injector, () => signal(0));
+    const controller = new AbortController();
     const result = runInInjectionContext(injector, () =>
-      awaitSignal(sig, v => v === 5)
+      awaitSignal(sig, v => v === 5, controller.signal)
     );
-    setTimeout(() => sig.set(4), 1);
+    controller.abort(new Error('cancelled'));
+    await expect(result).rejects.toThrow('cancelled');
+  });
 
-    /**
-     * there is trickery here!
-     * We are using the setTimeout to trigger the thing _after_ this completes.
-     * however the the teardown logic will still run, and it will clean up the signal.
-     * This means that the signal will be destroyed before the predicate has a chance to be satisfied.
-     * and the rejects will happen. (assertion is awaited to avoid Vitest warning)
-     */
-
-    await expect(result).rejects.toThrow(
-      '[awaitSignal] the provided signal was destroyed before the predicate was satisfied'
+  it('rejects with the native AbortError when AbortSignal aborts without a reason', async () => {
+    const sig = runInInjectionContext(injector, () => signal(0));
+    const controller = new AbortController();
+    const result = runInInjectionContext(injector, () =>
+      awaitSignal(sig, v => v === 5, controller.signal)
     );
+    controller.abort();
+    await expect(result).rejects.toThrow('This operation was aborted');
   });
 
   it('rejects if predicate throws', async () => {
@@ -65,6 +65,27 @@ describe('awaitSignal', () => {
         })
       )
     ).rejects.toThrow('fail');
+  });
+
+  it('silently retries when signal throws NG0950 before resolving', async () => {
+    const underlying = runInInjectionContext(injector, () => signal(0));
+    // Simulates input.required() before a value is bound: throws NG0950 until the value is set
+    const requiredLikeSig = () => {
+      const v = underlying();
+      if (v === 0) throw new Error('NG0950: Required input is accessed before a value is set.');
+      return v;
+    };
+
+    const result = runInInjectionContext(injector, () =>
+      awaitSignal(requiredLikeSig, v => v === 5)
+    );
+
+    // Force the initial effect run NOW (v=0 → throws NG0950, silently ignored)
+    TestBed.flushEffects();
+    // Now set the real value — triggers a second run that resolves
+    underlying.set(5);
+
+    await expect(result).resolves.toBe(5);
   });
 
   it('works with injectAwaitSignal in injection context', async () => {
