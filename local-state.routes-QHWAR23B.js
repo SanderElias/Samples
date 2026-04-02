@@ -1,1 +1,0 @@
-import"./chunk-MI6ML535.js";var t=[{path:"",loadComponent:()=>import("./local-state.component-NBDXTJFF.js").then(e=>e.LocalStateComponent),children:[{path:":id",loadComponent:()=>import("./ls-home.component-ECFQD7ZC.js").then(e=>e.LsHomeComponent)},{path:"",redirectTo:"./1",pathMatch:"full"}]}];export{t as routes};

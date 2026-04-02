@@ -1,1 +1,0 @@
-import{$b as i,_b as n,wb as o,xc as a}from"./chunk-GU5AYZOX.js";import"./chunk-MI6ML535.js";var p=(()=>{class t{static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275cmp=o({type:t,selectors:[["se-baz"]],decls:2,vars:0,template:function(e,m){e&1&&(n(0,"p"),a(1,"baz works!"),i())},styles:["[_nghost-%COMP%]{display:block}"]})}}return t})();export{p as BazComponent};
