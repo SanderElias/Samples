@@ -6,9 +6,9 @@ import {
 } from '@angular/platform-browser';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
-import { routes } from './routes';
 import { HttpGetCachingInterceptor } from './util/http-cache-system';
 import { ClientMetaData, MetaData } from './util/metaData.service';
+import { routes } from './routes';
 
 export const appConfig = {
   providers: [

@@ -5,7 +5,8 @@
     "types": []
   },
   "angularCompilerOptions": {
-    "_enabledBlockTypes": ["if", "for", "switch", "defer", "track"]
+    "_enabledBlockTypes": ["if", "for", "switch", "defer", "track"],
+    "strictTemplates": true
   },
   "files": ["main.ts", "main.server.ts", "../server.ts"],
   "include": ["src/**/*.d.ts"]
