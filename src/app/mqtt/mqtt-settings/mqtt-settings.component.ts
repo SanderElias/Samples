@@ -1,7 +1,12 @@
-import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  model
+} from '@angular/core';
 
 import { StackedPerComponent } from '../../metered-view/stacked-per/stacked-per.component';
-import { zigbeePrefixes, type ZigbeePrefixes } from '../zigbee-prefixes.types';
+import { type ZigbeePrefix, zigbeePrefixes } from '../zigbee-prefixes.types';
 
 @Component({
   selector: 'se-mqtt-settings',
@@ -11,12 +16,12 @@ import { zigbeePrefixes, type ZigbeePrefixes } from '../zigbee-prefixes.types';
   imports: [StackedPerComponent]
 })
 export class MqttSettingsComponent {
-  readonly selectedPrefixes = model.required<ZigbeePrefixes[]>();
+  readonly selectedPrefixes = model.required<ZigbeePrefix[]>();
   readonly powerUsage = input.required<{ name: string; value: number }[]>();
 
   readonly zigbeePrefixes = zigbeePrefixes;
 
-  togglePrefixSelection = (prefix: ZigbeePrefixes) => {
+  togglePrefixSelection = (prefix: ZigbeePrefix) => {
     this.selectedPrefixes.update(current =>
       current.includes(prefix)
         ? current.filter(p => p !== prefix)

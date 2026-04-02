@@ -5,10 +5,7 @@ import {
   Component,
   computed,
   inject,
-  Injector,
-  isWritableSignal,
-  linkedSignal,
-  type WritableSignal
+  Injector
 } from '@angular/core';
 import { debouncedComputed, deepEqual } from '@se-ng/signal-utils';
 
@@ -21,6 +18,7 @@ import {
   PowerMeterComponent
 } from './power-meter/power-meter.component';
 import { persistentSignal } from './util/idbstorage';
+import { proxySignal } from './util/proxy-signal';
 import {
   type BulkGetResponse,
   type CouchDoc,
@@ -31,7 +29,6 @@ import {
 } from './mqtt.component.types';
 import { MqttDeviceSettingsService } from './mqtt-device-settings.service';
 import { undefinedWhenEmpty, ZigbeeService } from './zigbee.service';
-import { type ZigbeePrefixes } from './zigbee-prefixes.types';
 
 @Component({
   selector: 'se-mqtt',
@@ -52,6 +49,7 @@ export class MqttComponent {
 
   readonly search = persistentSignal<SearchState>('mqttSearchFilters', {
     searchText: '',
+    selectedPrefixes: ['e&m', 'kamp'],
     booleanOptions: [
       {
         name: 'allowPowerControl',
@@ -86,10 +84,7 @@ export class MqttComponent {
     }));
   }
 
-  readonly selectedPrefixes = persistentSignal<ZigbeePrefixes[]>(
-    'mqttSelectedPrefixes',
-    ['e&m', 'kamp']
-  );
+  readonly selectedPrefixes = proxySignal('selectedPrefixes', this.search);
 
   readonly powerMeters = computed(
     () =>
@@ -124,7 +119,7 @@ export class MqttComponent {
   readonly powerMetersFiltered = computed(() => {
     const devices = this.devicesWithSettings() ?? [];
     const searchState = this.searchDebounced();
-    const selectedPrefixes = this.selectedPrefixes();
+    const selectedPrefixes = searchState.selectedPrefixes ?? [];
     const searchText = (searchState.searchText ?? '')
       .toString()
       .trim()
@@ -264,23 +259,3 @@ export class MqttComponent {
     }))
   );
 }
-
-const proxySignal = <T extends object, K extends keyof T>(
-  prop: K,
-  source: () => T
-): WritableSignal<T[K]> => {
-  const result = linkedSignal(() => source()[prop]);
-  if (isWritableSignal(source)) {
-    result.set = v => {
-      const obj = source();
-      source.set({ ...obj, [prop]: v });
-    };
-    result.update = fn => {
-      const obj = source();
-      const updatedValue = fn(obj[prop]);
-      source.set({ ...obj, [prop]: updatedValue });
-    };
-  }
-
-  return result;
-};

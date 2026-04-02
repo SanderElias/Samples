@@ -1,4 +1,5 @@
 import { effect, inject, Injector, linkedSignal, signal } from '@angular/core';
+import { isObject } from '@se-ng/signal-utils';
 
 import { del, get, set } from './custom-idb-keyval';
 
@@ -21,7 +22,12 @@ export function persistentSignal<T>(
   get(key)
     .then(value => {
       if (value !== undefined) {
-        result.set(value);
+        if (isObject(value) && isObject(initialValue)) {
+          // For objects, we want to merge the stored value with the initial value to preserve reactivity
+          result.set({ ...initialValue, ...value });
+        } else {
+          result.set(value);
+        }
       }
     })
     .catch(() => undefined); // ignore errors

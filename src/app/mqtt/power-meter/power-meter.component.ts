@@ -12,12 +12,12 @@ import {
 } from '@angular/core';
 
 import { GaugeComponent } from '../../metered-view/gauge/gauge.component';
-import { zigbeePrefixes, type ZigbeePrefixes } from '../zigbee-prefixes.types';
-import { ToggleComponent } from '../toggle/toggle.component';
-import { ZigbeeService } from '../zigbee.service';
-
 import { MqttDeviceSettingsService } from '../mqtt-device-settings.service';
 import type { MqttDeviceSetting } from '../mqtt-device-settings.types';
+import { ToggleComponent } from '../toggle/toggle.component';
+import { ZigbeeService } from '../zigbee.service';
+import { type ZigbeePrefix, zigbeePrefixes } from '../zigbee-prefixes.types';
+
 import { PowerMeterDialogComponent } from './dialog/power-meter-dialog.component';
 import { splitName } from './dialog/split-name';
 
@@ -146,7 +146,9 @@ export class PowerMeterComponent {
     const randomDelay = () => Math.random() * 2000 + 1500; // 1500ms to 3500ms
     const attemptRefresh = () => {
       if (tries >= 15) {
-        console.log(`Max refresh attempts reached for ${this.name()}. Giving up.`);
+        console.log(
+          `Max refresh attempts reached for ${this.name()}. Giving up.`
+        );
         return; // Give up after 5 tries
       }
       if (!this.deviceLoading()) {
@@ -163,9 +165,7 @@ export class PowerMeterComponent {
 }
 
 // create function to extract the prefix from the name
-export function extractPrefix(name: string): ZigbeePrefixes {
+export function extractPrefix(name: string): ZigbeePrefix {
   const match = name.match(new RegExp(`^(${zigbeePrefixes.join('|')})`));
-  return match && match[0]
-    ? (match[0] as ZigbeePrefixes)
-    : ('' as ZigbeePrefixes);
+  return match && match[0] ? (match[0] as ZigbeePrefix) : ('' as ZigbeePrefix);
 }

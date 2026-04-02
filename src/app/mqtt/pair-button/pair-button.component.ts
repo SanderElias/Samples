@@ -1,20 +1,20 @@
 import type { Signal } from '@angular/core';
 import {
   afterRenderEffect,
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
   inject,
   input,
   signal,
-  viewChild,
-  ChangeDetectionStrategy
+  viewChild
 } from '@angular/core';
-
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, interval, map, startWith, switchMap, takeWhile } from 'rxjs';
-import type { ZigbeePrefixes } from '../zigbee-prefixes.types';
+
 import { ZigbeeService } from '../zigbee.service';
+import type { ZigbeePrefix } from '../zigbee-prefixes.types';
 
 @Component({
   selector: 'se-pair-button',
@@ -59,7 +59,7 @@ export class PairButtonComponent {
   z2m = inject(ZigbeeService);
   elm = inject(ElementRef).nativeElement as HTMLDivElement;
 
-  selectedPrefixes = input<ZigbeePrefixes[]>([]);
+  selectedPrefixes = input<ZigbeePrefix[]>([]);
 
   selectedRouter = signal<string>('');
   routerList = computed(() =>

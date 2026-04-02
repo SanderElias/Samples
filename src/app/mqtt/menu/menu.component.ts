@@ -1,4 +1,7 @@
-import { Component, computed, DOCUMENT, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  DOCUMENT,  inject} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { LoggedIn } from '../../grid-play/logged-in-user.service';

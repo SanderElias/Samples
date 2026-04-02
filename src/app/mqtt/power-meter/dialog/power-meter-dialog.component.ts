@@ -11,13 +11,12 @@ import {
   signal,
   viewChild
 } from '@angular/core';
-
 import { form, FormField, FormRoot } from '@angular/forms/signals';
-import { deepEqual } from '@se-ng/signal-utils';
+
 import { MqttDeviceSettingsService } from '../../mqtt-device-settings.service';
-import type { MqttDeviceOptions } from '../../mqtt-device-settings.types';
-import { zigbeePrefixes } from '../../zigbee-prefixes.types';
 import { ZigbeeService } from '../../zigbee.service';
+import { zigbeePrefixes } from '../../zigbee-prefixes.types';
+
 import { splitName } from './split-name';
 
 @Component({
@@ -116,7 +115,9 @@ export class PowerMeterDialogComponent {
   protected readonly settings = inject(MqttDeviceSettingsService);
   readonly ieeeAddress = input.required<string>();
   protected readonly deviceSettings = this.settings.read(this.ieeeAddress);
-  protected readonly deviceOptions = this.settings.optionsFromDevResource(this.deviceSettings);
+  protected readonly deviceOptions = this.settings.optionsFromDevResource(
+    this.deviceSettings
+  );
 
   readonly customGroup = signal(false);
 
@@ -126,7 +127,7 @@ export class PowerMeterDialogComponent {
   model = linkedSignal(() => {
     return {
       ...splitName(this.baseName()),
-      ...this.deviceOptions(),
+      ...this.deviceOptions()
     };
   });
 
