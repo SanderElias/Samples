@@ -247,7 +247,7 @@
     "@fortawesome/fontawesome-svg-core": "7.2.0",
     "@fortawesome/free-regular-svg-icons": "7.2.0",
     "@fortawesome/free-solid-svg-icons": "7.2.0",
-    "@hono/node-server": "1.19.12",
+    "@hono/node-server": "1.19.13",
     "@ngneat/falso": "8.0.2",
     "@plausible-analytics/tracker": "0.4.4",
     "animate-css-grid": "1.5.1",
