@@ -28,7 +28,7 @@ export {
   isTemporalPlainYearMonth,
   isTemporalZonedDateTime
 } from './guards/is-temporal';
-export type { TemporalType, Temporal } from './guards/is-temporal';
+export type { TemporalType } from './guards/is-temporal';
 
 /* path */
 export { flattenRecord } from './path/flatten-record';

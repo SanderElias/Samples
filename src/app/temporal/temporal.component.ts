@@ -1,11 +1,11 @@
 import {
   afterRenderEffect,
+  ChangeDetectionStrategy,
   Component,
   computed,
   linkedSignal,
   signal,
-  untracked,
-  ChangeDetectionStrategy
+  untracked
 } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 
@@ -134,11 +134,6 @@ export class TemporalComponent {
   };
 }
 
-declare global {
-  /** Typed global `Temporal` for environments with native support or after loading the polyfill */
-  const Temporal: typeof import('temporal-polyfill').Temporal;
-}
-
 function injectTemporal() {
   const res = signal({} as typeof Temporal);
 
@@ -150,7 +145,7 @@ function injectTemporal() {
     // Load the polyfill
     console.log('Loading Temporal polyfill...');
     import('temporal-polyfill').then(mod => {
-      res.set(mod.Temporal);
+      res.set(mod.Temporal as typeof Temporal);
       // ensure future checks for Temporal find the polyfill
       (globalThis as any).Temporal = mod.Temporal;
     });

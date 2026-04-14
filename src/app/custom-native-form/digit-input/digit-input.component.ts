@@ -1,9 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
-  input,
-  ChangeDetectionStrategy
+  input
 } from '@angular/core';
 
 @Component({
@@ -132,11 +132,9 @@ class DigitInput extends HTMLElement {
       this.#value = values.join('');
       this.#internals.setFormValue(this.#value);
       if (this.checkValidity()) {
-        // @ts-expect-error
         this.#internals.states.add('user-valid');
       }
       // this is a workaround for this issue: https://github.com/whatwg/html/issues/9639
-      // @ts-expect-error
       this.#internals.states.add('interacted');
       console.log('change', this.#value);
     });

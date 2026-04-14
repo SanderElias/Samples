@@ -1,16 +1,12 @@
-// remove this once Temporal is native in TypeScript
-export type { Temporal } from 'temporal-polyfill';
-import type { Temporal as TP } from 'temporal-polyfill';
-
 export type TemporalType =
-  | TP.Duration
-  | TP.Instant
-  | TP.PlainDate
-  | TP.PlainDateTime
-  | TP.PlainMonthDay
-  | TP.PlainTime
-  | TP.PlainYearMonth
-  | TP.ZonedDateTime;
+  | Temporal.Duration
+  | Temporal.Instant
+  | Temporal.PlainDate
+  | Temporal.PlainDateTime
+  | Temporal.PlainMonthDay
+  | Temporal.PlainTime
+  | Temporal.PlainYearMonth
+  | Temporal.ZonedDateTime;
 
 /**
  * Type guard that checks whether a value is a Temporal object.
@@ -33,7 +29,7 @@ export const isTemporal = (value: unknown): value is TemporalType => {
  * @param value - value to test
  * @returns `true` when `value` is a `Temporal.Duration`
  */
-export const isTemporalDuration = (value: unknown): value is TP.Duration => {
+export const isTemporalDuration = (value: unknown): value is Temporal.Duration => {
   return isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.Duration';
 };
 
@@ -43,7 +39,7 @@ export const isTemporalDuration = (value: unknown): value is TP.Duration => {
  * @param value - value to test
  * @returns `true` when `value` is a `Temporal.Instant`
  */
-export const isTemporalInstant = (value: unknown): value is TP.Instant => {
+export const isTemporalInstant = (value: unknown): value is Temporal.Instant => {
   return isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.Instant';
 };
 
@@ -53,7 +49,7 @@ export const isTemporalInstant = (value: unknown): value is TP.Instant => {
  * @param value - value to test
  * @returns `true` when `value` is a `Temporal.PlainDate`
  */
-export const isTemporalPlainDate = (value: unknown): value is TP.PlainDate => {
+export const isTemporalPlainDate = (value: unknown): value is Temporal.PlainDate => {
   return (
     isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.PlainDate'
   );
@@ -67,7 +63,7 @@ export const isTemporalPlainDate = (value: unknown): value is TP.PlainDate => {
  */
 export const isTemporalPlainDateTime = (
   value: unknown
-): value is TP.PlainDateTime => {
+): value is Temporal.PlainDateTime => {
   return (
     isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.PlainDateTime'
   );
@@ -81,7 +77,7 @@ export const isTemporalPlainDateTime = (
  */
 export const isTemporalPlainMonthDay = (
   value: unknown
-): value is TP.PlainMonthDay => {
+): value is Temporal.PlainMonthDay => {
   return (
     isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.PlainMonthDay'
   );
@@ -93,7 +89,7 @@ export const isTemporalPlainMonthDay = (
  * @param value - value to test
  * @returns `true` when `value` is a `Temporal.PlainTime`
  */
-export const isTemporalPlainTime = (value: unknown): value is TP.PlainTime => {
+export const isTemporalPlainTime = (value: unknown): value is Temporal.PlainTime => {
   return (
     isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.PlainTime'
   );
@@ -107,7 +103,7 @@ export const isTemporalPlainTime = (value: unknown): value is TP.PlainTime => {
  */
 export const isTemporalPlainYearMonth = (
   value: unknown
-): value is TP.PlainYearMonth => {
+): value is Temporal.PlainYearMonth => {
   return (
     isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.PlainYearMonth'
   );
@@ -121,7 +117,7 @@ export const isTemporalPlainYearMonth = (
  */
 export const isTemporalZonedDateTime = (
   value: unknown
-): value is TP.ZonedDateTime => {
+): value is Temporal.ZonedDateTime => {
   return (
     isTemporal(value) && value[Symbol.toStringTag] === 'Temporal.ZonedDateTime'
   );
