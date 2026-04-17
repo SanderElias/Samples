@@ -1,4 +1,8 @@
-import { Component, computed, DOCUMENT, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  DOCUMENT,
+  inject} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { LoggedIn } from '../../grid-play/logged-in-user.service';
@@ -12,9 +16,7 @@ import { LoggedIn } from '../../grid-play/logged-in-user.service';
         <a [routerLink]="['./power']">stroom meter beheer</a>
         <a [routerLink]="['./list']">apparaten lijst</a>
       } @else {
-        <a [href]="'https://auth.eliasweb.nl/ui/login?redirect=' + url()"
-          >Login</a
-        >
+        <a [href]="'https://auth.eliasweb.nl/ui/login?rd=' + url()">Login</a>
       }
     } @else {
       <p>Loading...</p>

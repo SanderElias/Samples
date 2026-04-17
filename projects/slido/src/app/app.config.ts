@@ -10,7 +10,8 @@ import {
 
 import {
   provideClientHydration,
-  withEventReplay
+  withEventReplay,
+  withNoIncrementalHydration
 } from '@angular/platform-browser';
 import { routes } from './app.routes';
 
@@ -24,6 +25,6 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideZonelessChangeDetection(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration())
   ]
 };

@@ -6,6 +6,12 @@
   },
   "angularCompilerOptions": {
     "_enabledBlockTypes": ["if", "for", "switch", "defer", "track"],
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    },
     "strictTemplates": true
   },
   "files": ["main.ts", "main.server.ts", "../server.ts"],

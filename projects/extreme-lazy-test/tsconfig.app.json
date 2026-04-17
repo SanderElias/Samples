@@ -11,6 +11,12 @@
   "angularCompilerOptions": {
     "strict": true,
     "angularCompilerOptions": false,
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    },
     "_enabledBlockTypes": ["if", "for", "switch", "defer", "track"]
   }
 }
