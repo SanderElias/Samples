@@ -1,0 +1,732 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Patch Notes for Civilization: AI Edition</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+      :where(html, body) {
+        background-color: var(--surface-1, #333);
+        color: var(--text-1, #eee);
+      }
+      div[aria-hidden='true'],
+      div[aria-hidden] {
+        display: none;
+      }
+
+      :root {
+        --icon-color: var(--yellow-6, #f6d32d);
+        --icon-accent-color: var(--blue-6, #2d9bf6);
+        --icon-contrast-color: var(--gray-10, #080808);
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --icon-color: var(--yellow-8, #b67400);
+          --icon-accent-color: var(--blue-9, #0b5aa2);
+          --icon-contrast-color: var(--gray-12, #000000);
+        }
+      }
+    </style>
+  <link rel="stylesheet" href="styles-AM7JVA4S.css"><style ng-app-id="ng">/* src/app/blogs/blogs.component.css */
+se-blogs {
+  --article-inline-size: 70ch;
+  --task-unchecked-bg: color-mix(in oklab, var(--surface-2) 88%, var(--surface-1));
+  --task-unchecked-border: color-mix(in oklab, var(--surface-4) 70%, var(--text-2));
+  --task-checked-bg: color-mix(in oklab, var(--brand) 78%, var(--surface-1));
+  --task-checked-border: color-mix(in oklab, var(--brand) 66%, var(--text-1));
+  --task-checkmark: var(--surface-1);
+  display: grid;
+  block-size: 100dvb;
+  max-inline-size: 98dvs;
+  padding: var(--size-4);
+  padding-block-end: 0;
+  overflow: clip;
+  padding-inline-end: 1rem;
+  grid-template-columns: 1fr var(--article-inline-size) auto 1fr;
+  grid-template-rows: auto 1fr 0;
+  grid-template-areas: " . header header . " " . article menu . " " footer footer footer footer ";
+  column-gap: var(--size-3);
+}
+@media (prefers-color-scheme: dark) {
+  se-blogs {
+    --task-checked-bg: color-mix(in oklab, var(--brand) 70%, var(--surface-2));
+    --task-checked-border: color-mix(in oklab, var(--brand) 58%, var(--text-1));
+    --task-unchecked-border: color-mix( in oklab, var(--surface-4) 62%, var(--text-2) );
+  }
+}
+se-blogs #blog-menu-toggle {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+se-blogs #blog-menu-toggle:focus-visible + .blog-menu-btn {
+  outline: 2px solid var(--blue-5);
+  outline-offset: 2px;
+}
+se-blogs .blog-menu-btn {
+  display: none;
+}
+@media (width < 1050px) {
+  se-blogs {
+    grid-template-columns: [icon] 24px [content-start] minmax(0, 1fr) [content-end];
+    grid-template-rows: [header-start] auto [body-start] 1fr [footer-start] 0 [footer-end];
+    grid-template-areas: "icon header" ". article" "footer footer";
+  }
+  se-blogs .blog-menu-btn {
+    grid-column: icon;
+    grid-row: header-start / body-start;
+    justify-self: center;
+    display: block;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    inline-size: 24px;
+    min-inline-size: 24px;
+    block-size: 24px;
+    min-block-size: 24px;
+    align-self: center;
+  }
+  se-blogs .blog-menu-btn svg {
+    inline-size: 24px;
+    block-size: 24px;
+    display: block;
+  }
+}
+se-blogs :where(h1, h2, h3, h4, p, blockquote, ul, table, pre, code) {
+  max-inline-size: unset;
+}
+se-blogs .sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+se-blogs pre {
+  overflow-x: auto;
+  max-inline-size: 100%;
+}
+se-blogs pre code {
+  white-space: pre;
+}
+se-blogs code:not(pre code) {
+  white-space: pre-wrap;
+}
+se-blogs ::backdrop {
+  backdrop-filter: blur(2px);
+}
+se-blogs header {
+  grid-area: header;
+}
+se-blogs h1 {
+  margin-block-end: var(--size-4);
+  text-align: left;
+  text-wrap: balance;
+  max-inline-size: none;
+}
+@media (width < 1050px) {
+  se-blogs h1 {
+    align-self: center;
+    margin-block-end: 0;
+  }
+}
+se-blogs h2 {
+  border-block-end: 1px solid;
+}
+se-blogs main {
+  grid-area: article;
+  overflow-y: auto;
+  margin-inline: auto;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: var(--article-inline-size);
+  padding-inline-end: var(--size-3);
+  text-wrap: pretty;
+  word-break: break-word;
+}
+se-blogs main h1:first-child {
+  display: none;
+}
+@media (width < 1050px) {
+  se-blogs main {
+    margin-inline: 0;
+    max-inline-size: 100%;
+  }
+}
+se-blogs mermaid-diagram {
+  display: block;
+  overflow-x: auto;
+  margin-block: var(--size-4);
+}
+se-blogs mermaid-diagram svg {
+  display: block;
+  max-inline-size: 100%;
+  height: auto;
+}
+se-blogs ul#blog-list {
+  display: block;
+  list-style: none;
+}
+@media (width >= 1050px) {
+  se-blogs ul#blog-list {
+    grid-area: menu;
+  }
+}
+@media (width < 1050px) {
+  se-blogs ul#blog-list {
+    grid-column: icon / content-end;
+    grid-row: body-start / footer-start;
+    justify-self: start;
+    align-self: stretch;
+    margin-inline-start: calc(-1 * var(--size-4));
+    inline-size: min(300px, 80vw);
+    max-inline-size: 100%;
+    padding: var(--size-4);
+    min-inline-size: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translateX(calc(-100% - var(--size-3)));
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), visibility 0s linear 0.5s;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 2;
+    border-start-end-radius: var(--border-size-5);
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  se-blogs ul#blog-list:hover {
+    scrollbar-color: var(--surface-4) transparent;
+  }
+  se-blogs ul#blog-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  se-blogs ul#blog-list::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: var(--border-size-5);
+    transition: background 0.3s;
+  }
+  se-blogs ul#blog-list:hover::-webkit-scrollbar-thumb {
+    background: var(--surface-4);
+  }
+}
+@media (width < 1050px) {
+  se-blogs:has(#blog-menu-toggle:checked) ul#blog-list {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+}
+@media (width < 1050px) {
+  se-blogs .blog-menu-btn .close-icon {
+    display: none;
+  }
+  se-blogs .blog-menu-btn .menu-close-text {
+    display: none;
+  }
+  se-blogs:has(#blog-menu-toggle:checked) .blog-menu-btn .close-icon {
+    display: block;
+  }
+  se-blogs:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-icon {
+    display: none;
+  }
+  se-blogs:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-open-text {
+    display: none;
+  }
+  se-blogs:has(#blog-menu-toggle:checked) .blog-menu-btn .menu-close-text {
+    display: inline;
+  }
+}
+se-blogs p,
+se-blogs ul,
+se-blogs blockquote {
+  margin-block-end: var(--size-3);
+}
+se-blogs main article li:has(> input[type=checkbox]) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+se-blogs main article li > input[type=checkbox] {
+  margin: 0;
+  margin-block-start: 0.25em;
+  inline-size: 1em;
+  block-size: 1em;
+  flex: 0 0 auto;
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid;
+  place-content: center;
+  border: 1px solid var(--task-unchecked-border);
+  border-radius: 0.2em;
+  background: var(--task-unchecked-bg);
+  cursor: default;
+}
+se-blogs main article li > input[type=checkbox]::before {
+  content: "";
+  inline-size: 0.55em;
+  block-size: 0.55em;
+  transform: scale(0);
+  transform-origin: center;
+  transition: transform 120ms ease-in-out;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+  background: var(--task-checkmark);
+}
+se-blogs main article li > input[type=checkbox]:checked {
+  background: var(--task-checked-bg);
+  border-color: var(--task-checked-border);
+}
+se-blogs main article li > input[type=checkbox]:checked::before {
+  transform: scale(1);
+}
+se-blogs main article li > input[type=checkbox]:disabled {
+  opacity: 1;
+}
+se-blogs main article li:has(> input[type=checkbox]:checked) {
+  color: color-mix(in oklab, var(--text-2) 84%, var(--text-1));
+  text-decoration: line-through;
+  text-decoration-thickness: 0.091em;
+  text-decoration-color: color-mix(in oklab, currentColor 70%, transparent);
+}
+se-blogs table {
+  margin-block-end: var(--size-5);
+}
+se-blogs blockquote {
+  padding: var(--size-2);
+  padding-inline-start: var(--size-3);
+  border-start-end-radius: var(--size-2);
+  border-end-end-radius: var(--size-2);
+  margin-inline: var(--size-4);
+  background-color: var(--surface-2);
+}
+se-blogs blockquote p {
+  padding-block: 0;
+  margin-block: 0;
+}
+se-blogs blockquote:has(> span.icon) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--size-3);
+}
+se-blogs blockquote:has(> span.icon) > :not(span.icon) {
+  grid-column: 2;
+}
+se-blogs blockquote:has(> span.icon) > span.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+se-blogs blockquote:has(> span.icon) > span.icon svg {
+  inline-size: 44px;
+  block-size: 44px;
+}
+se-blogs a {
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+se-blogs p {
+  line-height: 1.5;
+  margin-block: var(--size-2);
+}
+se-blogs :is(p, li):has(> code) {
+  line-height: 1.7;
+}
+se-blogs :is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
+  color: var(--text-color-1);
+}
+se-blogs :is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) + *:not(se-blogs :is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6)) {
+  margin-block-start: 0;
+}
+se-blogs :where(h1, .h1) {
+  font-size: var(--font-size-h1, var(--font-size-7));
+  letter-spacing: -0.02em;
+  line-height: 1.1111111;
+  margin-block: 0 0.8888889em;
+}
+se-blogs h2,
+se-blogs .h2 {
+  font-size: var(--font-size-h2, var(--font-size-5, 2rem));
+  letter-spacing: -0.02em;
+  line-height: 1.3333333;
+  margin-block: 1em 1em;
+}
+se-blogs h3,
+se-blogs .h3 {
+  font-size: var(--font-size-h3, var(--font-size-4, 1.5rem));
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  margin-block: 1.6em 0.6em;
+}
+se-blogs h4,
+se-blogs .h4 {
+  font-size: var(--font-size-h4, var(--font-size-3, 1.25rem));
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  margin-block: 1.5em 0.5em;
+}
+se-blogs h5,
+se-blogs .h5 {
+  font-size: var(--font-size-h5, var(--font-size-2, 1.1rem));
+  line-height: 1;
+  margin-block: 0 var(--size-1);
+}
+se-blogs h6,
+se-blogs .h6 {
+  font-size: var(--font-size-h6, var(--font-size-1, 1rem));
+  line-height: 1;
+  margin-block: 0 var(--size-1);
+}
+se-blogs :where(.overline, hgroup > :where(p, .p):first-of-type:first-child) {
+  color: light-dark(oklch(from var(--text-color-2) calc(l * 1.25) c h), oklch(from var(--text-color-2) calc(l * 0.75) c h));
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 2.5;
+  text-transform: uppercase;
+}
+se-blogs hgroup > p {
+  margin: 0;
+}
+se-blogs hgroup > :where(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
+  margin-block-end: 0.4em;
+}
+se-blogs hgroup + * {
+  margin-block-start: 3em;
+}
+se-blogs hgroup > :where(p, .p):last-of-type:last-child:not(:first-child) {
+  color: oklch(from currentColor l c h / 75%);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+}
+se-blogs ul:not([class]) {
+  list-style-type: disc;
+}
+se-blogs ol:not([class]) {
+  list-style-type: decimal;
+}
+se-blogs :where(ul, ol):not([class]) {
+  display: grid;
+  font-size: inherit;
+  gap: 0.5em;
+  line-height: inherit;
+  margin-block-start: 1.25em;
+  margin-block-end: 1.25em;
+  padding-inline-start: 1.625em;
+}
+se-blogs :where(ul, ol):not([class]) li {
+  padding-inline-start: 0.375em;
+}
+se-blogs :where(ul ul),
+se-blogs :where(ul ol),
+se-blogs :where(ol ul),
+se-blogs :where(ol ol) {
+  margin-block-start: 0.75em;
+  margin-block-end: 0.75em;
+}
+se-blogs :where(dl) {
+  font-size: inherit;
+  line-height: inherit;
+  margin-block-start: 1.25em;
+  margin-block-end: 1.25em;
+}
+se-blogs :where(dl) dt {
+  margin-block-start: 1.25em;
+}
+se-blogs :where(dl) dd {
+  margin-block-start: 0.5em;
+  padding-inline-start: 1.625em;
+}
+se-blogs figure {
+  margin-block: 2em;
+}
+se-blogs figure > * {
+  margin-block: 0;
+}
+se-blogs figure figcaption {
+  font-size: 0.875em;
+  line-height: 1.4285714;
+  margin-block-start: 0.8571429em;
+}
+se-blogs > :first-child {
+  margin-block-start: 0;
+}
+se-blogs > :last-child {
+  margin-block-end: 0;
+}
+se-blogs hr + * {
+  margin-block-start: 0;
+}
+se-blogs ::details-content {
+  transition: height 0.75s ease, content-visibility 0.1s ease allow-discrete;
+  height: 0;
+  overflow: clip;
+}
+se-blogs [open]::details-content {
+  height: auto;
+}
+@media (prefers-color-scheme: dark) {
+  se-blogs .hljs {
+    background: #1e1e1e;
+    color: #dcdcdc;
+  }
+  se-blogs .hljs-keyword,
+  se-blogs .hljs-literal,
+  se-blogs .hljs-name,
+  se-blogs .hljs-symbol {
+    color: #569cd6;
+  }
+  se-blogs .hljs-link {
+    color: #569cd6;
+    text-decoration: underline;
+  }
+  se-blogs .hljs-built_in,
+  se-blogs .hljs-type {
+    color: #4ec9b0;
+  }
+  se-blogs .hljs-class,
+  se-blogs .hljs-number {
+    color: #b8d7a3;
+  }
+  se-blogs .hljs-meta .hljs-string,
+  se-blogs .hljs-string {
+    color: #d69d85;
+  }
+  se-blogs .hljs-regexp,
+  se-blogs .hljs-template-tag {
+    color: #9a5334;
+  }
+  se-blogs .hljs-formula,
+  se-blogs .hljs-function,
+  se-blogs .hljs-params,
+  se-blogs .hljs-subst,
+  se-blogs .hljs-title {
+    color: #dcdcdc;
+  }
+  se-blogs .hljs-comment,
+  se-blogs .hljs-quote {
+    color: #57a64a;
+    font-style: italic;
+  }
+  se-blogs .hljs-doctag {
+    color: #79a56a;
+  }
+  se-blogs .hljs-meta,
+  se-blogs .hljs-meta .hljs-keyword,
+  se-blogs .hljs-tag {
+    color: #9b9b9b;
+  }
+  se-blogs .hljs-template-variable,
+  se-blogs .hljs-variable {
+    color: #bd63c5;
+  }
+  se-blogs .hljs-attr,
+  se-blogs .hljs-attribute {
+    color: #9cdcfe;
+  }
+  se-blogs .hljs-section {
+    color: gold;
+  }
+  se-blogs .hljs-emphasis {
+    font-style: italic;
+  }
+  se-blogs .hljs-strong {
+    font-weight: 700;
+  }
+  se-blogs .hljs-bullet,
+  se-blogs .hljs-selector-attr,
+  se-blogs .hljs-selector-class,
+  se-blogs .hljs-selector-id,
+  se-blogs .hljs-selector-pseudo,
+  se-blogs .hljs-selector-tag {
+    color: #d7ba7d;
+  }
+  se-blogs .hljs-addition {
+    background-color: #144212;
+    display: inline-block;
+    width: 100%;
+  }
+  se-blogs .hljs-deletion {
+    background-color: #600;
+    display: inline-block;
+    width: 100%;
+  }
+}
+@media (prefers-color-scheme: light) {
+  se-blogs .hljs {
+    background: #fff;
+    color: #000;
+  }
+  se-blogs .hljs-comment,
+  se-blogs .hljs-quote,
+  se-blogs .hljs-variable {
+    color: green;
+  }
+  se-blogs .hljs-built_in,
+  se-blogs .hljs-keyword,
+  se-blogs .hljs-name,
+  se-blogs .hljs-selector-tag,
+  se-blogs .hljs-tag {
+    color: #00f;
+  }
+  se-blogs .hljs-addition,
+  se-blogs .hljs-attribute,
+  se-blogs .hljs-literal,
+  se-blogs .hljs-section,
+  se-blogs .hljs-string,
+  se-blogs .hljs-template-tag,
+  se-blogs .hljs-template-variable,
+  se-blogs .hljs-title,
+  se-blogs .hljs-type {
+    color: #a31515;
+  }
+  se-blogs .hljs-deletion,
+  se-blogs .hljs-meta,
+  se-blogs .hljs-selector-attr,
+  se-blogs .hljs-selector-pseudo {
+    color: #0b6e87;
+  }
+  se-blogs .hljs-doctag {
+    color: #616161;
+  }
+  se-blogs .hljs-attr {
+    color: #a31515;
+  }
+  se-blogs .hljs-bullet,
+  se-blogs .hljs-link,
+  se-blogs .hljs-symbol {
+    color: #0078d4;
+  }
+  se-blogs .hljs-emphasis {
+    font-style: italic;
+  }
+  se-blogs .hljs-strong {
+    font-weight: 700;
+  }
+}
+se-blogs pre code.hljs {
+  display: block;
+  padding: 1em;
+}
+se-blogs code.hljs {
+  padding: 3px 5px;
+}
+</style><style ng-app-id="ng">
+[_nghost-ng-c2830757242] {
+  display: block;
+  background-color: var(--surface-2);
+  padding: var(--size-4);
+  margin: 0;
+  list-style-type: none;
+  inline-size: fit-content;
+  block-size: fit-content;
+  border-radius: var(--border-size-5);
+}
+@media (width < 1050px) {
+  [_nghost-ng-c2830757242] {
+    inline-size: 100%;
+    min-inline-size: 0;
+    block-size: auto;
+    border-radius: 0;
+  }
+}
+[_nghost-ng-c2830757242]   li[_ngcontent-ng-c2830757242] {
+  margin: 0;
+}
+[_nghost-ng-c2830757242]   li[_ngcontent-ng-c2830757242]    + li[_ngcontent-ng-c2830757242] {
+  margin-block-start: var(--size-3);
+}
+[_nghost-ng-c2830757242]   li[_ngcontent-ng-c2830757242]    > svg[_ngcontent-ng-c2830757242] {
+  display: inline;
+  inline-size: 0.75em;
+  block-size: 0.75em;
+  margin-inline-end: 0.25em;
+  color: var(--orange-6);
+  vertical-align: -0.0625em;
+}</style></head>
+  <body><!--nghm-->
+    <div aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="icon-tip" viewBox="0 0 24 24" fill="none">
+          <path d="M21 2l-1 1M3 2l1 1M21 16l-1-1M3 16l1-1M12 3c-4 0-6.048 1.95-6 5 .023 1.487.5 2.5 1.5 3.5 1 1 1.5 1.5 1.5 3.5h6c0-2 .5-2.5 1.5-3.5 1-1 1.477-2.013 1.5-3.5.048-3.05-2-5-6-5Z" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M9 18h6M10 21h4" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </symbol>
+
+        <symbol id="icon-warning" viewBox="0 0 24 24" fill="none">
+          <path d="M9.6 3.6c1.1-1.8 3.7-1.8 4.8 0L22.4 17.6c1.1 1.8-.2 4.1-2.4 4.1H4c-2.1 0-3.4-2.3-2.4-4.1L9.6 3.6z" fill="var(--icon-color)"></path>
+          <g transform="translate(0,-0.94) translate(12,13.4) scale(1.51) translate(-12,-13.4)">
+            <rect x="11" y="8.0" width="2" height="8.0" rx="1" fill="var(--icon-contrast-color)"></rect>
+            <circle cx="12" cy="17.8" r="1" fill="var(--icon-contrast-color)"></circle>
+          </g>
+        </symbol>
+
+        <symbol id="icon-important" viewBox="0 0 24 24" fill="none">
+          <circle fill="var(--icon-color)" cx="12" cy="21.333" r="2"></circle>
+          <path fill="var(--icon-color)" d="M14 16a2 2 0 1 1 -4 0V3.333a2 2 0 1 1 4 0v12.667z"></path>
+        </symbol>
+
+        <symbol id="icon-note" viewBox="0 0 24 24" fill="none" stroke="var(--icon-accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 11.5V16.5M12 7.51v-.01M12 22C17.5 22 22 17.5 22 12S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z"></path>
+        </symbol>
+
+        <symbol id="icon-menu" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2.5" width="20" height="19" rx="3.5" stroke="var(--icon-accent-color)" stroke-width="1.5"></rect>
+          <path d="M6 6.5v11M9.5 7.5h9M9.5 12h9M9.5 16.5h6" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </symbol>
+
+        <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="var(--icon-accent-color)" stroke-width="1.5"></circle>
+          <path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="var(--icon-color)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+        </symbol>
+
+        <symbol id="icon-uhm" viewBox="0 0 24 24" fill="none">
+          <path fill="var(--icon-color)" d="M14 18a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2c.4 0 4-.7 4-3.3C18 6.4 16.7 5 14.7 5 13 5 12 6.3 12 7a2 2 0 1 1-4 0c0-3.3 3-6 6.7-6 5.3 0 7.3 4 7.3 7.3 0 2.8-1.5 4.9-4.3 6-.6.2-1.2.4-1.7.5V16c0 1.1-.9 2-2 2zM12 21.3a2 2 0 1 0 4 0 2 2 0 0 0-4 0M2 21.3a2 2 0 1 0 4 0 2 2 0 0 0-4 0M4 18a2 2 0 0 0 2-2V4a2 2 0 1 0-4 0v12c0 1.1.9 2 2 2z"></path>
+        </symbol>
+
+        <symbol id="icon-pencil" viewBox="0 0 24 24" fill="none">
+          <g transform="scale(0.3887)">
+            <path d="M328.667,219.141l-7.779-7.838a5.935,5.935,0,0,0-4.226-1.746h0a5.933,5.933,0,0,0-4.225,1.745l-38.183,38.174a1.512,1.512,0,0,0-.391.683l-5.015,19.271a1.5,1.5,0,0,0,1.452,1.878,1.472,1.472,0,0,0,.388-.051l19.154-5.132a1.49,1.49,0,0,0,.673-.389l38.148-38.147a5.989,5.989,0,0,0,.005-8.448ZM307.4,220.574l4.928,4.928-29.966,29.966-4.931-4.931Zm-31.465,46.17-2.613-2.613,2.78-10.681,10.45,10.449Zm13.514-4.189l-4.966-4.966,29.966-29.966,4.966,4.966Z" transform="translate(-268.799 -209.557)" fill="var(--icon-color)"></path>
+            <path d="M326.537,225.467l-5,5-12.014-12.015,5.031-5.03h0a2.953,2.953,0,0,1,2.1-.866h0a2.951,2.951,0,0,1,2.1.863l7.78,7.838a2.989,2.989,0,0,1,0,4.209Z" transform="translate(-268.799 -209.557)" fill="var(--icon-accent-color)"></path>
+          </g>
+        </symbol>
+      </svg>
+    </div>
+    <app-root ng-version="22.0.0-next.8" ngh="1" ng-server-context="ssg"><router-outlet></router-outlet><se-blogs ngh="0"><!--container--><input id="blog-menu-toggle" type="checkbox" aria-label="Toggle article menu"><label for="blog-menu-toggle" title="Toggle article menu" class="blog-menu-btn"><span class="sr-only menu-open-text">Open article menu</span><span class="sr-only menu-close-text">Close article menu</span><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" class="menu-icon"><use href="#icon-menu"></use></svg><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" class="close-icon"><use href="#icon-close"></use></svg></label><header><h1>Patch Notes for Civilization: AI Edition</h1></header><main tabindex="0" aria-label="Blog article content"><article class="rich-text"><h1>Patch Notes for Civilization: AI Edition</h1>
+<p>AI is changing the field as we speak. It's not going, it is <em>doing it right now!</em> At the start of 2026, it had a grow-spurt. From a tool that was promising to be useful, it has become a tool that is actually more then useful. In this article, we will look at this. What has changed, and what does it mean for us?</p>
+<h2>Bubble, or Boom?</h2>
+<p>Really, you tell me. For a long time I was in the bubble camp. I used it since its inception, and while it became steadily more impressive, it always felt like a toy to me. Not because it was unusable or bad, but because the quality of the output was not (by far) ready. It could to minor tasks, but as soon as the taks needed any real substance it would fail. 
+Also the number of failures on tasks was high. And the mistakes where sometimes catastrophic. </p>
+<p>But then the start of 2026 came. And it was like a switch was flipped. Suddenly, the quality of the output was much higher. It could do much more complex tasks, and the number of failures went down drastically. It was like it had learned to learn. I was expecting this to happen, but not in this time frame. The scary thing is, it doesn't seem to be slowing down. We need to calibrate our expectations. It is not longer years away, it is here now. And the next thing is, months away, not years.</p>
+<p>BTW, I know and understand that there was no <em>switch</em>, that flipped. There where many small improvements, but also a lot of things we had learned on how to use it. And tooling. I hate doing the buzzword thing, but, there is no real way around it here. Agent based prompting. Prompt engineering, MCP servers and clients, Skills, Memories, Gibberlink, OASF, ACP, OSI, the list goes on and on.
+A lot of those snapped into place in the first months of 2026. I have heard people say; First it was community college level, but now its got it's its PhD!</p>
+<p>Back to the premise, bubble or boom? I suspect it can be both. When does the bubble go boom? Or will it sizzle out? I don't know. But I do know that we have to deal with this. Ignoring is no longer a viable option. </p>
+<h2>What does it mean for us?</h2>
+<p>Well, something we as developers are used to. Change. Once more, we are in the middle of a paradigm shift. Although, this one is different, <em>very different</em>. Were the previous shifts I have seen were a small breeze, this one is a hurricane. There will be victims. How can we protect ourselves? I could only wish I had a good answer to that. But I don't. I can only give you some advice, and hope it helps.</p>
+<p>Are there no silver linings? Yes, of coarse. First of, none of use is <em>that</em> much ahead, we are all learning together. Secondly, in the current state, it is a tool that is good at solving the 'how', and very limited at the 'what' part. Notice how I left out the <code>why</code>. Why? because that is still the part that needs the most creativity. Now the scary bit. I said currently....
+There is more. Even the most brilliant llm's are not able to do complex tasks by themselves. Also, the problem of hallucination is not going away. Notice the period there? Let me point you to the <a target="_blank" rel="noopener noreferrer" href="https://www.computerworld.com/article/4059383/openai-admits-ai-hallucinations-are-mathematically-inevitable-not-just-engineering-flaws.html">OpenAI admits AI hallucinations are mathematically inevitable</a> article. Thats just one, and it is an article. But there are many studies that show things like this. Solid scientific research, is done. Not all off the outcomes are in favor of AI. But that is the point, we need to be aware of the limitations, and work with them.</p>
+<p>Our jobs will be more about checking the output, and less about writing the code. There is this strange catch 22 in there. We need to learn to program, so we really understand what it takes </p>
+<h2></h2>
+<p>Our jobs are changing. I have been working with AI for a long time. I noticed this shift, and started to dive deeper into it. As I do when I want to learn something I did build my own version. Created an agentic assistant. Named it AI-Mate, and gave it a pirate themed personality. Hooked it up to the log files of my smart home, and hooked it up so it could communicate with me using whatsapp and text messages. Made sure it was fully running on my own hardware, and made it secure. I learned a lot, and I still feel I'm just dipping my toe in. Most notably, local hardware is still a big bottleneck. Its all about the amount of dedicated  memory. Currently that is prohibitively expensive. There is no use in throwing numbers here. Those are aging so quickly, there is no point. That will also change, but not as fast as other things. </p>
+<p>Back to the program. </p>
+</article></main><ul id="blog-list" _nghost-ng-c2830757242=""><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="A quick hello, what this “blog” is (a set of markdown notes), and where to find me around the web." href="/blog/about">What's this all 'bout?</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="A practical set of code and architecture rules-of-thumb for keeping a codebase readable, maintainable, and drama-free." href="/blog/code-guidish">Code/Style guidelines</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="DRY, KISS, YAGNI, ASAP—four principles, one balancing act. Learn when to abstract, when to simplify, and when to stop “future-proofing”." href="/blog/dry-kiss">Dry kiss Yagni ASAP.</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="Your next Y2K: Unix time overflows in 2038 on 32‑bit systems. Understand what breaks, why it happens, and how 64‑bit time fixes it." href="/blog/the-year-2038">The year 2038 problem</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="A developer-friendly take on what “data” really is: things, context, meaning, and the questions you should ask before designing your next model." href="/blog/what-is-data">What is data</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="Signals are Angular’s missing reactive primitive. A deep dive into the why, what, and wherefore—plus how signals complement (not replace) RxJS." href="/blog/angular-signals-www">Angular Signals WWW</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="Stop shipping code the browser already has. A tour of high-leverage platform features (dialogs, details, datalist, and more) you can use today." href="/blog/use-the-platform">use the platform</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="Styling isn’t just CSS—it’s systems. Learn how to build durable design foundations with tokens, custom properties, theming, and the cascade." href="/blog/component-styling">Component Styling</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="Specificity is the silent source of CSS bugs. Get an intuition for the cascade, why `!important` hurts, and how `@layer` makes styling predictable." href="/blog/css-specificity">CSS specificity</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="Explore the key reasons—from stability and powerful tooling to a vibrant community—that make Angular the top choice for scalable, maintainable web apps." href="/blog/why-angular">Why Angular?</a></li><li _ngcontent-ng-c2830757242=""><!--container--><a _ngcontent-ng-c2830757242="" title="" href="/blog/state-of-state">Stating the state of state</a></li><!--container--></ul><!--ngh=d0--></se-blogs><!--container--></app-root>
+  <script src="main-YP7ZIRWU.js" type="module"></script>
+
+<script id="ng-state" type="application/json">{"432992457":{"b":[{"id":"vTjn3EjDgIcljkmM","description":"Hit a dead link? Here’s why an article might not resolve—and how to get back to the blog.","tags":[],"name":"404","title":"Article not found.","published":false,"dateAdded":"2025-12-19T05:57:13.531Z"},{"id":"w2jw3vjIgFcpjrmo","description":"A quick hello, what this “blog” is (a set of markdown notes), and where to find me around the web.","tags":[],"name":"about","title":"What's this all 'bout?","published":true,"dateAdded":"2025-12-19T05:57:13.532Z"},{"id":"wDje3njxg2cnjZmT","description":"A practical set of code and architecture rules-of-thumb for keeping a codebase readable, maintainable, and drama-free.","tags":[],"name":"code-guidish","title":"Code\u002FStyle guidelines","published":true,"dateAdded":"2025-12-19T05:57:13.532Z"},{"id":"wVjz34jxggcejlmR","description":"DRY, KISS, YAGNI, ASAP—four principles, one balancing act. Learn when to abstract, when to simplify, and when to stop “future-proofing”.","tags":[],"name":"dry-kiss","title":"Dry kiss Yagni ASAP.","published":true,"dateAdded":"2025-12-19T05:57:13.532Z"},{"id":"wEjI3tjog1cdjjmE","description":"Enums look tidy in TypeScript, but they disappear at runtime. This post explains the trade-offs so you can choose the right alternative for your API.","tags":[],"name":"enum","title":"what about ENUM's in typescript?","published":false,"dateAdded":"2025-12-19T05:57:13.532Z"},{"id":"xOjX3IjHg5ckjImW","description":"Your next Y2K: Unix time overflows in 2038 on 32‑bit systems. Understand what breaks, why it happens, and how 64‑bit time fixes it.","tags":[],"name":"the-year-2038","title":"The year 2038 problem","published":true,"dateAdded":"2025-12-19T05:57:13.533Z"},{"id":"xYj937jtgycHjWm1","description":"Welcome aboard: bite-sized thoughts on software, Angular, and the web—written for curious developers at any level.","tags":[],"name":"welcome","title":"welcome","published":false,"dateAdded":"2025-12-19T05:57:13.533Z"},{"id":"x2jb3xjzg6cgjEmn","description":"A developer-friendly take on what “data” really is: things, context, meaning, and the questions you should ask before designing your next model.","tags":[],"name":"what-is-data","title":"What is data","published":true,"dateAdded":"2025-12-19T05:57:13.533Z"},{"id":"xCgWt94YrscijEmA","description":"Signals are Angular’s missing reactive primitive. A deep dive into the why, what, and wherefore—plus how signals complement (not replace) RxJS.","tags":[],"name":"angular-signals-www","title":"Angular Signals WWW","published":true,"dateAdded":"2025-12-19T10:54:03.057Z"},{"id":"rtvui0r9ycgGjLmz","description":"Stop shipping code the browser already has. A tour of high-leverage platform features (dialogs, details, datalist, and more) you can use today.","tags":[],"name":"use-the-platform","title":"use the platform","published":true,"dateAdded":"2025-12-22T09:38:44.439Z"},{"id":"bofLwbpvxlqejmml","description":"Styling isn’t just CSS—it’s systems. Learn how to build durable design foundations with tokens, custom properties, theming, and the cascade.","tags":[],"name":"component-styling","title":"Component Styling","published":true,"dateAdded":"2025-12-29T09:07:10.824Z"},{"id":"9Mgg7tw79EsOjvm8","description":"Specificity is the silent source of CSS bugs. Get an intuition for the cascade, why `!important` hurts, and how `@layer` makes styling predictable.","tags":[],"name":"css-specificity","title":"CSS specificity","published":true,"dateAdded":"2025-12-30T07:35:46.617Z"},{"id":"eplS4feKm5whjZmY","description":"A small public roadmap for this site: tags, RSS, comments, related posts, and more.","tags":[],"name":"todo","title":"List of things still to do","published":false,"dateAdded":"2026-01-02T08:36:42.818Z"},{"id":"8G8isa16rm3AkTmN","description":"Angular Resources make async data feel synchronous—safely. Learn the shared API, when to use `resource`\u002F`httpResource`, and when not to.","tags":[],"name":"resource-do-and-donts","title":"Let us resource all the things!","published":false,"dateAdded":"2026-01-07T08:21:28.233Z"},{"id":"u89borhC8WqHl2ms","description":"Performance isn’t one number. A pragmatic guide to defining goals with stakeholders, measuring what matters, and shipping less JS (and less data) for faster apps.","tags":[],"name":"performance","title":"Performance","published":false,"dateAdded":"2026-02-17T06:40:21.282Z"},{"id":"gs6RhX9W76tAlFmM","description":"Explore the key reasons—from stability and powerful tooling to a vibrant community—that make Angular the top choice for scalable, maintainable web apps.","tags":[],"name":"why-angular","title":"Why Angular?","published":true,"dateAdded":"2026-02-19T08:29:17.752Z"},{"id":"wbc1c3mJqnuDlymf","description":"","tags":[],"name":"icons","title":"Icons","published":false,"dateAdded":"2026-02-20T10:18:56.912Z"},{"id":"u75TnYk9lG5nnkmR","description":"","tags":[],"name":"state-of-state","title":"Stating the state of state","published":true,"dateAdded":"2026-03-25T05:22:49.795Z"},{"id":"wYu47hfhb3oXn3mU","description":"","tags":[],"name":"ai-ai","title":"Patch Notes for Civilization: AI Edition","published":false,"dateAdded":"2026-04-07T07:46:17.864Z"}],"h":{},"s":200,"st":"OK","u":"\u002Fassets\u002Farticles\u002FarticleList.json","rt":"json"},"805718116":{"b":"# Patch Notes for Civilization: AI Edition\n\nAI is changing the field as we speak. It's not going, it is _doing it right now!_ At the start of 2026, it had a grow-spurt. From a tool that was promising to be useful, it has become a tool that is actually more then useful. In this article, we will look at this. What has changed, and what does it mean for us?\n\n## Bubble, or Boom?\n\nReally, you tell me. For a long time I was in the bubble camp. I used it since its inception, and while it became steadily more impressive, it always felt like a toy to me. Not because it was unusable or bad, but because the quality of the output was not (by far) ready. It could to minor tasks, but as soon as the taks needed any real substance it would fail. \nAlso the number of failures on tasks was high. And the mistakes where sometimes catastrophic. \n\nBut then the start of 2026 came. And it was like a switch was flipped. Suddenly, the quality of the output was much higher. It could do much more complex tasks, and the number of failures went down drastically. It was like it had learned to learn. I was expecting this to happen, but not in this time frame. The scary thing is, it doesn't seem to be slowing down. We need to calibrate our expectations. It is not longer years away, it is here now. And the next thing is, months away, not years.\n\nBTW, I know and understand that there was no _switch_, that flipped. There where many small improvements, but also a lot of things we had learned on how to use it. And tooling. I hate doing the buzzword thing, but, there is no real way around it here. Agent based prompting. Prompt engineering, MCP servers and clients, Skills, Memories, Gibberlink, OASF, ACP, OSI, the list goes on and on.\nA lot of those snapped into place in the first months of 2026. I have heard people say; First it was community college level, but now its got it's its PhD!\n\nBack to the premise, bubble or boom? I suspect it can be both. When does the bubble go boom? Or will it sizzle out? I don't know. But I do know that we have to deal with this. Ignoring is no longer a viable option. \n\n## What does it mean for us?\n\nWell, something we as developers are used to. Change. Once more, we are in the middle of a paradigm shift. Although, this one is different, _very different_. Were the previous shifts I have seen were a small breeze, this one is a hurricane. There will be victims. How can we protect ourselves? I could only wish I had a good answer to that. But I don't. I can only give you some advice, and hope it helps.\n\nAre there no silver linings? Yes, of coarse. First of, none of use is _that_ much ahead, we are all learning together. Secondly, in the current state, it is a tool that is good at solving the 'how', and very limited at the 'what' part. Notice how I left out the `why`. Why? because that is still the part that needs the most creativity. Now the scary bit. I said currently....\nThere is more. Even the most brilliant llm's are not able to do complex tasks by themselves. Also, the problem of hallucination is not going away. Notice the period there? Let me point you to the [OpenAI admits AI hallucinations are mathematically inevitable](https:\u002F\u002Fwww.computerworld.com\u002Farticle\u002F4059383\u002Fopenai-admits-ai-hallucinations-are-mathematically-inevitable-not-just-engineering-flaws.html) article. Thats just one, and it is an article. But there are many studies that show things like this. Solid scientific research, is done. Not all off the outcomes are in favor of AI. But that is the point, we need to be aware of the limitations, and work with them.\n\nOur jobs will be more about checking the output, and less about writing the code. There is this strange catch 22 in there. We need to learn to program, so we really understand what it takes \n\n\n## \n\nOur jobs are changing. I have been working with AI for a long time. I noticed this shift, and started to dive deeper into it. As I do when I want to learn something I did build my own version. Created an agentic assistant. Named it AI-Mate, and gave it a pirate themed personality. Hooked it up to the log files of my smart home, and hooked it up so it could communicate with me using whatsapp and text messages. Made sure it was fully running on my own hardware, and made it secure. I learned a lot, and I still feel I'm just dipping my toe in. Most notably, local hardware is still a big bottleneck. Its all about the amount of dedicated  memory. Currently that is prohibitively expensive. There is no use in throwing numbers here. Those are aging so quickly, there is no point. That will also change, but not as fast as other things. \n\nBack to the program. \n","h":{},"s":200,"st":"OK","u":"\u002Fassets\u002Farticles\u002Fai-ai.md","rt":"text"},"1656037153":{"b":[{"path":"\u002FacnhorPosition","modulePath":"\u002Fsrc\u002Fapp\u002Fanchor-pos","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fanchor-pos","title":"Anchor Position","largeImage":"\u002Fassets\u002Fsnapshots\u002FacnhorPosition.png","description":""},{"path":"\u002FbigData","modulePath":"\u002Fsrc\u002Fapp\u002Fbig-data","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fbig-data","title":"Big data and performance demo","largeImage":"\u002Fassets\u002Fsnapshots\u002FbigData.png","description":""},{"path":"\u002Fbintree","modulePath":"\u002Fsrc\u002Fapp\u002Fbintree","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fbintree","title":"Binary tree","largeImage":"\u002Fassets\u002Fsnapshots\u002Fbintree.png","description":""},{"path":"\u002Fblog","modulePath":"\u002Fsrc\u002Fapp\u002Fblogs","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fblogs","title":"Blog","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog.png","description":""},{"path":"\u002Fblog\u002F8G8isa16rm3AkTmN","modulePath":"\u002Farticles\u002F8G8isa16rm3AkTmN.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Let us resource all the things!","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-8G8isa16rm3AkTmN.png"},{"path":"\u002Fblog\u002F9Mgg7tw79EsOjvm8","modulePath":"\u002Farticles\u002F9Mgg7tw79EsOjvm8.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"CSS specificity","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-9Mgg7tw79EsOjvm8.png"},{"path":"\u002Fblog\u002Fabout","modulePath":"\u002Farticles\u002Fabout.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"What's this all 'bout?","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-about.png"},{"path":"\u002Fblog\u002Fangular-signals-www","modulePath":"\u002Farticles\u002Fangular-signals-www.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Angular Signals WWW","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-angular-signals-www.png","description":""},{"path":"\u002Fblog\u002FbofLwbpvxlqejmml","modulePath":"\u002Farticles\u002FbofLwbpvxlqejmml.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Component Styling","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-bofLwbpvxlqejmml.png"},{"path":"\u002Fblog\u002Fcode-guidish","modulePath":"\u002Farticles\u002Fcode-guidish.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Code\u002FStyle guidelines","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-code-guidish.png","description":""},{"path":"\u002Fblog\u002Fcomponent-styling","modulePath":"\u002Farticles\u002Fcomponent-styling.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Component Styling","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-component-styling.png","description":""},{"path":"\u002Fblog\u002Fcss-specificity","modulePath":"\u002Farticles\u002Fcss-specificity.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"CSS specificity","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-css-specificity.png","description":""},{"path":"\u002Fblog\u002Fdry-kiss","modulePath":"\u002Farticles\u002Fdry-kiss.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Dry kiss Yagni ASAP.","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-dry-kiss.png","description":""},{"path":"\u002Fblog\u002FeplS4feKm5whjZmY","modulePath":"\u002Farticles\u002FeplS4feKm5whjZmY.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"List of things still to do","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-eplS4feKm5whjZmY.png"},{"path":"\u002Fblog\u002Fgs6RhX9W76tAlFmM","modulePath":"\u002Farticles\u002Fgs6RhX9W76tAlFmM.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Why Angular?","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-gs6RhX9W76tAlFmM.png"},{"path":"\u002Fblog\u002Frtvui0r9ycgGjLmz","modulePath":"\u002Farticles\u002Frtvui0r9ycgGjLmz.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"use the platform","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-rtvui0r9ycgGjLmz.png"},{"path":"\u002Fblog\u002Fstate-of-state","modulePath":"\u002Farticles\u002Fstate-of-state.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Stating the state of state","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-state-of-state.png"},{"path":"\u002Fblog\u002Fthe-year-2038","modulePath":"\u002Farticles\u002Fthe-year-2038.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"The year 2038 problem","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-the-year-2038.png","description":""},{"path":"\u002Fblog\u002Fu75TnYk9lG5nnkmR","modulePath":"\u002Farticles\u002Fu75TnYk9lG5nnkmR.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Stating the state of state","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-u75TnYk9lG5nnkmR.png"},{"path":"\u002Fblog\u002Fu89borhC8WqHl2ms","modulePath":"\u002Farticles\u002Fu89borhC8WqHl2ms.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Performance","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-u89borhC8WqHl2ms.png"},{"path":"\u002Fblog\u002Fuse-the-platform","modulePath":"\u002Farticles\u002Fuse-the-platform.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"use the platform","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-use-the-platform.png","description":""},{"path":"\u002Fblog\u002FvTjn3EjDgIcljkmM","modulePath":"\u002Farticles\u002FvTjn3EjDgIcljkmM.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Article not found.","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-vTjn3EjDgIcljkmM.png"},{"path":"\u002Fblog\u002Fw2jw3vjIgFcpjrmo","modulePath":"\u002Farticles\u002Fw2jw3vjIgFcpjrmo.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"What's this all 'bout?","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-w2jw3vjIgFcpjrmo.png"},{"path":"\u002Fblog\u002Fwbc1c3mJqnuDlymf","modulePath":"\u002Farticles\u002Fwbc1c3mJqnuDlymf.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Icons!","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-wbc1c3mJqnuDlymf.png"},{"path":"\u002Fblog\u002FwDje3njxg2cnjZmT","modulePath":"\u002Farticles\u002FwDje3njxg2cnjZmT.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Code\u002FStyle guidelines","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-wDje3njxg2cnjZmT.png"},{"path":"\u002Fblog\u002FwEjI3tjog1cdjjmE","modulePath":"\u002Farticles\u002FwEjI3tjog1cdjjmE.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"what about ENUM's in typescript?","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-wEjI3tjog1cdjjmE.png"},{"path":"\u002Fblog\u002Fwhat-is-data","modulePath":"\u002Farticles\u002Fwhat-is-data.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"What is data","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-what-is-data.png","description":""},{"path":"\u002Fblog\u002Fwhy-angular","modulePath":"\u002Farticles\u002Fwhy-angular.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Why Angular?","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-why-angular.png"},{"path":"\u002Fblog\u002FwVjz34jxggcejlmR","modulePath":"\u002Farticles\u002FwVjz34jxggcejlmR.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Dry kiss Yagni ASAP.","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-wVjz34jxggcejlmR.png"},{"path":"\u002Fblog\u002Fx2jb3xjzg6cgjEmn","modulePath":"\u002Farticles\u002Fx2jb3xjzg6cgjEmn.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"What is data","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-x2jb3xjzg6cgjEmn.png"},{"path":"\u002Fblog\u002FxCgWt94YrscijEmA","modulePath":"\u002Farticles\u002FxCgWt94YrscijEmA.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"Angular Signals WWW","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-xCgWt94YrscijEmA.png"},{"path":"\u002Fblog\u002FxOjX3IjHg5ckjImW","modulePath":"\u002Farticles\u002FxOjX3IjHg5ckjImW.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"The year 2038 problem","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-xOjX3IjHg5ckjImW.png"},{"path":"\u002Fblog\u002FxYj937jtgycHjWm1","modulePath":"\u002Farticles\u002FxYj937jtgycHjWm1.md","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Farticles\u002F","title":"welcome","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002Fblog-xYj937jtgycHjWm1.png"},{"path":"\u002Fcard","modulePath":"\u002Fsrc\u002Fapp\u002Fcard","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fcard","title":"Cards","largeImage":"\u002Fassets\u002Fsnapshots\u002Fcard.png","description":""},{"path":"\u002Fcells","modulePath":"\u002Fsrc\u002Fapp\u002Fcells","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fcells","title":"Cells (Game of Life)","largeImage":"\u002Fassets\u002Fsnapshots\u002Fcells.png","description":""},{"path":"\u002FcellsRaw","modulePath":"\u002Fsrc\u002Fapp\u002Fcells\u002Fcell-raw","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fcells\u002Fcell-raw","title":"Cells (Raw DOM)","largeImage":"\u002Fassets\u002Fsnapshots\u002FcellsRaw.png","description":""},{"path":"\u002Fclock","modulePath":"\u002Fsrc\u002Fapp\u002Fanalog-clock","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fanalog-clock","title":"Analog Clock","largeImage":"\u002Fassets\u002Fsnapshots\u002Fclock.png","description":""},{"path":"\u002FcomplexAPI","modulePath":"\u002Fsrc\u002Fapp\u002Fcomplex-api\u002Fapisample","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fcomplex-api\u002Fapisample","title":"Complex API Sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FcomplexAPI.png","description":""},{"path":"\u002FcrudStuff","modulePath":"\u002Fsrc\u002Fapp\u002Fcrud-stuff","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fcrud-stuff","title":"CRUD Stuff","largeImage":"\u002Fassets\u002Fsnapshots\u002FcrudStuff.png","description":""},{"path":"\u002FcustomNativeForm","modulePath":"\u002Fsrc\u002Fapp\u002Fcustom-native-form","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fcustom-native-form","title":"custom-native-form sample!","largeImage":"\u002Fassets\u002Fsnapshots\u002FcustomNativeForm.png","description":""},{"path":"\u002Fdialog","modulePath":"\u002Fsrc\u002Fapp\u002Fdialog","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fdialog","title":"Dialog doesn't need a service","largeImage":"\u002Fassets\u002Fsnapshots\u002Fdialog.png","description":""},{"path":"\u002FDirectiveSamp","modulePath":"\u002Fsrc\u002Fapp\u002Fdirectives\u002Fdirectives-sample","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fdirectives\u002Fdirectives-sample","title":"directives-sample!","largeImage":"\u002Fassets\u002Fsnapshots\u002FDirectiveSamp.png","description":""},{"path":"\u002Fdyn-route","modulePath":"\u002Fsrc\u002Fapp\u002Fdyn-route","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fdyn-route","description":"","title":"Dynamic Route Loading","largeImage":"\u002Fassets\u002Fsnapshots\u002Fdyn-route.png"},{"path":"\u002FdynForm","modulePath":"\u002Fsrc\u002Fapp\u002Fdyn-form","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fdyn-form","title":"Dynamic form sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FdynForm.png","description":""},{"path":"\u002Fdynhtml","modulePath":"\u002Fsrc\u002Fapp\u002Fdynamichtml","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fdynamichtml","title":"Dynamic HTML sample","largeImage":"\u002Fassets\u002Fsnapshots\u002Fdynhtml.png","description":""},{"path":"\u002FdynSignalForm","modulePath":"\u002Fsrc\u002Fapp\u002Fdynsignal-form","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fdynsignal-form","title":"Dynamic Signal Form","largeImage":"\u002Fassets\u002Fsnapshots\u002FdynSignalForm.png","description":""},{"path":"\u002FeventedOutputs","modulePath":"\u002Fsrc\u002Fapp\u002Fevented-outputs","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fevented-outputs","title":"Evented Outputs","largeImage":"\u002Fassets\u002Fsnapshots\u002FeventedOutputs.png","description":""},{"path":"\u002FfilterSamp","modulePath":"\u002Fsrc\u002Fapp\u002Ffilter-samp\u002Ffilter-sample","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ffilter-samp\u002Ffilter-sample","title":"Filter Sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FfilterSamp.png","description":""},{"path":"\u002FformErrors","modulePath":"\u002Fsrc\u002Fapp\u002Fform-error","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fform-error","title":"Form with error shown","largeImage":"\u002Fassets\u002Fsnapshots\u002FformErrors.png","description":""},{"path":"\u002FgridCalender","modulePath":"\u002Fsrc\u002Fapp\u002Fgrid-calender","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fgrid-calender","title":"Grid Calender","largeImage":"\u002Fassets\u002Fsnapshots\u002FgridCalender.png","description":""},{"path":"\u002FgridPlay","modulePath":"\u002Fsrc\u002Fapp\u002Fgrid-play","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fgrid-play","description":"","title":"Grid Play ","largeImage":"\u002Fassets\u002Fsnapshots\u002FgridPlay.png"},{"path":"\u002FgridThings","modulePath":"\u002Fsrc\u002Fapp\u002Fgridthings\u002Fgridthings","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fgridthings\u002Fgridthings","title":"CSS grid sparse table sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FgridThings.png","description":""},{"path":"\u002Fhome","modulePath":"\u002Fsrc\u002Fapp\u002Fhome","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fhome","title":"Welcome to Sanders samples!","largeImage":"\u002Fassets\u002Fsnapshots\u002Fhome.png","description":""},{"path":"\u002FhtmlLoad","modulePath":"\u002Fsrc\u002Fapp\u002Fhtml-load\u002Fhtmlload","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fhtml-load\u002Fhtmlload","title":"HTML Load","largeImage":"\u002Fassets\u002Fsnapshots\u002FhtmlLoad.png","description":""},{"path":"\u002FiconSprite","modulePath":"\u002Fsrc\u002Fapp\u002Ficon-sprite","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ficon-sprite","title":"Icon Sprite","largeImage":"\u002Fassets\u002Fsnapshots\u002FiconSprite.png","description":""},{"path":"\u002FindexDb","modulePath":"\u002Fsrc\u002Fapp\u002Findexdb","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Findexdb","title":"Event-Source DB Sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FindexDb.png","description":""},{"path":"\u002FinMem","modulePath":"\u002Fsrc\u002Fapp\u002Fin-mem-sample","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fin-mem-sample","title":"In-Memory DB Sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FinMem.png","description":""},{"path":"\u002FinputHostExperiment","modulePath":"\u002Fsrc\u002Fapp\u002Finput-host-experiment","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Finput-host-experiment","title":"Input Host Experiment","largeImage":"\u002Fassets\u002Fsnapshots\u002FinputHostExperiment.png","description":""},{"path":"\u002FlazyComponents","modulePath":"\u002Fsrc\u002Fapp\u002Flazy-component","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Flazy-component","title":"Lazy Loaded Components","largeImage":"\u002Fassets\u002Fsnapshots\u002FlazyComponents.png","description":""},{"path":"\u002FlocalState","modulePath":"\u002Fsrc\u002Fapp\u002Flocal-state","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Flocal-state","title":"Local State","largeImage":"\u002Fassets\u002Fsnapshots\u002FlocalState.png","description":""},{"path":"\u002FlocalState\u002F","modulePath":"\u002Fsrc\u002Fapp","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp","title":"Local State","largeImage":"\u002Fassets\u002Fsnapshots\u002FlocalState-.png","description":""},{"path":"\u002FmeteredView","modulePath":"\u002Fsrc\u002Fapp\u002Fmetered-view","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fmetered-view","title":"Metered View","largeImage":"\u002Fassets\u002Fsnapshots\u002FmeteredView.png","description":""},{"path":"\u002FmixinSamp","modulePath":"\u002Fsrc\u002Fapp\u002Fmixins\u002Fmixins","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fmixins\u002Fmixins","title":"Mixins rule","largeImage":"\u002Fassets\u002Fsnapshots\u002FmixinSamp.png","description":""},{"path":"\u002FmodalSamp","modulePath":"\u002Fsrc\u002Fapp\u002Fmodal-samp\u002Fmodal-demo","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fmodal-samp\u002Fmodal-demo","title":"Modal Demo","largeImage":"\u002Fassets\u002Fsnapshots\u002FmodalSamp.png","description":""},{"path":"\u002Fmqtt","modulePath":"\u002Fsrc\u002Fapp\u002Fmqtt","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fmqtt","title":"1-MQTT","largeImage":"\u002Fassets\u002Fsnapshots\u002Fmqtt.png","description":""},{"path":"\u002Fmqtt\u002Flist","modulePath":"\u002Fsrc\u002Fapp","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp","title":"MQTT Device List","largeImage":"\u002Fassets\u002Fsnapshots\u002Fmqtt-list.png","description":""},{"path":"\u002FobservableState","modulePath":"\u002Fsrc\u002Fapp\u002Fobservable-state","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fobservable-state","title":"Observable state","largeImage":"\u002Fassets\u002Fsnapshots\u002FobservableState.png","description":""},{"path":"\u002FobservableState\u002F","modulePath":"\u002Fsrc\u002Fapp\u002Fobservable-sate","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fobservable-sate","title":"Observable state","largeImage":"\u002Fassets\u002Fsnapshots\u002FobservableState-.png","description":""},{"path":"\u002FobservableState\u002Fhook","modulePath":"\u002Fsrc\u002Fapp\u002Flifeycle-hooks-sample","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Flifeycle-hooks-sample","title":"Lifecycle Hooks Sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FobservableState-hook.png","description":""},{"path":"\u002FoutOfOrder","modulePath":"\u002Fsrc\u002Fapp\u002Fout-of-order","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fout-of-order","title":"Out of Order problem","largeImage":"\u002Fassets\u002Fsnapshots\u002FoutOfOrder.png","description":""},{"path":"\u002Fpannel","modulePath":"\u002Fsrc\u002Fapp\u002Fpannel-stuff","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fpannel-stuff","title":"Pannel composition","largeImage":"\u002Fassets\u002Fsnapshots\u002Fpannel.png","description":""},{"path":"\u002FpokeAPI","modulePath":"\u002Fsrc\u002Fapp\u002Fpoke-api\u002Fpokemain","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fpoke-api\u002Fpokemain","title":"PokeAPI Sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FpokeAPI.png","description":""},{"path":"\u002FrequiredAttributes","modulePath":"\u002Fsrc\u002Fapp\u002Frequired-attributes\u002Frequired-attributes","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Frequired-attributes\u002Frequired-attributes","title":"Host for actual components","largeImage":"\u002Fassets\u002Fsnapshots\u002FrequiredAttributes.png","description":""},{"path":"\u002FresizePanel","modulePath":"\u002Fsrc\u002Fapp\u002Fresizable-panels","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fresizable-panels","title":"Resizable Panels","largeImage":"\u002Fassets\u002Fsnapshots\u002FresizePanel.png","description":""},{"path":"\u002FreusableDialog","modulePath":"\u002Fsrc\u002Fapp\u002Freusable-dialog","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Freusable-dialog","title":"Reusable Dialog","largeImage":"\u002Fassets\u002Fsnapshots\u002FreusableDialog.png","description":""},{"path":"\u002FrouteList","modulePath":"\u002Fsrc\u002Fapp\u002Froute-list","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Froute-list","title":"Route List","largeImage":"\u002Fassets\u002Fsnapshots\u002FrouteList.png","description":""},{"path":"\u002Frvt","modulePath":"\u002Fsrc\u002Fapp\u002Frvt","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Frvt","title":"Reactive vs Template","largeImage":"\u002Fassets\u002Fsnapshots\u002Frvt.png","description":""},{"path":"\u002Frvt\u002F","modulePath":"\u002Fsrc\u002Fapp\u002Fboth","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fboth","title":"Reactive vs Template","largeImage":"\u002Fassets\u002Fsnapshots\u002Frvt-.png","description":""},{"path":"\u002Frvt\u002Freactive","modulePath":"\u002Fsrc\u002Fapp\u002Freactive","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Freactive","title":"Reactive","largeImage":"\u002Fassets\u002Fsnapshots\u002Frvt-reactive.png","description":""},{"path":"\u002Frvt\u002Ftemplate","modulePath":"\u002Fsrc\u002Fapp\u002Ftemplate","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftemplate","title":"Template","largeImage":"\u002Fassets\u002Fsnapshots\u002Frvt-template.png","description":""},{"path":"\u002FrxjsTest","modulePath":"\u002Fsrc\u002Fapp\u002Frxjstest","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Frxjstest","title":"Rxjs cleanup test","largeImage":"\u002Fassets\u002Fsnapshots\u002FrxjsTest.png","description":""},{"path":"\u002FsignalDebounce","modulePath":"\u002Fsrc\u002Fapp\u002Fsignal-debounce","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignal-debounce","title":"signal-debounce","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalDebounce.png","description":""},{"path":"\u002FsignalForms","modulePath":"\u002Fsrc\u002Fapp\u002Fsignal-forms-experiment","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignal-forms-experiment","title":"Signal Forms Experiment","description":"","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalForms.png"},{"path":"\u002FsignalForms\u002Fdynamic","modulePath":"\u002Fsrc\u002Fapp\u002Fsignal-forms-experiment\u002Fdynamic","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignal-forms-experiment\u002Fdynamic","title":"Dynamic Form Trail","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalForms-dynamic.png","description":""},{"path":"\u002FsignalForms\u002Ftree","modulePath":"\u002Fsrc\u002Fapp\u002Fsignal-forms-experiment\u002Fsignal-tree","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignal-forms-experiment\u002Fsignal-tree","title":"Signal Forms Tree","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalForms-tree.png","description":""},{"path":"\u002FsignalInputMusings","modulePath":"\u002Fsrc\u002Fapp\u002Fsignal-input-musings","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignal-input-musings","title":"Signal Input Musings","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalInputMusings.png","description":""},{"path":"\u002FsignalPlay","modulePath":"\u002Fsrc\u002Fapp\u002Fsignal-play","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignal-play","title":"Signal Play (JSONPlaceholder)","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalPlay.png","description":""},{"path":"\u002FsignalsForms","modulePath":"\u002Fsrc\u002Fapp\u002Fsignals-form","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignals-form","title":"Signals Form (Full Name)","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalsForms.png","description":""},{"path":"\u002FsignalsInForm","modulePath":"\u002Fsrc\u002Fapp\u002Fsignals-form","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsignals-form","title":"Signals in Form (Full Name)","largeImage":"\u002Fassets\u002Fsnapshots\u002FsignalsInForm.png","description":""},{"path":"\u002Fsnow","modulePath":"\u002Fsrc\u002Fapp\u002Fsnow","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsnow","title":"Snow","largeImage":"\u002Fassets\u002Fsnapshots\u002Fsnow.png","description":""},{"path":"\u002Fstepper","modulePath":"\u002Fsrc\u002Fapp\u002Fstepper","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fstepper","title":"no default selected ","largeImage":"\u002Fassets\u002Fsnapshots\u002Fstepper.png","description":""},{"path":"\u002Fsummary","modulePath":"\u002Fsrc\u002Fapp\u002Fhtml-summary","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fhtml-summary","title":"Experiments with summary component","largeImage":"\u002Fassets\u002Fsnapshots\u002Fsummary.png","description":""},{"path":"\u002Fsvg","modulePath":"\u002Fsrc\u002Fapp\u002Fsvg-calendar\u002Fsvg-calender","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsvg-calendar\u002Fsvg-calender","title":"SVG Calendar","largeImage":"\u002Fassets\u002Fsnapshots\u002Fsvg.png","description":""},{"path":"\u002FsvgClock","modulePath":"\u002Fsrc\u002Fapp\u002Fsvg-clock","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsvg-clock","title":"SVG Clock sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FsvgClock.png","description":""},{"path":"\u002FsvgTest","modulePath":"\u002Fsrc\u002Fapp\u002Fsvg-test","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsvg-test","title":"Quick test with svg","largeImage":"\u002Fassets\u002Fsnapshots\u002FsvgTest.png","description":""},{"path":"\u002FsvgTimer","modulePath":"\u002Fsrc\u002Fapp\u002Fsvg-timer","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fsvg-timer","title":"SVG timer sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FsvgTimer.png","description":""},{"path":"\u002FtableHover","modulePath":"\u002Fsrc\u002Fapp\u002Ftable-hover","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftable-hover","title":"Table Hover","largeImage":"\u002Fassets\u002Fsnapshots\u002FtableHover.png","description":""},{"path":"\u002Ftemporal","modulePath":"\u002Fsrc\u002Fapp\u002Ftemporal","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftemporal","description":"","title":"Playing with Temporal","largeImage":"\u002Fassets\u002Fsnapshots\u002Ftemporal.png"},{"path":"\u002FtestOb","modulePath":"\u002Fsrc\u002Fapp\u002Ftest","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftest","title":"Directive Input Test","largeImage":"\u002Fassets\u002Fsnapshots\u002FtestOb.png","description":""},{"path":"\u002FtestOb\u002Ftestob","modulePath":"\u002Fsrc\u002Fapp\u002Ftest","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftest","title":"Directive Input Test","largeImage":"\u002Fassets\u002Fsnapshots\u002FtestOb-testob.png","description":""},{"path":"\u002Ftimer","modulePath":"\u002Fsrc\u002Fapp\u002Ftimer","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftimer","description":"","title":"Timer Component","largeImage":"\u002Fassets\u002Fsnapshots\u002Ftimer.png"},{"path":"\u002Ftoh","modulePath":"\u002Fsrc\u002Fapp\u002Ftoh","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftoh","title":"Towers of Hanoi","largeImage":"\u002Fassets\u002Fsnapshots\u002Ftoh.png","description":"A classic puzzle game implemented in Angular."},{"path":"\u002Ftoh\u002Fcdk","modulePath":"\u002Fsrc\u002Fapp\u002Ftoh\u002Ftoh-cdk","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftoh\u002Ftoh-cdk","title":"Towers of Hanoi CDK","largeImage":"\u002Fassets\u002Fsnapshots\u002Ftoh-cdk.png","description":"A CDK-based implementation of the Towers of Hanoi puzzle."},{"path":"\u002Ftumblr","modulePath":"\u002Fsrc\u002Fapp\u002Ftumblr","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Ftumblr","title":"Tumblr Integration","largeImage":"\u002Fassets\u002Fsnapshots\u002Ftumblr.png","description":""},{"path":"\u002FunsubSample","modulePath":"\u002Fsrc\u002Fapp\u002Funsub-sample","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Funsub-sample","title":"Unsubscribe sample","largeImage":"\u002Fassets\u002Fsnapshots\u002FunsubSample.png","description":""},{"path":"\u002Fvt","modulePath":"\u002Fsrc\u002Fapp\u002Fview-transitions","gitFolder":"https:\u002F\u002Fgithub.com\u002FSanderElias\u002FSamples\u002Ftree\u002Fmain\u002Fsrc\u002Fapp\u002Fview-transitions","title":"View Transition playground","largeImage":"\u002Fassets\u002Fsnapshots\u002Fvt.png","description":""}],"h":{},"s":200,"st":"OK","u":"\u002Fassets\u002Froutes.json","rt":"json"},"__nghData__":[{"t":{"0":"t0","1":"t1"},"c":{"0":[],"1":[{"i":"t0","r":5,"di":"d0","s":2}]}},{"c":{"0":[{"i":"c1155531386","r":1}]}}],"__nghDeferData__":{"d0":{"r":5,"s":2}}}</script></body></html>
