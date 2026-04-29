@@ -1,18 +1,16 @@
+import type { ApplicationConfig } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 import {
-  ApplicationConfig,
-  provideZonelessChangeDetection
-} from '@angular/core';
+  provideClientHydration,
+  withEventReplay,
+  withNoIncrementalHydration
+} from '@angular/platform-browser';
 import {
   provideRouter,
   withComponentInputBinding,
   withRouterConfig
 } from '@angular/router';
 
-import {
-  provideClientHydration,
-  withEventReplay,
-  withNoIncrementalHydration
-} from '@angular/platform-browser';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

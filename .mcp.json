@@ -1,0 +1,49 @@
+{
+  "mcpServers": {
+    "angular-cli": {
+      "command": "npx",
+      "args": ["@angular/cli", "mcp"]
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "playwright-chrome": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "chrome",
+        "--config",
+        ".vscode/playwright-mcp.config.ts"
+      ]
+    },
+    "playwright-firefox": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "firefox",
+        "--config",
+        ".vscode/playwright-mcp.config.ts"
+      ]
+    },
+    "playwright-webkit": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "webkit",
+        "--config",
+        ".vscode/playwright-mcp.config.ts"
+      ]
+    }
+  }
+}
