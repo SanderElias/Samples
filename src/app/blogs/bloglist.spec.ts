@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
@@ -24,7 +24,7 @@ describe('Bloglist (prerender guard)', () => {
     });
 
     TestBed.configureTestingModule({
-      providers: [Bloglist, provideHttpClient()]
+      providers: [Bloglist, provideHttpClient(withXhr())]
     });
   });
 

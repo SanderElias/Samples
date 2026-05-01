@@ -1,10 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   DOCUMENT,
-  inject,
-  ChangeDetectionStrategy
-} from '@angular/core';
+  inject} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { LoggedIn } from '../../grid-play/logged-in-user.service';
@@ -24,6 +23,7 @@ import { LoggedIn } from '../../grid-play/logged-in-user.service';
       <p>Loading...</p>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
