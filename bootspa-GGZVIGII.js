@@ -3529,11 +3529,11 @@ var AppComponent = class _AppComponent {
 var routes = [
   __spreadValues({
     path: "blog",
-    loadComponent: () => import("./blogs.component-N5FXT56V.js").then((m2) => m2.BlogsComponent)
+    loadComponent: () => import("./blogs.component-I4SMK7TX.js").then((m2) => m2.BlogsComponent)
   }, false ? { \u0275entryName: "app/blogs/blogs.component.ts" } : {}),
   __spreadValues({
     path: "blog/:id",
-    loadComponent: () => import("./blogs.component-N5FXT56V.js").then((m2) => m2.BlogsComponent)
+    loadComponent: () => import("./blogs.component-I4SMK7TX.js").then((m2) => m2.BlogsComponent)
   }, false ? { \u0275entryName: "app/blogs/blogs.component.ts" } : {}),
   __spreadValues({
     path: "mqtt",

@@ -126,7 +126,7 @@ if (typeof HTMLElement !== "undefined") {
 
 // src/app/blogs/parser.ts
 async function parser(content) {
-  const { Marked } = await import("./marked.esm-C627HSGF.js");
+  const { Marked } = await import("./marked.esm-CQ453VYB.js");
   let marked = new Marked();
   try {
     const { default: hljs } = await import("./core-POSF6I7K.js");

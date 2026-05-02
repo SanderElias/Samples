@@ -119,7 +119,7 @@ var BlogsComponent = class _BlogsComponent {
       loader: async ({ params }) => {
         const content = await firstValueFrom(this.http.get(params, { responseType: "text" }));
         if (content) {
-          const { parser } = await import("./parser-6R235N5R.js");
+          const { parser } = await import("./parser-IIWQKDXO.js");
           const html = await parser(content);
           const title = content.match(/# (.*)/);
           if (title) {
