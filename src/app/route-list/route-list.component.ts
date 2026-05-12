@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { Component, computed, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,8 +9,11 @@ import { RouterLink } from '@angular/router';
     @for (item of routes(); track $index) {
       @if (item != undefined) {
         <section>
-          <a [routerLink]="item?.path">
-            <img [src]="item?.largeImage" [alt]="item?.title" />
+          <a [routerLink]="$safeNavigationMigration(item?.path)">
+            <img
+              [src]="$safeNavigationMigration(item?.largeImage)"
+              [alt]="$safeNavigationMigration(item?.title)"
+            />
             <h2>{{ item?.title }}</h2>
             <p>{{ item?.description }}</p>
           </a>

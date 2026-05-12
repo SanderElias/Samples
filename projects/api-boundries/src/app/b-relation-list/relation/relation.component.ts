@@ -1,23 +1,26 @@
 import { AsyncPipe } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostListener,
-  Input,
   inject,
-  ChangeDetectionStrategy
-} from '@angular/core';
+  Input} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { ReplaySubject, firstValueFrom } from 'rxjs';
+import { firstValueFrom,ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
+
 import { RelationsService } from '../../relations.service';
 
 @Component({
   selector: 'app-relation',
   template: `
     @if (!detail) {
-      <h4><img [src]="relation()?.avatar" /> {{ relation()?.name }}</h4>
+      <h4>
+        <img [src]="$safeNavigationMigration(relation()?.avatar)" />
+        {{ relation()?.name }}
+      </h4>
     }
     @if (detail) {
       <section>

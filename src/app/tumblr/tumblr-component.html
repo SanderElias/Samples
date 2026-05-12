@@ -12,7 +12,7 @@
     [class.super]="largePositions[y]===2"
     (click)="switch(y)"
   >
-    <img [src]="i.images?.[0]?.link" loading="lazy" />
+    <img [src]="$safeNavigationMigration(i.images?.[0]?.link)" loading="lazy" />
   </article>
   }
 </div>
