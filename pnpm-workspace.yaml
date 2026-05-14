@@ -1,3 +1,8 @@
+trustPolicy: no-downgrade
+minimumReleaseAgeExclude:
+  - '@angular/*' # Exclude all packages under the @angular scope
+  - '@schematics/angular' # Exclude the @schematics/angular package
+minimumReleaseAge: 2880 # Only install packages that are at least 2 days old
 allowBuilds:
   '@parcel/watcher': false
   core-js: false
@@ -5,3 +10,6 @@ allowBuilds:
   lmdb: false
   msgpackr-extract: false
   sharp: false
+nodeVersion: 26.1.0
+engineStrict: true
+resolutionmode: highest

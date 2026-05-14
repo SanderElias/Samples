@@ -5,10 +5,11 @@ import {
   ElementRef,
   HostListener,
   inject,
-  Input} from '@angular/core';
+  Input
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { firstValueFrom,ReplaySubject } from 'rxjs';
+import { firstValueFrom, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
 import { RelationsService } from '../../relations.service';
@@ -18,7 +19,13 @@ import { RelationsService } from '../../relations.service';
   template: `
     @if (!detail) {
       <h4>
-        <img [src]="$safeNavigationMigration(relation()?.avatar)" />
+        <img
+          [src]="
+            $safeNavigationMigration(
+              $safeNavigationMigration(relation()?.avatar)
+            )
+          "
+        />
         {{ relation()?.name }}
       </h4>
     }
