@@ -476,6 +476,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./boxes/boxes.component').then(m => m.BoxesComponent)
       },
+      {
+        path: 'gamepad',
+        loadComponent: () =>
+          import('./gamepad/gamepad.component').then(m => m.GamepadComponent)
+      },
 
       { path: '**', redirectTo: 'routeList' }
     ]
