@@ -1,4 +1,7 @@
 trustPolicy: no-downgrade
+trustPolicyExclude:
+  - chokidar@4.0.3
+  - semver
 minimumReleaseAgeExclude:
   - '@angular/*' # Exclude all packages under the @angular scope
   - '@schematics/angular' # Exclude the @schematics/angular package
