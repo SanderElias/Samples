@@ -1,12 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   inject,
   Service,
   signal,
-  type WritableSignal
-} from '@angular/core';
+  type WritableSignal} from '@angular/core';
 
 @Component({
   selector: 'se-gamepad',
@@ -25,6 +25,7 @@ import {
       }
     </ul>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './gamepad.component.css'
 })
 export class GamepadComponent {
@@ -76,7 +77,9 @@ class GamePad {
     if (!gamePad) return;
     if (gamePad.buttons.length !== this.buttons().length) {
       // if the number of buttons changes, replace the buttons signal.
-      this.buttons.set(gamePad.buttons.map(button => signal(buttonThing(button))));
+      this.buttons.set(
+        gamePad.buttons.map(button => signal(buttonThing(button)))
+      );
     }
     if (gamePad.axes.length !== this.axis().length) {
       // if the number of axes changes, replace the axis signal.
@@ -84,7 +87,11 @@ class GamePad {
     }
     gamePad.buttons.forEach((button, i) => {
       const { pressed, value, touched } = this.buttons()[i]();
-      if (pressed !== button.pressed || value !== button.value || touched !== button.touched) {
+      if (
+        pressed !== button.pressed ||
+        value !== button.value ||
+        touched !== button.touched
+      ) {
         // update the button signal if the pressed state, value, or touched state changes.
         this.buttons()[i].set(buttonThing(button));
       }

@@ -19,13 +19,7 @@ import { RelationsService } from '../../relations.service';
   template: `
     @if (!detail) {
       <h4>
-        <img
-          [src]="
-            $safeNavigationMigration(
-              $safeNavigationMigration(relation()?.avatar)
-            )
-          "
-        />
+        <img [src]="$safeNavigationMigration(relation()?.avatar)" />
         {{ relation()?.name }}
       </h4>
     }

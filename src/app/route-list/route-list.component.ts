@@ -9,20 +9,10 @@ import { RouterLink } from '@angular/router';
     @for (item of routes(); track $index) {
       @if (item != undefined) {
         <section>
-          <a
-            [routerLink]="
-              $safeNavigationMigration($safeNavigationMigration(item?.path))
-            "
-          >
+          <a [routerLink]="$safeNavigationMigration(item?.path)">
             <img
-              [src]="
-                $safeNavigationMigration(
-                  $safeNavigationMigration(item?.largeImage)
-                )
-              "
-              [alt]="
-                $safeNavigationMigration($safeNavigationMigration(item?.title))
-              "
+              [src]="$safeNavigationMigration(item?.largeImage)"
+              [alt]="$safeNavigationMigration(item?.title)"
             />
             <h2>{{ item?.title }}</h2>
             <p>{{ item?.description }}</p>
