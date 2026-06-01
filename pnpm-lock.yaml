@@ -71,6 +71,12 @@ importers:
       '@plausible-analytics/tracker':
         specifier: 0.4.5
         version: 0.4.5
+      '@std/front-matter':
+        specifier: npm:@jsr/std__front-matter@^1.0.9
+        version: '@jsr/std__front-matter@1.0.9'
+      '@std/toml':
+        specifier: npm:@jsr/std__toml@^1.0.11
+        version: '@jsr/std__toml@1.0.11'
       animate-css-grid:
         specifier: 1.5.1
         version: 1.5.1
@@ -2105,6 +2111,18 @@ packages:
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: '2'
+
+  '@jsr/std__collections@1.2.0':
+    resolution: {integrity: sha512-R58weKPNZ3sFOo9pRAhasq0m0aIVEJau4/bid0VFWp9hoQZ07qpa1vtDLFWNrQK96ZJS0ql6IuOHVrXXsHOE/w==, tarball: https://npm.jsr.io/~/11/@jsr/std__collections/1.2.0.tgz}
+
+  '@jsr/std__front-matter@1.0.9':
+    resolution: {integrity: sha512-CSz8B8ABdHk9O1sbeIhR+hwIfrIImhTzCMxPWnFmwtuoIHoOAqHQJKmKFl0r2MYD5TZlN+t+Z+0wlp0dfU0TaA==, tarball: https://npm.jsr.io/~/11/@jsr/std__front-matter/1.0.9.tgz}
+
+  '@jsr/std__toml@1.0.11':
+    resolution: {integrity: sha512-+LZAizoPAPwMDmRZr86/xPrbO8E0Oq0BJ70mr1fNMobJ/6X6v15Jk16ZClFGukWgzBMd8ggiMWnzp24+N3VNZg==, tarball: https://npm.jsr.io/~/11/@jsr/std__toml/1.0.11.tgz}
+
+  '@jsr/std__yaml@1.1.1':
+    resolution: {integrity: sha512-OLgQ32rFaP5rFMOKorRnlvPgaxyUbd+ORpITxVUY2iy2ROVBtHHIJ4J7vRb7U1pMLorlGJVqCpga3DowyGV+cg==, tarball: https://npm.jsr.io/~/11/@jsr/std__yaml/1.1.1.tgz}
 
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
@@ -9275,6 +9293,19 @@ snapshots:
       '@jsonjoy.com/buffers': 17.67.0(tslib@2.8.1)
       '@jsonjoy.com/codegen': 17.67.0(tslib@2.8.1)
       tslib: 2.8.1
+
+  '@jsr/std__collections@1.2.0': {}
+
+  '@jsr/std__front-matter@1.0.9':
+    dependencies:
+      '@jsr/std__toml': 1.0.11
+      '@jsr/std__yaml': 1.1.1
+
+  '@jsr/std__toml@1.0.11':
+    dependencies:
+      '@jsr/std__collections': 1.2.0
+
+  '@jsr/std__yaml@1.1.1': {}
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 

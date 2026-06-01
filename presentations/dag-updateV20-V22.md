@@ -90,7 +90,11 @@
 
 ---NextSlide
 
-![me](/assets/jeffrey.png)
+![Jeffrey](/assets/jeffrey.png)
+
+<div>
+
+## about Jeffrey 
 
 - fill
 - this
@@ -99,11 +103,17 @@
 - own
 - information
 - Also, put a picture of yourself in the /assets an update the above link.
+</div>
 
+<style>
+  div#slide {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+</style>
 
 ---NextSlide
 
 # What is new since Angular 20?
 
 - A total of over 100 new features
-

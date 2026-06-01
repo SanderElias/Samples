@@ -250,6 +250,8 @@
     "@hono/node-server": "2.0.2",
     "@ngneat/falso": "8.0.2",
     "@plausible-analytics/tracker": "0.4.5",
+    "@std/front-matter": "npm:@jsr/std__front-matter@^1.0.9",
+    "@std/toml": "npm:@jsr/std__toml@^1.0.11",
     "animate-css-grid": "1.5.1",
     "bson": "7.2.0",
     "chance": "1.1.13",
