@@ -40,7 +40,9 @@
 | [a02797d045](https://github.com/angular/angular/commit/a02797d045235afdcc996b2714f68d9c052be4f4) | fix | Preserves explicit 'credentials: omit' in asset requests |
 | [d0c4951a9b](https://github.com/angular/angular/commit/d0c4951a9bfd902e0388bd1bc71c8312e9aad6d7) | fix | Preserves HTTP cache mode in asset group requests |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.15"></a>
 # 21.2.15 (2026-05-28)
@@ -80,8 +82,8 @@
 | [ca32fc1000](https://github.com/angular/angular/commit/ca32fc10001301e6174804f9abcfba62252334f4) | fix | Preserves HTTP cache mode in asset group requests |
 
 
-
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-rc.1"></a>
 # 22.0.0-rc.1 (2026-05-20)
@@ -116,7 +118,9 @@
 | [3e7117d690](https://github.com/angular/angular/commit/3e7117d690386b079c18b435545dab96fc183305) | fix | Add strict typing on 'getResolvedTitleForRoute' |
 | [3e5ab7b470](https://github.com/angular/angular/commit/3e5ab7b470b06b63410649700b6a999e381cbb85) | fix | skip scroll-to-top on initial navigation when hydrating |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.14"></a>
 # 21.2.14 (2026-05-20)
@@ -136,7 +140,9 @@
 | -- | -- | -- |
 | [099bf577ee](https://github.com/angular/angular/commit/099bf577ee8f0bab60593a8fd2a1de7d298e3cd6) | fix | skip scroll-to-top on initial navigation when hydrating |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-rc.0"></a>
 # 22.0.0-rc.0 (2026-05-13)
@@ -154,7 +160,9 @@
 | -- | -- | -- |
 | [119a19e604](https://github.com/angular/angular/commit/119a19e604a500f295867fc2cf2e6dbd43a9d807) | fix | forward BEFORE_APP_SERIALIZED errors to ErrorHandler |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.13"></a>
 # 21.2.13 (2026-05-13)
@@ -168,7 +176,9 @@
 | [629905d537](https://github.com/angular/angular/commit/629905d537f59dc3c264c49f6347e3599dea0215) | fix | add `allowedHosts` option to `renderModule` and `renderApplication` |
 | [0b7192f441](https://github.com/angular/angular/commit/0b7192f4410d055191ac9b15bff57d1d0b9a644f) | fix | forward BEFORE_APP_SERIALIZED errors to ErrorHandler |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.12"></a>
 # 22.0.0-next.12 (2026-05-08)
@@ -186,7 +196,9 @@
 | -- | -- | -- |
 | [a451a1d66e](https://github.com/angular/angular/commit/a451a1d66ee4bf52b24b06dc9d35a7b7ae7b7eb5) | fix | add `allowedHosts` option to `renderModule` and `renderApplication` |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.11"></a>
 # 22.0.0-next.11 (2026-05-06)
@@ -246,7 +258,9 @@
 | -- | -- | -- |
 | [c84642ac16](https://github.com/angular/angular/commit/c84642ac16bf3588c071bbdcc684daa8d4e494b3) | feat | add unmatchedInputBehavior option to componentInputBinding |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.12"></a>
 # 21.2.12 (2026-05-06)
@@ -266,6 +280,7 @@
 
 
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.10"></a>
 # 22.0.0-next.10 (2026-04-29)
@@ -294,7 +309,9 @@
 | -- | -- | -- |
 | [2a6b6fafb0](https://github.com/angular/angular/commit/2a6b6fafb032b840797625590037bb4f1d8c6261) | fix | ensure origin has a trailing slash when parsing url |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.11"></a>
 # 21.2.11 (2026-04-29)
@@ -317,7 +334,9 @@
 | -- | -- | -- |
 | [be1f80a253](https://github.com/angular/angular/commit/be1f80a253b8ee27ed7d8de2287d6895c4821909) | fix | ensure origin has a trailing slash when parsing url |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.9"></a>
 # 22.0.0-next.9 (2026-04-22)
@@ -345,7 +364,9 @@
 | [6eff439546](https://github.com/angular/angular/commit/6eff4395467de51a46656d79d957b448b32dde0c) | fix | restore internal URL on popstate when `browserUrl` is used |
 | [17d10f7a99](https://github.com/angular/angular/commit/17d10f7a9921429d0192df6925d20d7236425c9a) | fix | set default paramsInheritanceStrategy to 'always' |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.10"></a>
 # 21.2.10 (2026-04-22)
@@ -362,16 +383,9 @@
 | -- | -- | -- |
 | [580212c995](https://github.com/angular/angular/commit/580212c995751c4bf4ce8a49df4167498743e0ea) | fix | restore internal URL on popstate when `browserUrl` is used |
 
-<!-- CHANGELOG SPLIT MARKER -->
-
-<a name="20.3.19"></a>
-# 20.3.19 (2026-04-15)
-### platform-server
-| Commit | Type | Description |
-| -- | -- | -- |
-| [303d4cd580](https://github.com/angular/angular/commit/303d4cd580dec38bfaa71a0a34965f151bab3ba8) | fix | prevent SSRF bypasses via protocol-relative and backslash URLs |
 
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.8"></a>
 # 22.0.0-next.8 (2026-04-15)
@@ -429,7 +443,9 @@
 | -- | -- | -- |
 | [836094c072](https://github.com/angular/angular/commit/836094c072cb0f6cdbd35469ee02158667a9ba51) | fix | resolve TS 6.0 compatibility for messageerror listener |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.9"></a>
 # 21.2.9 (2026-04-15)
@@ -451,7 +467,9 @@
 | -- | -- | -- |
 | [684e9fd53d](https://github.com/angular/angular/commit/684e9fd53daacb9e910f42d98c6017f9e5cb4180) | fix | normalize multiple leading slashes in URL parser |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.7"></a>
 # 22.0.0-next.7 (2026-04-08)
@@ -508,7 +526,9 @@
 | -- | -- | -- |
 | [579440170b](https://github.com/angular/angular/commit/579440170b372f8348cf3e5b5ce9f9f430093947) | fix | make currentSnapshot required in CanMatchFn ([#67452](https://github.com/angular/angular/pull/67452)) |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.8"></a>
 # 21.2.8 (2026-04-08)
@@ -530,7 +550,9 @@
 | -- | -- | -- |
 | [7797671257](https://github.com/angular/angular/commit/7797671257350665e8b3ceb2bc6a0201829dd338) | fix | get quick info at local var location to align with TS semantics and support type narrowing |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.6"></a>
 # 22.0.0-next.6 (2026-04-01)
@@ -561,7 +583,9 @@
 | -- | -- | -- |
 | [daa9b2a9d6](https://github.com/angular/angular/commit/daa9b2a9d67557ae9246559f74396f43b240581c) | fix | pass outlet context to split to fix empty path named outlets |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.7"></a>
 # 21.2.7 (2026-04-01)
@@ -588,7 +612,9 @@
 | -- | -- | -- |
 | [0960592d3d](https://github.com/angular/angular/commit/0960592d3d4fad110d5598144fda9f2488520826) | fix | pass outlet context to split to fix empty path named outlets |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.5"></a>
 # 22.0.0-next.5 (2026-03-25)
@@ -643,7 +669,9 @@
 | -- | -- | -- |
 | [f99e7ed20f](https://github.com/angular/angular/commit/f99e7ed20f0b1a26fd275fcf5befd589bb4e5d31) | refactor | remove Hammer integration |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.6"></a>
 # 21.2.6 (2026-03-25)
@@ -664,7 +692,9 @@
 | -- | -- | -- |
 | [73d6b01b47](https://github.com/angular/angular/commit/73d6b01b47bb6762d182f1cd891f8ad4d7f688e1) | fix | inject migration not work in multi-project workspace with option path |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.4"></a>
 # 22.0.0-next.4 (2026-03-18)
@@ -715,7 +745,9 @@
 | -- | -- | -- |
 | [07abfbcc6c](https://github.com/angular/angular/commit/07abfbcc6c59d9b4949fdad2a975005d0f28eea7) | fix | preserve redirect policy on reconstructed asset requests |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.5"></a>
 # 21.2.5 (2026-03-18)
@@ -743,7 +775,9 @@
 | -- | -- | -- |
 | [e19150d2b5](https://github.com/angular/angular/commit/e19150d2b596e87c69bee61f478c3e9c7cbc8f67) | fix | preserve redirect policy on reconstructed asset requests |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.3"></a>
 # 22.0.0-next.3 (2026-03-12)
@@ -757,7 +791,9 @@
 | [999c14eaab](https://github.com/angular/angular/commit/999c14eaab981d12bf2b1d9b1fd6766157f7b1cc) | fix | reverts "feat(core): add support for nested animations" |
 | [de0eb4c656](https://github.com/angular/angular/commit/de0eb4c6566011e1a34d529a273ec3d5b6bf17d5) | fix | sanitize translated form attributes |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.4"></a>
 # 21.2.4 (2026-03-12)
@@ -771,7 +807,9 @@
 | [abbd8797bb](https://github.com/angular/angular/commit/abbd8797bbd3ae53a10033c39bd895b5b85a4fae) | fix | reverts "feat(core): add support for nested animations" |
 | [d1dcd16c5b](https://github.com/angular/angular/commit/d1dcd16c5b40291aa3fa2dc84d22842cd657b201) | fix | sanitize translated form attributes |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.2"></a>
 # 22.0.0-next.2 (2026-03-11)
@@ -795,7 +833,9 @@
 | -- | -- | -- |
 | [5a6d88626b](https://github.com/angular/angular/commit/5a6d88626b604db937287a501cb723c088412a7e) | feat | add angular template inlay hints support |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.3"></a>
 # 21.2.3 (2026-03-11)
@@ -806,7 +846,9 @@
 | [21b1c3b2ee](https://github.com/angular/angular/commit/21b1c3b2ee2c8423782b111b93bd60eb6b453259) | fix | include signal debug names in their `toString()` representation |
 | [224e60ecb1](https://github.com/angular/angular/commit/224e60ecb1b90115baa702f1c06edc1d64d86187) | fix | sanitize translated attribute bindings with interpolations |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.2"></a>
 # 21.2.2 (2026-03-09)
@@ -824,7 +866,9 @@
 | -- | -- | -- |
 | [670d1660c4](https://github.com/angular/angular/commit/670d1660c40504e3f55e094c3ebbcccad14163f3) | feat | add 'blur' option to debounce rule |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.1"></a>
 # 22.0.0-next.1 (2026-03-05)
@@ -845,7 +889,9 @@
 | -- | -- | -- |
 | [f01901d766](https://github.com/angular/angular/commit/f01901d7668ab926bd7a786f43dbb18f2bb8a5b7) | fix | avoid generating invalid code in ChangeDetectionStrategy.Eager migration |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="22.0.0-next.0"></a>
 # 22.0.0-next.0 (2026-03-04)
@@ -916,7 +962,9 @@
 | -- | -- | -- |
 | [01a179577b](https://github.com/angular/angular/commit/01a179577b5a250f5801f6d9a04378aea73c4251) | refactor | remove `getAngularLib`/`setAngularLib` |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.1"></a>
 # 21.2.1 (2026-03-04)
@@ -933,6 +981,7 @@
 
 
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.2.0"></a>
 # 21.2.0 (2026-02-25)
@@ -1008,7 +1057,9 @@
 | [cf9620f7d0](https://github.com/angular/angular/commit/cf9620f7d072897f13b7f281b7bca6f51f69cfd0) | feat | Make match options optional in isActive |
 | [907a94dcec](https://github.com/angular/angular/commit/907a94dcec2926a5c7d0c4d36249bd62e31a2ae3) | feat | Update `IsActiveMatchOptions` APIs to accept a Partial |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.1.6"></a>
 # 21.1.6 (2026-02-25)
@@ -1030,13 +1081,17 @@
 | -- | -- | -- |
 | [b858309532](https://github.com/angular/angular/commit/b85830953281ff3a1a77bbfe69019d352d509c93) | fix | block creation of sensitive URI attributes from ICU messages |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.1.5"></a>
 # 21.1.5 (2026-02-18)
 No user facing changes in this release
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.1.4"></a>
 # 21.1.4 (2026-02-11)
@@ -1058,7 +1113,9 @@ No user facing changes in this release
 | -- | -- | -- |
 | [3905015ccc](https://github.com/angular/angular/commit/3905015ccc53399a606dd8e4f3c4d0cce628a08e) | fix | correctly parse ArrayBuffer and Blob in transfer cache |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.1.3"></a>
 # 21.1.3 (2026-02-04)
@@ -1083,7 +1140,9 @@ No user facing changes in this release
 | [d6268c0bbb](https://github.com/angular/angular/commit/d6268c0bbbdc92abaaaeb8eebee3bc45decab9c9) | fix | limit UrlParser recursion depth to prevent stack overflow |
 | [49a36f4cc7](https://github.com/angular/angular/commit/49a36f4cc7254420bc34fff4e0f0242e00970280) | perf | Use .bind to avoid holding other closures in memory |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.1.2"></a>
 # 21.1.2 (2026-01-28)
@@ -1100,7 +1159,9 @@ No user facing changes in this release
 | -- | -- | -- |
 | [21ecdc036a](https://github.com/angular/angular/commit/21ecdc036a46c487d6c5b6bd25c2bbc3e53a60f9) | fix | Do not intercept reload events with Navigation integration |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.1.1"></a>
 # 21.1.1 (2026-01-21)
@@ -1118,7 +1179,9 @@ No user facing changes in this release
 | [d89a80a970](https://github.com/angular/angular/commit/d89a80a970d9590df0509d8b94090904a99b7aca) | feat | Ability to manually register a form field binding in signal forms |
 | [cb75f9ce85](https://github.com/angular/angular/commit/cb75f9ce85160b2e4359610c06294929ac1169c0) | fix | fix control value syncing on touch |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.1.0"></a>
 # 21.1.0 (2026-01-14)
@@ -1168,7 +1231,9 @@ No user facing changes in this release
 | -- | -- | -- |
 | [75fe8f8af9](https://github.com/angular/angular/commit/75fe8f8af9488bae6f7068b64d44500643c5d63f) | refactor | deprecate `VERSION` export |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.9"></a>
 # 21.0.9 (2026-01-14)
@@ -1182,7 +1247,9 @@ No user facing changes in this release
 | -- | -- | -- |
 | [e4bfa5c9e7](https://github.com/angular/angular/commit/e4bfa5c9e7feec48d3c4e9425a21a2ccf6532bdb) | fix | prevent duplicate imports in common-to-standalone migration |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.8"></a>
 # 21.0.8 (2026-01-08)
@@ -1194,6 +1261,7 @@ No user facing changes in this release
 
 
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.7"></a>
 # 21.0.7 (2026-01-07)
@@ -1232,7 +1300,9 @@ No user facing changes in this release
 | [41cd4a6af8](https://github.com/angular/angular/commit/41cd4a6af800cf7807c46862c99ae036457d8fa7) | fix | Fix RouterLink href not updating with `queryParamsHandling` |
 | [5e9e09aee0](https://github.com/angular/angular/commit/5e9e09aee0c08901d2a4d48b60bd13692c73e76e) | fix | handle errors from view transition `updateCallbackDone` promise |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.6"></a>
 # 21.0.6 (2025-12-17)
@@ -1279,7 +1349,9 @@ No user facing changes in this release
 | [e0694df3ec](https://github.com/angular/angular/commit/e0694df3eccae3d31a4ea537dffe1db1368ef34a) | fix | avoid interpolation highlighting inside @let |
 | [5047be4bc1](https://github.com/angular/angular/commit/5047be4bc1c6f6016263703c743f8033f669f0ee) | fix | Prevent language service from crashing on suggestion diagnostic errors |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.5"></a>
 
@@ -1297,7 +1369,9 @@ No user facing changes in this release
 | ------------------------------------------------------------------------------------------------- | ---- | --------------------------- |
 | [4fd2b722b40](https://github.com/angular/angular/commit/4fd2b722b4054181a6e5f09a3cc657ae05541782) | fix  | fix signal forms type error |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.4"></a>
 
@@ -1326,7 +1400,9 @@ No user facing changes in this release
 | [bf1c12cd932](https://github.com/angular/angular/commit/bf1c12cd932028dc4bb50914c64bbb6d882b6ec1) | fix  | memoize reads of child fields in signal forms ([#65802](https://github.com/angular/angular/pull/65802)) |
 | [6d7475582f9](https://github.com/angular/angular/commit/6d7475582f95720b4487f663d339a18a25374481) | fix  | Reuse key in parent in compat structure                                                                 |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.3"></a>
 
@@ -1366,7 +1442,9 @@ No user facing changes in this release
 | ------------------------------------------------------------------------------------------------ | ---- | --------------------------------------------------- |
 | [48b89f9fbe](https://github.com/angular/angular/commit/48b89f9fbe16acff8b2f3f37853e745ed43d3a32) | fix  | handle errors from view transition finished promise |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.2"></a>
 
@@ -1377,6 +1455,10 @@ No user facing changes in this release
 | Commit                                                                                           | Type | Description                                                       |
 | ------------------------------------------------------------------------------------------------ | ---- | ----------------------------------------------------------------- |
 | [78fd159b78](https://github.com/angular/angular/commit/78fd159b78d32cb8b94891e3fc6013076d7838af) | fix  | prevent XSS via SVG animation `attributeName` and MathML/SVG URLs |
+
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.1"></a>
 
@@ -1420,7 +1502,9 @@ No user facing changes in this release
 | ------------------------------------------------------------------------------------------------ | ---- | -------------------------------------------------------- |
 | [f394215b14](https://github.com/angular/angular/commit/f394215b14d59c49e1433472ecdd2fd5547cc769) | fix  | detect structural ngTemplateOutlet and ngComponentOutlet |
 
+
 <!-- CHANGELOG SPLIT MARKER -->
+
 
 <a name="21.0.0"></a>
 
@@ -1696,3 +1780,4 @@ No user facing changes in this release
 | Commit                                                                                           | Type | Description                                                                                |
 | ------------------------------------------------------------------------------------------------ | ---- | ------------------------------------------------------------------------------------------ |
 | [f86846555b](https://github.com/angular/angular/commit/f86846555bba44b2fb71d012fe4eebf82a0f5d00) | fix  | Remove deprecated UpgradeAdapter ([#61659](https://github.com/angular/angular/pull/61659)) |
+
