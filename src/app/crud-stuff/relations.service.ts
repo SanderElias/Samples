@@ -37,10 +37,10 @@ export type SortField = (typeof sortFields)[number];
 
 // enable caching for all requests from this service, also set some default options for the requests, like credentials and mode. This is to support CouchDB authentication cookies and CORS.
 const httpCachedOptions: Record<string, unknown> = {
-  ...addCachingContext({
+  // ...addCachingContext({
     credentials: 'include',
     mode: 'cors'
-  })
+  // })
 };
 
 // note: not injected in root, it is supposed to be provided in the route/component that holds the component-tree that uses it.

@@ -13,11 +13,12 @@ import { DomSanitizer, Title } from '@angular/platform-browser';
 import { asyncComputed } from '@se-ng/signal-utils';
 import hljs from 'highlight.js/lib/core';
 import typescript from 'highlight.js/lib/languages/typescript.js';
+
 import { NavSLidesService } from '../nav-slides.service.js';
 import { SlidesHandlerService } from '../slides-handler.service.js';
-import { Router } from '@angular/router';
 hljs.registerLanguage('typescript', typescript);
 const mm = import('micromark');
+const gfmTableModule = import('micromark-extension-gfm-table');
 
 @Component({
   selector: 'se-slide',
@@ -59,7 +60,12 @@ export class SlideComponent {
     }
     this.titleService.setTitle(this.title());
     const { micromark } = await mm;
-    const html = micromark(content, { allowDangerousHtml: true });
+    const { gfmTable, gfmTableHtml } = await gfmTableModule;
+    const html = micromark(content, {
+      allowDangerousHtml: true,
+      extensions: [gfmTable()],
+      htmlExtensions: [gfmTableHtml()]
+    });
     return this.san.bypassSecurityTrustHtml(html);
   }, '');
 
