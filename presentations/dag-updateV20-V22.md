@@ -487,7 +487,7 @@
 
 </div>
 
-- 'httpResource' is for ___fetching___ data, not for mutating it.
+- 'httpResource' is for **_fetching_** data, not for mutating it.
 - For mutations, use 'httpClient' with the 'firstValueFrom' helper to get a promise.
 - caching???
 
@@ -502,10 +502,9 @@
   }
 </style>
 
-
 ---NextSlide
 
-# __Demo__
+# **Demo**
 
 <style>
   div#slide {
@@ -529,9 +528,10 @@
 <div>
 
 # What did we just see?
+
 </div>
 
-- 'httpResource' is awesome for ___fetching___ data!
+- 'httpResource' is awesome for **_fetching_** data!
 - Caching is an issue?
 - Remember, its build on top of httpClient!
 - could we use an interceptor to add caching?
@@ -549,7 +549,7 @@
 
 ---NextSlide
 
-# __Demo__
+# **Demo**
 
 <style>
   div#slide {
@@ -573,13 +573,15 @@
 <div>
 
 # What did we just learn?
+
 </div>
 
 - We can use an interceptor to add caching to 'httpResource'!
 - This way, we can have the best of both worlds:
-  - the simplicity of 'httpResource' for fetching data 
+  - the simplicity of 'httpResource' for fetching data
   - and the power of 'httpClient' for for example caching.
 - And we can do all this without changing our components at all!
+- I picked caching as an example, but caching just one thing.
 
 <style>
   div#slide {
@@ -589,5 +591,28 @@
   }
   h2 {
     animation: myAppear 2.5s forwards;
+  }
+</style>
+
+---NextSlide
+
+# Thank you!
+
+## for your attention
+
+<style>
+  div#slide {
+    align-items: center;
+    justify-content: center;  
+  }
+
+  h1 {
+     font-size: calc(7 * var(--base-font-size));
+    font-weight: bold;
+    animation: myEntry .5s;
+
+  }
+  h2 {
+    animation: myAppear 2s forwards;
   }
 </style>
