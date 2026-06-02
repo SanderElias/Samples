@@ -286,11 +286,10 @@
     "asciidoctor.js": {}
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "22.0.0-rc.2",
+    "@angular/build": "22.0.0-rc.2",
     "@angular-eslint/builder": "21.4.0",
     "@angular-eslint/eslint-plugin": "21.4.0",
     "@angular-eslint/template-parser": "21.4.0",
-    "@angular/build": "22.0.0-rc.2",
     "@angular/cli": "22.0.0-rc.2",
     "@angular/compiler-cli": "22.0.0-rc.2",
     "@angular/language-service": "22.0.0-rc.2",
