@@ -3,12 +3,17 @@ trustPolicyExclude:
   - chokidar@4.0.3
   - semver
   - ast-v8-to-istanbul@1.0.2
+  - '@angular-devkit/*'
+  - '@angular/*'
+  - '@schematics/angular@22.0.0'
+  - 'ng-packagr@22.0.0'
 minimumReleaseAgeExclude:
   - '@angular/*' # Exclude all packages under the @angular scope
   - '@schematics/angular' # Exclude the @schematics/angular package
   - '@angular-devkit/core'
   - '@angular-devkit/architect'
   - '@angular-devkit/schematics'
+  - ng-packagr@22.0.0
 minimumReleaseAge: 2880 # Only install packages that are at least 2 days old
 allowBuilds:
   '@parcel/watcher': false

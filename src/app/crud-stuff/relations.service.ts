@@ -24,7 +24,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { type UserCard } from '../generic-services/address.service';
 import { LoggedIn } from '../grid-play/logged-in-user.service';
-import { addCachingContext, HttpCache } from '../util/http-cache-system';
+import { HttpCache } from '../util/http-cache-system';
 
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';
@@ -183,7 +183,7 @@ export class RelationsService {
           );
         }
       });
-      this.#des.onDestroy(() => {
+      this.#des?.onDestroy(() => {
         s.unsubscribe();
       });
     }, 2000);

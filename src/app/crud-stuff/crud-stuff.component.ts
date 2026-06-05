@@ -1,12 +1,12 @@
 import type { ElementRef } from '@angular/core';
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
   linkedSignal,
   signal,
-  viewChild,
-  ChangeDetectionStrategy
+  viewChild
 } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
@@ -60,7 +60,7 @@ import { RelationsService } from './relations.service';
       In a non-demo app, the se-notify-dialog should probably somewhere
       on a higher up component
     -->
-    <se-notify-dialog /> `,
+    <se-notify-dialog />`,
   styleUrl: './crud-stuff.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RelationsService]
