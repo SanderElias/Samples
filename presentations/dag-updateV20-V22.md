@@ -673,7 +673,7 @@ class MyService {
 
 </div>
 
-- '@boundries'
+- '@boundary' block.
   - handle template errors gracefully
   - and provide fallback content
 
