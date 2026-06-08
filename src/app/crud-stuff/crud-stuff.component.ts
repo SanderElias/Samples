@@ -89,6 +89,7 @@ export class CrudStuffComponent {
 
   _ = afterNextRender(() => {
     this.relationsService.initConnection();
+    console.log('CrudStuffComponent rendered', this.relationsService.base());
   });
 
   editRec = signal<string | undefined>(undefined);

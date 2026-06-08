@@ -13,9 +13,9 @@ services:
       - COUCHDB_USER=admin
     container_name: my-couchdb
     restart: unless-stopped
-    networks:
-      - caddy_proxy-net
+#     networks:
+#       - caddy_proxy-net
 
-networks:
-  caddy_proxy-net:
-    external: true
+# networks:
+#   caddy_proxy-net:
+#     external: true

@@ -23,7 +23,6 @@ import {
 import { firstValueFrom } from 'rxjs';
 
 import { type UserCard } from '../generic-services/address.service';
-import { LoggedIn } from '../grid-play/logged-in-user.service';
 import { addCachingContext, HttpCache } from '../util/http-cache-system';
 
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
@@ -60,7 +59,7 @@ const httpCachedOptions: Signal<Record<string, unknown>> = computed(() => {
 // note: not injected in root, it is supposed to be provided in the route/component that holds the component-tree that uses it.
 @Injectable()
 export class RelationsService {
-  user = inject(LoggedIn).user;
+  // user = inject(LoggedIn).user;
   // base = computed(
   //   () =>
   //     `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
