@@ -34,7 +34,7 @@ import { createIndexes, goAddData } from './couch-helpers';
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
-const cachingEnabled = signal(true);
+const cachingEnabled = signal(false);
 // enable caching for all requests from this service, also set some default options for the requests, like credentials and mode. This is to support CouchDB authentication cookies and CORS.
 const httpCachedOptions: Signal<Record<string, unknown>> = computed(() => {
   if (cachingEnabled()) {

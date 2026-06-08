@@ -90,30 +90,6 @@
 
 ---NextSlide
 
-![Jeffrey](/assets/jeffrey.png)
-
-<div>
-
-## about Jeffrey
-
-- fill
-- this
-- in
-- with your
-- own
-- information
-- Also, put a picture of yourself in the /assets an update the above link.
-</div>
-
-<style>
-  div#slide {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-  }
-</style>
-
----NextSlide
-
 <div>
 
 # What is new since Angular 20?
@@ -308,6 +284,34 @@
 
 # Now, to the fun part!
 
+## Router
+
+</div>
+
+- Integration with platform Navigation API
+  - Router now intercepts all navigation, including standard `<a>` tags.
+  - Uses native browser scrolling, eliminating custom scroll logic and bundle size impact.
+  - Hooks into native navigation lifecycle for easier loading indicators and a11y announcements.
+- withExperimentalAutoCleanupInjectors
+- destroyDetachedRouteHandle
+
+<style>
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+  h2 {
+    animation: myAppear .5s forwards;
+  }
+  </style>  
+
+---NextSlide
+
+<div>
+
+# Now, to the fun part!
+
 ## AI and tooling features
 
 </div>
@@ -318,7 +322,35 @@
 - Incremental hydration made the default behavior
 - Bootstrap Angular apps under Shadow DOM roots
 - NodeJS 26 support
-- TypeScript 5.9 support dropped
+
+<style>
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+  h2 {
+    animation: myAppear .5s forwards;
+  }
+
+</style>
+
+---NextSlide
+
+<div>
+
+# Now, to the fun part!
+
+## A11y
+
+</div>
+
+- Angular Aria library introduced, with support for:
+  - Focus management
+  - Keyboard navigation
+  - Screen reader support
+- Built-in support for ARIA attributes in components
+- Improved accessibility testing tools
 
 <style>
   div#slide {
@@ -399,10 +431,10 @@
 </div>
 
 - '@Service' decorator introduced (and stable!)
-- replaces 'Injectable' for most use cases
+- replaces 'Injectable({provideIn:'root'})'.
 - more concise and better aligned with the concept of services
+- As most services are singletons anyway.
 - disallows constructor injection.
-- By default provided in 'root',
 - but can optionally be not provided
 
 <style>
@@ -439,6 +471,40 @@
 
 <div>
 
+# 'InjectAsync', whut?
+
+</div>
+
+```TypeScript
+import {InjectAsync} from '@angular/core';
+
+@Service()
+class MyService {
+  exoticRarelyUsedImportService = InjectAsync(
+    () => import('./exotic-rarely-used-dependency').then(m => m.myService)
+  );
+
+  async startImport() {
+    const myService = await this.exoticRarelyUsedImportService;
+    // From here on Myservice is correctly types as the imported service,
+    //  and you can use it as normal.
+    myService.doSomething();
+  }
+}
+```
+
+<style>
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+</style>
+
+---NextSlide
+
+<div>
+
 # SignalForms APIs graduated to stable
 
 </div>
@@ -461,6 +527,8 @@
 
 # Resources are now stable
 
+## YES!!!
+
 </div>
 
 - Stable APIs for defining and consuming resources.
@@ -475,13 +543,16 @@
     grid-template-columns:1fr;;
     grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
   }
+  h2 {
+    animation: myAppear 2.5s forwards;
+  }
 </style>
 
 ---NextSlide
 
 <div>
 
-# the elephant in the resoures
+# the elephant in the resources
 
 ## uehm room, I meant room!.
 
@@ -504,7 +575,7 @@
 
 ---NextSlide
 
-# **Demo**
+# **Demo** <span>time!</span>
 
 <style>
   div#slide {
@@ -549,7 +620,7 @@
 
 ---NextSlide
 
-# **Demo**
+# **Demo** <span>time!</span>
 
 <style>
   div#slide {
@@ -582,6 +653,29 @@
   - and the power of 'httpClient' for for example caching.
 - And we can do all this without changing our components at all!
 - I picked caching as an example, but caching just one thing.
+
+<style>
+  div#slide {
+    display: grid;
+    grid-template-columns:1fr;;
+    grid-template-rows: calc(9 * var(--base-font-size)) 1fr;
+  }
+  h2 {
+    animation: myAppear 2.5s forwards;
+  }
+</style>
+
+---NextSlide
+
+<div>
+
+# Whats next?
+
+</div>
+
+- '@boundries'
+  - handle template errors gracefully
+  - and provide fallback content
 
 <style>
   div#slide {
