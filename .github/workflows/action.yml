@@ -14,9 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Setup pnpm
+      - name: Install pnpm
         uses: pnpm/action-setup@v6
-        name: Install pnpm
         with:
           version: 11
           cache: true
@@ -30,14 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # for future expansion, for now only node 16 is supported
+        # for future expansion, currently only one node version is configured
         node: [26.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Setup pnpm
+      - name: Install pnpm
         uses: pnpm/action-setup@v6
-        name: Install pnpm
         with:
           version: 11
           cache: true
