@@ -35,6 +35,7 @@
             "namedChunks": true,
             "browser": "src/main.ts",
             "server": "src/main.server.ts",
+            "ssr": false,
             "allowedCommonJsDependencies": [
               "chance",
               "@fortawesome/free-solid-svg-icons/faPause",
@@ -81,6 +82,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
+              "ssr": false,
               "sourceMap": true,
               "namedChunks": true
             }

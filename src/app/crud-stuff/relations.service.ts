@@ -47,10 +47,11 @@ const httpCachedOptions: Record<string, unknown> = {
 @Injectable()
 export class RelationsService {
   user = inject(LoggedIn).user;
-  base = computed(
-    () =>
-      `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
-  );
+  // base = computed(
+  //   () =>
+  //     `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
+  // );
+  base = signal('https://couchdb.localhost/relations' as const);
   baseUrl = computed(() => `${this.base()}/relations` as const);
   idUrl = (id: string) => `${this.baseUrl()}/${id}`;
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
