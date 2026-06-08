@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { RelationsService } from '../relations.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -21,6 +21,17 @@ import { generateRelation } from '../utils/generateRelation';
       <se-spinner [show]="relationsService.listIsLoading()" />
     </label>
     <button (click)="info()">Info</button>
+    <!-- <label for="caching">
+      <span>Enable caching</span>
+      <input
+        type="checkbox"
+        id="caching"
+        (change)="cachingEnabled.set(!cachingEnabled())"
+        [checked]="cachingEnabled()"
+        switch
+      />
+    </label> -->
+    <p>Caching is currently {{ cachingEnabled() ? 'enabled' : 'disabled' }}.</p>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './header.component.css'
@@ -28,6 +39,7 @@ import { generateRelation } from '../utils/generateRelation';
 export class HeaderComponent {
   relationsService = inject(RelationsService);
   filter = this.relationsService.filter;
+  cachingEnabled = this.relationsService.cachingEnabled;
 
   async addRelation() {
     try {

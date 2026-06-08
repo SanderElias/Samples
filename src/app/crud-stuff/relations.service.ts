@@ -23,8 +23,7 @@ import {
 import { firstValueFrom } from 'rxjs';
 
 import { type UserCard } from '../generic-services/address.service';
-import { LoggedIn } from '../grid-play/logged-in-user.service';
-import { HttpCache } from '../util/http-cache-system';
+import { addCachingContext, HttpCache } from '../util/http-cache-system';
 
 import { NotifyDialogService } from './notify-dialog/notify-dialog.service';
 import { earlyReadToUndefined } from './utils/earlyread-undefined';
@@ -35,24 +34,40 @@ import { createIndexes, goAddData } from './couch-helpers';
 const sortFields = ['name', 'username', 'email'] as const;
 export type SortField = (typeof sortFields)[number];
 
+const cachingEnabled = signal(false);
 // enable caching for all requests from this service, also set some default options for the requests, like credentials and mode. This is to support CouchDB authentication cookies and CORS.
-const httpCachedOptions: Record<string, unknown> = {
-  // ...addCachingContext({
-    credentials: 'include',
-    mode: 'cors'
-  // })
-};
+const httpCachedOptions: Signal<Record<string, unknown>> = computed(() => {
+  if (cachingEnabled()) {
+    console.log('Caching enabled for HTTP requests');
+    return {
+      ...addCachingContext({
+        credentials: 'include',
+        mode: 'cors',
+        Authorization: 'Basic ' + btoa('admin:password')
+      })
+    };
+  } else {
+    console.log('Caching disabled for HTTP requests');
+    return {
+      credentials: 'include',
+      mode: 'cors',
+      Authorization: 'Basic ' + btoa('admin:password')
+    };
+  }
+});
 
 // note: not injected in root, it is supposed to be provided in the route/component that holds the component-tree that uses it.
 @Injectable()
 export class RelationsService {
-  user = inject(LoggedIn).user;
-  base = computed(
-    () =>
-      `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
-  );
+  // user = inject(LoggedIn).user;
+  // base = computed(
+  //   () =>
+  //     `https://${this.user() === undefined ? 'demodb' : 'couchdb'}.eliasweb.nl` as const
+  // );
+  base = signal('http://127.0.0.1:5984' as const);
   baseUrl = computed(() => `${this.base()}/relations` as const);
   idUrl = (id: string) => `${this.baseUrl()}/${id}`;
+  cachingEnabled = cachingEnabled;
   // HttpActionClient is a wrapper around HttpClient that allows to use promises over observables.
   // also, it exposes a busy indicator I'm not( (yet) using in this sample.)
   #http = inject(HttpActionClient);
@@ -116,7 +131,12 @@ export class RelationsService {
     const reason: string = err.error?.reason;
     // If CouchDB reports the DB already exists (HTTP 412 / file_exists),
     // ignore — this is benign and should not trigger repeated create attempts.
-    if (err?.status === 412 || err?.error?.error === 'file_exists' || (typeof reason === 'string' && reason.toLowerCase().includes('file exists'))) {
+    if (
+      err?.status === 412 ||
+      err?.error?.error === 'file_exists' ||
+      (typeof reason === 'string' &&
+        reason.toLowerCase().includes('file exists'))
+    ) {
       console.info('CouchDB database already exists, ignoring create.', err);
       return;
     }
@@ -150,7 +170,7 @@ export class RelationsService {
       try {
         await untracked(
           async () =>
-            await this.#http.put(this.baseUrl(), {}, httpCachedOptions)
+            await this.#http.put(this.baseUrl(), {}, httpCachedOptions())
         );
         await goAddData();
         this.#listRes.reload(); // reload the list after creating the index.
@@ -165,7 +185,7 @@ export class RelationsService {
     });
   });
 
-  constructor() {
+  initConnection() {
     // use a timeout to prevent the page-spinner
     setTimeout(() => {
       const s = couchEventLister(this.base(), 'relations').subscribe(event => {
@@ -193,7 +213,7 @@ export class RelationsService {
     const url = this.idUrl(data.id);
     try {
       // await firstValueFrom(this.#http.post(url, data));
-      const response = await this.#http.put(url, data, httpCachedOptions);
+      const response = await this.#http.put(url, data, httpCachedOptions());
       console.dir(response);
       this.#list.update(oldList =>
         [[data.id, ''] as [string, string], ...oldList].splice(0, 50)
@@ -218,7 +238,7 @@ export class RelationsService {
 
   read = (
     ids: Signal<string>,
-    options: Record<string, unknown> = httpCachedOptions
+    options: Record<string, unknown> = httpCachedOptions()
   ): HttpResourceRef<UserCard | Partial<UserCard>> => {
     // cater for empty, or early read undefined ids.
     const id = computed(() => earlyReadToUndefined(ids) ?? '');
@@ -246,7 +266,10 @@ export class RelationsService {
     const id = data.id;
     const url = this.idUrl(id);
     // get the current revision(uses the cacheInterceptor!)
-    const oldData = (await this.#http.get(url, httpCachedOptions)) as UserCard;
+    const oldData = (await this.#http.get(
+      url,
+      httpCachedOptions()
+    )) as UserCard;
     if (deepEqual(oldData, data)) {
       // no changes to the data, so we don't need to update the server.
       return { result: 'noChange' };
@@ -255,7 +278,7 @@ export class RelationsService {
       const { rev } = await this.#http.put<CouchUpdate>(
         url,
         data,
-        httpCachedOptions
+        httpCachedOptions()
       );
       if (oldData[this.sort()] !== data[this.sort()]!) {
         console.log(
@@ -298,7 +321,7 @@ export class RelationsService {
           // now fetch the updated remote data.
           const remoteData = (await this.#http.get(
             url,
-            httpCachedOptions
+            httpCachedOptions()
           )) as UserCard;
           // mergeDeep will overwrite the properties of the updated remote with the changes I extracted above.
           const remoteDiff = deepDiff(oldData, remoteData);
@@ -329,7 +352,7 @@ export class RelationsService {
     // the rev is mandatory to delete a document in CouchDB
     const url = this.idUrl(id) + `?rev=${user._rev}`;
     try {
-      await this.#http.delete(url, httpCachedOptions);
+      await this.#http.delete(url, httpCachedOptions());
     } catch (e: any) {
       const {
         error: { error: err, reason }
@@ -351,7 +374,7 @@ export class RelationsService {
           message:
             'There was an update on the data you tried to delete. I have loaded the update into the view. Review, and try to delete again if still needed.'
         });
-        const { _rev } = await this.#http.get(url, httpCachedOptions);
+        const { _rev } = await this.#http.get(url, httpCachedOptions());
         // update the rev in the list so related components can decide to reload.
         this.#list.update(oldList =>
           oldList.map(i =>
@@ -367,12 +390,12 @@ export class RelationsService {
 
   reFetch = async (ids: string) => {
     const url = this.idUrl(ids);
-    return firstValueFrom(this.#httpo.get(url, httpCachedOptions));
+    return firstValueFrom(this.#httpo.get(url, httpCachedOptions()));
   };
 
   info = async () => {
     await goAddData();
     const url = `${this.baseUrl}`;
-    return this.#http.get(url, httpCachedOptions);
+    return this.#http.get(url, httpCachedOptions());
   };
 }

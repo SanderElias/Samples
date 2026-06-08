@@ -1,12 +1,13 @@
 import type { ElementRef } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  linkedSignal,
-  signal,
-  viewChild
+    afterNextRender,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    linkedSignal,
+    signal,
+    viewChild
 } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
@@ -84,6 +85,11 @@ export class CrudStuffComponent {
       }
       return [...list, ...emptyRow].splice(0, 10); // make sure we have 10 rows
     }
+  });
+
+  _ = afterNextRender(() => {
+    this.relationsService.initConnection();
+    console.log('CrudStuffComponent rendered', this.relationsService.base());
   });
 
   editRec = signal<string | undefined>(undefined);

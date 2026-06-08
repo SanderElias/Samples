@@ -314,7 +314,7 @@
     "json5": "2.2.3",
     "micromark-util-types": "2.0.2",
     "ng-packagr": "22.0.0",
-24    "prettier": "3.8.3",
+    "prettier": "3.8.3",
     "sharp": "0.34.5",
     "ts-node": "10.9.2",
     "tsc-watch": "7.2.0",
