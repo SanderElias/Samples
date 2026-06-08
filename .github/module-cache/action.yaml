@@ -20,11 +20,10 @@ runs:
     - name: Setup node
       uses: actions/setup-node@v5
       with:
-        node-version: ${{ matrix.node }}
+        node-version: ${{ inputs.node-version }}
         cache: 'pnpm'
     - name: Install dependencies
       run: |
         pnpm config set auto-install-peers false
         pnpm install
       shell: bash
-
