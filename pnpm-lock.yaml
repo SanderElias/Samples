@@ -71,6 +71,12 @@ importers:
       '@plausible-analytics/tracker':
         specifier: 0.4.5
         version: 0.4.5
+      '@std/front-matter':
+        specifier: npm:@jsr/std__front-matter@^1.0.9
+        version: '@jsr/std__front-matter@1.0.9'
+      '@std/toml':
+        specifier: npm:@jsr/std__toml@^1.0.11
+        version: '@jsr/std__toml@1.0.11'
       animate-css-grid:
         specifier: 1.5.1
         version: 1.5.1
@@ -1496,6 +1502,18 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@jsr/std__collections@1.2.0':
+    resolution: {integrity: sha512-R58weKPNZ3sFOo9pRAhasq0m0aIVEJau4/bid0VFWp9hoQZ07qpa1vtDLFWNrQK96ZJS0ql6IuOHVrXXsHOE/w==, tarball: https://npm.jsr.io/~/11/@jsr/std__collections/1.2.0.tgz}
+
+  '@jsr/std__front-matter@1.0.9':
+    resolution: {integrity: sha512-CSz8B8ABdHk9O1sbeIhR+hwIfrIImhTzCMxPWnFmwtuoIHoOAqHQJKmKFl0r2MYD5TZlN+t+Z+0wlp0dfU0TaA==, tarball: https://npm.jsr.io/~/11/@jsr/std__front-matter/1.0.9.tgz}
+
+  '@jsr/std__toml@1.0.11':
+    resolution: {integrity: sha512-+LZAizoPAPwMDmRZr86/xPrbO8E0Oq0BJ70mr1fNMobJ/6X6v15Jk16ZClFGukWgzBMd8ggiMWnzp24+N3VNZg==, tarball: https://npm.jsr.io/~/11/@jsr/std__toml/1.0.11.tgz}
+
+  '@jsr/std__yaml@1.1.1':
+    resolution: {integrity: sha512-OLgQ32rFaP5rFMOKorRnlvPgaxyUbd+ORpITxVUY2iy2ROVBtHHIJ4J7vRb7U1pMLorlGJVqCpga3DowyGV+cg==, tarball: https://npm.jsr.io/~/11/@jsr/std__yaml/1.1.1.tgz}
 
   '@listr2/prompt-adapter-inquirer@4.2.3':
     resolution: {integrity: sha512-Co9U3AJ3LW0J8XBHjVoNKA79dMAyFt8EZH3OaKTMcDTj8r+6kG3vSUPq/eGLHT7P0iK3uLaFfhdFYd3033P24g==}
@@ -6900,6 +6918,19 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@jsr/std__collections@1.2.0': {}
+
+  '@jsr/std__front-matter@1.0.9':
+    dependencies:
+      '@jsr/std__toml': 1.0.11
+      '@jsr/std__yaml': 1.1.1
+
+  '@jsr/std__toml@1.0.11':
+    dependencies:
+      '@jsr/std__collections': 1.2.0
+
+  '@jsr/std__yaml@1.1.1': {}
 
   '@listr2/prompt-adapter-inquirer@4.2.3(@inquirer/prompts@8.4.2(@types/node@25.9.1))(@types/node@25.9.1)(listr2@10.2.1)':
     dependencies:
