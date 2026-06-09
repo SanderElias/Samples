@@ -269,7 +269,7 @@
     "messagepack": "1.1.12",
     "micromark": "4.0.2",
     "micromark-extension-gfm": "3.0.0",
-    "micromark-extension-gfm-table": "^2.1.1",
+    "micromark-extension-gfm-table": "2.1.1",
     "mqtt": "5.15.1",
     "msgpack-lite": "0.1.26",
     "open-props": "1.7.23",

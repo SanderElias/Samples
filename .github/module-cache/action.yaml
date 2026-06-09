@@ -10,15 +10,20 @@ runs:
     - name: Get pnpm version from package.json
       id: get-pnpm-version
       run: |
-        node -e "const p=require('./package.json').packageManager||''; const v=(p.split('@')[1]||'10'); console.log('pnpm-version='+v)" >> $GITHUB_OUTPUT
+        package_manager=$(sed -nE 's/.*"packageManager"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' package.json | head -n1)
+        pnpm_version=${package_manager#pnpm@}
+        if [ -z "$pnpm_version" ] || [ "$pnpm_version" = "$package_manager" ]; then
+          pnpm_version='10'
+        fi
+        echo "pnpm-version=$pnpm_version" >> "$GITHUB_OUTPUT"
       shell: bash
 
     - name: Install pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@v6.0.8
       with:
         version: ${{ steps.get-pnpm-version.outputs.pnpm-version }}
     - name: Setup node
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v6.4.0
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'pnpm'

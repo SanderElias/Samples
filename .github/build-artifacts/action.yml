@@ -1,5 +1,5 @@
 name: buildArtifacts
-description: Compiles and caches all code into the dist folder
+description: Compiles all code into the dist folder
 inputs:
   node-version:
     description: The node version to use for the module.
@@ -11,20 +11,7 @@ runs:
       uses: ./.github/module-cache
       with:
         node-version: ${{ inputs.node-version }}
-    - name: cache build artifacts
-      id: cache-dist
-      uses: actions/cache@v5
-      with:
-        path: dist
-        # I only want to cache the dist folder for this workflow run
-        key: dist-${{ inputs.node-version }}-${{ github.run_id }}
-
-    # Set up GitHub Actions caching for Wireit.
-    # - uses: google/wireit@setup-github-actions-caching/v2
-    # the above line is temporarily disabled, as it seems to cause issues with the cache action
-
-    - name: Build the dist artifacts, when not yet cached for this workflow
-      if: steps.cache-dist.outputs.cache-hit != 'true'
+    - name: Build the dist artifacts
       run: |
         pnpm run build.deploy
         cp dist/samples/browser/index.html dist/samples/browser/404.html
