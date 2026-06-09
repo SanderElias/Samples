@@ -29,6 +29,5 @@ runs:
         cache: 'pnpm'
     - name: Install dependencies
       run: |
-        pnpm config set auto-install-peers false
         pnpm install
       shell: bash
