@@ -14,6 +14,14 @@ minimumReleaseAgeExclude:
   - '@angular-devkit/architect'
   - '@angular-devkit/schematics'
   - ng-packagr@22.0.0
+  - '@angular-eslint/builder@22.0.0'
+  - '@angular-eslint/bundled-angular-compiler@22.0.0'
+  - '@angular-eslint/eslint-plugin-template@22.0.0'
+  - '@angular-eslint/eslint-plugin@22.0.0'
+  - '@angular-eslint/schematics@22.0.0'
+  - '@angular-eslint/template-parser@22.0.0'
+  - '@angular-eslint/utils@22.0.0'
+  - angular-eslint@22.0.0
 minimumReleaseAge: 2880 # Only install packages that are at least 2 days old
 allowBuilds:
   '@parcel/watcher': false
