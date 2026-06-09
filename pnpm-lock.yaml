@@ -129,7 +129,7 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       micromark-extension-gfm-table:
-        specifier: ^2.1.1
+        specifier: 2.1.1
         version: 2.1.1
       mqtt:
         specifier: 5.15.1
