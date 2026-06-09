@@ -7,21 +7,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+
     - name: Setup node
       uses: actions/setup-node@v5
       with:
         node-version: ${{ inputs.node-version }}
 
-    - name: Get pnpm version from package.json
-      id: get-pnpm-version
-      run: |
-        node -e "const p=require('./package.json').packageManager||''; const v=(p.split('@')[1]||'10'); console.log('pnpm-version='+v)" >> $GITHUB_OUTPUT
-      shell: bash
-
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        version: ${{ steps.get-pnpm-version.outputs.pnpm-version }}
     - name: Install dependencies
       run: |
         pnpm config set auto-install-peers false
