@@ -17,6 +17,6 @@ allowBuilds:
   lmdb: false
   msgpackr-extract: false
   sharp: false
-nodeVersion: 26.1.0
+nodeVersion: 26.3.0
 engineStrict: true
 resolutionmode: highest

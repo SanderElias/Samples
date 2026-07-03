@@ -481,6 +481,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./gamepad/gamepad.component').then(m => m.GamepadComponent)
       },
+      {
+        path: 'streamResource',
+        loadComponent: () =>
+          import('./stream-resource/stream-resource.component').then(
+            m => m.StreamResourceComponent
+          )
+      },
 
       { path: '**', redirectTo: 'routeList' }
     ]
