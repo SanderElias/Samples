@@ -1,12 +1,13 @@
 import type { ElementRef } from '@angular/core';
 import {
-  Component,
-  computed,
-  inject,
-  linkedSignal,
-  signal,
-  viewChild,
-  ChangeDetectionStrategy
+    afterNextRender,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    linkedSignal,
+    signal,
+    viewChild
 } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
@@ -60,7 +61,7 @@ import { RelationsService } from './relations.service';
       In a non-demo app, the se-notify-dialog should probably somewhere
       on a higher up component
     -->
-    <se-notify-dialog /> `,
+    <se-notify-dialog />`,
   styleUrl: './crud-stuff.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RelationsService]
@@ -84,6 +85,11 @@ export class CrudStuffComponent {
       }
       return [...list, ...emptyRow].splice(0, 10); // make sure we have 10 rows
     }
+  });
+
+  _ = afterNextRender(() => {
+    this.relationsService.initConnection();
+    console.log('CrudStuffComponent rendered', this.relationsService.base());
   });
 
   editRec = signal<string | undefined>(undefined);

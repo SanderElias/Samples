@@ -1,7 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
-import { injectMetaData } from './util/metaData.service';
+import {
+  afterRenderEffect,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Service
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +15,20 @@ import { injectMetaData } from './util/metaData.service';
   imports: [RouterOutlet]
 })
 export class AppComponent {
-  #meta = injectMetaData();
+  aps = inject(AppService);
+
+  _ = afterRenderEffect(() => {
+    console.log('afterRenderEffect');
+    console.log(this.aps.data()?.toString());
+  });
+}
+
+@Service()
+export class AppService {
+  data = toSignal(inject(ActivatedRoute).url);
+
+  effect() {
+    console.log('effect');
+    console.log(this.data()?.toString());
+  }
 }

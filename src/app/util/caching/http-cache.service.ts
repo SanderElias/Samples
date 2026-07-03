@@ -1,8 +1,7 @@
 import type { HttpEvent } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 
 import { HttpCachingDefaultExpiry, minute } from './caching.util';
-
 /**
  * HttpCache is a service for caching HTTP responses in-memory, with support for cache expiry and revisioning.
  * it is created as a accompany service for the httpCacheInterceptor, but can be used standalone as well.
@@ -22,9 +21,7 @@ import { HttpCachingDefaultExpiry, minute } from './caching.util';
  *
  * @see https://angular.io/guide/http
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class HttpCache {
   /**
    * Internal cache map. Keys are normalized URLs, values include expiry, revision, and response.
