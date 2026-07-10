@@ -3877,7 +3877,7 @@ var routes = [
       },
       {
         path: "streamResource",
-        loadComponent: () => import("./stream-resource.component-QLRMOPP4.js").then((m2) => m2.StreamResourceComponent)
+        loadComponent: () => import("./stream-resource.component-FFAAMGP4.js").then((m2) => m2.StreamResourceComponent)
       },
       { path: "**", redirectTo: "routeList" }
     ]

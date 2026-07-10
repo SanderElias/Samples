@@ -8,5 +8,5 @@
     bindToWindow: false,
     captureOnLocalhost: true
   });
-  await import("./bootspa-V2QEC7J6.js");
+  await import("./bootspa-QQOXXAJI.js");
 })();
