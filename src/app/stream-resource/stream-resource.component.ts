@@ -3,7 +3,8 @@ import { Component, effect, resource, signal } from '@angular/core';
 @Component({
   selector: 'se-stream-resource',
   imports: [],
-  template: ` <p>stream-resource works!</p> `,
+  template: `<h1>Stream Resource</h1>
+    <p>res: {{ res.value()  }}</p>`,
   styleUrl: './stream-resource.component.css'
 })
 export class StreamResourceComponent {
@@ -38,12 +39,12 @@ export class StreamResourceComponent {
 
 async function* giveNumbers() {
   let check = 0;
-  for (let i = 0; i < 1500_000; i++) {
-    // if (i % 25000 === 0) {
-    //   await new Promise(resolve =>
-    //     setTimeout(resolve, Math.floor(Math.random() * 5))
-    //   );
-    // }
+  for (let i = 0; i < 500_000; i++) {
+    if (i % 50000 === 0) {
+      await new Promise(resolve =>
+        setTimeout(resolve, Math.floor(Math.random() * 5))
+      );
+    }
     yield await Promise.resolve(i);
     check += i;
   }
