@@ -5,48 +5,37 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [26.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.3
-      - name: Setup Node, install dependencies, and cache node modules, build dist artifacts
+      - name: Setup Node, install dependencies, and build
         uses: ./.github/build-artifacts
         with:
-          node-version: ${{ matrix.node }}
-      - name: Upload dist artifact
-        uses: actions/upload-artifact@v7.0.1
+          node-version: 26.x
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: dist
-          path: dist
+          path: dist/samples/browser
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # for future expansion, currently only one node version is configured
-        node: [26.x]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6.0.3
-      - name: Download dist artifact
-        uses: actions/download-artifact@v8.0.1
-        with:
-          name: dist
-          path: dist
-      - name: Ensure dotfiles for GitHub Pages
-        run: |
-          touch dist/samples/browser/.nojekyll
-          mkdir -p dist/samples/browser/.well-known
-          cp src/.well-known/security.txt dist/samples/browser/.well-known/security.txt
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.8.0
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: dist/samples/browser # The folder the action should deploy.
-          include-hidden-files: true
+        id: deployment
+        uses: actions/deploy-pages@v4
