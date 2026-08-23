@@ -39,6 +39,26 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
+    path: 'clock',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'cells',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'cellsRaw',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'indexDb',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'inputHostExperiment',
+    renderMode: RenderMode.Client
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }
