@@ -19,6 +19,7 @@
               "src/favicon.ico",
               "src/robots.txt",
               "src/assets",
+              "src/.well-known",
               {
                 "glob": "**/*",
                 "input": "./articles",

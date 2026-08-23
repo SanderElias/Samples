@@ -1,0 +1,3 @@
+Contact: https://github.com/SanderElias/Samples/security/advisories/new
+Expires: 2027-08-23T15:27:54.000Z
+Preferred-Languages: en, nl

@@ -88,7 +88,17 @@
     "build.deploy": {
       "command": "echo 'Deploying to production'",
       "dependencies": [
+        "update.security-txt",
         "build.samples"
+      ]
+    },
+    "update.security-txt": {
+      "command": "node scripts/update-security-txt.ts",
+      "files": [
+        "scripts/update-security-txt.ts"
+      ],
+      "output": [
+        "src/.well-known/security.txt"
       ]
     },
     "build.samples": {
