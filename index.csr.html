@@ -6,6 +6,24 @@
     <base href="/"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: blob:;
+        font-src 'self';
+        connect-src
+          'self'
+          http://localhost:*
+          ws://localhost:*
+          wss://mqtt.eliasweb.nl
+          https://jsonplaceholder.typicode.com
+          https://auth.eliasweb.nl
+          https://track.eliasweb.nl;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+      "/>
     <link rel="icon" type="image/x-icon" href="favicon.ico"/>
     <style>
       :where(html, body) {
@@ -80,5 +98,5 @@
       </svg>
     </div>
     <app-root></app-root>
-  <script src="main-6ZAKPUUI.js" type="module"></script></body>
+  <script src="main-IFHJQV6N.js" type="module"></script></body>
 </html>
