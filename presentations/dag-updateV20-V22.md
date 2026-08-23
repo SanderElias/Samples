@@ -9,7 +9,7 @@
 
 ## whats new and what to expect
 
-### a presentation by Sander Elias and Jeffrey Bosch
+### a presentation by Sander Elias
 
 </div>
 
@@ -304,7 +304,7 @@
   h2 {
     animation: myAppear .5s forwards;
   }
-  </style>  
+  </style>
 
 ---NextSlide
 
@@ -710,3 +710,41 @@ class MyService {
     animation: myAppear 2s forwards;
   }
 </style>
+
+---NextSlide
+
+# Q&A
+
+<style>
+  div#slide {
+    align-items: center;
+    justify-content: center;  
+  }
+
+  h1 {
+     font-size: calc(20 * var(--base-font-size));
+    font-weight: bold;
+    animation: myEntry .5s;
+
+  }
+</style>
+
+---NextSlide
+
+# Next Meetup
+# Thursday 17 Sept.
+
+<style>
+  div#slide {
+    align-items: center;
+    justify-content: center;  
+  }
+
+  h1 {
+     font-size: calc(20 * var(--base-font-size));
+    font-weight: bold;
+    animation: myEntry .5s;
+
+  }
+</style>
+
