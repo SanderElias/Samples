@@ -39,6 +39,11 @@ jobs:
         with:
           name: dist
           path: dist
+      - name: Ensure dotfiles for GitHub Pages
+        run: |
+          touch dist/samples/browser/.nojekyll
+          mkdir -p dist/samples/browser/.well-known
+          cp src/.well-known/security.txt dist/samples/browser/.well-known/security.txt
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
