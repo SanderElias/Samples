@@ -1,0 +1,62 @@
+<h1>Polling using httpResource</h1>
+<p>
+  <button
+    type="button"
+    (click)="trigger.triggerNow()"
+    [disabled]="trigger.status() !== IntervalStatus.InitialDelay"
+  >
+    Trigger now
+  </button>
+  <button
+    type="button"
+    (click)="trigger.pause()"
+    [disabled]="trigger.status() !== IntervalStatus.Active"
+  >
+    Stop
+  </button>
+  <button
+    type="button"
+    (click)="trigger.resume()"
+    [disabled]="trigger.status() !== IntervalStatus.Paused"
+  >
+    Resume
+  </button>
+</p>
+<p>Code: {{ code.value() }}</p>
+
+<h2>Demo Data</h2>
+
+@if (ds.dataRes.hasValue()) {
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Code</th>
+        <th>Customer</th>
+        <th>Status</th>
+        <th>Amount</th>
+        <th>Quantity</th>
+        <th>Region</th>
+        <th>Priority</th>
+        <th>Updated At</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of ds.dataRes.value(); track row.id) {
+        <tr>
+          <td>{{ row.id }}</td>
+          <td>{{ row.code }}</td>
+          <td>{{ row.customerName }}</td>
+          <td>{{ row.status }}</td>
+          <td>{{ row.amount }}</td>
+          <td>{{ row.quantity }}</td>
+          <td>{{ row.region }}</td>
+          <td>{{ row.priority }}</td>
+          <td>{{ row.updatedAt }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p>Loading demo data...</p>
+}

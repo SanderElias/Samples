@@ -488,6 +488,13 @@ export const routes: Routes = [
             m => m.StreamResourceComponent
           )
       },
+      {
+        path: 'poll',
+        loadComponent: () =>
+          import('./poll-sample/poll-sample.component').then(
+            m => m.PollSampleComponent
+          )
+      },
 
       { path: '**', redirectTo: 'routeList' }
     ]

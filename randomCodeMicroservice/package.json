@@ -1,0 +1,14 @@
+{
+  "name": "random-code-microservice",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26.3.0"
+  },
+  "scripts": {
+    "start": "node --experimental-strip-types server.ts",
+    "dev": "node --watch --experimental-strip-types server.ts",
+    "build": "node -e \"console.log('No transpile step required; Node runs TypeScript directly.')\""
+  }
+}
