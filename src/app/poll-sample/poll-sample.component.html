@@ -42,17 +42,17 @@
       </tr>
     </thead>
     <tbody>
-      @for (row of ds.dataRes.value(); track row.id) {
+      @for (row of demoRows(); track row().id) {
         <tr>
-          <td>{{ row.id }}</td>
-          <td>{{ row.code }}</td>
-          <td>{{ row.customerName }}</td>
-          <td>{{ row.status }}</td>
-          <td>{{ row.amount }}</td>
-          <td>{{ row.quantity }}</td>
-          <td>{{ row.region }}</td>
-          <td>{{ row.priority }}</td>
-          <td>{{ row.updatedAt }}</td>
+          <td>{{ row().id }}</td>
+          <td>{{ row().code }}</td>
+          <td>{{ row().customerName }}</td>
+          <td>{{ row().status }}</td>
+          <td>{{ row().amount }}</td>
+          <td>{{ row().quantity }}</td>
+          <td>{{ row().region }}</td>
+          <td>{{ row().priority }}</td>
+          <td>{{ row().updatedAt }}</td>
         </tr>
       }
     </tbody>

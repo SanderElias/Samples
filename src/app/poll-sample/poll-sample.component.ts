@@ -1,5 +1,15 @@
 import { httpResource } from '@angular/common/http';
-import { Component, DestroyRef, effect, inject, Service } from '@angular/core';
+import {
+  afterRenderEffect,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  Service,
+  signal,
+  untracked,
+  type WritableSignal
+} from '@angular/core';
 
 import { injectIntervalSignal, IntervalStatus } from './inject-interval-signal';
 
@@ -11,24 +21,41 @@ import { injectIntervalSignal, IntervalStatus } from './inject-interval-signal';
 })
 export class PollSampleComponent {
   readonly IntervalStatus = IntervalStatus;
-  trigger = injectIntervalSignal(120 * 1000, 30*1000);
+  trigger = injectIntervalSignal(5 * 1000, 5 * 1000);
 
-  code = httpResource<string>(
+  code = httpResource(
     () => (this.trigger() ? 'http://localhost:3000/generate' : undefined),
     {
-      parse: (resp: unknown) => (resp as CodeResponse).code
+      parse: resp => (resp as CodeResponse).code
     }
   );
 
   ds = inject(DemoPolling);
+  demoRows = computed(() => {
+    const m = this.ds.dataRes.hasValue()
+      ? this.ds.dataRes.value()
+      : new Map<string, WritableSignal<DemoRows>>();
+    return [...m.values()];
+  });
 }
 
 @Service()
 class DemoPolling {
   des = inject(DestroyRef);
-  dataRes = httpResource<DemoRows[]>(
-    () => 'http://localhost:3000/api/demo/rows'
-  );
+
+  dataRes = httpResource(() => 'http://localhost:3000/api/demo/rows', {
+    defaultValue: new Map<string, WritableSignal<DemoRows>>(),
+    parse: resp => {
+      // transform the array of DemoRows into a Map keyed by the row id
+      const data = resp as DemoRows[];
+      const result = new Map<string, WritableSignal<DemoRows>>();
+      for (const row of data) {
+        // note we make a signal for each row so that it can be individually reactive
+        result.set(row.id, signal(row));
+      }
+      return result;
+    }
+  });
 
   changesRes = httpResource<DemoPatches[]>(() =>
     this.dataRes.hasValue() // only start polling after we have values
@@ -37,26 +64,25 @@ class DemoPolling {
   );
 
   constructor() {
-    let int = setInterval(() => {
-      console.log('Interval tick');
-      this.changesRes.reload();
-    }, 10 * 1000);
-    this.des.onDestroy(() => clearInterval(int));
+    let interval = setInterval(() => this.changesRes.reload(), 2 * 1000);
+    // make sure we stop the interval when the service is destroyed
+    this.des.onDestroy(() => clearInterval(interval));
 
-    effect(() => {
+    afterRenderEffect(() => {
+      // trigger when there are changes.
       const changes = this.changesRes.hasValue() ? this.changesRes.value() : [];
       if (changes.length > 0) {
-        console.log('Applying changes to rows');
-        const rows = [...(this.dataRes.hasValue() ? this.dataRes.value() : [])];
-        for (const change of changes) {
-          console.log('Processing change:', change);
-          const row = rows.find(r => r.id === change.id);
-          if (row) {
-            Object.assign(row, change.changes);
+        //untracked, because we don't want to trigger this effect when updating individual rows
+        untracked(() => {
+          const rowMap = this.dataRes.value();
+          for (const change of changes) {
+            const row = rowMap.get(change.id);
+            if (row) {
+              // update the signal holding the row with the incoming changes
+              row.update(r => ({ ...r, ...change.changes }));
+            }
           }
-          console.log(row);
-        }
-        this.dataRes.value.set(rows);
+        });
       }
     });
   }
