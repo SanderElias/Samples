@@ -61,12 +61,12 @@ const customerLastNames = [
 const statuses: DemoStatus[] = ['new', 'active', 'paused', 'closed'];
 const regions: DemoRegion[] = ['EMEA', 'APAC', 'AMER'];
 const patchableKeys: Array<keyof Omit<DemoRow, 'id'>> = [
+  'customerName',
   'status',
   'amount',
   'quantity',
   'region',
   'priority',
-  'updatedAt',
 ];
 
 function pickRandom<T>(items: readonly T[]): T {
@@ -107,6 +107,11 @@ function randomChangedValue<K extends keyof Omit<DemoRow, 'id'>>(
     return next as DemoRow[K];
   }
 
+  if (key === 'customerName') {
+    let next = `${pickRandom(customerFirstNames)} ${pickRandom(customerLastNames)}`;
+    return next as DemoRow[K];
+  }
+
   if (key === 'amount') {
     let next = randomAmount();
     while (next === row.amount) {
@@ -132,7 +137,7 @@ function randomChangedValue<K extends keyof Omit<DemoRow, 'id'>>(
   }
 
   if (key === 'updatedAt') {
-    return new Date().toISOString() as DemoRow[K];
+    return new Date().toJSON() as DemoRow[K];
   }
 
   let next = randomInt(1, 6);
@@ -142,7 +147,7 @@ function randomChangedValue<K extends keyof Omit<DemoRow, 'id'>>(
   return next as DemoRow[K];
 }
 
-const demoRows = createDemoRows(10);
+const demoRows = createDemoRows(25);
 
 export function getDemoRows(): DemoRow[] {
   return demoRows;
@@ -160,8 +165,10 @@ export function buildDemoPatches(): DemoPatch[] {
     const changes: DemoPatch['changes'] = {};
 
     for (const key of selectedKeys) {
+      // @ts-expect-error: TypeScript may not be able to infer the exact type for dynamic key assignment
       changes[key] = randomChangedValue(key, row);
     }
+    changes.updatedAt = new Date().toJSON();
 
     const updatedRow = { ...row, ...changes };
     Object.assign(row, updatedRow);

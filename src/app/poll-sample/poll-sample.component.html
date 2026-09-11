@@ -24,6 +24,20 @@
 </p>
 <p>Code: {{ code.value() }}</p>
 
+<hr />
+
+<pre><code>
+  {{ {
+    status: ir.status(),
+    value: ir.value(),
+    isLoading: ir.isLoading(),
+    error: ir.error()
+
+  } |json}}
+</code></pre>
+
+<hr />
+
 <h2>Demo Data</h2>
 
 @if (ds.dataRes.hasValue()) {
@@ -38,21 +52,37 @@
         <th>Quantity</th>
         <th>Region</th>
         <th>Priority</th>
-        <th>Updated At</th>
+        <th>Age (seconds)</th>
       </tr>
     </thead>
     <tbody>
       @for (row of demoRows(); track row().id) {
         <tr>
-          <td>{{ row().id }}</td>
-          <td>{{ row().code }}</td>
-          <td>{{ row().customerName }}</td>
-          <td>{{ row().status }}</td>
-          <td>{{ row().amount }}</td>
-          <td>{{ row().quantity }}</td>
-          <td>{{ row().region }}</td>
-          <td>{{ row().priority }}</td>
-          <td>{{ row().updatedAt }}</td>
+          <td>
+            <se-flash-cell>{{ row().id }}</se-flash-cell>
+          </td>
+          <td>
+            <se-flash-cell>{{ row().code }}</se-flash-cell>
+          </td>
+          <td>
+            <se-flash-cell>{{ row().customerName }}</se-flash-cell>
+          </td>
+          <td>
+            <se-flash-cell>{{ row().status }}</se-flash-cell>
+          </td>
+          <td>
+            <se-flash-cell>{{ row().amount }}</se-flash-cell>
+          </td>
+          <td>
+            <se-flash-cell>{{ row().quantity }}</se-flash-cell>
+          </td>
+          <td>
+            <se-flash-cell>{{ row().region }}</se-flash-cell>
+          </td>
+          <td>
+            <se-flash-cell>{{ row().priority }}</se-flash-cell>
+          </td>
+          <td>{{ since(row().id) }}</td>
         </tr>
       }
     </tbody>

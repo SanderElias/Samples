@@ -17,10 +17,10 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
 export class AppComponent {
   aps = inject(AppService);
 
-  _ = afterRenderEffect(() => {
-    console.log('afterRenderEffect');
-    console.log(this.aps.data()?.toString());
-  });
+  // _ = afterRenderEffect(() => {
+  //   console.log('afterRenderEffect');
+  //   console.log(this.aps.data()?.toString());
+  // });
 }
 
 @Service()

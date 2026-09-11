@@ -1,20 +1,22 @@
+import { JsonPipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import {
-  afterRenderEffect,
-  Component,
-  computed,
-  DestroyRef,
-  inject,
-  Service,
-  signal,
-  untracked,
-  type WritableSignal
+    afterRenderEffect,
+    Component,
+    computed,
+    inject,
+    Service,
+    signal,
+    type WritableSignal
 } from '@angular/core';
 
+import { FlashCellComponent } from '../flash-cell/flash-cell.component';
+
 import { injectIntervalSignal, IntervalStatus } from './inject-interval-signal';
+import { intervalResource } from './interval-resource';
 
 @Component({
-  imports: [],
+  imports: [FlashCellComponent, JsonPipe],
   selector: 'se-poll-sample',
   styleUrl: './poll-sample.component.css',
   templateUrl: 'poll-sample.component.html'
@@ -22,6 +24,7 @@ import { injectIntervalSignal, IntervalStatus } from './inject-interval-signal';
 export class PollSampleComponent {
   readonly IntervalStatus = IntervalStatus;
   trigger = injectIntervalSignal(5 * 1000, 5 * 1000);
+  ir = intervalResource(2 * 1000);
 
   code = httpResource(
     () => (this.trigger() ? 'http://localhost:3000/generate' : undefined),
@@ -37,18 +40,23 @@ export class PollSampleComponent {
       : new Map<string, WritableSignal<DemoRows>>();
     return [...m.values()];
   });
+
+  since = (id: DemoId) => {
+    const row = this.ds.dataRes.value().get(id);
+    return Math.floor(row ? since(row().updatedAt) : 0);
+  };
 }
 
 @Service()
 class DemoPolling {
-  des = inject(DestroyRef);
+  enablePolling = signal(true);
 
   dataRes = httpResource(() => 'http://localhost:3000/api/demo/rows', {
-    defaultValue: new Map<string, WritableSignal<DemoRows>>(),
+    defaultValue: new Map<DemoId, WritableSignal<DemoRows>>(),
     parse: resp => {
       // transform the array of DemoRows into a Map keyed by the row id
       const data = resp as DemoRows[];
-      const result = new Map<string, WritableSignal<DemoRows>>();
+      const result = new Map<DemoId, WritableSignal<DemoRows>>();
       for (const row of data) {
         // note we make a signal for each row so that it can be individually reactive
         result.set(row.id, signal(row));
@@ -63,38 +71,45 @@ class DemoPolling {
       : undefined
   );
 
-  constructor() {
-    let interval = setInterval(() => this.changesRes.reload(), 2 * 1000);
-    // make sure we stop the interval when the service is destroyed
-    this.des.onDestroy(() => clearInterval(interval));
+  _ = afterRenderEffect(onCleanup => {
+    if (!this.enablePolling() || !this.changesRes.hasValue()) {
+      return; // exit early if changes are not ready
+    }
+    this.mergePatches(this.changesRes.value());
+    const timeout = setTimeout(() => this.changesRes.reload(), 2 * 1000);
+    onCleanup(() => clearTimeout(timeout));
+  });
 
-    afterRenderEffect(() => {
-      // trigger when there are changes.
-      const changes = this.changesRes.hasValue() ? this.changesRes.value() : [];
-      if (changes.length > 0) {
-        //untracked, because we don't want to trigger this effect when updating individual rows
-        untracked(() => {
-          const rowMap = this.dataRes.value();
-          for (const change of changes) {
-            const row = rowMap.get(change.id);
-            if (row) {
-              // update the signal holding the row with the incoming changes
-              row.update(r => ({ ...r, ...change.changes }));
-            }
-          }
-        });
+  mergePatches(demoPatches: DemoPatches[]) {
+    /// this is safe, because we only call mergePatches when dataRes has a value
+    const rowMap = this.dataRes.value();
+    for (const change of demoPatches) {
+      const row = rowMap.get(change.id);
+      if (row) {
+        row.update(r => ({ ...r, ...change.changes }));
+      } else {
+        // this demo does not handle adding new rows, so we just ignore it for now
       }
-    });
+    }
   }
 }
 
+const since = (d: Date | string) => {
+  d = typeof d === 'string' ? d : d.toISOString();
+  const now = Temporal.Now.instant();
+  const old = Temporal.Instant.from(d);
+  return now.since(old).total({ unit: 'second' });
+};
+
 export interface DemoPatches {
-  id: string;
+  id: DemoId;
   changes: Partial<DemoRows>;
 }
 
+type DemoId = string & { __brand: 'DemoId' };
+
 export interface DemoRows {
-  id: string;
+  id: DemoId;
   code: string;
   customerName: string;
   status: Status;
